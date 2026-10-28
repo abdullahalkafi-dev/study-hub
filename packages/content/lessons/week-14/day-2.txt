@@ -1,0 +1,173 @@
+@day Week 14 · Day 2 · Tuesday
+# Systems with no solution or infinitely many. Then: the ideal gas law
+lead: Not every system has exactly one answer. Some are contradictory, some leave a free choice. The rank of the matrix tells you which case you are in before you solve anything. In physics, you combine yesterday's three gas laws into one equation, PV = nRT, and learn to count atoms in moles.
+
+BN: সব সমীকরণ জোটের ঠিক একটা উত্তর থাকে না। কোনোটা পরস্পরবিরোধী, কোনোটায় একটা মুক্ত পছন্দ থাকে। সমাধানের আগেই ম্যাট্রিক্সের rank বলে দেয় কোন ক্ষেত্র। পদার্থবিজ্ঞানে গতকালের তিনটা গ্যাস সূত্র মিলিয়ে একটা সমীকরণ PV = nRT বানাবে এবং মোলে পরমাণু গোনা শিখবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Solve x + y = 7, x − y = 3. => **(5, 2)**.
+P: Name the three row operations. => **Swap two rows, multiply a row by a non-zero number, add a multiple of one row to another.**
+P: State Boyle's law. => **P V = constant** at fixed temperature and amount of gas.
+P: A gas at 300 K doubles its volume at constant pressure. What is the new temperature? => **600 K**.
+P: Convert 25 °C to kelvin. => **298.15 K**.
+
+CHECK: recall
+
+@section math | 2 · Math: the three cases | 55 min
+
+### Rank decides everything
+Reduce [A | b] to echelon form. Compare the rank of A with the rank of [A | b], and with the number of unknowns n:
+
+| Case | What happens in the echelon form | Solutions |
+| rank A < rank [A | b] | A row (0, 0, 0 | c) with c ≠ 0, meaning 0 = c | **None** (inconsistent) |
+| rank A = rank [A | b] = n | A pivot in every column | **Exactly one** |
+| rank A = rank [A | b] < n | Some columns have no pivot | **Infinitely many**, with n − rank free variables |
+
+BN: [A | b] কে সোপান আকারে আনো। rank A < rank [A | b] হলে 0 = c (c ≠ 0) সারি আসে, তাই কোনো সমাধান নেই। rank A = rank [A | b] = n হলে ঠিক একটা সমাধান। rank A = rank [A | b] < n হলে অসীম সমাধান, মুক্ত চলকের সংখ্যা = n − rank।
+
+EX: No solution
+1. x + y = 2 and x + y = 5. R₂ − R₁ gives (0, 0 | 3), meaning 0 = 3. **Inconsistent**. The two lines are parallel.
+2. x + 2y + z = 4, 2x + 5y + 3z = 9, x + 3y + 2z = 6. R₂ − 2R₁: (0, 1, 1 | 1). R₃ − R₁: (0, 1, 1 | 2). R₃ − R₂: (0, 0, 0 | 1). **No solution**, although no two equations are contradictory by themselves: the three planes form a "triangular prism".
+/EX
+
+EX: Infinitely many solutions
+1. x + y = 3 and 2x + 2y = 6. The second is twice the first: rank 1 with 2 unknowns, so there is **one free variable**. Put y = t: x = 3 − t. The solutions are **(3 − t, t)**: every point of a line.
+2. x + 2y + z = 4, 2x + 5y + 3z = 9, x + 3y + 2z = 5. R₂ − 2R₁: (0, 1, 1 | 1). R₃ − R₁: (0, 1, 1 | 1). R₃ − R₂ = (0, 0, 0 | 0). Rank 2 with 3 unknowns, so **one free variable**: let z = t. Then y = 1 − t and x = 4 − 2y − z = 4 − 2 + 2t − t = 2 + t.
+3. The solution set is **(2 + t, 1 − t, t)**: a **line** in space. Check t = 0: (2, 1, 0) gives 2 + 2 + 0 = 4 ✓, 4 + 5 + 0 = 9 ✓, 2 + 3 + 0 = 5 ✓. Check t = 1: (3, 0, 1) gives 3 + 0 + 1 = 4 ✓, 6 + 0 + 3 = 9 ✓, 3 + 0 + 2 = 5 ✓.
+/EX
+
+LAB: A line of solutions | The system x + 2y + z = 4, 2x + 5y + 3z = 9, x + 3y + 2z = 5 has the solutions (2 + t, 1 − t, t). Move the free parameter t. Whatever t is, the three left-hand sides always keep the values 4, 9 and 5. The graph shows x, y and z against t. | t:Free parameter t:-3:3:0.5:1 | 2+t:x:2 ;; 1-t:y:2 ;; t:z:2 ;; (2+t)+2*(1-t)+t:x + 2y + z:2 ;; 2*(2+t)+5*(1-t)+3*t:2x + 5y + 3z:2 ;; (2+t)+3*(1-t)+2*t:x + 3y + 2z:2 | 2+x ;; 1-x ;; x | -3,3 | -4,6
+
+### Homogeneous systems
+A system A x = 0 (all right-hand sides zero) always has the **trivial** solution x = 0. It has non-trivial solutions exactly when rank A < n, i.e. **det A = 0** (for a square matrix).
+
+EX: Homogeneous
+1. x + 2y = 0 and 2x + 4y = 0: rank 1. Put y = t: x = −2t. Solutions **(−2t, t)**.
+2. x + 2y + z = 0, 2x + 5y + 3z = 0, x + y = 0. R₂ − 2R₁: (0, 1, 1 | 0). R₃ − R₁: (0, −1, −1 | 0). R₃ + R₂ = 0. Rank 2, free z = t, y = −t, x = −2y − z = 2t − t = t. Solutions **(t, −t, t)**. Check the third: t − t = 0 ✓, and the second: 2t − 5t + 3t = 0 ✓.
+3. For which a does x + a y = 0, a x + 4y = 0 have non-trivial solutions? det = 4 − a² = 0, so **a = 2 or −2**.
+/EX
+
+### Planes in space
+Each equation in three unknowns is a plane. Three planes can meet in a **point** (rank 3), in a **line** (rank 2, consistent), in a whole **plane** (rank 1, consistent), or **not at all** (inconsistent: parallel planes or a triangular prism).
+
+EX: Triangular prism
+1. x + y = 1, y + z = 1, x + 2y + z = 3. No two planes are parallel. But adding the first two gives x + 2y + z = 2, contradicting the third (= 3). **No solution**.
+2. In matrix terms the normals (1, 1, 0), (0, 1, 1), (1, 2, 1) are dependent, since (1, 2, 1) = (1, 1, 0) + (0, 1, 1), while the right-hand sides do not follow the same rule (1 + 1 ≠ 3).
+/EX
+
+TRAP: "Infinitely many solutions" does **not** mean every number works: it means the solutions form a line or a plane. And a row (0, 0, 0 | 0) is harmless, while a row (0, 0, 0 | c) with c ≠ 0 means **no solution**. Also: a system with **fewer equations than unknowns** can never have exactly one solution.
+
+### Quick self-check
+QUIZ:
+Q: A row (0, 0, 0 | 5) in the echelon form means…; one solution; no solution; infinite solutions; z = 5; 2; It says 0 = 5.
+Q: A consistent system with 4 unknowns and rank 2 has…; one solution; 2 free variables; no free variables; no solution; 2; n − rank = 2.
+Q: A homogeneous square system has non-trivial solutions when…; det A ≠ 0; det A = 0; the system is inconsistent; A is the identity; 2; Rank is less than n.
+Q: Three planes meeting along a line correspond to…; rank 3; rank 2, consistent; rank 1, inconsistent; rank 0; 2; Two independent equations leave a line.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Describe the solutions of x + y = 3, 2x + 2y = 6. => Infinitely many: **(3 − t, t)**.
+P: Describe the solutions of x + y = 1, x + y = 2. => **None**.
+P: How many free variables does a consistent 4-unknown system of rank 2 have? => **2**.
+LVL: Level 2 | Apply
+P: Solve x − y + z = 2, 2x + y − z = 1, x + 2y − 2z = −1. => R₂ − 2R₁: (0, 3, −3 | −3). R₃ − R₁: (0, 3, −3 | −3). R₃ − R₂ = 0. Rank 2, free z = t: y = −1 + t, x = 2 + y − z = 1. Solutions **(1, −1 + t, t)**. Check: 2 + (−1 + t) − t = 1 ✓.
+P: For which k does x + y = 1, 2x + 2y = k have a solution? => R₂ − 2R₁: (0, 0 | k − 2). Solutions exist only if **k = 2**, then there are infinitely many.
+P: For A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] (rank 2), is A x = (6, 15, 24) consistent? And A x = (1, 2, 4)? => For (6, 15, 24): the vector equals A (1, 1, 1), so **consistent**. For (1, 2, 4): R₂ − 4R₁: (0, −3, −6 | −2). R₃ − 7R₁: (0, −6, −12 | −3). R₃ − 2R₂: (0, 0, 0 | 1). **Inconsistent**.
+P: For which value(s) of a does x + a y = 0, a x + 9y = 0 have non-trivial solutions? => det = 9 − a² = 0, **a = ±3**.
+P: Is the system x + y + z = 1, x + y + z = 2, x − y = 0 solvable? => The first two planes are parallel: **no solution**.
+LVL: Level 3 | Real
+P: Two sensors measure three pollutant concentrations: x + y + z = 10 and x − y = 2 (units mg/m³). Describe all possible values and say what is missing. => Let z = t. Then x + y = 10 − t and x − y = 2 give x = 6 − t ÷ 2 and y = 4 − t ÷ 2. Solutions **(6 − t/2, 4 − t/2, t)**, a line. A **third independent measurement** is needed to fix t.
+LVL: Challenge | Counting solutions with a parameter
+P: For the system x + y + z = 1, x + 2y + 3z = 2, x + 3y + az = b find all (a, b) for which there is (i) no solution, (ii) infinitely many, (iii) exactly one. => R₂ − R₁: (0, 1, 2 | 1). R₃ − R₁: (0, 2, a − 1 | b − 1). R₃ − 2R₂: (0, 0, a − 5 | b − 3). (iii) If **a ≠ 5**: exactly one solution. If a = 5: the last row is (0, 0, 0 | b − 3), so (ii) **a = 5, b = 3**: infinitely many, and (i) **a = 5, b ≠ 3**: none.
+
+CHECK: math
+
+@section physics | 3 · Physics: the ideal gas law | 35 min
+
+### One law for all
+Combine Boyle, Charles and Gay-Lussac, with the fact that the quantity of gas matters. Using the **mole** (1 mol = 6.022 × 10²³ particles, Avogadro's number N_A):
+
+EQ: P V = n R T     R = 8.314 J/(mol·K)     (or  P V = N k T  with  k = 1.381 × 10⁻²³ J/K)
+
+R = N_A k. This law describes any **ideal gas**: a good model when the gas is dilute (low pressure) and not too cold.
+
+BN: আদর্শ গ্যাস সূত্র: PV = nRT, R = 8.314 J/(mol·K)। এক মোলে 6.022 × 10²³ কণা। বিকল্প রূপ PV = NkT, k = 1.381 × 10⁻²³ J/K। P পাস্কালে, V ঘনমিটারে, T কেলভিনে। এটা ঘন নয় এমন, খুব ঠান্ডা নয় এমন গ্যাসে ভালো কাজ করে।
+
+EX: Using PV = nRT
+1. **Molar volume at 0 °C and 1 atm:** V = R T ÷ P = 8.314 × 273.15 ÷ 101,325 = 0.02241 m³ = **22.41 L** per mole. At 20 °C it is **24.06 L**.
+2. **Pressure:** 2 mol in 10 L at 300 K: P = 2 × 8.314 × 300 ÷ 0.010 = 498,840 Pa ≈ **499 kPa** (4.9 atm).
+3. **A scuba tank** of 12 L at 200 bar (2.0 × 10⁷ Pa) and 20 °C: n = 2 × 10⁷ × 0.012 ÷ (8.314 × 293.15) = **98.5 mol**. At 1 atm this gas would occupy 98.5 × 24.06 = **2370 L**.
+4. **Molecules in 1 cm³ of air:** N = P V ÷ (k T) = 101,325 × 10⁻⁶ ÷ (1.381 × 10⁻²³ × 293.15) = **2.5 × 10¹⁹**. The typical spacing is (10⁻⁶ ÷ 2.5 × 10¹⁹)^(1/3) = **3.4 nm**, about ten times the size of a molecule: air is mostly empty space.
+/EX
+
+LAB: Ideal gas calculator | Choose the amount of gas, the temperature and the volume. The numbers give the pressure from P = nRT ÷ V. The graph shows the isotherm: pressure against volume for the n and T you chose. | n:Amount n (mol):0.5:2:0.1:1 ;; T:Temperature T (K):250:400:10:300 ;; V:Volume V (L):5:50:1:25 | n*8.314*T/V:Pressure (kPa):1 ;; n*8.314*T/V/101.325:Pressure (atm):2 ;; n*6.022:Number of molecules (units of 10²³):2 | n*8.314*T/x | 5,50 | 0,1000
+
+### Density and molar mass
+Since n = m ÷ M (mass over molar mass), P V = (m ÷ M) R T gives the density:
+
+EQ: ρ = m ÷ V = P M ÷ (R T)
+
+| Gas | Molar mass M (g/mol) |
+| Hydrogen H₂ | 2.0 |
+| Helium He | 4.0 |
+| Nitrogen N₂ | 28 |
+| Air (mixture) | 29 |
+| Oxygen O₂ | 32 |
+| Carbon dioxide CO₂ | 44 |
+
+EX: Densities
+1. **Air** at 20 °C and 1 atm: ρ = 101,325 × 0.029 ÷ (8.314 × 293.15) = **1.206 kg/m³**.
+2. **Helium** at the same conditions: ρ = 101,325 × 0.004 ÷ 2437.2 = **0.166 kg/m³**. A 1 m³ helium balloon lifts (1.206 − 0.166) = 1.04 kg.
+3. **CO₂:** ρ = 1.829 kg/m³, 1.5 times air, so CO₂ settles at the bottom of cellars and wells.
+4. **A room** of 5 × 4 × 2.5 = 50 m³ at 20 °C contains 50 × 1.206 = **60.3 kg of air**. If the room warms to 30 °C with the window open, the density falls to 1.166 kg/m³, so the mass becomes 58.3 kg: **2.0 kg leaves**.
+5. **At the top of Everest:** P = 34 kPa, T = 250 K: ρ = 34,000 × 0.029 ÷ (8.314 × 250) = **0.474 kg/m³**, only 39% of the sea-level density.
+/EX
+
+LAB: Density of a gas | Choose the molar mass of the gas, its pressure and its temperature. The number gives the density ρ = P M ÷ (R T). Compare 4 (helium) with 29 (air) and 44 (carbon dioxide). | M:Molar mass M (g/mol):2:44:1:29 ;; P:Pressure (kPa):50:200:5:101.325 ;; T:Temperature (K):250:400:5:293 | P*M/(8.314*T):Density (kg/m³):3 ;; M/29:Density compared with air:2 | - | 0,1 | 0,1
+
+TRAP: Use SI units in PV = nRT: pressure in **pascals**, volume in **cubic metres** (1 L = 10⁻³ m³), temperature in **kelvin**, and then R = 8.314. If P is in kPa and V in litres, the product P V is in joules already. And the law is for **absolute** pressure.
+
+### Quick self-check
+QUIZ:
+Q: The volume of one mole of an ideal gas at 0 °C and 1 atm is about…; 2.24 L; 22.4 L; 224 L; 0.224 L; 2; V = R T ÷ P.
+Q: If P and T are fixed, doubling n…; halves V; doubles V; leaves V unchanged; quadruples V; 2; V ∝ n.
+Q: The density of a gas at fixed P and T is proportional to…; its molar mass; the volume; 1 ÷ M; n; 1; ρ = P M ÷ (R T).
+Q: Which gas is the lightest at the same P and T?; helium; hydrogen; nitrogen; carbon dioxide; 2; Smallest molar mass.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the pressure of 2 mol in 10 L at 300 K. => **499 kPa**.
+P: Find the volume of 3 mol at 0 °C and 1 atm. => 3 × 22.41 = **67.2 L**.
+LVL: Level 2 | Apply
+P: Find the density of CO₂ at 20 °C and 1 atm. => 101,325 × 0.044 ÷ 2437.2 = **1.83 kg/m³**.
+P: How many molecules are in 1 litre of air at 1 atm and 20 °C? => 2.5 × 10¹⁹ × 1000 = **2.5 × 10²²**.
+P: A 10 L tank at 300 K and 500 kPa leaks until the pressure is 400 kPa (same temperature). How many moles are lost? => n = P V ÷ (R T): initially 500,000 × 0.010 ÷ (8.314 × 300) = 2.005 mol; finally 1.604 mol. Lost **0.401 mol** (20%).
+P: A gas sample has P = 150 kPa, V = 4 L, T = 300 K. Find n. => n = 150,000 × 0.004 ÷ (8.314 × 300) = **0.241 mol**.
+P: Find the lift in kg of a 5 m³ helium balloon at 20 °C and 1 atm (ignore the envelope). => (1.206 − 0.166) × 5 = **5.2 kg**.
+LVL: Level 3 | Real
+P: A diver uses air at 20 L/min measured at the surface. How long does a 12 L, 200 bar tank last at the surface and at 20 m (3 atm absolute)? Ignore the reserve. => Surface-equivalent volume of the tank 2370 L. At the surface: 2370 ÷ 20 = **118 min**. At 20 m, breathing 3 times as many molecules per breath: consumption 60 L/min, so **39.5 min**.
+LVL: Challenge | Air density on Everest
+P: At the summit P = 34 kPa and T = 250 K. Find the density of air and the percentage of the sea-level value (1.206 kg/m³). Then find the volume per mole. => ρ = 34,000 × 0.029 ÷ (8.314 × 250) = **0.474 kg/m³**, which is 0.474 ÷ 1.206 = **39%**. Volume per mole: V = R T ÷ P = 8.314 × 250 ÷ 34,000 = 0.0611 m³ = **61.1 L**, about 2.5 times the sea-level molar volume.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Compare rank A and rank [A | b]: rank A < rank [A | b] means no solution; rank = n means one solution; rank < n means infinitely many, with n − rank free variables. Homogeneous systems have non-trivial solutions when det = 0. Three planes can meet in a point, a line, a plane, or not at all.
+- Ideal gas law P V = n R T = N k T. R = 8.314 J/(mol·K), N_A = 6.022 × 10²³. Molar volume 22.4 L (0 °C) or 24.06 L (20 °C). Density ρ = P M ÷ (R T).
+
+BN: আজকের সারকথা: rank A < rank [A | b] হলে সমাধান নেই; rank = n হলে একটা; rank < n হলে অসীম (n − rank টা মুক্ত চলক)। সমসত্ব জোটে det = 0 হলে অশূন্য সমাধান। আদর্শ গ্যাস: PV = nRT = NkT, মোলার আয়তন 22.4 L (0 °C), ঘনত্ব ρ = PM/(RT)।
+
+EXIT:
+E: How many free variables does a consistent system with 4 unknowns and rank 2 have?; 2; 0.001; n − rank = 4 − 2 = 2.
+E: What is the pressure in kPa of 2 mol of an ideal gas in 10 L at 300 K?; 498.8; 0.5; 2 × 8.314 × 300 ÷ 0.010 = 498,840 Pa.
+E: What is the density in kg/m³ of air (M = 29 g/mol) at 20 °C (293.15 K) and 101,325 Pa?; 1.206; 0.005; 101,325 × 0.029 ÷ (8.314 × 293.15) = 1.2056.
+
+**Tomorrow:** applications of linear systems (circuits, chemical equations, traffic) and the ideal gas law in action: partial pressures and mixtures.
+
+CHECK: notes

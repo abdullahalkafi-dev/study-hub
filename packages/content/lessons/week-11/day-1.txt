@@ -1,0 +1,139 @@
+@day Week 11 · Day 1 · Monday
+# Review 1: limits, derivatives, optimisation and mechanics
+lead: This is review week for Phase 2. There are no new topics: you rebuild the skills from Weeks 5 to 10 into one connected toolkit and test whether they work together. Today covers limits, differentiation, applications of derivatives, and the mechanics of work, energy, momentum and statics. The thread running through the week is a bouncing ball.
+
+BN: এই সপ্তাহ পর্ব ২ এর পর্যালোচনা। নতুন কোনো বিষয় নেই: সপ্তাহ ৫ থেকে ১০ এর দক্ষতাগুলো একটা সংযুক্ত সরঞ্জামে জোড়া লাগাবে এবং দেখবে সেগুলো একসাথে কাজ করে কি না। আজ সীমা, অন্তরকলন, অন্তরকলনের প্রয়োগ, আর কাজ-শক্তি, ভরবেগ ও স্থিতিবিদ্যার যান্ত্রিকবিদ্যা। পুরো সপ্তাহের সূতা: একটা লাফানো বল।
+
+@section recall | 1 · Warm-up: retrieve without notes | 15 min · no calculator
+
+LVL: Recall | Write each answer before you check
+P: State the definition of the derivative. => f′(x) = lim (h → 0) [f(x + h) − f(x)] ÷ h.
+P: Differentiate x² e^(3x). => **e^(3x) (2x + 3x²)** (product rule).
+P: Differentiate ln(sin x). => **cos x ÷ sin x = cot x** (chain rule).
+P: What does L'Hôpital's rule need before you use it? => A limit of the form **0 ÷ 0 or ∞ ÷ ∞**.
+P: State the work-energy theorem. => **Net work = change in kinetic energy.**
+P: State the condition for conservation of momentum. => **No net external force** on the system.
+P: What are the two conditions for static equilibrium? => **ΣF = 0 and Στ = 0** (about any point).
+
+CHECK: recall
+
+@section math | 2 · Math review: limits, derivatives, applications | 45 min
+
+### The map of Weeks 5 to 7
+| Idea | Key results |
+| Limit | Factor and cancel, divide by the highest power, standard limits sin x ÷ x → 1, (1 + 1/n)ⁿ → e |
+| Derivative | Definition as a limit of slopes. Rules: sum, product, quotient, chain, implicit, logarithmic |
+| Standard derivatives | (xⁿ)′ = n xⁿ⁻¹, (eˣ)′ = eˣ, (ln x)′ = 1 ÷ x, (sin x)′ = cos x, (cos x)′ = −sin x, (tan x)′ = sec² x, (arctan x)′ = 1 ÷ (1 + x²) |
+| Applications | Maxima and minima (f′ = 0, f″), related rates, curve sketching, linearisation, Newton's method, MVT, L'Hôpital |
+
+BN: সীমা: উৎপাদকে ভেঙে কেটে ফেলা, সর্বোচ্চ ঘাত দিয়ে ভাগ, প্রমিত সীমা। অন্তরকলন: সীমা-সংজ্ঞা এবং যোগ, গুণ, ভাগ, চেইন, অন্তর্নিহিত ও লগ নিয়ম। প্রয়োগ: সর্বোচ্চ-সর্বনিম্ন, সম্পর্কিত হার, বক্ররেখা, রৈখিক আসন্নকরণ, নিউটনের পদ্ধতি, MVT, লোপিতাল।
+
+### Mixed worked problems
+EX: Limits
+1. lim (x → 2) (x² − 4) ÷ (x² − 3x + 2) = (x − 2)(x + 2) ÷ ((x − 1)(x − 2)) = (x + 2) ÷ (x − 1) → **4**.
+2. lim (x → ∞) (3x² + 2x) ÷ (5x² − 1): divide by x² to get **3/5**.
+3. lim (x → 0) (eˣ − cos x) ÷ sin x is 0 ÷ 0. L'Hôpital: (eˣ + sin x) ÷ cos x → **1**.
+4. lim (x → 0) (1 − cos 2x) ÷ x²: use 1 − cos u ≈ u²/2 with u = 2x, giving 2x² ÷ x² = **2**.
+/EX
+
+EX: Derivatives
+1. From the definition: f(x) = x² + 3x at x = 1: [(1 + h)² + 3(1 + h) − 4] ÷ h = (5h + h²) ÷ h → **5**.
+2. Implicit: x² + x y + y² = 7 at (2, 1). Differentiate: 2x + y + x y′ + 2y y′ = 0. At (2, 1): 5 + 4 y′ = 0, so **y′ = −5/4**. (Check the point: 4 + 2 + 1 = 7 ✓.)
+3. Logarithmic: y = x^(sin x). ln y = sin x ln x, so y′ = x^(sin x) (cos x ln x + sin x ÷ x).
+/EX
+
+EX: Applications
+1. **Related rates:** a spherical balloon is inflated at 100 cm³/s. How fast does the radius grow when r = 5 cm? V = (4/3)π r³ gives dV/dt = 4π r² dr/dt, so dr/dt = 100 ÷ (4π × 25) = **0.318 cm/s**.
+2. **Optimisation:** an open cylindrical can holds 500 cm³. Minimise the metal. A = π r² + 2π r h with h = 500 ÷ (π r²), so A = π r² + 1000 ÷ r. A′ = 2π r − 1000 ÷ r² = 0 gives r³ = 500 ÷ π = 159.2, **r = 5.42 cm and h = 5.42 cm** (height equals radius). A = 92.3 + 184.5 = **276.8 cm²**. A″ > 0, so it is a minimum.
+3. **Newton's method** for x³ − 2x − 5 = 0, from x₀ = 2: f = −1, f′ = 10, so x₁ = 2.1. Then f(2.1) = 0.061, f′ = 11.23, so x₂ = 2.1 − 0.00543 = **2.0946**.
+4. **Linearisation:** √26 ≈ 5 + 1 ÷ 10 = **5.1** (true 5.0990).
+/EX
+
+TRAP: In related rates, **differentiate first, then substitute** the numbers. In optimisation, always check that the critical point is a max or min (second derivative or sign change) and that the answer lies in the allowed range. With L'Hôpital, check the 0 ÷ 0 form each time.
+
+### Check yourself
+QUIZ:
+Q: d/dx (x e^(2x)) equals…; 2 e^(2x); e^(2x) (1 + 2x); 2x e^(2x); e^(2x); 2; Product rule: e^(2x) + x · 2 e^(2x).
+Q: At a point where f′ = 0 and f″ < 0, the function has a…; local minimum; local maximum; inflection; discontinuity; 2; Concave down at a flat point.
+Q: lim (x → 0) (sin 3x) ÷ x equals…; 1; 3; 0; 1/3; 2; Standard limit scaled by 3.
+Q: Newton's method updates x by…; x − f ÷ f′; x + f ÷ f′; x − f′ ÷ f; x − f; 1; Follow the tangent to the axis.
+
+### Mixed practice (mathematics)
+LVL: Level 2 | Apply
+P: Find lim (x → 3) (x² − 9) ÷ (x − 3). => (x + 3) → **6**.
+P: Differentiate y = x² ln x and find the minimum of y for x > 0. => y′ = 2x ln x + x = x (2 ln x + 1) = 0 gives x = e^(−1/2) = 0.607. y = 0.3679 × (−0.5) = **−0.184**. y″ > 0 there, so it is a minimum.
+P: A 6 m ladder leans on a wall, and its foot slides out at 0.4 m/s. How fast is the top falling when the foot is 3.6 m out? => The height is y = √(36 − 12.96) = 4.8 m. dy/dt = −(x ÷ y) dx/dt = −(3.6 ÷ 4.8)(0.4) = **−0.30 m/s**.
+P: Find the dimensions of the rectangle of largest area inscribed in a semicircle of radius R. => Half-width x, height y = √(R² − x²). Area 2x y. Maximise A² = 4 x² (R² − x²): 8x R² − 16 x³ = 0 gives x = R ÷ √2. Width **√2 R**, height **R ÷ √2**, area **R²**.
+P: A farmer's field is bounded by 200 m of fence and a river. Find the area of the largest rectangle with the river as one side. => **5000 m²** (50 m by 100 m).
+LVL: Level 3 | Real
+P: A ball's height is h(t) = 20t − 4.9t² metres. Find when it is highest, the maximum height, and its speed when it returns to the ground. => h′ = 20 − 9.8t = 0 gives t = 2.04 s and h = 20.4 m. It lands at t = 4.08 s with v = 20 − 9.8 × 4.08 = **−20 m/s** (the same speed, going down).
+LVL: Challenge | Combine tools
+P: Show that x³ − 2x − 5 = 0 has exactly one real root, then use the answer from Newton's method above to estimate the angle (in radians) whose tangent equals that root. => f′ = 3x² − 2 = 0 at x = ±0.816. The local maximum is f(−0.816) = −0.544 + 1.633 − 5 = −3.91 < 0, so f is negative for every x up to the local minimum at x = 0.816 (where f = −6.09). After that f only increases, and crosses zero once. So there is **exactly one root**, x ≈ 2.0946. Then arctan(2.0946) = π/2 − arctan(1 ÷ 2.0946) = 1.5708 − arctan(0.4774). The arctan series gives 0.4774 − 0.0363 + 0.0050 − 0.0008 + 0.0001 = 0.4454. So the angle is **1.125 rad (64.5°)**.
+
+CHECK: math
+
+@section physics | 3 · Physics review: mechanics, work and statics | 45 min
+
+### The map of Weeks 5 to 7
+| Idea | Key results |
+| Energy | W = ∫ F dx, W = ΔKE, KE = ½ m v², PE = m g h = ½ k x², P = F v |
+| Momentum | p = m v, J = ∫ F dt = Δp, conserved with no external force |
+| Collisions | Elastic: KE conserved, v₁ − v₂ reverses. Perfectly inelastic: stick together |
+| Centre of mass | x_cm = Σ m x ÷ Σ m |
+| Statics | ΣF = 0, Στ = 0, τ = F r sin θ |
+| Materials | σ = F ÷ A, ε = ΔL ÷ L, σ = E ε |
+
+BN: শক্তি: W = ∫F dx, W = ΔKE, P = Fv। ভরবেগ: p = mv, ঘাত J = Δp, বাইরের বল না থাকলে সংরক্ষিত। সংঘর্ষ: স্থিতিস্থাপকে KE সংরক্ষিত; সম্পূর্ণ অস্থিতিস্থাপকে লেগে যায়। স্থিতিবিদ্যা: ΣF = 0, Στ = 0। উপাদান: σ = F/A, ε = ΔL/L, σ = Eε।
+
+EX: Mixed mechanics
+1. A 2 kg block slides from rest down a frictionless ramp from a height of 1.5 m: ½ v² = g h, so v = √(2 × 9.8 × 1.5) = **5.42 m/s**.
+2. The same ramp is 30° with μ = 0.2 and 3 m long: a = g (sin θ − μ cos θ) = 9.8 × (0.5 − 0.173) = 3.20 m/s². v = √(2 × 3.20 × 3) = **4.38 m/s**. Without friction the speed would be √(2 × 9.8 × 1.5) = 5.42 m/s (the 3 m ramp drops 1.5 m), so friction lowers it to 4.38 m/s.
+3. A 1200 kg car goes from 0 to 27 m/s in 9 s. The average power is KE ÷ t = ½ × 1200 × 729 ÷ 9 = **48.6 kW** (65 horsepower).
+4. A 1000 kg car at 20 m/s hits a stationary 1500 kg car and they lock: v = 20,000 ÷ 2500 = **8 m/s**. The energy lost is 200,000 − 80,000 = **120 kJ**.
+5. A 0.15 kg ball arrives at 40 m/s and leaves at 30 m/s the opposite way over 5 ms. Δp = 0.15 × 70 = 10.5 N·s, so F = 10.5 ÷ 0.005 = **2100 N**.
+6. A uniform 4 m beam of 20 kg is hinged at a wall and held horizontal by a cable attached to its far end at 30° above the beam. Torque about the hinge: T sin 30° × 4 = 20 × 9.8 × 2, so **T = 196 N**.
+7. A steel wire (E = 200 GPa, 2 m long, 2 mm diameter) holds a 50 kg load. A = 3.14 × 10⁻⁶ m², σ = 490 ÷ 3.14 × 10⁻⁶ = **156 MPa**, and ΔL = σ L ÷ E = **1.56 mm**.
+/EX
+
+LAB: A ball bouncing for ever (but not really) | A ball dropped from a height h₀ rebounds with a fraction e of its impact speed. The height after the n-th bounce is h₀ e^(2n), so it decays geometrically. The numbers use the geometric series from Week 10 to give the total distance and the total time. | h0:Drop height h₀ (m):1:20:1:10 ;; e:Bounce factor e:0.3:0.9:0.05:0.8 | h0*(1+e^2)/(1-e^2):Total distance travelled (m):2 ;; sqrt(2*h0/9.8)*(1+e)/(1-e):Total time until it stops (s):2 ;; h0*e^(2*3):Height after the 3rd bounce (m):3 | h0*e^(2*x) | 0,10 | 0,20
+
+### Check yourself
+QUIZ:
+Q: In a perfectly inelastic collision, which quantity is conserved?; kinetic energy; momentum; both; neither; 2; The objects stick together and momentum still holds.
+Q: Work done by a force F(x) from a to b is…; F (b − a); ∫ₐᵇ F dx; ½ F²; F ÷ x; 2; Work is the area under the force-distance graph.
+Q: For a beam in static equilibrium, you may take torques about…; only the hinge; only the centre; any point; only the wall; 3; If the net torque is zero about one point, it is zero about all.
+Q: A longer wire of the same material and area stretches…; less; more; the same; zero; 2; ΔL = F L ÷ (A E).
+
+### Mixed practice (mechanics)
+LVL: Level 2 | Apply
+P: A 0.2 kg ball falls from 3 m onto the ground and bounces to 2.1 m. Find the bounce factor e (speed ratio) and the impulse if the contact lasts 8 ms. => Impact speed √(2 × 9.8 × 3) = 7.67 m/s, rebound √(2 × 9.8 × 2.1) = 6.42 m/s. e = 0.837. Δp = 0.2 × (7.67 + 6.42) = 2.82 N·s, so F = 2.82 ÷ 0.008 = **352 N**.
+P: A spring (k = 500 N/m) is compressed 0.1 m and launches a 0.05 kg ball up a smooth incline of angle 30°. How far up the incline does it travel from the release point? => ½ × 500 × 0.01 = 2.5 J = m g (d sin 30°) = 0.05 × 9.8 × 0.5 d, so d = 2.5 ÷ 0.245 = **10.2 m**.
+P: Masses 3 kg at x = 0, 2 kg at x = 4 m and 5 kg at x = 6 m lie on a line. Find the centre of mass. => x = (0 + 8 + 30) ÷ 10 = **3.8 m**.
+P: A 70 kg person climbs 400 m in 20 minutes. Find the work and the power. => W = 70 × 9.8 × 400 = 274 kJ. P = 274,400 ÷ 1200 = **229 W**.
+P: A 1.5 kg mass moving at 6 m/s collides elastically with a stationary 1.5 kg mass. Find the final velocities. => Equal masses exchange velocities: the first stops and the second moves at **6 m/s**.
+LVL: Level 3 | Real
+P: A ball dropped from 10 m with e = 0.8 bounces repeatedly. Find the total distance it travels and the total time (g = 9.8). => Distance = 10 × (1 + 0.64) ÷ (1 − 0.64) = **45.6 m**. t₀ = 1.43 s, total time = 1.43 × 1.8 ÷ 0.2 = **12.9 s**. (Matches the lab.)
+LVL: Challenge | Where does the energy go?
+P: In the e = 0.8 ball above, find the fraction of the original energy lost on each bounce, and the energy remaining after the 5th bounce for a 0.1 kg ball. => Each bounce keeps e² = 0.64 of the energy, so **36%** is lost per bounce. The starting energy is 0.1 × 9.8 × 10 = 9.8 J. After the 5th bounce: 9.8 × 0.64⁵ = 9.8 × 0.107 = **1.05 J**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Limits and derivatives: rules and standard results; applications: related rates (differentiate then substitute), optimisation (check max or min), Newton's method, linearisation, L'Hôpital for 0 ÷ 0 and ∞ ÷ ∞.
+- Mechanics: W = ΔKE, momentum conserved with no external force, elastic versus inelastic, centre of mass, equilibrium needs ΣF = 0 and Στ = 0, stress and strain. The bouncing ball decays geometrically: height h₀ e^(2n), total distance h₀ (1 + e²) ÷ (1 − e²).
+- Mistakes to watch this week: write down the ones from your Week 5 to 10 mistake logs and list the top 3 for yourself.
+
+BN: আজকের সারকথা: সীমা ও অন্তরকলনের নিয়ম; সম্পর্কিত হারে আগে অন্তরকলন পরে মান বসানো; অপ্টিমাইজেশনে সর্বোচ্চ না সর্বনিম্ন যাচাই। যান্ত্রিকবিদ্যায় W = ΔKE, ভরবেগ সংরক্ষণ, স্থিতিতে ΣF = 0 ও Στ = 0। লাফানো বলের উচ্চতা h₀e^(2n) গুণোত্তর হারে কমে।
+
+EXIT:
+E: A ball is dropped from 5 m and rebounds with e = 0.6. What is the height after the first bounce in metres?; 1.8; 0.01; h = 5 × 0.6² = 1.8.
+E: Find lim (x → 0) (e^(3x) − 1) ÷ x.; 3; 0.001; L'Hôpital: 3 e^(3x) → 3.
+E: A 4 kg block is pushed by a 20 N force through 3 m on a frictionless floor from rest. What is its speed in m/s?; 5.48; 0.01; W = 60 J = ½ × 4 × v², so v² = 30.
+
+**Tomorrow:** review of integration, oscillations and rotation.
+
+CHECK: notes

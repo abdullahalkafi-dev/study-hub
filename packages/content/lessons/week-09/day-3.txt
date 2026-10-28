@@ -1,0 +1,182 @@
+@day Week 9 · Day 3 · Wednesday
+# Partial fractions. Then: the pendulum
+lead: Partial fractions is the algebra trick that turns a messy fraction into a sum of simple ones you already know how to integrate. It is used all the time in engineering, from growth models to electric circuits. In physics, you meet the pendulum: the clock that kept the world's time for 300 years, and a great example of an equation that is only approximately simple harmonic.
+
+BN: আংশিক ভগ্নাংশ (partial fractions) হলো বীজগণিতের কৌশল যা জটিল ভগ্নাংশকে কয়েকটি সরল ভগ্নাংশের যোগফলে ভাঙে, যেগুলোর সমাকলন তুমি জানো। প্রকৌশলে বৃদ্ধির মডেল থেকে বিদ্যুৎ বর্তনী পর্যন্ত এটা সবসময় লাগে। পদার্থবিজ্ঞানে আজ দোলক: ৩০০ বছর ধরে যা পৃথিবীর ঘড়ি চালিয়েছে, এবং এমন সমীকরণের উদাহরণ যা শুধু আনুমানিকভাবে সরল ছন্দিত।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find ∫ sin² x dx. => **x/2 − sin 2x ÷ 4 + C**.
+P: Find ∫₀^π sin x cos x dx. => [sin² x ÷ 2] = **0**.
+P: A spring has k = 200 N/m and A = 0.1 m. Find E. => **1 J**.
+P: A mass of 0.5 kg with E = 1 J passes the centre. Find v. => **2 m/s**.
+P: Find the RMS of a 100 V peak sine wave. => 100 ÷ √2 = **70.7 V**.
+
+CHECK: recall
+
+@section math | 2 · Math: partial fractions | 55 min
+
+### The idea
+Integrals like ∫ 1 ÷ ((x + 1)(x + 2)) dx cannot be done by substitution. But a sum of simple fractions is easy:
+
+EQ: (3x + 5) ÷ ((x + 1)(x + 2)) = A ÷ (x + 1) + B ÷ (x + 2)
+
+Multiply through by (x + 1)(x + 2): 3x + 5 = A (x + 2) + B (x + 1). Find A and B in either of two ways.
+
+**Cover-up method (fastest).** Set x to the root of one factor. At x = −1: 3(−1) + 5 = A (1), so **A = 2**. At x = −2: 3(−2) + 5 = B (−1), so **B = 1**.
+
+**Matching coefficients.** The x terms: A + B = 3. The constants: 2A + B = 5. Solving: A = 2, B = 1. ✓
+
+Then integrate each part with ln: ∫ [2 ÷ (x + 1) + 1 ÷ (x + 2)] dx = **2 ln abs(x + 1) + ln abs(x + 2) + C**.
+
+BN: (3x + 5)/((x+1)(x+2)) = A/(x+1) + B/(x+2) ধরো। দুই পাশে (x+1)(x+2) গুণ করে 3x + 5 = A(x+2) + B(x+1)। কাভার-আপ পদ্ধতি: x = −1 বসালে A = 2; x = −2 বসালে B = 1। তারপর প্রতিটি অংশ ln দিয়ে সমাকলন: 2 ln|x+1| + ln|x+2|।
+
+LAB: Matching the decomposition | The orange curve A ÷ (x + 1) + B ÷ (x + 2) should match the blue curve (3x + 5) ÷ ((x + 1)(x + 2)). The two conditions are A + B = 3 (x coefficient) and 2A + B = 5 (constant). Find the A and B that make both numbers equal and the curves overlap. | A:Coefficient A:0:5:0.25:1 ;; B:Coefficient B:0:5:0.25:1 | A+B:A + B (needs to equal 3):2 ;; 2*A+B:2A + B (needs to equal 5):2 | (3*x+5)/((x+1)*(x+2)) ;; A/(x+1)+B/(x+2) | 0,4 | 0,8
+
+### The cases
+| Denominator factor | Partial fraction terms |
+| Distinct linear (x − a) | A ÷ (x − a) |
+| Repeated linear (x − a)² | A ÷ (x − a) + B ÷ (x − a)² |
+| Irreducible quadratic (x² + 1) | (A x + B) ÷ (x² + 1) |
+
+**Before decomposing:** if the degree of the top is the same as or more than the bottom, first do **long division**.
+
+EX: Distinct linear factors
+1. 1 ÷ (x² − 1) = 1 ÷ ((x − 1)(x + 1)) = ½ [1 ÷ (x − 1) − 1 ÷ (x + 1)] (cover-up: A = 1/2 at x = 1, B = −1/2 at x = −1). ∫ = **½ ln abs((x − 1) ÷ (x + 1)) + C**.
+2. ∫₀¹ (3x + 5) ÷ ((x + 1)(x + 2)) dx = [2 ln(x + 1) + ln(x + 2)] = (2 ln 2 + ln 3) − (0 + ln 2) = ln 2 + ln 3 = **ln 6 ≈ 1.792**.
+3. ∫₀¹ 1 ÷ ((x + 1)(x + 2)) dx: 1 ÷ ((x + 1)(x + 2)) = 1 ÷ (x + 1) − 1 ÷ (x + 2). [ln((x + 1) ÷ (x + 2))] = ln(2/3) − ln(1/2) = **ln(4/3) ≈ 0.288**.
+/EX
+
+EX: Improper fractions: divide first
+1. ∫ (x² + 1) ÷ (x + 1) dx. Long division: x² + 1 = (x + 1)(x − 1) + 2. So the integrand is x − 1 + 2 ÷ (x + 1). ∫ = **x²/2 − x + 2 ln abs(x + 1) + C**.
+/EX
+
+EX: Repeated and quadratic factors
+1. 1 ÷ (x (x + 1)²) = A ÷ x + B ÷ (x + 1) + C ÷ (x + 1)². Cover-up: A = 1 (x = 0) and C = 1 ÷ (−1) = −1 (x = −1). At x = 1: 1/4 = 1 + B/2 − 1/4, so B = −1. ∫ = **ln abs(x) − ln abs(x + 1) + 1 ÷ (x + 1) + C**. (Check: differentiating gives 1/x − 1/(x + 1) − 1/(x + 1)², which combines to 1 ÷ (x (x + 1)²) ✓.)
+2. 1 ÷ (x (x² + 1)) = 1 ÷ x − x ÷ (x² + 1). ∫ = **ln abs(x) − ½ ln(x² + 1) + C** (the second term by u = x² + 1).
+/EX
+
+EX: A growth model
+1. A population P grows by dP/dt = 0.001 P (100 − P) (logistic growth, a limit of 100). To find the time, separate: dt = dP ÷ (0.001 P (100 − P)).
+2. 1 ÷ (P (100 − P)) = (1/100) [1 ÷ P + 1 ÷ (100 − P)] (cover-up: A = 1/100, B = 1/100).
+3. ∫ = (1/100) [ln P − ln(100 − P)] = (1/100) ln(P ÷ (100 − P)).
+4. Time from P = 10 to P = 50: t = 1000 × (1/100) [ln 1 − ln(10/90)] = 10 ln 9 = **22.0 time units**.
+/EX
+
+BN: ঘাতের প্রকারভেদ: ভিন্ন একঘাত উৎপাদক A/(x−a); পুনরাবৃত্ত উৎপাদক A/(x−a) + B/(x−a)²; অখণ্ডনীয় দ্বিঘাত (Ax+B)/(x²+1)। লব এর ঘাত হরের সমান বা বেশি হলে আগে ভাগ করে নাও। লজিস্টিক বৃদ্ধি dP/dt = 0.001P(100 − P) এ সময় বের করতে আংশিক ভগ্নাংশ লাগে: P = 10 থেকে 50 এ লাগে 10 ln 9 = 22 একক।
+
+TRAP: Decide the **form** before solving, and for a repeated factor you need **both** terms (A ÷ (x − a) and B ÷ (x − a)²). If the top degree is not lower than the bottom, divide first or the decomposition fails. Do not split a fraction like 1 ÷ (x² + 1) into 1 ÷ x² + 1 ÷ 1: you cannot split a denominator. And check by plugging in a value (for example x = 0).
+
+### Quick self-check
+QUIZ:
+Q: By cover-up, the A in 5 ÷ ((x − 1)(x + 4)) = A ÷ (x − 1) + B ÷ (x + 4) is…; 1; −1; 5; 1/5; 1; At x = 1 we get 5 ÷ 5 = 1.
+Q: The integral of 1 ÷ (x² − 1) is…; ½ ln abs((x − 1) ÷ (x + 1)) + C; ln abs(x² − 1) + C; arctan x + C; 1 ÷ x + C; 1; Split into 1/2 of 1 ÷ (x − 1) minus 1 ÷ (x + 1).
+Q: Before decomposing (x³ + 2) ÷ (x² − 1) you should…; do nothing; do long division; integrate by parts; substitute; 2; The top has a higher degree than the bottom.
+Q: A repeated factor (x + 1)² needs terms…; B ÷ (x + 1)² only; A ÷ (x + 1) and B ÷ (x + 1)²; A ÷ (x + 1)²; A x ÷ (x + 1)²; 2; Both powers must appear.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Decompose 5 ÷ ((x − 1)(x + 4)) and integrate. => 1 ÷ (x − 1) − 1 ÷ (x + 4). ∫ = **ln abs((x − 1) ÷ (x + 4)) + C**.
+P: Integrate 1 ÷ (x (x + 2)). => ½ [1/x − 1/(x + 2)], so **½ ln abs(x ÷ (x + 2)) + C**.
+LVL: Level 2 | Apply
+P: Integrate (2x + 3) ÷ ((x − 1)(x + 2)). => A = 5/3 (at x = 1: 5 ÷ 3), B = (−4 + 3) ÷ (−3) = 1/3. ∫ = **(5/3) ln abs(x − 1) + (1/3) ln abs(x + 2) + C**.
+P: Integrate (x² + 1) ÷ (x + 1). => **x²/2 − x + 2 ln abs(x + 1) + C**.
+P: Evaluate ∫₀¹ 1 ÷ ((x + 1)(x + 2)) dx. => **ln(4/3) ≈ 0.288**.
+P: Integrate 1 ÷ (x (x² + 1)). => **ln abs(x) − ½ ln(x² + 1) + C**.
+P: Integrate 1 ÷ (x (x + 1)²). => **ln abs(x ÷ (x + 1)) + 1 ÷ (x + 1) + C**.
+LVL: Level 3 | Real
+P: In the logistic model dP/dt = 0.001 P (100 − P), how long does it take to grow from P = 10 to P = 50? And from 50 to 90? => The first is **22.0**. For 50 to 90: t = 10 [ln(P ÷ (100 − P))] from 50 to 90 = 10 (ln 9 − ln 1) = **22.0** (symmetry: the S-curve is symmetric about P = 50).
+P: Evaluate ∫₀² (3x + 5) ÷ ((x + 1)(x + 2)) dx. => [2 ln(x + 1) + ln(x + 2)] = (2 ln 3 + ln 4) − (0 + ln 2) = 2 ln 3 + ln 2 = ln 18 ≈ **2.89**.
+LVL: Challenge | Divide, then decompose
+P: Find ∫ (x³ + 2) ÷ (x² − 1) dx. => Divide: x³ + 2 = x (x² − 1) + x + 2, so the integrand is x + (x + 2) ÷ ((x − 1)(x + 1)). Cover-up: A = 3/2 at x = 1, B = 1 ÷ (−2) = −1/2 at x = −1. ∫ = **x²/2 + (3/2) ln abs(x − 1) − (1/2) ln abs(x + 1) + C**. (Check at x = 0: the integrand is −2, and the decomposition gives 0 + (3/2)/(−1) + (−1/2)/1 = −2 ✓.)
+
+CHECK: math
+
+@section physics | 3 · Physics: the pendulum | 35 min
+
+### From torque to the pendulum equation
+A bob of mass m hangs from a light string of length L. When displaced by an angle θ, gravity gives a restoring torque about the pivot: τ = −m g L sin θ. The moment of inertia is I = m L². So:
+
+EQ: m L² θ″ = −m g L sin θ     so     θ″ = −(g ÷ L) sin θ
+
+This is **not quite** SHM, because of sin θ. But for small angles, sin θ ≈ θ (in radians; Week 7), and then:
+
+EQ: θ″ ≈ −(g ÷ L) θ     so     ω = √(g ÷ L)     T = 2π √(L ÷ g)
+
+The mass cancels, and the period does not depend on the amplitude (for small swings). Galileo noticed this watching a lamp swing in the cathedral at Pisa.
+
+For larger swings, the period grows slightly: T ≈ T₀ (1 + θ₀² ÷ 16 + 11 θ₀⁴ ÷ 3072) with θ₀ in radians.
+
+BN: দোলকে টর্ক τ = −mgL sinθ, I = mL², তাই θ″ = −(g/L) sinθ। ছোট কোণে sinθ ≈ θ হওয়ায় এটা SHM হয়: ω = √(g/L), T = 2π√(L/g)। ভর কেটে যায় এবং পর্যায়কাল বিস্তারের ওপর নির্ভর করে না (ছোট দোলনে)। বড় কোণে পর্যায়কাল সামান্য বাড়ে: T ≈ T₀(1 + θ₀²/16 + …)।
+
+EX: Pendulum calculations
+1. L = 1 m on Earth: T = 2π √(1 ÷ 9.8) = **2.007 s**. So a 1 m pendulum is almost a "seconds pendulum".
+2. A seconds pendulum has T = 2 s: L = g T² ÷ 4π² = 9.8 × 4 ÷ 39.48 = **0.993 m**.
+3. On the Moon (g = 1.62 m/s²), L = 1 m gives T = 2π √(1 ÷ 1.62) = **4.94 s**.
+4. Amplitude correction at θ₀ = 0.5 rad (28.6°): factor = 1 + 0.0156 + 0.0002 = 1.0158, so T = 2.007 × 1.0158 = **2.039 s**, only 1.6% longer.
+5. Speed at the bottom (energy): m g L (1 − cos θ₀) = ½ m v². For θ₀ = 20° and L = 1 m: v = √(2 × 9.8 × (1 − 0.9397)) = **1.09 m/s**.
+/EX
+
+LAB: A pendulum on any world | Choose the length, the starting angle and the gravity (Moon 1.62, Mars 3.7, Earth 9.8, Jupiter 24.8). The graph shows the angle over time in the small-angle approximation. The numbers show the period, the corrected period for a large swing, and the speed at the bottom. | L:Length L (m):0.1:5:0.1:1 ;; th:Starting angle (degrees):2:60:1:10 ;; g:Gravity g (m/s²):1.6:25:0.1:9.8 | 2*pi*sqrt(L/g):Small-angle period (s):3 ;; 2*pi*sqrt(L/g)*(1+(th*pi/180)^2/16+11*(th*pi/180)^4/3072):Corrected period (s):3 ;; sqrt(2*g*L*(1-cos(th*pi/180))):Speed at the bottom (m/s):3 | th*cos(sqrt(g/L)*x) | 0,6 | -60,60
+
+### A real object: the physical pendulum
+A rigid body of mass m pivoted at a point a distance d from its centre of mass swings with
+
+EQ: ω = √(m g d ÷ I)     T = 2π √(I ÷ (m g d))     (I is about the pivot)
+
+EX: A rod and a ring
+1. A uniform 1 m rod pivoted at one end: I = M L² ÷ 3 and d = L ÷ 2, so ω² = 3g ÷ (2L) and T = 2π √(2L ÷ (3g)) = 2π √(2 ÷ 29.4) = **1.64 s**. It behaves like a simple pendulum of length 2L ÷ 3 = 0.667 m.
+2. A ring of radius R hung on a nail on its rim: I = M R² + M R² = 2 M R², d = R, so ω² = g ÷ (2R) and T = 2π √(2R ÷ g). For R = 0.5 m: **2.007 s**. It matches a simple pendulum of length 2R = 1 m.
+/EX
+
+EX: Clocks and the Earth
+1. A clock set on Earth where g = 9.80 is carried to a mountain top where g = 9.78. T is proportional to 1 ÷ √g, so each swing takes a factor √(9.80 ÷ 9.78) = 1.00102 longer, and the clock loses 0.102% of the time: 86,400 × 0.00102 = **88 s per day**.
+2. The Foucault pendulum of the Paris Panthéon: L = 67 m, T = 2π √(67 ÷ 9.81) = **16.4 s**. Because its swing plane stays fixed while the Earth turns beneath it, it proves that the Earth rotates.
+/EX
+
+TRAP: The formula T = 2π √(L ÷ g) holds only for **small angles** (below about 15°, error under 0.5%) and for a point mass on a light string. For a real body, use the physical pendulum with I about the **pivot**. Also, set the calculator to **radians** for the amplitude correction, and measure L from the pivot to the **centre** of the bob.
+
+### Quick self-check
+QUIZ:
+Q: Doubling the length of a pendulum multiplies its period by…; 1/2; √2; 2; 4; 2; T is proportional to √L.
+Q: Doubling the mass of the bob changes the period by a factor of…; 1/2; 1; √2; 2; 2; Mass cancels from the equation.
+Q: On the Moon (g about one sixth of Earth's), the period of the same pendulum is…; shorter; the same; longer by about 2.4 times; longer by 6 times; 3; T is proportional to 1 ÷ √g and √6 = 2.45.
+Q: The small-angle approximation replaces…; cos θ by 1; sin θ by θ; tan θ by sin θ; θ by sin θ; 2; The restoring torque becomes proportional to θ.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find T for L = 0.5 m. => 2π √(0.5 ÷ 9.8) = **1.42 s**.
+P: What length gives T = 2 s? => **0.993 m**.
+LVL: Level 2 | Apply
+P: Find the correction factor for a 30° starting angle, and the period for L = 1 m. => θ₀ = 0.5236 rad. 1 + 0.0171 + 0.0002 = 1.0174. T = 2.007 × 1.0174 = **2.04 s**, a 1.7% increase.
+P: A pendulum is released from 20° with L = 1.5 m. Find the speed at the bottom. => v = √(2 × 9.8 × 1.5 × (1 − cos 20°)) = √(29.4 × 0.0603) = **1.33 m/s**.
+P: Find T for a uniform 0.6 m rod pivoted at one end. => T = 2π √(2 × 0.6 ÷ 29.4) = **1.27 s**.
+P: A pendulum has T = 1.5 s. It is shortened by 20%. Find the new period. => T ∝ √L: 1.5 × √0.8 = **1.34 s**.
+P: A thin ring of radius 0.2 m hangs from a nail on its rim. Find the period. => T = 2π √(2R ÷ g) = 2π √(0.4 ÷ 9.8) = **1.27 s**.
+LVL: Level 3 | Real
+P: The Panthéon pendulum has L = 67 m. Find its period and the number of swings in one hour. => T = **16.4 s**. Swings (each full period) = 3600 ÷ 16.4 = **219**.
+P: A pendulum clock on Earth keeps time at g = 9.80. How many seconds does it lose per day at g = 9.78? => √(9.80 ÷ 9.78) − 1 = 0.00102, so it loses **88 s per day**.
+LVL: Challenge | The best pivot
+P: A uniform rod of length L swings as a physical pendulum about a pivot a distance d from its centre. Show that T = 2π √((L² ÷ 12 + d²) ÷ (g d)). Use a derivative to find the d that gives the **shortest** period, and the period for L = 1 m. => I = M L² ÷ 12 + M d² (parallel axis), so T = 2π √(I ÷ (M g d)) = 2π √((L² ÷ 12 + d²) ÷ (g d)). Minimise f(d) = L² ÷ (12 d) + d: f′ = −L² ÷ (12 d²) + 1 = 0 gives d² = L² ÷ 12, **d = L ÷ √12 = 0.289 L**. Then f = 2 L ÷ √12 = 0.577 L and **T = 2π √(0.577 ÷ 9.8) = 1.52 s**, shorter than the end-pivot period of 1.64 s.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Partial fractions: decide the form (distinct, repeated, quadratic), divide first if needed, solve with cover-up or by matching coefficients, then integrate with ln. Logistic growth time uses 1 ÷ (P (K − P)).
+- Pendulum: θ″ = −(g ÷ L) sin θ ≈ −(g ÷ L) θ, T = 2π √(L ÷ g), independent of m and (for small angles) of amplitude. Large angle: T ≈ T₀ (1 + θ₀² ÷ 16). Physical pendulum: T = 2π √(I ÷ (m g d)).
+
+BN: আজকের সারকথা: আংশিক ভগ্নাংশ: ধরন ঠিক করো, দরকারে আগে ভাগ, কাভার-আপ বা সহগ মিলিয়ে সমাধান, তারপর ln দিয়ে সমাকলন। দোলক: θ″ = −(g/L) sinθ ≈ −(g/L)θ, T = 2π√(L/g), ভর ও (ছোট কোণে) বিস্তারের ওপর নির্ভর করে না। বাস্তব বস্তু: T = 2π√(I/(mgd))।
+
+EXIT:
+E: In 3x + 5 = A (x + 2) + B (x + 1), what is A?; 2; 0.001; At x = −1: 2 = A (1).
+E: What is the period in seconds of a 1 m pendulum on Earth? (g = 9.8); 2.007; 0.01; T = 2π √(1 ÷ 9.8) = 2.007.
+E: A pendulum's length is quadrupled. By what factor does its period change?; 2; 0.001; T is proportional to √L, so √4 = 2.
+
+**Tomorrow:** improper integrals, and damped oscillations (the shock absorber).
+
+CHECK: notes

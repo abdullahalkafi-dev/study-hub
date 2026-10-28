@@ -1,0 +1,84 @@
+@day Week 14 · Day 6 · Saturday
+# Week 14 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered linear systems (elimination, the three cases, applications, Cramer's rule, conditioning, iterative methods) and gases (the gas laws, the ideal gas law, mixtures, kinetic theory, the first law of thermodynamics).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: রৈখিক সমীকরণ জোট (অপসারণ, তিন ক্ষেত্র, প্রয়োগ, ক্র্যামার, কন্ডিশনিং, পুনরাবৃত্তি পদ্ধতি) এবং গ্যাস (গ্যাস সূত্র, আদর্শ গ্যাস, মিশ্রণ, গতীয় তত্ত্ব, তাপগতিবিদ্যার প্রথম সূত্র)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use R = 8.314 J/(mol·K), 1 atm = 101.3 kPa, 10 m of water = 1 atm unless told otherwise. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Linear systems (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Solve x + 2y = 7 and 3x − y = 7. => From the second y = 3x − 7. Then x + 6x − 14 = 7, **x = 3**, **y = 2**. Check: 3 + 4 = 7 ✓.
+P: (2 marks) Solve x + y + z = 6, 2x − y + z = 3, x + 2y − 2z = −1 by Gaussian elimination. => R₂ − 2R₁: (0, −3, −1 | −9). R₃ − R₁: (0, 1, −3 | −7). Add R₂ ÷ 3 to R₃: (0, 0, −10/3 | −10) (1 mark), so **z = 3**. Then y − 3z = −7 gives **y = 2**, and x = 6 − 2 − 3 = **1** (1 mark). Check eq. 3: 1 + 4 − 6 = −1 ✓.
+P: (1 mark) How many solutions does x + y + z = 2, 2x + 2y + 2z = 5 have? => R₂ − 2R₁: (0, 0, 0 | 1), meaning 0 = 1. **None**.
+P: (1 mark) Find the general solution of x + y + z = 3 and x − y = 1. => x = 1 + y. Then 1 + 2y + z = 3, so z = 2 − 2y. With y = t: **(1 + t, t, 2 − 2t)**, a line. Check t = 0: (1, 0, 2): 1 + 0 + 2 = 3 ✓, 1 − 0 = 1 ✓.
+P: (1 mark) Use Cramer's rule on 2x + 3y = 8 and x − y = −1. => det = −2 − 3 = −5. x = (8 × (−1) − 3 × (−1)) ÷ (−5) = (−8 + 3) ÷ (−5) = **1**. y = (2 × (−1) − 8 × 1) ÷ (−5) = (−10) ÷ (−5) = **2**.
+P: (1 mark) For which value of a does x + y = 1, x + a y = 1 not have a unique solution? Describe the solutions for that a. => det = a − 1 = 0, so **a = 1**. Both equations are x + y = 1: infinitely many solutions **(1 − t, t)**.
+P: (1 mark) Do two Jacobi iterations from (0, 0) on 5x − y = 4 and −x + 4y = 3. The exact solution is (1, 1). => x = (4 + y) ÷ 5 and y = (3 + x) ÷ 4. Iteration 1: **(0.8, 0.75)**. Iteration 2: x = (4 + 0.75) ÷ 5 = 0.95, y = (3 + 0.8) ÷ 4 = 0.95: **(0.95, 0.95)**.
+P: (1 mark) Is 2x + 5y = 1, 4x + y = 3 diagonally dominant? If not, how do you fix it? => Row 1: 2 < 5, so **no**. Swap the equations: 4x + y = 3, 2x + 5y = 1. Now 4 > 1 and 5 > 2: **dominant**.
+P: (1 mark) Balance Al + HCl → AlCl₃ + H₂. => a Al + b HCl → c AlCl₃ + d H₂. Al: a = c. Cl: b = 3c. H: b = 2d. With c = 2: a = 2, b = 6, d = 3. **2 Al + 6 HCl → 2 AlCl₃ + 3 H₂**.
+P: (1 mark) A circuit has mesh equations 6 i₁ − 2 i₂ = 10 and −2 i₁ + 4 i₂ = 0. Find i₁, i₂ and the current in the shared resistor. => i₁ = 2 i₂, so 12 i₂ − 2 i₂ = 10, **i₂ = 1 A**, **i₁ = 2 A**. The shared resistor carries i₁ − i₂ = **1 A**.
+P: (1 mark) Find the rank of the matrix with rows (1, 2, 3), (2, 4, 6), (1, 1, 1) and the number of free variables in A x = 0. => R₂ − 2R₁ = (0, 0, 0). R₃ − R₁ = (0, −1, −2). **Rank 2**, so 3 − 2 = **1 free variable**.
+P: (1 mark) Solve x + y = 2, x + 1.001 y = 2.001, then change the right side 2.001 to 2.002. What does it show? => First: 0.001 y = 0.001, so **(1, 1)**. Second: 0.001 y = 0.002, so y = 2, x = 0: **(0, 2)**. A change of 0.001 in the data moved the answer by 1: the system is **ill-conditioned** (det = 0.001).
+P: (1 mark) Find the parabola y = a x² + b x + c through (0, 3), (1, 2), (2, 3). => c = 3. a + b = −1. 4a + 2b = 0, so 2a + b = 0. Then a = 1, b = −2: **y = x² − 2x + 3**. Check x = 2: 4 − 4 + 3 = 3 ✓.
+
+CHECK: math
+
+@section physics | 3 · Part B: Gases and thermodynamics (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A gas of 4.0 L at 100 kPa and 300 K is changed to 150 kPa and 360 K. Find the new volume. => V₂ = 4.0 × (100 ÷ 150) × (360 ÷ 300) = **3.2 L**.
+P: (1 mark) A cylinder of 12 L holds air at 15 MPa and 293 K. Find the number of moles, and the volume the gas would fill at 1 atm and the same temperature. => n = 15 × 10⁶ × 0.012 ÷ (8.314 × 293) = **73.9 mol**. V = P₁V₁ ÷ P₂ = 15 × 10⁶ × 12 ÷ 101,325 = **1776 L**.
+P: (1 mark) A breathing mix has 30% oxygen. Find the maximum depth for an oxygen partial pressure of 1.4 atm. => P = 1.4 ÷ 0.30 = 4.67 atm absolute. Depth = (4.67 − 1) × 10 = **36.7 m**.
+P: (1 mark) Find the rms speed of carbon dioxide (M = 0.044 kg/mol) at 350 K. => √(3 × 8.314 × 350 ÷ 0.044) = √198,402 = **445 m/s**.
+P: (1 mark) 2 mol of an ideal gas at 400 K expands isothermally to twice its volume. Find the work done by the gas, the heat absorbed, and ΔU. => W = 2 × 8.314 × 400 × ln 2 = 6651 × 0.693 = **4610 J**. Q = **4610 J**. ΔU = **0**.
+P: (1 mark) Air (γ = 1.4) at 300 K is compressed adiabatically to one eighth of its volume. Find the final temperature. => T₂ = 300 × 8^0.4 = 300 × 2.297 = **689 K** (416 °C).
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 15. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 14. Tell me, and I will rebalance Week 15. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q3 | Said "infinitely many solutions" | Saw a repeated pattern in the left sides but ignored the right sides | The row (0, 0, 0 | 1) says 0 = 1, so the system is inconsistent: check the right-hand side too | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: সারি-প্রক্রিয়ায় ডান পাশ বাদ দেওয়া, (0, 0, 0 | c) সারি দেখে অসীম সমাধান বলা, গ্যাস সূত্রে সেলসিয়াস ব্যবহার করা, গেজ চাপকে পরম চাপ ধরা, এবং প্রথম সূত্রে W এর চিহ্ন (গ্যাসের করা কাজ ধনাত্মক) গুলিয়ে ফেলা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | A circle through three points
+P: Find the circle x² + y² + D x + E y + F = 0 through (0, 0), (4, 0) and (0, 2). Give its centre and radius, and explain the geometry. => (0, 0): F = 0. (4, 0): 16 + 4D = 0, D = −4. (0, 2): 4 + 2E = 0, E = −2. The circle is x² + y² − 4x − 2y = 0, i.e. (x − 2)² + (y − 1)² = 5: **centre (2, 1), radius √5**. The points (4, 0) and (0, 2) are the ends of a diameter (their midpoint is (2, 1) and their distance is √20 = 2√5), and the origin sees them at a right angle, as Thales' theorem says.
+
+LVL: Challenge | Isothermal against adiabatic work
+P: One mole of a monatomic ideal gas (γ = 5/3) at 300 K doubles its volume, once isothermally and once adiabatically. Compare the work done and explain. => Isothermal: W = R T ln 2 = 8.314 × 300 × 0.693 = **1729 J**. Adiabatic: T₂ = 300 × 2^(−2/3) = 189.0 K. W = C_V (T₁ − T₂) = 12.47 × 111.0 = **1384 J** (check: (P₁V₁ − P₂V₂) ÷ (γ − 1) = (2494 − 1571) ÷ (2/3) = 1384 J ✓). The isothermal gas does **more work** because it absorbs heat (1729 J) from its surroundings as it expands, while the adiabatic gas must pay for its work from its own internal energy and cools.
+
+### Optional coding idea (not part of the study plan)
+**Solver and PV lab:** a page that shows Gaussian elimination step by step on a matrix you type (with exact fractions) and tells you whether there is no solution, one solution or a line of solutions. A second panel animates Jacobi and Gauss–Seidel on a small heat plate (a grid of cells with fixed edge temperatures) and colours the cells by temperature. A third panel draws a P–V diagram with isotherms and adiabats, and lets you drag a cycle's corners to see the enclosed area and the efficiency.
+
+### What Week 15 looks like
+**Eigenvalues and entropy.** You find the special directions of a matrix, the ones that are only stretched, and see how they describe vibrations, stability and principal axes. In physics you meet the second law of thermodynamics: entropy, why heat flows from hot to cold, heat engines, refrigerators and the Carnot limit.
+
+BN: আগামী সপ্তাহ: আইগেনভ্যালু ও এনট্রপি। ম্যাট্রিক্সের বিশেষ দিকগুলো খুঁজবে, যেগুলো শুধু প্রসারিত হয়, এবং দেখবে কীভাবে এগুলো কম্পন, স্থিতিশীলতা ও মুখ্য অক্ষ বর্ণনা করে। পদার্থবিজ্ঞানে তাপগতিবিদ্যার দ্বিতীয় সূত্র পড়বে: এনট্রপি, তাপ কেন গরম থেকে ঠান্ডায় যায়, তাপ ইঞ্জিন, ফ্রিজ এবং কার্নো সীমা।
+
+**Sunday is a rest day.**
+
+CHECK: notes

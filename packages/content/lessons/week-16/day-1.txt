@@ -1,0 +1,185 @@
+@day Week 16 · Day 1 · Monday
+# Functions of two variables and partial derivatives. Then: electric charge and Coulomb's law
+lead: So far every function had one input. The real world has many: the pressure of a gas depends on temperature and volume, the height of a hill depends on east and north, the temperature of a plate depends on x and y. To handle this you change one variable at a time and freeze the others: that is a partial derivative. In physics you start electricity with the simplest law of all, Coulomb's law: the force between two charges. It looks just like gravity, and it is about 10³⁹ times stronger.
+
+BN: এ পর্যন্ত প্রতিটি ফাংশনে একটাই ইনপুট ছিল। বাস্তবে অনেক: গ্যাসের চাপ নির্ভর করে তাপমাত্রা ও আয়তনের উপর, পাহাড়ের উচ্চতা পূর্ব ও উত্তরের উপর, পাতের তাপমাত্রা x ও y এর উপর। এটা সামলাতে একবারে একটা চলক বদলাও, বাকিগুলো স্থির রাখো: একেই আংশিক অবকল বলে। পদার্থবিজ্ঞানে বিদ্যুৎ শুরু সবচেয়ে সরল সূত্র দিয়ে: কুলম্বের সূত্র, দুটো চার্জের মধ্যে বল। দেখতে মাধ্যাকর্ষণের মতো, কিন্তু প্রায় 10³⁹ গুণ শক্তিশালী।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: Differentiate f(x) = x² e^x. => Product rule: **(2x + x²) e^x**.
+P: Differentiate sin (3x²). => Chain rule: **6x cos (3x²)**.
+P: What is the Carnot efficiency between 500 K and 300 K? => **40%**.
+P: Find the eigenvalues of [[2, 0], [0, 5]]. => **2 and 5**.
+P: Newton's law of gravitation has which dependence on distance? => **1 ÷ r²** (an inverse-square law).
+
+CHECK: recall
+
+@section math | 2 · Math: functions of two variables | 55 min
+
+### Seeing a function of two variables
+A function f(x, y) gives one number for every point (x, y) of the plane. Its graph z = f(x, y) is a **surface** over the plane. Drawing surfaces is hard, so we use **level curves** (contour lines on a map): the curve f(x, y) = c for several values of c.
+
+EX: Reading level curves
+1. **f(x, y) = x² + y².** The level curve f = c is a circle of radius √c. The surface is a bowl (a paraboloid) with its lowest point at the origin.
+2. **f(x, y) = x² + 4y².** For f = 4: x² ÷ 4 + y² ÷ 1 = 1, an **ellipse** with semi-axes 2 and 1. The bowl is steeper in the y direction, so the contours are squeezed along y.
+3. **f(x, y) = x² − y².** For f = 1: a hyperbola. The surface is a **saddle**: it goes up along x and down along y (the same hyperbolas as the quadratic forms last week).
+4. **A hill:** h(x, y) = 100 − x² − 2y² (metres; x and y in units of 10 m). At (0, 0) the height is **100 m**; at (3, 2): 100 − 9 − 8 = **83 m**. Contour h = 50: x² + 2y² = 50, an ellipse.
+/EX
+
+BN: z = f(x, y) একটা তল। চিত্র আঁকা কঠিন বলে সমোন্নতি রেখা (level curve) ব্যবহার করি: f(x, y) = c। x² + y² এর জন্য বৃত্ত, x² + 4y² এর জন্য উপবৃত্ত, x² − y² এর জন্য অধিবৃত্ত (জিন-আকৃতি)।
+
+### Partial derivatives
+To see how f changes with x alone, **freeze y** like a constant and differentiate with respect to x:
+
+EQ: ∂f/∂x = lim (h → 0) [f(x + h, y) − f(x, y)] ÷ h     ∂f/∂y = lim (h → 0) [f(x, y + h) − f(x, y)] ÷ h
+
+Geometrically, ∂f/∂x is the **slope of the surface** when you walk in the x direction (the slope of the slice y = constant). We also write f_x and f_y.
+
+EX: Computing partial derivatives
+1. **f = x² y.** f_x = 2xy (y is a constant) and f_y = x². At (2, 3): **f_x = 12** and **f_y = 4**. So near (2, 3), f = 12 grows by about 12 per unit of x and by about 4 per unit of y.
+2. **f = x³ + 3xy² − 2y.** f_x = 3x² + 3y² and f_y = 6xy − 2.
+3. **f = sin (xy).** f_x = y cos (xy), f_y = x cos (xy) (the chain rule, treating the other variable as constant).
+4. **f = e^(x² + y²).** f_x = 2x e^(x² + y²) and f_y = 2y e^(x² + y²).
+5. **Check by the definition:** for f = x² y at (2, 3) with h = 0.001: [f (2.001, 3) − f (2, 3)] ÷ 0.001 = (3 × 4.004001 − 12) ÷ 0.001 = 0.012003 ÷ 0.001 = **12.003**, very close to 12 ✓.
+/EX
+
+LAB: Slope of a slice | The surface is f(x, y) = x² y. Choose the point (x₀, y₀). The graph shows the slice y = y₀ (a parabola in x) and its tangent line at x₀. The numbers show f, f_x (the slope of the tangent in the x direction) and f_y. | x0:x₀:-3:3:0.5:2 ;; y0:y₀:-3:3:0.5:3 | x0^2*y0:f (x₀, y₀):1 ;; 2*x0*y0:f_x = 2 x₀ y₀:1 ;; x0^2:f_y = x₀²:1 | x^2*y0 ;; 2*x0*y0*(x-x0)+x0^2*y0 | -3,3 | -30,30
+
+### Why the order does not matter, and equations from physics
+For nice functions the **mixed partials are equal**: f_xy = f_yx (differentiate in either order).
+
+EX: Mixed partials and a physical law
+1. **f = x³ y² + sin (xy).** f_x = 3x² y² + y cos (xy). Then f_xy = 6x² y + cos (xy) − xy sin (xy). Going the other way: f_y = 2x³ y + x cos (xy), f_yx = 6x² y + cos (xy) − xy sin (xy). **They agree** ✓.
+2. **The ideal gas:** P = n R T ÷ V. For n = 1 mol, T = 300 K, V = 0.025 m³: P = 8.314 × 300 ÷ 0.025 = **99,768 Pa**. ∂P/∂T = nR ÷ V = **332.6 Pa/K** (heat the gas at constant volume). ∂P/∂V = −nRT ÷ V² = **−3.99 × 10⁶ Pa/m³** (squeeze it at constant temperature). So one extra kelvin raises the pressure by 333 Pa, and one extra litre (0.001 m³) lowers it by about 3990 Pa.
+3. **Laplace's equation:** u = x² − y² satisfies u_xx + u_yy = 2 + (−2) = **0**. Functions like this describe the steady temperature of a plate and (next weeks) the electric potential where there is no charge.
+4. **A hill:** h = 100 − x² − 2y². At (3, 2): h_x = −2x = **−6** and h_y = −4y = **−8**. Walking east you descend 6 m per unit, walking north 8 m per unit.
+/EX
+
+BN: মিশ্র আংশিক অবকল সমান: f_xy = f_yx। আদর্শ গ্যাসে P = nRT/V: ∂P/∂T = nR/V (স্থির আয়তনে গরম করা), ∂P/∂V = −nRT/V² (স্থির তাপমাত্রায় চাপা)। u = x² − y² এর u_xx + u_yy = 0 (ল্যাপলাসের সমীকরণ)।
+
+TRAP: When you differentiate with respect to x, the other variable is a **constant**, not zero: the derivative of x² y with respect to x is 2xy, not 2x. And in sin (xy) the chain rule still applies: the extra factor is y (or x), the derivative of the inside.
+
+### Quick self-check
+QUIZ:
+Q: For f = x² y, ∂f/∂y is…; 2xy; x²; 2x; y; 2; x is a constant.
+Q: The level curves of f = x² + y² are…; lines; circles; hyperbolas; parabolas; 2; x² + y² = c.
+Q: For f = x² − y² the surface near the origin is a…; bowl; hill; saddle; plane; 3; Positive along x, negative along y.
+Q: If f_xy = 6x² y + 1, then f_yx equals…; 6x² y + 1; 6x y; 0; 12x y; 1; Mixed partials are equal.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find f_x and f_y for f = 3x² + 5xy. => f_x = **6x + 5y**, f_y = **5x**.
+P: Find f_x and f_y at (1, 2) for f = x y². => f_x = y² = **4**, f_y = 2xy = **4**.
+P: Find f_x for f = e^(3x) y. => **3 y e^(3x)**.
+LVL: Level 2 | Apply
+P: Find f_x and f_y for f = x² sin y + y³. => f_x = **2x sin y**, f_y = **x² cos y + 3y²**.
+P: Find f_x and f_y for f = ln (x² + y²). => f_x = **2x ÷ (x² + y²)**, f_y = **2y ÷ (x² + y²)**.
+P: Check that f = x² − y² and g = e^x cos y both satisfy f_xx + f_yy = 0. => f: 2 − 2 = **0**. g: g_xx = e^x cos y and g_yy = −e^x cos y, so the sum is **0** ✓.
+P: The temperature of a plate is T = 100 − x² − 2y² (°C, x and y in cm). Find the rate of change at (3, 2) walking in +x and +y. => T_x = −6, T_y = −8: **−6 °C/cm and −8 °C/cm**.
+P: For P = nRT ÷ V with n = 2 mol, T = 400 K, V = 0.05 m³, find P, ∂P/∂T and ∂P/∂V. => P = 2 × 8.314 × 400 ÷ 0.05 = **133,024 Pa**. ∂P/∂T = nR ÷ V = 16.628 ÷ 0.05 = **332.6 Pa/K**. ∂P/∂V = −nRT ÷ V² = −6651.2 ÷ 0.0025 = **−2.66 × 10⁶ Pa/m³**.
+P: Find the second partials f_xx, f_yy, f_xy for f = x³ y². => f_xx = **6x y²**, f_yy = **2x³**, f_xy = **6x² y**.
+LVL: Level 3 | Real
+P: The area of a rectangle is A = x y. If x = 5 m and y = 3 m, find the approximate change in A for a 1 cm error in x, and for a 1 cm error in y. => A_x = y = 3 and A_y = x = 5. Error from x: **3 × 0.01 = 0.03 m²**. Error from y: **5 × 0.01 = 0.05 m²**. The shorter side matters more because it multiplies the longer one.
+LVL: Challenge | Partial derivative from the definition
+P: Use the definition to find f_y at (1, 2) for f = x y², and then check with h = 0.001. => f (1, 2 + h) − f (1, 2) = (2 + h)² − 4 = 4h + h². Dividing by h: 4 + h → **4**. With h = 0.001 the quotient is 4.001 ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: electric charge and Coulomb's law | 35 min
+
+### Charge
+Matter contains two kinds of **electric charge**, called positive and negative. Like charges **repel**, unlike charges **attract**. Charge is measured in **coulombs (C)**. Three facts you must know:
+
+- Charge is **conserved**: it is never created or destroyed, only moved.
+- Charge is **quantised**: it comes in multiples of e = **1.602 × 10⁻¹⁹ C** (the electron has −e, the proton +e).
+- Objects are normally neutral. Rubbing moves electrons from one surface to another, and the objects end up charged.
+
+BN: দুই ধরনের চার্জ: ধনাত্মক ও ঋণাত্মক। সমজাতীয় বিকর্ষণ করে, বিপরীত আকর্ষণ করে। একক কুলম্ব (C)। চার্জ সংরক্ষিত (সৃষ্টি বা ধ্বংস হয় না), কোয়ান্টায়িত (e = 1.602 × 10⁻¹⁹ C এর গুণিতক)। ঘষলে ইলেকট্রন এক পৃষ্ঠ থেকে অন্যটিতে যায়।
+
+### Coulomb's law
+For two point charges q₁ and q₂ a distance r apart, the force on each has magnitude
+
+EQ: F = k |q₁ q₂| ÷ r²     k = 8.99 × 10⁹ N m²/C² = 1 ÷ (4π ε₀)     (ε₀ = 8.85 × 10⁻¹² C²/(N m²))
+
+The force acts **along the line** joining the charges: away from each other if the charges have the same sign, towards each other if opposite.
+
+EX: First numbers
+1. **Two 1 μC charges, 10 cm apart:** F = 8.99 × 10⁹ × (10⁻⁶)² ÷ (0.1)² = 8.99 × 10⁹ × 10⁻¹² ÷ 0.01 = **0.899 N**, about the weight of a 90 g object.
+2. **Double the distance:** F falls to a quarter: **0.225 N**. Triple it: one ninth.
+3. **A hydrogen atom:** the electron and proton are 5.29 × 10⁻¹¹ m apart. F = 8.99 × 10⁹ × (1.602 × 10⁻¹⁹)² ÷ (5.29 × 10⁻¹¹)² = **8.24 × 10⁻⁸ N**. The gravitational force between them is only 3.63 × 10⁻⁴⁷ N. The ratio is **2.3 × 10³⁹**: gravity is utterly negligible inside atoms.
+4. **How big is a coulomb?** Two 1 C charges 1 m apart would repel with 8.99 × 10⁹ N, the weight of nearly a million tonnes. A coulomb is a huge amount of charge; everyday static charges are micro- or nanocoulombs.
+/EX
+
+LAB: Coulomb's law | Choose two charges (in microcoulombs) and their distance (in centimetres). The numbers give the force, and the force if the distance doubled. The graph shows how the force falls with distance for your charges (an inverse-square curve). | q1:Charge q₁ (μC):0.5:10:0.5:3 ;; q2:Charge q₂ (μC):0.5:10:0.5:3 ;; r:Distance r (cm):2:50:1:10 | 8.99e9*q1*1e-6*q2*1e-6/((r/100)^2):Force (N):3 ;; 8.99e9*q1*1e-6*q2*1e-6/((2*r/100)^2):Force at twice the distance (N):3 ;; q1*q2:Product q₁ q₂ (μC²):2 | 8.99e9*q1*1e-6*q2*1e-6/((x/100)^2) | 2,50 | 0,100
+
+### Superposition: many charges
+The force on a charge from several others is the **vector sum** of the individual forces. Coulomb forces do not interfere with each other.
+
+EX: Charges on a line
+Charges +2 μC at x = 0 and −3 μC at x = 0.2 m. A +1 μC test charge is placed:
+1. **Between them, at x = 0.1 m:** the +2 μC repels it towards +x with 8.99 × 10⁹ × 2 × 10⁻¹² ÷ 0.01 = **1.798 N**. The −3 μC attracts it also towards +x with 8.99 × 10⁹ × 3 × 10⁻¹² ÷ 0.01 = **2.697 N**. Total **4.495 N towards +x** (the forces add because they point the same way).
+2. **Beyond the negative charge, at x = 0.3 m:** from +2 μC (0.3 m away) a push of 8.99 × 10⁹ × 2 × 10⁻¹² ÷ 0.09 = **0.200 N** towards +x. From −3 μC (0.1 m away) a pull of **2.697 N** towards −x. Net: **0.200 − 2.697 = −2.497 N**, i.e. 2.50 N towards −x.
+3. **Where is the net force zero?** It must be outside the pair, on the side of the **smaller** charge: at x = −d. The two forces balance when 2 ÷ d² = 3 ÷ (d + 0.2)², so (d + 0.2) ÷ d = √1.5 = 1.2247 and d = 0.2 ÷ 0.2247 = **0.890 m**. The force is zero at x = −0.890 m (the equilibrium point is unstable).
+/EX
+
+BN: কয়েকটি চার্জের বলের ভেক্টর যোগফলই মোট বল। রেখার উপরে দুটো চার্জের মাঝখানে বলগুলো একই দিকে, তাই যোগ হয়; বাইরে বিপরীত দিকে, তাই বিয়োগ। শূন্য বলের বিন্দু ছোট চার্জের দিকে বাইরে।
+
+### Static shock: your own capacitor
+Walking on a carpet can leave your body at about **10 kV** with a capacitance of about **100 pF** (10⁻¹⁰ F). A capacitor holds Q = C V and energy ½ C V².
+
+EX: The door handle
+1. **Charge:** Q = C V = 10⁻¹⁰ × 10⁴ = **10⁻⁶ C = 1 μC**.
+2. **Energy:** ½ C V² = 0.5 × 10⁻¹⁰ × 10⁸ = **5 × 10⁻³ J = 5 mJ**: enough for a sharp sting, nowhere near dangerous.
+3. **The spark gap:** air breaks down at about 3 × 10⁶ V/m, so 10 kV jumps a gap of 10⁴ ÷ (3 × 10⁶) = **3.3 mm**. You feel the shock when your finger is still a few millimetres from the handle, and a lower voltage gives a shorter spark.
+4. **Number of electrons moved:** 10⁻⁶ ÷ 1.602 × 10⁻¹⁹ = **6.2 × 10¹² electrons**, a tiny fraction of the ~10²⁸ in your body.
+/EX
+
+LAB: Static shock | Choose the voltage of your body and its capacitance. The numbers give the charge, the energy of the spark, the largest spark gap in air (breakdown at 3 × 10⁶ V/m) and the number of electrons moved. | V:Body voltage (kV):1:20:1:10 ;; C:Capacitance (pF):50:300:10:100 | C*1e-12*V*1e3*1e6:Charge (μC):2 ;; 0.5*C*1e-12*(V*1e3)^2*1e3:Energy (mJ):2 ;; V*1e3/3e6*1000:Spark gap (mm):2 ;; C*1e-12*V*1e3/1.602e-19/1e12:Electrons moved (10¹²):1 | - | 0,1 | 0,1
+
+TRAP: Coulomb's law gives a **force vector**: the formula F = k q₁ q₂ ÷ r² gives only the **size** if you drop the signs. Decide the direction from the signs (like repel, unlike attract) and add forces as **vectors**. And remember r is the distance between the **centres** in the denominator, squared: doubling r divides F by 4, not by 2.
+
+### Quick self-check
+QUIZ:
+Q: If the distance between two charges is tripled, the force becomes…; 3 times; 1/3; 9 times; 1/9; 4; F ∝ 1/r².
+Q: The charge of a proton is…; −1.6 × 10⁻¹⁹ C; +1.6 × 10⁻¹⁹ C; 1 C; 0; 2; Equal and opposite to the electron.
+Q: Two charges repel. They must be…; of the same sign; of opposite signs; both neutral; unrelated; 1; Like charges repel.
+Q: The electrical force in a hydrogen atom compared with gravity is about…; 10 times; 10³ times; 10¹⁵ times; 10³⁹ times; 4; The ratio is 2.3 × 10³⁹.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the force between two charges of +2 μC and −2 μC, 20 cm apart. => 8.99 × 10⁹ × 4 × 10⁻¹² ÷ 0.04 = **0.899 N**, attractive.
+P: By what factor does the force change if the charges are 5 cm apart instead of 10 cm? => **4 times larger**.
+P: How many electrons make up −1 nC? => 10⁻⁹ ÷ 1.602 × 10⁻¹⁹ = **6.2 × 10⁹**.
+LVL: Level 2 | Apply
+P: Two identical charges 3 cm apart repel with 20 N. Find each charge. => q² = F r² ÷ k = 20 × 9 × 10⁻⁴ ÷ 8.99 × 10⁹ = 2.0 × 10⁻¹² and **q = 1.41 × 10⁻⁶ C = 1.41 μC**.
+P: Charges +3 μC at x = 0 and +3 μC at x = 0.4 m. Find the force on a −1 μC charge at x = 0.1 m. => From the first (0.1 m away), attraction towards −x: 8.99 × 10⁹ × 3 × 10⁻¹² ÷ 0.01 = 2.697 N. From the second (0.3 m away), attraction towards +x: 8.99 × 10⁹ × 3 × 10⁻¹² ÷ 0.09 = 0.2997 N. Net **2.397 N towards −x**.
+P: Where on the line between +4 μC and +1 μC, 0.3 m apart, is the net force on a test charge zero? => 4 ÷ x² = 1 ÷ (0.3 − x)², so 2 (0.3 − x) = x, **x = 0.2 m** from the +4 μC charge.
+P: A 5 g ball with charge q hangs in balance below an identical charge 10 cm above it. Find q. => k q² ÷ r² = m g = 0.005 × 9.8 = 0.049 N. q² = 0.049 × 0.01 ÷ 8.99 × 10⁹ = 5.45 × 10⁻¹¹ and **q = 7.4 × 10⁻⁶ C = 7.4 μC**.
+P: Find the speed of the electron in hydrogen from F = m v² ÷ r with F = 8.24 × 10⁻⁸ N, r = 5.29 × 10⁻¹¹ m and m = 9.109 × 10⁻³¹ kg. => v² = F r ÷ m = 8.24 × 10⁻⁸ × 5.29 × 10⁻¹¹ ÷ 9.109 × 10⁻³¹ = 4.785 × 10¹² and **v = 2.19 × 10⁶ m/s**, about 0.7% of the speed of light.
+P: A body at 15 kV with a capacitance of 120 pF touches a door handle. Find the charge, the energy and the longest spark. => Q = 1.8 × 10⁻⁶ C = **1.8 μC**. E = ½ × 1.2 × 10⁻¹⁰ × 2.25 × 10⁸ = **13.5 mJ**. Gap = 15,000 ÷ 3 × 10⁶ = **5 mm**.
+LVL: Level 3 | Real
+P: A thundercloud carries 20 C and is 2 km from the ground. Treating the cloud and its image charge as two point charges 4 km apart, estimate the force. Compare it with the weight of an elephant (50 kN). => F = 8.99 × 10⁹ × 400 ÷ (4000)² = **2.25 × 10⁵ N**, about 4.5 elephants.
+LVL: Challenge | Equal charges that tie up
+P: Two identical balls of mass 0.1 g hang on 20 cm threads from the same point. After charging they repel and each thread makes an angle of 10° with the vertical. Find the charge on each ball. => The separation is r = 2 × 0.2 × sin 10° = 0.0695 m. Balance: tan θ = F ÷ (m g), so F = 10⁻⁴ × 9.8 × tan 10° = 1.728 × 10⁻⁴ N. Then q² = F r² ÷ k = 1.728 × 10⁻⁴ × 4.83 × 10⁻³ ÷ 8.99 × 10⁹ = 9.28 × 10⁻¹⁷ and **q = 9.6 × 10⁻⁹ C = 9.6 nC**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Functions f (x, y): surface z = f (x, y), level curves f = c. Partial derivative f_x: differentiate in x, freeze y (slope of the slice). Mixed partials equal. Laplace: f_xx + f_yy = 0.
+- Charge: two kinds, conserved, quantised e = 1.602 × 10⁻¹⁹ C. Coulomb: F = k q₁ q₂ ÷ r², k = 8.99 × 10⁹, along the line, vector sum for many charges. Atom: electric ≈ 10³⁹ times gravity. Static shock: Q = C V, E = ½ C V², spark gap V ÷ (3 × 10⁶).
+
+BN: আজকের সারকথা: f (x, y): তল z = f, সমোন্নতি রেখা f = c। আংশিক অবকল f_x = x এ অবকল, y স্থির। মিশ্র আংশিক সমান। কুলম্ব: F = kq₁q₂/r², k = 8.99 × 10⁹; রেখা বরাবর; অনেক চার্জে ভেক্টর যোগ। পরমাণুতে বৈদ্যুতিক বল মাধ্যাকর্ষণের ≈ 10³⁹ গুণ। স্ট্যাটিক শক: Q = CV, E = ½CV²।
+
+EXIT:
+E: What is f_x at (2, 3) for f = x² y?; 12; 0.001; f_x = 2xy = 2 × 2 × 3.
+E: What is the force (N) between two 1 μC charges 10 cm apart?; 0.899; 0.001; k q² ÷ r² = 8.99 × 10⁹ × 10⁻¹² ÷ 0.01.
+E: What is the energy (mJ) stored in a body of 100 pF at 10 kV?; 5; 0.01; ½ C V² = 0.5 × 10⁻¹⁰ × 10⁸ = 5 × 10⁻³ J.
+
+**Tomorrow:** tangent planes and linear approximation, the multivariable chain rule, and the electric field.
+
+CHECK: notes

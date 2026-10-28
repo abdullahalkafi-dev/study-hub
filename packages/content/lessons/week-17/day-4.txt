@@ -1,0 +1,169 @@
+@day Week 17 · Day 4 · Thursday
+# Line integrals and conservative fields. Then: potential from the field, and the field from the potential
+lead: A line integral adds up a field along a curve: the work a force does on a moving object, the voltage drop along a path. For some fields the answer depends only on the end points, not on the road: these are conservative fields, and they have a potential. Gravity and the electric field of fixed charges are of this kind, which is why potential energy and voltage make sense at all. Friction and swirling flows are not. Today you learn to test for it, and in physics you use the link both ways: V from E by integrating, E from V by taking the gradient.
+
+BN: রেখা যোগজ কোনো বক্ররেখা বরাবর ক্ষেত্র যোগ করে: চলন্ত বস্তুর উপর বলের কাজ, পথ বরাবর ভোল্টেজ পতন। কিছু ক্ষেত্রে উত্তর শুধু শুরু ও শেষ বিন্দুর উপর নির্ভর করে, পথের উপর নয়: এগুলো সংরক্ষণশীল ক্ষেত্র, আর এদের বিভব আছে। মাধ্যাকর্ষণ ও স্থির চার্জের বৈদ্যুতিক ক্ষেত্র এই ধরনের, তাই স্থিতিশক্তি ও ভোল্টেজের অর্থ আছে। ঘর্ষণ ও ঘূর্ণি প্রবাহ নয়। আজ এটা পরীক্ষা করা শিখবে, আর পদার্থবিজ্ঞানে সম্পর্কটা দুই দিকে ব্যবহার করবে: E থেকে V যোগজ করে, V থেকে E গ্রেডিয়েন্ট নিয়ে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Find ∇f for f = x² y. => **(2xy, x²)**.
+P: How is work defined for a constant force F and displacement d? => **W = F · d**.
+P: What is the relation between the field and the potential of a point charge? => **V = kQ ÷ r**, and E = kQ ÷ r² (the slope, with a minus sign).
+P: Evaluate ∫₀^π sin² t dt. => **π/2**.
+P: State the Week 16 result about ∇f and level curves. => **∇f is perpendicular to the level curves.**
+
+CHECK: recall
+
+@section math | 2 · Math: line integrals | 55 min
+
+### Definition
+Describe a curve C by a position r (t) = (x (t), y (t)) for a ≤ t ≤ b. The **line integral of a vector field** F = (P, Q) along C is
+
+EQ: ∫_C F · dr = ∫ₐᵇ F (r (t)) · r′ (t) dt = ∫ (P dx + Q dy)
+
+It is the **work** done by the force F along the path. The integral changes sign if you go the other way. (The line integral of a scalar function, for example the mass of a wire with density λ, is ∫ λ ds with ds = |r′| dt, the arc length.)
+
+BN: বক্ররেখা C: r(t) = (x(t), y(t)), a ≤ t ≤ b। রেখা যোগজ ∫ F · dr = ∫ F(r(t)) · r′(t) dt = ∫(P dx + Q dy), মানে F বল দিয়ে পথ বরাবর কাজ। উল্টো দিকে গেলে চিহ্ন বদলায়। তারের ভর ∫λ ds (ds = |r′| dt)।
+
+EX: Work along paths
+1. **F = (y, x) from (0, 0) to (1, 1) along the straight line** r = (t, t): F = (t, t), r′ = (1, 1): F · r′ = 2t. ∫₀¹ 2t dt = **1**.
+2. **The same field along the parabola** y = x²: r = (t, t²), F = (t², t), r′ = (1, 2t): F · r′ = t² + 2t² = 3t². ∫₀¹ 3t² dt = **1**. The **same answer** along a different path.
+3. **F = (−y, x) once round the unit circle** r = (cos t, sin t), 0 ≤ t ≤ 2π: F = (−sin t, cos t), r′ = (−sin t, cos t): F · r′ = 1. The integral is **2π**: a swirl always pushes along.
+4. **The same field from (1, 0) to (−1, 0)** along the x-axis: r = (1 − 2t, 0), F = (0, 1 − 2t), r′ = (−2, 0): F · r′ = 0, so the integral is **0**; along the upper semicircle it is π. **Different answers** for different paths between the same end points.
+5. **A wire with density λ = 1 + x kg/m along the x-axis from 0 to 2:** M = ∫₀² (1 + x) dx = **4 kg**.
+/EX
+
+### Conservative fields
+A field is **conservative** if ∫ F · dr depends only on the end points. Equivalent statements:
+
+1. F = ∇f for some function f (the **potential function**), and then **∫_C F · dr = f (B) − f (A)** (the fundamental theorem for line integrals).
+2. The integral around **every closed loop** is zero.
+3. In two dimensions, for nice regions: **∂P/∂y = ∂Q/∂x** (the cross-derivatives agree, as in Week 16: f_xy = f_yx).
+
+BN: সংরক্ষণশীল ক্ষেত্র: ∫F·dr শুধু প্রান্ত বিন্দুর উপর নির্ভর করে। সমতুল্য: F = ∇f (বিভব ফাংশন), তখন ∫F·dr = f(B) − f(A); প্রতিটি বদ্ধ লুপে যোগজ শূন্য; দুই মাত্রায় ∂P/∂y = ∂Q/∂x।
+
+EX: Testing and finding potentials
+1. **F = (y, x):** ∂P/∂y = 1 = ∂Q/∂x ✓ conservative, with f = x y. (That is why both paths gave 1 = f (1, 1) − f (0, 0).)
+2. **F = (−y, x):** ∂P/∂y = −1 but ∂Q/∂x = +1 ✗ **not** conservative. The "curl" ∂Q/∂x − ∂P/∂y = **2** measures the swirl.
+3. **F = (2xy, x²):** ∂P/∂y = 2x = ∂Q/∂x ✓, f = x² y. From (0, 0) to (2, 1): f = 4 − 0 = **4**, along any path.
+4. **Finding f for F = (2xy + 3, x² − 1).** Integrate P in x: f = x² y + 3x + g (y). Differentiate in y and match Q: x² + g′ (y) = x² − 1, so g = −y. **f = x² y + 3x − y**. From (0, 0) to (1, 2): f = 2 + 3 − 2 = **3**.
+5. **Gravity near the Earth** F = (0, −m g) = ∇ (−m g y): the work from (0, 0) to (3, 4) is −m g × 4. For m = 2 kg: **−78.4 J**, whatever the path, and the potential energy is U = −f = m g y.
+6. **Friction is not conservative:** its work depends on the length of the path: a longer path wastes more energy.
+7. **A closed loop:** for F = (x², y²), ∂P/∂y = 0 = ∂Q/∂x, so the circulation around any closed curve is **0**, and f = (x³ + y³) ÷ 3 gives **3** from (0, 0) to (1, 2).
+/EX
+
+LAB: Work around a circle: conservative or swirling? | The field is F = (−a y, b x). Choose a, b and the radius R of the circle. The numbers give the curl (a + b), the work once around the circle, and the work from (R, 0) to (−R, 0) along the upper semicircle compared with along the x-axis (which is 0). They agree only when a + b = 0 (a conservative field). With a = −1 and b = 1 the field is (y, x), the one from the examples. The graph shows the circulation against R. | a:a:-2:2:0.5:1 ;; b:b:-2:2:0.5:1 ;; R:Radius R:0.5:3:0.5:1 | a+b:Curl of F (= a + b):1 ;; (a+b)*pi*R^2:Work once around the circle:3 ;; (a+b)*pi*R^2/2:Work along the upper semicircle:3 ;; 0:Work along the straight x-axis path:1 | (a+b)*pi*x^2 | 0.5,3 | -60,60
+
+TRAP: For a conservative field you may choose the **easiest path** between the end points (for example straight lines). For a non-conservative field you must follow the **given** path. The test ∂P/∂y = ∂Q/∂x works on a region without holes: the field (−y, x) ÷ (x² + y²) passes the test but circulates 2π around the origin, because of the hole at the origin. And the line integral of F · dr is a **number** (work), not a vector.
+
+### Quick self-check
+QUIZ:
+Q: For a conservative field the work around a closed loop is…; maximum; zero; 2π; infinite; 2; Only the end points matter.
+Q: F = (2xy, x²) has potential…; x y; x² y; x² + y; 2x² y; 2; f_x = 2xy and f_y = x².
+Q: F = (−y, x) is…; conservative; not conservative; zero; constant; 2; ∂P/∂y ≠ ∂Q/∂x.
+Q: The work of a conservative force from A to B equals…; f (A) − f (B) only for friction; f (B) − f (A); the path length; zero; 2; Fundamental theorem for line integrals.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∫ F · dr for the constant field F = (1, 2) from (0, 0) to (3, 1). => F · Δr = 3 + 2 = **5**.
+P: Is F = (y, x) conservative? => ∂P/∂y = 1 = ∂Q/∂x: **yes**.
+P: Find the potential function of F = (3, 4). => f = **3x + 4y**.
+LVL: Level 2 | Apply
+P: Find a potential function for F = (2x + y, x + 2y) and the integral from (0, 0) to (1, 1). => f = **x² + x y + y²**; f (1, 1) − f (0, 0) = **3**.
+P: Find the integral of F = (2xy + 3, x² − 1) from (0, 0) to (1, 2). => f = x² y + 3x − y: **3**.
+P: Find the circulation of F = (−y, x) around a circle of radius 2. => ∮ = ∬ curl dA = 2 × π × 4 = **8π = 25.1**.
+P: Find the work of gravity on a 2 kg ball moving from (0, 0) to (3, 4) (y up). => −m g Δy = −2 × 9.8 × 4 = **−78.4 J**.
+P: Is F = (x², y²) conservative? Find f and the work from (0, 0) to (1, 2). => ∂P/∂y = 0 = ∂Q/∂x: yes. f = (x³ + y³) ÷ 3: (1 + 8) ÷ 3 = **3**.
+P: Compute ∫ F · dr for F = (y, 0) along the straight line from (0, 0) to (2, 2). Is F conservative? => r = (t, t) with t from 0 to 2: F · r′ = t, ∫₀² t dt = **2**. ∂P/∂y = 1 but ∂Q/∂x = 0: **not conservative** (the work along the path (0, 0) → (2, 0) → (2, 2) is 0 + 0 = **0**, different).
+LVL: Level 3 | Real
+P: A cart moves from (0, 0) to (4, 3) under the constant force F = (3, −2) N. Find the work along any path and say why path does not matter. => F is constant so conservative (potential f = 3x − 2y): W = 3 × 4 − 2 × 3 = **6 J**.
+LVL: Challenge | The hole in the plane
+P: Show that F = (−y, x) ÷ (x² + y²) satisfies ∂P/∂y = ∂Q/∂x for (x, y) ≠ (0, 0) but has circulation 2π around the unit circle. Why does that not contradict the theorem? => ∂P/∂y = (y² − x²) ÷ (x² + y²)² = ∂Q/∂x ✓. On the unit circle F · r′ = 1, so ∮ = **2π**. The test only guarantees conservativeness when the region has **no holes**. Here the origin is missing, so you can go around it: the "potential" is the angle θ, which is not single-valued. (This is the field of a current in a wire, Week 21.)
+
+CHECK: math
+
+@section physics | 3 · Physics: potential and the field | 35 min
+
+### From field to potential
+The electric force is conservative, so the potential difference between two points is the **line integral** of the field:
+
+EQ: V (B) − V (A) = −∫_A^B E · dl
+
+and, the other way round,
+
+EQ: E = −∇V = (−∂V/∂x, −∂V/∂y, −∂V/∂z)
+
+The field points **downhill** in potential, perpendicular to the **equipotential** surfaces (V = constant), with strength equal to the steepness. (This is exactly Week 16's gradient: V plays the part of the height of a hill, and −∇V is the direction a ball would roll.) The unit V/m = N/C.
+
+BN: V(B) − V(A) = −∫E·dl এবং E = −∇V। ক্ষেত্র বিভবের ঢালের দিকে (নিচের দিকে), সমবিভব তলের সাথে লম্ব, মান = ঢালের তীব্রতা। V হলো পাহাড়ের উচ্চতা, −∇V হলো বল গড়ানোর দিক।
+
+EX: Both directions
+1. **Uniform field:** E = 5000 V/m across a gap of 2 cm: ΔV = E d = **100 V**. Between the plates V changes linearly, and equipotentials are planes parallel to the plates. A 12 V battery across a gap of 1 mm makes **12,000 V/m**.
+2. **Point charge:** V = kQ ÷ r gives E = −dV/dr = kQ ÷ r² ✓. The equipotentials are spheres.
+3. **Field from a given potential:** V = 5x² − 2xy (volts). E = −∇V = (−10x + 2y, 2x). At (1, 2): **E = (−6, 2) V/m**, |E| = **6.32 V/m**.
+4. **Infinite line (λ = 25 nC/m):** E = 2kλ ÷ r gives V (r) = −2kλ ln r + constant. The difference between r = 0.1 m and r = 0.2 m is 2kλ ln 2 = 449.5 × 0.693 = **311.6 V**. (There is no zero at infinity for an infinite line, so we measure differences.)
+5. **A ring on its axis:** V = kQ ÷ √(z² + a²). For Q = 10 nC, a = 5 cm, z = 12 cm: V = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.13 = **691.5 V**. Then E = −dV/dz = kQ z ÷ (z² + a²)^(3/2) = **4910 N/C**, exactly the value found by adding up the field pieces in Week 16, but with one derivative instead of a vector integral.
+6. **A disk on its axis:** V = (σ ÷ 2ε₀) [√(z² + R²) − z]. For σ = 1 μC/m², R = 0.1 m, z = 0.05 m: V = 56,497 × (0.1118 − 0.05) = **3492 V**, and −dV/dz = (σ ÷ 2ε₀)(1 − z ÷ √(z² + R²)) = **31,230 N/C** ✓.
+/EX
+
+LAB: A ring's potential along its axis | The potential of a ring on its axis is V = kQ ÷ √(z² + a²). Choose the charge, radius and position. The graph shows V against z (largest at the centre). The numbers give V, the field E = −dV/dz (the negative slope of the graph) and the potential at the centre. | Q:Charge Q (nC):1:20:1:10 ;; a:Ring radius a (cm):2:10:1:5 ;; z:Distance z (cm):0:30:1:12 | 8.99e9*Q*1e-9/sqrt((z/100)^2+(a/100)^2):V at z (V):1 ;; 8.99e9*Q*1e-9*(z/100)/((z/100)^2+(a/100)^2)^1.5:E = −dV/dz (V/m):0 ;; 8.99e9*Q*1e-9/(a/100):V at the centre (V):1 | 8.99e9*Q*1e-9/sqrt((x/100)^2+(a/100)^2) | 0,30 | 0,3500
+
+LAB: Field and energy between two plates | Choose the voltage and the gap. The numbers give the field E = V ÷ d, the energy an electron gains crossing the gap and its speed. The graph shows V rising linearly across the gap, the slope of which is the field. | V:Voltage (V):10:500:10:100 ;; d:Gap (mm):1:20:1:5 | V/(d/1000)/1000:Field E (kV/m):2 ;; V:Electron energy gain (eV):0 ;; sqrt(2*V*1.602e-19/9.109e-31)/1e6:Electron speed (10⁶ m/s):2 | V*x/d | 0,20 | 0,500
+
+### Conductors and equipotentials
+EX: Real potentials
+1. **A conductor is an equipotential.** A charged sphere (R = 0.1 m, Q = 10 nC) is at V = kQ ÷ R = **899 V** everywhere on and inside it. A uniformly charged **insulating** sphere has V (r ≤ R) = kQ (3R² − r²) ÷ 2R³ : at the centre 1.5 kQ ÷ R = **1349 V**, at r = 5 cm **1236 V**, at the surface **899 V**. (Derived by integrating E = kQ r ÷ R³ inwards from the surface.)
+2. **Van de Graaff generator:** a sphere of radius 15 cm at 100 kV carries Q = V R ÷ k = 10⁵ × 0.15 ÷ 8.99 × 10⁹ = **1.67 μC**. The sparks begin at V = E R = 3 × 10⁶ × 0.15 = **450 kV**.
+3. **Work along an equipotential is zero:** moving a charge along a surface of constant V costs no energy, because the field is perpendicular to the displacement (E · dl = 0).
+4. **A cell membrane:** a potential difference of 70 mV across a thickness of 7 nm gives E = 0.07 ÷ 7 × 10⁻⁹ = **10⁷ V/m**, three times the breakdown field of air. Membranes survive because they are not air, and the field is what drives the ion channels in your nerves.
+5. **A uniform field in two dimensions:** E = (100, 50) V/m. Going from (0, 0) to (3, 4): ΔV = −E · Δr = −(300 + 200) = **−500 V**.
+6. **Lightning:** a cloud base 2 km above the ground in an average field of 5 × 10⁴ V/m has ΔV = E d = **10⁸ V** relative to the ground (tomorrow's energy estimate).
+/EX
+
+TRAP: E = −∇V has a **minus sign**: the field points from high to low potential. Potential difference is **path independent** only because the electrostatic field is conservative; changing magnetic fields (Week 22) break this. And remember V = 0 is a **choice**: only differences matter, so a conductor at 899 V and the Earth at 0 V can both be "grounded" depending on where you set zero.
+
+### Quick self-check
+QUIZ:
+Q: The electric field is related to the potential by…; E = V; E = −∇V; E = ∇V; E = V²; 2; The minus sign means downhill.
+Q: Work done by the field along an equipotential is…; positive; zero; negative; infinite; 2; E · dl = 0.
+Q: Between plates 2 cm apart at 100 V the field is…; 50 V/m; 5000 V/m; 200 V/m; 2000 V/m; 2; V ÷ d.
+Q: The potential inside a charged conductor is…; zero; constant; increasing; infinite; 2; An equipotential.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field between plates 5 mm apart at 200 V. => 200 ÷ 0.005 = **40,000 V/m**.
+P: Find the potential difference when moving 0.1 m along a uniform field of 300 V/m. => **30 V** (a decrease in the field direction).
+P: Find E = −dV/dx for V = 10 − 4x. => **E = 4 V/m** in the +x direction.
+LVL: Level 2 | Apply
+P: Find the field of V = 5x² − 2xy at (1, 2). => **(−6, 2)**.
+P: Find E for V = k Q ÷ √(x² + y² + z²) at (0.1, 0, 0), Q = 1 nC. => V = 89.9 V; E_x = −∂V/∂x = k Q x ÷ r³ = 8.99 × 10⁹ × 10⁻⁹ × 0.1 ÷ 0.001 = **899 V/m**.
+P: An infinite line has λ = 10 nC/m. Find the potential difference between r = 0.05 m and r = 0.4 m. => 2kλ ln (0.4 ÷ 0.05) = 179.8 × ln 8 = **373.9 V** (the nearer point is higher).
+P: Find the potential at the centre of a ring with Q = 5 nC and a = 4 cm. => kQ ÷ a = 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.04 = **1124 V**.
+P: A Van de Graaff sphere of radius 20 cm is at 200 kV. Find the charge and the surface field. Will it spark? => Q = V R ÷ k = 2 × 10⁵ × 0.2 ÷ 8.99 × 10⁹ = **4.45 μC**. E = V ÷ R = **10⁶ V/m**, less than 3 × 10⁶: **no spark**.
+P: The potential in a region is V = 100 − 20x (volts, x in metres). Find the force on a +2 μC charge and the work as it moves from x = 0 to 3 m. => E = −dV/dx = **20 V/m**, F = q E = **4 × 10⁻⁵ N** (+x). W = q (V_A − V_B) = 2 × 10⁻⁶ × (100 − 40) = **1.2 × 10⁻⁴ J**.
+LVL: Level 3 | Real
+P: A lightning discharge moves 15 C through a potential difference of 10⁸ V. Find the energy released, also in kWh. => W = Q ΔV = 15 × 10⁸ = **1.5 × 10⁹ J**, which is **417 kWh**, about two weeks of electricity for a typical home.
+LVL: Challenge | Potential of the uniform sphere
+P: Use E = kQ r ÷ R³ inside and kQ ÷ r² outside to show that V (r) = kQ (3R² − r²) ÷ 2R³ inside. => V (R) = kQ ÷ R. Inside, V (r) = V (R) + ∫_r^R E dr′ = kQ ÷ R + (kQ ÷ R³)(R² − r²) ÷ 2 = kQ (2R² + R² − r²) ÷ 2R³ = **kQ (3R² − r²) ÷ 2R³**. At r = 0 it is 1.5 kQ ÷ R ✓.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Line integral ∫ F · dr = ∫ F (r (t)) · r′ (t) dt (work). Conservative: F = ∇f, ∫ = f (B) − f (A), zero on loops, ∂P/∂y = ∂Q/∂x (on regions without holes). The curl ∂Q/∂x − ∂P/∂y measures the swirl. Gravity conservative, friction not.
+- V (B) − V (A) = −∫ E · dl, E = −∇V (downhill, ⟂ equipotentials). Plates: E = V ÷ d. Line: ΔV = 2kλ ln (r₂ ÷ r₁). Ring: kQ ÷ √(z² + a²). Conductor: one V. Sphere: kQ ÷ R. Lightning: Q ΔV.
+
+BN: আজকের সারকথা: রেখা যোগজ = কাজ; সংরক্ষণশীল ⇔ F = ∇f ⇔ বদ্ধ লুপে 0 ⇔ ∂P/∂y = ∂Q/∂x; কার্ল ∂Q/∂x − ∂P/∂y = ঘূর্ণি। V(B) − V(A) = −∫E·dl, E = −∇V। প্লেটে E = V/d; রেখায় ΔV = 2kλ ln(r₂/r₁); বলয়ে kQ/√(z² + a²); পরিবাহী এক V; বজ্র Q ΔV।
+
+EXIT:
+E: Find the integral of F = (y, x) from (0, 0) to (1, 1) along any path.; 1; 0.01; f = x y.
+E: What is the field (kV/m) between plates 5 mm apart at 200 V?; 40; 0.1; E = V ÷ d = 200 ÷ 0.005 = 40,000 V/m.
+E: What is the potential difference (V) between r = 0.1 m and r = 0.2 m around a line with λ = 25 nC/m?; 311.6; 1; 2 k λ ln 2.
+
+**Tomorrow:** divergence and curl, the divergence theorem and Stokes' theorem, field energy and the story of lightning rods.
+
+CHECK: notes

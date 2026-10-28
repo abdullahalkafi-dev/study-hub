@@ -1,0 +1,203 @@
+@day Week 4 · Day 2 · Tuesday
+# Parabolas, ellipses and hyperbolas. Then: uniform circular motion
+lead: Slice a cone with a plane and you get a circle, an ellipse, a parabola or a hyperbola. Satellite dishes, planetary orbits and comet paths all follow these curves. In physics you meet the acceleration of something moving in a circle at constant speed, which surprisingly is not zero.
+
+BN: একটা কোনকে সমতল দিয়ে কাটলে পাওয়া যায় বৃত্ত, উপবৃত্ত, অধিবৃত্ত (parabola) বা পরাবৃত্ত (hyperbola)। স্যাটেলাইট ডিশ, গ্রহের কক্ষপথ, ধূমকেতুর পথ সবই এই বক্ররেখা। পদার্থবিজ্ঞানে দেখব বৃত্তাকার পথে ধ্রুব দ্রুতিতে ঘোরা বস্তুর ত্বরণ শূন্য নয়, এটা প্রথমে অবাক লাগে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find the centre and radius of x² + y² − 2x − 8 = 0. => (x − 1)² + y² = 9. Centre **(1, 0)**, radius **3**.
+P: Find the distance from (0, 0) to the line 5x + 12y − 26 = 0. => 26 ÷ 13 = **2**.
+P: The slope of a line perpendicular to 4x − 2y = 7 is? => Slope of the given line is 2, so **−1/2**.
+P: A 10 kg crate is pulled at constant speed by a horizontal force. μ_k = 0.5 (g = 10). Find the force. => **50 N**.
+P: What is the best pulling angle when μ = 0.5? => tan θ = 0.5, so **26.6°**.
+
+CHECK: recall
+
+@section math | 2 · Math: the three conics | 60 min
+
+### One idea behind all of them: locus
+A **locus** is the set of all points satisfying a geometric rule. Circle: points at a fixed distance from a centre. The other conics follow the same style of rule, now with two special points or a point and a line.
+
+### The parabola: equal distance to a point and a line
+A parabola is the set of points equally far from a point F (the **focus**) and a line (the **directrix**).
+
+**Derivation.** Take the focus (a, 0) and the directrix x = −a. A point (x, y) is on the parabola when √((x − a)² + y²) = x + a. Square both sides: x² − 2ax + a² + y² = x² + 2ax + a², which simplifies to:
+
+EQ: y² = 4ax     focus (a, 0)     directrix x = −a
+
+The same curve rotated gives x² = 4ay, with focus (0, a) and directrix y = −a.
+
+EX: A parabola
+1. y² = 12x: compare with 4a = 12, so a = 3.
+2. Focus (3, 0), directrix x = −3, vertex (0, 0).
+/EX
+
+EX: A satellite dish
+1. A dish is 2 m wide and 0.5 m deep. Where should the receiver go?
+2. Model it as x² = 4ay with the vertex at the origin. The rim point is (1, 0.5).
+3. 1 = 4a × 0.5, so a = 0.5. The receiver sits at the focus, **0.5 m above the vertex**.
+4. Why: every ray arriving parallel to the axis reflects to pass through the focus. That is the whole point of a dish.
+/EX
+
+### The ellipse: constant sum of distances
+An ellipse is the set of points where the **sum** of the distances to two foci is constant, equal to 2a. Pin two ends of a string at the foci, pull it taut with a pencil and draw: you get an ellipse.
+
+Standard form, centred at the origin with the foci on the x-axis:
+
+EQ: x²/a² + y²/b² = 1     with c² = a² − b², foci (±c, 0), eccentricity e = c/a
+
+**Why c² = a² − b²?** Take the top point (0, b). Its distance to each focus is √(c² + b²). The sum of the two distances equals 2a, so each equals a. Hence c² + b² = a².
+
+FUNC: An ellipse with a = 5 and b = 3 | x | y | 3*sqrt(1-x**2/25) ;; -3*sqrt(1-x**2/25) | -5,5 | -4,4 | - | The two curves are the upper and lower halves. The foci sit on the long axis at x = ±4.
+
+EX: An ellipse
+1. x²/25 + y²/9 = 1: a = 5, b = 3.
+2. c = √(25 − 9) = 4, so foci (±4, 0), and e = 4/5 = **0.8**.
+3. The longer axis is the **major axis** (length 2a = 10) and the shorter is the **minor axis** (length 2b = 6).
+/EX
+
+The **eccentricity** e measures how stretched the ellipse is: e = 0 is a circle (c = 0), and e close to 1 is very long and thin. Earth's orbit has e = 0.017, almost a perfect circle.
+
+### The hyperbola: constant difference of distances
+A hyperbola is the set of points where the **difference** of the distances to the two foci is constant, equal to 2a.
+
+EQ: x²/a² − y²/b² = 1     with c² = a² + b², foci (±c, 0), asymptotes y = ±(b/a) x
+
+**Where the asymptotes come from.** For large x and y, the "−1" becomes negligible: x²/a² − y²/b² ≈ 0, which is y = ±(b/a) x. The curve gets closer and closer to those lines without touching them.
+
+FUNC: A hyperbola with a = 4 and b = 3 | x | y | 3*sqrt(x**2/16-1) ;; -3*sqrt(x**2/16-1) ;; 0.75*x | -10,10 | -8,8 | - | The two branches open left and right. The dashed grey line shows one asymptote, y = 3x/4 (the other is y = −3x/4).
+
+EX: A hyperbola
+1. x²/16 − y²/9 = 1: a = 4, b = 3, c = √(16 + 9) = 5.
+2. Foci **(±5, 0)**, vertices (±4, 0), asymptotes **y = ±3x/4**.
+/EX
+
+BN: তিনটি কনিক: অধিবৃত্ত y² = 4ax (ফোকাস থেকে আর নিয়ামক রেখা থেকে সমান দূরত্ব), উপবৃত্ত x²/a² + y²/b² = 1 (দুই ফোকাসের দূরত্বের যোগফল ধ্রুব, c² = a² − b²), পরাবৃত্ত x²/a² − y²/b² = 1 (দূরত্বের পার্থক্য ধ্রুব, c² = a² + b²)। উৎকেন্দ্রতা e = c/a: বৃত্তে 0, উপবৃত্তে 0 থেকে 1, অধিবৃত্তে 1, পরাবৃত্তে 1 এর বেশি।
+
+### Telling them apart
+| Equation | Curve | Eccentricity |
+| x² + y² = r² | Circle | 0 |
+| x²/a² + y²/b² = 1 | Ellipse | between 0 and 1 |
+| y² = 4ax | Parabola | exactly 1 |
+| x²/a² − y²/b² = 1 | Hyperbola | greater than 1 |
+
+A quick rule: if x² and y² both appear with **the same sign**, it is a circle or ellipse. With **opposite signs**, it is a hyperbola. If only **one** of them is squared, it is a parabola.
+
+EX: Identify and describe
+1. 9x² + 4y² = 36. Divide by 36: x²/4 + y²/9 = 1. The larger denominator is under y², so the major axis is vertical, with a = 3 and b = 2.
+2. c = √(9 − 4) = √5. The foci are **(0, ±√5)**.
+/EX
+
+EX: Moving the centre
+1. (x − 2)²/9 + (y + 1)²/4 = 1 is the ellipse x²/9 + y²/4 = 1 moved to the centre (2, −1). Its foci are at (2 ± √5, −1).
+2. As with function transformations, replacing x by x − h shifts the picture right by h.
+/EX
+
+### Quick self-check
+QUIZ:
+Q: The focus of y² = 8x is…; (8, 0); (4, 0); (2, 0); (0, 2); 3; 4a = 8, so a = 2 and the focus is (2, 0).
+Q: For x²/25 + y²/16 = 1 the distance c from the centre to each focus is…; 9; 3; 41; 5; 2; c² = 25 − 16 = 9, so c = 3.
+Q: The curve x²/9 − y²/4 = 1 is…; a circle; an ellipse; a parabola; a hyperbola; 4; The minus sign between the squared terms gives a hyperbola.
+Q: The eccentricity of a circle is…; 0; 1; between 0 and 1; infinite; 1; A circle has coinciding foci, c = 0, so e = 0.
+Q: The asymptotes of x²/4 − y²/9 = 1 are…; y = ±2x/3; y = ±3x/2; y = ±4x/9; y = ±x; 2; y = ±(b/a) x = ±(3/2) x.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the focus and directrix of y² = 20x. => 4a = 20, a = 5. Focus **(5, 0)**, directrix **x = −5**.
+P: Find the foci of x²/169 + y²/144 = 1. => c² = 25, so foci **(±5, 0)**.
+P: Find the asymptotes of x²/25 − y²/144 = 1. => **y = ±(12/5) x**.
+LVL: Level 2 | Build the equation
+P: Write the equation of the parabola with vertex at the origin, opening upward, passing through (4, 2). => x² = 4ay: 16 = 8a, so a = 2. **x² = 8y**.
+P: An ellipse has foci (±3, 0) and its major axis is 10 long. Find its equation. => a = 5, c = 3, so b² = 25 − 9 = 16. **x²/25 + y²/16 = 1**.
+P: A hyperbola has vertices (±3, 0) and foci (±5, 0). Find its equation. => a = 3, c = 5, so b² = 25 − 9 = 16. **x²/9 − y²/16 = 1**.
+P: Convert x² + 4y² − 6x + 8y − 3 = 0 to standard form and identify it. => (x² − 6x + 9) + 4(y² + 2y + 1) = 3 + 9 + 4, so (x − 3)² + 4(y + 1)² = 16. Divide: (x − 3)²/16 + (y + 1)²/4 = 1. An **ellipse** with centre (3, −1), a = 4, b = 2.
+LVL: Level 3 | Real
+P: A bridge arch is a half-ellipse 20 m wide at the base and 6 m high. How high is the arch 5 m from the centre? => Equation x²/100 + y²/36 = 1. At x = 5: y² = 36 × (1 − 25/100) = 27, so y = **5.20 m**.
+LVL: Challenge | Mirror property
+P: The point P(4, 8) lies on the parabola y² = 16x. Find the focus, the distance from P to the focus and the distance from P to the directrix. Show they agree. => 4a = 16, a = 4, focus (4, 0), directrix x = −4. Distance to focus: √(0 + 64) = 8. Distance to directrix: 4 − (−4) = 8. **Both are 8** ✓, which is the defining property.
+
+CHECK: math
+
+@section physics | 3 · Physics: uniform circular motion | 30 min
+
+### Why speed stays constant but acceleration does not vanish
+**Velocity is a vector.** A ball moving around a circle at constant speed changes direction continuously, so its velocity changes, so it accelerates. By Newton's second law, something must push it toward the centre.
+
+**Derivation of a = v²/r.** In a short time Δt the ball turns through a small angle Δθ = ω Δt (ω is the angular speed in rad/s). The velocity vector keeps its length v but turns through Δθ. The change in velocity is the short chord of a circle of radius v:
+|Δv| ≈ v Δθ = v ω Δt.
+So a = |Δv| ÷ Δt = v ω. With v = ω r this gives:
+
+EQ: a = v²/r = ω² r     direction: toward the centre
+
+The links: v = ω r, ω = 2π/T (T is the period), and v = 2π r/T.
+
+BN: ধ্রুব দ্রুতিতে বৃত্তে ঘুরলেও বেগের দিক বদলায়, তাই ত্বরণ আছে। এই ত্বরণ কেন্দ্রের দিকে, মান a = v²/r = ω²r। প্রমাণের ভাবনা: ছোট সময় Δt তে বেগ ভেক্টর Δθ কোণে ঘোরে, বেগের পরিবর্তন ≈ vΔθ, তাই a = vω। এটা কোনো নতুন বল নয়: কেন্দ্রের দিকে মোট বলই কেন্দ্রমুখী বল।
+
+### Centripetal force
+EQ: F_net toward the centre = m v²/r = m ω² r
+
+"Centripetal" means centre-seeking. It is **not a new kind of force**. It is the name for whatever real forces (tension, friction, gravity, normal force) add up to point toward the centre. Never draw it as an extra arrow on a free-body diagram.
+
+EX: A ball on a string
+1. m = 0.5 kg, r = 1.2 m, v = 6 m/s, in a horizontal circle on a smooth table.
+2. Tension supplies the whole inward force: T = m v² ÷ r = 0.5 × 36 ÷ 1.2 = **15 N**.
+3. Double the speed and the tension grows four times, to 60 N.
+/EX
+
+EX: A car on a flat curve
+1. Friction is the only inward force: μ m g = m v² ÷ r gives v_max = √(μ g r).
+2. For μ = 0.6 and r = 50 m: v_max = √(0.6 × 9.8 × 50) = √294 = **17.1 m/s** (about 62 km/h).
+3. On a wet road with μ = 0.3: v_max = √147 = **12.1 m/s**. Notice the mass does not appear.
+/EX
+
+EX: A centrifuge
+1. Radius 0.1 m, spinning at 3000 revolutions per minute.
+2. ω = 3000 × 2π ÷ 60 = 314.2 rad/s.
+3. a = ω² r = 314.2² × 0.1 = **9870 m/s²**, which is about 1007 g.
+4. This large "g-force" makes heavy particles settle within minutes.
+/EX
+
+EX: The Moon
+1. The Moon orbits at about r = 3.84 × 10⁸ m with a period of 27.3 days = 2.36 × 10⁶ s.
+2. v = 2π r ÷ T = 2π × 3.84 × 10⁸ ÷ 2.36 × 10⁶ = **1022 m/s**.
+3. a = v² ÷ r = 1022² ÷ 3.84 × 10⁸ = **0.00272 m/s²**. This is about 1/3600 of g. Newton used exactly this number to show that gravity weakens with the square of distance, since the Moon is 60 times farther from Earth's centre than we are (60² = 3600). We will redo this on Thursday.
+/EX
+
+TRAP: Do not call the "centrifugal force" a real force in an inertial frame. When you feel pushed outward in a turning car, it is your inertia: your body wants to continue straight, while the car turns. Also remember that v in the formula is the **speed**, in m/s, and ω must be in rad/s.
+
+### Quick self-check
+QUIZ:
+Q: In uniform circular motion, the acceleration points…; along the velocity; opposite to the velocity; toward the centre; outward; 3; The velocity direction changes toward the centre, so the acceleration points inward.
+Q: A body moves in a circle of radius 2 m at 4 m/s. Its acceleration is…; 2 m/s²; 4 m/s²; 8 m/s²; 16 m/s²; 3; a = v²/r = 16 ÷ 2 = 8 m/s².
+Q: If the speed doubles and the radius stays the same, the needed centripetal force…; doubles; triples; quadruples; stays the same; 3; F is proportional to v².
+Q: A car turns on a flat road. The inward force is provided by…; the engine; friction; the weight; air resistance; 2; Static friction between tyres and road points to the centre.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 2 kg stone swings on a 0.8 m string at 4 m/s. Find the tension (horizontal circle, no gravity effect). => 2 × 16 ÷ 0.8 = **40 N**.
+P: A wheel of radius 0.3 m rotates at 20 rad/s. Find the speed and acceleration of a point on its rim. => v = 6 m/s, a = ω² r = 400 × 0.3 = **120 m/s²**.
+LVL: Level 2 | Apply
+P: What is the largest speed for a cyclist to take a flat curve of radius 30 m if μ = 0.4 (g = 9.8)? => √(0.4 × 9.8 × 30) = √117.6 = **10.8 m/s**.
+P: A coin sits on a turntable 0.1 m from the axis, μ_s = 0.3. At what rotation rate (revolutions per minute) does it start to slip (g = 9.8)? => ω² r = μ g, so ω² = 29.4 and ω = 5.42 rad/s. In revolutions per minute: 5.42 × 60 ÷ 2π = **51.8 rpm**.
+P: A satellite orbits at radius 7000 km with a period of 97.6 minutes. Find its speed. => T = 5856 s. v = 2π × 7 × 10⁶ ÷ 5856 = **7510 m/s**.
+LVL: Challenge | The race track
+P: A runner takes a bend of radius 25 m at 6 m/s. A 70 kg runner leans in. Find the inward force and compare it with the weight (g = 9.8). => F = 70 × 36 ÷ 25 = **100.8 N**. Weight = 686 N. The ratio is 0.147, so the runner leans at tan θ = 0.147, about **8.4°** from vertical.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Parabola y² = 4ax (focus (a, 0)). Ellipse x²/a² + y²/b² = 1 with c² = a² − b². Hyperbola x²/a² − y²/b² = 1 with c² = a² + b² and asymptotes y = ±(b/a) x. Eccentricity e = c/a.
+- Circular motion: a = v²/r = ω² r toward the centre. Centripetal force is the net inward force, not a new force.
+- Flat curve: v_max = √(μ g r).
+
+BN: আজকের সারকথা: তিন কনিকের সমীকরণ, ফোকাস, উৎকেন্দ্রতা। বৃত্তাকার গতিতে ত্বরণ a = v²/r = ω²r কেন্দ্রের দিকে। কেন্দ্রমুখী বল আলাদা বল নয়, কেন্দ্রের দিকে মোট বল। সমতল বাঁকে সর্বোচ্চ গতি √(μgr)।
+
+**Tomorrow:** the dot product of vectors, banked curves and vertical circles.
+
+CHECK: notes

@@ -1,0 +1,174 @@
+@day Week 17 · Day 2 · Tuesday
+# Double integrals over curved regions and in polar coordinates. Then: Gauss's law applied
+lead: Most regions are not rectangles. Triangles, areas between curves, and above all circles show up everywhere. For those you change the limits of integration, or better, you switch to polar coordinates where a circle is simple. The same tools give a famous result, the area under the bell curve e^(−x²). In physics, Gauss's law now earns its keep: choose a surface that matches the symmetry of the charges, and the field falls out of one line of algebra.
+
+BN: বেশিরভাগ অঞ্চল আয়তক্ষেত্র নয়। ত্রিভুজ, দুই বক্ররেখার মাঝের অঞ্চল, আর সবচেয়ে বেশি বৃত্ত সব জায়গায় আসে। এদের জন্য যোগজের সীমা বদলাতে হয়, বা আরও ভালো, পোলার স্থানাঙ্কে যেতে হয় যেখানে বৃত্ত সরল। একই হাতিয়ার ঘণ্টা-আকৃতি বক্ররেখা e^(−x²) এর নিচের ক্ষেত্রফলের বিখ্যাত ফল দেয়। পদার্থবিজ্ঞানে গাউসের সূত্র এবার কাজে লাগবে: চার্জের প্রতিসাম্যের সাথে মেলে এমন তল বেছে নাও, তাহলে এক লাইনের বীজগণিতেই ক্ষেত্র পাওয়া যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and before
+P: Evaluate ∬ x y dA over [0, 2] × [0, 3]. => **9**.
+P: State Gauss's law. => **Φ_net = Q_enclosed ÷ ε₀**.
+P: What are polar coordinates? => **x = r cos θ, y = r sin θ**.
+P: Evaluate ∫₀¹ r³ dr. => **1/4**.
+P: What is the area of a circle of radius R? => **π R²**.
+
+CHECK: recall
+
+@section math | 2 · Math: general regions and polar coordinates | 55 min
+
+### Non-rectangular regions
+For a region between two curves, let the **inner limits depend on the outer variable**. For a region described as a ≤ x ≤ b and g₁ (x) ≤ y ≤ g₂ (x):
+
+EQ: ∬_R f dA = ∫ₐᵇ [ ∫_{g₁(x)}^{g₂(x)} f (x, y) dy ] dx
+
+Always **sketch the region** first: it tells you the limits.
+
+EX: Triangles and curved regions
+1. **A triangle 0 ≤ y ≤ x, 0 ≤ x ≤ 2:** ∬ x y dA = ∫₀² x [ y²/2 ]₀ˣ dx = ∫₀² x³/2 dx = (1/2)(16/4) = **2**. The area of this triangle is ∫₀² x dx = **2**.
+2. **Between y = x² and y = x** (for 0 ≤ x ≤ 1, where x² ≤ x): area = ∫₀¹ (x − x²) dx = 1/2 − 1/3 = **1/6**. ∬ x dA = ∫₀¹ x (x − x²) dx = 1/3 − 1/4 = 1/12, so the x-coordinate of the centroid is (1/12) ÷ (1/6) = **0.5**.
+3. **Under a parabola** 0 ≤ y ≤ x², 0 ≤ x ≤ 1: ∬ (x + y) dA = ∫₀¹ [x y + y²/2]₀^(x²) dx = ∫₀¹ (x³ + x⁴/2) dx = 1/4 + 1/10 = **0.35**.
+4. **The triangle with corners (0, 0), (1, 0), (0, 1):** 0 ≤ y ≤ 1 − x. ∬ y dA = ∫₀¹ (1 − x)²/2 dx = **1/6**. Divided by the area 1/2 this gives the centroid height ȳ = **1/3**.
+/EX
+
+### Polar coordinates
+For a disk or a part of one, use x = r cos θ and y = r sin θ. The tiny patch of area is a little rectangle of width dr and length r dθ:
+
+EQ: dA = r dr dθ     (do not forget the extra r)
+
+EX: Polar integrals
+1. **Area of a disk of radius R:** ∫₀^{2π} ∫₀^R r dr dθ = 2π × R²/2 = **π R²** ✓. For R = 3: **28.27**.
+2. **∬ (x² + y²) dA over the unit disk:** x² + y² = r². ∫₀^{2π} ∫₀¹ r² · r dr dθ = 2π × 1/4 = **π/2 = 1.571**.
+3. **A quarter disk (x, y ≥ 0, r ≤ 1), f = x y:** x y = r² cos θ sin θ. ∫₀^{π/2} cos θ sin θ dθ × ∫₀¹ r³ dr = (1/2)(1/4) = **1/8**.
+4. **Volume under a paraboloid** z = 4 − x² − y² = 4 − r² above z ≥ 0 (r ≤ 2): V = ∫₀^{2π} ∫₀² (4 − r²) r dr dθ = 2π [2r² − r⁴/4]₀² = 2π (8 − 4) = **8π = 25.13**.
+5. **The hemisphere** z = √(1 − r²): V = 2π ∫₀¹ r √(1 − r²) dr = 2π × 1/3 = **2π/3 = 2.094** (half of 4π/3 ✓).
+6. **Half-disk centroid:** for a half-disk of radius R: ∬ y dA = ∫₀^π sin θ dθ ∫₀^R r² dr = 2 R³/3. The area is π R²/2, so **ȳ = 4R ÷ 3π = 0.424 R**.
+/EX
+
+BN: পোলারে x = r cos θ, y = r sin θ, এবং dA = r dr dθ (বাড়তি r ভুলো না)। বৃত্তের ক্ষেত্রফল ∫∫ r dr dθ = πR²। ইউনিট ডিস্কে ∬(x² + y²) = π/2। অর্ধবৃত্তের ভরকেন্দ্র 4R/3π।
+
+LAB: A plate in polar coordinates | A circular plate of radius R whose density falls from σ₀ at the centre to zero at the rim: σ = σ₀ (1 − r/R). The graph shows the density against r. The numbers give the mass of the tapered plate (πσ₀R²/3), the mass of a uniform plate with the same σ₀, and the moment of inertia of the tapered plate about its axis (I = 3 M R²/10, by integrating r² σ dA). | R:Radius R (cm):10:50:5:30 ;; s0:Central density σ₀ (kg/m²):1:20:1:6 | s0*pi*(R/100)^2/3:Tapered mass (kg):3 ;; s0*pi*(R/100)^2:Uniform-density mass (kg):3 ;; 0.3*(s0*pi*(R/100)^2/3)*(R/100)^2:Moment of inertia (kg m²):5 | s0*(1-x/R) | 0,50 | 0,20
+
+### The Gaussian integral
+EX: The area under e^(−x²)
+1. Let I = ∫_{−∞}^{∞} e^(−x²) dx. This has no elementary antiderivative. But I² = ∬ e^(−x²−y²) dA over the whole plane.
+2. In polar coordinates: I² = ∫₀^{2π} ∫₀^∞ e^(−r²) r dr dθ = 2π × [−e^(−r²)/2]₀^∞ = 2π × 1/2 = **π**.
+3. So **I = √π = 1.7725**. This number sits behind the normal distribution (Week 25): the density e^(−x²/2) ÷ √(2π) integrates to 1.
+4. **A disk of the same function:** ∬ e^(−r²) dA over r ≤ 1 = π (1 − e⁻¹) = **1.986**, already 63% of the total π. And ∬ 1 ÷ (1 + r²) dA over the unit disk = 2π × ½ ln 2 = π ln 2 = **2.178**.
+/EX
+
+TRAP: In polar coordinates the area element is **r dr dθ**, not dr dθ: forgetting the r is the most common mistake. The limits must describe the **same region**: a full disk is 0 ≤ θ ≤ 2π and 0 ≤ r ≤ R; a quarter disk is 0 ≤ θ ≤ π/2. And when you use limits that depend on x for the inner integral, the outer limits must be plain numbers.
+
+### Quick self-check
+QUIZ:
+Q: In polar coordinates dA equals…; dr dθ; r dr dθ; r² dr dθ; dr; 2; The patch is r dθ long and dr wide.
+Q: The integral of e^(−x²) over the whole line is…; 1; π; √π; 2π; 3; Using polar coordinates for its square.
+Q: ∬ (x² + y²) dA over the unit disk is…; π; π/2; π/4; 2π; 2; ∫ r³ dr = 1/4, times 2π.
+Q: The area of a disk of radius R from the double integral is…; π R; π R²; 2π R; 4π R²; 2; ∫∫ r dr dθ.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the area of the triangle 0 ≤ y ≤ x, 0 ≤ x ≤ 2 by a double integral. => ∫₀² x dx = **2**.
+P: Evaluate ∬ x dA over 0 ≤ y ≤ x, 0 ≤ x ≤ 1. => ∫₀¹ x · x dx = **1/3**.
+P: Find the area of a disk of radius 2 in polar coordinates. => 2π × 2 = **4π = 12.57**.
+LVL: Level 2 | Apply
+P: Evaluate ∬ (x + y) dA over 0 ≤ y ≤ x², 0 ≤ x ≤ 1. => **0.35**.
+P: Find the centroid height of the triangle with corners (0, 0), (1, 0), (0, 1). => ∬ y dA = 1/6, area 1/2, **ȳ = 1/3**.
+P: Evaluate ∬ e^(−(x² + y²)) dA over the unit disk. => **π (1 − e⁻¹) = 1.986**.
+P: Find the volume under z = 4 − x² − y² above z = 0. => **8π = 25.1**.
+P: Find ∬ x y dA over the quarter disk of radius 2 (x, y ≥ 0). => ∫₀^{π/2} cos θ sin θ dθ × ∫₀² r³ dr = (1/2)(4) = **2**.
+P: Find the mass of a disk of radius 0.5 m with density σ = 3 (1 − r/0.5) kg/m². => (π/3) σ₀ R² = π × 3 × 0.25 ÷ 3 = **0.785 kg**.
+P: Evaluate ∬ 1 ÷ (1 + x² + y²) dA over the unit disk. => 2π ∫₀¹ r ÷ (1 + r²) dr = 2π × ½ ln 2 = **2.178**.
+LVL: Level 3 | Real
+P: A uniform disk (M = 2 kg, R = 0.3 m) has I = ∬ r² σ dA with σ = M ÷ π R². Find I. => σ ∫₀^{2π} ∫₀^R r³ dr dθ = σ × 2π R⁴/4 = (M ÷ π R²) × π R⁴/2 = **½ M R² = 0.09 kg m²**.
+LVL: Challenge | The area under the bell curve from the plane
+P: Use the Gaussian integral to show ∫_{−∞}^{∞} e^(−x²/2) dx = √(2π), and normalise the density p (x) = e^(−x²/2) ÷ √(2π). => Substitute u = x ÷ √2 (dx = √2 du): ∫ e^(−u²) √2 du = √2 × √π = **√(2π)**. So dividing by √(2π) makes the total probability **1**. This is the standard normal density.
+
+CHECK: math
+
+@section physics | 3 · Physics: Gauss's law at work | 35 min
+
+### The method
+Gauss's law always holds, but it only **helps** when the symmetry lets you pull E out of the integral. Choose a **Gaussian surface** where E is constant in size and either perpendicular to the surface (Φ = E A) or parallel to it (Φ = 0). The three symmetries:
+
+- **Spherical:** a sphere of radius r, A = 4π r².
+- **Cylindrical:** a cylinder of radius r and length L, side area 2π r L.
+- **Planar:** a pillbox with two faces of area A.
+
+BN: গাউসের সূত্র সবসময় সত্য, কিন্তু প্রতিসাম্য থাকলেই কাজে লাগে: এমন গাউসীয় তল নাও যেখানে E এর মান স্থির এবং তলের লম্ব (Φ = EA) বা সমান্তরাল (Φ = 0)। তিন প্রতিসাম্য: গোলক (A = 4πr²), নলাকার (2πrL), সমতল (পিলবক্স)।
+
+EX: Four standard results
+1. **Point charge or sphere outside:** E (4π r²) = Q ÷ ε₀ gives **E = kQ ÷ r²**.
+2. **Infinite line, charge λ per metre:** a cylinder of radius r and length L encloses λ L. The ends have no flux (E is radial). E (2π r L) = λ L ÷ ε₀ gives **E = λ ÷ (2π ε₀ r) = 2 k λ ÷ r**. For λ = 25 nC/m at r = 0.1 m: **4496 N/C**, the same as last week's long integral (Week 16 Day 3), now in one line.
+3. **Infinite sheet, σ per area:** a pillbox with area A on each side encloses σ A. The two faces each give E A: 2 E A = σ A ÷ ε₀ gives **E = σ ÷ 2ε₀**. For a conductor, the field is on one side only: **σ ÷ ε₀**.
+4. **Thin spherical shell, total charge Q:** outside **E = kQ ÷ r²**; inside **E = 0** (a sphere inside encloses no charge).
+/EX
+
+### A uniformly charged sphere
+Charge Q spread evenly through a solid sphere of radius R (an insulator). Inside, a Gaussian sphere of radius r < R encloses only the charge Q (r³ ÷ R³):
+
+EQ: E (r < R) = k Q r ÷ R³     E (r ≥ R) = k Q ÷ r²
+
+EX: Inside and outside
+For Q = 10 nC and R = 10 cm:
+1. **Inside at r = 5 cm:** E = 8.99 × 10⁹ × 10⁻⁸ × 0.05 ÷ 0.001 = **4495 N/C** (half the surface field: it grows linearly).
+2. **At the surface (r = 10 cm):** E = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.01 = **8990 N/C**, the largest value.
+3. **Outside at r = 20 cm:** E = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.04 = **2248 N/C**. At the centre E = 0.
+4. **A nucleus:** a gold nucleus has charge 79e and radius about 7 × 10⁻¹⁵ m. At its surface E = 8.99 × 10⁹ × 79 × 1.602 × 10⁻¹⁹ ÷ (7 × 10⁻¹⁵)² = **2.3 × 10²¹ N/C**: the strongest fields in ordinary matter.
+5. **A coaxial cable:** the inner wire (radius 1 mm) carries λ = +10 nC/m and the outer shield (radius 5 mm) carries −λ. Between them E = 2kλ ÷ r = 179.8 ÷ r: at r = 2 mm **E = 89,900 N/C**. Outside the cable E = 0 (the net enclosed charge is zero), which is why coax cables do not interfere with their neighbours. The voltage between the conductors is 2kλ ln (5 mm ÷ 1 mm) = 179.8 × ln 5 = **289 V**.
+/EX
+
+LAB: Field of a charged sphere | An insulating sphere of radius R with total charge Q spread evenly. The graph shows the field against the distance r: it rises linearly inside, peaks at the surface and then falls as 1 ÷ r². Choose a distance to read the field. | Q:Charge Q (nC):1:50:1:10 ;; R:Radius R (cm):5:20:1:10 ;; r:Distance r (cm):1:50:1:15 | (r<R)*8.99e9*Q*1e-9*(r/100)/((R/100)^3)+(r>=R)*8.99e9*Q*1e-9/((r/100)^2):Field E (N/C):0 ;; 8.99e9*Q*1e-9/((R/100)^2):Peak field at the surface (N/C):0 | (x<R)*8.99e9*Q*1e-9*(x/100)/((R/100)^3)+(x>=R)*8.99e9*Q*1e-9/((x/100)^2) | 1,50 | 0,30000
+
+EX: Planes and the Earth
+1. **A parallel-plate capacitor:** two sheets with +σ and −σ: between them the fields add to **σ ÷ ε₀**; outside they cancel to zero. For σ = 5 × 10⁻⁷ C/m²: E = 5.65 × 10⁴ N/C.
+2. **The Earth's field:** E = 100 N/C downward means a surface density σ = ε₀ E = 8.85 × 10⁻¹² × 100 = **8.85 × 10⁻¹⁰ C/m²** (negative), about one electron per 180 square micrometres.
+3. **Gauss's law needs symmetry:** a cube of charge or a short rod has no symmetric surface, so Gauss's law is still true there but cannot be used to find E: use superposition (last week) instead.
+/EX
+
+TRAP: Choose the surface to match the **symmetry** of the charge. Only the charge **inside** your Gaussian surface counts, but the **field** at the surface comes from **all** charges (inside and outside). The infinite-line and infinite-plane results are idealisations: use them only when the distance is small compared with the size of the object.
+
+### Quick self-check
+QUIZ:
+Q: The field of an infinite line charge falls as…; 1/r²; 1/r; constant; 1/r³; 2; E = λ ÷ (2π ε₀ r).
+Q: Inside a uniformly charged solid sphere the field…; is zero; grows linearly with r; falls as 1/r²; is constant; 2; E = kQr ÷ R³.
+Q: The field inside a thin charged spherical shell is…; kQ/R²; zero; infinite; σ/ε₀; 2; No enclosed charge.
+Q: The field of an infinite sheet depends on the distance…; as 1/r; as 1/r²; not at all; linearly; 3; E = σ ÷ 2ε₀.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field of an infinite line with λ = 5 nC/m at 0.2 m. => 2 × 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.2 = **449.5 N/C**.
+P: Find the field outside a sphere of 4 nC at 30 cm. => 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.09 = **399.6 N/C**.
+P: What is the field inside a thin shell of charge 10 nC? => **0**.
+LVL: Level 2 | Apply
+P: A solid insulating sphere (R = 5 cm, Q = 2 nC): find E at r = 2 cm and r = 8 cm. => Inside: 8.99 × 10⁹ × 2 × 10⁻⁹ × 0.02 ÷ 1.25 × 10⁻⁴ = **2877 N/C**. Outside: 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.0064 = **2809 N/C**.
+P: An infinite sheet has σ = 3 × 10⁻⁶ C/m². Find E and the force on a 2 nC charge. => E = 3 × 10⁻⁶ ÷ 1.77 × 10⁻¹¹ = **1.69 × 10⁵ N/C**; F = 2 × 10⁻⁹ × 1.69 × 10⁵ = **3.4 × 10⁻⁴ N**.
+P: A long wire carries λ = 2 nC/m. At what distance is E = 100 N/C? => r = 2kλ ÷ E = 2 × 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 100 = **0.36 m**.
+P: A spherical shell of radius 10 cm carries 6 nC with a point charge −2 nC at its centre. Find the field at 5 cm and at 20 cm. => At 5 cm only the −2 nC is enclosed: E = 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.0025 = **7192 N/C inward**. At 20 cm the enclosed charge is +4 nC: E = 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.04 = **899 N/C outward**.
+P: A cylinder of length 0.5 m and radius 4 cm surrounds part of a line with λ = 8 nC/m. Find the flux through it. => Φ = λ L ÷ ε₀ = 8 × 10⁻⁹ × 0.5 ÷ 8.85 × 10⁻¹² = **452 N m²/C**.
+P: A charged conducting plate has a surface charge density σ = 4 × 10⁻⁷ C/m² on one face. Find the field just outside that face. => E = σ ÷ ε₀ = 4 × 10⁻⁷ ÷ 8.85 × 10⁻¹² = **4.5 × 10⁴ N/C**.
+LVL: Level 3 | Real
+P: A power line can be modelled as a long wire at 100 kV with a radius of 1 cm, 10 m above the ground. Treat the near-wire field as that of a line charge with E = 2kλ ÷ r. If the surface field must stay below the breakdown value 3 × 10⁶ V/m, find the largest charge per length λ that the wire can carry. => λ_max = E r ÷ 2k = 3 × 10⁶ × 0.01 ÷ (2 × 8.99 × 10⁹) = **1.67 × 10⁻⁶ C/m**. This is the corona limit: real lines use bundles of conductors to reduce the surface field.
+LVL: Challenge | The field inside a hollow shell
+P: A spherical shell of radius R has uniform charge Q. Prove that the field inside is zero using Gauss's law, and explain what changes if the charge is on a thick shell of inner radius a and outer radius b. => A Gaussian sphere of radius r < R encloses no charge, and by symmetry E is radial and uniform on it, so E (4π r²) = 0 and **E = 0**. For a thick shell with uniform volume density, inside a < r < b the enclosed charge is Q (r³ − a³) ÷ (b³ − a³) and E = k Q (r³ − a³) ÷ [(b³ − a³) r²]; for r < a still **E = 0**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Non-rectangular regions: inner limits depend on the outer variable (sketch first). Polar: dA = r dr dθ. Disk area πR², ∬ r² dA = π/2 (unit disk). Gaussian ∫ e^(−x²) dx = √π. Disk I = ½ MR². Half-disk centroid 4R ÷ 3π.
+- Gauss's law with symmetry: sphere E = kQ ÷ r² (outside), kQr ÷ R³ (inside a uniform sphere), zero inside a shell; line E = 2kλ ÷ r; sheet σ ÷ 2ε₀; conductor σ ÷ ε₀. Coax cable: E = 2kλ ÷ r between conductors, 0 outside.
+
+BN: আজকের সারকথা: বক্র অঞ্চলে ভিতরের সীমা বাইরের চলকের উপর নির্ভর করে; পোলারে dA = r dr dθ; বৃত্তের ক্ষেত্রফল πR²; ∫e^(−x²)dx = √π; চাকতির I = ½MR²। প্রতিসাম্যে গাউস: গোলক kQ/r², সুষম গোলকের ভিতরে kQr/R³, খোলকের ভিতরে 0; রেখা 2kλ/r; পাত σ/2ε₀; পরিবাহী σ/ε₀।
+
+EXIT:
+E: What is ∬ (x² + y²) dA over the unit disk, divided by π?; 0.5; 0.01; π/2 ÷ π.
+E: What is the field (N/C) at r = 5 cm inside a uniform sphere with Q = 10 nC and R = 10 cm?; 4495; 5; k Q r ÷ R³.
+E: What is the field (N/C) of an infinite line with λ = 25 nC/m at 0.1 m?; 4495; 5; 2 k λ ÷ r.
+
+**Tomorrow:** triple integrals, cylindrical and spherical coordinates, and electric potential and energy.
+
+CHECK: notes

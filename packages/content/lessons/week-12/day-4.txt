@@ -1,0 +1,210 @@
+@day Week 12 · Day 4 · Thursday
+# Roots of polynomials, e^z and complex logarithms. Then: viscosity and turbulence
+lead: Today the complex numbers become a full toolbox. Every polynomial factors completely over them, the exponential function e^z unifies growth, decay and oscillation in a single formula, and even the logarithm of a negative number makes sense. In physics, you meet the friction inside a fluid, viscosity, and the dramatic change from smooth laminar to chaotic turbulent flow.
+
+BN: আজ জটিল সংখ্যা পূর্ণাঙ্গ যন্ত্রপাতি হয়ে উঠবে। প্রতিটি বহুপদী জটিল সংখ্যায় সম্পূর্ণ উৎপাদকে ভাঙা যায়, e^z একটা সূত্রেই বৃদ্ধি, ক্ষয় ও দোলনকে একসাথে ধরে, আর ঋণাত্মক সংখ্যার লগারিদমও অর্থপূর্ণ হয়। পদার্থবিজ্ঞানে তরলের ভেতরের ঘর্ষণ (সান্দ্রতা) এবং মসৃণ (laminar) প্রবাহ থেকে বিশৃঙ্খল (turbulent) প্রবাহে রূপান্তর শিখবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find abs(Z) for Z = 3 + 4i. => **5**.
+P: What is the reactance of a 0.1 H inductor at ω = 200? => **20 Ω**.
+P: State the continuity equation. => **A₁ v₁ = A₂ v₂**.
+P: State Bernoulli's equation. => **P + ½ρv² + ρgh = constant**.
+P: Find the speed of water from a hole 5 m below the surface. => **9.9 m/s**.
+
+CHECK: recall
+
+@section math | 2 · Math: polynomials and e^z | 55 min
+
+### The Fundamental Theorem of Algebra
+Every polynomial of degree n ≥ 1 with complex coefficients has **exactly n complex roots**, counted with multiplicity. So it factors completely:
+
+EQ: aₙ zⁿ + … + a₀ = aₙ (z − r₁)(z − r₂) … (z − rₙ)
+
+You never need numbers beyond the complex ones. Two consequences you will use:
+
+1. For real coefficients, non-real roots come in **conjugate pairs**, so an odd-degree real polynomial always has at least one real root.
+2. **Vieta's formulas:** for z² + b z + c: r₁ + r₂ = −b and r₁ r₂ = c. In general the sum of roots is −aₙ₋₁ ÷ aₙ and the product is (−1)ⁿ a₀ ÷ aₙ.
+
+BN: বীজগণিতের মূল উপপাদ্য: n ঘাতের প্রতিটি বহুপদীর ঠিক n টা জটিল মূল আছে (পুনরাবৃত্তিসহ)। বাস্তব সহগে অবাস্তব মূল অনুবন্ধী জোড়ায় আসে, তাই বিজোড় ঘাতে অন্তত একটা বাস্তব মূল থাকবেই। ভিয়েতা: z² + bz + c এর মূলের যোগফল −b, গুণফল c।
+
+EX: Factoring
+1. z³ − 1 = (z − 1)(z² + z + 1). Roots: **1** and (−1 ± i√3) ÷ 2 (the cube roots of unity).
+2. z⁴ − 16 = (z² − 4)(z² + 4): roots **±2** and **±2i**.
+3. z³ − 3z² + 7z − 5 has roots 1 and 1 ± 2i: (z − 1)(z² − 2z + 5) = z³ − 2z² + 5z − z² + 2z − 5 = z³ − 3z² + 7z − 5 ✓. Vieta: sum = 1 + 2 = 3 ✓, product = 1 × 5 = 5 ✓.
+4. For z² − 4z + 13 (roots 2 ± 3i): sum 4 ✓, product 4 + 9 = 13 ✓.
+/EX
+
+LAB: Roots of a quadratic | The quadratic is z² + b z + c with c large enough that the roots are complex. The numbers show the roots −b/2 ± i·√(4c − b²)/2, and their product c equals the squared modulus, because the roots are conjugates. | b:Coefficient b:-6:6:1:-4 ;; c:Coefficient c:10:20:1:13 | -b/2:Real part of the roots:2 ;; sqrt(4*c-b^2)/2:Imaginary part (±):3 ;; sqrt(c):Modulus of each root:3 ;; c:Product of roots (= modulus squared):0 | - | 0,1 | 0,1
+
+### The complex exponential
+Define e^z for z = x + i y by
+
+EQ: e^(x + i y) = e^x (cos y + i sin y)
+
+Its modulus is e^x and its argument is y. It satisfies the usual rules: e^(z + w) = e^z e^w, and d/dz e^z = e^z. The big new fact: e^z is **periodic**, with period 2πi, since e^(z + 2πi) = e^z.
+
+EX: Evaluating
+1. e^(iπ) = −1 and e^(2πi) = 1.
+2. e^(1 + iπ/2) = e × i = **2.718 i**.
+3. e^(−0.5 + 3i): modulus e^(−0.5) = **0.6065**, argument **3 rad** (171.9°).
+4. Solve e^z = −1: modulus e^x = 1 so x = 0, and y = π + 2πk. So **z = iπ(2k + 1)**: infinitely many solutions.
+/EX
+
+### Why this matters: damped oscillations
+The function x(t) = Re e^((−γ + iω) t) = e^(−γ t) cos(ω t) is exactly a damped oscillation: the real part of the exponent gives decay, the imaginary part gives oscillation. In Weeks 15 and 16 this will solve differential equations.
+
+EX: A damped wave
+1. z = (−0.5 + 3 i) t. At t = 2: e^(−1) = 0.3679 and the angle is 6 rad.
+2. x(2) = 0.3679 × cos 6 = 0.3679 × 0.9602 = **0.353**.
+3. The envelope e^(−0.5 t) halves every ln 2 ÷ 0.5 = **1.386 s**.
+/EX
+
+LAB: e^(st) with a complex s | The exponent is s = σ + iω. The real part σ controls growth (positive) or decay (negative), and ω the oscillation. The graph shows the real part of e^(st), which is e^(σt) cos(ωt). | s:Growth rate σ:-1:0.3:0.1:-0.3 ;; w:Frequency ω (rad/s):1:10:1:4 ;; t:Time t (s):0:8:0.5:2 | exp(s*t):Envelope e^(σt):3 ;; exp(s*t)*cos(w*t):Real part at time t:3 ;; 6.2832/w:Period (s):3 | exp(s*x)*cos(w*x) | 0,8 | -2,3
+
+### The complex logarithm
+Since e^(ln r + iθ) = r e^(iθ), we define
+
+EQ: ln z = ln r + i (θ + 2πk)
+
+It is many-valued because θ is only defined up to 2π. The **principal value** takes −π < θ ≤ π.
+
+EX: Logarithms of "impossible" numbers
+1. ln(−1) = ln 1 + iπ = **iπ**. And ln(i) = **iπ/2**.
+2. ln(−e) = 1 + iπ.
+3. **i^i:** i^i = e^(i ln i) = e^(i × iπ/2) = e^(−π/2) = **0.2079**, a real number!
+4. Check by reversing: ln(i^i) = i ln i = −π/2 ✓.
+/EX
+
+EX: Trig functions as exponentials
+1. cos θ = (e^(iθ) + e^(−iθ)) ÷ 2 and sin θ = (e^(iθ) − e^(−iθ)) ÷ 2i.
+2. With θ = i y: cos(i y) = (e^(−y) + e^(y)) ÷ 2 = cosh y. So cos(2i) = cosh 2 = **3.762**, which exceeds 1. Cosine is unbounded over the complex numbers.
+/EX
+
+BN: e^(x+iy) = e^x(cos y + i sin y): দৈর্ঘ্য e^x, কোণ y। e^z এর পর্যায়কাল 2πi। e^((−γ+iω)t) এর বাস্তব অংশ e^(−γt)cos ωt, অর্থাৎ ক্ষয়িষ্ণু দোলন। ln z = ln r + iθ (বহুমান)। ln(−1) = iπ, আর i^i = e^(−π/2) ≈ 0.2079, একটা বাস্তব সংখ্যা।
+
+TRAP: ln z is **many-valued**, so rules such as ln(z²) = 2 ln z can fail by multiples of 2πi. Also, e^z has no real-looking "growth only" behaviour: its real part can oscillate wildly. And a polynomial of degree n has n roots **counted with multiplicity**: (z − 1)² has the root 1 twice.
+
+### Quick self-check
+QUIZ:
+Q: How many complex roots does a polynomial of degree 7 have?; 3; 7; 14; at most 7 real; 2; Counted with multiplicity.
+Q: e^(iπ) + 1 equals…; 0; 2; −1; i; 1; e^(iπ) = −1.
+Q: ln(−1) equals…; undefined; iπ; −1; 0; 2; ln r + iθ with r = 1 and θ = π.
+Q: The modulus of e^(−0.5 + 3i) is…; 3; 0.5; 0.6065; 1; 3; e^(−0.5).
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find e^(iπ/2). => cos 90° + i sin 90° = **i**.
+P: Factor z² + 9 completely. => **(z − 3i)(z + 3i)**.
+P: Find the sum and product of the roots of z² − 6z + 25. => Sum **6**, product **25** (the roots are 3 ± 4i).
+LVL: Level 2 | Apply
+P: Find the modulus and argument of e^(2 + i π/3). => Modulus **e² = 7.389**, argument **π/3** (60°).
+P: Solve e^z = i. => Modulus 1 so x = 0, and y = π/2 + 2πk. **z = i (π/2 + 2πk)**.
+P: Factor z⁴ − 1 over the complex numbers. => (z − 1)(z + 1)(z − i)(z + i).
+P: Find ln(1 + i). => r = √2, θ = π/4. ln z = **0.3466 + 0.7854 i**.
+P: A damped oscillation is x = e^(−0.2 t) cos(5 t). Find x at t = 1, and the time for the envelope to fall to 10%. => x(1) = 0.8187 × cos 5 = 0.8187 × 0.2837 = **0.232**. Envelope: e^(−0.2 t) = 0.1, t = ln 10 ÷ 0.2 = **11.5 s**.
+LVL: Level 3 | Real
+P: A signal has the form A e^(−t ÷ τ) cos(ω t) with τ = 2 ms and ω = 6283 rad/s (1 kHz). How many full oscillations occur before the amplitude falls to 1% of A? => Time = τ ln 100 = 0.002 × 4.605 = 9.21 ms. Period = 1 ms, so about **9 full oscillations**.
+LVL: Challenge | A neat identity
+P: Use De Moivre or Euler to prove sin 3θ = 3 sin θ − 4 sin³θ, and use it to find sin 18°. => From (cos θ + i sin θ)³, the imaginary part is 3 cos²θ sin θ − sin³θ = 3 sin θ (1 − sin²θ) − sin³θ = 3 sin θ − 4 sin³θ. Now 3 × 18° = 54° and 2 × 18° = 36°, so 54° = 90° − 36°. Then sin 54° = cos 36°. Let s = sin 18°. We have cos 36° = 1 − 2 s² and sin 54° = 3 s − 4 s³. So 3 s − 4 s³ = 1 − 2 s², i.e. 4 s³ − 2 s² − 3 s + 1 = 0. Factor: (s − 1)(4 s² + 2 s − 1) = 0, and s ≠ 1, so s = (−2 + √(4 + 16)) ÷ 8 = (−1 + √5) ÷ 4 = **0.309**.
+
+CHECK: math
+
+@section physics | 3 · Physics: viscosity and turbulence | 35 min
+
+### Viscosity: friction inside a fluid
+Bernoulli ignored friction. Real fluids resist flow: layers moving at different speeds drag on each other. The **viscosity** η (Pa·s) measures this.
+
+| Fluid | η (Pa·s) |
+| Air | 1.8 × 10⁻⁵ |
+| Water (20 °C) | 1.0 × 10⁻³ |
+| Blood | 3.5 × 10⁻³ |
+| Olive oil | 0.08 |
+| Glycerine | 1.4 |
+| Honey | about 10 |
+
+BN: সান্দ্রতা η হলো তরলের ভেতরের ঘর্ষণ। বিভিন্ন বেগের স্তরগুলো একে অপরকে টানে। পানির η = 10⁻³, মধুর প্রায় 10, বাতাসের 1.8 × 10⁻⁵ Pa·s।
+
+### Poiseuille's law: flow in a pipe
+For smooth (laminar) flow of a viscous fluid in a pipe of radius r and length L under a pressure difference ΔP:
+
+EQ: Q = π r⁴ ΔP ÷ (8 η L)
+
+The huge result is the **fourth power** of the radius: the speed profile is a parabola, with the fluid at the wall at rest, and flow is dominated by the centre.
+
+EX: Flow in a tube
+1. Water, r = 1 mm, L = 0.5 m, ΔP = 1000 Pa: Q = π × 10⁻¹² × 1000 ÷ (8 × 10⁻³ × 0.5) = π × 10⁻⁹ ÷ 4 × 10⁻³ = **7.85 × 10⁻⁷ m³/s = 0.785 mL/s**.
+2. Doubling the radius multiplies Q by 2⁴ = **16**.
+3. **A narrowed artery.** If plaque narrows an artery radius by 20% (r → 0.8 r), then r⁴ falls to 0.4096: the flow drops to **41%** at the same pressure. To keep the same flow, the heart must raise ΔP by 1 ÷ 0.4096 = **2.44 times**. This is why even modest narrowing is dangerous.
+/EX
+
+LAB: Poiseuille flow | Choose the radius, the pressure difference, the length and the viscosity (in mPa·s, where water is 1 and blood about 3.5). The graph shows the flow rate in mL/s against radius for the other settings: look at the steep r⁴ curve. | r:Radius r (mm):0.5:2:0.1:1 ;; dp:Pressure difference (Pa):500:2000:100:1000 ;; L:Length L (m):0.2:1:0.1:0.5 ;; eta:Viscosity (mPa·s):1:10:0.5:1 | pi*r^4*dp*0.001/(8*eta*L):Flow rate (mL/s):3 ;; pi*r^4*dp*0.001/(8*eta*L)*60:Flow rate (mL/min):1 | pi*x^4*dp*0.001/(8*eta*L) | 0.5,2 | 0,60
+
+### Laminar and turbulent flow
+At low speed the flow is smooth in layers (**laminar**). At high speed it becomes irregular with eddies (**turbulent**). The dimensionless **Reynolds number** decides which:
+
+EQ: Re = ρ v D ÷ η
+
+For a pipe, Re below about 2000 is laminar and above about 4000 is turbulent. Re compares inertia (ρ v²) to viscous forces (η v ÷ D).
+
+EX: Reynolds numbers
+1. Water in a 2 cm pipe at 1 m/s: Re = 1000 × 1 × 0.02 ÷ 10⁻³ = **20,000**, turbulent (tap water at full flow).
+2. **Blood in the aorta:** ρ = 1060, v = 0.3 m/s, D = 0.02 m, η = 3.5 × 10⁻³: Re = 1060 × 0.3 × 0.02 ÷ 3.5 × 10⁻³ = **1817**, near the limit. Exercise or narrowing can make the flow turbulent, which causes the murmur a doctor hears with a stethoscope.
+3. **Honey** poured from a spoon: ρ = 1400, v = 0.1, D = 0.01, η = 10: Re = **0.14**: smooth and slow.
+/EX
+
+LAB: Reynolds number | Choose the speed, the pipe diameter and the viscosity (the density is that of water, 1000 kg/m³). The number shows Re, and the "ratio to 2000" shows how close you are to the laminar limit: above 1 is risky, above 2 is turbulent. | v:Speed (m/s):0.01:3:0.01:1 ;; D:Diameter (cm):0.5:5:0.5:2 ;; eta:Viscosity (mPa·s):1:10:0.5:1 | 10000*v*D/eta:Reynolds number:0 ;; 10000*v*D/eta/2000:Ratio to 2000:2 | - | 0,1 | 0,1
+
+### Drag and terminal speed
+For slow flow around a sphere of radius r (Re ≪ 1), **Stokes' law**: F = 6π η r v. For fast motion (Re large), the drag is quadratic: F = ½ ρ C_d A v².
+
+EX: Terminal speeds
+1. **Stokes.** A steel ball (ρ = 7800, r = 2 mm) falling in glycerine (ρ = 1260, η = 1.4): at terminal speed, weight − buoyancy = drag, so v = 2 r² (ρ_s − ρ_f) g ÷ (9 η) = 2 × 4 × 10⁻⁶ × 6540 × 9.8 ÷ 12.6 = **0.0407 m/s = 4.07 cm/s**. Check: Re = 1260 × 0.0407 × 0.004 ÷ 1.4 = 0.15 ≪ 1 ✓.
+2. **Drizzle:** r = 0.1 mm in air (η = 1.8 × 10⁻⁵): v = 2 × 10⁻⁸ × 998.8 × 9.8 ÷ (9 × 1.8 × 10⁻⁵) = **1.2 m/s**, a gentle fall.
+3. **Skydiver** (quadratic drag): m = 80 kg, C_d = 1.0, A = 0.7 m²: v = √(2 m g ÷ (ρ C_d A)) = √(1568 ÷ 0.84) = **43.2 m/s** (about 155 km/h). With a parachute (A = 25 m², C_d = 1.5): v = √(1568 ÷ 45) = **5.9 m/s**.
+/EX
+
+TRAP: Poiseuille's law needs **laminar** flow: check that Re is below 2000 before you use r⁴. Stokes' law needs Re well below 1: it works for drizzle but not for bullets. And do not use viscosity values for water when the fluid is warm blood or cold oil: η changes strongly with temperature.
+
+### Quick self-check
+QUIZ:
+Q: Poiseuille's law says that doubling the radius multiplies the flow by…; 2; 4; 8; 16; 4; Q ∝ r⁴.
+Q: A pipe flow has Re = 20,000. It is…; laminar; turbulent; stationary; impossible; 2; Re > 4000.
+Q: The terminal speed of a Stokes sphere is proportional to…; r; r²; r³; r⁴; 2; v = 2 r² Δρ g ÷ (9 η).
+Q: A parachute reduces the fall speed mainly by…; reducing the mass; increasing the area A; reducing gravity; reducing the air density; 2; v ∝ 1 ÷ √A.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find Re for water in a 4 cm pipe at 0.5 m/s. => 1000 × 0.5 × 0.04 ÷ 10⁻³ = **20,000**.
+P: How does Q change if the pipe length doubles? => It **halves** (Q ∝ 1 ÷ L).
+LVL: Level 2 | Apply
+P: Find the flow of water through r = 0.5 mm, L = 0.2 m, ΔP = 800 Pa. => Numerator: π × (0.5 × 10⁻³)⁴ × 800 = π × 6.25 × 10⁻¹⁴ × 800 = 1.571 × 10⁻¹⁰. Denominator: 8 × 10⁻³ × 0.2 = 1.6 × 10⁻³. So Q = **9.82 × 10⁻⁸ m³/s = 0.098 mL/s**.
+P: Blood (η = 3.5 mPa·s) flows through a vessel of r = 2 mm and L = 0.1 m under ΔP = 200 Pa. Find Q. => π × 16 × 10⁻¹² × 200 ÷ (8 × 3.5 × 10⁻³ × 0.1) = 1.005 × 10⁻⁸ ÷ 2.8 × 10⁻³ = **3.59 × 10⁻⁶ m³/s = 3.6 mL/s**.
+P: A 5 mm sphere of density 2500 falls in water. Is the Stokes law valid? Estimate v from Stokes and then check Re. => v = 2 × (2.5 × 10⁻³)² × 1500 × 9.8 ÷ (9 × 10⁻³) = 2 × 6.25 × 10⁻⁶ × 1500 × 9.8 ÷ 9 × 10⁻³ = **20.4 m/s**. Re = 1000 × 20.4 × 0.005 ÷ 10⁻³ = 10⁵ ≫ 1: **Stokes is not valid**. (Quadratic drag would give a speed of order 1 m/s instead.)
+P: A 70 kg diver in a wing suit has A = 1.0 m² and C_d = 0.5. Find the speed with quadratic drag. => v = √(2 × 70 × 9.8 ÷ (1.2 × 0.5 × 1.0)) = √(1372 ÷ 0.6) = √2287 = **47.8 m/s**.
+LVL: Level 3 | Real
+P: An IV needle has a 0.3 mm inner radius and a length of 3 cm. Saline (η = 1.0 mPa·s) flows under ΔP = 5000 Pa. Find the flow rate in mL/min. => (0.3 × 10⁻³)⁴ = 8.1 × 10⁻¹⁵ m⁴. Numerator: π × 8.1 × 10⁻¹⁵ × 5000 = 1.272 × 10⁻¹⁰. Denominator: 8 × 10⁻³ × 0.03 = 2.4 × 10⁻⁴. So Q = 5.30 × 10⁻⁷ m³/s = 0.53 mL/s = **31.8 mL/min**.
+LVL: Challenge | The power of the pipe
+P: A pipe of radius r delivers Q at ΔP. A second pipe is twice as long and has the same radius. What radius gives the same flow at the same ΔP? => Q ∝ r⁴ ÷ L. For L → 2L with the same Q we need r⁴ → 2 r⁴, so r → 2^(1/4) r = **1.19 r**. A small radius increase compensates a doubled length.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fundamental Theorem of Algebra: n complex roots, conjugate pairs for real coefficients, Vieta (sum −b, product c). e^(x + iy) = e^x (cos y + i sin y), period 2πi. e^((−γ + iω)t): decay times oscillation. ln z = ln r + i(θ + 2πk). i^i = e^(−π/2). cos y with imaginary arguments gives cosh.
+- Viscosity: Poiseuille Q = π r⁴ ΔP ÷ (8 η L). Reynolds Re = ρ v D ÷ η (laminar < 2000, turbulent > 4000). Stokes F = 6π η r v, terminal v = 2 r² Δρ g ÷ (9 η). Quadratic drag v_t = √(2 m g ÷ (ρ C_d A)).
+
+BN: আজকের সারকথা: n ঘাতের বহুপদীর n টা জটিল মূল; e^(x+iy) = e^x(cos y + i sin y); ln z = ln r + iθ। সান্দ্রতা: পোয়াজেইয়ের Q = πr⁴ΔP/(8ηL), রেনল্ডস Re = ρvD/η (<2000 laminar), স্টোকস F = 6πηrv, প্রান্তিক বেগ v = 2r²Δρ g/(9η)।
+
+EXIT:
+E: What is the sum of the roots of z² − 6z + 25?; 6; 0.001; Vieta: the sum is −b = 6.
+E: What is the Reynolds number of water at 0.5 m/s in a 1 cm pipe?; 5000; 1; 1000 × 0.5 × 0.01 ÷ 0.001 = 5000.
+E: By what factor does Poiseuille flow change if the radius is halved?; 0.0625; 0.0005; (1/2)⁴ = 1/16.
+
+**Tomorrow:** complex numbers in geometry, rotations and fractals, and surface tension and capillarity.
+
+CHECK: notes

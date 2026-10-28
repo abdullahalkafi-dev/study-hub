@@ -1,0 +1,188 @@
+@day Week 13 · Day 5 · Friday
+# Applications of matrices: networks, economies and curve fitting. Then: convection and radiation
+lead: Matrices count paths in a network, balance an economy, and fit a straight line to noisy data, which is the first step of machine learning. In physics, you finish the three ways that heat travels: convection (moving fluid) and radiation (light), and you use radiation to find the temperature of the Sun and of the Earth.
+
+BN: ম্যাট্রিক্স নেটওয়ার্কে পথ গোনে, অর্থনীতির ভারসাম্য মেলায়, আর এলোমেলো তথ্যে একটা সরলরেখা বসায়, যা মেশিন লার্নিংয়ের প্রথম ধাপ। পদার্থবিজ্ঞানে তাপ চলার বাকি দুই পথ শিখবে: পরিচলন (চলমান তরল) ও বিকিরণ (আলো), এবং বিকিরণ দিয়ে সূর্য ও পৃথিবীর তাপমাত্রা বের করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find the inverse of [[2, 1], [5, 3]]. => **[[3, −1], [−5, 2]]**.
+P: What is the rank of a matrix with a zero row and two independent other rows? => **2**.
+P: Write the conduction formula. => **P = k A ΔT ÷ L**.
+P: How do you combine thermal resistances in series? => **Add them**: R = Σ L ÷ k.
+P: How much heat boils 1 kg of water at 100 °C? => **2260 kJ**.
+
+CHECK: recall
+
+@section math | 2 · Math: three applications | 55 min
+
+### Networks: counting walks
+A network with n nodes has an **adjacency matrix** A with a_ij = 1 if nodes i and j are joined, otherwise 0. The big fact:
+
+EQ: (Aᵏ)_ij = the number of walks of length k from node i to node j
+
+EX: A small graph
+1. Nodes 1 to 4. Edges: 1–2, 2–3, 1–3, 3–4 (a triangle with a tail). Rows of A: (0, 1, 1, 0), (1, 0, 1, 0), (1, 1, 0, 1), (0, 0, 1, 0).
+2. A² row i is the sum of the rows of A for the neighbours of i. Row 1: row 2 + row 3 = (1, 0, 1, 0) + (1, 1, 0, 1) = (2, 1, 1, 1). Row 2: row 1 + row 3 = (1, 2, 1, 1). Row 3: rows 1 + 2 + 4 = (1, 1, 3, 0). Row 4: row 3 = (1, 1, 0, 1).
+3. So A² = [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 3, 0], [1, 1, 0, 1]]. The diagonal gives the **degrees** (2, 2, 3, 1), and the trace 8 equals 2 × the 4 edges.
+4. (A²)₁₄ = 1: the only 2-step walk from 1 to 4 is 1 → 3 → 4 ✓.
+5. (A³)₁₃ = (row 1 of A²) · (column 3 of A) = (2, 1, 1, 1) · (1, 1, 0, 1) = 4. The four walks are 1-2-1-3, 1-3-1-3, 1-3-2-3 and 1-3-4-3 ✓.
+6. The trace of A³ is 6 = 6 × (number of triangles), and there is 1 triangle.
+/EX
+
+BN: গ্রাফের adjacency matrix A: নোড i ও j যুক্ত হলে a_ij = 1। Aᵏ এর (i, j) ঘর হলো i থেকে j তে k ধাপের হাঁটার সংখ্যা। A² এর কর্ণ = নোডের ডিগ্রি; tr(A³) = 6 × ত্রিভুজের সংখ্যা। সামাজিক নেটওয়ার্ক, ওয়েব লিংক ও রাস্তার জালে এটা ব্যবহার হয়।
+
+### An economy: the input-output model (Leontief)
+An economy has two sectors, agriculture (1) and manufacturing (2). To produce one unit of sector j's output, the economy uses c_ij units of sector i. Let x be the output vector and d the outside demand. Then
+
+EQ: x = C x + d     so     (I − C) x = d     and     x = (I − C)⁻¹ d
+
+EX: Two sectors
+1. C = [[0.2, 0.3], [0.4, 0.1]] and d = (50, 30).
+2. I − C = [[0.8, −0.3], [−0.4, 0.9]], det = 0.72 − 0.12 = 0.60. The inverse is (1 ÷ 0.6) [[0.9, 0.3], [0.4, 0.8]] = [[1.5, 0.5], [0.667, 1.333]].
+3. x = (1.5 × 50 + 0.5 × 30, 0.667 × 50 + 1.333 × 30) = (75 + 15, 33.33 + 40) = **(90, 73.33)**.
+4. Check: C x = (0.2 × 90 + 0.3 × 73.33, 0.4 × 90 + 0.1 × 73.33) = (40, 43.33). Plus d = (90, 73.33) ✓.
+5. To deliver 50 and 30 units to consumers, the economy must produce 90 and 73.3: the rest is eaten by the production process itself.
+/EX
+
+LAB: A two-sector economy | With the consumption matrix C = [[0.2, 0.3], [0.4, 0.1]], choose the outside demand for each sector. The numbers show the total output each sector must produce and the share that is only used inside the economy. | d1:Demand for agriculture:10:100:5:50 ;; d2:Demand for manufacturing:10:100:5:30 | 1.5*d1+0.5*d2:Output of agriculture:2 ;; 2*d1/3+4*d2/3:Output of manufacturing:2 ;; 1.5*d1+0.5*d2-d1:Agriculture used inside the economy:2 ;; 2*d1/3+4*d2/3-d2:Manufacturing used inside the economy:2 | - | 0,1 | 0,1
+
+### Fitting a line to data: least squares
+Three measurements at x = 0, 1, 2 give y₀, y₁, y₂. No straight line passes through all three in general, so we pick the line y = a + b x that minimises the sum of squared residuals. In matrix form, with X = [[1, 0], [1, 1], [1, 2]] and β = (a, b), the best fit solves the **normal equations**:
+
+EQ: (Xᵀ X) β = Xᵀ y     so     β = (Xᵀ X)⁻¹ Xᵀ y
+
+EX: Fitting
+1. Points (0, 1), (1, 3), (2, 4). Xᵀ X = [[3, 3], [3, 5]] and Xᵀ y = (8, 11) (that is Σ y = 8 and Σ x y = 3 + 8 = 11).
+2. det = 15 − 9 = 6, and (Xᵀ X)⁻¹ = (1 ÷ 6) [[5, −3], [−3, 3]].
+3. β = (1 ÷ 6) (5 × 8 − 3 × 11, −3 × 8 + 3 × 11) = (7/6, 9/6) = **(1.167, 1.5)**: the line is y = 1.167 + 1.5 x.
+4. Residuals: at x = 0 the line gives 1.167 (residual −0.167), at x = 1 it gives 2.667 (+0.333), at x = 2 it gives 4.167 (−0.167). The residuals sum to **0**, as always for this method.
+5. For x = 0, 1, 2 in general: **b = (Σ x y − Σ y) ÷ 2** and **a = (5 Σ y − 3 Σ x y) ÷ 6**.
+/EX
+
+LAB: Best-fit line through three points | Choose the three measurements at x = 0, 1 and 2. The graph shows the least-squares line. The numbers give its intercept a and slope b and the sum of the squared residuals (zero only if the points are exactly on a line). | y0:y at x = 0:0:6:0.5:1 ;; y1:y at x = 1:0:6:0.5:3 ;; y2:y at x = 2:0:6:0.5:4 | (5*(y0+y1+y2)-3*(y1+2*y2))/6:Intercept a:3 ;; ((y1+2*y2)-(y0+y1+y2))/2:Slope b:3 ;; (y0-(5*(y0+y1+y2)-3*(y1+2*y2))/6)^2+(y1-(5*(y0+y1+y2)-3*(y1+2*y2))/6-((y1+2*y2)-(y0+y1+y2))/2)^2+(y2-(5*(y0+y1+y2)-3*(y1+2*y2))/6-2*((y1+2*y2)-(y0+y1+y2))/2)^2:Sum of squared residuals:3 | (5*(y0+y1+y2)-3*(y1+2*y2))/6+x*((y1+2*y2)-(y0+y1+y2))/2 | 0,2 | 0,8
+
+BN: লিস্ট-স্কয়ার ফিট: (XᵀX)β = Xᵀy, β = (a, b)। তিন বিন্দু (x = 0, 1, 2) হলে b = (Σxy − Σy)/2, a = (5Σy − 3Σxy)/6। অবশিষ্টগুলোর যোগফল 0। মেশিন লার্নিংয়ের রৈখিক রিগ্রেশন ঠিক এটাই, শুধু আরো বড় ম্যাট্রিক্স দিয়ে।
+
+TRAP: In (Aᵏ)_ij the order of the indices matters for directed graphs: row i is the **start**. In the Leontief model, do not forget that the production x is larger than the demand d. And least squares minimises the **squares** of the vertical errors, so one wild point can pull the whole line.
+
+### Quick self-check
+QUIZ:
+Q: For an adjacency matrix A, the entry (A²)_ii is…; the number of edges; the degree of node i; 0; the number of nodes; 2; The number of 2-step walks from i back to i.
+Q: In the Leontief model, the production x is…; (I − C) d; (I − C)⁻¹ d; C d; d; 2; Solve (I − C) x = d.
+Q: The least-squares residuals add up to…; 1; the number of points; 0; the slope; 3; The line passes through the mean of the data.
+Q: The trace of A³ equals…; the number of triangles; 6 times the number of triangles; the number of edges; 2 times the number of edges; 2; Each triangle gives 6 closed walks.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Write the adjacency matrix of a triangle (3 nodes, all joined). => **[[0, 1, 1], [1, 0, 1], [1, 1, 0]]**.
+P: Find A² for the triangle. => **[[2, 1, 1], [1, 2, 1], [1, 1, 2]]**.
+P: Find (I − C)⁻¹ for C = [[0.5, 0], [0, 0.5]]. => I − C = [[0.5, 0], [0, 0.5]], inverse **[[2, 0], [0, 2]]**.
+LVL: Level 2 | Apply
+P: Solve the Leontief model for C = [[0.1, 0.2], [0.3, 0.2]] and d = (30, 20). => I − C = [[0.9, −0.2], [−0.3, 0.8]], det = 0.72 − 0.06 = 0.66. x = (1 ÷ 0.66) (0.8 × 30 + 0.2 × 20, 0.3 × 30 + 0.9 × 20) = (28 ÷ 0.66, 27 ÷ 0.66) = **(42.4, 40.9)**.
+P: Fit y = a + b x to (0, 2), (1, 3), (2, 7). => Σ y = 12, Σ x y = 3 + 14 = 17. b = (17 − 12) ÷ 2 = **2.5**, a = (5 × 12 − 3 × 17) ÷ 6 = **1.5**. The line gives 1.5, 4.0, 6.5, with residuals 0.5, −1.0, 0.5 (sum 0).
+P: Find the sum of squared residuals for the line above. => 0.25 + 1 + 0.25 = **1.5**.
+P: In the 4-node graph of the lesson, find the number of walks of length 3 from node 4 to node 4. => (A³)₄₄ = (row 4 of A²) · (column 4 of A) = (1, 1, 0, 1) · (0, 0, 1, 0) = **0**. (A walk of length 3 from 4 must leave and come back: 4-3-x-4 needs x adjacent to both 3 and 4, but only node 3 touches 4.)
+P: A graph has adjacency matrix A with trace (A³) = 12. How many triangles? => 12 ÷ 6 = **2 triangles**.
+LVL: Level 3 | Real
+P: A house's temperature is measured at t = 0, 1, 2 hours as 21, 18, 16 °C after the heating is switched off. Fit a line and predict the temperature at t = 3. => Σ y = 55, Σ t y = 18 + 32 = 50. b = (50 − 55) ÷ 2 = −2.5, a = (5 × 55 − 3 × 50) ÷ 6 = 20.83. So T = 20.83 − 2.5 t, and at t = 3: **13.3 °C** (a linear model is a rough guide, since real cooling is exponential).
+LVL: Challenge | The economy as a sum of rounds
+P: For C = [[0.2, 0.3], [0.4, 0.1]] the exact inverse is (I − C)⁻¹ = [[1.5, 0.5], [0.667, 1.333]]. Compute I + C + C² + C³ and compare it with the exact inverse. What does the series mean? => C² = [[0.16, 0.09], [0.12, 0.13]] and C³ = [[0.068, 0.057], [0.076, 0.049]]. The sum is **[[1.428, 0.447], [0.596, 1.279]]**, close to but below [[1.5, 0.5], [0.667, 1.333]] (the (1,1) entry is 4.8% short). The series I + C + C² + C³ + … = (I − C)⁻¹ has the meaning: direct demand (I), the inputs needed to make it (C), the inputs of those inputs (C²), and so on, each round smaller. It is the matrix version of 1 + r + r² + … = 1 ÷ (1 − r).
+
+CHECK: math
+
+@section physics | 3 · Physics: convection and radiation | 35 min
+
+### Convection
+In **convection**, heat is carried by the bulk motion of a fluid. Hot fluid expands, becomes less dense and rises, and cooler fluid sinks. That is **natural** convection (a radiator warming a room, sea breezes, ocean currents, boiling water). **Forced** convection uses a fan or pump. The heat flow between a surface and a fluid is approximately
+
+EQ: P = h A (T_surface − T_fluid)
+
+where the **convection coefficient** h depends on the flow: about 5 to 25 W/(m²·K) for still air near a wall, 10 to 200 for forced air, and 500 to 10,000 for flowing water.
+
+EX: Convection
+1. **Bare skin:** A = 1.8 m², T_skin = 33 °C in still air at 20 °C with h = 8: P = 8 × 1.8 × 13 = **187 W** (clothing greatly reduces this).
+2. **Wind chill:** in a strong wind h could be 40: P = 40 × 1.8 × 13 = **936 W**, five times more. The air temperature is the same, but you cool faster. That is "wind chill".
+3. **A radiator:** a panel of area 2 m² at 60 °C in 20 °C air with h = 10 delivers 10 × 2 × 40 = **800 W** by convection (and some more by radiation). It is placed under a window so that the rising warm air circulates.
+/EX
+
+### Radiation
+Every object emits electromagnetic radiation, with power depending steeply on its absolute temperature (**Stefan–Boltzmann law**):
+
+EQ: P = ε σ A T⁴     σ = 5.67 × 10⁻⁸ W/(m²·K⁴)
+
+ε (between 0 and 1) is the **emissivity**: a perfect "black body" has ε = 1. An object also absorbs radiation from its surroundings at T_env, so the **net** power is P_net = ε σ A (T⁴ − T_env⁴). The wavelength of the peak emission follows **Wien's law**:
+
+EQ: λ_max T = 2.898 × 10⁻³ m·K
+
+BN: পরিচলনে তরলের চলাচলে তাপ যায়: P = hA(T_s − T_f)। বিকিরণে P = εσAT⁴, যেখানে σ = 5.67 × 10⁻⁸। তাপমাত্রা দ্বিগুণ হলে বিকিরণ ১৬ গুণ। ভিন সূত্র: λ_max T = 2.898 × 10⁻³ m·K, তাই গরম বস্তু ছোট তরঙ্গদৈর্ঘ্যে আলো দেয়। নিট বিকিরণ = εσA(T⁴ − T_env⁴), এবং তাপমাত্রা অবশ্যই কেলভিনে।
+
+EX: Radiation examples
+1. **The Sun:** T = 5800 K, R = 6.96 × 10⁸ m, so A = 4π R² = 6.09 × 10¹⁸ m². P = 5.67 × 10⁻⁸ × 6.09 × 10¹⁸ × 5800⁴ = 3.45 × 10¹¹ × 1.13 × 10¹⁵ = **3.9 × 10²⁶ W** (the measured value is 3.83 × 10²⁶ W).
+2. **A body:** A = 1.8 m², ε = 0.97, skin 306 K, surroundings 293 K: P_net = 0.97 × 5.67 × 10⁻⁸ × 1.8 × (306⁴ − 293⁴) = 9.90 × 10⁻⁸ × (8.768 × 10⁹ − 7.370 × 10⁹) = **138 W**. So radiation is the main way we lose heat at rest.
+3. **Colours:** the Sun peaks at λ = 2.898 × 10⁻³ ÷ 5800 = **500 nm** (green). A person at 310 K peaks at **9.35 μm** (infrared, which is what thermal cameras see). A light-bulb filament at 2800 K peaks at 1035 nm, in the infrared, which is why incandescent bulbs waste most of their energy as heat.
+4. **A hot plate:** 0.5 m² black body at 500 K in a 300 K room: P_net = 5.67 × 10⁻⁸ × 0.5 × (500⁴ − 300⁴) = 2.835 × 10⁻⁸ × 5.44 × 10¹⁰ = **1542 W**.
+/EX
+
+LAB: Stefan–Boltzmann and Wien | Choose the temperature of a black body. The numbers show its radiated power per square metre and the wavelength of its peak emission. The graph shows the power per square metre in kW/m² against temperature: the T⁴ curve. | T:Temperature (K):250:1000:10:400 | 0.0000000567*T^4:Power per m² (W/m²):0 ;; 2898/T:Peak wavelength (μm):2 ;; 0.0000000567*T^4/1000:Power per m² (kW/m²):2 | 0.0000000567*x^4/1000 | 250,1000 | 0,60
+
+### The temperature of the Earth
+In equilibrium, the power absorbed by the Earth equals the power radiated. Sunlight at the Earth has intensity S = 1361 W/m². The Earth intercepts it over a disc (π R²) but radiates from the whole sphere (4π R²), so the average absorbed intensity is S (1 − a) ÷ 4, where a is the **albedo** (reflected fraction, about 0.30).
+
+EQ: S (1 − a) ÷ 4 = σ T⁴     so     T = (S (1 − a) ÷ (4 σ))^(1/4)
+
+EX: Earth in balance
+1. a = 0.30: absorbed = 1361 × 0.70 ÷ 4 = 238.2 W/m². T = (238.2 ÷ 5.67 × 10⁻⁸)^(1/4) = (4.20 × 10⁹)^(1/4) = **254.6 K = −18.6 °C**.
+2. The actual mean surface temperature is **288 K (15 °C)**. The 33 K difference is the **greenhouse effect**: gases such as H₂O and CO₂ absorb infrared and send part of it back down.
+3. **Ice-albedo feedback:** if ice spreads and the albedo rises to 0.50: absorbed = 1361 × 0.50 ÷ 4 = 170.1 W/m², T = **234.0 K**: 20 K colder.
+4. **A one-layer atmosphere** that absorbs all infrared and re-emits half up and half down gives σ T_s⁴ = 2 × 238.2, so T_s = 2^(1/4) × 254.6 = **302.8 K**, about 30 °C. This is too warm, because the real atmosphere absorbs only part of the radiation.
+/EX
+
+LAB: Planetary temperature | Choose the albedo of the planet (the reflected fraction) and the sunlight intensity. The graph shows the equilibrium temperature (in kelvin) against the albedo. Earth has albedo 0.3 and S = 1361 W/m². | a:Albedo:0:0.7:0.05:0.3 ;; S:Sunlight S (W/m²):1000:1500:20:1361 | pow(S*(1-a)/4/0.0000000567,0.25):Equilibrium temperature (K):1 ;; pow(S*(1-a)/4/0.0000000567,0.25)-273.15:Equilibrium temperature (°C):1 ;; S*(1-a)/4:Absorbed intensity (W/m²):1 | pow(S*(1-x)/4/0.0000000567,0.25) | 0,0.7 | 220,290
+
+TRAP: Use **kelvin** for T⁴: 20 °C is 293.15 K, not 20. Radiation depends on **T⁴**, so a 10% rise in kelvin temperature raises the power by 46%. In the Earth's balance, do not forget the factor 4 between the disc and the sphere.
+
+### Quick self-check
+QUIZ:
+Q: If the absolute temperature of a black body doubles, the power it radiates is multiplied by…; 2; 4; 8; 16; 4; P ∝ T⁴.
+Q: Hotter objects emit light with a peak wavelength that is…; longer; shorter; the same; unrelated; 2; λ_max ∝ 1 ÷ T.
+Q: Convection needs…; a vacuum; a moving fluid; a solid; a wire; 2; It is heat carried by fluid motion.
+Q: The average sunlight absorbed per square metre of the Earth's surface includes a factor…; 1; 1/2; 1/4; 4; 3; The disc area is a quarter of the sphere's.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the radiated power per square metre of a black body at 600 K. => 5.67 × 10⁻⁸ × 600⁴ = 5.67 × 10⁻⁸ × 1.296 × 10¹¹ = **7348 W/m²**.
+P: Find the peak wavelength for 3000 K. => 2.898 × 10⁻³ ÷ 3000 = **966 nm**.
+LVL: Level 2 | Apply
+P: A radiator panel of 1.5 m² at 55 °C in 20 °C air has h = 9. Find the convective heat flow. => 9 × 1.5 × 35 = **472.5 W**.
+P: Find the net radiative power of a black plate of 0.5 m² at 500 K in a 300 K room. => **1542 W**.
+P: The Sun's luminosity is 3.83 × 10²⁶ W and R = 6.96 × 10⁸ m. Find its surface temperature. => T⁴ = 3.83 × 10²⁶ ÷ (5.67 × 10⁻⁸ × 6.09 × 10¹⁸) = 1.11 × 10¹⁵, so T = **5772 K**.
+P: By what factor does the radiated power change if T rises from 300 K to 330 K? => (330 ÷ 300)⁴ = 1.1⁴ = **1.46**.
+P: What is the equilibrium temperature of a planet with albedo 0.5 at the Earth's distance? => **234 K**.
+LVL: Level 3 | Real
+P: Why does a thermos flask have a vacuum between double walls and silvered surfaces? => The vacuum stops conduction and convection, and the silvering has a low emissivity, so it stops most radiation as well.
+P: A student at rest produces 100 W of body heat. In a 20 °C room with the bare skin losing 138 W by radiation and 187 W by convection, will they feel warm or cold? => The loss is 325 W against a production of 100 W, so they would feel **very cold** if naked. Clothing reduces the loss to near 100 W by trapping still air.
+LVL: Challenge | The greenhouse model
+P: In a one-layer greenhouse model the atmosphere absorbs all the infrared from the surface and re-emits half upward and half downward. Derive the surface temperature in terms of the no-atmosphere temperature T_e. => Top of the atmosphere: the outgoing power equals the absorbed sunlight, so σ T_a⁴ = σ T_e⁴. Atmosphere layer: it absorbs σ T_s⁴ from the surface and emits σ T_a⁴ up and σ T_a⁴ down, so σ T_s⁴ = 2 σ T_a⁴. Surface: it receives sunlight plus σ T_a⁴ from the atmosphere and emits σ T_s⁴, which is consistent. Therefore T_s⁴ = 2 T_e⁴, i.e. **T_s = 2^(1/4) T_e = 1.189 × 254.6 = 302.8 K**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Adjacency matrix: (Aᵏ)_ij counts walks of length k, tr (A³) = 6 × triangles. Leontief: x = (I − C)⁻¹ d. Least squares: (XᵀX) β = Xᵀ y; for x = 0, 1, 2, b = (Σxy − Σy) ÷ 2 and a = (5Σy − 3Σxy) ÷ 6.
+- Convection P = h A ΔT. Radiation P = ε σ A T⁴, Wien λ_max T = 2.898 × 10⁻³ m·K. Earth: T = (S (1 − a) ÷ 4σ)^(1/4) = 255 K without greenhouse effect, 288 K in reality.
+
+BN: আজকের সারকথা: Aᵏ হাঁটা গোনে; Leontief x = (I − C)⁻¹d; লিস্ট-স্কয়ার (XᵀX)β = Xᵀy। পরিচলন P = hAΔT; বিকিরণ P = εσAT⁴, ভিনের সূত্র λT = 2.898 × 10⁻³; পৃথিবীর সাম্য তাপমাত্রা 255 K, গ্রিনহাউসসহ 288 K।
+
+EXIT:
+E: What is the trace of A² for a graph with 6 edges?; 12; 0.001; The trace of A² is 2 × the number of edges.
+E: What is the power per square metre in W/m² radiated by a black body at 300 K?; 459.3; 0.5; 5.67 × 10⁻⁸ × 300⁴ = 5.67 × 10⁻⁸ × 8.1 × 10⁹ = 459.3.
+E: What is the peak wavelength in nm of a black body at 5800 K?; 499.7; 1; 2.898 × 10⁻³ ÷ 5800 = 4.997 × 10⁻⁷ m.
+
+**Tomorrow:** the Week 13 test, a mistake log, and a preview of Week 14 (linear systems and the gas laws).
+
+CHECK: notes

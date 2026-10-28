@@ -1,0 +1,239 @@
+@day Week 5 · Day 4 · Thursday
+# The derivative from its definition. Then: power, efficiency and the rooftop water tank
+lead: Today the limit does its big job: it defines the derivative, the instantaneous rate of change and the slope of a curve at a point. Everything in calculus builds on this one limit. In physics you meet power, the rate at which energy is used, and you finish the week's story: pumping water to a rooftop tank.
+
+BN: আজ লিমিট তার বড় কাজটা করে: অন্তরকলজ (derivative) সংজ্ঞায়িত হয়, মানে তাৎক্ষণিক পরিবর্তনের হার আর কোনো বিন্দুতে বক্ররেখার ঢাল। ক্যালকুলাসের সবকিছু এই একটা লিমিটের ওপর দাঁড়িয়ে। পদার্থবিজ্ঞানে ক্ষমতা (power) মানে শক্তি ব্যবহারের হার; আর সপ্তাহের গল্প শেষ করব ছাদের ট্যাংকে পানি তোলার হিসাব দিয়ে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find lim (h → 0) ((x + h)² − x²) ÷ h. => **2x**.
+P: Is f(x) = (x² − 1) ÷ (x − 1) continuous at x = 1? => **No**: it is undefined there, but the discontinuity is removable (limit 2).
+P: A 2 kg block is released from rest 5 m up a smooth ramp (vertical height). Find its speed at the bottom (g = 10). => √(2 × 10 × 5) = **10 m/s**.
+P: How much energy is stored in a spring with k = 400 N/m compressed 0.1 m? => ½ × 400 × 0.01 = **2 J**.
+P: Does a continuous function with f(0) = −3 and f(2) = 4 have a root in (0, 2)? => **Yes**, by the intermediate value theorem.
+
+CHECK: recall
+
+@section math | 2 · Math: the derivative | 60 min
+
+### From average rate to instantaneous rate
+For a function y = f(x), the **average rate of change** between x and x + h is the slope of the **secant line** through two points of the graph:
+
+secant slope = (f(x + h) − f(x)) ÷ h
+
+As h shrinks, the second point slides toward the first and the secant line turns into the **tangent line**. The limit of the secant slopes is the slope of the tangent, the **derivative**:
+
+EQ: f′(x) = lim (h → 0) (f(x + h) − f(x)) ÷ h
+
+Other notations: dy/dx (Leibniz), or df/dx. Read dy/dx as "the rate of change of y with respect to x". The derivative at a particular point a is written f′(a).
+
+Two meanings, one number:
+- **Geometric:** the slope of the tangent line to the graph at that point.
+- **Physical:** the instantaneous rate of change. If s(t) is position, then s′(t) is velocity. If v(t) is velocity, then v′(t) is acceleration.
+
+BN: সেকান্ট (ছেদক) রেখার ঢাল = (f(x + h) − f(x))/h। h → 0 হলে সেকান্ট হয়ে যায় স্পর্শক। এই লিমিটই f′(x)। দুটি অর্থ: জ্যামিতিক: স্পর্শকের ঢাল; ভৌত: তাৎক্ষণিক পরিবর্তনের হার। অবস্থানের অন্তরকলজ = বেগ, বেগের অন্তরকলজ = ত্বরণ।
+
+### Computing from the definition
+EX: f(x) = x²
+1. (f(x + h) − f(x)) ÷ h = (x² + 2xh + h² − x²) ÷ h = 2x + h.
+2. As h → 0: **f′(x) = 2x**.
+/EX
+
+EX: f(x) = x³
+1. (x + h)³ = x³ + 3x²h + 3xh² + h³. The difference quotient is (3x²h + 3xh² + h³) ÷ h = 3x² + 3xh + h².
+2. As h → 0: **f′(x) = 3x²**.
+/EX
+
+EX: f(x) = 1 ÷ x
+1. (1/(x + h) − 1/x) ÷ h = ((x − (x + h)) ÷ (x (x + h))) ÷ h = −h ÷ (x (x + h) h) = −1 ÷ (x (x + h)).
+2. As h → 0: **f′(x) = −1/x²**.
+/EX
+
+EX: f(x) = √x
+1. (√(x + h) − √x) ÷ h. Multiply by the conjugate: ((x + h) − x) ÷ (h (√(x + h) + √x)) = 1 ÷ (√(x + h) + √x).
+2. As h → 0: **f′(x) = 1 ÷ (2√x)**.
+/EX
+
+EX: A general quadratic
+1. f(x) = 3x² − 2x. The difference quotient is (3(x + h)² − 2(x + h) − 3x² + 2x) ÷ h = (6xh + 3h² − 2h) ÷ h = 6x + 3h − 2.
+2. As h → 0: **f′(x) = 6x − 2**.
+/EX
+
+LAB: Secant slope turning into tangent slope | Move the point a along y = x², then shrink h. The blue secant line rotates into the orange tangent line, and its slope approaches 2a. | a:Point a:-1:3:0.1:1.5 ;; h:Step h:0.02:2:0.02:1 | ((a+h)^2-a^2)/h:Secant slope:3 ;; 2*a:Tangent slope 2a:3 ;; (a+h)^2-a^2:Rise over the step:3 | x^2 ;; 2*a*(x-a)+a^2 ;; ((a+h)^2-a^2)/h*(x-a)+a^2 | -2,4 | -2,9
+
+### Patterns and the power rule
+Look at the results: x² → 2x, x³ → 3x², x⁻¹ → −x⁻², x^(1/2) → ½ x^(−1/2). They all follow one rule.
+
+EQ: d/dx (xⁿ) = n xⁿ⁻¹     d/dx (c) = 0     (c f)′ = c f′     (f + g)′ = f′ + g′
+
+**Why for positive whole n:** (x + h)ⁿ = xⁿ + n xⁿ⁻¹ h + (terms with h² and higher). Subtract xⁿ, divide by h: n xⁿ⁻¹ + (terms with h). Then h → 0. ∎ The rule holds for every real n, as the examples with 1/x and √x suggest.
+
+PREDICT: Before the next example, guess the derivative of x⁴ from the pattern x² → 2x and x³ → 3x². => The power rule predicts 4x³. Check with the binomial expansion: (x + h)⁴ = x⁴ + 4x³h + terms with h², so the quotient tends to 4x³.
+
+EX: Differentiate term by term
+1. f(x) = 4x⁵ − 3x² + 7x − 9. f′(x) = 20x⁴ − 6x + 7.
+2. g(x) = √x + 2/x³ = x^(1/2) + 2x⁻³. g′(x) = ½ x^(−1/2) − 6x⁻⁴ = 1 ÷ (2√x) − 6 ÷ x⁴.
+/EX
+
+### Tangent lines
+The tangent line at x = a has slope f′(a) and passes through (a, f(a)): **y − f(a) = f′(a)(x − a)**.
+
+EX: A tangent line
+1. f(x) = x² at x = 3. f(3) = 9 and f′(3) = 6.
+2. y − 9 = 6 (x − 3), so **y = 6x − 9**.
+/EX
+
+FUNC: A curve and its tangent | x | y | x**2 ;; 6*x-9 | -1,5 | -3,16 | - | The curve y = x² and its tangent line at the point (3, 9). The line has slope 6, the derivative of x² at x = 3, and touches the curve at that point.
+
+EX: Where is the tangent horizontal?
+1. f(x) = x³ − 3x. f′(x) = 3x² − 3 = 0 gives x² = 1, so **x = ±1**.
+2. The points are (1, −2) and (−1, 2): the bottom of a dip and the top of a hill. This is how derivatives find maxima and minima, the topic of Week 7.
+/EX
+
+### Velocity and acceleration from calculus
+EX: A moving object
+1. A car's position is s(t) = t² + 3t. Then v(t) = s′(t) = 2t + 3, so at t = 4 the speed is **11 m/s** (matching Monday's limit).
+2. The acceleration is v′(t) = **2 m/s²**, constant.
+3. A falling stone: s = 5t² gives v = 10t and a = 10, so at t = 2 the speed is **20 m/s**, as on Monday.
+/EX
+
+### When a derivative fails to exist
+A function is **differentiable** at a if the limit above exists. It fails at:
+- a **corner**, like |x| at 0: the left slope is −1 and the right slope is +1;
+- a **vertical tangent**, like the cube root of x at 0, where the slope blows up;
+- a **discontinuity** of any kind.
+
+**Differentiable implies continuous.** The reverse is false: |x| is continuous at 0 but not differentiable.
+
+TRAP: f′(a) means "evaluate the derivative function at a". It is **not** the derivative of the number f(a) (which would be 0). Also, do not forget the "h" in the denominator: the difference quotient is a ratio. And the derivative of a **product** is not the product of the derivatives (the product rule arrives in Week 6).
+
+### Quick self-check
+QUIZ:
+Q: The derivative of x⁴ is…; 4x³; x³; 4x; 3x⁴; 1; The power rule gives 4x³.
+Q: If s(t) = 3t² + 2t, the velocity at t = 2 is…; 12; 14; 16; 8; 2; v = 6t + 2 = 14.
+Q: The slope of the tangent to y = x² at x = −2 is…; 4; −4; 2; −2; 2; f′(−2) = 2 × (−2) = −4.
+Q: The function |x| at x = 0 is…; differentiable; continuous but not differentiable; not continuous; has derivative 0; 2; There is a corner there.
+Q: The derivative of a constant is…; the constant; 1; 0; undefined; 3; A horizontal line has slope 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Differentiate 5x³ − 2x + 8. => **15x² − 2**.
+P: Find the slope of y = x² + 1 at x = 4. => 2x = **8**.
+P: Differentiate 3√x. => 3 × 1/(2√x) = **3 ÷ (2√x)**.
+LVL: Level 2 | Think
+P: Use the definition to differentiate f(x) = 2x² + x. => (2(x + h)² + (x + h) − 2x² − x) ÷ h = (4xh + 2h² + h) ÷ h = 4x + 2h + 1 → **4x + 1**.
+P: Find the equation of the tangent to y = x³ at x = 2. => f(2) = 8, f′(2) = 12. y − 8 = 12 (x − 2), so **y = 12x − 16**.
+P: At which points is the tangent to y = x² − 4x + 5 horizontal? => 2x − 4 = 0, so x = 2 and the point is **(2, 1)**.
+P: Find the points on y = x³ where the slope equals 12. => 3x² = 12, so x = ±2. The points are **(2, 8) and (−2, −8)**.
+P: Find the derivative of 1/x² from the rule and check at x = 2. => x⁻², so −2x⁻³ = −2 ÷ x³. At x = 2: **−1/4**.
+LVL: Level 3 | Real
+P: A ball thrown upward has height h(t) = 20t − 5t². Find its velocity at t = 1 and when it reaches the top. => v = 20 − 10t. At t = 1, v = **10 m/s**. At the top v = 0, so **t = 2 s**, at the height 20 × 2 − 5 × 4 = **20 m**.
+LVL: Challenge | Slope of a slope
+P: A curve has a horizontal tangent exactly where f′(x) = 0. For f(x) = x³ − 6x² + 9x + 1, find those points and say which is the peak and which is the dip (hint: look at the sign of f′ on each side). => f′ = 3x² − 12x + 9 = 3(x − 1)(x − 3) = 0 gives x = 1 and x = 3. The points are (1, 5) and (3, 1). For x < 1, f′ > 0 (rising); between 1 and 3, f′ < 0 (falling); after 3, f′ > 0 (rising again). So **(1, 5) is a local peak and (3, 1) is a local dip**.
+
+CHECK: math
+
+@section physics | 3 · Physics: power, efficiency and the rooftop tank | 30 min
+
+### Power
+**Power** is the rate of doing work, or of using energy.
+
+EQ: P = W ÷ t     unit: watt (W) = joule per second
+
+If work is done at a changing rate, P = dW/dt, a derivative. And since W = F d, for a force along the motion:
+
+EQ: P = F v
+
+(because d/dt of F × distance is F × velocity). Other units: 1 kilowatt = 1000 W, 1 horsepower ≈ 746 W, and the energy unit used on electricity bills is the **kilowatt-hour**: 1 kWh = 3.6 × 10⁶ J.
+
+BN: ক্ষমতা (power) = কাজের হার, P = W/t, একক ওয়াট। গতির দিকে বল থাকলে P = Fv। বিদ্যুৎ বিলের একক kWh: 1 kWh = 3.6 × 10⁶ J। ক্ষমতা আসলে কাজের সময়-সাপেক্ষে অন্তরকলজ: P = dW/dt।
+
+EX: Power of lifting
+1. A person lifts an 80 kg load 10 m in 20 s. Work = 80 × 9.8 × 10 = 7840 J. Power = 7840 ÷ 20 = **392 W**.
+/EX
+
+EX: A car at cruising speed
+1. A car moves at 25 m/s against a total resistance of 600 N. P = F v = 600 × 25 = **15,000 W = 15 kW** (about 20 horsepower).
+/EX
+
+EX: A car on a hill
+1. A 1200 kg car climbs a 5° slope at a steady 20 m/s. The air and rolling resistance is 500 N.
+2. The driving force must balance resistance and the pull of gravity along the slope: F = 500 + 1200 × 9.8 × sin 5° = 500 + 1025 = 1525 N.
+3. P = 1525 × 20 = **30.5 kW**, twice as much as on level ground at the same speed.
+/EX
+
+### Efficiency
+No machine turns all its input into useful output.
+
+EQ: efficiency = useful output ÷ total input × 100%
+
+A motor that is 70% efficient and takes in 2 kW of electrical power gives 1.4 kW of useful mechanical power. The rest becomes heat.
+
+EX: Electricity bill
+1. A 1.5 kW heater runs for 4 hours. Energy = 1.5 × 4 = **6 kWh** = 6 × 3.6 × 10⁶ = 21.6 MJ.
+2. At a price of 0.15 per kWh the cost is **0.90**.
+/EX
+
+### Top speed: why more power gives only a little more speed
+Air drag grows as v² (for a car, F_drag ≈ k v²), so at top speed the power equals drag × speed:
+
+P = k v³, so **v = (P ÷ k)^(1/3)**.
+
+EX: Top speed
+1. Take k = 0.4 N·s²/m² and P = 60 kW: v = (150,000)^(1/3) = **53 m/s** (about 191 km/h).
+2. Double the power to 120 kW: v = (300,000)^(1/3) = 66.9 m/s, an increase of only **26%** (2^(1/3) = 1.26). This is why very fast cars need enormous engines.
+/EX
+
+### The rooftop water tank (this week's story)
+EX: Pumping water up
+1. A pump lifts 2000 litres (2000 kg) of water to a rooftop tank 30 m above the ground in 20 minutes. The pump system is 60% efficient.
+2. Energy to raise the water: m g h = 2000 × 9.8 × 30 = **588,000 J**.
+3. Useful power over 1200 s: 588,000 ÷ 1200 = **490 W**.
+4. Electrical power needed: 490 ÷ 0.6 = **817 W**.
+5. Electrical energy per fill: 817 W × (1/3 hour) = **0.272 kWh**. At 0.15 per kWh, that is about **0.04** per fill.
+6. If the tank is moved to 60 m (a taller building), the energy doubles. The height matters linearly, while speed would matter as a square.
+/EX
+
+TRAP: Power and energy are different. A 100 W bulb used for one hour is 0.1 kWh. "kW" is power, "kWh" is energy. Also, P = F v uses the force **along** the velocity and holds at each instant.
+
+### Quick self-check
+QUIZ:
+Q: A 500 W motor runs for 10 s. The energy it uses is…; 50 J; 500 J; 5000 J; 5 J; 3; E = P t = 5000 J.
+Q: A force of 200 N moves an object at 3 m/s. The power is…; 66.7 W; 203 W; 600 W; 1200 W; 3; P = F v = 600 W.
+Q: Doubling a car's engine power increases its top speed (drag ∝ v²) by about…; 100%; 41%; 26%; 10%; 3; v ∝ P^(1/3), so 2^(1/3) = 1.26.
+Q: 2 kWh equals…; 7.2 × 10⁶ J; 3.6 × 10⁶ J; 2000 J; 7200 J; 1; 1 kWh = 3.6 × 10⁶ J.
+
+### Practice
+LVL: Level 1 | Direct
+P: A crane lifts 500 kg by 12 m in 30 s. Find the power. => 500 × 9.8 × 12 ÷ 30 = **1960 W**.
+P: A 3 kW kettle runs for 3 minutes. How much energy (in kWh)? => 3 × 0.05 = **0.15 kWh**.
+LVL: Level 2 | Apply
+P: A cyclist exerts a driving force of 40 N at 8 m/s. Find the power and the work done in 10 minutes. => P = **320 W**. W = 320 × 600 = **192,000 J**.
+P: An electric motor with 80% efficiency drives a lift raising 250 kg at 0.5 m/s. How much electrical power does it use? => Useful power = m g v = 250 × 9.8 × 0.5 = 1225 W. Input = 1225 ÷ 0.8 = **1531 W**.
+P: A 1000 kg car accelerates from 0 to 20 m/s in 8 s. Find the average power ignoring resistance. => KE = ½ × 1000 × 400 = 200,000 J. Power = 200,000 ÷ 8 = **25 kW**.
+LVL: Challenge | A wind turbine
+P: The power in wind passing through a circle of area A is P = ½ ρ A v³, since mass flows at ρ A v per second, each kilogram carrying ½ v² of kinetic energy. For ρ = 1.2 kg/m³ and blades of radius 20 m in a 10 m/s wind, find the power in the wind, and the output if the turbine captures 40%. What happens when the wind speed doubles? => A = π × 400 = 1257 m². P = 0.5 × 1.2 × 1257 × 1000 = **754 kW**. Output = 0.4 × 754 = **302 kW**. Doubling v multiplies the power by 2³ = **8**, which is why wind farms are built where the wind is strongest.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Derivative: f′(x) = lim (h → 0) (f(x + h) − f(x)) ÷ h. Slope of the tangent, instantaneous rate of change. Power rule d/dx xⁿ = n xⁿ⁻¹. Tangent line y − f(a) = f′(a)(x − a).
+- Position, velocity, acceleration are successive derivatives. Differentiable implies continuous.
+- Power: P = W/t = F v. Efficiency = useful ÷ input. 1 kWh = 3.6 MJ. Top speed ∝ P^(1/3).
+
+BN: আজকের সারকথা: অন্তরকলজ f′(x) = lim (f(x + h) − f(x))/h, স্পর্শকের ঢাল ও তাৎক্ষণিক পরিবর্তনের হার। ঘাত নিয়ম d/dx xⁿ = n xⁿ⁻¹। অবস্থান → বেগ → ত্বরণ ক্রমান্বয়ে অন্তরকলজ। ক্ষমতা P = W/t = Fv; দক্ষতা = কার্যকর ÷ মোট ইনপুট; 1 kWh = 3.6 MJ।
+
+**Tomorrow:** derivatives of sine and cosine, rates in the real world, and a mixed energy-and-power workout.
+
+EXIT:
+E: Find f′(2) for f(x) = x² + 3x. (Answer a number); 7; 0.001; f′(x) = 2x + 3, so f′(2) = 7.
+E: A force of 150 N moves at 4 m/s along the force. What is the power in watts?; 600; 0.001; P = F v = 600 W.
+E: Find lim (h → 0) ((2 + h)² − 4) ÷ h.; 4; 0.001; (4h + h²) ÷ h = 4 + h → 4.
+E: What is the energy in kWh used by a 2 kW heater in 30 minutes?; 1; 0.001; 2 × 0.5 = 1 kWh.
+
+CHECK: notes

@@ -1,0 +1,213 @@
+@day Week 6 · Day 3 · Wednesday
+# Derivatives of logs, powers and inverse trig. Then: centre of mass and collisions in two dimensions
+lead: With the chain rule in hand you can complete the table of standard derivatives: logarithms, exponentials with any base, all the trig functions and their inverses. In physics, you find the single point that represents a whole object's motion, the centre of mass, and then you handle collisions that are not head-on.
+
+BN: চেইন রুল জানা থাকায় আজ আদর্শ অন্তরকলজের তালিকা সম্পূর্ণ করা যায়: লগারিদম, যেকোনো ভিত্তির সূচক, সব ত্রিকোণমিতিক ফাংশন ও তাদের ইনভার্স। পদার্থবিজ্ঞানে একটা পুরো বস্তুর গতিকে একটা বিন্দুতে বোঝানো যায়, সেটা ভরকেন্দ্র (centre of mass); তারপর সরাসরি নয় এমন (তির্যক) সংঘর্ষ নিয়ে কাজ করব।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Differentiate (5x − 2)⁶. => **30 (5x − 2)⁵**.
+P: Differentiate e^(−3x). => **−3 e^(−3x)**.
+P: Differentiate sin(x²). => **2x cos(x²)**.
+P: A 4 kg body at 3 m/s sticks to a 2 kg body at rest. Find the common speed. => 12 ÷ 6 = **2 m/s**.
+P: Two equal masses collide elastically head-on, one at rest. What happens? => They **exchange velocities**: the moving one stops and the other goes off with its speed.
+
+CHECK: recall
+
+@section math | 2 · Math: the full table of derivatives | 55 min
+
+### The table
+| Function | Derivative |
+| eˣ | eˣ |
+| aˣ | (ln a) aˣ |
+| ln x | 1/x |
+| log base a of x | 1 ÷ (x ln a) |
+| sin x | cos x |
+| cos x | −sin x |
+| tan x | sec²x |
+| sec x | sec x tan x |
+| cot x | −csc²x |
+| csc x | −csc x cot x |
+| arcsin x | 1 ÷ √(1 − x²) |
+| arccos x | −1 ÷ √(1 − x²) |
+| arctan x | 1 ÷ (1 + x²) |
+
+You already derived the first six. Here are the new ones.
+
+### The natural logarithm
+You found it yesterday: from e^(ln x) = x and the chain rule, (ln x)′ = 1/x. With the chain rule for ln(u):
+
+EQ: d/dx ln(u) = u′ ÷ u
+
+For other bases, use log_a x = ln x ÷ ln a, so (log_a x)′ = 1 ÷ (x ln a). Notice how special ln is: the only base where the constant is 1.
+
+LAB: The slope of ln x | The slope of y = ln x at x₀ should be 1/x₀. Move x₀ and compare the numerical slope with 1/x₀. The slope is steep near 0 and flattens as x grows, which is why logs grow so slowly. | x0:Point x₀:0.2:5:0.1:1 | (log(x0+0.000001)-log(x0))/0.000001:Numerical slope:3 ;; 1/x0:Predicted slope 1/x₀:3 | log(x) ;; (1/x0)*(x-x0)+log(x0) | 0,6 | -3,3
+
+EX: Logs with the chain rule
+1. d/dx ln(3x + 1) = 3 ÷ (3x + 1).
+2. d/dx ln(sin x) = cos x ÷ sin x = **cot x**.
+3. d/dx (x ln x) = ln x + x × (1/x) = **ln x + 1**. This is zero at x = 1/e, where x ln x has its minimum value −1/e = −0.368.
+4. d/dx (ln x ÷ x) = (1 − ln x) ÷ x². Zero at x = e, the maximum of ln x ÷ x, with value 1/e.
+/EX
+
+BN: ln x এর অন্তরকলজ 1/x, আর ln(u) এর u′/u। যেকোনো ভিত্তি a এর জন্য log_a x এর অন্তরকলজ 1/(x ln a)। ln x খাড়া হয় 0 এর কাছে আর সমতল হয় x বাড়লে, তাই লগারিদম খুব ধীরে বাড়ে।
+
+### The other trig functions
+Use the quotient rule on sin and cos:
+- tan x = sin x ÷ cos x gives sec²x (Monday).
+- sec x = 1 ÷ cos x. Chain rule on (cos x)⁻¹: −(cos x)⁻² × (−sin x) = sin x ÷ cos²x = **sec x tan x**.
+- cot x = cos x ÷ sin x gives −1 ÷ sin²x = **−csc²x**.
+
+### The inverse trig functions: a beautiful trick
+**arcsin.** Let y = arcsin x, which means sin y = x with y between −π/2 and π/2. Differentiate both sides with respect to x: cos y × y′ = 1, so y′ = 1 ÷ cos y. Since cos y ≥ 0 on this range, cos y = √(1 − sin²y) = √(1 − x²). So:
+
+EQ: d/dx arcsin x = 1 ÷ √(1 − x²)
+
+**arctan.** Let y = arctan x, so tan y = x. Then sec²y × y′ = 1, and sec²y = 1 + tan²y = 1 + x². So:
+
+EQ: d/dx arctan x = 1 ÷ (1 + x²)
+
+(The same trick gives arccos x with a minus sign: −1 ÷ √(1 − x²).)
+
+FUNC: arctan and its slope | x | y | atan(x) ;; 1/(1+x**2) | -5,5 | -2,2 | - | Teal: y = arctan x, which levels off at ±π/2. Orange: its derivative 1 ÷ (1 + x²), a bell shape with value 1 at x = 0, where arctan is steepest, and falling toward 0 where arctan flattens.
+
+EX: Using the inverse trig derivatives
+1. d/dx arctan(2x) = 2 ÷ (1 + 4x²).
+2. d/dx arcsin(x/2) = (1/2) ÷ √(1 − x²/4) = **1 ÷ √(4 − x²)**.
+3. d/dx e^(sin x) = **cos x · e^(sin x)**.
+4. d/dx 3ˣ = (ln 3) 3ˣ = 1.0986 × 3ˣ.
+5. d/dx log₁₀ x = 1 ÷ (x ln 10) = **0.4343 ÷ x**.
+/EX
+
+### Where logs in derivatives matter
+EX: pH is a logarithm
+1. pH = −log₁₀[H⁺]. Then d(pH)/d[H⁺] = −1 ÷ ([H⁺] ln 10).
+2. At [H⁺] = 10⁻⁷ mol/L (pure water), the slope is −1 ÷ (10⁻⁷ × 2.303) = **−4.34 × 10⁶** per mol/L. A tiny change in concentration moves the pH noticeably. At high concentration, the same change moves the pH much less, which is why logs suit quantities spanning many orders of magnitude.
+/EX
+
+TRAP: d/dx (ln x) is 1/x, not ln(1/x) or x ln x. And do not confuse (aˣ)′ = (ln a) aˣ with the power rule x^n: aˣ has a variable exponent. For arcsin, the derivative blows up at x = ±1 (a vertical tangent), where the curve is steepest.
+
+### Quick self-check
+QUIZ:
+Q: d/dx ln(5x) equals…; 5/x; 1/x; 1/(5x); 5 ln x; 2; u′ ÷ u = 5 ÷ 5x = 1/x.
+Q: d/dx arctan x at x = 1 equals…; 1; 1/2; π/4; 2; 2; 1 ÷ (1 + 1) = 1/2.
+Q: d/dx (x ln x) equals…; ln x; 1/x; ln x + 1; x; 3; Product rule: ln x + x × 1/x.
+Q: d/dx 2ˣ equals…; x 2^(x − 1); 2ˣ; (ln 2) 2ˣ; 2; 3; Variable exponent, so a factor ln a appears.
+Q: d/dx sec x equals…; sec²x; sec x tan x; −csc x cot x; tan x; 2; The reciprocal-of-cosine rule.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Differentiate ln(x² + 1). => 2x ÷ (x² + 1).
+P: Differentiate 5ˣ. => **(ln 5) 5ˣ**.
+P: Differentiate arctan x + 3 ln x. => **1 ÷ (1 + x²) + 3/x**.
+LVL: Level 2 | Combine
+P: Differentiate x² ln x. => 2x ln x + x = **x (2 ln x + 1)**.
+P: Differentiate e^(2x) sin x. => e^(2x) (2 sin x + cos x).
+P: Differentiate ln(x + √(x² + 1)). => (1 + x ÷ √(x² + 1)) ÷ (x + √(x² + 1)). Combine the top: (√(x² + 1) + x) ÷ √(x² + 1). It cancels with the bottom: **1 ÷ √(x² + 1)**.
+P: Find the maximum of f(x) = ln x ÷ x for x > 0. => f′ = (1 − ln x) ÷ x² = 0 at x = e. f(e) = **1/e = 0.368**. Since f′ > 0 before and < 0 after, it is a maximum.
+P: Differentiate arcsin(2x). => 2 ÷ √(1 − 4x²).
+LVL: Level 3 | Real
+P: The loudness level of a sound is L = 10 log₁₀(I ÷ I₀) dB. Find dL/dI and evaluate it at I = 10⁻⁶ W/m² (I₀ = 10⁻¹² W/m²). What does the sign and size mean? => dL/dI = 10 ÷ (I ln 10) = 4.343 ÷ I. At I = 10⁻⁶: **4.34 × 10⁶ dB per W/m²**. It is positive: more intensity means more decibels. The huge number is because I is tiny. Relative to I, the slope is 4.34 dB per unit of ln I. The slope falls as 1/I, so doubling a loud sound adds the same 3 dB as doubling a quiet one (10 log 2 = 3.01), but needs far more power.
+LVL: Challenge | Derive a derivative
+P: Show that d/dx (arccos x) = −1 ÷ √(1 − x²) and use arcsin x + arccos x = π/2 to explain why. => From arcsin x + arccos x = π/2 (a constant), differentiate: (arcsin x)′ + (arccos x)′ = 0, so (arccos x)′ = −1 ÷ √(1 − x²) ∎. The two slopes are exact opposites.
+
+CHECK: math
+
+@section physics | 3 · Physics: centre of mass and collisions in 2D | 35 min
+
+### The centre of mass
+A complicated body (a spinning wrench, a person doing a flip) has a single point whose motion is simple. This point is the **centre of mass (CM)**, the mass-weighted average position.
+
+EQ: x_cm = (m₁ x₁ + m₂ x₂ + …) ÷ (m₁ + m₂ + …)
+
+For a continuous body, you average over all its mass; for a uniform, symmetric body, it is at the geometric centre. (We will use integration to compute others in Week 8.)
+
+EX: Two masses
+1. 2 kg at x = 0 and 6 kg at x = 4 m. x_cm = (0 + 24) ÷ 8 = **3 m**, closer to the heavier mass.
+/EX
+
+EX: Three masses in a plane
+1. 1 kg at (0, 0), 2 kg at (3, 0), 3 kg at (0, 4). x_cm = (0 + 6 + 0) ÷ 6 = 1, and y_cm = (0 + 0 + 12) ÷ 6 = 2. The CM is at **(1, 2)**.
+/EX
+
+### Motion of the centre of mass
+Add Newton's second law for every particle in a system. The internal forces cancel in pairs (third law), leaving only the **external** force:
+
+EQ: F_ext = M a_cm     (M = total mass)
+
+So the centre of mass moves as if all the mass were concentrated there and all external forces acted on it. A firework shell explodes in the air, but its CM keeps following the same parabola. A diver twists and somersaults, but the CM follows a simple arc.
+
+EX: Two people on ice
+1. A 60 kg and a 40 kg person stand 5 m apart on frictionless ice and pull on a rope between them.
+2. No external horizontal force, so the CM stays fixed: it is at 40 × 5 ÷ 100 = 2 m from the heavier person.
+3. They meet at the CM: the 60 kg person moves **2 m** and the 40 kg person moves **3 m**.
+/EX
+
+LAB: Centre of mass of two bodies | Slide the masses and positions. The centre of mass lies on the line between them, closer to the heavier body. | m1:Mass 1 (kg):1:10:1:2 ;; m2:Mass 2 (kg):1:10:1:6 ;; x1:Position 1 (m):-5:5:0.5:0 ;; x2:Position 2 (m):-5:5:0.5:4 | (m1*x1+m2*x2)/(m1+m2):Centre of mass (m):2 ;; abs(x2-x1)*m2/(m1+m2):Distance from body 1 (m):2 ;; abs(x2-x1)*m1/(m1+m2):Distance from body 2 (m):2 | - | 0,1 | 0,1
+
+BN: ভরকেন্দ্র = ভর দিয়ে ওজন করা গড় অবস্থান: x_cm = Σmx/Σm। শুধু বাইরের বল ভরকেন্দ্রের গতি বদলায় (F_ext = Ma_cm), ভেতরের বল নয়। আকাশে আতশবাজি ফাটলেও ভরকেন্দ্র একই অধিবৃত্তাকার পথে চলে। বরফের ওপর দুজন দড়ি টানলে তারা ভরকেন্দ্রে মিলিত হয়।
+
+### Collisions in two dimensions
+Momentum is a vector, so it is conserved **in each direction separately**: Σp_x before = Σp_x after and Σp_y before = Σp_y after.
+
+EX: Two cars at an intersection
+1. A 1000 kg car going east at 20 m/s and a 1500 kg car going north at 10 m/s collide and stick.
+2. x: 1000 × 20 = 2500 × v_x, so v_x = 8 m/s. y: 1500 × 10 = 2500 × v_y, so v_y = 6 m/s.
+3. Speed = √(64 + 36) = **10 m/s**, at an angle of tan⁻¹(6/8) = **36.9° north of east**.
+/EX
+
+### A beautiful result: equal masses, elastic, one at rest
+Ball 1 (speed u) hits an identical ball 2 at rest, off-centre, elastically. Momentum: u = v₁ + v₂ (vectors). Square it using the dot product: u² = v₁² + v₂² + 2 v₁ · v₂. But energy conservation says u² = v₁² + v₂². Therefore
+
+EQ: v₁ · v₂ = 0
+
+**The two balls leave at a right angle.** (This is why, in billiards, the cue ball and the object ball always separate at 90° after a glancing, equal-mass collision.)
+
+EX: A glancing collision
+1. A cue ball at u = 4 m/s hits an equal ball at rest. After the collision the cue ball moves at 30° to its original line. The other ball must go at 60° on the other side.
+2. By components: v₁ = u cos 30° = **3.46 m/s** and v₂ = u sin 30° = **2 m/s**.
+3. Check x-momentum: 3.464 cos 30° + 2 cos 60° = 3 + 1 = 4 ✓. y-momentum: 3.464 sin 30° − 2 sin 60° = 1.732 − 1.732 = 0 ✓.
+/EX
+
+TRAP: Do not forget that **external** forces change the CM's motion: when the firework's pieces hit the ground, the ground force acts. In 2D collisions, always write two equations (x and y), and keep signs for components. A common error is to add speeds instead of vectors.
+
+### Quick self-check
+QUIZ:
+Q: Masses 1 kg at x = 0 and 3 kg at x = 8 m. The centre of mass is at…; 2 m; 4 m; 6 m; 8 m; 3; (0 + 24) ÷ 4 = 6 m.
+Q: The centre of mass of an exploding shell, ignoring air resistance, follows…; a straight line; a parabola, as before the explosion; a circle; it stops; 2; Only external forces (gravity) affect it.
+Q: After a glancing elastic collision of two equal masses (one initially at rest), the balls move off…; at 45° each; at 90° to each other; in the same direction; backwards; 2; From v₁ · v₂ = 0.
+Q: In a 2D collision, momentum is conserved…; only in x; only in y; in each direction separately; only in total speed; 3; Each component of the momentum vector is conserved.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the CM of a 4 kg mass at x = 1 and a 1 kg mass at x = 6. => (4 + 6) ÷ 5 = **2 m**.
+P: A 2 kg block at 5 m/s moving east hits a 3 kg block at rest and sticks. Find v. => 10 ÷ 5 = **2 m/s** east.
+LVL: Level 2 | Apply
+P: Find the CM of 2 kg at (0, 0), 2 kg at (4, 0), 4 kg at (2, 3). => x = (0 + 8 + 8) ÷ 8 = 2. y = 12 ÷ 8 = 1.5. **(2, 1.5)**.
+P: A 70 kg boatman stands at the stern of a 140 kg boat, 4 m from the bow, and walks to the bow (ignore water drag). How far does the boat move? => CM fixed. The person moves 4 m relative to the boat. The boat moves back by x so that 70 (4 − x) = 140 x, so x = **4/3 = 1.33 m**.
+P: A 1 kg object moving east at 6 m/s explodes into two 0.5 kg pieces. One piece goes north at 8 m/s. Find the velocity of the other. => Total momentum is (6, 0). The first piece has (0, 4). The second must have (6, −4), so its velocity is (12, −8) m/s. Speed **14.4 m/s** at **33.7° south of east**.
+P: Two ice skaters of equal mass collide at right angles: one east at 3 m/s and one north at 4 m/s, and they grip each other. Find the final velocity. => Each component halves: (1.5, 2). Speed **2.5 m/s** at **53.1° north of east**.
+LVL: Challenge | The rocket idea
+P: A 0.2 kg toy rocket (including fuel) at rest ejects 0.05 kg of gas at 40 m/s backward in a short burst, in free space. Find the speed of the rocket afterwards. => Momentum: 0 = 0.15 v − 0.05 × 40, so v = **13.3 m/s** forward. This is the principle of every rocket: it throws mass backwards to gain momentum forward. We refine it in a later week.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- (ln u)′ = u′/u, (aˣ)′ = (ln a) aˣ, (arcsin x)′ = 1/√(1 − x²), (arctan x)′ = 1/(1 + x²). The trick for inverse functions: differentiate the defining equation.
+- Centre of mass x_cm = Σ m x ÷ Σ m. F_ext = M a_cm. In 2D, conserve momentum in each direction. Equal masses, elastic, one at rest: v₁ ⊥ v₂.
+
+BN: আজকের সারকথা: ln u এর অন্তরকলজ u′/u, aˣ এর (ln a)aˣ, arcsin x এর 1/√(1 − x²), arctan x এর 1/(1 + x²)। ইনভার্স ফাংশনের কৌশল: সংজ্ঞার সমীকরণকেই অন্তরকলন করো। ভরকেন্দ্র x_cm = Σmx/Σm; F_ext = Ma_cm। দ্বিমাত্রিক সংঘর্ষে প্রতিটি দিকে ভরবেগ সংরক্ষিত।
+
+EXIT:
+E: Find d/dx ln(x² + 1) at x = 1.; 1; 0.001; 2x ÷ (x² + 1) = 2 ÷ 2 = 1.
+E: Find the slope of y = arctan x at x = 0.; 1; 0.001; 1 ÷ (1 + 0) = 1.
+E: Where (in metres) is the centre of mass of 3 kg at x = 0 and 1 kg at x = 8?; 2; 0.001; (0 + 8) ÷ 4 = 2.
+
+**Tomorrow:** implicit differentiation, and impulse in real impacts.
+
+CHECK: notes

@@ -1,0 +1,192 @@
+@day Week 8 · Day 3 · Wednesday
+# The fundamental theorem of calculus. Then: rotational dynamics
+lead: This is the most important theorem in the course. It says that the two ideas you have met, "area under a curve" and "undo the derivative", are the same thing. That one fact turns a limit of infinitely many sums into one line of arithmetic. In physics, you put Newton's second law into rotational form, τ = I α, and solve machines with spinning pulleys.
+
+BN: এটা পুরো কোর্সের সবচেয়ে গুরুত্বপূর্ণ উপপাদ্য। এটি বলে, তোমার জানা দুটি ধারণা, "বক্ররেখার নিচের ক্ষেত্রফল" আর "অন্তরকলনকে উল্টানো", আসলে একই জিনিস। এই একটি তথ্য অসংখ্য যোগফলের লিমিটকে এক লাইনের হিসাবে নামিয়ে আনে। পদার্থবিজ্ঞানে নিউটনের দ্বিতীয় সূত্রের ঘূর্ণন রূপ τ = Iα ব্যবহার করে ঘূর্ণায়মান পুলিসহ যন্ত্র সমাধান করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find ∫₀⁶ 2 dx. => **12** (a rectangle).
+P: Use ∫₀ᵇ x² dx = b³ ÷ 3 to find ∫₀³ x² dx. => **9**.
+P: Find I of a rod (M = 3 kg, L = 2 m) about its end. => (1/3)(3)(4) = **4 kg·m²**.
+P: Find I of a disc (M = 4 kg, R = 0.5 m) about its centre. => ½ × 4 × 0.25 = **0.5 kg·m²**.
+P: State the parallel axis theorem. => **I = I_cm + M d²**.
+
+CHECK: recall
+
+@section math | 2 · Math: the fundamental theorem | 55 min
+
+### Why area and antiderivative are the same
+Think of a car. If v(t) is its speed, then the **area under the speed graph** from t = a to t = b is the distance travelled. But there is another way to find the distance: if s(t) is the odometer reading, the distance is s(b) − s(a). And s is an antiderivative of v, since s′ = v. So:
+
+EQ: ∫ₐᵇ v(t) dt = s(b) − s(a)     where s′ = v
+
+That is the theorem, in odometer language. No slicing is needed once you know an antiderivative.
+
+BN: v(t) গতি হলে গতি-লেখচিত্রের নিচের ক্ষেত্রফল = অতিক্রান্ত দূরত্ব। আবার ওডোমিটারে s(t) হলে দূরত্ব = s(b) − s(a), এবং s′ = v, অর্থাৎ s হলো v এর প্রতিঅন্তরকলজ। তাই ক্ষেত্রফল বের করতে আর ফালি কাটতে হয় না, শুধু প্রতিঅন্তরকলজ লাগে।
+
+### The two parts
+**Part 1 (the area function).** If f is continuous and A(x) = ∫ₐˣ f(t) dt, then A′(x) = f(x). In words: the rate at which the accumulated area grows equals the height of the curve at that point. (Adding a strip of width dx and height f adds f dx of area.)
+
+**Part 2 (evaluation).** If F′ = f, then
+
+EQ: ∫ₐᵇ f(x) dx = F(b) − F(a) = [F(x)] from a to b
+
+Any antiderivative works, because the constant C cancels in F(b) − F(a).
+
+EX: Evaluating definite integrals
+1. ∫₀³ x² dx = [x³ ÷ 3] = 27 ÷ 3 − 0 = **9** (matches the sum method of Day 2).
+2. ∫₁² (3x² − 2x) dx = [x³ − x²] = (8 − 4) − (1 − 1) = **4**.
+3. ∫₀^π sin x dx = [−cos x] = −cos π + cos 0 = 1 + 1 = **2**. (The area of one hump of the sine wave.)
+4. ∫₁ᵉ (1 ÷ x) dx = [ln x] = ln e − ln 1 = **1**.
+5. ∫₀¹ eˣ dx = [eˣ] = e − 1 = **1.718**.
+6. ∫₁⁴ √x dx = [(2/3) x^(3/2)] = (2/3)(8 − 1) = **14/3**.
+/EX
+
+PREDICT: ∫₀³ (x² − 2x) dx: the graph dips below the axis between 0 and 2. Do you expect the integral to equal the **total area** between the curve and the axis? What would you have to do to get the total area? => No. The integral gives the signed area, so the part below the axis counts negative. For the total area, split at the zeros (x = 0 and x = 2) and add the absolute values of each piece.
+
+### Signed area versus total area
+EX: Integral or area?
+1. ∫₀³ (x² − 2x) dx = [x³ ÷ 3 − x²] = 9 − 9 = **0**. The signed areas cancel.
+2. The zeros are x = 0 and x = 2. ∫₀² = 8/3 − 4 = −4/3. ∫₂³ = 0 − (−4/3) = +4/3.
+3. Total area = 4/3 + 4/3 = **8/3**.
+/EX
+
+EX: Displacement versus distance
+1. v(t) = t² − 4t (m/s) for 0 ≤ t ≤ 5. The velocity is negative for 0 < t < 4 (the object moves backward), and positive after that.
+2. **Displacement** = ∫₀⁵ v dt = [t³ ÷ 3 − 2t²] = 125/3 − 50 = **−8.33 m**.
+3. **Distance travelled**: ∫₀⁴ = 64/3 − 32 = −10.67 and ∫₄⁵ = (−8.33) − (−10.67) = +2.33. Distance = 10.67 + 2.33 = **13.0 m**.
+/EX
+
+### Derivatives of integrals (Part 1 in use)
+EX: Chain rule meets the theorem
+1. d/dx ∫₀ˣ t² dt = **x²** (Part 1, immediately).
+2. d/dx ∫₀^(x²) sin t dt = sin(x²) · 2x (Part 1 plus the chain rule).
+3. If f(x) = 3 + ∫₀ˣ t dt, then f(x) = 3 + x² ÷ 2 and f′(x) = x ✓.
+/EX
+
+LAB: The area function | Choose a curve y = a x² and an upper limit u. The blue curve is f(x) and the orange curve is the accumulated area A(x) = ∫₀ˣ a t² dt = a x³ ÷ 3. Notice that where f is large, A climbs steeply: A′ = f. | a:Coefficient a:0.2:2:0.1:1 ;; u:Upper limit u:0.5:3:0.1:2 | a*u^3/3:Area A(u) from 0 to u:3 ;; a*u^2:Height f(u) = slope of A at u:3 | a*x^2 ;; a*x^3/3 | 0,3 | 0,10
+
+BN: ভাগ ১: A(x) = ∫ₐˣ f dt হলে A′(x) = f(x), অর্থাৎ জমা হওয়া ক্ষেত্রফলের বৃদ্ধির হার = বক্ররেখার উচ্চতা। ভাগ ২: F′ = f হলে ∫ₐᵇ f dx = F(b) − F(a), C কেটে যায়। প্রাপ্ত মান signed area; মোট ক্ষেত্রফল চাইলে শূন্যে ভেঙে পরম মান যোগ করো। সরণ ও অতিক্রান্ত দূরত্ব এভাবেই আলাদা হয়।
+
+TRAP: When the antiderivative is evaluated, do **F(b) − F(a)** with every term, and watch the signs when a ≤ 0. Also, you never need + C in a definite integral. Finally, the theorem needs f to be continuous on [a, b]: ∫₋₁¹ (1 ÷ x²) dx is **not** [−1 ÷ x] = −2 because 1 ÷ x² blows up at 0, so the integral diverges.
+
+### Quick self-check
+QUIZ:
+Q: ∫₀² 3x² dx equals…; 6; 8; 12; 4; 2; [x³] from 0 to 2 = 8.
+Q: ∫₀^π cos x dx equals…; 0; 1; 2; −2; 1; [sin x] = sin π − sin 0 = 0.
+Q: d/dx ∫₁ˣ ln t dt equals…; ln x; 1 ÷ x; x ln x − x; 0; 1; Part 1 of the theorem.
+Q: A velocity graph is below the axis for 0 to 4 s. The integral of v over that interval gives…; distance; displacement (negative); speed; acceleration; 2; The integral of velocity is signed displacement.
+Q: ∫ₐᵇ f dx = F(b) − F(a) requires F to satisfy…; F = f; F′ = f; F″ = f; F = 0; 2; F is any antiderivative of f.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Evaluate ∫₀² 3x² dx. => [x³] = **8**.
+P: Evaluate ∫₁⁴ √x dx. => (2/3)(8 − 1) = **14/3**.
+P: Evaluate ∫₀^π cos x dx. => [sin x] = **0**.
+P: Evaluate ∫₀¹ eˣ dx. => **e − 1 ≈ 1.718**.
+LVL: Level 2 | Apply
+P: Evaluate ∫₁³ (x² − 2 ÷ x²) dx. => [x³ ÷ 3 + 2 ÷ x] = (9 + 2/3) − (1/3 + 2) = 9.667 − 2.333 = **22/3 ≈ 7.33**.
+P: Evaluate ∫₀^(π/2) (sin x + cos x) dx. => [−cos x + sin x] = (0 + 1) − (−1 + 0) = **2**.
+P: Evaluate ∫₁ᵉ (1 ÷ x + x) dx. => [ln x + x² ÷ 2] = (1 + e² ÷ 2) − (0 + 1/2) = 1/2 + e² ÷ 2 = **4.19**.
+P: Find the total area between y = x² − 4 and the x-axis on [0, 3]. => The zero is x = 2. ∫₀² = 8/3 − 8 = −16/3. ∫₂³ = (9 − 12) − (8/3 − 8) = −3 + 16/3 = 7/3. Total area = 16/3 + 7/3 = **23/3 ≈ 7.67**. (The signed integral is −3.)
+P: Find d/dx ∫₀^(x³) cos t dt. => cos(x³) × 3x² = **3x² cos(x³)**.
+LVL: Level 3 | Real
+P: A reservoir's inflow rate is r(t) = 3t² cubic metres per hour. How much enters between t = 0 and t = 4? And how much between t = 2 and t = 4? => [t³] from 0 to 4 = **64 m³**. From 2 to 4: 64 − 8 = **56 m³**.
+P: A spring has stiffness k = 200 N/m. Work to stretch it from 0 to 0.3 m, where the force is F = k x. => W = ∫₀^0.3 200x dx = [100x²] = 100 × 0.09 = **9 J** (same as ½ k x²).
+P: The speed of a runner is v(t) = 6 − 0.6t m/s from t = 0 to t = 10 s. Find the distance run. => ∫₀¹⁰ (6 − 0.6t) dt = [6t − 0.3t²] = 60 − 30 = **30 m**.
+LVL: Challenge | Integrals inside limits
+P: Find f′(x) if f(x) = ∫ₓ^(x²) e^(−t²) dt. Then find lim (x → 0) (1 ÷ x²) ∫₀ˣ sin t dt. => For the first, split at a constant c: f = (integral from c to x²) − (integral from c to x), so **f′(x) = 2x e^(−x⁴) − e^(−x²)**. For the limit: ∫₀ˣ sin t dt = 1 − cos x, so we need lim (1 − cos x) ÷ x², which is 0 ÷ 0. L'Hôpital: sin x ÷ 2x → **1/2**.
+
+CHECK: math
+
+@section physics | 3 · Physics: τ = I α and spinning pulleys | 35 min
+
+### Newton's second law for rotation
+Sum of torques about a fixed axis equals the moment of inertia times angular acceleration:
+
+EQ: Στ = I α     with     τ = F r sin θ (perpendicular force × distance)
+
+For a string wrapped around a wheel of radius R, a point on the rim moves like the string: a = α R. That single link couples the straight-line equations to the spinning ones.
+
+**Method:** (1) draw each object; (2) for each straight-moving object, write F = m a; (3) for each spinning object, write Στ = I α; (4) link the two with a = α R; (5) solve.
+
+BN: ঘূর্ণনে নিউটনের দ্বিতীয় সূত্র: Στ = Iα, যেখানে τ = (লম্ব বল) × দূরত্ব। দড়ি চাকার পরিধিতে জড়ানো থাকলে a = αR, এটাই সরল ও ঘূর্ণন সমীকরণ জোড়া দেয়। পদ্ধতি: প্রতিটা ভর আঁকো, সরল গতিতে F = ma, ঘূর্ণনে Στ = Iα, a = αR দিয়ে জোড়া, তারপর সমাধান।
+
+EX: A string on a disc
+1. A disc (M = 2 kg, R = 0.3 m) can spin about its centre. A string wrapped around it is pulled with tension T = 6 N.
+2. τ = T R = 6 × 0.3 = 1.8 N·m. I = ½ × 2 × 0.09 = 0.09 kg·m².
+3. α = τ ÷ I = 1.8 ÷ 0.09 = **20 rad/s²**.
+/EX
+
+EX: A hanging mass turns a wheel
+1. A 2 kg mass hangs from a string wrapped around a solid disc (M = 6 kg, R = 0.25 m) on a fixed axle.
+2. Mass: m g − T = m a. Disc: T R = I α = ½ M R² (a ÷ R), so T = ½ M a.
+3. Add: m g = (m + M ÷ 2) a. So a = 19.6 ÷ (2 + 3) = **3.92 m/s²**. T = ½ × 6 × 3.92 = **11.76 N**. α = a ÷ R = **15.68 rad/s²**.
+4. Check: τ = 11.76 × 0.25 = 2.94. I α = 0.1875 × 15.68 = 2.94 ✓. (A massless pulley would give a = g. The wheel's inertia slows the fall.)
+/EX
+
+EX: An Atwood machine with a heavy pulley
+1. Masses m₁ = 2 kg and m₂ = 5 kg hang over a solid-disc pulley (M = 4 kg, R = 0.2 m). I = ½ M R², so I ÷ R² = M ÷ 2 = 2 kg.
+2. m₂: m₂ g − T₂ = m₂ a. m₁: T₁ − m₁ g = m₁ a. Pulley: (T₂ − T₁) R = I α = (I ÷ R) a, so T₂ − T₁ = (M ÷ 2) a.
+3. Add all three: (m₂ − m₁) g = (m₁ + m₂ + M ÷ 2) a. So **a = 3 × 9.8 ÷ (2 + 5 + 2) = 3.27 m/s²**.
+4. T₁ = 2 (9.8 + 3.27) = **26.1 N** and T₂ = 5 (9.8 − 3.27) = **32.7 N**. The two tensions differ, and the difference (6.5 N) is what spins the pulley.
+/EX
+
+LAB: The Atwood machine with a heavy pulley | Choose the two masses and the pulley's mass (a solid disc). The graph shows how the acceleration of the system falls as the pulley gets heavier. Positive a means the heavier mass m₂ goes down. The massless-pulley case is the left end of the curve. | m1:Mass m₁ (kg):1:10:0.5:2 ;; m2:Mass m₂ (kg):1:10:0.5:5 ;; M:Pulley mass M (kg):0:10:0.5:4 | (m2-m1)*9.8/(m1+m2+M/2):Acceleration a (m/s²):3 ;; m1*(9.8+(m2-m1)*9.8/(m1+m2+M/2)):Tension T₁ (N):2 ;; m2*(9.8-(m2-m1)*9.8/(m1+m2+M/2)):Tension T₂ (N):2 | (m2-m1)*9.8/(m1+m2+x/2) | 0,10 | -10,10
+
+### Rotational work and power
+Work done by a torque is the integral of τ over the angle turned, like W = ∫ F dx:
+
+EQ: W = ∫ τ dθ     Power P = τ ω     and     W = ΔKE = ½ I ω₂² − ½ I ω₁²
+
+EX: Work and power
+1. A constant torque of 8 N·m turns a flywheel (I = 2 kg·m²) through 5 revolutions = 10π = 31.4 rad. W = 8 × 31.4 = **251 J**. From rest, ½ I ω² = 251, so ω = √251 = **15.8 rad/s**.
+2. A variable torque τ = 2θ (N·m) acts from θ = 0 to 4 rad: W = ∫₀⁴ 2θ dθ = [θ²] = **16 J**.
+3. A motor delivers 50 N·m at 3000 rpm (ω = 314 rad/s): P = 50 × 314 = **15.7 kW**.
+/EX
+
+TRAP: Do not use the same τ for different objects without checking: when a string passes over a pulley with mass, the tensions on the two sides are **different** (T₁ ≠ T₂), because their difference is what turns the pulley. Also, in Στ = I α the torques and I must be about the **same axis**, and a = α R only holds when the string does not slip.
+
+### Quick self-check
+QUIZ:
+Q: A torque of 6 N·m acts on I = 1.5 kg·m². The angular acceleration is…; 4 rad/s²; 9 rad/s²; 0.25 rad/s²; 7.5 rad/s²; 1; α = τ ÷ I.
+Q: When a string runs over a pulley with mass, the tensions on both sides are…; equal; different; both zero; both equal to mg; 2; The difference supplies the net torque.
+Q: A hanging mass falls and spins a massive disc. Compared with free fall, a is…; greater than g; equal to g; less than g; zero; 3; The disc's inertia absorbs some of the energy.
+Q: Power delivered by a torque τ at angular velocity ω is…; τ ω; τ ÷ ω; τ ω²; ½ τ ω; 1; The rotational form of P = F v.
+
+### Practice
+LVL: Level 1 | Direct
+P: A torque of 3 N·m acts on a body with I = 0.5 kg·m². Find α. => **6 rad/s²**.
+P: A motor gives 20 N·m at 100 rad/s. Find the power. => **2000 W**.
+LVL: Level 2 | Apply
+P: Masses 3 kg and 5 kg hang over a solid disc pulley of mass 2 kg. Find a, T₁ and T₂. => I ÷ R² = M ÷ 2 = 1 kg. a = (5 − 3) × 9.8 ÷ (3 + 5 + 1) = **2.18 m/s²**. T₁ = 3 (9.8 + 2.18) = **35.9 N**. T₂ = 5 (9.8 − 2.18) = **38.1 N**. (Check: T₂ − T₁ = 2.18 = (M ÷ 2) a ✓.)
+P: A 0.5 kg block on a frictionless table is pulled by a string over a solid disc pulley (M = 1 kg) to a hanging 1.5 kg mass. Find a. => The hanging mass: m g − T₂ = m a. The block: T₁ = 0.5 a. The pulley: T₂ − T₁ = 0.5 a. Sum: m g = (1.5 + 0.5 + 0.5) a, so a = 14.7 ÷ 2.5 = **5.88 m/s²**.
+P: A grindstone (solid disc, M = 10 kg, R = 0.15 m) must reach 1200 rpm from rest in 6 s. Find the torque needed and the average power. => ω = 125.7 rad/s, α = 20.9 rad/s². I = ½ × 10 × 0.0225 = 0.1125. τ = I α = **2.36 N·m**. KE = ½ × 0.1125 × 15,791 = 888 J, so average power = 888 ÷ 6 = **148 W**.
+P: A torque τ = 3θ² (N·m) acts through θ = 0 to θ = 2 rad on a wheel with I = 4 kg·m², starting from rest. Find the final angular speed. => W = ∫₀² 3θ² dθ = [θ³] = 8 J. ½ × 4 × ω² = 8, so ω² = 4 and **ω = 2 rad/s**.
+LVL: Level 3 | Real
+P: A stationary bicycle wheel (treat as a hoop, M = 1.2 kg, R = 0.35 m) is spun by pulling a rope wound around its rim with a steady 10 N force for 1.2 m of rope. Find the work done and the final angular speed. => W = 10 × 1.2 = **12 J**. I = M R² = 0.147 kg·m². ω² = 2W ÷ I = 163.3, so **ω = 12.8 rad/s**.
+LVL: Challenge | A falling rod
+P: A uniform rod of length L is pivoted at one end and released from horizontal. Find its initial angular acceleration and the initial downward acceleration of its free tip. How does that compare with free fall? => τ = M g (L ÷ 2) (weight at the centre). I = M L² ÷ 3. α = τ ÷ I = **3g ÷ (2L)**. The tip accelerates at a = α L = **3g ÷ 2 = 1.5 g**: faster than free fall! (For L = 1 m, α = 14.7 rad/s².) The tip is dragged down by the heavier part nearer the pivot.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fundamental theorem: Part 1, d/dx ∫ₐˣ f dt = f(x). Part 2, ∫ₐᵇ f dx = F(b) − F(a) for any antiderivative F. Integral = signed area. Total area needs splitting at zeros. Displacement is not distance.
+- Rotation: Στ = I α, a = α R for a string on a rim. Pulley with mass: different tensions, T₂ − T₁ = (M ÷ 2) a for a solid disc. W = ∫ τ dθ, P = τ ω, W = ΔKE.
+
+BN: আজকের সারকথা: মৌলিক উপপাদ্য: d/dx ∫ₐˣ f dt = f(x) এবং ∫ₐᵇ f dx = F(b) − F(a)। সমাকলন = signed area; মোট ক্ষেত্রফলে শূন্য বিন্দুতে ভাঙো; সরণ ≠ দূরত্ব। ঘূর্ণন: Στ = Iα, a = αR; ভারী পুলিতে দুই পাশের টান আলাদা। W = ∫τ dθ, P = τω।
+
+EXIT:
+E: Evaluate ∫₀² (3x² + 1) dx.; 10; 0.001; [x³ + x] = 8 + 2 = 10.
+E: A torque of 6 N·m acts on I = 1.5 kg·m². What is α in rad/s²?; 4; 0.001; α = 6 ÷ 1.5 = 4.
+E: A torque τ = 2θ acts from θ = 0 to θ = 3 rad. What is the work in joules?; 9; 0.001; ∫ 2θ dθ = θ² = 9.
+
+**Tomorrow:** integration by substitution, and angular momentum with the ice skater.
+
+CHECK: notes

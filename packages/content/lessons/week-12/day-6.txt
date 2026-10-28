@@ -1,0 +1,84 @@
+@day Week 12 · Day 6 · Saturday
+# Week 12 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered complex numbers (arithmetic, polar form, De Moivre, roots, e^z, logarithms, geometry, impedance) and fluids (pressure, buoyancy, continuity, Bernoulli, viscosity, surface tension).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: জটিল সংখ্যা (পাটিগণিত, polar রূপ, ডি-মোভার, মূল, e^z, লগারিদম, জ্যামিতি, impedance) এবং তরল (চাপ, প্লবতা, ধারাবাহিকতা, বার্নুলি, সান্দ্রতা, পৃষ্ঠটান)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use g = 9.8 m/s², water density 1000 kg/m³, 1 atm = 101,325 Pa unless told otherwise. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Complex numbers (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Compute (5 + i)(2 − 3i). => 10 − 15i + 2i − 3i² = 10 − 13i + 3 = **13 − 13i**.
+P: (1 mark) Write (7 + i) ÷ (1 − i) in the form a + bi. => Multiply top and bottom by 1 + i: (7 + 7i + i + i²) ÷ 2 = (6 + 8i) ÷ 2 = **3 + 4i**.
+P: (1 mark) Solve z² − 6z + 13 = 0. => z = (6 ± √(36 − 52)) ÷ 2 = (6 ± 4i) ÷ 2 = **3 ± 2i**.
+P: (1 mark) Write −√3 + i in polar form. => r = √(3 + 1) = 2. The point is in quadrant 2 with reference angle 30°, so θ = **150°**. Answer **2 e^(i 150°)**.
+P: (1 mark) Compute (1 + i)¹². => r = √2, θ = 45°. r¹² = 64 and 12 × 45° = 540° ≡ 180°. Result **−64**.
+P: (1 mark) Find all cube roots of −27. => r = 27, θ = 180°, so the cube roots have modulus 3 and angles 60°, 180°, 300°: **3/2 + (3√3/2) i, −3, 3/2 − (3√3/2) i**.
+P: (1 mark) Describe the locus abs(z − 3i) = abs(z + 3i). => Points equally far from 3i and −3i: the perpendicular bisector, which is the **real axis** (Im z = 0).
+P: (1 mark) Find e^(2 + iπ) in exact form. => e² (cos π + i sin π) = **−e²** (about −7.389).
+P: (1 mark) Find the principal value of ln(−2). => ln r + iθ with r = 2, θ = π: **ln 2 + iπ** (about 0.693 + 3.142 i).
+P: (1 mark) Solve (1 + i) z = 3 − i. => z = (3 − i)(1 − i) ÷ 2 = (3 − 3i − i + i²) ÷ 2 = (2 − 4i) ÷ 2 = **1 − 2i**.
+P: (1 mark) Show that z = 2 is a root of z³ − 4z² + 9z − 10 and find the other two roots. => 8 − 16 + 18 − 10 = 0 ✓. Divide: z³ − 4z² + 9z − 10 = (z − 2)(z² − 2z + 5). The quadratic gives z = (2 ± √(4 − 20)) ÷ 2 = **1 ± 2i**.
+P: (1 mark) Rotate the point 4 + 3i by 90° anticlockwise about the point 1 + i. => z − c = 3 + 2i. Times i: −2 + 3i. Add c: **−1 + 4i**.
+P: (2 marks) A series circuit has R = 8 Ω, an inductive reactance of 12 Ω and a capacitive reactance of 6 Ω. Find Z in the form a + bi, its magnitude, the phase angle (give tan φ) and the current amplitude when the supply amplitude is 50 V. => Z = 8 + i (12 − 6) = **8 + 6i Ω** (1 mark). abs(Z) = √(64 + 36) = **10 Ω**, tan φ = 6 ÷ 8 = **0.75** (φ = 36.9°), I₀ = 50 ÷ 10 = **5 A** (1 mark).
+
+CHECK: math
+
+@section physics | 3 · Part B: Fluids (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) Find the gauge pressure and the absolute pressure in atmospheres at 25 m depth in seawater (ρ = 1025 kg/m³). => Gauge = 1025 × 9.8 × 25 = **251,125 Pa ≈ 251 kPa**. Absolute = 101,325 + 251,125 = 352,450 Pa = **3.48 atm**.
+P: (1 mark) A hydraulic lift has pistons of radius 3 cm and 15 cm. What force on the small piston lifts a 1500 kg car, and how far must the small piston move to raise the car by 2 cm? => Area ratio = (15 ÷ 3)² = 25. Weight = 1500 × 9.8 = 14,700 N, so F = 14,700 ÷ 25 = **588 N**. Distance = 2 × 25 = **50 cm**.
+P: (1 mark) A log has a volume of 0.4 m³ and a density of 650 kg/m³. What is the largest mass that can be placed on it before it is fully submerged in fresh water? => Maximum buoyancy = 1000 × 0.4 = 400 kg-equivalent. The log's own mass = 650 × 0.4 = 260 kg. Load = **140 kg**.
+P: (1 mark) Water flows at 1.5 m/s through a horizontal pipe of cross-section 6 cm² that narrows to 2 cm². Find the speed in the narrow part and the pressure drop. => Speed = 1.5 × 6 ÷ 2 = **4.5 m/s**. ΔP = ½ × 1000 × (4.5² − 1.5²) = 500 × (20.25 − 2.25) = **9000 Pa**.
+P: (1 mark) Find the exit speed of water from a small hole 3.2 m below the surface of an open tank. => v = √(2 × 9.8 × 3.2) = √62.72 = **7.92 m/s**.
+P: (1 mark) The radius of a blood vessel narrows by 10% at the same pressure difference. By what percentage does the flow rate fall? => Q ∝ r⁴, so 0.9⁴ = 0.6561. The flow falls by **34.4%**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 13. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 12. Tell me, and I will rebalance Week 13. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q4 | Wrote 2 e^(i(−30°)) for −√3 + i | Used tan⁻¹(b ÷ a) without checking the quadrant | The point has negative real part, so it is in quadrant 2: add 180° to get 150° | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: tan⁻¹ থেকে কোণ বের করে চতুর্ভাগ না দেখা, ভাগের সময় শুধু হরকে অনুবন্ধী দিয়ে গুণ করা, n-তম মূলে মাত্র একটা মূল লেখা, গেজ চাপ আর পরম চাপ গুলিয়ে ফেলা, এবং ক্ষেত্রফলের অনুপাতের বদলে ব্যাসার্ধের অনুপাত ব্যবহার করা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | A cosine sum from roots of unity
+P: Using the fifth roots of unity, show that cos 72° + cos 144° = −1/2. => The fifth roots of unity sum to zero, so the real parts also sum to zero: 1 + cos 72° + cos 144° + cos 216° + cos 288° = 0. Since cos 216° = cos 144° and cos 288° = cos 72°, we get 1 + 2 (cos 72° + cos 144°) = 0, so **cos 72° + cos 144° = −1/2**. Check: 0.3090 − 0.8090 = −0.5 ✓.
+
+LVL: Challenge | A siphon
+P: A siphon carries water out of a tank. The exit is 0.8 m below the water surface, and the top of the bend is 0.5 m above the surface. Find the exit speed, the pressure at the top of the bend and the greatest height the bend could have before the water column would break (pressure falls to zero). Assume ideal flow. => Bernoulli between the surface and the exit: v = √(2 × 9.8 × 0.8) = **3.96 m/s**, and by continuity the speed in the pipe is the same everywhere. At the top of the bend: P = P₀ − ρ g h − ½ ρ v² = 101,325 − 4,900 − 7,840 = **88,585 Pa** (0.874 atm). The column breaks when P = 0: ρ g h = P₀ − ½ ρ v², so h = (101,325 − 7,840) ÷ 9800 = **9.54 m** (the ideal limit, about 10 m for water).
+
+### Optional coding idea (not part of the study plan)
+**Complex-plane playground:** a page that draws the Mandelbrot set on a canvas (colour by escape time, with the escape radius 2), lets you click a point c to see its iteration path, and shows the matching Julia set for that c. A second panel can be a phasor diagram: sliders for R, L, C and ω, drawing the arrows for V_R, V_L, V_C and the total, with the phase angle shown live.
+
+### What Week 13 looks like
+**Matrices and thermal physics.** You meet matrices as machines that transform vectors (rotations, scalings, systems of equations), then learn temperature, heat, thermal expansion, calorimetry and heat transfer by conduction, convection and radiation. Matrices of rotation will remind you of today's complex-number rotations.
+
+BN: আগামী সপ্তাহ: ম্যাট্রিক্স ও তাপের পদার্থবিজ্ঞান। ম্যাট্রিক্সকে ভেক্টর রূপান্তরের যন্ত্র হিসেবে দেখবে (ঘূর্ণন, স্কেলিং, সমীকরণ জোট), তারপর তাপমাত্রা, তাপ, প্রসারণ, ক্যালরিমিতি এবং পরিবহন, পরিচলন ও বিকিরণ শিখবে। ঘূর্ণন ম্যাট্রিক্স আজকের জটিল সংখ্যার ঘূর্ণনের কথা মনে করিয়ে দেবে।
+
+**Sunday is a rest day.**
+
+CHECK: notes

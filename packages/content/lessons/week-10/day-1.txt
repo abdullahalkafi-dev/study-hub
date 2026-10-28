@@ -1,0 +1,196 @@
+@day Week 10 · Day 1 · Monday
+# Sequences and series. Then: what a wave is
+lead: Can you add up infinitely many numbers and get a finite answer? Yes, sometimes, and that idea powers everything from how your calculator finds sin x to how engineers analyse sound. Today you learn sequences, series and the geometric series. In physics, you start the study of waves: a disturbance that travels without carrying the material along with it.
+
+BN: অসীম সংখ্যক সংখ্যা যোগ করলে কি সসীম উত্তর পাওয়া যায়? হ্যাঁ, কখনো কখনো, আর এই ধারণাই ক্যালকুলেটরের sin x বের করা থেকে শব্দের বিশ্লেষণ পর্যন্ত সবকিছুর ভিত্তি। আজ শিখবে অনুক্রম (sequence), ধারা (series) ও গুণোত্তর ধারা। পদার্থবিজ্ঞানে শুরু হবে তরঙ্গ: এমন বিক্ষোভ যা ছড়িয়ে পড়ে কিন্তু মাধ্যমকে সঙ্গে নিয়ে যায় না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Evaluate ∫₁^∞ x^(−2) dx. => **1**.
+P: Find ∫ x cos x dx. => **x sin x + cos x + C**.
+P: What is the period of a 1 kg mass on a spring with k = 100 N/m? => 2π ÷ 10 = **0.628 s**.
+P: At resonance, how does the amplitude compare with the static deflection? => **Q times larger**.
+P: Simpson's rule with n = 2 on ∫₀^π sin x dx gives what? => **2π/3 ≈ 2.094**.
+
+CHECK: recall
+
+@section math | 2 · Math: sequences and series | 55 min
+
+### Sequences
+A **sequence** is a list a₁, a₂, a₃, … defined by a rule, such as aₙ = 1 ÷ n. We ask where it ends up as n grows: its **limit**.
+
+| Sequence | Limit | Reason |
+| 1 ÷ n | 0 | Gets smaller without bound |
+| n ÷ (n + 1) | 1 | Divide top and bottom by n |
+| (1 + 1/n)ⁿ | e = 2.718… | Defines e (Week 5) |
+| rⁿ with abs(r) < 1 | 0 | Repeated shrinking |
+| rⁿ with r > 1 | ∞ | Repeated growing |
+| (−1)ⁿ | none | Jumps between −1 and 1 |
+
+BN: অনুক্রম হলো সংখ্যার তালিকা যা একটা নিয়মে চলে, যেমন aₙ = 1/n। প্রশ্ন: n বাড়লে এটা কোথায় পৌঁছায়? সেটাই সীমা। 1/n → 0, n/(n+1) → 1, (1 + 1/n)ⁿ → e, আর |r| < 1 হলে rⁿ → 0।
+
+### Series and partial sums
+A **series** is the sum of a sequence: a₁ + a₂ + a₃ + … The **partial sum** Sₙ adds the first n terms. If Sₙ approaches a finite number S, the series **converges** to S. Otherwise it **diverges**.
+
+EQ: Σ aₙ = lim (N → ∞) S_N     where S_N = a₁ + a₂ + … + a_N
+
+PREDICT: Take the sum 1 + 1/2 + 1/4 + 1/8 + … with each term half of the one before. Will it grow past every limit, or settle at a number? Guess the number before reading on. => It settles at **2**. Each step fills half of the remaining gap to 2: after 1 term the gap is 1, after 2 terms 1/2, after 3 terms 1/4, and so on. The gap shrinks to zero.
+
+### The geometric series
+Each term is r times the one before: a + a r + a r² + …
+
+EQ: S_N = a (1 − r^N) ÷ (1 − r)     and for abs(r) < 1:     Σ a rⁿ = a ÷ (1 − r)
+
+(Why: S_N − r S_N = a − a r^N, since all the middle terms cancel. If abs(r) < 1 then r^N → 0.) If abs(r) ≥ 1 the series diverges.
+
+EX: Geometric series
+1. 1 + 1/2 + 1/4 + … : a = 1, r = 1/2: **2**.
+2. 2 + 2/3 + 2/9 + … : a = 2, r = 1/3: 2 ÷ (2/3) = **3**.
+3. 3 − 1 + 1/3 − 1/9 + … : a = 3, r = −1/3: 3 ÷ (4/3) = **9/4**.
+4. 0.272727… = 27/100 + 27/10,000 + …: a = 0.27, r = 0.01: 0.27 ÷ 0.99 = 27/99 = **3/11**.
+5. 0.999… = 0.9 ÷ (1 − 0.1) = **1**. Exactly 1, not "almost".
+6. The sum of the first 10 terms of 1 + 3 + 9 + …: (3¹⁰ − 1) ÷ 2 = **29,524**. (A divergent series still has partial sums.)
+/EX
+
+LAB: Geometric partial sums | The curve shows the partial sum S(n) = a (1 − rⁿ) ÷ (1 − r), and the orange line is the limit a ÷ (1 − r). The closer r is to 1, the longer it takes to reach the limit. | a:First term a:1:5:0.5:1 ;; r:Ratio r:0.1:0.9:0.1:0.5 ;; N:Number of terms N:1:30:1:5 | a*(1-r^N)/(1-r):Partial sum S_N:4 ;; a/(1-r):Limit a ÷ (1 − r):4 ;; a/(1-r)-a*(1-r^N)/(1-r):Remaining gap:4 | a*(1-r^x)/(1-r) ;; a/(1-r) | 0,30 | 0,50
+
+BN: গুণোত্তর ধারা a + ar + ar² + …: আংশিক যোগফল S_N = a(1 − r^N)/(1 − r)। |r| < 1 হলে সীমা a/(1 − r), নইলে অপসারী। 0.999… = 0.9/(1 − 0.1) = 1, ঠিক ১, প্রায় নয়। 0.2727… = 27/99 = 3/11।
+
+### More series
+EX: Telescoping
+1. Σ from n = 1 of 1 ÷ (n (n + 1)) = Σ (1/n − 1/(n + 1)) (partial fractions, Day 3 last week).
+2. S_N = (1 − 1/2) + (1/2 − 1/3) + … + (1/N − 1/(N + 1)) = 1 − 1/(N + 1) → **1**.
+/EX
+
+EX: The harmonic series diverges
+1. 1 + 1/2 + (1/3 + 1/4) + (1/5 + … + 1/8) + … : each bracket is at least 1/2 (for example 1/3 + 1/4 > 1/4 + 1/4). So the sum exceeds 1 + 1/2 + 1/2 + 1/2 + … and **diverges**.
+2. But it diverges very slowly: S₁₀ = 2.93, S₁₀₀₀ = 7.49, S₁₀⁶ = 14.4. In general Sₙ ≈ ln n + 0.577.
+3. So **terms going to zero is not enough** for convergence.
+/EX
+
+**The divergence test.** If aₙ does **not** tend to 0, then Σ aₙ diverges. (The converse is false: the harmonic series.)
+
+For comparison, Σ 1 ÷ n² **converges** (to π²/6 ≈ 1.645, proved by Euler).
+
+TRAP: Do not use the geometric formula when abs(r) ≥ 1. And do not say "the terms go to 0, so it converges": that is exactly the harmonic series trap. The formula a ÷ (1 − r) uses the **first term** a of the series as written, so check whether your sum starts at n = 0 or n = 1.
+
+### Quick self-check
+QUIZ:
+Q: The sum 1 + 1/3 + 1/9 + … equals…; 1.5; 2; 3; diverges; 1; a ÷ (1 − r) = 1 ÷ (2/3).
+Q: The series Σ 1 ÷ n…; converges to 1; converges to 2; diverges; equals e; 3; The harmonic series grows without bound.
+Q: 0.333… equals…; 1/3; 0.33; 3/10; 33/100; 1; Geometric: 0.3 ÷ 0.9.
+Q: If aₙ → 5 as n → ∞, then Σ aₙ…; converges; diverges; equals 5; is zero; 2; The terms do not tend to 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find Σ (1/3)ⁿ starting at n = 0. => 1 ÷ (1 − 1/3) = **3/2**.
+P: Find 2 + 1 + 1/2 + 1/4 + … => a = 2, r = 1/2: **4**.
+P: Does Σ n ÷ (n + 1) converge? => The terms tend to 1, not 0, so it **diverges**.
+LVL: Level 2 | Apply
+P: Write 0.272727… as a fraction. => **3/11**.
+P: Find 3 − 1 + 1/3 − 1/9 + … => **9/4**.
+P: Find Σ from n = 1 of 1 ÷ (n (n + 1)). => **1** (telescoping).
+P: Find the sum of 1 + 3 + 9 + … + 3⁹. => (3¹⁰ − 1) ÷ 2 = **29,524**.
+P: Find Σ from n = 2 of 1 ÷ 2ⁿ. => a = 1/4, r = 1/2: **1/2**.
+LVL: Level 3 | Real
+P: A ball is dropped from 10 m. Each bounce rises to 60% of the previous height. Find the total distance travelled. => 10 + 2 (6 + 3.6 + 2.16 + …) = 10 + 2 × 6 ÷ 0.4 = 10 + 30 = **40 m**.
+P: And how long (g = 9.8) until it stops bouncing? => First fall: √(2 × 10 ÷ 9.8) = 1.429 s. Each later bounce (up and down) lasts 2 × 1.429 × (√0.6)ⁿ, a geometric series with r = 0.7746. Total = 1.429 + 2 × 1.429 × 0.7746 ÷ (1 − 0.7746) = 1.429 + 9.82 = **11.2 s**. (Infinitely many bounces in a finite time.)
+P: A patient takes 100 mg of a drug every 8 hours, and 25% of the drug in the body remains after 8 hours. Find the amount in the body just after a dose in the long run. => 100 (1 + 0.25 + 0.0625 + …) = 100 ÷ 0.75 = **133 mg**. (Just before the next dose it is 33 mg.)
+LVL: Challenge | How slow is the harmonic series?
+P: Show that the harmonic sum S₁₆ ≥ 1 + 4 × (1/2) = 3, and use Sₙ ≈ ln n + 0.577 to estimate how many terms are needed for the sum to exceed 10. => Group the terms: S₁₆ = 1 + 1/2 + (1/3 + 1/4) + (1/5 + … + 1/8) + (1/9 + … + 1/16). Each bracket is at least 1/2 (for example 1/3 + 1/4 > 1/4 + 1/4), so S₁₆ ≥ 1 + 1/2 + 1/2 + 1/2 + 1/2 = **3**. For the second part, ln n + 0.577 = 10 gives ln n = 9.423 and n = e^9.423 ≈ **12,400 terms**.
+
+CHECK: math
+
+@section physics | 3 · Physics: what a wave is | 35 min
+
+### A disturbance that travels
+A **wave** transfers energy and information through a medium **without** moving the medium along. A crowd doing "the wave" in a stadium is the classic picture: each person only stands up and sits down, but the pattern travels around the stadium.
+
+- **Transverse waves:** the medium moves **perpendicular** to the direction of travel (a rope, a guitar string, light).
+- **Longitudinal waves:** the medium moves **along** the direction of travel in compressions and rarefactions (sound, a slinky pushed along its length).
+
+A pulse of any shape that keeps its shape and moves to the right at speed v has the form y(x, t) = f(x − v t). Replace x − vt by x + vt for a wave moving left.
+
+BN: তরঙ্গ মাধ্যমকে সরিয়ে না নিয়ে শক্তি ও তথ্য পাঠায়। স্টেডিয়ামে "ঢেউ" এর মতো: প্রত্যেকে শুধু দাঁড়ায় ও বসে, কিন্তু ধরনটা ছড়িয়ে পড়ে। অনুপ্রস্থ তরঙ্গে (দড়ি, আলো) মাধ্যম লম্ব দিকে নড়ে; অনুদৈর্ঘ্য তরঙ্গে (শব্দ) চলার দিকেই নড়ে। ডানে যাওয়া তরঙ্গ y = f(x − vt) আকারের।
+
+### The sinusoidal wave
+The most important wave is a sine wave:
+
+EQ: y(x, t) = A sin(k x − ω t + φ)     with     k = 2π ÷ λ     ω = 2π f     v = ω ÷ k = f λ
+
+- **A** amplitude (maximum displacement)
+- **λ** wavelength (distance between crests), **k** wave number (rad/m)
+- **f** frequency (Hz), **T** = 1 ÷ f period, **ω** angular frequency (rad/s)
+- **v** wave speed: one wavelength passes in one period, so **v = λ ÷ T = f λ**
+
+At any one point, the medium oscillates up and down in SHM with angular frequency ω. At one instant, the shape is a sine in x. **The wave speed v is not the speed of the particles.** The particle velocity is ∂y/∂t, and its maximum is A ω.
+
+EX: Reading a wave
+1. y = 0.02 sin(12.57 x − 25.13 t) in metres and seconds. Comparing: A = **0.02 m**, k = 12.57 rad/m so λ = 2π ÷ 12.57 = **0.5 m**, ω = 25.13 rad/s so f = **4 Hz**, and v = ω ÷ k = **2 m/s** (also fλ = 4 × 0.5 ✓).
+2. At t = 0 and x = 0.2: y = 0.02 sin(2.513) = **0.0118 m**.
+3. Maximum particle speed = A ω = 0.02 × 25.13 = **0.50 m/s**, far from the wave speed 2 m/s.
+/EX
+
+LAB: A travelling wave | Choose the amplitude, wavelength and frequency, then slide the time to move the wave to the right. Watch a crest travel: in one period it moves one wavelength. The numbers show the wave speed and the maximum speed of a single particle of the medium. | A:Amplitude A (m):0.01:0.1:0.01:0.05 ;; lam:Wavelength λ (m):0.2:2:0.1:1 ;; f:Frequency f (Hz):0.5:10:0.5:2 ;; t:Time t (s):0:1:0.02:0 | lam*f:Wave speed v = fλ (m/s):2 ;; 2*pi/lam:Wave number k (rad/m):2 ;; 2*pi*f:Angular frequency ω (rad/s):2 ;; A*2*pi*f:Maximum particle speed (m/s):3 | A*sin(2*pi*x/lam-2*pi*f*t) | 0,2 | -0.1,0.1
+
+EX: Everyday waves
+1. **Sound** in air at 20 °C travels at v = 343 m/s. A concert A of 440 Hz has λ = 343 ÷ 440 = **0.78 m**.
+2. **Radio** waves travel at c = 3 × 10⁸ m/s. For an FM station at 98 MHz: λ = 3 × 10⁸ ÷ 9.8 × 10⁷ = **3.06 m**.
+3. **Lightning:** thunder arrives 3 s after the flash. The distance is 343 × 3 = **1029 m**, about 1 km (the light arrives almost instantly).
+4. **Earthquakes** send P waves (longitudinal, 6 km/s) and S waves (transverse, 3.5 km/s). The S wave arrives 30 s after the P wave. The extra delay per km is 1 ÷ 3.5 − 1 ÷ 6 = 0.119 s, so the distance is 30 ÷ 0.119 = **252 km**. With three stations you can locate the epicentre.
+/EX
+
+### Why y = f(x − vt) is a wave: a first partial derivative
+When a function depends on two variables (x and t), a **partial derivative** differentiates with respect to one while holding the other fixed. For y = f(x − vt), use the chain rule:
+
+EQ: ∂y/∂t = −v f′(x − vt)     ∂²y/∂t² = v² f″(x − vt)     ∂y/∂x = f′     ∂²y/∂x² = f″     so     ∂²y/∂t² = v² ∂²y/∂x²
+
+That last equation is the **wave equation**. Any shape travelling at speed v obeys it. (Week 10 Day 2 derives it for a real string.)
+
+BN: y = A sin(kx − ωt + φ), k = 2π/λ, ω = 2πf, তরঙ্গ-দ্রুতি v = ω/k = fλ। মনে রাখো: তরঙ্গের দ্রুতি v কণার দ্রুতি নয়; কণার সর্বোচ্চ দ্রুতি Aω। শব্দ 343 m/s, রেডিও 3 × 10⁸ m/s। আংশিক অন্তরকলন: দুই চলকের ফাংশনে একটাকে স্থির রেখে অন্যটার অন্তরকলন; তাতে y = f(x − vt) তরঙ্গ সমীকরণ ∂²y/∂t² = v² ∂²y/∂x² মেনে চলে।
+
+TRAP: **v = f λ is the wave speed; Aω is the particle speed. They are different things.** Another slip: for a given medium, v is fixed, so if you raise the frequency the wavelength shrinks (λ = v ÷ f), not the speed. And use radians in the sine: k x − ω t is in radians.
+
+### Quick self-check
+QUIZ:
+Q: A wave has f = 50 Hz and λ = 6.8 m. Its speed is…; 7.4 m/s; 340 m/s; 0.147 m/s; 3400 m/s; 2; v = f λ.
+Q: In y = 0.1 sin(2x − 8t), the wave speed is…; 4 m/s; 0.25 m/s; 16 m/s; 0.1 m/s; 1; v = ω ÷ k = 8 ÷ 2.
+Q: A sound wave is…; transverse; longitudinal; neither; both; 2; The air moves back and forth along the direction of travel.
+Q: If the frequency of a wave in a fixed medium doubles, its wavelength…; doubles; stays the same; halves; quadruples; 3; v is fixed, so λ = v ÷ f.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the wavelength of a 680 Hz sound in air (v = 340 m/s). => **0.5 m**.
+P: Find the frequency of green light with λ = 500 nm (c = 3 × 10⁸). => 3 × 10⁸ ÷ 5 × 10⁻⁷ = **6 × 10¹⁴ Hz**.
+LVL: Level 2 | Apply
+P: A wave is y = 0.05 sin(4π x − 100π t) in SI units. Find λ, f, v and the maximum particle speed. => k = 4π so λ = **0.5 m**. ω = 100π so f = **50 Hz**. v = ω ÷ k = **25 m/s**. Max particle speed = 0.05 × 314.2 = **15.7 m/s**.
+P: A wave is y = 0.03 cos(2x − 10t). Find the speed, wavelength and period. => v = 10 ÷ 2 = **5 m/s**. λ = 2π ÷ 2 = **3.14 m**. T = 2π ÷ 10 = **0.628 s**.
+P: A pulse is y = 1 ÷ (1 + (x − 3t)²). In which direction and how fast does it move, and where is its peak at t = 2? => It has the form f(x − vt) with v = 3, so it moves **right at 3 m/s**. The peak is where x − 3t = 0, so at t = 2, **x = 6 m**.
+P: Show that y = sin(kx − ωt) satisfies the wave equation with v = ω ÷ k. => ∂²y/∂t² = −ω² sin(kx − ωt) and ∂²y/∂x² = −k² sin(kx − ωt). So ∂²y/∂t² = (ω² ÷ k²) ∂²y/∂x², which has v² = ω² ÷ k² ✓.
+LVL: Level 3 | Real
+P: A radar pulse hits a target and returns after 0.2 ms. How far away is the target? => The pulse travels there and back: d = c t ÷ 2 = 3 × 10⁸ × 2 × 10⁻⁴ ÷ 2 = **30,000 m = 30 km**.
+P: Thunder arrives 5.5 s after lightning. How far is the storm, and is it a danger? => d = 343 × 5.5 = **1.9 km**. (The rule of thumb is about 3 s per km.) Storms within about 10 km can still strike.
+LVL: Challenge | The chain rule makes waves
+P: Show that any function y = f(x − vt) satisfies ∂²y/∂t² = v² ∂²y/∂x², and then show that y = f(x − vt) + g(x + vt), a wave in each direction, also satisfies it. What does this mean for two pulses crossing on a string? => For f(x − vt): ∂y/∂t = −v f′ and ∂²y/∂t² = v² f″, while ∂²y/∂x² = f″, so the equation holds. For g(x + vt): ∂²y/∂t² = v² g″ and ∂²y/∂x² = g″, also true. The equation is **linear**, so the sum of two solutions is a solution: the two pulses pass through each other without changing. At the crossing their displacements add (superposition), and afterwards each continues unchanged.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Sequence limit; series = limit of partial sums. Geometric: Σ a rⁿ = a ÷ (1 − r) for abs(r) < 1. Telescoping series collapse. The harmonic series diverges (slowly); Σ 1 ÷ n² converges. If terms do not tend to 0, the series diverges.
+- Wave: y = A sin(kx − ωt + φ), k = 2π ÷ λ, ω = 2π f, v = f λ = ω ÷ k. Particle speed A ω ≠ wave speed. The wave equation ∂²y/∂t² = v² ∂²y/∂x² is satisfied by f(x − vt) and g(x + vt), so waves superpose.
+
+BN: আজকের সারকথা: গুণোত্তর ধারা a/(1 − r) (|r| < 1); হারমোনিক ধারা অপসারী; পদ → 0 না হলে অপসারী। তরঙ্গ: y = A sin(kx − ωt), k = 2π/λ, ω = 2πf, v = fλ; কণার দ্রুতি Aω ≠ তরঙ্গের দ্রুতি; তরঙ্গ সমীকরণ ∂²y/∂t² = v²∂²y/∂x²; দুই তরঙ্গ যোগ হয় (superposition)।
+
+EXIT:
+E: Find 4 + 2 + 1 + 1/2 + … (the sum to infinity).; 8; 0.001; a = 4, r = 1/2, so 4 ÷ (1/2) = 8.
+E: A wave has f = 20 Hz and λ = 0.5 m. What is its speed in m/s?; 10; 0.001; v = f λ = 10.
+E: A wave y = 0.01 sin(5x − 100t) has what speed in m/s?; 20; 0.001; v = ω ÷ k = 100 ÷ 5 = 20.
+
+**Tomorrow:** convergence tests, and waves on a string with the wave equation.
+
+CHECK: notes

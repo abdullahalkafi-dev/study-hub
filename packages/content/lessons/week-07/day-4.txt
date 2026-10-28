@@ -1,0 +1,217 @@
+@day Week 7 · Day 4 · Thursday
+# Linear approximation and Newton's method. Then: rotational motion
+lead: Near any point a smooth curve looks like its tangent line. That one fact lets you estimate hard values in your head, measure how errors spread, and find roots of any equation with Newton's method, the algorithm calculators actually use. In physics, rotation gets its own version of SUVAT: angle, angular velocity and angular acceleration, all linked to the straight-line motion of a point on a wheel.
+
+BN: কোনো বিন্দুর খুব কাছে মসৃণ বক্ররেখা তার স্পর্শকের মতো দেখায়। এই তথ্য দিয়ে কঠিন মান মুখে মুখে অনুমান করা যায়, ত্রুটি কীভাবে ছড়ায় তা মাপা যায়, আর নিউটনের পদ্ধতিতে যেকোনো সমীকরণের মূল বের করা যায়; ক্যালকুলেটর আসলে এটাই ব্যবহার করে। পদার্থবিজ্ঞানে ঘূর্ণনের নিজের SUVAT আছে: কোণ, কৌণিক বেগ, কৌণিক ত্বরণ, আর চাকার ওপর একটা বিন্দুর সরল গতির সঙ্গে তাদের সম্পর্ক।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find the local extrema of f(x) = x³ − 3x. => f′ = 3x² − 3 = 0, x = ±1. **Local max (−1, 2), local min (1, −2)**.
+P: Find the asymptotes of (3x + 2) ÷ (x − 1). => **x = 1** and **y = 3**.
+P: A uniform box 0.5 m wide and 1 m tall is on a ramp. At what tan θ does it tip? => w/H = **0.5**.
+P: A 20 N force at 90° on a 0.3 m wrench gives what torque? => **6 N·m**.
+P: A circle's radius grows at 2 cm/s. dA/dt at r = 10 cm? => 2π × 10 × 2 = **40π cm²/s**.
+
+CHECK: recall
+
+@section math | 2 · Math: linearisation and Newton's method | 55 min
+
+### The tangent line as an approximation
+Near x = a, a differentiable function is almost the same as its tangent line:
+
+EQ: f(x) ≈ f(a) + f′(a)(x − a)     (the linearisation of f at a)
+
+The closer x is to a, the better the approximation. You choose a nearby point a where f(a) is easy.
+
+LAB: Tangent-line approximation of √x | Choose the point a where the tangent is drawn and the point x₀ where you estimate √x. The orange tangent line is close to the curve near a, and the error grows as x₀ moves away. | a:Tangent point a:1:9:0.5:4 ;; x0:Estimate at x₀:0.5:9:0.1:4.5 | sqrt(x0):True √x₀:4 ;; sqrt(a)+(x0-a)/(2*sqrt(a)):Linear estimate:4 ;; abs(sqrt(a)+(x0-a)/(2*sqrt(a))-sqrt(x0)):Error:5 | sqrt(x) ;; sqrt(a)+(x-a)/(2*sqrt(a)) | 0,10 | 0,4
+
+EX: Estimates by hand
+1. √4.1: use f(x) = √x at a = 4. f(4) = 2 and f′(4) = 1 ÷ (2 × 2) = 1/4. √4.1 ≈ 2 + (1/4)(0.1) = **2.025**. The exact value is 2.02485.
+2. ∛27.3: f′(27) = 1 ÷ (3 × 9) = 1/27. ∛27.3 ≈ 3 + 0.3 ÷ 27 = **3.0111** (exact 3.0110).
+3. (0.98)⁵: f(x) = x⁵ at a = 1, f′(1) = 5. ≈ 1 + 5 (−0.02) = **0.90** (exact 0.9039).
+4. e^0.05 ≈ 1 + 0.05 = **1.05** (exact 1.0513), and ln(1.1) ≈ **0.1** (exact 0.0953).
+/EX
+
+**Standard linearisations at 0** (angles in radians):
+
+EQ: sin x ≈ x     cos x ≈ 1 − x²/2     tan x ≈ x     eˣ ≈ 1 + x     ln(1 + x) ≈ x     (1 + x)ⁿ ≈ 1 + n x
+
+EX: The small-angle approximation
+1. sin 0.1 = 0.09983, and the approximation gives 0.1: an error of only 0.17%.
+2. cos 3° = cos 0.05236 ≈ 1 − 0.05236² ÷ 2 = **0.99863**, identical to the calculator value 0.99863.
+3. This is the basis of the pendulum formula T = 2π √(L/g): replacing sin θ by θ makes the equation of motion simple (Week 9).
+/EX
+
+BN: স্পর্শকরেখা দিয়ে আসন্ন মান: f(x) ≈ f(a) + f′(a)(x − a)। √4.1 ≈ 2 + 0.1/4 = 2.025। ছোট কোণের আসন্নকরণ: sin x ≈ x, cos x ≈ 1 − x²/2, tan x ≈ x, eˣ ≈ 1 + x, ln(1 + x) ≈ x। a থেকে x যত কাছে, আসন্ন মান তত ভালো।
+
+### Differentials and error propagation
+If x changes by a small amount dx, then y changes by about
+
+EQ: dy ≈ f′(x) dx
+
+This estimates the effect of a measurement error.
+
+EX: Error in a sphere's volume
+1. A sphere's radius is measured as 10 cm with an error of ±0.1 cm. V = (4/3) π r³, V = 4189 cm³.
+2. dV = 4π r² dr = 4π × 100 × 0.1 = **125.7 cm³**, about 3% of V.
+3. The relative error in V is **3 times** the relative error in r (1%): since V ∝ r³, dV ÷ V = 3 dr ÷ r. A power r^n multiplies the relative error by n. This is the same relative-rate idea as logarithmic differentiation.
+/EX
+
+### Newton's method: roots from tangent lines
+To solve f(x) = 0, start with a guess x₀. Draw the tangent at x₀, and see where it crosses the x-axis. That crossing is usually closer to the root. Repeat.
+
+**The formula.** The tangent at x₀ is y = f(x₀) + f′(x₀)(x − x₀). Setting y = 0 and solving for x:
+
+EQ: x_(n+1) = x_n − f(x_n) ÷ f′(x_n)
+
+EX: Calculating √2
+1. Solve f(x) = x² − 2 = 0, f′ = 2x. Start x₀ = 1.
+2. x₁ = 1 − (1 − 2) ÷ 2 = **1.5**.
+3. x₂ = 1.5 − (2.25 − 2) ÷ 3 = **1.41667**.
+4. x₃ = 1.41667 − (0.006944) ÷ 2.8333 = **1.414216**. The true √2 = 1.414214. The number of correct digits roughly **doubles** at each step (1, 2, 5...). In general this reads x_(n+1) = (x_n + 2 ÷ x_n) ÷ 2, the ancient "Babylonian" method.
+/EX
+
+EX: A cubic root, versus bisection
+1. Solve x³ + x − 1 = 0 (we did this by bisection in Week 5). f′ = 3x² + 1. Start x₀ = 1.
+2. x₁ = 1 − 1 ÷ 4 = 0.75. x₂ = 0.75 − 0.171875 ÷ 2.6875 = 0.68605. x₃ = 0.68605 − 0.008958 ÷ 2.41199 = **0.68234**.
+3. The root is 0.682328. In 3 steps Newton reaches accuracy that took bisection about 10 halvings.
+/EX
+
+EX: A cube root
+1. To find ∛10, solve x³ − 10 = 0. Start x₀ = 2: x₁ = 2 − (8 − 10) ÷ 12 = 2.1667. x₂ = 2.1667 − 0.1717 ÷ 14.08 = **2.1545**. The exact value is 2.15443.
+/EX
+
+**When does Newton fail?** If f′(x_n) = 0, the tangent is horizontal and there is no crossing. If the starting point is far from the root, or the function has a sharp bend, the iteration can jump away or cycle. Always check that f(x_n) is shrinking.
+
+BN: নিউটনের পদ্ধতি: f(x) = 0 সমাধানে অনুমান x₀ নাও, সেখানে স্পর্শক টানো, স্পর্শক x-অক্ষকে যেখানে কাটে সেটাই নতুন অনুমান: x_(n+1) = x_n − f(x_n)/f′(x_n)। প্রতি ধাপে শুদ্ধ অঙ্কের সংখ্যা প্রায় দ্বিগুণ হয়। f′ = 0 হলে বা শুরুর বিন্দু দূরে হলে ব্যর্থ হতে পারে।
+
+TRAP: A linear approximation works only near a. Using √x ≈ 2 + (x − 4) ÷ 4 at x = 9 gives 3.25 instead of 3, an error of 8%. For Newton's method, a poor starting guess can lead to a different root or no root at all. And in error propagation, the formula gives the error in the **first-order** sense: for large errors, the true error is somewhat different.
+
+### Quick self-check
+QUIZ:
+Q: The linear approximation of √x near x = 25 gives √26 ≈…; 5.1; 5.2; 5.5; 5.05; 1; 5 + 1 ÷ 10 = 5.1.
+Q: For small x, cos x ≈…; 1; 1 − x; 1 − x²/2; x; 3; The quadratic term gives the first correction.
+Q: If the radius r of a sphere has a 2% error, the volume has about…; 2%; 4%; 6%; 8%; 3; V ∝ r³ multiplies the relative error by 3.
+Q: Newton's method from x₀ = 1 for x² − 2 = 0 gives x₁ =…; 1.5; 1.4; 2; 1.25; 1; 1 − (−1) ÷ 2 = 1.5.
+Q: Newton's method can fail when…; f′(x_n) = 0; f(x_n) = 0; x_n is a root; the function is positive; 1; The tangent is horizontal.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Linearise f(x) = √x at a = 9 and estimate √9.2. => f′(9) = 1/6. √9.2 ≈ 3 + 0.2 ÷ 6 = **3.033** (exact 3.0332).
+P: Estimate ln(1.05). => **0.05** (exact 0.0488).
+P: Do one Newton step for f(x) = x² − 5 from x₀ = 2. => x₁ = 2 − (4 − 5) ÷ 4 = **2.25**.
+LVL: Level 2 | Apply
+P: Estimate 1 ÷ 0.98 with a linear approximation. => f(x) = 1/x at 1, f′ = −1: 1 + 0.02 = **1.02** (exact 1.0204).
+P: Use the linearisation of sin at π/6 to estimate sin 31° (31° = π/6 + 0.01745). => sin(π/6) = 0.5, cos(π/6) = 0.866. sin 31° ≈ 0.5 + 0.866 × 0.01745 = **0.5151** (exact 0.51504).
+P: The side of a square is 20 cm ± 0.2 cm. Estimate the error in the area and the percentage error. => dA = 2s ds = 2 × 20 × 0.2 = **8 cm²**, which is 2% of 400 cm².
+P: Use Newton's method to estimate the root of cos x = x, starting at x₀ = 1 (do two steps). => f = cos x − x, f′ = −sin x − 1. x₁ = 1 − (0.5403 − 1) ÷ (−1.8415) = 1 − 0.2496 = 0.7504. f(0.7504) = 0.7318 − 0.7504 = −0.0187; f′ = −1.6819. x₂ = 0.7504 − (−0.0187) ÷ (−1.6819) = 0.7504 − 0.0111 = **0.7393**. The root is 0.739085.
+P: A spherical balloon has a radius of 5 cm ± 0.05 cm. Find the error in its surface area 4π r². => dA = 8π r dr = 8π × 5 × 0.05 = **6.28 cm²** (A = 314 cm², 2%).
+LVL: Level 3 | Real
+P: The period of a pendulum is T = 2π √(L ÷ g). If L is measured with a 1% error, what is the percentage error in T, and in g if computed from T and L? => T ∝ L^(1/2), so the error in T is **0.5%**. If g = 4π² L ÷ T² is computed from measured L and T, the relative error is dL/L + 2 dT/T, up to **1% + 2 × (the T error)**.
+LVL: Challenge | When Newton fails
+P: Apply Newton's method to f(x) = x^(1/3), whose only root is x = 0. Start at x₀ = 1 and find x₁, x₂, x₃. What happens? => f′ = (1/3) x^(−2/3), so x_(n+1) = x_n − x_n^(1/3) ÷ ((1/3) x_n^(−2/3)) = x_n − 3 x_n = −2 x_n. So **1, −2, 4, −8, …**: it moves farther from the root every time. The tangent line is nearly vertical, so the crossing overshoots. A reminder that Newton's method needs a function that is not too steep at the root.
+
+CHECK: math
+
+@section physics | 3 · Physics: rotational motion | 35 min
+
+### The angular quantities
+For a body rotating about a fixed axis, describe its position by the angle θ (in **radians**). Then:
+
+| Quantity | Symbol and definition | Unit | The straight-line analogue |
+| Angle | θ | rad | position x |
+| Angular velocity | ω = dθ/dt | rad/s | velocity v |
+| Angular acceleration | α = dω/dt | rad/s² | acceleration a |
+
+(Conversions: one revolution = 2π rad = 360°. rpm × 2π ÷ 60 = rad/s.)
+
+For **constant α**, the equations are the same as SUVAT, with the same derivations (integrate α once, then again):
+
+EQ: ω = ω₀ + α t     θ = ω₀ t + ½ α t²     ω² = ω₀² + 2 α θ
+
+### Linking rotation to a point's straight-line motion
+A point at distance r from the axis moves on a circle of radius r:
+
+EQ: s = r θ     v = r ω     a_tangential = r α     a_centripetal = ω² r = v² ÷ r
+
+BN: ঘূর্ণনে: কোণ θ (রেডিয়ান), কৌণিক বেগ ω = dθ/dt, কৌণিক ত্বরণ α = dω/dt। ধ্রুব α হলে SUVAT এর মতোই: ω = ω₀ + αt, θ = ω₀t + ½αt², ω² = ω₀² + 2αθ। অক্ষ থেকে r দূরের বিন্দুর জন্য: s = rθ, v = rω, স্পর্শক ত্বরণ rα, কেন্দ্রমুখী ত্বরণ ω²r।
+
+LAB: A speeding-up wheel | Set the starting angular velocity, the angular acceleration and the wheel's radius. The graph shows the total angle turned over time. | w0:Starting ω (rad/s):0:20:1:0 ;; al:Angular acceleration α (rad/s²):0:10:0.5:2.5 ;; r:Radius (m):0.1:1:0.05:0.3 ;; t:Time t (s):0:10:0.5:5 | w0+al*t:Angular velocity ω (rad/s):2 ;; (w0*t+0.5*al*t^2)/(2*pi):Revolutions turned:2 ;; r*(w0+al*t):Speed of the rim (m/s):2 | w0*x+0.5*al*x^2 | 0,10 | 0,300
+
+EX: A wheel speeding up
+1. A wheel starts at rest and reaches 120 rpm in 5 s. ω = 120 × 2π ÷ 60 = 12.57 rad/s. α = 12.57 ÷ 5 = **2.51 rad/s²**.
+2. Angle turned: θ = ½ × 2.51 × 25 = 31.4 rad = **5 revolutions**.
+3. A point 0.3 m from the axis at t = 5 s: speed v = r ω = 3.77 m/s, tangential acceleration r α = 0.75 m/s², centripetal acceleration ω² r = 47.4 m/s².
+/EX
+
+EX: A car wheel
+1. A car at 20 m/s has wheels of radius 0.3 m (rolling without slipping). ω = v ÷ r = **66.7 rad/s** = 637 rpm.
+2. If the car brakes uniformly to rest in 8 s, α = −66.7 ÷ 8 = −8.33 rad/s², and the wheel turns θ = ½ × 66.7 × 8 = 267 rad = **42.4 revolutions** during the braking. Distance = rθ = 80 m ✓ (the car's braking distance: ½ × 20 × 8 = 80 m).
+/EX
+
+EX: A hard disk
+1. A disk spins at 7200 rpm: ω = 7200 × 2π ÷ 60 = **754 rad/s**.
+2. At its edge (r = 4.5 cm): v = 754 × 0.045 = **33.9 m/s**, and a_c = ω² r = 754² × 0.045 = **25,600 m/s²**, about **2600 g**. That is why a disk is balanced precisely.
+/EX
+
+### Rolling without slipping
+If a wheel of radius R rolls without slipping, the contact point is momentarily at rest. The centre moves at v = R ω, the top of the wheel at **2v**, and the contact point at **0**. The distance rolled equals the arc length: s = R θ.
+
+EX: A rolling tyre
+1. A bicycle wheel (R = 0.35 m) turns at ω = 20 rad/s. The bike's speed is 0.35 × 20 = **7 m/s**. The top of the tyre moves at 14 m/s relative to the ground, and the bottom at 0 (that is why a wheel does not wear out as it moves forward).
+/EX
+
+### A first look at torque and angular acceleration
+A mass m on a light rod of length r, pushed by a force F perpendicular to the rod: F = m a_t = m r α, so the torque τ = r F = m r² α. We define the **moment of inertia** I = m r² and write
+
+EQ: τ = I α
+
+This is Newton's second law for rotation. The next two weeks extend I to all shapes.
+
+EX: A small flywheel
+1. A 0.5 kg mass on a light 0.4 m rod, with a torque of 0.2 N·m. I = 0.5 × 0.16 = 0.08 kg·m². α = 0.2 ÷ 0.08 = **2.5 rad/s²**.
+/EX
+
+TRAP: Always use **radians** (and rad/s) in v = r ω and similar formulas. A common slip is to use rpm directly. Also keep the three accelerations apart: α is angular, a_t = r α is the speeding-up part along the path, and a_c = ω² r points to the centre.
+
+### Quick self-check
+QUIZ:
+Q: 60 rpm equals…; π rad/s; 2π rad/s; 60 rad/s; 6 rad/s; 2; 60 × 2π ÷ 60 = 2π.
+Q: A wheel turns at ω = 10 rad/s with radius 0.5 m. The rim speed is…; 5 m/s; 20 m/s; 10 m/s; 0.05 m/s; 1; v = r ω.
+Q: A wheel of angular acceleration 4 rad/s² starts from rest. After 3 s it has turned…; 12 rad; 18 rad; 36 rad; 6 rad; 2; θ = ½ α t² = 18 rad.
+Q: For a rolling wheel the point at the top moves at…; v; 2v; 0; v/2; 2; The centre moves at v and the top moves at v + v.
+
+### Practice
+LVL: Level 1 | Direct
+P: Convert 1500 rpm to rad/s. => 1500 × 2π ÷ 60 = **157 rad/s**.
+P: A wheel turns from rest with α = 3 rad/s². Find ω and θ after 4 s. => ω = **12 rad/s**, θ = ½ × 3 × 16 = **24 rad**.
+LVL: Level 2 | Apply
+P: A CD spins at 500 rpm and stops uniformly in 4 s. How many revolutions does it make? => ω₀ = 52.4 rad/s. θ = ½ ω₀ t = 104.7 rad = **16.7 revolutions**.
+P: A washing machine drum (radius 0.25 m) spins at 1200 rpm. Find the centripetal acceleration of its wall. => ω = 125.7 rad/s. a_c = ω² r = **3950 m/s²**, about 400 g.
+P: A bicycle with 0.34 m radius wheels goes at 9 m/s. Find the wheel's angular velocity in rpm. => ω = 9 ÷ 0.34 = 26.5 rad/s = **253 rpm**.
+P: A mass of 2 kg on a light 0.5 m rod is driven by a 1.5 N·m torque. Find α and the speed after 3 s from rest. => I = 2 × 0.25 = 0.5, α = **3 rad/s²**. ω = 9 rad/s, v = r ω = **4.5 m/s**.
+LVL: Challenge | Angle as a function of time
+P: A flywheel's angle is θ(t) = 2t³ − 12t² + 18t (rad). Find ω and α at t = 1, and when it momentarily stops. => ω = 6t² − 24t + 18 = 6 (t − 1)(t − 3). α = 12t − 24. At t = 1: **ω = 0, α = −12 rad/s²**. Momentary stops at **t = 1 and t = 3** s, the same shape of problem as a particle moving back and forth in a line, with α as the second derivative.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Linearisation f(x) ≈ f(a) + f′(a)(x − a); small-angle sin x ≈ x, cos x ≈ 1 − x²/2. Differentials dy = f′ dx for errors.
+- Newton's method x_(n+1) = x_n − f(x_n) ÷ f′(x_n); digits double each step; can fail where f′ = 0.
+- Rotation: ω = dθ/dt, α = dω/dt; constant α equations mirror SUVAT; v = rω, a_t = rα, a_c = ω²r; τ = Iα with I = mr² for a point mass.
+
+BN: আজকের সারকথা: রৈখিক আসন্নকরণ f(x) ≈ f(a) + f′(a)(x − a) ও ছোট কোণের সূত্র। ত্রুটির জন্য dy = f′dx। নিউটনের পদ্ধতি x_(n+1) = x_n − f/f′। ঘূর্ণনের গতি: ω, α, ও SUVAT এর ঘূর্ণন রূপ; v = rω, a_c = ω²r; τ = Iα।
+
+EXIT:
+E: Estimate √16.4 using the linear approximation at 16. (3 decimals); 4.05; 0.002; 4 + 0.4 ÷ 8 = 4.05.
+E: A wheel goes from rest with α = 2 rad/s². How many radians does it turn in 5 s?; 25; 0.001; ½ × 2 × 25 = 25.
+E: Convert 300 rpm to rad/s. (2 decimals); 31.42; 0.02; 300 × 2π ÷ 60 = 31.42.
+
+**Tomorrow:** the mean value theorem, L'Hôpital's rule, and rotational dynamics preview.
+
+CHECK: notes

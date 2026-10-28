@@ -1,0 +1,215 @@
+@day Week 12 · Day 1 · Monday
+# Complex numbers: the basics. Then: pressure and fluids at rest
+lead: Phase 3 opens with two new worlds. In mathematics you add a new number, i, with i² = −1. It sounds like a trick, but it turns out to be the natural language of oscillations, circuits, waves and quantum mechanics. In physics you study fluids: liquids and gases at rest, where pressure changes with depth in a way you can derive with the integral you already know.
+
+BN: পর্ব ৩ দুটো নতুন জগৎ দিয়ে শুরু। গণিতে একটা নতুন সংখ্যা i যোগ করবে, যার i² = −1। শুনতে চালাকি মনে হয়, কিন্তু এটাই দোলন, বর্তনী, তরঙ্গ ও কোয়ান্টাম বলবিদ্যার স্বাভাবিক ভাষা। পদার্থবিজ্ঞানে তরল ও গ্যাসের স্থিতি পড়বে, যেখানে গভীরতার সাথে চাপ কীভাবে বদলায় তা তোমার জানা সমাকলন দিয়েই প্রমাণ করা যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Phase 2
+P: Write Euler's formula. => **e^(ix) = cos x + i sin x**.
+P: Solve x² + 2x − 3 = 0. => (x + 3)(x − 1) = 0, so **x = −3 or 1**.
+P: What is the discriminant of ax² + bx + c, and what does a negative one mean? => **b² − 4ac**. If negative, there are **no real roots**.
+P: Find the area under y = 2x from 0 to 5. => **25**.
+P: A 2 kg mass is raised 3 m. Find the work done. => 2 × 9.8 × 3 = **58.8 J**.
+
+CHECK: recall
+
+@section math | 2 · Math: complex numbers | 55 min
+
+### Why a new number?
+The equation x² = −1 has no real solution, since a real number squared is never negative. Mathematicians invented a number i with
+
+EQ: i² = −1
+
+A **complex number** is z = a + b i, where a and b are real. We call a the **real part** (Re z) and b the **imaginary part** (Im z). Every real number is complex with b = 0.
+
+Complex numbers are not "imaginary" in any unreal sense: they are as consistent as the reals, and engineers use them daily. The cost of the invention is zero: every rule of ordinary algebra still works, with the extra fact i² = −1.
+
+BN: x² = −1 এর কোনো বাস্তব সমাধান নেই, তাই নতুন সংখ্যা i ধরা হয়: i² = −1। জটিল সংখ্যা z = a + bi, a বাস্তব অংশ, b কাল্পনিক অংশ। এটা মোটেও "অবাস্তব" নয়: বাস্তব সংখ্যার মতোই সুসংগত এবং প্রকৌশলীরা প্রতিদিন ব্যবহার করে। বীজগণিতের সব নিয়ম একই থাকে, শুধু একটা নতুন তথ্য: i² = −1।
+
+### Arithmetic
+EX: The four operations
+1. **Add:** (3 + 2i) + (1 − 4i) = **4 − 2i** (add real and imaginary parts separately).
+2. **Multiply:** (3 + 2i)(1 − 4i) = 3 − 12i + 2i − 8i² = 3 − 10i + 8 = **11 − 10i**.
+3. **Powers of i:** i, −1, −i, 1, then it repeats every 4. So i¹⁵ = i³ = **−i**, and i¹⁰⁰ = **1**.
+4. **Conjugate:** the conjugate of z = a + bi is z̄ = a − bi (flip the sign of the imaginary part). Then **z z̄ = a² + b²**, a real number.
+5. **Divide:** multiply top and bottom by the conjugate of the bottom. (3 + 2i) ÷ (1 − 4i) = (3 + 2i)(1 + 4i) ÷ (1 + 16) = (3 + 12i + 2i − 8) ÷ 17 = **(−5 + 14i) ÷ 17**.
+/EX
+
+PREDICT: What do you get when you multiply a complex number by its own conjugate, for example (3 + 4i)(3 − 4i)? Real, imaginary or complex? Why does that make division possible? => You get 9 + 16 = **25**, a purely real number, because the imaginary terms cancel. That is why we multiply the denominator by its conjugate: it turns the denominator into a real number, and then division is ordinary.
+
+### The Argand plane and the modulus
+Plot z = a + bi as the point (a, b). The distance from the origin is the **modulus**:
+
+EQ: abs(z) = √(a² + b²)     and     abs(z)² = z z̄
+
+Addition is vector addition. Conjugation reflects in the real axis. Multiplication by i rotates a point by **90°**: i (a + bi) = −b + ai.
+
+EX: Modulus and rotation
+1. abs(3 + 4i) = √(9 + 16) = **5**. abs(5 − 12i) = **13**.
+2. z = 2 + 3i: i z = −3 + 2i, which is z turned a quarter-turn anticlockwise.
+3. abs(z₁ z₂) = abs(z₁) abs(z₂): (1 + i)(2 − i) = 2 − i + 2i − i² = 3 + i, with modulus √10 = √2 × √5 ✓.
+/EX
+
+LAB: Complex arithmetic | Choose two complex numbers z₁ = a₁ + b₁ i and z₂ = a₂ + b₂ i. The numbers show the sum, the product and the moduli. Check that abs(z₁ z₂) = abs(z₁) abs(z₂) every time. | a1:Real part of z₁:-5:5:1:3 ;; b1:Imaginary part of z₁:-5:5:1:2 ;; a2:Real part of z₂:-5:5:1:1 ;; b2:Imaginary part of z₂:-5:5:1:-4 | a1+a2:Re(z₁ + z₂):0 ;; b1+b2:Im(z₁ + z₂):0 ;; a1*a2-b1*b2:Re(z₁ z₂):0 ;; a1*b2+b1*a2:Im(z₁ z₂):0 ;; sqrt(a1^2+b1^2)*sqrt(a2^2+b2^2):abs(z₁) × abs(z₂):3 ;; sqrt((a1*a2-b1*b2)^2+(a1*b2+b1*a2)^2):abs(z₁ z₂):3 | - | 0,1 | 0,1
+
+### Quadratics with no real roots
+The quadratic formula still works when the discriminant is negative: √(−d) = i √d.
+
+EX: Complex roots
+1. z² + 2z + 5 = 0: z = (−2 ± √(4 − 20)) ÷ 2 = (−2 ± 4i) ÷ 2 = **−1 ± 2i**. Check: (−1 + 2i)² = 1 − 4i − 4 = −3 − 4i, and −3 − 4i + 2(−1 + 2i) + 5 = 0 ✓.
+2. z² − 4z + 13 = 0: z = 2 ± 3i.
+3. For polynomials with **real** coefficients, complex roots come in conjugate pairs.
+/EX
+
+EX: Equations in z
+1. Find z if z (2 − i) = 5 + 5i: z = (5 + 5i)(2 + i) ÷ 5 = (10 + 5i + 10i − 5) ÷ 5 = **1 + 3i**.
+2. Find z if z + 2 z̄ = 6 + 3i. With z = a + bi: 3a − bi = 6 + 3i, so a = 2, b = −3, **z = 2 − 3i**.
+/EX
+
+BN: ঋণাত্মক ডিসক্রিমিন্যান্টেও দ্বিঘাত সূত্র চলে, √(−d) = i√d। z² + 2z + 5 = 0 এর মূল −1 ± 2i। বাস্তব সহগের বহুপদীতে জটিল মূল সবসময় অনুবন্ধী (conjugate) জোড়ায় আসে। মডুলাস |z| = √(a² + b²), z·z̄ = |z|², আর |z₁z₂| = |z₁||z₂|। i দিয়ে গুণ মানে 90° ঘোরানো।
+
+TRAP: Do not write √(−4) × √(−9) = √36: use i first: (2i)(3i) = 6i² = −6. When dividing, multiply **both** numerator and denominator by the conjugate. And abs(z)² is a² + b², **not** (a + bi)².
+
+### Quick self-check
+QUIZ:
+Q: (2 + 3i)(4 − i) equals…; 8 − 3i; 11 + 10i; 8 + 3i; 5 + 2i; 2; 8 − 2i + 12i − 3i² = 11 + 10i.
+Q: abs(5 − 12i) equals…; 7; 13; 17; 169; 2; √(25 + 144).
+Q: i¹⁵ equals…; i; −i; 1; −1; 2; i¹⁵ = i³ since 15 leaves remainder 3 after dividing by 4.
+Q: The roots of z² − 4z + 13 = 0 are…; 2 ± 3i; 4 ± 13i; −2 ± 3i; 2 ± 9i; 1; The discriminant is −36, so √(−36) = 6i.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Compute (2 + 3i) + (4 − i) and (2 + 3i)(4 − i). => **6 + 2i** and **11 + 10i**.
+P: Find abs(5 − 12i). => **13**.
+P: Find i¹⁰⁰ and i⁷. => **1** and **−i**.
+LVL: Level 2 | Apply
+P: Write (1 + 2i) ÷ (3 − i) in the form a + bi. => (1 + 2i)(3 + i) ÷ 10 = (3 + i + 6i − 2) ÷ 10 = **(1 + 7i) ÷ 10**.
+P: Solve z² − 4z + 13 = 0. => **2 ± 3i**.
+P: Find z if z + 2 z̄ = 6 + 3i. => **2 − 3i**.
+P: Compute (2 + i)². => 4 + 4i − 1 = **3 + 4i**.
+P: Compute (1 + i)⁸. => (1 + i)² = 2i, so (1 + i)⁸ = (2i)⁴ = 16 i⁴ = **16**.
+LVL: Level 3 | Real
+P: In an AC circuit a 3 Ω resistor and a coil with a "reactance" of 4 Ω are in series. Their combined impedance is Z = 3 + 4i Ω. Find abs(Z) and the current when 10 V is applied. => abs(Z) = √(9 + 16) = **5 Ω**. Current = 10 ÷ 5 = **2 A**. (This is exactly how AC circuits are handled in Week 19.)
+LVL: Challenge | Roots and square roots
+P: Find all z with z² = 3 + 4i. And if 1 + 2i is a root of z³ − 3z² + 7z − 5 = 0, find the other roots. => Let z = a + bi: a² − b² = 3 and 2ab = 4. So b = 2 ÷ a and a⁴ − 3a² − 4 = 0, which gives a² = 4. **z = ±(2 + i)**. Check: (2 + i)² = 3 + 4i ✓. For the cubic: since the coefficients are real, 1 − 2i is also a root, and the roots sum to 3, so the third root is 3 − 2 = **1**. Factorised: (z − 1)(z² − 2z + 5).
+
+CHECK: math
+
+@section physics | 3 · Physics: pressure in fluids at rest | 35 min
+
+### Density and pressure
+A **fluid** is a substance that flows: a liquid or a gas. Two basic quantities:
+
+EQ: density ρ = m ÷ V (kg/m³)     pressure P = F ÷ A (pascal, 1 Pa = 1 N/m²)
+
+| Substance | Density (kg/m³) |
+| Air (sea level) | 1.2 |
+| Oil | 800 |
+| Water | 1000 |
+| Seawater | 1025 |
+| Mercury | 13,600 |
+| Aluminium | 2700 |
+
+Atmospheric pressure at sea level is **101,325 Pa = 1 atm** (about 10⁵ Pa). Pressure acts in **all directions**, perpendicular to any surface.
+
+BN: ঘনত্ব ρ = m/V, চাপ P = F/A (পাস্কাল = N/m²)। সমুদ্রপৃষ্ঠে বায়ুচাপ 101,325 Pa = 1 atm। তরলে চাপ সব দিকে সমান এবং যেকোনো তলের লম্ব।
+
+EX: Pressure
+1. A 60 kg person on a 4 cm² stiletto heel (all weight on one heel): P = 588 ÷ (4 × 10⁻⁴) = **1.47 MPa** (14.5 atm), much more than an elephant's footprint.
+2. A 2.7 kg block of volume 1000 cm³ has ρ = 2.7 ÷ 10⁻³ = **2700 kg/m³**: aluminium.
+/EX
+
+### Pressure at depth
+Take a column of fluid of cross-section A. The pressure at depth h must hold up the weight of the fluid above it. For a small change in depth dy the pressure changes by dP = ρ g dy, so:
+
+EQ: P(h) = P₀ + ∫₀ʰ ρ g dy = P₀ + ρ g h     (constant density)
+
+The **gauge pressure** is P − P₀ = ρ g h. It depends only on the depth, not on the shape of the container.
+
+EX: Depths
+1. At 10 m in water: gauge = 1000 × 9.8 × 10 = 98,000 Pa. Absolute P = 101,325 + 98,000 = **199,325 Pa ≈ 1.97 atm**. Every 10 m of water adds about 1 atm.
+2. At 30 m in the sea: gauge = 1025 × 9.8 × 30 = 301 kPa, absolute = **403 kPa ≈ 4.0 atm**.
+3. **Barometer:** the atmosphere supports a column of mercury: h = 101,325 ÷ (13,600 × 9.8) = **0.760 m**, the origin of "760 mmHg". With water, the column would be **10.3 m** tall.
+4. **Blood pressure** of 120 mmHg = 120 × 133.3 = **16.0 kPa** (above atmospheric).
+/EX
+
+LAB: Pressure under the surface | Choose the density of the liquid and the depth. The graph shows absolute pressure (in kPa) against depth: a straight line starting at one atmosphere (101 kPa) with slope ρ g. The numbers give the gauge and absolute pressure at your depth. | rho:Density ρ (kg/m³):700:1300:25:1000 ;; h:Depth h (m):0:50:1:10 | rho*9.8*h/1000:Gauge pressure (kPa):2 ;; (101325+rho*9.8*h)/1000:Absolute pressure (kPa):2 ;; (101325+rho*9.8*h)/101325:Absolute pressure (atm):2 | (101325+rho*9.8*x)/1000 | 0,50 | 0,750
+
+### Pascal's principle and hydraulics
+A pressure change applied to a confined fluid is transmitted undiminished everywhere. So in a hydraulic jack: P = F₁ ÷ A₁ = F₂ ÷ A₂.
+
+EX: A hydraulic jack
+1. Small piston radius 1 cm, large piston radius 10 cm: the area ratio is 100. A 100 N push gives **F₂ = 10,000 N** (enough to lift a 1000 kg car).
+2. Energy is conserved: the small piston must move 100 times farther. To raise the car by 1 cm you push the small piston down by **1 m**.
+/EX
+
+### A pressure that changes with height: the atmosphere
+For a gas the density depends on the pressure (ρ = ρ₀ P ÷ P₀ for a gas at constant temperature). Going up by dh decreases pressure by dP = −ρ g dh:
+
+dP ÷ dh = −(ρ₀ g ÷ P₀) P     so     **P(h) = P₀ e^(−h ÷ H)**     with     H = P₀ ÷ (ρ₀ g) = 101,325 ÷ (1.225 × 9.8) = **8440 m**
+
+(This is a separable differential equation: the solution is the exponential decay you already know.)
+
+EX: Pressure on a mountain
+1. At 3000 m: P = 101.3 × e^(−3000 ÷ 8440) = 101.3 × 0.701 = **71.0 kPa** (70% of sea level).
+2. At the top of Everest (8848 m): P = 101.3 × e^(−1.048) = **35.5 kPa** (the measured value is about 34 kPa, a third of sea level, which is why climbers need oxygen).
+/EX
+
+LAB: Air pressure with height | Pressure falls exponentially with altitude: P = 101.3 e^(−h ÷ 8440) kPa. Move the altitude slider to compare a city, a mountain pass and the Everest summit. Every 8.44 km, the pressure falls by a factor of e. | h:Altitude h (m):0:9000:100:3000 | 101.325*exp(-h/8440):Pressure (kPa):1 ;; exp(-h/8440)*100:Percent of sea-level pressure:1 | 101.325*exp(-x/8440) | 0,9000 | 0,110
+
+### Force on a dam
+The pressure on a vertical wall increases with depth, so the total force is an integral.
+
+EX: A dam
+1. A dam of width w = 100 m holds water of depth H = 20 m. At depth y the pressure (gauge) is ρ g y, and a strip of height dy has area w dy.
+2. F = ∫₀ᴴ ρ g y w dy = ½ ρ g w H² = ½ × 1000 × 9.8 × 100 × 400 = **1.96 × 10⁸ N** (about 20,000 tonnes of weight).
+3. Doubling the depth **quadruples** the force. That is why dams are thick at the base.
+/EX
+
+TRAP: Use **gauge** pressure (ρ g h) for forces on the wall of a container open to the atmosphere (the atmosphere pushes on both sides), and **absolute** pressure for gas laws. The depth h is the **vertical** depth, not the distance along a slanted pipe. And a hydraulic jack multiplies force, not energy.
+
+### Quick self-check
+QUIZ:
+Q: The gauge pressure at 20 m depth in fresh water is about…; 1 atm; 2 atm; 3 atm; 10 atm; 2; Each 10 m of water adds about 1 atm.
+Q: Pressure at a given depth depends on…; the width of the container; the depth and the density; the volume of the container; the shape of the container; 2; P = P₀ + ρ g h.
+Q: In a hydraulic jack the small piston moves 20 cm and the area ratio is 10. The big piston moves…; 200 cm; 20 cm; 2 cm; 0.2 cm; 3; The volume displaced is equal.
+Q: The air pressure at 8.44 km is about…; 50%; 37%; 25%; 10%; 2; e^(−1) = 0.37.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the pressure from a 588 N weight on 4 × 10⁻⁴ m². => **1.47 MPa**.
+P: Find the gauge pressure at 5 m of water. => 1000 × 9.8 × 5 = **49,000 Pa**.
+LVL: Level 2 | Apply
+P: Find the absolute pressure in atmospheres at 30 m in seawater. => **3.97 atm**.
+P: A hydraulic press has pistons of radii 2 cm and 20 cm. What force on the small piston lifts a 2000 kg load? => Area ratio 100. Load weight = 19,600 N. F = **196 N**.
+P: How tall a column of water balances 1 atm? And of oil (ρ = 800)? => Water: **10.3 m**. Oil: 101,325 ÷ (800 × 9.8) = **12.9 m**.
+P: Find the air pressure at 3000 m. => **71 kPa** (70% of sea level).
+P: A dam is 50 m wide and holds water 12 m deep. Find the total force. => F = ½ × 1000 × 9.8 × 50 × 144 = **35.3 MN**.
+LVL: Level 3 | Real
+P: An IV bag drips into a vein at 10 mmHg (1.33 kPa). The saline density is 1005 kg/m³. How high above the vein must the bag be? => h = P ÷ (ρ g) = 1333 ÷ (1005 × 9.8) = **0.135 m**. (In practice the bag is placed about 1 m above for a good flow rate.)
+P: A diver is at 10 m depth. What extra force acts on an eardrum of area 0.5 cm²? => 98,000 × 5 × 10⁻⁵ = **4.9 N**, which is why ears hurt without equalising.
+LVL: Challenge | Density changes with depth
+P: Seawater is slightly compressible: ρ(y) = ρ₀ (1 + κ y) with ρ₀ = 1025 kg/m³ and κ = 4.4 × 10⁻⁶ per metre. Find the gauge pressure at the bottom of a 4000 m ocean trench by integration, and the percentage error of the constant-density formula. => P = ∫₀⁴⁰⁰⁰ ρ₀ (1 + κ y) g dy = ρ₀ g (h + κ h² ÷ 2) = 1025 × 9.8 × (4000 + 4.4 × 10⁻⁶ × 16 × 10⁶ ÷ 2) = 10,045 × (4000 + 35.2) = **40.5 MPa** (about 400 atm). The constant-density formula gives 40.18 MPa, an error of **0.9%**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Complex numbers z = a + bi, i² = −1. Add by parts, multiply by FOIL, divide with the conjugate. abs(z) = √(a² + b²), z z̄ = abs(z)², abs(z₁ z₂) = abs(z₁) abs(z₂). Multiplying by i rotates by 90°. Negative discriminants give conjugate pairs of roots.
+- Fluids at rest: ρ = m ÷ V, P = F ÷ A, P = P₀ + ρ g h, 1 atm = 101,325 Pa, Pascal's principle (F₂ = F₁ A₂ ÷ A₁), atmosphere P = P₀ e^(−h ÷ H) with H = 8.44 km, dam force ½ ρ g w H².
+
+BN: আজকের সারকথা: জটিল সংখ্যা a + bi; গুণ FOIL দিয়ে, ভাগ অনুবন্ধী দিয়ে; |z| = √(a² + b²), z·z̄ = |z|²; i দিয়ে গুণ = 90° ঘূর্ণন; ঋণাত্মক ডিসক্রিমিন্যান্টে অনুবন্ধী জোড়া মূল। তরল: ρ = m/V, P = F/A, P = P₀ + ρgh, পাস্কালের সূত্রে F₂ = F₁A₂/A₁, বায়ুমণ্ডলে P = P₀e^(−h/H), বাঁধের বল ½ρgwH²।
+
+EXIT:
+E: Compute (1 + 2i)(3 − i) and give the real part.; 5; 0.001; (1 + 2i)(3 − i) = 3 − i + 6i − 2i² = 5 + 5i.
+E: What is abs(8 + 6i)?; 10; 0.001; √(64 + 36) = 10.
+E: What is the gauge pressure in kPa at 15 m depth in fresh water?; 147; 0.5; 1000 × 9.8 × 15 = 147,000 Pa.
+
+**Tomorrow:** polar form and Euler's formula, and buoyancy.
+
+CHECK: notes

@@ -1,0 +1,222 @@
+@day Week 1 · Day 3 · Wednesday
+# Rearranging formulas, word problems and two equations at once. Then: the equations of motion
+lead: Today algebra becomes a tool. You will rearrange any formula, turn a story into an equation, and solve two unknowns together. Then you use all of it in physics to derive the first equations of motion from a single graph.
+
+BN: আজ অ্যালজেবরা কাজে লাগাবো। (১) যেকোনো সূত্রকে উল্টেপাল্টে x বের করা, (২) গল্পকে সমীকরণে বদলানো, (৩) দুই অজানা একসাথে সমাধান। তারপর পদার্থবিজ্ঞানে গতির সমীকরণ নিজে বানাবো, মুখস্থ করতে হবে না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and Monday
+P: Expand (x − 3)². => **x² − 6x + 9**.
+P: Factor x² + 2x − 24 and solve x² + 2x − 24 = 0. => (x + 6)(x − 4), so **x = −6 or x = 4**.
+P: Solve 3x/4 − 2 = 7. => 3x/4 = 9, so x = **12**.
+P: A car goes from 4 m/s to 16 m/s in 6 s. Find its acceleration. => 12 ÷ 6 = **2 m/s²**.
+P: On a v–t graph, what do slope and area represent? => Slope = **acceleration**. Area = **displacement**.
+
+CHECK: recall
+
+@section math | 2 · Math: formulas, word problems, simultaneous equations | 55 min
+
+### Changing the subject of a formula
+A formula such as V = IR has V alone on the left, so V is the **subject**. Sometimes you need I or R instead. The method is the same as solving an equation: undo operations in the **reverse order** they were applied, like unwrapping a gift.
+
+EX: Make R the subject of V = IR
+1. R is multiplied by I. Undo it by dividing both sides by I.
+2. R = **V ÷ I**.
+/EX
+
+EX: Make C the subject of F = (9/5)C + 32
+1. The order applied to C: multiply by 9/5, then add 32.
+2. Undo in reverse: subtract 32 first: F − 32 = (9/5)C.
+3. Then multiply by 5/9: **C = (5/9)(F − 32)**.
+/EX
+
+EX: Make a the subject of s = ut + ½at²
+1. Subtract ut from both sides: s − ut = ½at².
+2. Multiply both sides by 2: 2(s − ut) = at².
+3. Divide by t²: **a = 2(s − ut) ÷ t²**.
+/EX
+
+EX: Make s the subject of v² = u² + 2as
+1. Subtract u²: v² − u² = 2as.
+2. Divide by 2a: **s = (v² − u²) ÷ (2a)**.
+/EX
+
+EX: Make L the subject of T = 2π√(L/g)
+1. Divide by 2π: T/(2π) = √(L/g).
+2. Square both sides to undo the root: T²/(4π²) = L/g.
+3. Multiply by g: **L = gT²/(4π²)**. This is how you can find the length of a pendulum from its period.
+/EX
+
+BN: সূত্র উল্টানোর নিয়ম: যে ক্রমে কাজগুলো x এর উপর হয়েছে, উল্টো ক্রমে সেগুলো বাতিল করো। উপহারের মোড়ক খোলার মতো, যেটা শেষে মুড়েছে সেটা আগে খোলো। বর্গমূল বাতিল করতে বর্গ করো, বর্গ বাতিল করতে বর্গমূল নাও।
+
+TRAP: When you subtract or add a term, do it to the **whole side**. And never "cancel" a term that is added: in (a + b)/a you cannot cancel the a's. Only factors cancel, not terms.
+
+### Words into equations
+Almost every real problem arrives as a story. A reliable routine:
+
+1. **Name the unknown** with a letter and its unit ("let t = hours after 8:00").
+2. **Translate** each sentence into math.
+3. **Solve.**
+4. **Check** the answer against the story: sensible size? right unit? positive when it must be?
+
+EX: Two buses
+1. Bus A leaves at 8:00 at 40 km/h. Bus B leaves the same station at 9:00 along the same road at 60 km/h. When does B catch A?
+2. Let t = hours after 8:00. A has travelled 40t km. B has been driving for (t − 1) hours, so B has travelled 60(t − 1) km.
+3. They meet when distances are equal: 40t = 60(t − 1) = 60t − 60.
+4. 60 = 20t, so t = 3. B catches A at **11:00**, after 40 × 3 = **120 km**.
+5. Check with B: 60 × 2 = 120 ✓.
+/EX
+
+EX: Splitting a bill
+1. Five friends share a bill. Then two more join and everyone pays 40 taka less. What was the bill?
+2. Let B = the bill in taka. Originally each pays B/5. Now each pays B/7.
+3. B/5 − B/7 = 40. Multiply by 35: 7B − 5B = 1400, so B = 700.
+4. Check: 700/5 = 140 and 700/7 = 100, a difference of 40 ✓. The bill was **700 taka**.
+/EX
+
+### Two unknowns, two equations
+Sometimes one equation has two unknowns, like x + y = 5. It has infinitely many solutions. Add a second equation and usually exactly one pair (x, y) satisfies both. Each equation is a straight line, and the solution is **where the lines cross**.
+
+GRAPH: Two lines crossing | x | y | 0,7 3.5,0 ;; 0,-2 5,3 | The lines 2x + y = 7 and x − y = 2 cross at (3, 1). That point is the only pair that satisfies both equations.
+
+**Method 1: Substitution.** Solve one equation for one letter and put it in the other.
+
+EX: Solve y = 2x − 1 and 3x + y = 14
+1. Replace y in the second equation: 3x + (2x − 1) = 14.
+2. 5x − 1 = 14, so x = 3.
+3. Then y = 2(3) − 1 = 5. Solution **(3, 5)**.
+4. Check in the second: 9 + 5 = 14 ✓.
+/EX
+
+**Method 2: Elimination.** Multiply equations so one letter has equal coefficients, then add or subtract.
+
+EX: Solve 3x + 2y = 16 and 2x − 3y = −11
+1. Make the y terms match: multiply the first equation by 3: 9x + 6y = 48. Multiply the second by 2: 4x − 6y = −22.
+2. Add the equations. The y terms cancel: 13x = 26, so x = 2.
+3. Put x = 2 in the first equation: 6 + 2y = 16, so y = 5. Solution **(2, 5)**.
+4. Check in the second: 4 − 15 = −11 ✓.
+/EX
+
+BN: দুটো অজানা, দুটো সমীকরণ। প্রতিটা সমীকরণ একটা সরলরেখা, আর সমাধান হলো যেখানে রেখা দুটো কাটে। প্রতিস্থাপন (substitution) পদ্ধতিতে একটা চলককে আরেকটার মাধ্যমে লিখে বসিয়ে দাও। বিলোপ (elimination) পদ্ধতিতে সহগ সমান করে যোগ বা বিয়োগ করো, একটা চলক হারিয়ে যাবে।
+
+**Special cases.** If the lines are parallel (same slope, different position) there is **no solution**. If both equations describe the same line there are **infinitely many solutions**. When elimination gives 0 = 5, it is the first case. When it gives 0 = 0, it is the second.
+
+EX: A word system
+1. Three pens and two notebooks cost 70 taka. Two pens and three notebooks cost 80 taka. Find each price.
+2. Let p = price of a pen and n = price of a notebook: 3p + 2n = 70 and 2p + 3n = 80.
+3. Multiply the first by 3 and the second by 2: 9p + 6n = 210 and 4p + 6n = 160. Subtract: 5p = 50, so p = 10.
+4. From the first equation: 30 + 2n = 70, so n = 20.
+5. A pen costs **10 taka** and a notebook **20 taka**. Check the second: 20 + 60 = 80 ✓.
+/EX
+
+### Quick self-check
+QUIZ:
+Q: Make x the subject of y = 3x − 5.; x = (y + 5)/3; x = 3y + 5; x = (y − 5)/3; x = y/3 − 5; 1; Add 5 to both sides: y + 5 = 3x, then divide by 3.
+Q: Make v the subject of K = ½mv².; v = 2K/m; v = √(2K/m); v = √(K/2m); v = 2K/m²; 2; Multiply by 2: 2K = mv². Divide by m: v² = 2K/m. Take the square root.
+Q: Solve x + y = 10 and x − y = 4.; (6, 4); (7, 3); (4, 6); (5, 5); 2; Add the equations: 2x = 14, so x = 7 and y = 3.
+Q: The system x + y = 3 and 2x + 2y = 8 has…; exactly one solution; no solution; infinitely many solutions; two solutions; 2; Doubling the first gives 2x + 2y = 6, which contradicts 8. The lines are parallel, so there is no solution.
+
+### Practice, easy to hard
+LVL: Level 1 | Rearranging
+P: Make m the subject of F = ma. => **m = F ÷ a**.
+P: Make r the subject of C = 2πr. => **r = C ÷ (2π)**.
+P: Make x the subject of 2x + 3y = 12. => 2x = 12 − 3y, so **x = (12 − 3y) ÷ 2**.
+LVL: Level 2 | Solve and rearrange
+P: Make h the subject of V = (1/3)πr²h. => Multiply by 3: 3V = πr²h. **h = 3V ÷ (πr²)**.
+P: Solve x + 2y = 8 and 3x − y = 3. => From the second, y = 3x − 3. Substitute: x + 6x − 6 = 8, so x = 2 and y = 3. **(2, 3)**.
+P: Solve 4x + 3y = 25 and x − 3y = −5. => Add: 5x = 20, so x = 4. Then 16 + 3y = 25 gives y = 3. **(4, 3)**.
+P: A number is tripled and then 7 is subtracted, giving 20. Find the number. => 3n − 7 = 20, so n = **9**.
+P: Make u the subject of s = ut + ½at², then find u when s = 60, t = 5 and a = 2. => Subtract ½at²: s − ½at² = ut, so **u = (s − ½at²) ÷ t**. Then u = (60 − 25) ÷ 5 = **7**.
+LVL: Level 3 | Stories
+P: Fatima is 4 years older than twice her brother's age. Together they are 31. Find both ages. => f = 2b + 4 and f + b = 31. So 3b + 4 = 31 and b = 9, **f = 22**.
+P: A boat goes 24 km downstream in 2 h and returns upstream in 3 h. Find the boat's speed in still water and the river's speed. => Let b and c be the speeds. b + c = 24 ÷ 2 = 12 and b − c = 24 ÷ 3 = 8. Add: 2b = 20, so **b = 10 km/h** and **c = 2 km/h**.
+P: A mix of 20% and 50% salt solution should give 6 litres of 30% solution. How much of each? => x of 20% and (6 − x) of 50%: 0.2x + 0.5(6 − x) = 0.3 × 6 = 1.8. So 0.2x + 3 − 0.5x = 1.8, giving −0.3x = −1.2, **x = 4 L of 20%** and **2 L of 50%**.
+LVL: Challenge | Break it down
+P: Solve 2/x + 3/y = 7 and 4/x − 1/y = 7 for x and y. (Hint: let a = 1/x and b = 1/y.) => 2a + 3b = 7 and 4a − b = 7. From the second, b = 4a − 7. Substitute: 2a + 12a − 21 = 7, so a = 2 and b = 1. Therefore **x = 1/2 and y = 1**.
+
+CHECK: math
+
+@section physics | 3 · Physics: the equations of motion, built from one graph | 35 min
+
+### Where the formulas come from
+Yesterday you learned that on a v–t graph the slope is acceleration and the area is displacement. Take an object with starting velocity u, constant acceleration a, for time t, ending with velocity v. Its v–t graph is a straight line.
+
+GRAPH: Constant acceleration | time (s) | v (m/s) | 0,4 6,16 | Start at u = 4 m/s, end at v = 16 m/s after t = 6 s. The slope is a = 2 m/s². The area under the line is the distance travelled.
+
+### Equation 1: from the slope
+The slope is a = (v − u) ÷ t. Rearrange (you can do that now):
+
+EQ: v = u + at
+
+### Equation 2: from the area
+The area under the line is a trapezoid with parallel sides u and v and width t. Area = ½ (u + v) t. So:
+
+EQ: s = ½ (u + v) t
+
+Now replace v with u + at: s = ½ (u + u + at) t = ½ (2u + at) t = ut + ½at². So:
+
+EQ: s = ut + ½at²
+
+These are the **SUVAT** equations: s = displacement, u = start velocity, v = final velocity, a = acceleration, t = time. They apply only when **a is constant**.
+
+BN: গতির সমীকরণ মুখস্থ করতে হবে না। v–t গ্রাফ থেকে বের করা যায়: ঢাল থেকে v = u + at, আর ক্ষেত্রফল (ট্রাপিজয়েড) থেকে s = ½(u+v)t। দ্বিতীয়টায় v এর জায়গায় u + at বসালেই s = ut + ½at² পাওয়া যায়। শর্ত: ত্বরণ ধ্রুবক (constant) হতে হবে।
+
+### A problem-solving routine
+1. Draw the situation and choose a positive direction.
+2. Write down what you know: s, u, v, a, t. Include hidden facts ("starts from rest" means u = 0).
+3. Pick the equation that contains your unknown and only knowns.
+4. Solve, then check units and the sign.
+
+EX: A car accelerating
+1. A car starts from rest and accelerates at 3 m/s² for 6 s. Find its final velocity and the distance travelled.
+2. Known: u = 0, a = 3, t = 6. Unknowns: v and s.
+3. v = u + at = 0 + 3 × 6 = **18 m/s**.
+4. s = ut + ½at² = 0 + ½ × 3 × 36 = **54 m**.
+5. Check with the average velocity: (0 + 18) ÷ 2 = 9 m/s, and 9 × 6 = 54 m ✓.
+/EX
+
+EX: A braking car
+1. A car at 20 m/s brakes with a = −4 m/s² for 3 s. Find v and s.
+2. v = 20 + (−4)(3) = **8 m/s**.
+3. s = 20 × 3 + ½ × (−4) × 9 = 60 − 18 = **42 m**.
+4. Check: average velocity = (20 + 8) ÷ 2 = 14 m/s, and 14 × 3 = 42 m ✓.
+/EX
+
+KEY: Always check your answer with a second route. If s from one equation matches s from average velocity, you can trust it.
+
+### Quick self-check
+QUIZ:
+Q: Which equation has no v in it?; v = u + at; s = ut + ½at²; s = ½(u + v)t; v² = u² + 2as; 2; s = ut + ½at² uses s, u, a and t, so it is the one to choose when v is unknown and not needed.
+Q: "A stone is dropped from rest." What does this tell you?; v = 0; u = 0; a = 0; t = 0; 2; "From rest" means the starting velocity u is zero.
+Q: A bike with u = 4 m/s accelerates at 1 m/s² for 10 s. What is v?; 6 m/s; 14 m/s; 40 m/s; 10 m/s; 2; v = u + at = 4 + 1 × 10 = 14 m/s.
+Q: The SUVAT equations are valid when…; velocity is constant; acceleration is constant; the object is not moving; the mass is 1 kg; 2; The v–t graph must be a straight line, which means constant acceleration.
+
+### Practice
+LVL: Level 1 | Direct use
+P: A bike starts at u = 4 m/s with a = 1 m/s² for 10 s. Find v and s. => v = 4 + 10 = **14 m/s**. s = 40 + ½ × 1 × 100 = **90 m**.
+P: A ball rolls with u = 12 m/s and a = −2 m/s². How long until it stops? => 0 = 12 − 2t, so t = **6 s**.
+P: A train accelerates from rest at 0.5 m/s² for 20 s. How far does it go? => ½ × 0.5 × 400 = **100 m**.
+LVL: Level 2 | Two steps
+P: A train at 30 m/s brakes at 1.5 m/s². How long to stop, and how far does it travel? => t = 30 ÷ 1.5 = **20 s**. s = 30 × 20 − ½ × 1.5 × 400 = 600 − 300 = **300 m**.
+P: An object has u = 5 m/s and travels 60 m in 8 s with constant acceleration. Find a. => 60 = 40 + ½ a × 64, so 20 = 32a and **a = 0.625 m/s²**.
+LVL: Challenge | The fifth second
+P: A car starts from rest with a = 2 m/s². How far does it travel in the 5th second only (between t = 4 s and t = 5 s)? Find also the distances in seconds 1, 2, 3. Describe the pattern. => s(5) = ½ × 2 × 25 = 25 m and s(4) = 16 m, so the 5th second is **9 m**. Seconds 1 to 5 give 1, 3, 5, 7, 9 m. **The distances are odd numbers in order**, a pattern Galileo noticed for falling objects.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Change the subject by undoing operations in reverse order.
+- Stories: name the unknown, translate, solve, check.
+- Two unknowns need two equations: substitution or elimination. The solution is where two lines cross.
+- v = u + at and s = ½(u + v)t come from the v–t graph. Substituting gives s = ut + ½at².
+
+BN: আজকের সারকথা: সূত্র উল্টাতে হলে উল্টো ক্রমে বাতিল করো। গল্প থেকে সমীকরণ বানাতে আগে অজানাকে নাম দাও। দুই অজানায় substitution বা elimination। গতির সমীকরণ v–t গ্রাফের ঢাল আর ক্ষেত্রফল থেকে এসেছে, তাই ভুলে গেলেও আবার বের করা যায়।
+
+**Tomorrow:** inequalities and absolute value, solving quadratics by factoring, and the third equation of motion v² = u² + 2as with a problem-solving strategy.
+
+CHECK: notes

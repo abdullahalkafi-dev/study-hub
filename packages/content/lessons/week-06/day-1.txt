@@ -1,0 +1,194 @@
+@day Week 6 · Day 1 · Monday
+# The product and quotient rules. Then: momentum and impulse
+lead: Last week you differentiated one simple function at a time. Real formulas multiply and divide functions, and today you learn the two rules that handle that. In physics you meet momentum, the quantity that Newton himself used for his second law, and impulse, which explains why airbags and crumple zones save lives.
+
+BN: গত সপ্তাহে একটা একটা সরল ফাংশনের অন্তরকলজ বের করেছ। বাস্তব সূত্রে ফাংশন গুণ বা ভাগ হয়, আজ সেই দুই নিয়ম শিখবে। পদার্থবিজ্ঞানে ভরবেগ (momentum), যা নিয়ে নিউটন নিজেই দ্বিতীয় সূত্র লিখেছিলেন, আর ঘাত (impulse), যা ব্যাখ্যা করে এয়ারব্যাগ ও ক্রাম্পল জোন কেন জীবন বাঁচায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Differentiate 4x³ − 5x + 2√x. => **12x² − 5 + 1/√x**.
+P: Differentiate 2 sin x + 3eˣ. => **2 cos x + 3eˣ**.
+P: Find lim (x → 0) sin 2x ÷ x. => **2**.
+P: A 2 kW heater runs for 90 minutes. How many kWh? => **3 kWh**.
+P: A spring (k = 200 N/m) is compressed 0.1 m. What energy is stored? => **1 J**.
+
+CHECK: recall
+
+@section math | 2 · Math: product and quotient rules | 55 min
+
+### Why the derivative of a product is not the product of derivatives
+Try x² × x³ = x⁵. The derivative of x⁵ is 5x⁴. But the product of the derivatives is 2x × 3x² = 6x³, which is wrong. So we need a real rule.
+
+**A picture.** Think of a rectangle with width f and height g, so the area is f g. When x increases a little, the width grows by Δf and the height by Δg. The area grows by three pieces: f Δg (a strip on top), g Δf (a strip on the side) and the tiny corner Δf Δg. Divide by Δx and let it shrink: the corner vanishes (it is a product of two small things), leaving two strips.
+
+EQ: (f g)′ = f′ g + f g′
+
+**Proof with limits.** f(x + h) g(x + h) − f(x) g(x) = f(x + h) [g(x + h) − g(x)] + g(x) [f(x + h) − f(x)]. Divide by h and let h → 0. Since f is continuous, f(x + h) → f(x), so we get f g′ + g f′. ∎
+
+BN: গুণফলের অন্তরকলজ (fg)′ = f′g + fg′। ছবিতে ভাবো: আয়তক্ষেত্রের দৈর্ঘ্য f ও প্রস্থ g বাড়লে ক্ষেত্রফল বাড়ে দুটি ফালি (fΔg ও gΔf) আর একটা ক্ষুদ্র কোণা (ΔfΔg), শেষেরটা হারিয়ে যায়।
+
+EX: Check the rule
+1. (x² · x³)′ = 2x · x³ + x² · 3x² = 2x⁴ + 3x⁴ = **5x⁴** ✓, matching the derivative of x⁵.
+/EX
+
+EX: Use the rule
+1. d/dx (x² sin x) = 2x sin x + x² cos x.
+2. d/dx (x eˣ) = 1 · eˣ + x · eˣ = **eˣ (1 + x)**.
+3. d/dx ((3x + 1)(x² − 2)) = 3(x² − 2) + (3x + 1)(2x) = 3x² − 6 + 6x² + 2x = **9x² + 2x − 6**. Check by expanding first: 3x³ + x² − 6x − 2 has derivative 9x² + 2x − 6 ✓.
+/EX
+
+LAB: Product rule check | Drag the point x₀ along y = x² sin x. The orange line is the tangent drawn with the product-rule slope, and the numbers confirm the rule against a tiny numerical step. | x0:Point x₀:-3:3:0.1:1 | ((x0+0.000001)^2*sin(x0+0.000001)-x0^2*sin(x0))/0.000001:Numerical slope:3 ;; 2*x0*sin(x0)+x0^2*cos(x0):Product rule f′g + fg′:3 | x^2*sin(x) ;; (2*x0*sin(x0)+x0^2*cos(x0))*(x-x0)+x0^2*sin(x0) | -4,4 | -6,6
+
+### The quotient rule
+Write f ÷ g = f × (1 ÷ g). First, (1 ÷ g)′ = −g′ ÷ g² (from the chain rule you learn tomorrow, or directly from the definition). Then the product rule gives:
+
+EQ: (f ÷ g)′ = (f′ g − f g′) ÷ g²
+
+A memory trick: "low d-high minus high d-low, over low squared", where low is the denominator g and high is the numerator f.
+
+EX: tan x
+1. tan x = sin x ÷ cos x. Then (cos x · cos x − sin x · (−sin x)) ÷ cos²x = (cos²x + sin²x) ÷ cos²x = **1 ÷ cos²x = sec²x**.
+/EX
+
+EX: A rational function
+1. y = x ÷ (x² + 1). y′ = ((x² + 1) · 1 − x · 2x) ÷ (x² + 1)² = **(1 − x²) ÷ (x² + 1)²**.
+2. It is zero at x = ±1. At x = 1, y = 1/2, the highest value of the function. Between x = −1 and 1, y′ > 0, so y rises, then falls.
+/EX
+
+EX: Exponential over x
+1. y = eˣ ÷ x. y′ = (eˣ · x − eˣ · 1) ÷ x² = **eˣ (x − 1) ÷ x²**.
+2. Zero at x = 1, and y(1) = e = 2.718. For x > 0 this is the minimum of eˣ ÷ x: no matter how you slice it, eˣ ÷ x ≥ e.
+/EX
+
+TRAP: Do not differentiate a product factor by factor, and do not swap the order in the quotient rule: the numerator is f′g **minus** fg′, not the other way round. When a product is simple to expand, expanding first and then using the power rule is often faster, and it is a good way to check your answer.
+
+### Quick self-check
+QUIZ:
+Q: d/dx (x² eˣ) equals…; 2x eˣ; eˣ (x² + 2x); x² eˣ; 2x + eˣ; 2; Product rule: 2x eˣ + x² eˣ.
+Q: d/dx (x ÷ (x + 1)) equals…; 1 ÷ (x + 1)²; 1; x ÷ (x + 1)²; −1 ÷ (x + 1)²; 1; ((x + 1) − x) ÷ (x + 1)² = 1 ÷ (x + 1)².
+Q: The derivative of sin x · cos x is…; cos²x − sin²x; −sin x cos x; 1; cos x − sin x; 1; cos x · cos x + sin x · (−sin x).
+Q: The derivative of tan x is…; cos²x; sec²x; −sec²x; 1 ÷ sin²x; 2; The quotient rule on sin x ÷ cos x.
+Q: In the quotient rule (f ÷ g)′ the denominator is…; g; g²; f²; f g; 2; Always the square of the bottom function.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Differentiate x³ sin x. => **3x² sin x + x³ cos x**.
+P: Differentiate (x² + 1)(x − 3). => 2x (x − 3) + (x² + 1) = **3x² − 6x + 1**.
+P: Differentiate 1 ÷ x using the quotient rule. => (0 · x − 1 · 1) ÷ x² = **−1/x²**.
+LVL: Level 2 | Combine
+P: Differentiate (2x + 3) ÷ (x − 1). => (2(x − 1) − (2x + 3)) ÷ (x − 1)² = **−5 ÷ (x − 1)²**.
+P: Differentiate sin x ÷ x and evaluate at x = π. => (x cos x − sin x) ÷ x². At π: (−π − 0) ÷ π² = **−1/π**.
+P: Find the tangent to y = x eˣ at x = 0. => y′ = eˣ (1 + x) = 1 at x = 0, and y(0) = 0. **y = x**.
+P: Differentiate eˣ cos x and find where the tangent is horizontal in [0, π]. => eˣ (cos x − sin x) = 0, so tan x = 1 and **x = π/4**.
+P: Differentiate (x² + 1) ÷ (x² − 1). => (2x (x² − 1) − (x² + 1) 2x) ÷ (x² − 1)² = **−4x ÷ (x² − 1)²**.
+LVL: Level 3 | Real
+P: A shop's price after t days is p(t) = 50 + 2t and its daily sales are q(t) = 200 − 5t. Find the rate of change of revenue R = p q at t = 0, and say what it means. => R′ = p′ q + p q′ = 2(200 − 5t) + (50 + 2t)(−5). At t = 0: 400 − 250 = **150 per day**. Revenue is growing at 150 per day: the price rise gains 400 and the falling sales lose 250.
+LVL: Challenge | Three factors
+P: Show that (f g h)′ = f′ g h + f g′ h + f g h′, and test it on x · x · x. => Apply the product rule to (f g) h: (f g)′ h + f g h′ = (f′ g + f g′) h + f g h′ ∎. Test: 1·x·x + x·1·x + x·x·1 = **3x²** ✓, the derivative of x³.
+
+CHECK: math
+
+@section physics | 3 · Physics: momentum and impulse | 35 min
+
+### Momentum
+The **momentum** of a body is its mass times its velocity:
+
+EQ: p = m v     unit: kg·m/s (also N·s)
+
+It is a **vector**: it points the way the body moves. A heavy slow truck and a light fast bullet can have the same momentum. Newton's original second law was written for momentum:
+
+EQ: F_net = dp/dt
+
+The net force is the **rate of change of momentum**. For constant mass this gives F = m dv/dt = m a, the form you know. (Notice the derivative: you now understand where F = ma really comes from.)
+
+### Impulse
+If a force F acts for a time Δt, the **impulse** is J = F Δt, and from F = Δp ÷ Δt:
+
+EQ: J = F Δt = Δp = m v_final − m v_initial
+
+An impulse changes the momentum. If the force changes with time, the impulse is the **area under the force-time graph**.
+
+BN: ভরবেগ p = mv (ভেক্টর)। নিউটনের দ্বিতীয় সূত্রের মূল রূপ: F = dp/dt, অর্থাৎ বলের মান ভরবেগের পরিবর্তনের হার। ঘাত J = FΔt = Δp: কোনো বল যত বেশি সময় ধরে কাজ করে, ভরবেগের পরিবর্তন তত বেশি। বল-সময় লেখচিত্রের নিচের ক্ষেত্রফলই ঘাত।
+
+EX: Hitting a ball back
+1. A 0.16 kg cricket ball arrives at 30 m/s and is hit straight back at 40 m/s. Take the outgoing direction as positive: v_i = −30 and v_f = +40.
+2. Δp = 0.16 × (40 − (−30)) = 0.16 × 70 = **11.2 N·s**.
+3. If the bat touches the ball for 5 ms (0.005 s), the average force is 11.2 ÷ 0.005 = **2240 N**, about 230 kg of weight.
+/EX
+
+EX: Area under a force-time graph
+1. A football (0.5 kg) is kicked. The force rises from 0 to 800 N and falls back to 0 over 10 ms, a triangle.
+2. Impulse = ½ × 0.01 × 800 = **4 N·s**. The ball leaves at v = 4 ÷ 0.5 = **8 m/s** (from rest).
+/EX
+
+### The same impulse, a gentler force
+Because F = Δp ÷ Δt, a fixed change of momentum can come from a **large force for a short time** or a **small force for a long time**. Every safety device uses this: airbags, crumple zones, helmets, bending your knees when you land, catching a ball by pulling your hands back.
+
+EX: Crash comparison
+1. A 1200 kg car at 15 m/s stops. Δp = 1200 × 15 = 18,000 N·s.
+2. Hitting a rigid wall in 0.1 s: F = 18,000 ÷ 0.1 = **180,000 N**, and the deceleration is 150 m/s², or 15 g.
+3. With a crumple zone that lengthens the crash to 0.4 s: F = **45,000 N**, 3.8 g. The momentum change is the same, but the force on the passengers is four times smaller.
+/EX
+
+LAB: Stopping time and crash force | Choose the mass and speed of the car and the time it takes to stop. The graph shows how the average force falls as the stopping time gets longer. Compare 0.1 s with 0.4 s. | m:Mass (kg):800:2000:50:1200 ;; v:Speed (m/s):5:30:1:15 ;; t:Stopping time (s):0.05:1:0.01:0.1 | m*v:Momentum change (N·s):0 ;; m*v/t:Average force (N):0 ;; v/t/9.8:Deceleration (in g):1 | m*v/x | 0.05,1 | 0,400000
+
+### Conservation of momentum
+For two bodies that exert forces on each other (and nothing else pushes them), Newton's third law says the forces are equal and opposite, so the two impulses are equal and opposite, and the momentum changes cancel:
+
+EQ: m₁ v₁ + m₂ v₂ = m₁ v₁′ + m₂ v₂′     (total momentum before = total momentum after)
+
+This holds for any collision or explosion in an isolated system, including ones where energy is lost.
+
+EX: Recoil
+1. A 80 kg skater at rest on smooth ice throws a 2 kg ball at 10 m/s. The total momentum was 0, so 2 × 10 + 80 v = 0.
+2. **v = −0.25 m/s**: the skater slides backwards at 0.25 m/s.
+/EX
+
+EX: A rifle
+1. A 4 kg rifle fires a 0.02 kg bullet at 600 m/s. The bullet's momentum is 12 kg·m/s forward, so the rifle gets 12 kg·m/s backward.
+2. Recoil speed = 12 ÷ 4 = **3 m/s**. This is why firing a gun pushes your shoulder.
+/EX
+
+TRAP: Momentum is a vector. Choose a positive direction and give **negative** values to velocities in the other direction (as in the cricket ball example). And do not mix up momentum with kinetic energy: momentum depends on v, kinetic energy on v², and kinetic energy is not conserved in most collisions.
+
+### Quick self-check
+QUIZ:
+Q: The momentum of a 2 kg ball moving at 5 m/s is…; 10 kg·m/s; 25 kg·m/s; 2.5 kg·m/s; 7 kg·m/s; 1; p = m v = 10.
+Q: An impulse of 20 N·s acts on a 4 kg object at rest. Its speed becomes…; 80 m/s; 5 m/s; 0.2 m/s; 16 m/s; 2; v = J ÷ m = 5 m/s.
+Q: A longer stopping time for the same change of momentum means the average force is…; larger; smaller; the same; zero; 2; F = Δp ÷ Δt.
+Q: Total momentum is conserved when…; energy is conserved; there is no net external force; there is no friction at all; collisions are elastic; 2; An isolated system keeps its total momentum.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the momentum of a 1000 kg car at 20 m/s. => **20,000 kg·m/s**.
+P: A 0.2 kg ball changes velocity from 6 m/s to 10 m/s in the same direction. Find the impulse. => 0.2 × 4 = **0.8 N·s**.
+LVL: Level 2 | Apply
+P: A 0.058 kg tennis ball hits a wall at 25 m/s and bounces back at 20 m/s. The contact lasts 4 ms. Find the average force. => Δp = 0.058 × (20 − (−25)) = 2.61 N·s. F = 2.61 ÷ 0.004 = **652 N**.
+P: A 60 kg astronaut floats at rest and throws a 3 kg tool at 4 m/s. Find the recoil speed. => 3 × 4 ÷ 60 = **0.2 m/s** in the opposite direction.
+P: A force of 50 N acts on a 10 kg object for 3 s. Find the final speed if it starts at 2 m/s. => J = 150 N·s, Δv = 15 m/s, so **17 m/s**.
+P: Why does bending your knees on landing protect you? Use numbers: a 70 kg person lands at 5 m/s, stopping in 0.02 s with stiff legs or 0.2 s with bent knees. => Δp = 350 N·s. Stiff: F = 17,500 N. Bent: F = **1750 N**. Ten times less force.
+LVL: Challenge | Force as a derivative
+P: A 2 kg body has momentum p(t) = 3t² + 4t (kg·m/s, t in s). Find the force at t = 2 and the velocity at t = 2. => F = dp/dt = 6t + 4 = **16 N** at t = 2. p(2) = 12 + 8 = 20, so v = 20 ÷ 2 = **10 m/s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Product rule (f g)′ = f′ g + f g′. Quotient rule (f ÷ g)′ = (f′ g − f g′) ÷ g². (tan x)′ = sec²x.
+- Momentum p = m v, F = dp/dt, impulse J = F Δt = Δp = area under the F-t graph. Conservation of momentum in isolated systems.
+- Longer stopping time means a smaller force for the same Δp: crumple zones and airbags.
+
+BN: আজকের সারকথা: গুণফল নিয়ম (fg)′ = f′g + fg′, ভাগফল নিয়ম (f/g)′ = (f′g − fg′)/g², (tan x)′ = sec²x। ভরবেগ p = mv, F = dp/dt, ঘাত J = FΔt = Δp। বিচ্ছিন্ন ব্যবস্থায় মোট ভরবেগ ধ্রুব। থামার সময় বাড়ালে বল কমে।
+
+EXIT:
+E: Find the value of d/dx (x² eˣ) at x = 0.; 0; 0.001; eˣ (x² + 2x) at x = 0 is 0.
+E: What is the impulse (N·s) on a 3 kg ball whose speed changes from 2 m/s to 6 m/s?; 12; 0.001; Δp = 3 × 4 = 12.
+E: A 1000 kg car at 10 m/s stops in 0.5 s. What is the average force in newtons?; 20000; 1; F = 10,000 ÷ 0.5 = 20,000 N.
+
+**Tomorrow:** the chain rule, and collisions.
+
+CHECK: notes

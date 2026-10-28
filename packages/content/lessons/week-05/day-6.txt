@@ -1,0 +1,84 @@
+@day Week 5 · Day 6 · Saturday
+# Week 5 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers limits, continuity, the derivative and its first rules, and work, energy and power.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: লিমিট, ধারাবাহিকতা, অন্তরকলজ আর তার প্রথম নিয়ম, এবং কাজ, শক্তি ও ক্ষমতা।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Questions 1 to 13 (the numbers are chosen to work out by hand). A calculator is allowed for the physics part.
+- Use g = 9.8 m/s². Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Limits and derivatives (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find lim (x → 3) (x² − 9) ÷ (x − 3). => (x + 3) → **6**.
+P: (1 mark) Find lim (x → 0) sin 3x ÷ (2x). => (3/2) × (sin 3x ÷ 3x) → **3/2**.
+P: (1 mark) Find lim (x → ∞) (4x² + 1) ÷ (2x² − x). => Divide by x²: (4 + 1/x²) ÷ (2 − 1/x) → **2**.
+P: (1 mark) Find lim (x → 4) (√x − 2) ÷ (x − 4). => Multiply by the conjugate: 1 ÷ (√x + 2) → **1/4**.
+P: (1 mark) What happens to 1 ÷ (x − 1) as x → 1⁺ and as x → 1⁻? Does the two-sided limit exist? => From the right it grows to +∞, from the left it falls to −∞. The two-sided limit **does not exist**.
+P: (1 mark) Find k so that f(x) = x² + k for x < 1 and f(x) = 5x − 1 for x ≥ 1 is continuous at x = 1. => Right value: 4. Left limit: 1 + k. So 1 + k = 4 and **k = 3**.
+P: (1 mark) Show that x³ − 2x − 1 = 0 has a root in (1, 2). => f(x) = x³ − 2x − 1 is continuous. f(1) = −2 < 0 and f(2) = 3 > 0, so by the intermediate value theorem there is a root between 1 and 2. ∎
+P: (1 mark) Use the definition of the derivative to find f′(x) for f(x) = x² + 3x. => ((x + h)² + 3(x + h) − x² − 3x) ÷ h = (2xh + h² + 3h) ÷ h = 2x + h + 3 → **2x + 3**.
+P: (1 mark) Differentiate 5x³ − 4√x + 2/x. => 15x² − 4 × 1/(2√x) − 2/x² = **15x² − 2/√x − 2/x²**.
+P: (1 mark) Find the equation of the tangent to y = x² − 2x at x = 3. => f(3) = 3 and f′(x) = 2x − 2, so f′(3) = 4. y − 3 = 4 (x − 3), so **y = 4x − 9**.
+P: (1 mark) Differentiate 3 sin x + e^(2x). => **3 cos x + 2 e^(2x)**.
+P: (1 mark) A particle's position is s(t) = t³ − 6t² + 9t. Find its velocity and the times when it is at rest. => v = 3t² − 12t + 9 = 3 (t − 1)(t − 3). At rest when **t = 1 and t = 3**.
+P: (2 marks) Find the minimum value of f(x) = x² − 6x + 11 using the derivative, and check by completing the square. => f′ = 2x − 6 = 0 gives x = 3, and f(3) = 9 − 18 + 11 = **2**. Completing the square: (x − 3)² + 2 ≥ 2, with equality at x = 3 ✓.
+
+CHECK: math
+
+@section physics | 3 · Part B: Work, energy and power (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A 50 N force acts at 37° above the horizontal and moves a crate 10 m horizontally. Find the work done by the force. => 50 × 10 × cos 37° = 500 × 0.7986 = **399 J**.
+P: (1 mark) How much work must be done to speed a 1000 kg car from 15 m/s to 25 m/s? => ½ × 1000 × (625 − 225) = **200,000 J**.
+P: (1 mark) A block is released from rest at a height of 3 m on a smooth ramp. Find its speed at the bottom. => √(2 × 9.8 × 3) = √58.8 = **7.67 m/s**.
+P: (1 mark) A spring with k = 250 N/m is compressed 0.12 m. Find the energy stored and the launch speed of a 0.1 kg block (smooth surface). => ½ × 250 × 0.0144 = **1.8 J**. v = √(2 × 1.8 ÷ 0.1) = **6 m/s**.
+P: (1 mark) A crane lifts 400 kg through 15 m in 25 s. Find the power. => 400 × 9.8 × 15 ÷ 25 = **2352 W**.
+P: (1 mark) A motor is 75% efficient and takes in 1.2 kW. What force can it exert on a load moving at a steady 2 m/s? => Useful power = 0.75 × 1200 = 900 W, so F = 900 ÷ 2 = **450 N**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 6. Try the challenge. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 5. Tell me, and I will rebalance Week 6. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q9 | Wrote the derivative of 2/x as 2 | Treated 1/x like x | Write 2/x as 2x⁻¹ and use the power rule: −2x⁻² | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি: কী করেছিলাম, কেন ভুল, সঠিক ধারণা, কবে আবার করব। এই সপ্তাহের সাধারণ ভুল: ভগ্নাংশ ও মূলকে ঘাত রূপে না লিখে অন্তরকলন, 0 ÷ 0 পেয়ে "উত্তর নেই" ধরে নেওয়া, আর কাজের গণনায় ঘর্ষণের ঋণাত্মক চিহ্ন ভুলে যাওয়া।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | A continuity puzzle
+P: Let f be continuous on [0, 1] with f(0) = f(1). Show that there is some x in [0, 1/2] with f(x) = f(x + 1/2). (In words: on any closed loop trip that returns to its starting height, there are two points half a trip apart at the same height.) => Define g(x) = f(x + 1/2) − f(x) on [0, 1/2]. Then g(0) = f(1/2) − f(0) and g(1/2) = f(1) − f(1/2) = f(0) − f(1/2) = −g(0). So g takes opposite signs at the two ends (or is zero at both). By the intermediate value theorem, g(x) = 0 for some x, which means **f(x) = f(x + 1/2)** ∎.
+
+LVL: Challenge | The cost of a climb
+P: A 70 kg hiker climbs 800 m. The human body is about 25% efficient at turning food energy into mechanical work. How much food energy is needed, in kilocalories (1 kcal = 4184 J)? How long would a 100 W lamp need to run on the same energy? => Work against gravity: 70 × 9.8 × 800 = 548,800 J. Food energy = 548,800 ÷ 0.25 = 2,195,200 J = **525 kcal**. The lamp would run 2,195,200 ÷ 100 = 21,952 s = **6.1 hours**.
+
+### Optional coding idea (not part of the study plan)
+**Secant to tangent:** draw y = f(x) for a function the user types, and place two points on the curve. Show the secant line and its slope, and let a slider make h smaller. Display the slope next to the exact derivative so the user can watch the convergence. Add a button that runs the bisection method on the same function to find a root, listing each step.
+
+### What Week 6 looks like
+**Differentiation rules:** product, quotient and chain rules, implicit differentiation, and derivatives of exponentials, logs and trig functions, so you can differentiate nearly any formula. Physics: **momentum, impulse and collisions**. The story: crumple zones in cars, where a small increase in stopping time saves lives.
+
+BN: আগামী সপ্তাহে অন্তরকলনের নিয়ম: গুণফল, ভাগফল, চেইন রুল, অন্তর্নিহিত (implicit) অন্তরকলন, এবং সূচক, লগ ও ত্রিকোণমিতিক ফাংশনের অন্তরকলজ। পদার্থবিজ্ঞানে ভরবেগ, ঘাত ও সংঘর্ষ। গল্প: গাড়ির ক্রাম্পল জোন, যেখানে থামার সময় সামান্য বাড়ালেই জীবন বাঁচে।
+
+**Sunday is a rest day.**
+
+CHECK: notes

@@ -1,0 +1,184 @@
+@day Week 9 · Day 5 · Friday
+# Numerical integration and applications. Then: forced oscillations and resonance
+lead: Most integrals that appear in real engineering have no neat formula, so computers approximate them. Today you learn the two methods behind that, the trapezoid rule and Simpson's rule, and see how accurate they are. You also use integrals for work, pumping and arc length. In physics, you push the oscillator with a periodic force and meet resonance, the reason bridges can sway, glasses can shatter and radios can tune in a station.
+
+BN: বাস্তব প্রকৌশলের অধিকাংশ সমাকলনের সুন্দর সূত্র থাকে না, তাই কম্পিউটার আসন্ন মান বের করে। আজ শিখবে এর পেছনের দুই পদ্ধতি: ট্রাপিজয়েড নিয়ম ও সিম্পসনের নিয়ম, এবং এরা কতটা নিখুঁত। সঙ্গে কাজ, পাম্পিং ও বক্ররেখার দৈর্ঘ্যে সমাকলন। পদার্থবিজ্ঞানে দোলকে পর্যায়ক্রমিক বল দেবে এবং অনুনাদ (resonance) দেখবে, যার কারণে সেতু দুলতে পারে, কাচ ভাঙতে পারে, আর রেডিও স্টেশন ধরতে পারে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Evaluate ∫₁^∞ x^(−2) dx. => **1**.
+P: Find ∫ x² eˣ dx. => **eˣ (x² − 2x + 2) + C**.
+P: Find ∫₀^π sin² x dx. => **π/2**.
+P: A damped oscillator has γ = 2 per second. How long for the amplitude to halve? => ln 2 ÷ 2 = **0.347 s**.
+P: Find T for a 0.25 m pendulum (g = 9.8). => 2π √(0.25 ÷ 9.8) = **1.00 s**.
+
+CHECK: recall
+
+@section math | 2 · Math: numerical integration and applications | 55 min
+
+### Why approximate
+Some antiderivatives cannot be written with the standard functions (for example e^(−x²)), and real data come only as a table of values. Numerical integration replaces the curve by simple pieces we can integrate exactly.
+
+BN: কিছু সমাকলনের প্রতিঅন্তরকলজ প্রচলিত ফাংশনে লেখা যায় না (যেমন e^(−x²)), আর বাস্তব উপাত্ত আসে সারণিতে। সংখ্যাভিত্তিক সমাকলন বক্ররেখাকে এমন সরল টুকরোয় বদলায় যা সহজে সমাকলন হয়।
+
+### The trapezoid rule
+Join the points by straight lines. With n slices of width h = (b − a) ÷ n:
+
+EQ: Tₙ = (h ÷ 2) [f₀ + 2 f₁ + 2 f₂ + … + 2 fₙ₋₁ + fₙ]     (the ends count once, the middle values twice)
+
+### Simpson's rule
+Fit **parabolas** through each pair of slices. With n **even**:
+
+EQ: Sₙ = (h ÷ 3) [f₀ + 4 f₁ + 2 f₂ + 4 f₃ + … + 4 fₙ₋₁ + fₙ]     (weights 1, 4, 2, 4, …, 2, 4, 1)
+
+**Accuracy.** The trapezoid error shrinks like h² (double n, error ÷ 4). The Simpson error shrinks like **h⁴** (double n, error ÷ 16), and Simpson is exact for every polynomial up to degree 3.
+
+EX: ∫₀¹ e^(−x²) dx with n = 4
+1. h = 0.25. Values: f(0) = 1, f(0.25) = 0.93941, f(0.5) = 0.77880, f(0.75) = 0.56978, f(1) = 0.36788.
+2. **Trapezoid:** 0.125 × [1 + 2 (0.93941 + 0.77880 + 0.56978) + 0.36788] = 0.125 × 5.94387 = **0.74298**.
+3. **Simpson:** (0.25 ÷ 3) × [1 + 4 (0.93941 + 0.56978) + 2 (0.77880) + 0.36788] = 0.08333 × 8.96226 = **0.74686**.
+4. The true value is 0.74682. Trapezoid is off by 0.0038, Simpson by only 0.00004.
+/EX
+
+EX: ∫₀^π sin x dx with n = 4
+1. h = π/4. Values: 0, 0.7071, 1, 0.7071, 0.
+2. Trapezoid: (π/8) × [0 + 2 (2.4142) + 0] = **1.896** (error 0.10).
+3. Simpson: (π/12) × [0 + 4 (0.7071) + 2 (1) + 4 (0.7071) + 0] = 0.2618 × 7.657 = **2.0046** (error 0.005).
+/EX
+
+LAB: Trapezoid against Simpson | Estimate the area under sin x from 0 to π (the exact value is 2) using n slices (n even). The trapezoid error shrinks like 1 ÷ n², Simpson's like 1 ÷ n⁴. Double n and watch the errors fall by factors of 4 and 16. | n:Number of slices n:2:40:2:4 | pi/n/tan(pi/(2*n)):Trapezoid estimate:5 ;; (2*pi/(3*n))*(1/sin(pi/n)+1/tan(pi/(2*n))):Simpson estimate:6 ;; 2-pi/n/tan(pi/(2*n)):Trapezoid error:5 ;; (2*pi/(3*n))*(1/sin(pi/n)+1/tan(pi/(2*n)))-2:Simpson error:6 | sin(x) | 0,3.1416 | 0,1.2
+
+EX: Why Simpson is exact for parabolas
+1. Take y = a x² + b x + c on [−h, h], using the points x = −h, 0, h. The true area is 2 a h³ ÷ 3 + 2 c h.
+2. y(−h) + 4 y(0) + y(h) = (a h² − b h + c) + 4c + (a h² + b h + c) = 2 a h² + 6c. Times h ÷ 3: **2 a h³ ÷ 3 + 2 c h** ✓. The cubic term is odd and cancels, so Simpson is exact up to degree 3.
+/EX
+
+### Applications of the integral
+**Work by a variable force:** W = ∫ F dx. **Pumping:** each thin layer is lifted a different distance, so W = ∫ (weight of layer) × (distance lifted). **Arc length:** a curve y = f(x) has length ∫ √(1 + (f′)²) dx.
+
+EX: Pumping water
+1. A cylindrical tank has radius 1 m and height 3 m and is full of water (ρ = 1000). A layer at height y (thickness dy) has weight ρ g π R² dy and must rise 3 − y.
+2. W = ρ g π R² ∫₀³ (3 − y) dy = 1000 × 9.8 × π × (9/2) = **1.39 × 10⁵ J**.
+/EX
+
+EX: A hanging chain
+1. A 5 m chain of mass 10 kg (λ = 2 kg/m) hangs over the edge. Pulling it up, the piece at distance y below the edge weighs λ g dy and rises y. W = ∫₀⁵ 2 × 9.8 × y dy = 19.6 × 25/2 = **245 J**. (Same as lifting the whole 98 N weight through half its length, 2.5 m ✓.)
+/EX
+
+EX: Length of a curve
+1. y = x^(3/2) from x = 0 to 4. y′ = (3/2) x^(1/2), so 1 + y′² = 1 + 2.25 x.
+2. L = ∫₀⁴ √(1 + 2.25x) dx. Substituting u = 1 + 2.25x (du = 2.25 dx): L = (1 ÷ 2.25)(2/3)[u^(3/2)] from 1 to 10 = 0.2963 × (31.62 − 1) = **9.07**. (The straight line from (0, 0) to (4, 8) has length 8.94, a little shorter ✓.)
+/EX
+
+BN: ট্রাপিজয়েড নিয়ম: Tₙ = (h/2)[f₀ + 2f₁ + … + 2fₙ₋₁ + fₙ] (ত্রুটি h² এর মতো কমে)। সিম্পসন (n জোড়): Sₙ = (h/3)[f₀ + 4f₁ + 2f₂ + … + 4fₙ₋₁ + fₙ] (ত্রুটি h⁴ এর মতো কমে; তিন ঘাত পর্যন্ত নিখুঁত)। প্রয়োগ: পরিবর্তনশীল বলের কাজ W = ∫F dx, পাম্পিংয়ে প্রতিটি স্তর আলাদা দূরত্বে ওঠে, বক্ররেখার দৈর্ঘ্য ∫√(1 + f′²) dx।
+
+TRAP: Simpson needs an **even** number of slices, and the weights alternate 4, 2, 4, 2 (not all 4). Do not forget the factor **h ÷ 3** (Simpson) or **h ÷ 2** (trapezoid). A numerical answer without an error idea is half an answer: compare two values of n, and if they agree to the digits you need, stop.
+
+### Quick self-check
+QUIZ:
+Q: Simpson's rule fits the curve with pieces of…; lines; parabolas; circles; steps; 2; Each pair of slices gets a quadratic.
+Q: If n is doubled, the Simpson error is divided by about…; 2; 4; 8; 16; 4; The error shrinks like h⁴.
+Q: The weights in Simpson's rule are…; 1, 2, 2, 2, 1; 1, 4, 2, 4, 1; 1, 1, 1, 1, 1; 2, 4, 2, 4, 2; 2; Ends 1, odd points 4, even interior points 2.
+Q: The trapezoid rule is exact for…; constants only; straight lines; parabolas; all functions; 2; Trapezoids match straight-line graphs exactly.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Estimate ∫₀² x² dx with the trapezoid rule using n = 4. => h = 0.5, values 0, 0.25, 1, 2.25, 4. T = 0.25 × [0 + 2 (3.5) + 4] = **2.75** (exact 2.667).
+P: Estimate the same with Simpson's rule, n = 4. => (0.5 ÷ 3) × [0 + 4 (0.25 + 2.25) + 2 (1) + 4] = 0.1667 × 16 = **2.667**, exact (Simpson is exact for parabolas).
+LVL: Level 2 | Apply
+P: Estimate ∫₀¹ eˣ dx by Simpson's rule with n = 2. => (0.5 ÷ 3) [1 + 4 e^(0.5) + e] = 0.1667 × 10.313 = **1.7189** (exact 1.7183).
+P: Estimate ∫₁² 1 ÷ x dx with the trapezoid rule and Simpson's rule, n = 4, and compare with ln 2. => Values: 1, 0.8, 0.6667, 0.5714, 0.5. Trapezoid: 0.125 × [1 + 2 (2.0381) + 0.5] = **0.6970**. Simpson: (0.25 ÷ 3) × [1 + 4 (1.3714) + 2 (0.6667) + 0.5] = **0.6933**. ln 2 = 0.6931, so Simpson is far closer.
+P: Find the length of y = x^(3/2) between x = 0 and x = 4. => **9.07**.
+P: Show that Simpson's rule with n = 2 is exact for ∫₀² x³ dx. => (1 ÷ 3) × [0 + 4 (1) + 8] = **4**, and the exact value is 2⁴ ÷ 4 = 4 ✓.
+P: A rectangular tank 2 m by 1 m by 1.5 m deep is full of water. Find the work to pump it all out over the top. => W = ρ g (area 2) ∫₀^1.5 (1.5 − y) dy = 1000 × 9.8 × 2 × (1.125) = **22,050 J**.
+LVL: Level 3 | Real
+P: A car's speed is recorded every 5 s as 0, 10, 16, 19, 20 m/s. Estimate the distance with the trapezoid rule and with Simpson's rule. => Trapezoid: 5 × [0 + 10 + 16 + 19 + 10] = **275 m**. Simpson: (5 ÷ 3) × [0 + 4 (10 + 19) + 2 (16) + 20] = **280 m**.
+P: A spring has force F(x) = 200 x + 500 x³ newtons (a hardening spring). Find the work to stretch it from 0 to 0.2 m. => W = [100 x² + 125 x⁴] = 4 + 0.2 = **4.2 J**.
+LVL: Challenge | Prove Simpson, then use it
+P: Show that Simpson's rule with a single pair of slices gives (h ÷ 3)(y₀ + 4y₁ + y₂), and use it on the integral ∫₀^1 e^(−x²) dx with n = 2. => Shown above via the parabola. For n = 2: h = 0.5, values 1, e^(−0.25) = 0.7788, e^(−1) = 0.3679. S = (0.5 ÷ 3) [1 + 4 (0.7788) + 0.3679] = 0.1667 × 4.4831 = **0.7472**, within 0.0004 of the true 0.7468 using only three function values.
+
+CHECK: math
+
+@section physics | 3 · Physics: forced oscillations and resonance | 35 min
+
+### Pushing an oscillator
+Add a periodic driving force F₀ cos ωt to a damped oscillator:
+
+EQ: m x″ + c x′ + k x = F₀ cos ωt
+
+After the start-up wobble dies (the transient, which decays as e^(−γt)), the mass oscillates at the **driving** frequency ω with a constant amplitude:
+
+EQ: A(ω) = F₀ ÷ √((k − m ω²)² + (c ω)²)
+
+**Resonance:** when the drive frequency is close to the natural frequency ω₀ = √(k ÷ m), the first term in the square root nearly vanishes and the amplitude is large. At ω = ω₀ exactly:
+
+EQ: A(ω₀) = F₀ ÷ (c ω₀) = Q × (F₀ ÷ k)     with     Q = ω₀ ÷ (2γ) = m ω₀ ÷ c
+
+So the amplitude is **Q times the static deflection** F₀ ÷ k. A lightly damped system (large Q) responds enormously.
+
+**Phase:** well below resonance the mass moves with the force. Exactly at resonance it lags by 90°. Well above resonance it moves against the force (180°).
+
+BN: পর্যায়ক্রমিক বল F₀ cos ωt যোগ করলে স্থায়ী অবস্থায় ভর চালক কম্পাঙ্ক ω তেই দোলে, বিস্তার A = F₀/√((k − mω²)² + (cω)²)। ω ≈ ω₀ = √(k/m) হলে অনুনাদ (resonance): বিস্তার = F₀/(cω₀) = Q × (F₀/k)। অবমন্দন কম (Q বড়) হলে সাড়া বিশাল। ফেজ: অনুনাদের অনেক নিচে বলের সাথে, ঠিক অনুনাদে ৯০° পিছিয়ে, অনেক ওপরে বিপরীতে।
+
+EX: A driven oscillator
+1. m = 1 kg, k = 400 N/m, c = 2 N·s/m, F₀ = 10 N. ω₀ = 20 rad/s. The static deflection is F₀ ÷ k = **0.025 m**. Q = 20 ÷ 2 = 10.
+2. At ω = 10: (k − m ω²) = 300, c ω = 20, A = 10 ÷ √(90,000 + 400) = **0.033 m**.
+3. At ω = 20 (resonance): A = 10 ÷ (2 × 20) = **0.25 m**, ten times the static deflection.
+4. At ω = 40: (k − m ω²) = −1200, c ω = 80, A = 10 ÷ √(1,440,000 + 6400) = **0.0083 m**. The fast pushing barely moves the mass.
+/EX
+
+LAB: Resonance curve | The graph is the steady amplitude A as the drive frequency ω is swept. Choose the mass, the spring, the damping and the force. The peak is near ω₀ = √(k ÷ m). Reduce the damping and the peak gets taller and narrower. The numbers give the amplitude at the frequency you choose. | m:Mass m (kg):0.5:2:0.5:1 ;; k:Stiffness k (N/m):100:900:50:400 ;; c:Damping c (N·s/m):0.5:20:0.5:2 ;; F0:Force F₀ (N):1:20:1:10 ;; w:Drive frequency ω (rad/s):1:50:1:20 | sqrt(k/m):Natural frequency ω₀ (rad/s):2 ;; F0/sqrt((k-m*w^2)^2+(c*w)^2):Amplitude at ω (m):4 ;; F0/k:Static deflection F₀/k (m):4 ;; m*sqrt(k/m)/c:Quality factor Q:2 | F0/sqrt((k-m*x^2)^2+(c*x)^2) | 0,50 | 0,6
+
+### Resonance in the real world
+- **Washboard roads.** The quarter-car (m = 400 kg, k = 25,000 N/m) has ω₀ = 7.91 rad/s, so f₀ = 7.91 ÷ 2π = 1.26 Hz. Bumps 2 m apart excite it when v = f λ = 1.26 × 2 = **2.5 m/s (9 km/h)**: the car shakes violently at that speed but is calmer both slower and faster.
+- **Bridges.** In 1940 the Tacoma Narrows Bridge twisted itself apart in a steady wind. On opening day in 2000, London's Millennium Bridge swayed sideways because walkers fell into step with its sway. Soldiers break step when crossing bridges.
+- **Tuning.** A radio circuit is a driven oscillator: the tuning knob changes ω₀ to match one station's frequency, and the high Q rejects the neighbours.
+- **Glass.** A singing voice at a wine glass's natural frequency, with enough power, can shatter it.
+- **Damping design.** A building in an earthquake zone needs enough damping (or a tuned mass damper) so that its large Q cannot build up.
+
+TRAP: Resonance is not exactly at ω₀ when damping is large: the peak shifts slightly lower, to ω² = ω₀² − 2γ². For light damping the difference is tiny. Also do not forget the **phase**, and remember that the amplitude is for the steady state: right after switching on, the transient makes the motion messy for a few 1 ÷ γ seconds.
+
+### Quick self-check
+QUIZ:
+Q: At resonance, the amplitude of a lightly damped oscillator is about…; the static deflection; Q times the static deflection; zero; independent of c; 2; A = F₀ ÷ (c ω₀) = Q F₀ ÷ k.
+Q: If the damping is halved, the resonance peak height…; halves; stays the same; doubles; quadruples; 3; A_peak = F₀ ÷ (c ω₀).
+Q: The steady oscillation happens at…; the natural frequency; the driving frequency; the damped frequency; zero; 2; The transient dies, leaving motion at ω.
+Q: A driver whose frequency is far above ω₀ produces…; huge motion; little motion; motion in phase with the force; resonance; 2; The mass cannot follow fast pushes.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find ω₀ and the static deflection for m = 1 kg, k = 400 N/m, F₀ = 10 N. => ω₀ = **20 rad/s**, F₀ ÷ k = **0.025 m**.
+P: Find Q for m = 1 kg, ω₀ = 20 rad/s, c = 2 N·s/m. => **10**.
+LVL: Level 2 | Apply
+P: For m = 1 kg, k = 400 N/m, c = 2 N·s/m, F₀ = 10 N, find the amplitude at ω = 15 rad/s. => (k − m ω²) = 400 − 225 = 175. c ω = 30. A = 10 ÷ √(30,625 + 900) = 10 ÷ 177.6 = **0.0563 m**.
+P: The same system with c = 0.5: find the amplitude at resonance. => A = F₀ ÷ (c ω₀) = 10 ÷ (0.5 × 20) = **1.0 m**, four times larger, since c fell by 4.
+P: A mass of 0.5 kg on a spring of 50 N/m is driven by a 2 N force at ω₀ with c = 1 N·s/m. Find the resonance amplitude and Q. => ω₀ = 10 rad/s. A = 2 ÷ (1 × 10) = **0.2 m**. Q = m ω₀ ÷ c = 0.5 × 10 ÷ 1 = **5**.
+P: A system has ω₀ = 30 rad/s and Q = 50. How large is the response at resonance compared with a static push of the same force? => **50 times** larger.
+P: What drive frequency (in rad/s) maximises the amplitude of a lightly damped oscillator with k = 900 N/m and m = 1 kg? => **ω₀ = 30 rad/s**.
+LVL: Level 3 | Real
+P: A quarter-car has m = 400 kg and k = 25,000 N/m. Corrugations are 1.5 m apart. At what speed does resonance occur? Give km/h. => f₀ = 1.26 Hz. v = 1.26 × 1.5 = 1.89 m/s = **6.8 km/h**.
+P: A radio tuner has L = 0.25 mH and a variable capacitor. The natural frequency of an LC circuit is f = 1 ÷ (2π √(L C)). For which C does it tune to 1000 kHz? => f = 10⁶ Hz, so L C = 1 ÷ (2π f)² = 1 ÷ (3.948 × 10¹³) = 2.533 × 10⁻¹⁴. C = 2.533 × 10⁻¹⁴ ÷ 2.5 × 10⁻⁴ = **1.01 × 10⁻¹⁰ F = 101 pF**.
+LVL: Challenge | The resonance peak
+P: For the driven oscillator, show that the amplitude is largest when (k − m ω²)² + (c ω)² is smallest, and use a derivative to find the ω that makes it smallest. => Let u = ω². The expression D = (k − m u)² + c² u. dD/du = −2m (k − m u) + c² = 0 gives u = k ÷ m − c² ÷ (2 m²), so **ω_peak² = ω₀² − 2γ²** (with γ = c ÷ 2m), which is just below ω₀. Example: m = 1, k = 400, c = 2 gives γ = 1, ω_peak = √(400 − 2) = **19.95 rad/s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Trapezoid: Tₙ = (h ÷ 2)[f₀ + 2f₁ + … + fₙ], error ~ h². Simpson: Sₙ = (h ÷ 3)[f₀ + 4f₁ + 2f₂ + … + fₙ], n even, error ~ h⁴, exact up to cubics. Applications: work ∫ F dx, pumping, arc length ∫ √(1 + f′²) dx.
+- Driven oscillator: m x″ + c x′ + k x = F₀ cos ωt. Steady amplitude A = F₀ ÷ √((k − mω²)² + (cω)²). At resonance A = Q F₀ ÷ k, with Q = mω₀ ÷ c. Peak at ω² = ω₀² − 2γ².
+
+BN: আজকের সারকথা: ট্রাপিজয়েড Tₙ = (h/2)[f₀ + 2f₁ + … + fₙ] (ত্রুটি ~h²); সিম্পসন Sₙ = (h/3)[f₀ + 4f₁ + 2f₂ + … + fₙ] (ত্রুটি ~h⁴, তিন ঘাত পর্যন্ত নিখুঁত)। চালিত দোলক: A = F₀/√((k − mω²)² + (cω)²), অনুনাদে A = Q·F₀/k, Q = mω₀/c।
+
+EXIT:
+E: Use the trapezoid rule with n = 2 (so h = 1) to estimate ∫₀² x² dx.; 3; 0.001; T = (1 ÷ 2) [0 + 2 (1) + 4] = 3.
+E: A system has ω₀ = 20 rad/s, c = 2 N·s/m and m = 1 kg. What is Q?; 10; 0.001; Q = m ω₀ ÷ c = 20 ÷ 2 = 10.
+E: A spring with k = 400 N/m is pushed by a 10 N force at ω far below ω₀. What is the deflection in metres?; 0.025; 0.001; At low frequency the mass follows the force statically, so F₀ ÷ k = 0.025.
+
+**Tomorrow (Saturday):** the Week 9 test, mistake log and challenge.
+
+CHECK: notes

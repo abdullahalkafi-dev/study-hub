@@ -1,0 +1,27 @@
+name: Deploy to VPS
+
+# Runs by hand (Actions tab, "Run workflow"). To deploy on every push to main instead, add
+#   push: { branches: [main] }
+# under `on:` once the three secrets below exist.
+on:
+  workflow_dispatch:
+
+concurrency: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update the server over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script_stop: true
+          script: |
+            cd "${{ vars.VPS_APP_DIR || '~/silo-study' }}"
+            git fetch origin main
+            git reset --hard origin/main
+            docker compose up -d --build
+            docker image prune -f

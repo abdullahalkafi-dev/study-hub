@@ -1,0 +1,192 @@
+@day Week 12 · Day 3 · Wednesday
+# Complex numbers in engineering: impedance and phasors. Then: fluids in motion
+lead: Complex numbers earn their keep in electrical engineering. A resistor, a coil and a capacitor all become "complex resistances" and an AC circuit turns into ordinary algebra. In physics, you move from fluids at rest to fluids in motion, with two powerful rules: the continuity equation (what goes in must come out) and Bernoulli's equation (energy conservation for a flowing fluid).
+
+BN: জটিল সংখ্যা তড়িৎ প্রকৌশলে সবচেয়ে কাজে লাগে। রোধ, কুণ্ডলী আর ধারক সবই "জটিল রোধ" হয়ে যায় এবং AC বর্তনী সাধারণ বীজগণিতে নেমে আসে। পদার্থবিজ্ঞানে স্থির তরল থেকে এবার চলমান তরলে যাবে, দুটো শক্তিশালী নিয়ম নিয়ে: ধারাবাহিকতা সমীকরণ (যা ঢোকে তা বেরোয়) ও বার্নুলির সমীকরণ (প্রবাহী তরলের শক্তির সংরক্ষণ)।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Write 1 + i in polar form. => **√2 e^(i 45°)**.
+P: Find (1 + i)⁴. => (2i)² = **−4**.
+P: What fraction of a block of density 600 floats below water? => **0.6**.
+P: What does Archimedes' principle say? => The buoyant force equals the **weight of the fluid displaced**.
+P: Write the pressure at depth h. => **P = P₀ + ρ g h**.
+
+CHECK: recall
+
+@section math | 2 · Math: phasors and impedance | 55 min
+
+### AC signals as rotating arrows
+An AC voltage v(t) = V₀ cos(ω t + φ) is the real part of a rotating complex number V₀ e^(i(ω t + φ)). Since every signal in a linear circuit has the same ω, we can drop the common factor e^(iωt) and keep just the **phasor**
+
+EQ: V = V₀ e^(iφ)     (a complex number with the amplitude as its length and the phase as its angle)
+
+Two things become easy:
+
+1. **Adding sinusoids** is adding complex numbers.
+2. **Differentiating** is multiplying by iω, since d/dt e^(iωt) = iω e^(iωt). Integrating is dividing by iω.
+
+BN: AC ভোল্টেজ v = V₀cos(ωt + φ) হলো ঘূর্ণায়মান তীর V₀e^(i(ωt+φ)) এর বাস্তব অংশ। সব সংকেতের ω একই বলে সেটা বাদ দিয়ে শুধু ফেজর V = V₀e^(iφ) রাখা যায়। যোগ করা মানে জটিল সংখ্যা যোগ, অবকলন মানে iω দিয়ে গুণ, সমাকলন মানে iω দিয়ে ভাগ।
+
+EX: Adding two sinusoids
+1. Combine 3 cos ωt + 4 sin ωt. Since sin ωt = cos(ωt − 90°), the phasors are 3 and 4 e^(−i 90°) = −4i.
+2. Sum: 3 − 4i. Modulus √(9 + 16) = 5, angle atan(−4 ÷ 3) = −53.13°.
+3. So 3 cos ωt + 4 sin ωt = **5 cos(ωt − 53.13°)**. Test at t = 0: left 3, right 5 cos 53.13° = 5 × 0.6 = 3 ✓.
+/EX
+
+### Impedance: Ohm's law for AC
+The relation V = Z I holds with a complex **impedance** Z. For the three basic components, using v = L di/dt and i = C dv/dt:
+
+| Component | Impedance Z | Meaning |
+| Resistor R | R | Voltage in phase with current |
+| Inductor L | i ω L | Voltage leads the current by 90° |
+| Capacitor C | 1 ÷ (i ω C) = −i ÷ (ω C) | Voltage lags the current by 90° |
+
+The imaginary part of Z is the **reactance** X, so Z = R + i X, with X = ω L − 1 ÷ (ω C) for a series RLC circuit.
+
+EQ: abs(Z) = √(R² + X²)     phase φ = atan(X ÷ R)     I₀ = V₀ ÷ abs(Z)
+
+PREDICT: In a series circuit the inductor's reactance is +40 Ω and the capacitor's is −25 Ω. Do they add up or partly cancel? What is the total reactance? => They partly cancel: X = 40 − 25 = **+15 Ω**. The signs are opposite because the coil leads and the capacitor lags.
+
+EX: A series RLC circuit
+1. R = 30 Ω, L = 0.1 H, C = 100 μF = 10⁻⁴ F, ω = 400 rad/s. Then ωL = 40 Ω and 1 ÷ (ωC) = 1 ÷ (400 × 10⁻⁴) = 25 Ω.
+2. Z = 30 + i (40 − 25) = **30 + 15 i Ω**. abs(Z) = √(900 + 225) = √1125 = **33.54 Ω**. Phase = atan(15 ÷ 30) = **26.57°** (voltage leads current).
+3. With a 100 V amplitude supply: I₀ = 100 ÷ 33.54 = **2.98 A**, and the current lags the voltage by 26.57°.
+4. **Resonance** at ω₀ = 1 ÷ √(L C) = 1 ÷ √(0.1 × 10⁻⁴) = 1 ÷ √(10⁻⁵) = **316.2 rad/s**. There X = 0, Z = R = 30 Ω, the current is largest (3.33 A).
+/EX
+
+LAB: Series RLC impedance | Choose R, L, C and the frequency ω. The numbers give the reactances, abs(Z) and the phase. The graph shows abs(Z) against ω for your R, L and C: it dips to R at the resonance frequency. | R:Resistance R (Ω):10:100:5:30 ;; L:Inductance L (mH):20:200:10:100 ;; C:Capacitance C (μF):20:500:10:100 ;; w:Angular frequency ω (rad/s):100:1000:10:400 | w*L/1000:Inductive reactance (Ω):2 ;; 1000000/(w*C):Capacitive reactance (Ω):2 ;; sqrt(R^2+(w*L/1000-1000000/(w*C))^2):abs(Z) (Ω):2 ;; atan((w*L/1000-1000000/(w*C))/R)*180/pi:Phase (degrees):1 ;; 1000/sqrt(1000*L/1000*C/1000):Resonant ω₀ (rad/s):1 | sqrt(R^2+(x*L/1000-1000000/(x*C))^2) | 50,1000 | 0,200
+
+### Parallel and series combinations
+Impedances combine like resistors: series add, parallel use 1 ÷ Z = 1 ÷ Z₁ + 1 ÷ Z₂.
+
+EX: Parallel
+1. Z₁ = 3 + 4 i and Z₂ = 3 − 4 i. Series: Z = 6 Ω. Parallel: Z = Z₁ Z₂ ÷ (Z₁ + Z₂) = (9 + 16) ÷ 6 = 25 ÷ 6 = **4.167 Ω**.
+2. A resistor R in parallel with a capacitor: 1 ÷ Z = 1 ÷ R + i ω C. This is the basis of a low-pass filter.
+/EX
+
+EX: An RC filter
+1. R = 1 kΩ, C = 1 μF in series. The output across C is V_out ÷ V_in = (1 ÷ iωC) ÷ (R + 1 ÷ iωC) = 1 ÷ (1 + i ω R C).
+2. Magnitude = 1 ÷ √(1 + (ω R C)²). The **cutoff** is where ω R C = 1: ω_c = 1 ÷ (R C) = **1000 rad/s** (159 Hz). There the magnitude is 1 ÷ √2 = **0.707**, and the phase is −45°.
+3. At ω = 10,000 rad/s: ωRC = 10, magnitude = 1 ÷ √101 = **0.0995**: high frequencies are cut.
+/EX
+
+BN: প্রতিবন্ধকতা (impedance): রোধ R, কুণ্ডলী iωL, ধারক 1/(iωC)। Z = R + iX। |Z| = √(R² + X²), ফেজ = atan(X/R)। অনুনাদে X = 0, ω₀ = 1/√(LC)। RC ফিল্টারে কাটঅফ ω_c = 1/(RC), সেখানে মান 0.707 ও ফেজ −45°।
+
+TRAP: Never add amplitudes of out-of-phase signals directly: 3 V and 4 V in quadrature combine to **5 V**, not 7 V. And do not forget the signs: capacitive reactance is **negative** in Z = R + i (ωL − 1 ÷ ωC).
+
+### Quick self-check
+QUIZ:
+Q: The impedance of an ideal inductor is…; L; i ω L; 1 ÷ (i ω L); −i ω L; 2; The inductor's voltage leads the current.
+Q: A circuit has R = 3 Ω and total reactance X = 4 Ω. The magnitude of the impedance is…; 7 Ω; 5 Ω; 1 Ω; 12 Ω; 2; √(9 + 16).
+Q: At resonance in a series RLC circuit, the impedance is…; zero; equal to R; infinite; equal to ωL; 2; The reactances cancel.
+Q: 3 cos ωt + 4 sin ωt has amplitude…; 7; 5; 1; 12; 2; Add the phasors 3 and −4i.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find abs(Z) for Z = 6 + 8 i. => **10 Ω**.
+P: Find the reactance of a 0.2 H inductor at ω = 100 rad/s. => 0.2 × 100 = **20 Ω**.
+P: Find the reactance of a 50 μF capacitor at ω = 400 rad/s. => 1 ÷ (400 × 50 × 10⁻⁶) = **50 Ω**.
+LVL: Level 2 | Apply
+P: A 12 Ω resistor is in series with a 16 Ω inductive reactance. A 100 V supply is applied. Find the current amplitude and the phase. => abs(Z) = 20 Ω, I₀ = **5 A**, phase atan(16 ÷ 12) = **53.13°** (current lags).
+P: Find the resonant frequency of L = 0.01 H, C = 10 μF. => ω₀ = 1 ÷ √(0.01 × 10⁻⁵) = 1 ÷ √(10⁻⁷) = **3162 rad/s**, about 503 Hz.
+P: Write 5 cos(ωt + 30°) + 5 cos(ωt − 90°) as one cosine. => Phasors 5 e^(i 30°) = 4.330 + 2.5 i and 5 e^(−i 90°) = −5i. Sum 4.330 − 2.5 i. Modulus **5**, angle **−30°**.
+P: Find the parallel impedance of Z₁ = 4 Ω and Z₂ = −4 i Ω (a resistor and a capacitor). => Z = (4)(−4i) ÷ (4 − 4i) = −16 i (4 + 4i) ÷ 32 = (−64 i + 64) ÷ 32 = **2 − 2 i Ω**.
+P: At what ω does an RC filter with R = 2 kΩ and C = 0.5 μF drop to 0.707? => ω_c = 1 ÷ (2000 × 0.5 × 10⁻⁶) = **1000 rad/s**.
+LVL: Level 3 | Real
+P: A mains circuit (230 V RMS, 50 Hz so ω = 314 rad/s) powers a motor modelled as R = 40 Ω in series with L = 0.15 H. Find the current. => ωL = 47.1 Ω, abs(Z) = √(1600 + 2218) = **61.8 Ω**, current = 230 ÷ 61.8 = **3.72 A**, lagging by atan(47.1 ÷ 40) = **49.7°**.
+LVL: Challenge | Differentiating phasors
+P: A current i(t) = 2 cos(1000 t) A flows through a 5 mH inductor. Use phasors to find v(t) = L di/dt, and check it by direct differentiation. => The phasor I = 2. V = iω L I = i × 1000 × 0.005 × 2 = 10 i = 10 e^(i 90°). So v(t) = **10 cos(1000 t + 90°) = −10 sin(1000 t)**. Direct: L di/dt = 0.005 × (−2000 sin 1000 t) = −10 sin 1000 t ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: fluids in motion | 35 min
+
+### Continuity: what goes in must come out
+For an incompressible fluid, the volume flow rate is the same at every point along a pipe:
+
+EQ: Q = A v = constant     so     A₁ v₁ = A₂ v₂
+
+The fluid speeds up in a narrow section.
+
+EX: Flow rate
+1. A pipe of diameter 2 cm carries water at 3 m/s. A = π (0.01)² = 3.14 × 10⁻⁴ m². **Q = 9.42 × 10⁻⁴ m³/s = 0.942 L/s**.
+2. **Garden hose:** pipe radius 1.0 cm narrows to a nozzle of radius 0.25 cm: the area ratio is 16. Water at 1 m/s in the hose leaves the nozzle at **16 m/s**.
+3. **Blood:** the aorta (radius 1.0 cm) carries blood at 0.30 m/s: Q = π (0.01)² × 0.30 = 9.42 × 10⁻⁵ m³/s = **5.65 L/min**, matching the heart's output. The capillaries have a total area about 2000 times larger, so blood moves at 0.30 ÷ 2000 = **0.15 mm/s**, slow enough to exchange oxygen.
+/EX
+
+BN: ধারাবাহিকতা: সংনম্য নয় এমন তরলের জন্য Q = Av ধ্রুব, তাই A₁v₁ = A₂v₂। সরু জায়গায় তরল দ্রুত চলে। পাইপের ব্যাসার্ধ অর্ধেক হলে ক্ষেত্রফল চার ভাগের এক ভাগ, তাই বেগ চার গুণ।
+
+### Bernoulli: energy for a flowing fluid
+Apply the work-energy theorem to a small parcel of fluid. Along a streamline (steady, frictionless, incompressible flow):
+
+EQ: P + ½ ρ v² + ρ g h = constant
+
+Pressure energy, kinetic energy and gravitational energy per unit volume trade off. **Where the fluid is fast, the pressure is low.**
+
+EX: Applications
+1. **Venturi tube.** A horizontal pipe narrows from 20 cm² to 10 cm². At v₁ = 2 m/s, v₂ = 4 m/s. ΔP = ½ ρ (v₂² − v₁²) = 0.5 × 1000 × (16 − 4) = **6000 Pa**, lower in the narrow part. A manometer measures the flow speed this way.
+2. **Airplane wing.** Air flows at 70 m/s over the top and 60 m/s below. ΔP = ½ × 1.2 × (4900 − 3600) = 0.6 × 1300 = **780 Pa**. On a wing area of 16 m² the lift is 780 × 16 = **12,480 N**, enough to support about 1270 kg.
+3. **Torricelli's law.** A hole at depth h below the surface of an open tank. At the surface P = P₀, v ≈ 0, height h above the hole. At the hole P = P₀. So ρ g h = ½ ρ v² and **v = √(2 g h)**, the speed of a body falling through h. For h = 5 m: v = √98 = **9.90 m/s**.
+/EX
+
+LAB: Venturi tube | Choose the speed in the wide section and the ratio of the wide to the narrow area. By continuity, the narrow section speed is v₂ = ratio × v₁. Bernoulli gives the pressure drop ΔP = ½ ρ (v₂² − v₁²). | v1:Speed in wide section (m/s):0.5:5:0.5:2 ;; r:Area ratio A₁ ÷ A₂:1:4:0.5:2 | r*v1:Speed in narrow section (m/s):2 ;; 0.5*1000*((r*v1)^2-v1^2)/1000:Pressure drop (kPa):2 | - | 0,1 | 0,1
+
+LAB: Torricelli jet | A tank of height H has a hole at fractional depth f of the way down. The water leaves with speed √(2 g f H) and lands at a horizontal range x = 2 H √(f (1 − f)). The graph shows the range against f: it peaks at f = 0.5, with range H. | H:Tank height H (m):1:3:0.5:2 ;; f:Hole depth fraction f:0.05:0.95:0.05:0.5 | sqrt(2*9.8*f*H):Exit speed (m/s):2 ;; 2*H*sqrt(f*(1-f)):Landing range (m):3 | 2*H*sqrt(x*(1-x)) | 0,1 | 0,3
+
+### Draining a tank: a differential equation
+The tank has cross-section A, the hole has area a, the water height is h. Continuity: A dh/dt = −a √(2 g h). This is separable: dh ÷ √h = −(a ÷ A) √(2 g) dt, so 2 (√h − √h₀) = −(a ÷ A) √(2 g) t. The tank empties (h = 0) at
+
+EQ: T = (A ÷ a) × 2 √h₀ ÷ √(2 g)
+
+EX: How long?
+1. A = 1 m², a = 1 cm² = 10⁻⁴ m², h₀ = 2 m. T = 10⁴ × 2 × 1.4142 ÷ 4.427 = **6389 s ≈ 1 h 46 min**.
+2. From the solution, √h = √h₀ (1 − t ÷ T). Half the height means √h = 0.707 √h₀, so t = 0.293 T, about **29%** of the total time. So the **upper half drains faster** than the lower half.
+/EX
+
+TRAP: Bernoulli applies along a **streamline** with no friction, so it fails for thick oil or when turbulence is violent. Do not say "the pressure is higher where the fluid is slow" and then forget the height term: a fluid that rises loses pressure even at the same speed. And in Torricelli's law the exit speed depends on the **depth below the surface**, not the total height of the tank.
+
+### Quick self-check
+QUIZ:
+Q: A pipe narrows to half the diameter. The water speed in the narrow part is…; 2 times; 4 times; the same; half; 2; The area is a quarter.
+Q: In a Venturi tube the pressure is lowest where…; the fluid is slow; the fluid is fast; the pipe is wide; the pipe is high; 2; Bernoulli's principle.
+Q: The exit speed of water from a hole 5 m below the surface is about…; 5 m/s; 7 m/s; 10 m/s; 25 m/s; 3; v = √(2 × 9.8 × 5) = 9.9.
+Q: Doubling the depth of a hole changes the exit speed by a factor of…; 2; 1.41; 4; 0.5; 2; v ∝ √h.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the flow rate for a 5 cm² pipe at 2 m/s. => 5 × 10⁻⁴ × 2 = **10⁻³ m³/s = 1 L/s**.
+P: Find the exit speed from a hole 1.8 m below the surface. => √(2 × 9.8 × 1.8) = √35.28 = **5.94 m/s**.
+LVL: Level 2 | Apply
+P: A pipe of diameter 10 cm carries water at 1.0 m/s and then narrows to 5 cm. Find the speed in the narrow part and the pressure drop. => Ratio of areas = 4, so v₂ = **4 m/s**. ΔP = 0.5 × 1000 × (16 − 1) = **7500 Pa**.
+P: A water pipe rises 10 m. At the bottom P = 500 kPa and v = 2 m/s. At the top v = 2 m/s. Find P at the top. => P = 500,000 − 1000 × 9.8 × 10 = **402 kPa**.
+P: How fast must air flow over a wing top vs bottom (60 m/s below) to give a pressure difference of 1000 Pa? => ½ × 1.2 × (v² − 3600) = 1000, so v² = 5267, **v = 72.6 m/s**.
+P: A tank 2 m tall, hole at 0.5 m depth. Find the landing range. => 2 × √(0.5 × 1.5) = 2 × 0.866 = **1.73 m**.
+P: Find the drain time for A = 0.5 m², a = 2 cm² (2 × 10⁻⁴ m²), h₀ = 1.2 m. => T = (0.5 ÷ 2 × 10⁻⁴) × 2 × 1.0954 ÷ 4.427 = 2500 × 0.4949 = **1237 s ≈ 20.6 min**.
+LVL: Level 3 | Real
+P: A firefighter's hose of radius 3.0 cm delivers 12 L/s. Find the water speed in the hose, and the speed from a nozzle of radius 1.0 cm. => A₁ = π(0.03)² = 2.827 × 10⁻³ m², v₁ = 0.012 ÷ 2.827 × 10⁻³ = **4.24 m/s**. A₂ = π(0.01)² = 3.14 × 10⁻⁴ m², v₂ = **38.2 m/s**. (Pointed straight up, the ideal jet would rise v² ÷ 2g = 74 m.)
+P: Why does the shower curtain bulge inwards when the water runs? => The moving water drags air along, lowering the pressure inside compared with outside, so the curtain is pushed inwards (Bernoulli).
+LVL: Challenge | Maximum range
+P: Show that the horizontal range of a Torricelli jet is greatest when the hole is at mid-height, and find that range for a tank of height H. => Range x = 2 √(h (H − h)). Differentiate h (H − h) = hH − h²: derivative H − 2h = 0, so **h = H ÷ 2**. Then x = 2 √(H²/4) = **H**. So the jet from a hole at half-height lands a distance H from the tank; by symmetry, holes at depths h and H − h have the same range.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Phasors: v = V₀ cos(ωt + φ) ↔ V₀ e^(iφ). Add by complex addition, differentiate by × iω. Impedance Z = R + iX with Z_L = iωL, Z_C = 1 ÷ (iωC). abs(Z) = √(R² + X²), phase atan(X ÷ R), resonance ω₀ = 1 ÷ √(LC), RC cutoff ω_c = 1 ÷ RC.
+- Fluids in motion: continuity A₁v₁ = A₂v₂. Bernoulli P + ½ρv² + ρgh = const. Torricelli v = √(2gh). Venturi ΔP = ½ρ(v₂² − v₁²). Draining time T = (A ÷ a) 2√h₀ ÷ √(2g).
+
+BN: আজকের সারকথা: ফেজর V = V₀e^(iφ); Z_R = R, Z_L = iωL, Z_C = 1/(iωC); |Z| = √(R² + X²); অনুনাদ ω₀ = 1/√(LC)। প্রবাহ: A₁v₁ = A₂v₂, বার্নুলি P + ½ρv² + ρgh = ধ্রুব, টরিসেলি v = √(2gh)। যেখানে তরল দ্রুত, সেখানে চাপ কম।
+
+EXIT:
+E: What is abs(Z) when R = 6 Ω and X = 8 Ω?; 10; 0.001; √(36 + 64) = 10.
+E: What is the speed in m/s in the narrow part of a pipe whose area falls from 8 cm² to 2 cm², with 1.5 m/s in the wide part?; 6; 0.001; v₂ = 1.5 × 4 = 6.
+E: What is the exit speed in m/s from a hole 2 m below the water surface?; 6.26; 0.05; √(2 × 9.8 × 2) = √39.2 = 6.26.
+
+**Tomorrow:** the Fundamental Theorem of Algebra, complex functions and e^z, and viscosity and turbulence.
+
+CHECK: notes

@@ -1,0 +1,206 @@
+@day Week 8 · Day 2 · Tuesday
+# Area under a curve and the definite integral. Then: inertia by integration
+lead: Yesterday's integral was "undo the derivative". Today it gets a second meaning that is just as important: the area under a curve. You will build it from thin rectangles, see why the symbol ∫ is a stretched S for "sum", and use it in physics to add up an infinite number of tiny masses and find the moment of inertia of a rod and a disc.
+
+BN: গতকাল সমাকলন ছিল "অন্তরকলনকে উল্টানো"। আজ এর দ্বিতীয় অর্থ আসছে, যা সমান গুরুত্বপূর্ণ: বক্ররেখার নিচের ক্ষেত্রফল। সরু আয়তক্ষেত্র জুড়ে তুমি এটা বানাবে, দেখবে কেন ∫ চিহ্নটা "sum" এর S, আর পদার্থবিজ্ঞানে অসংখ্য ক্ষুদ্র ভর যোগ করে দণ্ড ও চাকতির জড়তার ভ্রামক বের করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find ∫ (6x² − 4x + 1) dx. => **2x³ − 2x² + x + C**.
+P: Find ∫ e^(3x) dx. => **e^(3x) ÷ 3 + C**.
+P: If a(t) = 4 and v(0) = 3, find v(t). => **4t + 3**.
+P: Find I for a 2 kg point mass at 3 m from the axis. => **18 kg·m²**.
+P: Find the rotational KE of I = 0.5 kg·m² spinning at 8 rad/s. => ½ × 0.5 × 64 = **16 J**.
+
+CHECK: recall
+
+@section math | 2 · Math: area and the definite integral | 55 min
+
+### Distance as area
+A car drives at a steady 20 m/s for 10 s. The distance is 20 × 10 = 200 m, which is the **area of the rectangle** under the speed-time graph. If the speed changes, the same idea works: cut the time into thin slices, treat the speed as constant on each slice, and add the little rectangles. The more slices, the better the estimate.
+
+BN: গতি ধ্রুব হলে দূরত্ব = গতি × সময় = গতি-সময় লেখচিত্রের নিচের আয়তক্ষেত্রের ক্ষেত্রফল। গতি বদলালে সময়কে সরু ফালিতে ভাগ করো, প্রতি ফালিতে গতি ধ্রুব ধরো, আয়তক্ষেত্রগুলো যোগ করো। যত বেশি ফালি, তত নিখুঁত।
+
+### Riemann sums
+To find the area under y = f(x) from x = a to x = b with n rectangles:
+
+EQ: Δx = (b − a) ÷ n     Area ≈ f(x₁)Δx + f(x₂)Δx + … + f(xₙ)Δx = Σ f(xᵢ) Δx
+
+You choose where to measure the height: the **left** edge, the **right** edge, or the **midpoint** of each slice.
+
+EX: Four rectangles for f(x) = x² on [0, 2]
+1. Δx = 2 ÷ 4 = 0.5. The edges are 0, 0.5, 1, 1.5, 2.
+2. **Left sum:** heights f(0), f(0.5), f(1), f(1.5) = 0, 0.25, 1, 2.25. Sum = 3.5, times 0.5 = **1.75** (too low).
+3. **Right sum:** heights f(0.5), f(1), f(1.5), f(2) = 0.25, 1, 2.25, 4. Sum = 7.5, times 0.5 = **3.75** (too high).
+4. The true area is 8/3 = 2.667, between the two. The average of left and right (the trapezoid estimate) is 2.75.
+/EX
+
+PREDICT: For an **increasing** function like x², will the left-rectangle sum underestimate or overestimate the true area? What happens as the number of rectangles grows? => The left sum underestimates (each rectangle's height is the lowest value on its slice) and the right sum overestimates. As n grows both sums close in on the same number, the exact area.
+
+LAB: Rectangles closing in on the area | Area under y = x² from 0 to b. Increase the number of rectangles n and watch the left and right sums squeeze the exact value b³ ÷ 3 from below and above. | n:Number of rectangles n:1:100:1:4 ;; b:Right end b:1:3:0.5:2 | b^3*(n-1)*(2*n-1)/(6*n^2):Left sum:4 ;; b^3*(n+1)*(2*n+1)/(6*n^2):Right sum:4 ;; b^3/3:Exact area b³/3:4 ;; b^3*(n+1)*(2*n+1)/(6*n^2)-b^3/3:Error of right sum:4 | x^2 | 0,3 | 0,9
+
+### The definite integral
+Let n grow without limit. The sums settle on one number, called the **definite integral**:
+
+EQ: ∫ₐᵇ f(x) dx = lim (n → ∞) Σ f(xᵢ) Δx
+
+The ∫ is a stretched S, "sum". The dx is the thickness of a slice, as small as you like. Where the graph is below the axis the rectangles count **negative**, so the integral is the **signed area**: area above the axis minus area below it.
+
+EX: Areas from geometry
+1. ∫₀³ 2x dx is the triangle with base 3 and height 6: area = ½ × 3 × 6 = **9**.
+2. ∫₀² √(4 − x²) dx is a quarter of a circle of radius 2: π × 4 ÷ 4 = **π**.
+3. ∫₋₁¹ x dx: the triangle left of 0 is negative, the right one positive. Total = **0**.
+4. ∫₀^(2π) sin x dx = **0**: the positive hump cancels the negative one.
+/EX
+
+**Properties** (all follow from the picture):
+- ∫ₐᵇ f dx + ∫ᵦᶜ f dx = ∫ₐᶜ f dx (areas add).
+- ∫ₐᵃ f dx = 0 (no width), and ∫ᵦₐ f dx = −∫ₐᵇ f dx (going backwards).
+- ∫ₐᵇ (c f + g) dx = c ∫ₐᵇ f dx + ∫ₐᵇ g dx (linearity).
+- If f ≥ g then ∫ f ≥ ∫ g.
+
+### An exact area from the limit
+We can compute an exact area with sums. Use Σ i = n(n + 1) ÷ 2 and Σ i² = n(n + 1)(2n + 1) ÷ 6.
+
+EX: ∫₀ᵇ x² dx from first principles
+1. Δx = b ÷ n and the right edges are xᵢ = i b ÷ n.
+2. Sum = Σ (i b ÷ n)² (b ÷ n) = (b³ ÷ n³) Σ i² = (b³ ÷ n³) · n(n + 1)(2n + 1) ÷ 6 = b³ (1 + 1/n)(2 + 1/n) ÷ 6.
+3. As n → ∞, (1 + 1/n)(2 + 1/n) → 2. So **∫₀ᵇ x² dx = b³ ÷ 3**. (With b = 2 this gives 8/3, matching the lab.)
+/EX
+
+EX: Two more by the same method
+1. ∫₀ᵇ x dx = (b² ÷ n²) · n(n + 1) ÷ 2 → **b² ÷ 2** (the area of a triangle, ✓).
+2. ∫₀ᵇ x³ dx: use Σ i³ = [n(n + 1) ÷ 2]². Then the sum is (b⁴ ÷ n⁴) · n²(n + 1)² ÷ 4 = b⁴ (1 + 1/n)² ÷ 4 → **b⁴ ÷ 4**.
+3. Pattern: ∫₀ᵇ xⁿ dx = bⁿ⁺¹ ÷ (n + 1). The same exponent rule as the antiderivative, and tomorrow's theorem explains why.
+/EX
+
+BN: ক্ষেত্রফল = সীমা (limit) নিয়ে আয়তক্ষেত্রের যোগফল: ∫ₐᵇ f dx = lim Σ f(xᵢ)Δx। অক্ষের নিচের অংশ ঋণাত্মক, তাই এটি signed area। প্রথম নীতি থেকে ∫₀ᵇ x² dx = b³/3, ∫₀ᵇ x dx = b²/2, ∫₀ᵇ x³ dx = b⁴/4 বের হলো। কাল দেখব এই ঘাত সূত্র আর প্রতিঅন্তরকলজ একই জিনিস।
+
+### Estimating from data
+In real life you often have a table instead of a formula. Then use the **trapezoid rule**: for each slice, average the two end values and multiply by the width.
+
+EX: A speedometer log
+1. A car's speed (m/s) at 0, 10, 20, 30 and 40 s is 0, 8, 14, 18, 20.
+2. Distance ≈ 10 × [(0 + 8) ÷ 2 + (8 + 14) ÷ 2 + (14 + 18) ÷ 2 + (18 + 20) ÷ 2] = 10 × (4 + 11 + 16 + 19) = **500 m**.
+/EX
+
+EX: A trip with three phases
+1. A train accelerates uniformly from 0 to 20 m/s in 10 s, cruises at 20 m/s for 20 s, then brakes uniformly to rest in 5 s.
+2. Area = ½ × 10 × 20 + 20 × 20 + ½ × 5 × 20 = 100 + 400 + 50 = **550 m**.
+/EX
+
+TRAP: A **definite** integral (with limits a and b) is a **number**. An **indefinite** integral (no limits) is a **family of functions** with + C. Also, "area" and "integral" differ when the graph dips below the axis: the integral subtracts that part. To get the true total area, split at the crossing points and add absolute values.
+
+### Quick self-check
+QUIZ:
+Q: The area under y = 3 from x = 1 to x = 5 is…; 3; 12; 15; 18; 2; A 4 by 3 rectangle gives 12.
+Q: ∫₀⁴ x dx equals…; 4; 8; 16; 2; 2; Triangle with base 4 and height 4 has area 8.
+Q: For a decreasing function, the left rectangle sum is…; an underestimate; an overestimate; exact; zero; 2; Heights are measured at the high left edge of each slice.
+Q: ∫₋₂² x³ dx equals…; 0; 4; 8; 16; 1; The function is odd so the two halves cancel.
+Q: ∫ₐᵇ f dx − ∫ₐᵃ f dx equals…; 0; ∫ₐᵇ f dx; 2 ∫ₐᵇ f dx; f(b) − f(a); 2; The integral from a to a is zero.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the area under y = 4 from x = 0 to x = 6. => **24**.
+P: Find ∫₀⁴ 2x dx using a triangle. => ½ × 4 × 8 = **16**.
+P: Find ∫₋₂² x dx. => **0** (equal and opposite areas).
+P: Find the right-endpoint sum of f(x) = x on [0, 1] with n = 4. => Δx = 0.25 and heights 0.25, 0.5, 0.75, 1. Sum = 2.5 × 0.25 = **0.625** (the exact value is 0.5).
+LVL: Level 2 | Apply
+P: Estimate ∫₀³ (x² + 1) dx with n = 3 using the left sum, the right sum and the midpoint sum. => Δx = 1. **Left:** f(0) + f(1) + f(2) = 1 + 2 + 5 = **8**. **Right:** f(1) + f(2) + f(3) = 2 + 5 + 10 = **17**. **Midpoint:** f(0.5) + f(1.5) + f(2.5) = 1.25 + 3.25 + 7.25 = **11.75**. The exact value is 27 ÷ 3 + 3 = 12, and the midpoint sum is the closest.
+P: Find ∫₀⁴ (2x + 1) dx using ∫₀ᵇ x dx = b² ÷ 2 and linearity. => 2 × 8 + 4 = **20**. (Check with a trapezoid: heights 1 and 9, width 4, area = 20 ✓.)
+P: Use ∫₀ᵇ x² dx = b³ ÷ 3 to find ∫₁³ x² dx. => ∫₀³ − ∫₀¹ = 9 − 1/3 = **26/3 ≈ 8.67**.
+P: Evaluate ∫₀² (x² − 2x) dx and explain the sign. => 8/3 − 2 × 2 = 8/3 − 4 = **−4/3**. The graph is below the axis on (0, 2) (x² < 2x), so the signed area is negative.
+P: The speed of a cyclist at 0, 5, 10, 15 and 20 s is 0, 4, 7, 8, 8 m/s. Estimate the distance with the trapezoid rule. => 5 × [(0 + 4) ÷ 2 + (4 + 7) ÷ 2 + (7 + 8) ÷ 2 + (8 + 8) ÷ 2] = 5 × (2 + 5.5 + 7.5 + 8) = **115 m**.
+LVL: Level 3 | Real
+P: A tank's inflow rate (litres per minute) is measured at t = 0, 2, 4, 6, 8 min as 0, 6, 10, 12, 8. Estimate how many litres entered in 8 minutes. => Trapezoids with width 2: (0 + 6) + (6 + 10) + (10 + 12) + (12 + 8) = 6 + 16 + 22 + 20 = **64 litres**.
+P: A rocket sled's acceleration is 10 m/s² for 4 s and then 0. It starts from rest. Find the speed and the distance after 4 s using areas. => Speed = area under a-t = 10 × 4 = **40 m/s**. Distance = area under v-t: ½ × 4 × 40 = **80 m**.
+LVL: Challenge | The area of a circle
+P: Cut a disc of radius R into thin rings of radius r and thickness dr. A ring has area about 2π r dr. Use ∫₀ᵇ x dx = b² ÷ 2 to recover the area of the disc. Then show that ∫₀ᵇ x³ dx = b⁴ ÷ 4 from sums. => Disc area = ∫₀ᴿ 2π r dr = 2π × R² ÷ 2 = **πR²** ✓. For the second part: Σ (i b ÷ n)³ (b ÷ n) = (b⁴ ÷ n⁴) Σ i³ = (b⁴ ÷ n⁴) × n²(n + 1)² ÷ 4 = (b⁴ ÷ 4)(1 + 1/n)², and as n → ∞ this tends to **b⁴ ÷ 4**.
+
+CHECK: math
+
+@section physics | 3 · Physics: moment of inertia by integration | 35 min
+
+### From sums to integrals
+For a continuous object, I = Σ m r² becomes an integral: cut the object into tiny pieces of mass dm, each at distance r from the axis, and add:
+
+EQ: I = ∫ r² dm
+
+You need to write dm in terms of the variable you integrate over (length x or radius r).
+
+EX: A thin rod about its centre
+1. The rod has mass M and length L, so the mass per unit length is M ÷ L. A slice of length dx at position x (measured from the centre) has dm = (M ÷ L) dx.
+2. I = ∫ x² (M ÷ L) dx from −L/2 to L/2 = (M ÷ L) × 2 × (L/2)³ ÷ 3 = (M ÷ L)(L³ ÷ 12) = **M L² ÷ 12**.
+/EX
+
+EX: The same rod about one end
+1. Measure x from the end: I = (M ÷ L) ∫₀ᴸ x² dx = (M ÷ L)(L³ ÷ 3) = **M L² ÷ 3**. Four times the centre value, because most of the mass is now far from the axis.
+/EX
+
+EX: A solid disc about its centre
+1. Cut the disc into rings of radius r and thickness dr. The ring has area 2π r dr. The mass per unit area is σ = M ÷ (π R²), so dm = σ 2π r dr.
+2. I = ∫₀ᴿ r² σ 2π r dr = 2π σ ∫₀ᴿ r³ dr = 2π σ R⁴ ÷ 4 = 2π (M ÷ π R²) R⁴ ÷ 4 = **½ M R²**. ✓ (This is where yesterday's table came from.)
+/EX
+
+BN: অবিচ্ছিন্ন বস্তুর জন্য I = Σmr² হয়ে যায় I = ∫ r² dm। দণ্ড (ভর M, দৈর্ঘ্য L): প্রতি একক দৈর্ঘ্যে ভর M/L, তাই dm = (M/L)dx এবং কেন্দ্রের সাপেক্ষে I = ML²/12, প্রান্তের সাপেক্ষে ML²/3। ডিস্ককে রিং এ কেটে (dm = σ·2πr dr) পাই I = ½MR², যা গতকালের সারণির উৎস।
+
+### The parallel axis theorem
+If you know I about the centre of mass, I about any **parallel** axis a distance d away is:
+
+EQ: I = I_cm + M d²
+
+Check with the rod: about the end, d = L/2, so I = M L² ÷ 12 + M L² ÷ 4 = M L² ÷ 3 ✓. The centre-of-mass axis always gives the smallest I (yesterday's challenge showed this for two masses).
+
+EX: Using it
+1. Disc of mass 4 kg and radius 0.5 m about an axis through its rim (parallel to the central axis): I = ½ × 4 × 0.25 + 4 × 0.25 = 0.5 + 1 = **1.5 kg·m²** (= 3/2 M R²).
+2. A ring of mass 3 kg and radius 0.1 m about a point on its rim: I = M R² + M R² = **2 M R² = 0.06 kg·m²**.
+/EX
+
+LAB: Moving the axis away from the centre | A uniform rod of mass M and length L spins about an axis a distance d from its centre. The graph shows I = M L² ÷ 12 + M d², which is a parabola with its lowest point at d = 0. | M:Mass M (kg):1:5:0.5:2 ;; L:Length L (m):0.5:3:0.25:1.5 ;; d:Axis offset d (m):0:1.5:0.05:0.5 | M*L^2/12:I about the centre (kg·m²):3 ;; M*L^2/12+M*d^2:I at the chosen axis (kg·m²):3 ;; M*L^2/3:I about the end (kg·m²):3 | M*L^2/12+M*x^2 | 0,1.5 | 0,12
+
+TRAP: The parallel axis theorem only works if one of the two axes goes through the **centre of mass**. To go from an axis at one end to another off-centre axis, first return to the centre of mass (subtract M d₁²), then add M d₂². And remember d is the perpendicular distance between the axes, squared.
+
+### Quick self-check
+QUIZ:
+Q: The moment of inertia of a rod (M, L) about its centre is…; M L² ÷ 3; M L² ÷ 12; M L² ÷ 2; M L²; 2; Integrate x² dm from −L/2 to L/2.
+Q: A rod about its end has I of…; M L² ÷ 12; M L² ÷ 3; M L² ÷ 4; 2 M L² ÷ 3; 2; Parallel axis: M L² ÷ 12 + M (L ÷ 2)².
+Q: A disc of mass M and radius R about a parallel axis through its rim has I of…; ½ M R²; M R²; 3/2 M R²; 2 M R²; 3; ½ M R² + M R² = 3/2 M R².
+Q: The axis that gives the smallest I for a given object (among parallel axes) passes through…; the centre of mass; the edge; the heaviest part; infinity; 1; I = I_cm + M d² is smallest at d = 0.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find I of a 2 kg rod of length 1.5 m about its centre and about its end. => Centre: (1/12)(2)(2.25) = **0.375 kg·m²**. End: (1/3)(2)(2.25) = **1.5 kg·m²**.
+P: Find I of a solid disc with M = 6 kg and R = 0.2 m about its centre. => ½ × 6 × 0.04 = **0.12 kg·m²**.
+LVL: Level 2 | Apply
+P: A solid sphere has M = 5 kg and R = 0.2 m. Find I about a parallel axis touching its surface. => I_cm = (2/5)(5)(0.04) = 0.08. I = 0.08 + 5 × 0.04 = **0.28 kg·m²**.
+P: A rod of mass 1.2 kg and length 1 m is pivoted at a point one quarter of the way from one end. Find I about the pivot. => d = 0.5 − 0.25 = 0.25 m from the centre. I = 0.1 + 1.2 × 0.0625 = 0.1 + 0.075 = **0.175 kg·m²**.
+P: Find I of a rod about one end if its density increases so that the mass per unit length is λ = k x (x from the end, total length L, k a constant). Express I in terms of k and L. => I = ∫ x² (k x) dx from 0 to L = k L⁴ ÷ 4. The total mass is M = ∫ k x dx = k L² ÷ 2, so k = 2M ÷ L² and **I = M L² ÷ 2**. (More mass at the far end means larger I than the uniform rod's M L² ÷ 3.)
+P: Two identical thin rods of mass 2 kg and length 1 m are joined at their centres to form a cross. Find I about the axis through the centre perpendicular to both. => Each rod: (1/12)(2)(1) = 1/6. Together **1/3 ≈ 0.333 kg·m²**.
+LVL: Level 3 | Real
+P: A door (uniform, mass 15 kg, width 0.9 m) is pushed with a perpendicular force of 20 N at its handle edge. Treat it as a rod about its hinge edge. Find α, and the angle it opens through in 0.5 s from rest. => I = (1/3)(15)(0.81) = 4.05 kg·m². τ = 20 × 0.9 = 18 N·m. α = 18 ÷ 4.05 = **4.44 rad/s²**. θ = ½ × 4.44 × 0.25 = **0.556 rad ≈ 32°**.
+P: A helicopter has two blades, each a rod of mass 100 kg and length 5 m attached at the hub (axis through one end of each). It turns at 400 rpm. Find I and the rotational KE. => I = 2 × (1/3)(100)(25) = **1667 kg·m²**. ω = 41.89 rad/s. KE = ½ × 1667 × 1755 = **1.46 MJ**.
+LVL: Challenge | A thick pipe
+P: Derive I for a uniform hollow cylinder (a thick ring) of mass M with inner radius R₁ and outer radius R₂ about its axis. Then find I for M = 3 kg, R₁ = 0.1 m, R₂ = 0.2 m. => σ = M ÷ [π (R₂² − R₁²)]. I = 2π σ ∫ r³ dr from R₁ to R₂ = 2π σ (R₂⁴ − R₁⁴) ÷ 4, and R₂⁴ − R₁⁴ = (R₂² − R₁²)(R₂² + R₁²), so **I = ½ M (R₁² + R₂²)**. (R₁ = 0 gives the disc, R₁ = R₂ gives the ring ✓.) Numbers: ½ × 3 × (0.01 + 0.04) = **0.075 kg·m²**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Area under a curve ≈ Σ f(xᵢ) Δx. In the limit: ∫ₐᵇ f dx, a signed area (below the axis counts negative). Left and right sums bracket an increasing function. Trapezoid rule for tables.
+- From sums: ∫₀ᵇ x dx = b² ÷ 2, ∫₀ᵇ x² dx = b³ ÷ 3, ∫₀ᵇ x³ dx = b⁴ ÷ 4.
+- I = ∫ r² dm. Rod: M L² ÷ 12 (centre), M L² ÷ 3 (end). Disc: ½ M R². Parallel axis: I = I_cm + M d².
+
+BN: আজকের সারকথা: ক্ষেত্রফল ≈ Σ f(xᵢ)Δx; সীমায় ∫ₐᵇ f dx (signed area)। ∫₀ᵇ x dx = b²/2, ∫₀ᵇ x² dx = b³/3, ∫₀ᵇ x³ dx = b⁴/4। I = ∫ r² dm; দণ্ড ML²/12 (কেন্দ্র), ML²/3 (প্রান্ত); ডিস্ক ½MR²; সমান্তরাল অক্ষ উপপাদ্য I = I_cm + Md²।
+
+EXIT:
+E: Find the area under y = 3x from x = 0 to x = 4.; 24; 0.001; Triangle with base 4 and height 12 has area 24.
+E: Find the right sum of f(x) = x² on [0, 2] with n = 2 rectangles.; 5; 0.001; Δx = 1 and heights f(1) + f(2) = 1 + 4 = 5.
+E: What is I of a rod with M = 3 kg and L = 2 m about one end in kg·m²?; 4; 0.001; (1/3)(3)(4) = 4.
+
+**Tomorrow:** the fundamental theorem of calculus, which joins today's area to yesterday's antiderivative, and rotational dynamics with τ = I α.
+
+CHECK: notes

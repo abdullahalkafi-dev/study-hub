@@ -1,0 +1,197 @@
+@day Week 10 · Day 5 · Friday
+# Using Taylor series. Then: sound, decibels and the Doppler effect
+lead: Taylor series are not just a way to compute numbers. They are a thinking tool: they let you find tricky limits in one line, justify the small-angle approximations physicists use every day, and even solve the oscillator equation from scratch. In physics, you finish the week with sound waves: how loud is loud, why a siren changes pitch as it passes, and how a police radar gun measures speed.
+
+BN: টেলর ধারা শুধু সংখ্যা বের করার উপায় নয়, এটা ভাবনার হাতিয়ারও: এক লাইনে জটিল লিমিট, পদার্থবিদদের প্রতিদিনের ছোট-কোণ আসন্নকরণের যুক্তি, এমনকি দোলকের সমীকরণ গোড়া থেকে সমাধান। পদার্থবিজ্ঞানে সপ্তাহ শেষ করবে শব্দ তরঙ্গ দিয়ে: কতটা জোরে শব্দ "জোরে", সাইরেন পাশ দিয়ে গেলে কেন সুর বদলায়, আর পুলিশের রাডার কীভাবে গতি মাপে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Write the first three nonzero terms of the Maclaurin series of sin x. => **x − x³/6 + x⁵/120**.
+P: Find the radius of convergence of Σ xⁿ ÷ n. => **1**.
+P: A string has f₁ = 150 Hz. What is the frequency of the 4th harmonic? => **600 Hz**.
+P: Find the beat frequency for 261 Hz and 265 Hz. => **4 Hz**.
+P: A closed pipe has L = 0.5 m. What is f₁ (v = 343)? => 343 ÷ 2 = **171.5 Hz**.
+
+CHECK: recall
+
+@section math | 2 · Math: Taylor series at work | 55 min
+
+### Limits in one line
+Replace each function by its series, simplify, and read off the answer. Use "…" for the terms that vanish faster.
+
+EX: Limits by series
+1. lim (x → 0) (1 − cos x) ÷ x²: 1 − cos x = x²/2 − x⁴/24 + …, so the ratio = 1/2 − x²/24 + … → **1/2**.
+2. lim (x → 0) (x − sin x) ÷ x³: x − sin x = x³/6 − x⁵/120 + …, so the ratio → **1/6**.
+3. lim (x → 0) (cos x − 1 + x²/2) ÷ x⁴: the numerator is x⁴/24 − …, so the limit is **1/24**. (L'Hôpital would need four rounds.)
+4. lim (x → 0) (ln(1 + x) − x) ÷ x²: ln(1 + x) − x = −x²/2 + x³/3 − …, so the limit is **−1/2**.
+5. lim (x → 0) (e^(x²) − 1) ÷ (1 − cos x): numerator x² + x⁴/2 + …, denominator x²/2 − …, so the ratio → x² ÷ (x²/2) = **2**.
+/EX
+
+LAB: How fast does (1 − cos x) ÷ x² approach 1/2? | The blue curve is the exact ratio, and the orange curve is the two-term series 1/2 − x²/24. They are almost indistinguishable for small x, so the limit is read straight from the series. | x0:Test value x:0.05:3:0.05:1 | (1-cos(x0))/x0^2:Exact ratio:5 ;; 0.5-x0^2/24:Series 1/2 − x²/24:5 ;; abs((1-cos(x0))/x0^2-(0.5-x0^2/24)):Difference:6 | (1-cos(x))/x^2 ;; 0.5-x^2/24 | 0.05,3 | 0,0.6
+
+### Multiplying and composing series
+Series can be added, multiplied and substituted into each other, as long as you keep track of the order you need.
+
+EX: Combining
+1. eˣ sin x up to x³: (1 + x + x²/2 + …)(x − x³/6 + …) = x + x² + (x³/2 − x³/6) + … = **x + x² + x³/3 + …**.
+2. cos(x²) = 1 − x⁴/2 + x⁸/24 − …: substitute x² for x in the cosine series.
+3. 1 ÷ (1 + x²) = 1 − x² + x⁴ − …: substitute −x² into the geometric series.
+/EX
+
+EX: Exact sums from series
+1. Put x = 1/2 in −ln(1 − x) = Σ xⁿ ÷ n: Σ 1 ÷ (n 2ⁿ) = **ln 2 ≈ 0.693**.
+2. Put x = 1 in eˣ: Σ from n = 0 of 1 ÷ n! = **e**.
+3. The Leibniz series: 1 − 1/3 + 1/5 − 1/7 + … = **π/4** (arctan 1).
+/EX
+
+### Solving the oscillator equation with a series
+Try y = Σ cₙ xⁿ in y″ = −y. Then y″ = Σ n (n − 1) cₙ xⁿ⁻², and matching powers of x gives the rule (n + 2)(n + 1) cₙ₊₂ = −cₙ.
+
+EX: Where sine and cosine come from
+1. Start with y(0) = 1 and y′(0) = 0, so c₀ = 1 and c₁ = 0. The rule gives c₂ = −c₀ ÷ 2 = −1/2, c₃ = 0, c₄ = −c₂ ÷ 12 = 1/24, c₅ = 0, c₆ = −1/720 …
+2. y = 1 − x²/2 + x⁴/24 − … = **cos x**. Starting with y(0) = 0 and y′(0) = 1 gives **sin x**.
+3. So the motion of a mass on a spring, x″ = −ω² x, has cosine and sine as its solutions because of this series calculation, not by magic.
+/EX
+
+BN: লিমিট ধারা দিয়ে: প্রতিটি ফাংশনের জায়গায় তার ধারা বসাও। (1 − cos x)/x² = 1/2 − x²/24 + … → 1/2; (x − sin x)/x³ → 1/6; (cos x − 1 + x²/2)/x⁴ → 1/24। ধারা গুণ ও প্রতিস্থাপন করা যায়: eˣ sin x = x + x² + x³/3 + …। y″ = −y কে y = Σcₙxⁿ ধরে সমাধান করলে cos x ও sin x পাওয়া যায়: SHM এর সমাধান সূত্র থেকে।
+
+### Approximations that physics uses every day
+EX: Gravity near the surface
+1. Raising a mass m through height h costs ΔU = G M m (1 ÷ R − 1 ÷ (R + h)) = (G M m ÷ R) × (h ÷ R) × (1 ÷ (1 + h ÷ R)).
+2. Expand 1 ÷ (1 + h ÷ R) ≈ 1 − h ÷ R. The leading term is ΔU ≈ (G M ÷ R²) m h = **m g h**, with g = G M ÷ R² = 9.8.
+3. For h = 100 m, h ÷ R = 1.6 × 10⁻⁵, so m g h is accurate to **0.002%**. For h = R ÷ 10 (637 km), the exact ΔU = (G M m ÷ R)(0.0909) while m g h = (G M m ÷ R)(0.1): off by **10%**.
+/EX
+
+EX: Slow Doppler and relativity
+1. 1 ÷ (1 − β) ≈ 1 + β + β² + …. For a source at β = v ÷ c = 0.1 the exact factor is 1.1111, and the first-order result 1 + β = 1.1 is **1% low**.
+2. The kinetic energy (γ − 1) m c² = ½ m v² + (3/8) m v⁴ ÷ c² + … (Day 4): classical physics is the first term of relativistic physics.
+/EX
+
+TRAP: A limit by series needs enough terms: keep terms **up to the order of the denominator** (x⁴ below means expanding up to x⁴). Do not drop a term that is the same order as what you keep. And approximations are only valid **near the expansion point**: sin x ≈ x fails at x = 2.
+
+### Quick self-check
+QUIZ:
+Q: lim (x → 0) (x − sin x) ÷ x³ equals…; 0; 1/6; 1/2; ∞; 2; The numerator starts with x³/6.
+Q: The first terms of eˣ sin x are…; x + x²; x + x² + x³/3; 1 + x + x²; x − x³/6; 2; Multiply the series and collect powers.
+Q: Σ 1 ÷ (n 2ⁿ) from n = 1 equals…; 1; ln 2; e; π ÷ 4; 2; It is the series of −ln(1 − x) at x = 1/2.
+Q: The recurrence (n + 2)(n + 1) cₙ₊₂ = −cₙ with c₀ = 1 and c₁ = 0 produces…; sin x; cos x; eˣ; 1 ÷ (1 − x); 2; Even powers with alternating signs.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find lim (x → 0) (eˣ − 1) ÷ x using the series. => (x + x²/2 + …) ÷ x → **1**.
+P: Find lim (x → 0) sin(2x) ÷ x. => (2x − (2x)³/6 + …) ÷ x → **2**.
+LVL: Level 2 | Apply
+P: Find lim (x → 0) (eˣ − 1 − x) ÷ x². => **1/2**.
+P: Find lim (x → 0) (x − sin x) ÷ x³. => **1/6**.
+P: Find lim (x → 0) (cos x − 1 + x²/2) ÷ x⁴. => **1/24**.
+P: Find lim (x → 0) (ln(1 + x) − x) ÷ x². => **−1/2**.
+P: Write eˣ sin x up to x³. => **x + x² + x³/3**.
+P: Find the sum Σ from n = 1 of 1 ÷ (n 2ⁿ). => **ln 2 ≈ 0.693**.
+LVL: Level 3 | Real
+P: A satellite is lifted to h = 637 km. Find the relative error of the m g h approximation for ΔU. => ΔU exact = (G M m ÷ R) (1 − 1 ÷ 1.1) = (G M m ÷ R)(0.09091), m g h = (G M m ÷ R)(0.1). Relative error = (0.1 − 0.09091) ÷ 0.09091 = **10%**.
+P: A source approaches at β = 0.05 of the wave speed. Compare the exact frequency factor 1 ÷ (1 − β) with the first-order estimate 1 + β. => Exact = 1.0526, estimate = 1.05: the difference is **0.25%**.
+LVL: Challenge | Solving y″ = −ω² y by series
+P: Substitute y = Σ cₙ tⁿ into y″ = −ω² y. Find the recurrence and the first four nonzero terms for y(0) = 1, y′(0) = 0, and identify the function. => y″ = Σ n (n − 1) cₙ tⁿ⁻², so (n + 2)(n + 1) cₙ₊₂ = −ω² cₙ. With c₀ = 1, c₁ = 0: c₂ = −ω² ÷ 2, c₄ = −ω² c₂ ÷ 12 = ω⁴ ÷ 24, c₆ = −ω⁶ ÷ 720. So y = 1 − (ωt)²/2 + (ωt)⁴/24 − (ωt)⁶/720 + … = **cos(ωt)**.
+
+CHECK: math
+
+@section physics | 3 · Physics: sound, decibels and the Doppler effect | 35 min
+
+### Intensity and the decibel
+A sound wave carries power. The **intensity** is power per area, I (W/m²). A source of power P radiating equally in all directions has, at distance r (the area of a sphere is 4π r²):
+
+EQ: I = P ÷ (4π r²)     (the inverse-square law)
+
+Human hearing covers an enormous range, from I₀ = 10⁻¹² W/m² (threshold) to about 1 W/m² (pain), so we use a logarithmic scale, the **decibel level**:
+
+EQ: β = 10 log₁₀(I ÷ I₀)     (decibels, dB)
+
+Each **factor of 10 in intensity adds 10 dB**. Doubling the intensity adds 3 dB. Doubling the distance cuts the intensity to 1/4, which is **−6 dB**.
+
+| Sound | dB | Intensity (W/m²) |
+| Threshold of hearing | 0 | 10⁻¹² |
+| Whisper | 20 | 10⁻¹⁰ |
+| Conversation | 60 | 10⁻⁶ |
+| Busy traffic | 80 | 10⁻⁴ |
+| Rock concert | 110 | 0.1 |
+| Pain | 120 | 1 |
+
+BN: তীব্রতা I = P/(4πr²) (ব্যস্ত-বর্গ নিয়ম)। শ্রবণ সীমা I₀ = 10⁻¹² W/m² থেকে প্রায় 1 W/m² পর্যন্ত বিশাল পরিসর, তাই ডেসিবেল: β = 10 log₁₀(I/I₀)। তীব্রতা ১০ গুণ হলে +10 dB, দ্বিগুণ হলে +3 dB, দূরত্ব দ্বিগুণ হলে −6 dB।
+
+EX: Decibel calculations
+1. A 2 W sound source (isotropic): at r = 10 m, I = 2 ÷ (4π × 100) = 1.59 × 10⁻³ W/m². β = 10 log₁₀(1.59 × 10⁻³ ÷ 10⁻¹²) = 10 × 9.20 = **92.0 dB**.
+2. How far away is it just 60 dB (I = 10⁻⁶)? r = √(P ÷ (4π I)) = √(2 ÷ (4π × 10⁻⁶)) = √159,155 = **399 m**.
+3. Two equal 70 dB sources together: intensity doubles, so 70 + 3 = **73 dB**. Ten equal sources: 70 + 10 = **80 dB**.
+/EX
+
+LAB: How loud at a distance | Choose the acoustic power of a point source and your distance from it. The graph shows the decibel level against distance: every doubling of distance drops it by about 6 dB. The numbers give the intensity and the level. | P:Sound power P (W):0.1:10:0.1:2 ;; r:Distance r (m):1:100:1:10 | P/(4*pi*r^2):Intensity I (W/m²):6 ;; 10*log(P/(4*pi*r^2)/1e-12)/log(10):Sound level (dB):1 | 10*log(P/(4*pi*x^2)/1e-12)/log(10) | 1,100 | 40,130
+
+### The Doppler effect
+When the source and the observer move relative to each other, the observed frequency changes. With sound speed v, source speed vₛ and observer speed vₒ (toward each other is positive):
+
+EQ: f′ = f × (v + vₒ) ÷ (v − vₛ)
+
+- **Source approaching** a stationary observer: waves bunch up, f′ = f v ÷ (v − vₛ), higher.
+- **Source receding:** f′ = f v ÷ (v + vₛ), lower.
+- **Observer approaching** a stationary source: f′ = f (v + vₒ) ÷ v.
+
+EX: A passing siren
+1. An ambulance siren at 700 Hz moves at 25 m/s (v = 343 m/s). Approaching: f′ = 700 × 343 ÷ 318 = **755 Hz**. Receding: f′ = 700 × 343 ÷ 368 = **652 Hz**.
+2. The pitch drops by a ratio 755 ÷ 652 = 1.157, about **2.5 semitones**, the familiar "neeeow" as it passes.
+3. An observer walking toward a stationary 500 Hz source at 20 m/s hears 500 × 363 ÷ 343 = **529 Hz**.
+/EX
+
+LAB: A moving siren | Choose the siren's frequency, its speed (positive means toward you, negative means away) and the speed of sound. The graph shows the frequency you hear against the source speed. At zero speed you hear the true frequency, and the curve climbs steeply as the source approaches the speed of sound. | f0:Siren frequency f (Hz):200:1000:50:700 ;; vs:Source speed toward you (m/s):-60:60:5:25 ;; v:Speed of sound v (m/s):300:350:1:343 | f0*v/(v-vs):Frequency you hear (Hz):1 ;; f0*v/(v-vs)-f0:Shift (Hz):1 | f0*v/(v-x) | -100,100 | 0,1200
+
+### Radar guns and sonic booms
+**Radar gun.** The wave reflects from a moving car, so the Doppler shift happens twice: Δf ≈ 2 f v ÷ c for v much less than c (a first-order Taylor result, from today's math). For f = 24 GHz and v = 30 m/s: Δf = 2 × 24 × 10⁹ × 30 ÷ 3 × 10⁸ = **4800 Hz**, easy to measure.
+
+**Sonic boom.** If vₛ exceeds v, the waves pile up into a cone of half-angle θ with sin θ = v ÷ vₛ (the Mach number M = vₛ ÷ v is its inverse). A jet at Mach 2 has sin θ = 1/2, θ = **30°**.
+
+TRAP: In the Doppler formula, the **signs** matter: use + for motion that brings source and observer closer (so f′ rises). The speeds are measured relative to the **medium** (the air), not to each other. And intensity ratio and decibels use the logarithm: do not add intensities in dB (70 dB + 70 dB is 73 dB, not 140 dB).
+
+### Quick self-check
+QUIZ:
+Q: Doubling the distance from a point source changes the sound level by about…; −3 dB; −6 dB; −10 dB; −12 dB; 2; Intensity falls by 4, and 10 log 4 is 6.
+Q: A sound has an intensity of 10⁻⁴ W/m². Its level is…; 40 dB; 60 dB; 80 dB; 100 dB; 3; 10 log(10⁸) = 80.
+Q: An approaching source gives an observed frequency that is…; lower; higher; the same; zero; 2; Waves are compressed.
+Q: A jet at Mach 2 produces a shock cone of half-angle…; 90°; 60°; 30°; 15°; 3; sin θ = 1 ÷ M = 1/2.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find β for I = 10⁻⁶ W/m². => 10 log(10⁶) = **60 dB**.
+P: Find I for a level of 90 dB. => 10⁹ × 10⁻¹² = **10⁻³ W/m²**.
+LVL: Level 2 | Apply
+P: A 2 W point source: find the intensity and level at 10 m, and the level at 20 m. => 1.59 × 10⁻³ W/m², **92.0 dB**. At 20 m: 92.0 − 6.0 = **86.0 dB**.
+P: Ten identical machines each produce 75 dB at the operator's position. What is the total level? => 75 + 10 = **85 dB**.
+P: A siren of 700 Hz moves toward you at 25 m/s, then away at 25 m/s (v = 343). Find both frequencies. => **755 Hz** and **652 Hz**.
+P: A police radar of 24 GHz measures a Doppler shift of 3200 Hz. How fast is the car going (c = 3 × 10⁸)? => v = Δf c ÷ (2 f) = 3200 × 3 × 10⁸ ÷ (4.8 × 10¹⁰) = **20 m/s = 72 km/h**.
+P: A listener moves toward a stationary 440 Hz tuning fork at 5 m/s. What frequency do they hear? => 440 × 348 ÷ 343 = **446.4 Hz**.
+P: A train horn of 400 Hz passes at 30 m/s. Find the frequency drop from approach to recession. => 400 × 343 ÷ 313 = 438.3 Hz and 400 × 343 ÷ 373 = 367.8 Hz. The drop is **70.5 Hz**.
+LVL: Level 3 | Real
+P: A concert speaker produces 100 dB at 1 m. At what distance does the level fall to 85 dB (the damage threshold with long exposure)? => The drop is 15 dB: 20 log(r ÷ 1) = 15, so r = 10^0.75 = **5.6 m**.
+P: A bat flies toward a wall at 10 m/s emitting a 50 kHz squeak. What frequency does it hear in the echo? (v = 343) => The wall hears 50 × 343 ÷ 333 = 51.5 kHz. It reflects that frequency, and the bat, moving toward the wall, hears 51.5 × 353 ÷ 343 = **53.0 kHz**.
+LVL: Challenge | The sonic boom
+P: A jet flies at Mach 2 (686 m/s) at an altitude of 10 km. Find the half-angle of the shock cone, and how long after the plane passes overhead the boom reaches a person on the ground. => sin θ = 1 ÷ 2, **θ = 30°**. The cone's edge reaches the ground at a horizontal distance h ÷ tan 30° = 10,000 ÷ 0.5774 = 17.3 km behind the plane. The time is 17,320 ÷ 686 = **25 s** after the plane passed overhead.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Taylor series for limits, products, substitutions and exact sums. Key limits: (1 − cos x) ÷ x² → 1/2, (x − sin x) ÷ x³ → 1/6. Solving y″ = −ω² y by series gives cos(ωt). Physics approximations (m g h, ½ m v², first-order Doppler) are the first terms of a series.
+- Sound: I = P ÷ (4π r²), β = 10 log₁₀(I ÷ I₀), doubling distance −6 dB, doubling intensity +3 dB. Doppler: f′ = f (v + vₒ) ÷ (v − vₛ). Radar: Δf ≈ 2 f v ÷ c. Mach cone: sin θ = v ÷ vₛ.
+
+BN: আজকের সারকথা: টেলর ধারা দিয়ে লিমিট, গুণ, প্রতিস্থাপন ও যোগফল; y″ = −ω²y এর সমাধান cos(ωt)। ডেসিবেল: β = 10 log₁₀(I/I₀), দূরত্ব দ্বিগুণ হলে −6 dB। ডপলার: f′ = f(v + vₒ)/(v − vₛ), রাডার Δf ≈ 2fv/c, ম্যাক কোণ sinθ = v/vₛ।
+
+EXIT:
+E: Find lim (x → 0) (1 − cos x) ÷ x².; 0.5; 0.001; 1 − cos x = x²/2 − …, so the limit is 1/2.
+E: A sound has intensity 10⁻⁵ W/m². What is its level in dB?; 70; 0.001; 10 log(10⁷) = 70.
+E: A 500 Hz source approaches at 34.3 m/s (v = 343). What frequency does the observer hear in Hz?; 555.6; 0.2; f′ = 500 × 343 ÷ 308.7 = 555.6.
+
+**Tomorrow (Saturday):** the Week 10 test, mistake log and challenge.
+
+CHECK: notes

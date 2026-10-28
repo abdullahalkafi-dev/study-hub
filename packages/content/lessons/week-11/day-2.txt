@@ -1,0 +1,138 @@
+@day Week 11 · Day 2 · Tuesday
+# Review 2: integration, rotation and oscillations
+lead: Today you review the integral side of calculus (Weeks 8 and 9) and the physics that depends on it: rotation (Weeks 7 and 8) and oscillations (Week 9). The goal is speed and judgement: given an integral, which technique is the right first move, and given a physics situation, which conservation law or equation of motion should you start from?
+
+BN: আজ ক্যালকুলাসের সমাকলন অংশ (সপ্তাহ ৮ ও ৯) এবং তার ওপর নির্ভরশীল পদার্থবিজ্ঞান পর্যালোচনা: ঘূর্ণন (সপ্তাহ ৭ ও ৮) ও দোলন (সপ্তাহ ৯)। লক্ষ্য গতি ও বিচারবুদ্ধি: একটা সমাকলন দেখে প্রথম চাল কোন কৌশল, আর পদার্থবিজ্ঞানের পরিস্থিতিতে কোন সংরক্ষণ সূত্র বা সমীকরণ দিয়ে শুরু করবে।
+
+@section recall | 1 · Warm-up: retrieve without notes | 15 min · no calculator
+
+LVL: Recall | Write each answer before you check
+P: State the fundamental theorem of calculus (Part 2). => **∫ₐᵇ f dx = F(b) − F(a)** where F′ = f.
+P: Write the integration by parts formula. => **∫ u dv = u v − ∫ v du**.
+P: Evaluate ∫₀^π sin² x dx and give the reason. => **π/2**, because sin² averages 1/2.
+P: What is the p-test for ∫₁^∞ 1 ÷ xᵖ dx? => Converges for **p > 1**, diverges for p ≤ 1.
+P: State the parallel axis theorem. => **I = I_cm + M d²**.
+P: What is conserved when no external torque acts? => **Angular momentum L = I ω**.
+P: Write T for a mass on a spring and for a simple pendulum. => **2π √(m ÷ k)** and **2π √(L ÷ g)**.
+
+CHECK: recall
+
+@section math | 2 · Math review: integration | 45 min
+
+### Choosing the technique
+| What you see | First move |
+| A polynomial, power, exponential, basic trig | Antiderivative table |
+| f(g(x)) g′(x) | Substitution, u = g(x) |
+| x × eˣ, x sin x, ln x, arctan x | By parts, LIATE |
+| sin² or cos² or an even power | Half-angle identity |
+| sin³ x or cos³ x (odd power) | Save one factor and substitute |
+| Rational function with factorable denominator | Divide first if needed, then partial fractions |
+| Limit ∞ or a blow-up | Improper: take the limit |
+| No formula, or a table of data | Trapezoid or Simpson |
+| Region between curves, average, volume | ∫ (top − bottom), (1 ÷ (b − a)) ∫ f, π ∫ f² |
+
+BN: কোন চাল: সরল ফাংশন হলে সারণি; f(g(x))g′(x) হলে প্রতিস্থাপন; x·eˣ, ln x হলে by parts (LIATE); জোড় ঘাতে half-angle; বিজোড় ঘাতে একটা গুণক আলাদা; ভগ্নাংশে আংশিক ভগ্নাংশ; সীমা অসীম হলে অপ্রকৃত; সূত্র না থাকলে ট্রাপিজয়েড বা সিম্পসন।
+
+EX: One of each
+1. ∫₀² (3x² − 4x + 1) dx = [x³ − 2x² + x] = 8 − 8 + 2 = **2**.
+2. ∫ 2x cos(x²) dx = **sin(x²) + C** (substitution u = x²).
+3. ∫₀¹ x e^(−x) dx = [−e^(−x)(x + 1)] = 1 − 2 ÷ e = **0.264** (by parts).
+4. ∫ sin² x cos x dx = **sin³ x ÷ 3 + C** (u = sin x).
+5. ∫ (x + 5) ÷ ((x − 1)(x + 2)) dx: A = 6 ÷ 3 = 2, B = 3 ÷ (−3) = −1. So **2 ln abs(x − 1) − ln abs(x + 2) + C**.
+6. ∫₁^∞ x^(−3/2) dx = 1 ÷ (3/2 − 1) = **2**.
+7. The area between y = x² and y = x + 2 is **4.5** (limits x = −1 and 2).
+8. The volume from spinning y = √x on [0, 4] about the x-axis is π ∫₀⁴ x dx = **8π ≈ 25.1**.
+9. Simpson's rule, n = 4, for ∫₀² eˣ dx: h = 0.5, S = (0.5 ÷ 3) × [1 + 4 (1.6487 + 4.4817) + 2 (2.7183) + 7.3891] = **6.3912** (exact e² − 1 = 6.3891).
+/EX
+
+TRAP: Do not choose a technique by habit. Try the **simplest** idea first (can you spot f(g) g′?), then by parts, then fractions. For an improper integral write the limit explicitly. And always compare your answer with a quick sanity check (sign, size, units).
+
+### Check yourself
+QUIZ:
+Q: For ∫ x² eˣ dx the best technique is…; substitution; by parts twice; partial fractions; Simpson; 2; Each pass lowers the power of x.
+Q: ∫ 1 ÷ (x² − 4) dx needs…; substitution; by parts; partial fractions; nothing; 3; The denominator factors as (x − 2)(x + 2).
+Q: ∫₀^∞ e^(−2x) dx equals…; 2; 1/2; 1; diverges; 2; [−e^(−2x) ÷ 2] from 0 to infinity.
+Q: The average value of f on [a, b] is…; ∫ f; (1 ÷ (b − a)) ∫ f; f(b) − f(a); f′; 2; Area divided by width.
+
+### Mixed practice (mathematics)
+LVL: Level 2 | Apply
+P: Evaluate ∫₀^π x sin x dx. => By parts: [−x cos x + sin x] = **π**.
+P: Find ∫ 1 ÷ (x² − 4) dx. => ¼ [1 ÷ (x − 2) − 1 ÷ (x + 2)] gives **¼ ln abs((x − 2) ÷ (x + 2)) + C**.
+P: Evaluate ∫₀^(π/2) sin³ x dx. => With u = cos x: ∫₀¹ (1 − u²) du = **2/3**.
+P: Find the average value of cos² x over [0, π], and of x² over [0, 3]. => **1/2** and **3**.
+P: Evaluate ∫₁ᵉ (ln x)² ÷ x dx. => u = ln x: ∫₀¹ u² du = **1/3**.
+P: A table gives f at x = 0, 1, 2, 3, 4: 0, 3, 5, 6, 6. Estimate ∫₀⁴ f dx by trapezoid and by Simpson. => Trapezoid: 0.5 × [0 + 2 (3 + 5 + 6) + 6] = **17**. Simpson: (1 ÷ 3) × [0 + 4 (3) + 2 (5) + 4 (6) + 6] = **17.33**.
+LVL: Level 3 | Real
+P: A force F(x) = 200x + 500x³ N stretches a spring. Find the work from x = 0 to 0.2 m. => [100 x² + 125 x⁴] = **4.2 J**.
+P: The voltage V = 170 sin(120π t) drives a 40 Ω heater. Find the average power. => V_rms = 170 ÷ √2 = 120.2 V. P = 120.2² ÷ 40 = **361 W**.
+LVL: Challenge | Mixed modelling
+P: A tank is made by spinning y = ½ √x (0 ≤ x ≤ 4, metres) about the x-axis. Find its volume. Water drains from the top at 0.5 m³ per minute: how long does it take to empty, ignoring pumping? => V = π ∫₀⁴ ¼ x dx = π × ¼ × 8 = **2π = 6.28 m³**. Time = 6.28 ÷ 0.5 = **12.6 min**.
+
+CHECK: math
+
+@section physics | 3 · Physics review: rotation and oscillations | 45 min
+
+### The map of Weeks 7 to 9
+| Idea | Key results |
+| Rotation kinematics | ω = ω₀ + α t, θ = ω₀ t + ½ α t², v = ω r, a = α r |
+| Rotational dynamics | I = Σ m r², Στ = I α, KE = ½ I ω², L = I ω |
+| Common I | Rod centre M L²/12, rod end M L²/3, disc ½ M R², sphere 2/5 M R², hoop M R² |
+| Rolling | KE = ½ M v² (1 + k), a = g sin θ ÷ (1 + k) |
+| SHM | x″ = −ω² x, ω = √(k ÷ m), E = ½ k A², v = ω √(A² − x²) |
+| Pendulum | ω = √(g ÷ L), T = 2π √(I ÷ (m g d)) for a body |
+| Damping and resonance | γ = c ÷ (2m), ω_d = √(ω₀² − γ²), A_res = Q F₀ ÷ k |
+
+BN: ঘূর্ণন: ω = ω₀ + αt, v = ωr; গতিবিদ্যা: Στ = Iα, KE = ½Iω², L = Iω। গড়ানো: KE = ½Mv²(1 + k)। SHM: ω = √(k/m), E = ½kA²। দোলক: T = 2π√(L/g)। অবমন্দন: γ = c/(2m); অনুনাদে A = QF₀/k।
+
+EX: Mixed rotation and oscillation
+1. A wheel (I = 0.4 kg·m²) is accelerated from rest by a torque of 6 N·m: α = 15 rad/s². It reaches ω = 30 rad/s in t = 2 s, having turned θ = ½ × 15 × 4 = **30 rad**.
+2. Atwood machine: m₁ = 2 kg, m₂ = 3 kg, pulley disc M = 2 kg: a = (m₂ − m₁) g ÷ (m₁ + m₂ + M/2) = 9.8 ÷ 6 = **1.63 m/s²**.
+3. A skater spins at 2 rad/s with I = 4 and pulls in to I = 1.6: ω = 8 ÷ 1.6 = **5 rad/s**. KE rises from 8 J to **20 J** (the 12 J is her muscular work).
+4. A solid cylinder rolls from a height of 0.9 m: v = √(2 g h ÷ 1.5) = √11.76 = **3.43 m/s**.
+5. A 0.25 kg mass on a spring with k = 100 N/m and amplitude 0.04 m: ω = 20 rad/s, T = **0.314 s**, v_max = **0.8 m/s**, E = ½ × 100 × 0.0016 = **0.08 J**.
+6. A simple pendulum of length 2.5 m: T = 2π √(2.5 ÷ 9.8) = **3.17 s**.
+7. A damped oscillator with m = 1 kg, k = 100 N/m and c = 4 N·s/m: γ = 2 per second, ω_d = √96 = **9.80 rad/s**, and the amplitude after one second is e^(−2) = **13.5%** of the start. Q = ω₀ ÷ (2γ) = 10 ÷ 4 = **2.5**.
+8. Driven with F₀ = 5 N at resonance: A = F₀ ÷ (c ω₀) = 5 ÷ (4 × 10) = **0.125 m**.
+/EX
+
+LAB: Energy draining from an oscillator | A mass on a spring loses energy to damping. With amplitude A and damping c the energy follows E(t) = E₀ e^(−c t ÷ m), where E₀ = ½ k A². Increase c and the energy dies faster. The quality factor Q tells you how many cycles it takes. | m:Mass m (kg):0.5:5:0.5:1 ;; k:Stiffness k (N/m):50:500:50:200 ;; c:Damping c (N·s/m):0.2:5:0.2:1 ;; A:Amplitude A (m):0.05:0.3:0.05:0.2 | 0.5*k*A^2:Starting energy E₀ (J):3 ;; c/m:Energy decay rate 2γ (per s):3 ;; log(10)*m/c:Time to lose 90% of the energy (s):2 ;; sqrt(k*m)/c:Quality factor Q:2 | 0.5*k*A^2*exp(-c*x/m) | 0,10 | 0,25
+
+### Check yourself
+QUIZ:
+Q: A skater pulls in her arms. Which quantity stays constant?; ω; I; angular momentum; kinetic energy; 3; No external torque.
+Q: A solid sphere, a solid disc and a hoop roll down the same ramp. The first to arrive is the…; hoop; disc; sphere; they tie; 3; The smallest k wins.
+Q: If the mass on a spring is quadrupled, the period…; doubles; quadruples; halves; is unchanged; 1; T is proportional to √m.
+Q: At resonance of a lightly damped oscillator, the amplitude is limited by…; k; m; the damping c; gravity; 3; A = F₀ ÷ (c ω₀).
+
+### Mixed practice (physics)
+LVL: Level 2 | Apply
+P: A uniform rod of mass 2 kg and length 1.2 m rotates about one end. Find I, and the angular acceleration from a 6 N·m torque. => I = (1/3)(2)(1.44) = 0.96 kg·m². α = 6 ÷ 0.96 = **6.25 rad/s²**.
+P: A 0.3 kg mass oscillates with k = 120 N/m and A = 0.05 m. At what displacement are KE and PE equal, and what is the speed there? => x = A ÷ √2 = **0.0354 m**. KE = ½ E = ¼ k A² = 0.075 J, so v = √(2 × 0.075 ÷ 0.3) = **0.707 m/s**.
+P: A 3 kg mass hangs from a pulley (solid disc, M = 4 kg, R = 0.2 m). Find the downward acceleration and the tension. => a = m g ÷ (m + M/2) = 29.4 ÷ 5 = **5.88 m/s²**. T = M a ÷ 2 = **11.8 N**.
+P: A pendulum clock beats seconds on Earth with L = 0.993 m. On a planet where g = 6.0 m/s², what length keeps seconds? => T = 2 s needs L = g T² ÷ 4π² = 6.0 × 4 ÷ 39.48 = **0.608 m**.
+P: A damped oscillator has m = 0.5 kg, k = 200 N/m, c = 2 N·s/m. Find γ, ω_d and the time for the amplitude to halve. => γ = 2, ω_d = √(400 − 4) = **19.9 rad/s**, t = ln 2 ÷ 2 = **0.347 s**.
+LVL: Level 3 | Real
+P: A car wheel (hoop-like, M = 12 kg, R = 0.3 m) turns at 80 rad/s and is braked to rest in 4 s by a constant torque. Find the torque, the work, and the angle turned. => I = 1.08 kg·m². α = −20 rad/s², so τ = **21.6 N·m**. W = ½ × 1.08 × 6400 = **3456 J**. θ = 80 × 4 ÷ 2 = **160 rad** (25 turns).
+LVL: Challenge | Two conservation laws at once
+P: A thin rod (mass 1 kg, length 1.2 m) hangs from a frictionless pivot at its top end. A 0.1 kg clay lump flying horizontally at 15 m/s sticks to the bottom end. Find the angular speed just after, and the maximum angle it swings to. => L about the pivot = 0.1 × 15 × 1.2 = 1.8. I = (1/3)(1)(1.44) + 0.1 × 1.44 = 0.48 + 0.144 = 0.624. ω = 1.8 ÷ 0.624 = **2.88 rad/s**. KE = ½ × 0.624 × 8.32 = 2.60 J. Raising the centre of mass of the rod (0.6 m) and the clay (1.2 m) by (1 − cos θ) times their distances: (1 × 0.6 + 0.1 × 1.2)(9.8)(1 − cos θ) = 0.72 × 9.8 (1 − cos θ) = 7.056 (1 − cos θ) = 2.60, so 1 − cos θ = 0.368, cos θ = 0.632, **θ = 50.8°**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Integration: choose the technique from the shape of the integrand; check by differentiating; improper integrals need limits; Simpson beats trapezoid. Applications: area between curves, average value, RMS, volumes, work.
+- Rotation and oscillation: τ = I α, L = I ω, rolling KE = ½ M v² (1 + k), SHM ω = √(k ÷ m), damped γ = c ÷ (2m), resonance amplitude Q F₀ ÷ k. In a mixed problem, ask first: which quantity is conserved, and is the motion constrained?
+
+BN: আজকের সারকথা: সমাকলনে কৌশল ইন্টিগ্র্যান্ডের আকৃতি দেখে বাছো; অপ্রকৃত সমাকলনে লিমিট; সিম্পসন ট্রাপিজয়েডের চেয়ে নিখুঁত। ঘূর্ণন ও দোলনে: τ = Iα, L = Iω, গড়ানোয় KE = ½Mv²(1 + k), SHM ω = √(k/m), অবমন্দন γ = c/(2m), অনুনাদে A = QF₀/k। মিশ্র সমস্যায় আগে ভাবো কোন রাশি সংরক্ষিত।
+
+EXIT:
+E: Evaluate ∫₀¹ 3x² dx.; 1; 0.001; [x³] from 0 to 1 = 1.
+E: A 1 kg mass on a spring with k = 100 N/m. What is T in seconds?; 0.628; 0.005; T = 2π √(1 ÷ 100) = 0.628.
+E: A skater with I = 5 kg·m² at 2 rad/s changes to I = 2 kg·m². What is the new ω in rad/s?; 5; 0.001; ω = 10 ÷ 2 = 5.
+
+**Tomorrow:** review of series and waves, and a modelling project on the bouncing ball.
+
+CHECK: notes

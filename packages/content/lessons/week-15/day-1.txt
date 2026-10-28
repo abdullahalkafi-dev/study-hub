@@ -1,0 +1,185 @@
+@day Week 15 · Day 1 · Monday
+# Eigenvalues and eigenvectors. Then: the second law and heat engines
+lead: Most vectors are turned by a matrix, but a few special directions are only stretched or flipped. Those directions and their stretch factors, the eigenvectors and eigenvalues, reveal the true behaviour of the matrix: vibration frequencies, growth rates, stability. In physics, you meet the second law of thermodynamics. It says why a hot coffee never heats itself up, and why every engine must throw away heat.
+
+BN: বেশিরভাগ ভেক্টরকে ম্যাট্রিক্স ঘুরিয়ে দেয়, কিন্তু কিছু বিশেষ দিক শুধু টানা বা উল্টে যায়। এই দিকগুলো ও তাদের গুণক (eigenvector ও eigenvalue) ম্যাট্রিক্সের আসল আচরণ দেখায়: কম্পনের কম্পাঙ্ক, বৃদ্ধির হার, স্থিতিশীলতা। পদার্থবিজ্ঞানে তাপগতিবিদ্যার দ্বিতীয় সূত্র পড়বে। এটা বলে কেন গরম কফি নিজে নিজে আরও গরম হয় না, আর কেন প্রতিটি ইঞ্জিনকে তাপ ফেলে দিতে হয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Find the determinant of [[2, 1], [1, 2]]. => **3**.
+P: Write the first law of thermodynamics. => **ΔU = Q − W** (W = work done by the gas).
+P: What is the work done in an isothermal expansion of n mol from V₁ to V₂? => **W = n R T ln (V₂ ÷ V₁)**.
+P: What is the rank of [[1, 2], [2, 4]]? => **1**.
+P: What is the trace of [[3, 1], [2, 5]]? => **8**.
+
+CHECK: recall
+
+@section math | 2 · Math: eigenvalues and eigenvectors | 55 min
+
+### The definition
+A non-zero vector v is an **eigenvector** of the square matrix A, with **eigenvalue** λ, if
+
+EQ: A v = λ v
+
+The matrix only **stretches** v by the factor λ (and flips it if λ is negative): the direction of v is kept.
+
+To find λ, rewrite as (A − λ I) v = 0. A non-zero v exists only when A − λ I is singular:
+
+EQ: det (A − λ I) = 0     (the **characteristic equation**)     for a 2 × 2 matrix:     λ² − (trace A) λ + det A = 0
+
+BN: A v = λ v হলে v হলো A এর eigenvector আর λ eigenvalue: ম্যাট্রিক্স v এর দিক বদলায় না, শুধু λ গুণ টানে। λ বের করতে det(A − λI) = 0 সমাধান করো। 2 × 2 ম্যাট্রিক্সে: λ² − (trace)λ + det = 0।
+
+EX: A first example
+1. A = [[2, 1], [1, 2]]. trace = 4, det = 3. So λ² − 4λ + 3 = 0, **λ = 1 and λ = 3**.
+2. For λ = 3: A − 3I = [[−1, 1], [1, −1]], so −x + y = 0 and the eigenvector is **(1, 1)**. Check: A (1, 1) = (3, 3) = 3 (1, 1) ✓.
+3. For λ = 1: A − I = [[1, 1], [1, 1]], so x + y = 0 and the eigenvector is **(1, −1)**. Check: A (1, −1) = (1, −1) ✓.
+4. The matrix stretches the diagonal direction by 3 and leaves the other diagonal unchanged.
+/EX
+
+EX: A second example
+1. A = [[4, 1], [2, 3]]. trace = 7, det = 10. λ² − 7λ + 10 = 0, **λ = 2 and 5**.
+2. λ = 5: A − 5I = [[−1, 1], [2, −2]], eigenvector **(1, 1)**. Check: A (1, 1) = (5, 5) ✓.
+3. λ = 2: A − 2I = [[2, 1], [2, 1]], so 2x + y = 0 and the eigenvector is **(1, −2)**. Check: A (1, −2) = (4 − 2, 2 − 6) = (2, −4) = 2 (1, −2) ✓.
+/EX
+
+PREDICT: A rotation by 90° turns every vector. Does it have any eigenvector? What do you think its eigenvalues are? => No real vector keeps its direction. The characteristic equation of [[0, −1], [1, 0]] is λ² + 1 = 0, so the eigenvalues are **λ = ±i**: complex numbers! Complex eigenvalues are how matrices describe rotation and oscillation.
+
+LAB: Eigenvalues of a 2 × 2 matrix | Choose A = [[a, b], [c, d]]. The graph shows the characteristic polynomial p(λ) = λ² − (a + d) λ + (a d − b c): the eigenvalues are where it crosses the λ-axis. The numbers give the trace, the determinant and the eigenvalues. If the curve does not cross the axis, the eigenvalues are complex (and the numbers show n/a). | a:a:-3:5:1:2 ;; b:b:-3:3:1:1 ;; c:c:-3:3:1:1 ;; d:d:-3:5:1:2 | a+d:Trace:0 ;; a*d-b*c:Determinant:0 ;; (a+d)^2-4*(a*d-b*c):Discriminant:0 ;; ((a+d)+sqrt((a+d)^2-4*(a*d-b*c)))/2:Larger eigenvalue:3 ;; ((a+d)-sqrt((a+d)^2-4*(a*d-b*c)))/2:Smaller eigenvalue:3 | x^2-(a+d)*x+(a*d-b*c) | -5,8 | -10,40
+
+### Useful facts
+1. **Sum of eigenvalues = trace; product = determinant.** (Example 1: 1 + 3 = 4 ✓, 1 × 3 = 3 ✓.)
+2. For a **triangular** matrix the eigenvalues are the diagonal entries: [[2, 5], [0, 3]] has λ = 2 and 3.
+3. λ = 0 is an eigenvalue exactly when det A = 0 (A is singular).
+4. If A has eigenvalue λ, then A² has λ², A⁻¹ has 1 ÷ λ, and A + c I has λ + c. For A = [[2, 1], [1, 2]]: A² = [[5, 4], [4, 5]] has trace 10 and det 9, so λ² − 10λ + 9 = 0 gives **1 and 9** ✓.
+5. A shear [[1, 1], [0, 1]] has only the eigenvalue 1 with a single direction (1, 0): it cannot be fully described by eigenvectors.
+
+EX: Repeated multiplication (power iteration)
+1. Start with v₀ = (1, 0) and apply A = [[2, 1], [1, 2]] again and again: (2, 1), (5, 4), (14, 13), (41, 40). In general **Aⁿ (1, 0) = ((3ⁿ + 1) ÷ 2, (3ⁿ − 1) ÷ 2)**.
+2. The vector swings round to the eigenvector direction (1, 1), because the λ = 3 component grows fastest, and each step multiplies the length by nearly 3.
+3. This is how Google's PageRank finds the dominant eigenvector of the web's link matrix.
+/EX
+
+LAB: Power iteration | Apply A = [[2, 1], [1, 2]] n times to (1, 0). The numbers show where the vector lands, the ratio y ÷ x (which tends to 1: the direction (1, 1)) and the growth factor per step (which tends to the eigenvalue 3). | n:Number of steps n:0:8:1:3 | (pow(3,n)+1)/2:x after n steps:0 ;; (pow(3,n)-1)/2:y after n steps:0 ;; (pow(3,n)-1)/(pow(3,n)+1):Ratio y ÷ x:4 ;; (pow(3,n+1)+1)/(pow(3,n)+1):Growth factor per step:3 | - | 0,1 | 0,1
+
+BN: eigenvalue এর যোগফল = trace, গুণফল = det। ত্রিকোণাকার ম্যাট্রিক্সে কর্ণের সংখ্যাগুলোই eigenvalue। A² এর eigenvalue λ², A⁻¹ এর 1/λ। বারবার A দিয়ে গুণ করলে ভেক্টর সবচেয়ে বড় eigenvalue এর eigenvector এর দিকে ঘুরে যায় (power iteration), Google PageRank এভাবেই কাজ করে।
+
+TRAP: An eigenvector must be **non-zero** (the zero vector satisfies A v = λ v for every λ, and tells you nothing). Eigenvectors are only defined up to a multiple: (1, 1) and (5, 5) are the same direction. And do not forget to **check** A v = λ v with the numbers: it takes ten seconds.
+
+### Quick self-check
+QUIZ:
+Q: The eigenvalues of [[3, 0], [0, 5]] are…; 3 and 5; 8 and 15; 0 and 8; 3 and −5; 1; Diagonal matrix.
+Q: The sum of the eigenvalues of a matrix equals its…; determinant; trace; rank; inverse; 2; Eigenvalues add to the trace.
+Q: If det A = 0, then A has an eigenvalue…; 1; 0; −1; i; 2; A is singular.
+Q: A rotation by 90° has eigenvalues…; 1 and −1; ±i; 0 and 1; 2 and 3; 2; The characteristic equation is λ² + 1 = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the eigenvalues of [[3, 0], [0, 5]] and of [[2, 5], [0, 3]]. => **3 and 5**, and **2 and 3** (diagonal and triangular matrices).
+P: A matrix has trace 6 and determinant 8. Find its eigenvalues. => λ² − 6λ + 8 = 0, **λ = 2 and 4**.
+P: Check that (1, 1) is an eigenvector of [[2, 1], [1, 2]] and find its eigenvalue. => A (1, 1) = (3, 3), so **λ = 3**.
+LVL: Level 2 | Apply
+P: Find the eigenvalues and eigenvectors of [[1, 2], [2, 1]]. => trace 2, det −3, λ² − 2λ − 3 = 0, **λ = 3 and −1**. For 3: (1, 1). For −1: (1, −1). Check: A (1, −1) = (−1, 1) = −1 (1, −1) ✓.
+P: Find the eigenvalues and eigenvectors of [[0, 1], [−2, −3]]. => trace −3, det 2, λ² + 3λ + 2 = 0, **λ = −1 and −2**. For −1: (A + I) = [[1, 1], [−2, −2]], vector (1, −1). For −2: (A + 2I) = [[2, 1], [−2, −1]], vector (1, −2). Check: A (1, −2) = (−2, −2 + 6) = (−2, 4) = −2 (1, −2) ✓.
+P: If A has eigenvalues 2 and 5, find the eigenvalues of A², A⁻¹ and A + 3I. => **4 and 25**, **1/2 and 1/5**, **5 and 8**.
+P: For which k is [[k, 1], [1, k]] singular? => det = k² − 1 = 0, **k = ±1**. (Then 0 is an eigenvalue: for k = 1 the eigenvalues are 2 and 0.)
+P: Find the eigenvalues of [[0, −1], [1, 0]]. => λ² + 1 = 0, **λ = ±i**.
+LVL: Level 3 | Real
+P: A thin rubber sheet is stretched by A = [[3, 1], [1, 3]]. In which directions is it purely stretched, and by what factors? => trace 6, det 8, λ = 2 and 4. For 4: **(1, 1)**, stretched by **4**. For 2: **(1, −1)**, stretched by **2**. These are the **principal directions** of the deformation.
+LVL: Challenge | The Cayley–Hamilton theorem and the inverse
+P: Verify A² − (trace A) A + (det A) I = 0 for A = [[2, 1], [1, 2]], and use it to find A⁻¹ without row operations. => A² = [[5, 4], [4, 5]] and 4A = [[8, 4], [4, 8]], so A² − 4A + 3I = [[5 − 8 + 3, 4 − 4], [4 − 4, 5 − 8 + 3]] = **0** ✓. Rearranging, A (4I − A) = 3I, so **A⁻¹ = (4I − A) ÷ 3 = (1/3) [[2, −1], [−1, 2]]**. Check: A A⁻¹ = (1/3) [[4 − 1, −2 + 2], [2 − 2, −1 + 4]] = I ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: the second law and heat engines | 35 min
+
+### What the first law does not say
+Some things never happen, though energy conservation allows them: a cup of coffee never heats itself by cooling the room; a ball on the floor never gathers heat and bounces up; a gas that has expanded into a vacuum never rushes back by itself. All of them conserve energy. They are forbidden by the **second law of thermodynamics**, which gives the arrow of time. It has many equivalent statements:
+
+- **Clausius:** heat never flows by itself from a colder to a hotter body. (Moving it requires work: a refrigerator.)
+- **Kelvin–Planck:** no cyclic engine can turn heat from a single reservoir entirely into work. Some heat must be rejected.
+
+BN: প্রথম সূত্র শক্তি সংরক্ষণ বলে, কিন্তু সব ঘটনা ঘটতে দেয় না: গরম কফি নিজে নিজে ঘর ঠান্ডা করে আরও গরম হয় না। এগুলো দ্বিতীয় সূত্রে নিষিদ্ধ। ক্লসিয়াস: তাপ নিজে নিজে ঠান্ডা থেকে গরমে যায় না। কেলভিন-প্লাঙ্ক: কোনো চক্রীয় ইঞ্জিন একটা উৎস থেকে নেওয়া তাপ পুরোটা কাজে বদলাতে পারে না।
+
+### Heat engines
+A **heat engine** takes heat Q_H from a hot reservoir, does work W, and rejects heat Q_C to a cold reservoir. Over a full cycle ΔU = 0, so by the first law W = Q_H − Q_C. The **thermal efficiency** is
+
+EQ: e = W ÷ Q_H = 1 − Q_C ÷ Q_H
+
+| Engine | Typical efficiency |
+| Human muscle | 20 to 25% |
+| Petrol (gasoline) car engine | 25 to 30% |
+| Diesel engine | 35 to 45% |
+| Steam power plant | 35 to 45% |
+| Combined-cycle gas plant | about 60% |
+| Electric motor (not a heat engine) | 90% or more |
+
+EX: Engines
+1. **Car engine:** Q_H = 3000 J of fuel heat per cycle and W = 750 J: e = **25%**, Q_C = 2250 J rejected through the exhaust and radiator.
+2. **Power plant:** 500 MW electrical output at 38% efficiency: Q_H = 500 ÷ 0.38 = **1316 MW** of fuel heat and **816 MW** of waste heat. If the cooling river water warms by 10 K, the flow needed is 816 × 10⁶ ÷ (4186 × 10) = **19,500 kg/s ≈ 19.5 m³/s**.
+3. **Car:** to deliver 50 kW to the wheels at 25%, the fuel supplies 200 kW. Petrol has 46 MJ/kg: 200,000 ÷ 46 × 10⁶ = 4.35 g/s, about **15.6 kg per hour (21 L/h)**.
+4. **A cyclist** delivers 100 W of mechanical power at 25%: the body must burn 400 W, of which **300 W** becomes heat (which is why you sweat).
+/EX
+
+LAB: Engine energy flow | Choose the heat taken from the hot reservoir and the efficiency. The numbers show the work done and the heat that must be thrown away. A real engine cannot reach 100% efficiency. | QH:Heat from the fuel Q_H (J):1000:5000:100:3000 ;; e:Efficiency (%):10:60:1:25 | QH*e/100:Work W (J):0 ;; QH*(100-e)/100:Rejected heat Q_C (J):0 | - | 0,1 | 0,1
+
+LAB: Cooling water of a power plant | A power plant delivers an electrical power P_e with efficiency e. The waste heat is carried away by river water that warms by ΔT. The numbers give the fuel power, the waste heat and the river flow needed. | Pe:Electrical output (MW):100:1000:50:500 ;; e:Efficiency (%):25:60:1:38 ;; dT:Water temperature rise (K):5:15:1:10 | Pe*100/e:Fuel power Q_H (MW):0 ;; Pe*(100-e)/e:Waste heat Q_C (MW):0 ;; Pe*(100-e)/e/(4.186*dT):River flow (m³/s):1 | - | 0,1 | 0,1
+
+### Refrigerators and heat pumps
+Run an engine backwards: with work W put in, a **refrigerator** removes Q_C from the cold space and dumps Q_H = Q_C + W into the hot space. The **coefficient of performance** is
+
+EQ: COP (refrigerator) = Q_C ÷ W     COP (heat pump) = Q_H ÷ W = COP (refrigerator) + 1
+
+EX: Fridges and heat pumps
+1. A fridge with COP 3 removes 300 W of heat from inside: it needs W = 100 W of electricity and rejects **400 W** into the kitchen (so an open fridge door heats the room).
+2. A heat pump with a heating COP of 4 delivers 4 kW of heat for each 1 kW of electricity: 3 kW comes from the cold outside air. Direct electric heating has a COP of only 1.
+3. A device claiming Q_H = 1000 J and W = 1200 J would be **impossible** by the first law alone (W cannot exceed Q_H in a cycle).
+/EX
+
+LAB: Fridge and heat pump | Choose the coefficient of performance of a refrigerator and the electric power it uses. The numbers show the heat removed from inside, the heat released into the room, and the heating COP if the same machine were run as a heat pump. | cop:COP of the refrigerator:1:6:0.5:3 ;; W:Electric power (W):50:500:10:100 | cop*W:Heat removed from inside (W):0 ;; (cop+1)*W:Heat released into the room (W):0 ;; cop+1:COP as a heat pump:1 | - | 0,1 | 0,1
+
+TRAP: Efficiency is **work out divided by heat in**, not heat out. Do not confuse the efficiency of an engine (always below 1) with the COP of a refrigerator (which can be above 1, because it **moves** heat rather than creating it). And never let Q_C be zero: the second law forbids it.
+
+### Quick self-check
+QUIZ:
+Q: An engine takes 800 J and rejects 600 J. Its efficiency is…; 25%; 75%; 33%; 133%; 1; W = 200 J, e = 200 ÷ 800.
+Q: The Kelvin–Planck statement says that…; heat flows from cold to hot; no cyclic engine turns heat from one reservoir entirely into work; all engines are 100% efficient; energy is not conserved; 2; Some heat must be rejected.
+Q: A fridge with COP 4 and 100 W of electricity removes heat at a rate of…; 25 W; 100 W; 400 W; 500 W; 3; Q_C = COP × W.
+Q: If a plant's efficiency rises from 38% to 45%, the waste heat per unit electricity…; rises; falls; stays the same; doubles; 2; Q_C ÷ W = (1 − e) ÷ e.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: An engine takes in 2000 J and rejects 1500 J. Find the work and the efficiency. => W = 500 J, e = **25%**.
+P: A fridge uses 200 J of work to remove 600 J from the cold space. Find its COP and the heat rejected. => COP = **3**, Q_H = **800 J**.
+LVL: Level 2 | Apply
+P: A power plant produces 600 MW of electricity at 40% efficiency. Find the fuel power and the waste heat. => Q_H = 1500 MW, Q_C = **900 MW**.
+P: How much water per second is needed to carry away 900 MW if it warms by 8 K? => 900 × 10⁶ ÷ (4186 × 8) = 26,875 kg/s ≈ **26.9 m³/s**.
+P: A heat pump has a heating COP of 4. How much heat does it deliver when it uses 1.5 kW, and how much comes from outside? => Delivered **6 kW**, of which **4.5 kW** comes from outside.
+P: A cyclist produces 150 W of mechanical power at 25% efficiency. Find the metabolic power and the heat produced. => 600 W of metabolic power, **450 W** of heat.
+P: A car engine delivers 60 kW to the wheels at 30%. Find the fuel energy per hour (in MJ) and the amount of petrol (46 MJ/kg). => Fuel power 200 kW. Per hour: 200 × 3600 = **720 MJ**, which is 720 ÷ 46 = **15.7 kg**.
+P: An inventor says an engine takes 500 J from the hot side and does 600 J of work. Is it possible? => **No**: W cannot exceed Q_H (it would create energy, violating the first law).
+LVL: Level 3 | Real
+P: Raising a plant's efficiency from 38% to 45% for a 500 MW plant: find the change in the waste heat and in the river flow (ΔT = 10 K). => Q_C = 500 × 0.55 ÷ 0.45 = 611 MW, instead of 816 MW: a reduction of **205 MW**. River flow: 611 ÷ (4.186 × 10) = **14.6 m³/s**, down from 19.5 m³/s.
+LVL: Challenge | Clausius and Kelvin–Planck are equivalent
+P: Show that if a device could move heat Q from a cold reservoir to a hot reservoir with no work (violating Clausius), then you could build an engine violating Kelvin–Planck. => Run it together with an ordinary engine that takes Q_H from the hot reservoir, does work W and rejects Q to the cold reservoir (choose the engine so that its rejected heat equals the Q that the device moves). The cold reservoir loses Q to the device and gains Q from the engine: **no net change**. The hot reservoir gives Q_H to the engine and receives Q from the device: net loss **Q_H − Q = W**. The combined machine takes heat only from the hot reservoir and converts it **completely into work**: a violation of Kelvin–Planck. So the two statements stand or fall together.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Eigenvectors A v = λ v: directions that are only stretched. Solve det (A − λ I) = 0, i.e. λ² − (trace) λ + det = 0 for 2 × 2. Sum of eigenvalues = trace, product = det, λ = 0 means singular. A² has λ², A⁻¹ has 1/λ. Rotation has complex eigenvalues ±i. Power iteration finds the dominant eigenvector.
+- Second law: Clausius, Kelvin–Planck. Heat engine W = Q_H − Q_C, e = W ÷ Q_H. Refrigerator COP = Q_C ÷ W, heat pump COP = Q_H ÷ W. Real plants waste 55 to 65% of the fuel heat.
+
+BN: আজকের সারকথা: Av = λv; det(A − λI) = 0; eigenvalue এর যোগফল = trace, গুণফল = det; ঘূর্ণনের eigenvalue ±i। দ্বিতীয় সূত্র (ক্লসিয়াস, কেলভিন-প্লাঙ্ক): ইঞ্জিনে W = Q_H − Q_C, e = W/Q_H; ফ্রিজের COP = Q_C/W, হিট পাম্পের COP = Q_H/W।
+
+EXIT:
+E: What is the larger eigenvalue of [[2, 1], [1, 2]]?; 3; 0.001; λ² − 4λ + 3 = 0, so λ = 1 or 3.
+E: What is the efficiency (in percent) of an engine with Q_H = 3000 J and W = 750 J?; 25; 0.01; 750 ÷ 3000 = 0.25.
+E: What is the COP of a fridge that removes 600 J of heat using 200 J of work?; 3; 0.001; 600 ÷ 200 = 3.
+
+**Tomorrow:** diagonalisation and powers of matrices, and the Carnot cycle: the ideal limit for engines.
+
+CHECK: notes

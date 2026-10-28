@@ -1,0 +1,203 @@
+@day Week 6 · Day 2 · Tuesday
+# The chain rule. Then: collisions in one dimension
+lead: Most useful functions are built by plugging one function into another, like sin(x²) or e^(−3x). The chain rule differentiates them by multiplying the rates of the pieces. In physics, you use conservation of momentum to predict what happens when two bodies collide, from billiard balls to car crashes.
+
+BN: বেশিরভাগ কাজের ফাংশন একটা আরেকটার ভেতরে বসিয়ে বানানো, যেমন sin(x²) বা e^(−3x)। চেইন রুল (chain rule) প্রতিটা অংশের পরিবর্তনের হার গুণ করে অন্তরকলজ বের করে। পদার্থবিজ্ঞানে ভরবেগের সংরক্ষণ দিয়ে দুটি বস্তুর সংঘর্ষের ফল আগে থেকে বলা যায়, বিলিয়ার্ড বল থেকে গাড়ির দুর্ঘটনা পর্যন্ত।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Differentiate x² sin x. => **2x sin x + x² cos x**.
+P: Differentiate (x + 1) ÷ (x − 2). => ((x − 2) − (x + 1)) ÷ (x − 2)² = **−3 ÷ (x − 2)²**.
+P: What is the impulse on a 0.5 kg ball whose velocity changes from 4 m/s to −6 m/s? => 0.5 × (−6 − 4) = **−5 N·s** (magnitude 5, opposite to the original direction).
+P: A skater (50 kg) at rest throws a 5 kg ball at 4 m/s. Find the recoil speed. => 20 ÷ 50 = **0.4 m/s**.
+P: Differentiate tan x. => **sec²x**.
+
+CHECK: recall
+
+@section math | 2 · Math: the chain rule | 55 min
+
+### The idea: rates multiply
+Suppose y depends on u, and u depends on x. If y changes 3 times as fast as u, and u changes 2 times as fast as x, then y changes 3 × 2 = 6 times as fast as x. Like a chain of gears: the speeds multiply.
+
+EQ: dy/dx = dy/du × du/dx     or     (f(g(x)))′ = f′(g(x)) · g′(x)
+
+In words: **differentiate the outside function (leaving the inside alone), then multiply by the derivative of the inside.**
+
+**Why it works.** The change in y over a small Δx is (Δy ÷ Δu) × (Δu ÷ Δx). Let Δx → 0, and each ratio becomes its derivative. (A careful proof handles the case Δu = 0, but the idea is exactly this.)
+
+BN: চেইন রুল: dy/dx = (dy/du) × (du/dx)। বাইরের ফাংশনের অন্তরকলজ নাও (ভেতরেরটা যেমন আছে তেমন রেখে), তারপর ভেতরের ফাংশনের অন্তরকলজ দিয়ে গুণ করো। গিয়ারের মতো: গতির অনুপাতগুলো গুণ হয়।
+
+EX: Powers of a bracket
+1. y = (3x + 1)⁵. Outside: u⁵, derivative 5u⁴. Inside: 3x + 1, derivative 3.
+2. y′ = 5 (3x + 1)⁴ × 3 = **15 (3x + 1)⁴**.
+/EX
+
+EX: Trig and exponential with an inner function
+1. d/dx sin(x²) = cos(x²) × 2x = **2x cos(x²)**.
+2. d/dx e^(−x²) = e^(−x²) × (−2x) = **−2x e^(−x²)** (the bell curve, with a peak at x = 0).
+3. d/dx cos(5x) = −sin(5x) × 5 = **−5 sin(5x)**.
+4. d/dx √(1 + x²) = (1 ÷ (2√(1 + x²))) × 2x = **x ÷ √(1 + x²)**.
+/EX
+
+LAB: Chain rule as multiplied rates | y = u² with u = sin x. Move x₀ and compare the two small rates with their product. The orange line is the tangent to y = sin²x built from the product dy/du × du/dx. | x0:Point x₀:-3:3:0.1:0.8 | cos(x0):du/dx (rate of u):3 ;; 2*sin(x0):dy/du (rate of y with u):3 ;; 2*sin(x0)*cos(x0):dy/dx = product:3 | sin(x)^2 ;; 2*sin(x0)*cos(x0)*(x-x0)+sin(x0)^2 | -3,3 | -0.5,1.5
+
+### More examples
+EX: Nested chains
+1. y = sin(cos 3x). Outside sin, then cos, then 3x. Multiply three derivatives: y′ = cos(cos 3x) × (−sin 3x) × 3 = **−3 sin(3x) cos(cos 3x)**.
+/EX
+
+EX: A trap with sin²x
+1. sin²x means (sin x)². Outside: u², inside: sin x. y′ = 2 sin x × cos x = **sin 2x**, using the double angle formula from Week 3.
+2. Check from cos 2x = 1 − 2 sin²x: sin²x = (1 − cos 2x) ÷ 2, whose derivative is (2 sin 2x) ÷ 2 = sin 2x ✓.
+/EX
+
+EX: Chain with product and quotient
+1. y = x² e^(3x). Product rule, with the chain rule inside: y′ = 2x e^(3x) + x² × 3 e^(3x) = **x e^(3x) (2 + 3x)**.
+2. y = 1 ÷ (x² + 1)³ = (x² + 1)⁻³. Chain: −3 (x² + 1)⁻⁴ × 2x = **−6x ÷ (x² + 1)⁴**.
+/EX
+
+EX: Exponentials with any base
+1. Write 2ˣ = e^(x ln 2). By the chain rule the derivative is e^(x ln 2) × ln 2 = **(ln 2) 2ˣ**. This confirms the formula you found with limits last week.
+/EX
+
+EX: The logarithm
+1. Start with e^(ln x) = x, differentiate both sides with the chain rule: e^(ln x) × (ln x)′ = 1, so x × (ln x)′ = 1.
+2. **d/dx (ln x) = 1/x**. We use this properly tomorrow.
+/EX
+
+### Rates that depend on each other
+EX: A growing sphere
+1. A balloon's radius grows at 0.2 cm/s. How fast does the volume grow when r = 5 cm?
+2. V = (4/3) π r³. By the chain rule dV/dt = (dV/dr)(dr/dt) = 4π r² × 0.2.
+3. At r = 5: 4π × 25 × 0.2 = **62.8 cm³/s**. The same growth of the radius adds more volume when the balloon is bigger.
+/EX
+
+TRAP: Forgetting the inner derivative is the most common mistake: the derivative of sin(3x) is 3 cos(3x), not cos(3x). Also do not mix up (sin x)² and sin(x²): the first has outside u² and inside sin x, the second has outside sin u and inside x².
+
+### Quick self-check
+QUIZ:
+Q: d/dx (2x + 1)⁴ equals…; 4 (2x + 1)³; 8 (2x + 1)³; (2x + 1)³; 2 (2x + 1)⁴; 2; Outside gives 4u³ and inside gives 2.
+Q: d/dx sin(3x) equals…; cos(3x); 3 cos(3x); −3 cos(3x); 3 sin(3x); 2; Do not forget the factor 3.
+Q: d/dx e^(x²) equals…; e^(x²); x e^(x²); 2x e^(x²); 2x e^(x² − 1); 3; Outside e^u, inside x².
+Q: d/dx √(x + 1) equals…; 1 ÷ √(x + 1); 1 ÷ (2√(x + 1)); 2√(x + 1); (x + 1)^(3/2); 2; ½ (x + 1)^(−1/2).
+Q: d/dx ln x equals…; ln x; x; 1/x; 1/x²; 3; From differentiating e^(ln x) = x.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Differentiate (x² + 3)⁴. => 4 (x² + 3)³ × 2x = **8x (x² + 3)³**.
+P: Differentiate cos(2x). => **−2 sin(2x)**.
+P: Differentiate e^(5x). => **5 e^(5x)**.
+LVL: Level 2 | Combine
+P: Differentiate √(3x² + 1). => 6x ÷ (2√(3x² + 1)) = **3x ÷ √(3x² + 1)**.
+P: Differentiate sin²(3x). => 2 sin(3x) × 3 cos(3x) = **6 sin(3x) cos(3x) = 3 sin(6x)**.
+P: Differentiate x e^(−2x) and find its maximum point for x ≥ 0. => y′ = e^(−2x) (1 − 2x) = 0 at x = 1/2. y(1/2) = 1/(2e) = **0.184**. It rises, then decays: a pulse shape.
+P: Differentiate (x + 1) ÷ (x² + 1)² using both rules. => ((x² + 1)² − (x + 1) × 2 (x² + 1) × 2x) ÷ (x² + 1)⁴ = ((x² + 1) − 4x (x + 1)) ÷ (x² + 1)³ = **(1 − 4x − 3x²) ÷ (x² + 1)³**.
+P: Find the slope of y = ln(x²+ 1) at x = 1. => y′ = 2x ÷ (x² + 1) = 2 ÷ 2 = **1**.
+LVL: Level 3 | Real
+P: The population of a bacterial colony is N = 1000 e^(0.4t). The temperature changes the rate, but suppose instead t = 2 + 0.5 s where s is a dial setting. Find dN/ds at s = 2. => dN/ds = dN/dt × dt/ds = 400 e^(0.4t) × 0.5. At s = 2, t = 3, so 200 e^(1.2) = 200 × 3.320 = **664 per unit of dial setting**.
+LVL: Challenge | Differentiate a function and its inverse
+P: Let y = √x, so x = y². Use the chain rule on x = y² (differentiate both sides with respect to x) to find dy/dx. => 1 = 2y × dy/dx, so dy/dx = 1 ÷ (2y) = **1 ÷ (2√x)** ✓. This trick, differentiating an equation in y with respect to x, is the start of implicit differentiation on Thursday.
+
+CHECK: math
+
+@section physics | 3 · Physics: collisions | 35 min
+
+### Three kinds of collision
+In every collision of an isolated system, **momentum is conserved**. Kinetic energy may or may not be.
+
+| Type | Momentum | Kinetic energy | Example |
+| Elastic | conserved | conserved | billiard balls, atoms in a gas |
+| Inelastic | conserved | partly lost | car crashes, a dropped ball |
+| Perfectly inelastic | conserved | maximum loss, bodies stick together | a bullet in wood, coupling train carriages |
+
+The lost kinetic energy turns into heat, sound and deformation.
+
+### Perfectly inelastic (sticking)
+EQ: m₁ u₁ + m₂ u₂ = (m₁ + m₂) v
+
+EX: A car crash
+1. A 1000 kg car at 20 m/s hits a stationary 1500 kg car, and they lock together.
+2. v = 20,000 ÷ 2500 = **8 m/s**.
+3. KE before: ½ × 1000 × 400 = 200,000 J. After: ½ × 2500 × 64 = 80,000 J. **120,000 J (60%) is lost** to deformation and heat.
+/EX
+
+### Elastic collisions
+Two equations hold: momentum, and kinetic energy. Combining them gives an elegant fact: **the relative speed of approach equals the relative speed of separation.**
+
+EQ: u₁ − u₂ = −(v₁ − v₂)
+
+**Why.** m₁(u₁ − v₁) = m₂(v₂ − u₂) from momentum. m₁(u₁² − v₁²) = m₂(v₂² − u₂²) from energy. Divide the second by the first: u₁ + v₁ = v₂ + u₂, so u₁ − u₂ = v₂ − v₁ ∎.
+
+The final velocities are:
+
+EQ: v₁ = ((m₁ − m₂) u₁ + 2 m₂ u₂) ÷ (m₁ + m₂)     v₂ = ((m₂ − m₁) u₂ + 2 m₁ u₁) ÷ (m₁ + m₂)
+
+EX: Heavy hits light, and the reverse
+1. A 2 kg ball at 6 m/s hits a 4 kg ball at rest, elastically. v₁ = ((2 − 4) × 6) ÷ 6 = **−2 m/s** (it bounces back). v₂ = (2 × 2 × 6) ÷ 6 = **4 m/s**.
+2. Check momentum: 12 = 2(−2) + 4(4) = 12 ✓. Check energy: 36 = ½ × 2 × 4 + ½ × 4 × 16 = 4 + 32 = 36 ✓.
+3. **Equal masses:** v₁ = u₂ and v₂ = u₁. They exchange velocities (Newton's cradle).
+4. **Heavy hits a tiny stationary one:** the tiny one flies off at nearly 2u (a truck hitting a ball).
+/EX
+
+BN: সংঘর্ষে ভরবেগ সবসময় সংরক্ষিত। স্থিতিস্থাপক (elastic) সংঘর্ষে গতিশক্তিও সংরক্ষিত, আর কাছে আসার আপেক্ষিক বেগ = দূরে যাওয়ার আপেক্ষিক বেগ। অস্থিতিস্থাপকে গতিশক্তির কিছুটা তাপ ও বিকৃতিতে যায়। সম্পূর্ণ অস্থিতিস্থাপকে বস্তু দুটি আটকে যায়। সমান ভর হলে বেগ বিনিময় হয়।
+
+### The coefficient of restitution
+In real collisions, the speed of separation is a fraction e of the speed of approach: v₂ − v₁ = e (u₁ − u₂), with e = 1 for elastic and e = 0 for sticking.
+
+EX: A bouncing ball
+1. A ball dropped from 1.0 m bounces back to 0.64 m. The speeds just before and after the bounce are √(2 g h), so e = √(0.64 ÷ 1.0) = **0.8**.
+2. After n bounces the height is 0.64ⁿ metres. After 3 bounces: 0.262 m.
+/EX
+
+LAB: One-dimensional collision | Set two masses and their velocities, then choose the restitution e (1 is elastic, 0 is sticking). Positive velocity means moving right. Watch the final velocities and the kinetic energy lost. | m1:Mass 1 (kg):1:10:1:2 ;; m2:Mass 2 (kg):1:10:1:4 ;; u1:Velocity 1 (m/s):-10:10:1:6 ;; u2:Velocity 2 (m/s):-10:10:1:0 ;; e:Restitution e:0:1:0.1:1 | (m1*u1+m2*u2+m2*e*(u2-u1))/(m1+m2):Final velocity 1 (m/s):2 ;; (m1*u1+m2*u2+m1*e*(u1-u2))/(m1+m2):Final velocity 2 (m/s):2 ;; m1*m2/(2*(m1+m2))*(1-e^2)*(u1-u2)^2:Kinetic energy lost (J):2 | - | 0,1 | 0,1
+
+### Measuring a bullet: the ballistic pendulum
+EX: Bullet speed from a swing
+1. A 0.01 kg bullet embeds in a 2 kg block hanging on strings. The block swings up by 0.1 m.
+2. After the collision (perfectly inelastic), energy conservation gives V = √(2 g h) = √1.96 = 1.4 m/s.
+3. Before the collision, momentum: 0.01 v = 2.01 × 1.4 = 2.814, so **v = 281 m/s**.
+4. Two different laws in two stages: momentum for the collision (energy is lost), energy for the swing.
+/EX
+
+TRAP: Do not use energy conservation for the collision stage of a sticking or deforming collision: energy is lost there. Use momentum for the collision, then energy for what happens after it. Also remember signs: a body moving left has a negative velocity.
+
+### Quick self-check
+QUIZ:
+Q: In an elastic collision between equal masses, one of which is at rest, the moving one…; stops and the other moves off with its speed; bounces back; keeps moving; sticks; 1; They exchange velocities.
+Q: A 3 kg body at 4 m/s sticks to a 1 kg body at rest. The common speed is…; 4 m/s; 3 m/s; 1 m/s; 12 m/s; 2; 12 ÷ 4 = 3 m/s.
+Q: Which quantity is always conserved in an isolated collision?; kinetic energy; momentum; speed; heat; 2; Momentum is conserved in all collisions without external forces.
+Q: A coefficient of restitution of 0 means…; the bodies bounce off at full speed; the bodies stick together; the collision is elastic; one body stays at rest; 2; No relative speed after the collision.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 5 kg cart at 3 m/s hits and sticks to a 5 kg cart at rest. Find the speed after. => 15 ÷ 10 = **1.5 m/s**.
+P: A 1 kg ball at 4 m/s hits an equal ball at rest elastically. Find the final velocities. => **0 and 4 m/s**.
+LVL: Level 2 | Apply
+P: A 1200 kg car at 15 m/s collides head-on and sticks to a 800 kg car moving at 10 m/s the other way. Find the speed and direction after, and the energy lost. => Momentum: 18,000 − 8,000 = 10,000 = 2000 v, so **v = 5 m/s** (in the first car's direction). KE before: ½ × 1200 × 225 + ½ × 800 × 100 = 135,000 + 40,000 = 175,000 J. After: ½ × 2000 × 25 = 25,000 J. Lost: **150,000 J**.
+P: A 3 kg block at 4 m/s hits a 1 kg block at rest, elastically. Find both final velocities. => v₁ = ((3 − 1) × 4) ÷ 4 = **2 m/s**. v₂ = (2 × 3 × 4) ÷ 4 = **6 m/s**. Check momentum: 12 = 6 + 6 ✓.
+P: A 0.02 kg bullet hits a 3 kg block on a smooth table and embeds. The block moves off at 2 m/s. Find the bullet's speed and the fraction of energy lost. => 0.02 v = 3.02 × 2, so **v = 302 m/s**. KE before: ½ × 0.02 × 302² = 912 J. After: ½ × 3.02 × 4 = 6.04 J. Lost: **99.3%**.
+P: A ball is dropped from 2 m and bounces to 1.28 m. Find e. => √(1.28 ÷ 2) = **0.8**.
+LVL: Challenge | The speed of a neutron
+P: In a nuclear reactor, a neutron (mass 1) strikes a stationary carbon nucleus (mass 12) head on, elastically, at speed u. Find the neutron's speed after and its fractional loss of kinetic energy. Why is graphite used to slow neutrons? => v₁ = ((1 − 12) u) ÷ 13 = −11u/13, so the speed is 0.846 u. KE fraction left = (11/13)² = 0.716, so it loses **28.4%** per collision. Hydrogen-like (equal-mass) nuclei would stop the neutron in one collision, but carbon takes many collisions that do not absorb the neutrons, so it is a practical moderator.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Chain rule: dy/dx = dy/du × du/dx. Differentiate outside, multiply by the derivative of the inside. (ln x)′ = 1/x, (aˣ)′ = (ln a) aˣ.
+- Collisions: momentum is always conserved. Elastic: relative speed of approach = relative speed of separation. Sticking: v = (m₁u₁ + m₂u₂) ÷ (m₁ + m₂), energy lost. Restitution e.
+
+BN: আজকের সারকথা: চেইন রুল: বাইরেরটার অন্তরকলজ নিয়ে ভেতরেরটার অন্তরকলজ দিয়ে গুণ। (ln x)′ = 1/x। সংঘর্ষ: ভরবেগ সর্বদা সংরক্ষিত; স্থিতিস্থাপকে আপেক্ষিক বেগ উল্টে যায়; আটকে গেলে v = (m₁u₁ + m₂u₂)/(m₁ + m₂) এবং শক্তি ক্ষয়।
+
+EXIT:
+E: Find d/dx (x² + 1)³ at x = 1.; 24; 0.001; 3 (x² + 1)² × 2x = 3 × 4 × 2 = 24.
+E: A 2 kg body at 5 m/s hits and sticks to a 3 kg body at rest. What is the common speed in m/s?; 2; 0.001; 10 ÷ 5 = 2.
+E: Find the slope of y = e^(2x) at x = 0.; 2; 0.001; 2 e⁰ = 2.
+
+**Tomorrow:** derivatives of all the standard functions, and centre of mass and 2D collisions.
+
+CHECK: notes

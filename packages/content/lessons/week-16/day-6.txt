@@ -1,0 +1,82 @@
+@day Week 16 · Day 6 · Saturday
+# Week 16 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered functions of two variables (partial derivatives, tangent planes, the chain rule, the gradient, maxima and minima, Lagrange multipliers) and electricity (Coulomb's law, the electric field, field lines, dipoles, charges in fields, conductors).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: দুই চলকের ফাংশন (আংশিক অবকল, স্পর্শতল, শৃঙ্খল নিয়ম, গ্রেডিয়েন্ট, সর্বোচ্চ-সর্বনিম্ন, ল্যাগ্রাঞ্জ গুণক) এবং বিদ্যুৎ (কুলম্বের সূত্র, বৈদ্যুতিক ক্ষেত্র, ক্ষেত্ররেখা, ডাইপোল, ক্ষেত্রে চার্জ, পরিবাহী)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use k = 8.99 × 10⁹ N m²/C², ε₀ = 8.85 × 10⁻¹² C²/(N m²), e = 1.602 × 10⁻¹⁹ C, m_e = 9.109 × 10⁻³¹ kg. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Multivariable calculus (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 11
+P: (1 mark) Find f_x and f_y at (1, 2) for f = x² y³. => f_x = 2x y³ = **16**; f_y = 3x² y² = **12**.
+P: (1 mark) For f = x³ y² find f_xy and check that it equals f_yx. => f_x = 3x² y², f_xy = **6x² y**. Also f_y = 2x³ y, f_yx = **6x² y** ✓.
+P: (2 marks) Find the tangent plane of f = x² + y² at (1, 2) and use it to estimate f (1.1, 1.9). => f = 5, f_x = 2, f_y = 4: **L = 5 + 2 (x − 1) + 4 (y − 2)** (1 mark). L (1.1, 1.9) = 5 + 0.2 − 0.4 = **4.8** (1 mark). (Exact: 1.21 + 3.61 = 4.82.)
+P: (1 mark) Find dz/dt for z = x y² with x = t² and y = t, and check by substituting. => y² · 2t + 2x y · 1 = t² · 2t + 2 t² · t = **4t³**. Direct: z = t² t² = t⁴, dz/dt = 4t³ ✓.
+P: (1 mark) Find dy/dx on the circle x² + y² = 25 at (3, 4). => −F_x ÷ F_y = −6 ÷ 8 = **−3/4**.
+P: (2 marks) For f = x² y at (2, 1) find ∇f, the directional derivative towards (3, 4) ÷ 5, and the largest possible rate of change. => ∇f = (2xy, x²) = **(4, 4)** (1 mark). D_u f = (4 × 3 + 4 × 4) ÷ 5 = 28 ÷ 5 = **5.6**; maximum rate |∇f| = 4√2 = **5.66** (1 mark).
+P: (1 mark) The hill h = 50 − x² − y² (metres) has a gradient at (3, 4). Find the steepest slope and the direction of steepest descent. => ∇h = (−6, −8), slope **10 m per unit**; descent along (6, 8) ÷ 10 = **(0.6, 0.8)** (directly away from the summit).
+P: (1 mark) Find and classify the critical point of f = x² + y² − 4x + 6y. => f_x = 2x − 4 = 0, f_y = 2y + 6 = 0: **(2, −3)**. D = 4 > 0, f_xx = 2 > 0: **minimum**, f = 4 + 9 − 8 − 18 = **−13**.
+P: (2 marks) Find and classify the critical points of f = x³ − 3 x y + y³. => f_x = 3x² − 3y = 0 and f_y = 3y² − 3x = 0 give y = x² and x⁴ = x: **(0, 0) and (1, 1)** (1 mark). D = 36 x y − 9: at (0, 0) D = −9 < 0: **saddle**; at (1, 1) D = 27 > 0 and f_xx = 6 > 0: **minimum**, f = −1 (1 mark).
+P: (1 mark) Use a Lagrange multiplier to maximise f = x y subject to 2x + y = 12. => (y, x) = λ (2, 1): y = 2λ, x = λ; 2λ + 2λ = 12 gives λ = 3, **x = 3, y = 6, f = 18**.
+P: (1 mark) Fit y = m x + c by least squares to (0, 0), (1, 1), (2, 3). => Σx = 3, Σy = 4, Σx² = 5, Σxy = 7, n = 3. 5m + 3c = 7 and 3m + 3c = 4. Subtracting: 2m = 3, **m = 1.5**, **c = −0.5**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Electric charge and fields (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 12 to 17
+P: (1 mark) Find the force between +3 μC and −2 μC at 15 cm and say whether it attracts or repels. => F = 8.99 × 10⁹ × 6 × 10⁻¹² ÷ 0.0225 = **2.40 N, attractive**.
+P: (1 mark) Find the field at the midpoint between +4 nC and −4 nC, 20 cm apart. => Each gives 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.01 = 3596 N/C, both towards the negative charge: **7192 N/C**.
+P: (1 mark) Find the force and acceleration of an electron in a field of 4000 N/C. => F = e E = **6.41 × 10⁻¹⁶ N**; a = F ÷ m = **7.03 × 10¹⁴ m/s²** (opposite to the field).
+P: (1 mark) A conductor carries a surface charge density of 5 × 10⁻⁷ C/m². Find the field just outside it. => E = σ ÷ ε₀ = **5.65 × 10⁴ N/C**, perpendicular to the surface.
+P: (1 mark) A dipole of p = 5 × 10⁻¹¹ C m sits at 90° to a field of 2000 N/C. Find the torque and the energy it releases when it turns to line up. => τ = p E = **10⁻⁷ N m**. U goes from 0 to −p E, so it releases **10⁻⁷ J**.
+P: (1 mark) A conducting sphere of radius 3 cm is charged until air breaks down at its surface (3 × 10⁶ V/m). Find its charge and potential. => Q = E R² ÷ k = 3 × 10⁶ × 9 × 10⁻⁴ ÷ 8.99 × 10⁹ = **3.0 × 10⁻⁷ C = 300 nC**. V = E R = **90 kV**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 17. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 16. Tell me, and I will rebalance Week 17. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q9 | Called (0, 0) a minimum | Looked at f_xx only and ignored D | D < 0 means saddle, whatever f_xx is | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: আংশিক অবকলে অন্য চলককে শূন্য ধরা (ধ্রুবক, শূন্য নয়), দিকগত অবকলে একক ভেক্টর না নেওয়া, D এর চিহ্ন দেখে f_xx না দেখা, কুলম্বের সূত্রে ভেক্টর যোগের বদলে মান যোগ করা, ঋণাত্মক চার্জে বলের দিক উল্টানো ভুলে যাওয়া।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The field is the gradient of a potential
+P: For a point charge Q define V (x, y, z) = k Q ÷ r with r = √(x² + y² + z²). Show that E = −∇V, and check for Q = 1 nC at (0.1, 0, 0). => ∂V/∂x = −k Q x ÷ r³ (and similarly for y, z), so ∇V = −k Q (x, y, z) ÷ r³ = **−E** (the field is k Q ÷ r² along the unit vector (x, y, z) ÷ r). At (0.1, 0, 0): V = 8.99 × 10⁹ × 10⁻⁹ ÷ 0.1 = **89.9 V**, ∂V/∂x = −k Q ÷ r² = −899, so **E_x = +899 V/m** ✓. This is the key idea of Week 17: V is a scalar function that holds all the information about E.
+
+LVL: Challenge | Making three charges balance
+P: Two charges +q at x = 0 and +4q at x = 1 m are held fixed. Find the point where a third charge feels zero force, and the charge to put there so that all three are in equilibrium. => Zero field where 1 ÷ x² = 4 ÷ (1 − x)²: 1 − x = 2x, **x = 1/3 m**. For the charges to be in equilibrium the middle charge Q′ must attract both outward-pushed charges: the force on q from 4q is k · 4q² ÷ 1 (pushing it towards −x), balanced by Q′ at distance 1/3: k q |Q′| ÷ (1/9) = 9 k q |Q′|. So 9 |Q′| = 4q and **Q′ = −4q ÷ 9**. (Check the 4q charge: from q, k · 4q² ÷ 1 = 4kq²; from Q′ at 2/3: k · 4q · (4q/9) ÷ (4/9) = 4kq² ✓.) The equilibrium is unstable (the Earnshaw theorem says no purely electric equilibrium of point charges is stable).
+
+### Optional coding idea (not part of the study plan)
+**Field line plotter:** a page where you click to place positive and negative charges, drag them around, and watch the electric field lines and the equipotential (contour) lines redraw live. Hover to read the field vector and the gradient arrow at any point. A second panel runs gradient descent on a surface you choose (bowl, saddle, Rosenbrock banana) and traces the steps, with sliders for the learning rate to see convergence and divergence.
+
+### What Week 17 looks like
+**Multivariable calculus 2 and Gauss's law.** In maths, you add up over areas and volumes with double and triple integrals, then meet line integrals, divergence and curl: the language of fields. In physics, Gauss's law gives electric fields from symmetry in a few lines, and electric potential turns a vector problem into a single number at each point. The story: why lightning rods work.
+
+BN: আগামী সপ্তাহ: বহুচলকবিশিষ্ট ক্যালকুলাস ২ ও গাউসের সূত্র। গণিতে ক্ষেত্রফল ও আয়তনের উপর দ্বিঘাত ও ত্রিঘাত যোগজ, তারপর রেখা যোগজ, ডাইভারজেন্স ও কার্ল, যা ক্ষেত্রের ভাষা। পদার্থবিজ্ঞানে গাউসের সূত্রে প্রতিসাম্য থেকে কয়েক লাইনে বৈদ্যুতিক ক্ষেত্র, আর বিভব ভেক্টর সমস্যাকে প্রতি বিন্দুতে একটা সংখ্যায় আনে। গল্প: বজ্ররোধক দণ্ড কেন কাজ করে।
+
+**Sunday is a rest day.**
+
+CHECK: notes

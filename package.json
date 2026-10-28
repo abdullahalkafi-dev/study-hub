@@ -1,0 +1,24 @@
+{
+  "name": "silo-study",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Silo Study Desk: 8-month math + physics course. Monorepo: Next.js web, Node/Express/Mongoose API, shared content package.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "content:build": "npm run build -w @silo/content",
+    "seed": "npm run content:build && npm run seed -w @silo/api",
+    "dev": "npm run content:build && concurrently -n api,web -c cyan,green \"npm run dev -w @silo/api\" \"npm run dev -w @silo/web\"",
+    "build": "npm run content:build && npm run build -w @silo/web",
+    "start": "concurrently -n api,web \"npm run start -w @silo/api\" \"npm run start -w @silo/web\"",
+    "typecheck": "npm run typecheck -w @silo/api && npm run typecheck -w @silo/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

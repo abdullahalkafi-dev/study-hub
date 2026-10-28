@@ -1,0 +1,75 @@
+# Production-style stack for a VPS:   docker compose up -d --build
+# The database is MongoDB Atlas (MONGODB_URI etc. in .env), so there is no mongo service.
+# HTTPS (optional):   docker compose --profile proxy up -d --build   (needs DOMAIN in .env)
+name: silo-study
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        API_URL: ${INTERNAL_API_URL:-http://api:4000}
+    restart: unless-stopped
+    # Bound to localhost only: a reverse proxy (nginx or the caddy profile) publishes it to the internet.
+    ports: ["127.0.0.1:${WEB_PORT:-3000}:3000"]
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [internal]
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    env_file: [.env]
+    environment:
+      NODE_ENV: production
+      API_PORT: "4000"
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: "9000"
+      WEB_ORIGIN: ${PUBLIC_URL:-http://localhost:3000}
+    expose: ["4000"]
+    depends_on: [minio]
+    networks: [internal]
+
+  minio:
+    # The official minio/minio image is no longer published on Docker Hub; this is the last Bitnami MinIO build.
+    # Any S3-compatible server works: the API only needs the MINIO_* settings.
+    image: bitnamilegacy/minio:latest
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:?set MINIO_ACCESS_KEY in .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:?set MINIO_SECRET_KEY in .env}
+      MINIO_DEFAULT_BUCKETS: ${MINIO_BUCKET:-silo-uploads}
+    # Only reachable from the VPS itself (use an SSH tunnel for the console on 9001).
+    ports: ["127.0.0.1:9001:9001"]
+    volumes: ["silo-minio:/bitnami/minio/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://127.0.0.1:9000/minio/health/live || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: ["proxy"]
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [web]
+    networks: [internal]
+
+networks:
+  internal:
+
+volumes:
+  silo-minio:
+  caddy-data:
+  caddy-config:

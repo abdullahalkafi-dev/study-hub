@@ -1,0 +1,5 @@
+# Automatic HTTPS for $DOMAIN (DNS A record must point at the VPS). Used by `--profile proxy`.
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy web:3000
+}

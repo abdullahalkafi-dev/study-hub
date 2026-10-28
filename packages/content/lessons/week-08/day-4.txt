@@ -1,0 +1,175 @@
+@day Week 8 · Day 4 · Thursday
+# Integration by substitution. Then: angular momentum and the ice skater
+lead: Differentiation has the chain rule for functions inside functions. Integration has its mirror image, substitution, which untangles an integral by renaming the "inside" as a new variable. In physics, you meet the second big conservation law of rotation: angular momentum. It explains why a skater spins faster when pulling their arms in, why a diver tucks, and why planets speed up near the Sun.
+
+BN: অন্তরকলনে ফাংশনের ভেতরে ফাংশন সামলাতে চেইন রুল আছে। সমাকলনে তার প্রতিবিম্ব হলো প্রতিস্থাপন (substitution): ভেতরের অংশকে নতুন চলক নাম দিয়ে জট খোলা। পদার্থবিজ্ঞানে আসছে ঘূর্ণনের দ্বিতীয় বড় সংরক্ষণ সূত্র: কৌণিক ভরবেগ। এটাই ব্যাখ্যা করে স্কেটার হাত গুটালে কেন দ্রুত ঘোরে, ডুবুরি কেন শরীর গুটায়, আর গ্রহ সূর্যের কাছে কেন দ্রুত চলে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Evaluate ∫₀² 4x dx. => [2x²] = **8**.
+P: Evaluate ∫₀^π sin x dx. => **2**.
+P: A torque of 10 N·m acts on I = 2.5 kg·m². Find α. => **4 rad/s²**.
+P: Find d/dx of ∫₁ˣ cos(t²) dt. => **cos(x²)**.
+P: Find the power of a 30 N·m torque at 20 rad/s. => **600 W**.
+
+CHECK: recall
+
+@section math | 2 · Math: substitution | 55 min
+
+### The idea
+The chain rule says d/dx [F(g(x))] = F′(g(x)) · g′(x). Read it backwards:
+
+EQ: ∫ f(g(x)) g′(x) dx = ∫ f(u) du     where u = g(x), du = g′(x) dx
+
+**Recipe:** (1) choose u as the "inside" whose derivative also appears as a factor; (2) write du; (3) replace everything by u; (4) integrate; (5) put x back (or change the limits).
+
+BN: চেইন রুল উল্টো করে পড়ো: ∫ f(g(x)) g′(x) dx = ∫ f(u) du, যেখানে u = g(x)। ধাপ: ভেতরের অংশ u বেছে নাও যার অন্তরকলজ গুণক হিসেবে আছে; du লেখো; সবকিছু u তে বদলাও; সমাকলন করো; আবার x বসাও।
+
+PREDICT: In ∫ x e^(x²) dx, which part is the "inside function", and what is its derivative? Is that derivative present in the integral? => The inside is x², with derivative 2x. The integral has x, which is half of 2x, so we substitute u = x² and compensate with a factor of 1/2.
+
+EX: Standard substitutions
+1. ∫ 2x (x² + 1)³ dx: let u = x² + 1, du = 2x dx. The integral becomes ∫ u³ du = u⁴ ÷ 4 = **(x² + 1)⁴ ÷ 4 + C**.
+2. ∫ x e^(x²) dx: u = x², du = 2x dx, so x dx = du ÷ 2. We get ½ ∫ eᵘ du = **½ e^(x²) + C**.
+3. ∫ cos(3x + 1) dx: u = 3x + 1, du = 3 dx. We get (1/3) ∫ cos u du = **sin(3x + 1) ÷ 3 + C**.
+4. ∫ sin x cos² x dx: u = cos x, du = −sin x dx. We get −∫ u² du = **−cos³ x ÷ 3 + C**.
+5. ∫ 2x ÷ (x² + 1) dx: u = x² + 1 gives ∫ du ÷ u = **ln(x² + 1) + C**.
+6. ∫ tan x dx = ∫ sin x ÷ cos x dx: u = cos x gives −∫ du ÷ u = **−ln abs(cos x) + C**.
+7. ∫ (ln x) ÷ x dx: u = ln x, du = dx ÷ x, so ∫ u du = **(ln x)² ÷ 2 + C**.
+/EX
+
+EX: When x is left over
+1. ∫ x √(x + 1) dx: let u = x + 1, so x = u − 1 and dx = du. We get ∫ (u − 1) u^(1/2) du = ∫ (u^(3/2) − u^(1/2)) du = (2/5) u^(5/2) − (2/3) u^(3/2) + C, with u = x + 1.
+2. Check by differentiating: d/du of (2/5) u^(5/2) − (2/3) u^(3/2) is u^(3/2) − u^(1/2) = u^(1/2) (u − 1) = √(x + 1) · x ✓.
+/EX
+
+### Definite integrals: change the limits
+When you substitute in a definite integral, convert the limits to u and never go back to x.
+
+EX: Changing limits
+1. ∫₀¹ 2x e^(x²) dx: u = x², so x = 0 gives u = 0 and x = 1 gives u = 1. ∫₀¹ eᵘ du = **e − 1 = 1.718**.
+2. ∫₀² x ÷ √(x² + 5) dx: u = x² + 5, du = 2x dx. Limits: u = 5 to 9. ½ ∫₅⁹ u^(−1/2) du = [√u] = 3 − √5 = **0.764**.
+3. ∫₀^(π/2) sin³ x cos x dx: u = sin x, limits 0 to 1. ∫₀¹ u³ du = **1/4**.
+4. ∫₁ᵉ (ln x) ÷ x dx: u = ln x from 0 to 1. ∫₀¹ u du = **1/2**.
+/EX
+
+LAB: Substitution and area | The curve f(x) = 2x e^(x²) is the derivative of e^(x²). Substitution (u = x²) says ∫₀ᵇ 2x e^(x²) dx = e^(b²) − 1. Move b: the orange curve e^(x²) − 1 is the accumulated blue area. | b:Upper limit b:0.2:1.5:0.1:1 | exp(b^2)-1:Exact area e^(b²) − 1:4 ;; 2*b*exp(b^2):Height f(b):3 | 2*x*exp(x^2) ;; exp(x^2)-1 | 0,1.5 | 0,30
+
+TRAP: Choose u so that **du is already in the integral** (up to a constant). If a leftover x remains after replacing, rewrite it with u (like x = u − 1) or choose a different u. Never move a function of x through the integral sign: you may only pull out constants. And in definite integrals, either change the limits or return to x before using the original limits, never mix them.
+
+### Quick self-check
+QUIZ:
+Q: For ∫ x (x² + 4)⁵ dx, a good substitution is…; u = x; u = x² + 4; u = (x² + 4)⁵; u = 5; 2; The inside's derivative 2x appears (up to a constant).
+Q: ∫ 3 cos(3x) dx equals…; sin(3x) + C; 3 sin(3x) + C; −sin(3x) + C; cos(3x) + C; 1; u = 3x gives ∫ cos u du.
+Q: ∫₀² 2x (x² + 1) dx after u = x² + 1 has limits…; 0 and 2; 1 and 5; 0 and 4; 1 and 3; 2; u(0) = 1 and u(2) = 5.
+Q: ∫ tan x dx equals…; ln abs(cos x); −ln abs(cos x); sec² x; −ln abs(sin x); 2; Take u = cos x.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∫ 2x (x² + 3)⁴ dx. => u = x² + 3: **(x² + 3)⁵ ÷ 5 + C**.
+P: Find ∫ cos 5x dx. => **sin 5x ÷ 5 + C**.
+P: Find ∫ e^(−x) dx. => **−e^(−x) + C**.
+P: Find ∫ x (x² + 1)³ dx. => u = x² + 1, x dx = du ÷ 2: **(x² + 1)⁴ ÷ 8 + C**.
+LVL: Level 2 | Apply
+P: Find ∫ x e^(x²) dx and check by differentiating. => **½ e^(x²) + C**. Derivative: ½ e^(x²) · 2x = x e^(x²) ✓.
+P: Find ∫ sin x cos² x dx. => **−cos³ x ÷ 3 + C**.
+P: Find ∫ 2x ÷ (x² + 1) dx. => **ln(x² + 1) + C** (no absolute value needed since x² + 1 > 0).
+P: Evaluate ∫₀² x ÷ √(x² + 5) dx. => **3 − √5 ≈ 0.764**.
+P: Evaluate ∫₀^(π/2) sin³ x cos x dx. => **1/4**.
+P: Evaluate ∫₁ᵉ (ln x) ÷ x dx. => **1/2**.
+LVL: Level 3 | Real
+P: A force F(x) = 4x ÷ (x² + 1) newtons acts over 0 ≤ x ≤ 3 m. Find the work done. => W = ∫₀³ 4x ÷ (x² + 1) dx = 2 ln(x² + 1) from 0 to 3 = 2 ln 10 = **4.61 J**.
+P: The current in a charging circuit is i(t) = 0.5 e^(−t/2) amperes. How much charge flows in the first 4 s? => Q = ∫₀⁴ 0.5 e^(−t/2) dt = [−e^(−t/2)] = 1 − e^(−2) = **0.865 C**. (As t → ∞ the total is 1 C.)
+P: A particle's speed is v(t) = t √(t² + 9) m/s. Find the distance travelled in the first 4 s. => u = t² + 9, from 9 to 25. ∫ = ½ ∫₉²⁵ u^(1/2) du = (1/3)[u^(3/2)] = (125 − 27) ÷ 3 = **32.7 m**.
+LVL: Challenge | Leftover x
+P: Evaluate ∫₀¹ x³ √(1 + x²) dx. => Let u = 1 + x², so x² = u − 1 and x dx = du ÷ 2. The integral is ½ ∫₁² (u − 1) u^(1/2) du = ½ [(2/5) u^(5/2) − (2/3) u^(3/2)] from 1 to 2. At u = 2: (2/5)(4√2) − (2/3)(2√2) = √2 (8/5 − 4/3) = 4√2 ÷ 15. At u = 1: 2/5 − 2/3 = −4/15. Difference = (4√2 + 4) ÷ 15. Times ½: **2 (√2 + 1) ÷ 15 ≈ 0.322**.
+
+CHECK: math
+
+@section physics | 3 · Physics: angular momentum | 35 min
+
+### Definition
+Linear momentum is p = m v. The rotational version is **angular momentum**:
+
+EQ: L = I ω     (for a point mass in a circle:  L = m v r)
+
+Newton's second law in momentum form carries over: **the net torque is the rate of change of angular momentum**, τ = dL/dt. So if the net external torque is zero, L stays constant:
+
+EQ: τ_net = 0   ⟹   I₁ ω₁ = I₂ ω₂
+
+Units: kg·m²/s. Angular momentum has a direction (along the axis, by the right-hand rule), so spinning one way and the other way are opposite signs.
+
+BN: কৌণিক ভরবেগ L = Iω (বিন্দু ভরের জন্য L = mvr)। টর্ক হলো L এর পরিবর্তনের হার: τ = dL/dt। বাইরের টর্ক শূন্য হলে L স্থির: I₁ω₁ = I₂ω₂। অর্থাৎ I কমলে ω বাড়ে, আর L এর দিক আছে (ডানহাতি নিয়ম)।
+
+EX: The ice skater
+1. A skater spins at ω₁ = 2 rad/s with arms out, I₁ = 4 kg·m². She pulls her arms in so that I₂ = 1.2 kg·m².
+2. L = I₁ ω₁ = 8 kg·m²/s stays constant (ice is nearly frictionless, so no external torque). ω₂ = 8 ÷ 1.2 = **6.67 rad/s**, more than three times faster (about 1.06 rev/s).
+3. Kinetic energy: before ½ × 4 × 4 = **8 J**, after ½ × 1.2 × 44.4 = **26.7 J**. The extra 18.7 J does not appear from nowhere: it is the **work her muscles do** pulling her arms in against the "centrifugal" tendency to fly outward. Angular momentum is conserved, kinetic energy is not.
+/EX
+
+LAB: The skater pulls in her arms | A skater with body inertia 0.8 kg·m² and two arms of 4 kg each starts with arms 0.9 m from the axis at the angular velocity you choose. Pull the arms in (smaller r) and watch ω rise as I falls. Angular momentum L is held constant. | w0:Starting angular velocity ω₀ (rad/s):0.5:3:0.25:1.5 ;; r:Arm distance now r (m):0.1:0.9:0.05:0.9 | 0.8+8*r^2:Moment of inertia I (kg·m²):3 ;; (0.8+8*0.81)*w0:Angular momentum L (kg·m²/s):2 ;; (0.8+8*0.81)*w0/(0.8+8*r^2):Angular velocity ω (rad/s):2 ;; ((0.8+8*0.81)*w0)^2/(2*(0.8+8*r^2)):Kinetic energy (J):1 | ((0.8+8*0.81)*w0)/(0.8+8*x^2) | 0.1,0.9 | 0,26
+
+EX: A diver and a planet
+1. A diver leaves the board with I = 15 kg·m² and ω = 2 rad/s, then tucks to I = 5 kg·m². ω₂ = 15 × 2 ÷ 5 = **6 rad/s**. Two full rotations (4π = 12.57 rad) take 12.57 ÷ 6 = **2.1 s**.
+2. **Kepler's second law.** The Sun's pull is directed at the Sun, so it gives no torque about the Sun: L = m v r is conserved. At the Earth's farthest point (r = 1.521 × 10¹¹ m) the speed is 29.29 km/s. At the closest point (r = 1.471 × 10¹¹ m): v = 29.29 × 1.521 ÷ 1.471 = **30.29 km/s**. Closer means faster.
+/EX
+
+### Collisions that change the spin
+Angular momentum is conserved whenever the colliding bodies exert only internal torques, so you can use it for "sticky" rotational collisions, just as you used momentum before.
+
+EX: Clay hits a disc
+1. A 0.2 kg clay lump flies at 5 m/s tangentially and sticks to the rim of a stationary disc (M = 2 kg, R = 0.5 m, I = ½ M R² = 0.25 kg·m²).
+2. L before = m v R = 0.2 × 5 × 0.5 = 0.5. I after = 0.25 + 0.2 × 0.25 = 0.30.
+3. ω = 0.5 ÷ 0.30 = **1.67 rad/s**.
+/EX
+
+EX: The merry-go-round
+1. A merry-go-round (disc, M = 200 kg, R = 2 m, I = 400 kg·m²) turns at 1.5 rad/s. A 40 kg child running tangentially at 4 m/s in the same direction jumps on at the rim.
+2. L before = 400 × 1.5 + 40 × 4 × 2 = 600 + 320 = 920. I after = 400 + 40 × 4 = 560.
+3. ω = 920 ÷ 560 = **1.64 rad/s**.
+/EX
+
+TRAP: Angular momentum is conserved only if there is **no external torque** about the chosen axis. A skater's blades on the ice give almost none; a bicycle on the road does. Also, never conserve kinetic energy in a sticking collision, and do not forget the incoming particle's L = m v r about the **same axis** as the disc's (use the perpendicular distance r).
+
+### Quick self-check
+QUIZ:
+Q: A skater pulls in her arms and I drops to half. Her ω…; halves; stays the same; doubles; quadruples; 3; I ω is constant.
+Q: In the same process, her kinetic energy…; halves; stays the same; doubles; quadruples; 3; KE = L² ÷ 2I and I halves.
+Q: A planet moves faster near the Sun because…; gravity is stronger so energy is lost; its angular momentum is conserved so v r is constant; it spins faster; friction vanishes; 2; The central force gives no torque about the Sun.
+Q: The unit of angular momentum is…; kg·m²/s; kg·m/s; N·m; J; 1; Moment of inertia times rad/s.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find L for I = 2 kg·m² and ω = 5 rad/s. => **10 kg·m²/s**.
+P: Find L for a 2 kg mass moving in a circle of radius 3 m at 4 m/s. => 2 × 4 × 3 = **24 kg·m²/s**.
+LVL: Level 2 | Apply
+P: A skater spins at 3 rad/s with I = 5 kg·m², then pulls in to I = 2 kg·m². Find the new ω and the work she does. => ω₂ = 15 ÷ 2 = **7.5 rad/s**. KE₁ = 22.5 J, KE₂ = ½ × 2 × 56.25 = 56.25 J. Work = **33.75 J**.
+P: A 0.5 kg ball on a string circles at 4 m/s at radius 0.8 m on a frictionless table. The string is pulled until the radius is 0.4 m. Find the new speed and the KE change. => L = 0.5 × 4 × 0.8 = 1.6. v₂ = 1.6 ÷ (0.5 × 0.4) = **8 m/s**. KE: 4 J to 16 J, an increase of **12 J** (the work done pulling the string).
+P: Halley's comet is 0.586 AU from the Sun at its closest, moving at 54.6 km/s. At its farthest (35.1 AU), how fast does it move? => v r is constant: v = 54.6 × 0.586 ÷ 35.1 = **0.91 km/s**.
+P: A stool spinner (stool and person I = 2.0 kg·m²) holds a bicycle wheel (I = 0.3 kg·m², ω = 20 rad/s up). The spinner flips the wheel so it spins downward at 20 rad/s. Find the spinner's ω. => L of the wheel changes from +6 to −6, so the spinner gains +12. ω = 12 ÷ 2.0 = **6 rad/s**.
+P: A torque of 2 N·m acts for 5 s on a body initially at rest. Find L and, if I = 0.5 kg·m², the final ω. => ΔL = τ t = **10 kg·m²/s**. ω = 10 ÷ 0.5 = **20 rad/s**.
+LVL: Level 3 | Real
+P: A 40 kg child steps radially inward from the rim (r = 2 m) to the centre of a turntable (I = 400 kg·m² excluding the child) spinning at 1.2 rad/s. Treat the child as a point mass. Find the final ω. => I₁ = 400 + 40 × 4 = 560. L = 560 × 1.2 = 672. At the centre I₂ = 400. ω₂ = 672 ÷ 400 = **1.68 rad/s**.
+LVL: Challenge | A collapsing star
+P: A star (radius 7 × 10⁸ m) rotates once every 25 days. It collapses to a uniform neutron star of radius 10 km with no loss of mass or angular momentum. Treat both as uniform spheres (I = 2/5 M R²). Find the new rotation period. => L conserved with the same M: ω ∝ 1 ÷ R². The ratio of radii is 7 × 10⁸ ÷ 10⁴ = 7 × 10⁴, so ω rises by 4.9 × 10⁹. Period = 25 × 86,400 s ÷ 4.9 × 10⁹ = 2.16 × 10⁶ ÷ 4.9 × 10⁹ = **4.4 × 10⁻⁴ s** (0.44 ms), more than 2000 rotations per second. That is why pulsars are seen blinking so fast.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Substitution: ∫ f(g(x)) g′(x) dx = ∫ f(u) du. Choose u as the inside, write du, replace everything, integrate, convert back or change the limits. Leftover x: express it in u.
+- Angular momentum L = I ω, τ = dL/dt, so τ_net = 0 gives I₁ω₁ = I₂ω₂. KE is not conserved when I changes (muscle work). Kepler's second law: v r constant. Sticky collisions: conserve L about the same axis.
+
+BN: আজকের সারকথা: প্রতিস্থাপন: u = ভেতরের অংশ, du লিখো, সব u তে বদলাও, সমাকলন করো, সীমা বদলাও। কৌণিক ভরবেগ L = Iω; বাইরের টর্ক শূন্য হলে I₁ω₁ = I₂ω₂। I কমলে ω বাড়ে কিন্তু শক্তি সংরক্ষিত নয় (পেশির কাজ)। কেপলারের দ্বিতীয় সূত্র: vr স্থির।
+
+EXIT:
+E: Evaluate ∫₀¹ 2x (x² + 1)³ dx.; 3.75; 0.01; u = x² + 1 from 1 to 2 gives [u⁴ ÷ 4] = (16 − 1) ÷ 4 = 3.75.
+E: A skater spins at 2 rad/s with I = 6 kg·m² and reduces I to 2 kg·m². What is the new ω in rad/s?; 6; 0.001; ω₂ = 6 × 2 ÷ 2 = 6.
+E: A 0.2 kg mass moves at 3 m/s in a circle of radius 0.5 m. What is L in kg·m²/s?; 0.3; 0.001; L = m v r = 0.2 × 3 × 0.5 = 0.3.
+
+**Tomorrow:** areas between curves, the average value of a function, and rotational energy with rolling.
+
+CHECK: notes

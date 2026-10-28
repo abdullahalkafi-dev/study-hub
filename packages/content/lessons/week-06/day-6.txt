@@ -1,0 +1,84 @@
+@day Week 6 · Day 6 · Saturday
+# Week 6 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers all the differentiation rules (product, quotient, chain, implicit, logarithmic), related rates, and momentum, impulse, collisions and the centre of mass.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: অন্তরকলনের সব নিয়ম, সম্পর্কিত হার, এবং ভরবেগ, ঘাত, সংঘর্ষ ও ভরকেন্দ্র।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use g = 9.8 m/s². Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Differentiation (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Differentiate (x² + 1)(3x − 2). => 2x (3x − 2) + 3 (x² + 1) = **9x² − 4x + 3**.
+P: (1 mark) Differentiate x ÷ (x² + 4). => ((x² + 4) − 2x²) ÷ (x² + 4)² = **(4 − x²) ÷ (x² + 4)²**.
+P: (1 mark) Differentiate sin(3x²). => **6x cos(3x²)**.
+P: (1 mark) Differentiate e^(−2x) cos x. => −2e^(−2x) cos x − e^(−2x) sin x = **−e^(−2x) (2 cos x + sin x)**.
+P: (1 mark) Find d/dx ln(x² + 1) at x = 1. => 2x ÷ (x² + 1) = 2 ÷ 2 = **1**.
+P: (1 mark) Differentiate arctan(3x). => **3 ÷ (1 + 9x²)**.
+P: (1 mark) Find the slope of the circle x² + y² = 25 at (−3, 4). => y′ = −x ÷ y = **3/4**.
+P: (1 mark) Find y′ at (2, 1) for the curve xy + y² = 3. => y + x y′ + 2y y′ = 0, so y′ = −y ÷ (x + 2y) = −1 ÷ 4 = **−1/4**. (Check that (2, 1) is on the curve: 2 + 1 = 3 ✓.)
+P: (1 mark) Use logarithmic differentiation to differentiate y = x^(2x). => ln y = 2x ln x, so y′ ÷ y = 2 ln x + 2 and **y′ = x^(2x) (2 ln x + 2)**.
+P: (1 mark) Find f″ for f(x) = x eˣ. => f′ = eˣ (1 + x), f″ = **eˣ (2 + x)**.
+P: (1 mark) The radius of a circle grows at 3 cm/s. Find dA/dt when r = 4 cm. => 2π r dr/dt = 2π × 4 × 3 = **24π cm²/s** (about 75.4).
+P: (1 mark) Find the tangent line to y = ln x at x = e. => y′ = 1/x = 1/e, and y(e) = 1. y − 1 = (1/e)(x − e), so **y = x/e**.
+P: (2 marks) Find the minimum value of f(x) = x ln x for x > 0, and show it is a minimum. => f′ = ln x + 1 = 0 gives x = 1/e. f(1/e) = (1/e)(−1) = **−1/e**. f″ = 1/x > 0, so it is a minimum ✓.
+
+CHECK: math
+
+@section physics | 3 · Part B: Momentum and collisions (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A 0.4 kg ball arrives at 10 m/s and leaves in the opposite direction at 6 m/s. The contact time is 0.02 s. Find the average force. => Δp = 0.4 × (−6 − 10) = −6.4 N·s. F = 6.4 ÷ 0.02 = **320 N**.
+P: (1 mark) A 3 kg block at 4 m/s sticks to a 1 kg block at rest. Find the common speed and the kinetic energy lost. => v = 12 ÷ 4 = **3 m/s**. KE before 24 J, after 18 J, lost **6 J**.
+P: (1 mark) A 3 kg ball at 5 m/s collides head-on elastically with a 2 kg ball at rest. Find both final velocities. => v₁ = ((3 − 2) × 5) ÷ 5 = **1 m/s**. v₂ = (2 × 3 × 5) ÷ 5 = **6 m/s**. (Check momentum: 15 = 3 + 12 ✓.)
+P: (1 mark) Find the centre of mass of 2 kg at (0, 0), 3 kg at (5, 0) and 5 kg at (0, 4). => x = 15 ÷ 10 = 1.5. y = 20 ÷ 10 = 2. **(1.5, 2)**.
+P: (1 mark) A rocket of mass 10,000 kg expels 80 kg/s of gas at 2500 m/s. Find the thrust and the launch acceleration. => Thrust = **200,000 N**. a = 200,000 ÷ 10,000 − 9.8 = **10.2 m/s²**.
+P: (1 mark) A 0.01 kg bullet at 400 m/s embeds in a 1.99 kg block hanging from strings. Find the height the block rises. => V = 4 ÷ 2 = 2 m/s. h = 4 ÷ 19.6 = **0.204 m**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 7. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 6. Tell me, and I will rebalance Week 7. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q3 | Wrote cos(3x²) | Forgot the inner derivative | Chain rule: multiply by the derivative of the inside, 6x | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি: কী করেছিলাম, কেন ভুল, সঠিক ধারণা, কবে আবার করব। এই সপ্তাহের সাধারণ ভুল: চেইন রুলে ভেতরের অন্তরকলজ ভুলে যাওয়া, ভাগফল নিয়মে চিহ্ন উল্টানো, সংঘর্ষে বেগের চিহ্ন ভুল, আর আটকে যাওয়া সংঘর্ষে শক্তি সংরক্ষণ করা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | Which is larger, e to the π or π to the e?
+P: Show that f(x) = (ln x) ÷ x has its maximum at x = e, and use this to decide whether e^π or π^e is larger, without a calculator. => f′ = (1 − ln x) ÷ x², which is zero at x = e, positive before and negative after. So f is decreasing for x > e. Since π > e, f(π) < f(e), so ln π ÷ π < 1 ÷ e. Multiply by e π: e ln π < π, which means ln(π^e) < ln(e^π). So **e^π > π^e** (indeed 23.14 vs 22.46).
+
+LVL: Challenge | The stacked-ball bounce
+P: A basketball (0.6 kg) with a tennis ball (0.06 kg) resting on top is dropped from 1 m. The basketball hits the floor first and bounces elastically, then hits the falling tennis ball. Treat the collisions as elastic and take up as positive. How high does the tennis ball go? => Both balls reach the floor at √(2 × 9.8 × 1) = 4.43 m/s. The basketball rebounds at +4.43 and meets the tennis ball still moving at −4.43. For the tennis ball: v = ((m₂ − m₁) u₂ + 2 m₁ u₁) ÷ (m₁ + m₂) = ((0.06 − 0.6)(−4.43) + 2 × 0.6 × 4.43) ÷ 0.66 = (2.392 + 5.316) ÷ 0.66 = **11.7 m/s**. Height = 11.7² ÷ 19.6 = **6.96 m**, nearly 7 times the drop height. The small ball gets most of the energy of the big one.
+
+### Optional coding idea (not part of the study plan)
+**Collision lab and derivative checker:** simulate two blocks on a line with sliders for masses, velocities and the restitution e, and plot momentum and kinetic energy before and after. In a second panel, let the user type a formula and show its derivative from a numerical difference quotient next to a symbolic answer you compute by coding the product, quotient and chain rules yourself.
+
+### What Week 7 looks like
+**Applications of derivatives:** optimisation, related rates in depth, curve sketching and linear approximation. Physics: **torque, rotation and equilibrium**. The story: will a shelf tip over? You will use the derivative to find the best box, the best angle and the best price, and torque to find when things balance.
+
+BN: আগামী সপ্তাহে অন্তরকলনের প্রয়োগ: সর্বোচ্চ-সর্বনিম্ন (optimisation), সম্পর্কিত হার আরও গভীরে, বক্ররেখার চিত্র আঁকা আর রৈখিক আসন্নকরণ। পদার্থবিজ্ঞানে টর্ক, ঘূর্ণন ও ভারসাম্য। গল্প: তাক কি উল্টে যাবে?
+
+**Sunday is a rest day.**
+
+CHECK: notes

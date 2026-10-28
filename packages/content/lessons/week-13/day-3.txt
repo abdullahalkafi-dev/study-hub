@@ -1,0 +1,191 @@
+@day Week 13 · Day 3 · Wednesday
+# Matrices as transformations. Then: phase changes and latent heat
+lead: Every rotation, stretch, reflection and shear of the plane is a 2 × 2 matrix, and doing two in a row is just multiplying their matrices. That is exactly how a graphics card draws a scene. In physics you meet the strange fact that heating something does not always raise its temperature: while ice melts or water boils, energy goes into changing the state, not the temperature.
+
+BN: সমতলের প্রতিটি ঘূর্ণন, প্রসারণ, প্রতিফলন ও শিয়ার একটা 2 × 2 ম্যাট্রিক্স, আর পরপর দুটো করা মানে ম্যাট্রিক্স দুটো গুণ করা। গ্রাফিক্স কার্ড ঠিক এভাবেই দৃশ্য আঁকে। পদার্থবিজ্ঞানে এক অদ্ভুত সত্য শিখবে: গরম করলেই তাপমাত্রা বাড়ে না। বরফ গলার বা পানি ফোটার সময় শক্তি অবস্থা বদলাতে খরচ হয়, তাপমাত্রা বদলাতে নয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find det [[2, 3], [1, 4]]. => **5**.
+P: Find the inverse of [[2, 1], [1, 1]]. => **[[1, −1], [−1, 2]]**.
+P: How much heat warms 1 kg of water by 1 K? => **4186 J**.
+P: What is the final temperature when 1 kg of water at 80 °C mixes with 1 kg at 20 °C? => **50 °C**.
+P: What happens to the area when a matrix with det 3 is applied? => The area is multiplied by **3**.
+
+CHECK: recall
+
+@section math | 2 · Math: transformations | 55 min
+
+### The columns tell the story
+A 2 × 2 matrix M sends (1, 0) to its first column and (0, 1) to its second column. Every other point follows, because (x, y) = x (1, 0) + y (0, 1). So **to build a matrix, find where the two unit vectors go**.
+
+| Transformation | Matrix | det |
+| Scale x by s, y by t | [[s, 0], [0, t]] | s t |
+| Rotate by θ anticlockwise | [[cos θ, −sin θ], [sin θ, cos θ]] | 1 |
+| Reflect in the x-axis | [[1, 0], [0, −1]] | −1 |
+| Reflect in the line y = x | [[0, 1], [1, 0]] | −1 |
+| Shear (x → x + k y) | [[1, k], [0, 1]] | 1 |
+| Project onto the x-axis | [[1, 0], [0, 0]] | 0 |
+
+BN: M ম্যাট্রিক্স (1,0) কে প্রথম স্তম্ভে ও (0,1) কে দ্বিতীয় স্তম্ভে নিয়ে যায়। তাই ম্যাট্রিক্স বানাতে শুধু দেখো দুটো একক ভেক্টর কোথায় যাচ্ছে। ঘূর্ণন ও শিয়ারে ক্ষেত্রফল অপরিবর্তিত (det = 1), প্রতিফলনে det = −1।
+
+EX: Applying transformations
+1. Rotate (3, 1) by 90°: [[0, −1], [1, 0]] (3, 1) = (0×3 − 1×1, 1×3 + 0) = **(−1, 3)**.
+2. Rotate (2, 3) by 180°: [[−1, 0], [0, −1]] (2, 3) = **(−2, −3)**.
+3. **Shear** [[1, 0.5], [0, 1]] on the unit square (0, 0), (1, 0), (1, 1), (0, 1): the images are (0, 0), (1, 0), (1.5, 1), (0.5, 1). The top edge slides right by 0.5, the area stays 1.
+4. A matrix that sends (1, 0) → (2, 1) and (0, 1) → (−1, 3) is **[[2, −1], [1, 3]]**, with det 6 + 1 = 7. The image of (3, 2) is (6 − 2, 3 + 6) = **(4, 9)**.
+/EX
+
+LAB: Scale then rotate | The matrix is M = S R: first rotate by θ, then scale the x-direction by s and the y-direction by t. The numbers show where the unit vectors (1, 0) and (0, 1) go, and the determinant (the area factor). | th:Rotation angle θ (°):0:360:15:30 ;; s:Scale in x:0.5:2:0.1:1.5 ;; t:Scale in y:0.5:2:0.1:1 | s*cos(th*pi/180):x of image of (1, 0):3 ;; t*sin(th*pi/180):y of image of (1, 0):3 ;; -s*sin(th*pi/180):x of image of (0, 1):3 ;; t*cos(th*pi/180):y of image of (0, 1):3 ;; s*t:Determinant (area factor):2 | - | 0,1 | 0,1
+
+### Composition: do one, then the other
+If you apply T₁ first and T₂ second, the combined matrix is **T₂ T₁** (read right to left, just like function composition). Since AB ≠ BA, **the order matters**.
+
+EX: Order matters
+1. R = rotation by 90° = [[0, −1], [1, 0]]. S = scale x by 2 = [[2, 0], [0, 1]].
+2. Rotate first, then scale: S R = [[2, 0], [0, 1]] [[0, −1], [1, 0]] = **[[0, −2], [1, 0]]**. It sends (1, 0) to (0, 1).
+3. Scale first, then rotate: R S = [[0, −1], [1, 0]] [[2, 0], [0, 1]] = **[[0, −1], [2, 0]]**. It sends (1, 0) to (0, 2).
+4. Reflect in the x-axis then rotate by 90°: R F = [[0, −1], [1, 0]] [[1, 0], [0, −1]] = [[0, 1], [1, 0]]: that is a **reflection in the line y = x** (det −1 ✓).
+5. **Powers of a rotation:** R(θ)ⁿ = R(n θ). R(120°)³ = R(360°) = I, and R(60°)³ = R(180°) = −I.
+/EX
+
+### Reflection in any line, and translation
+The reflection in a line at angle θ through the origin is
+
+EQ: [[cos 2θ, sin 2θ], [sin 2θ, −cos 2θ]]     (= R(θ) F R(−θ): rotate the line to the x-axis, reflect, rotate back)
+
+EX: A reflection check
+1. For θ = 30°: cos 60° = 0.5 and sin 60° = 0.866, so the matrix is [[0.5, 0.866], [0.866, −0.5]], with det −0.25 − 0.75 = −1 ✓.
+2. It sends (1, 0) to (0.5, 0.866): the point at 60°, which is the mirror image of the point at 0° in the line at 30° ✓.
+3. Check by composition: R(−30°) (1, 0) = (0.866, −0.5); the reflection in the x-axis gives (0.866, 0.5); R(30°) gives (0.866 × 0.866 − 0.5 × 0.5, 0.866 × 0.5 + 0.5 × 0.866) = **(0.5, 0.866)** ✓.
+/EX
+
+A translation (x, y) → (x + p, y + q) is not a 2 × 2 matrix, since it moves the origin. Graphics systems fix this by writing points as **(x, y, 1)** and using 3 × 3 matrices:
+
+EQ: T(p, q) = [[1, 0, p], [0, 1, q], [0, 0, 1]]
+
+EX: Rotation about a point
+1. Translate (2, 3) by (4, −1): (2 + 4, 3 − 1) = **(6, 2)**.
+2. Rotate (5, 2) by 90° about the centre (2, 2): move the centre to the origin with T(−2, −2) giving (3, 0), rotate to (0, 3), move back with T(2, 2): **(2, 5)**. In one matrix: T(2, 2) R T(−2, −2). The complex-number version: c + i (z − c) = 2 + 2i + 3i = 2 + 5i ✓.
+3. Rotate (1, 0) by 90° about (2, 0): z − c = −1, times i gives −i, plus c: **(2, −1)**.
+/EX
+
+BN: প্রথমে T₁ পরে T₂ হলে সম্মিলিত ম্যাট্রিক্স T₂T₁ (ডান থেকে বামে পড়ো)। ক্রম গুরুত্বপূর্ণ কারণ AB ≠ BA। R(θ)ⁿ = R(nθ)। স্থানান্তরের জন্য 3 × 3 ম্যাট্রিক্সে (x, y, 1) ব্যবহার করা হয়। বিন্দুর চারদিকে ঘূর্ণন = সরাও, ঘোরাও, ফেরাও।
+
+LAB: Shear | A shear moves each point sideways by an amount proportional to its height. The unit square becomes a slanted parallelogram of the same area. Choose the shear k: the numbers show the image of (1, 1), the determinant and the angle by which the left edge leans. | k:Shear k:-2:2:0.25:0.5 | 1+k:x of image of (1, 1):2 ;; 1:y of image of (1, 1):0 ;; 1:Determinant (area kept):0 ;; atan(k)*180/pi:Lean angle of the left edge (°):1 | - | 0,1 | 0,1
+
+TRAP: When composing, **the matrix of the first transformation is on the right**. A common slip is to write T₁ T₂ for "first T₁ then T₂". Also, a rotation about a point other than the origin needs a translation: do not just rotate the coordinates. Finally, check the determinant: a reflection has det −1, so a "rotation" that has det −1 is wrong.
+
+### Quick self-check
+QUIZ:
+Q: The matrix of a 90° anticlockwise rotation is…; [[0, 1], [−1, 0]]; [[0, −1], [1, 0]]; [[1, 0], [0, 1]]; [[−1, 0], [0, −1]]; 2; (1, 0) goes to (0, 1).
+Q: To apply T₁ first and then T₂, use…; T₁ T₂; T₂ T₁; T₁ + T₂; T₁⁻¹ T₂; 2; Read right to left.
+Q: The determinant of a shear [[1, k], [0, 1]] is…; 0; 1; k; −1; 2; The area is kept.
+Q: R(60°)³ equals…; I; −I; R(60°); R(30°); 2; R(180°) = −I.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Write the matrix that scales x by 3 and y by 2, and apply it to (1, 1). => [[3, 0], [0, 2]], giving **(3, 2)**.
+P: Rotate (2, 0) by 90°. => **(0, 2)**.
+P: Write the matrix for a reflection in the y-axis. => **[[−1, 0], [0, 1]]**.
+LVL: Level 2 | Apply
+P: Find the image of the unit square under the shear [[1, 2], [0, 1]] and its area. => Vertices (0, 0), (1, 0), (3, 1), (2, 1). Area = base 1 × height 1 = **1**.
+P: Find the matrix for "scale by 2 in x, then rotate by 90°", and the image of (1, 1). => R S = [[0, −1], [1, 0]] [[2, 0], [0, 1]] = [[0, −1], [2, 0]]. Image of (1, 1) = **(−1, 2)**.
+P: Find the matrix for a reflection in the line at 60° (through the origin). => cos 120° = −0.5, sin 120° = 0.866: **[[−0.5, 0.866], [0.866, 0.5]]**. Its det = −0.25 − 0.75 = −1 ✓.
+P: What is R(45°)⁸? => R(360°) = **I**.
+P: A matrix sends (1, 0) to (3, 1) and (0, 1) to (1, 2). Find its determinant and the image of the unit square's area. => M = [[3, 1], [1, 2]], det = 6 − 1 = **5**. The area becomes **5**.
+LVL: Level 3 | Real
+P: A game sprite is at (5, 2). It must rotate 90° about its centre (2, 2). Give the new position by composing T(2, 2) R T(−2, −2). => T(−2, −2): (3, 0). R: (0, 3). T(2, 2): **(2, 5)**.
+P: A robot camera moves (x, y) → shifts (4, −1) then rotates 90° about the origin. Find the result for the point (2, 3). => Shift: (6, 2). Rotate: (−2, 6). Answer **(−2, 6)**.
+LVL: Challenge | The matrix of a reflection from composition
+P: Show that R(θ) F R(−θ) is the reflection in the line at angle θ, and compute it for θ = 45°. => R(−θ) turns the line onto the x-axis, F reflects in the x-axis, and R(θ) turns the picture back, so the net effect is the reflection in the original line. Multiply out: the result is [[cos 2θ, sin 2θ], [sin 2θ, −cos 2θ]]. For θ = 45°: cos 90° = 0, sin 90° = 1, so **[[0, 1], [1, 0]]**: the reflection in y = x, which swaps x and y ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: phase changes and latent heat | 35 min
+
+### Energy that does not change the temperature
+At the melting point of ice, heat goes into breaking bonds between molecules (turning solid into liquid) without raising the temperature. The heat per kilogram for a phase change is the **latent heat** L:
+
+EQ: Q = m L
+
+| Substance | L_fusion (kJ/kg) | L_vaporisation (kJ/kg) |
+| Water | 334 | 2260 |
+| Ethanol | 108 | 855 |
+| Aluminium | 397 | n/a |
+| Mercury | 11 | 295 |
+| Nitrogen | 26 | 199 |
+
+BN: গলনাঙ্কে তাপ অণুগুলোর বন্ধন ভাঙতে খরচ হয়, তাপমাত্রা বাড়ে না। প্রতি kg তে এই তাপ হলো সুপ্ত তাপ L: Q = mL। পানির গলনের সুপ্ত তাপ 334 kJ/kg, বাষ্পীভবনের 2260 kJ/kg: ফোটাতে গলানোর চেয়ে প্রায় সাত গুণ শক্তি লাগে।
+
+### The heating curve of ice
+EX: From ice at −20 °C to steam at 100 °C
+1. Take 0.5 kg. **Warm the ice** from −20 to 0 °C: 0.5 × 2090 × 20 = **20,900 J**.
+2. **Melt** it: 0.5 × 334,000 = **167,000 J**.
+3. **Warm the water** from 0 to 100 °C: 0.5 × 4186 × 100 = **209,300 J**.
+4. **Boil** it: 0.5 × 2,260,000 = **1,130,000 J**.
+5. Total = 20,900 + 167,000 + 209,300 + 1,130,000 = **1,527,200 J ≈ 1.53 MJ**. Boiling alone is 74% of the total.
+/EX
+
+LAB: Ice to steam | Choose the mass and the starting temperature of the ice. The numbers show the energy for each stage in kJ and the total. The flat stages of the heating curve (melting and boiling) take the most energy. | m:Mass (kg):0.1:2:0.1:0.5 ;; T0:Starting temperature of ice (°C):-40:-5:5:-20 | m*2.09*(0-T0):Warm ice to 0 °C (kJ):1 ;; m*334:Melt (kJ):1 ;; m*4.186*100:Warm water to 100 °C (kJ):1 ;; m*2260:Boil (kJ):1 ;; m*(2.09*(0-T0)+334+418.6+2260):Total (kJ):1 | - | 0,1 | 0,1
+
+### Cooling with ice, and steam burns
+EX: Phase-change problems
+1. **Ice in a drink:** to cool 0.2 kg of water from 25 °C to 0 °C needs 0.2 × 4186 × 25 = 20,930 J. Ice at 0 °C absorbs 334,000 J/kg, so the ice melted is 20,930 ÷ 334,000 = **0.0627 kg ≈ 63 g**.
+2. **Two ice cubes** (40 g in total) in the same 0.2 kg drink: 0.2 × 4186 × (25 − T) = 0.04 × 334,000 + 0.04 × 4186 × T. So 20,930 − 837.2 T = 13,360 + 167.4 T, which gives 7,570 = 1004.6 T and **T = 7.5 °C**.
+3. **Steam burns:** 10 g of steam at 100 °C condensing on skin and cooling to 40 °C releases 0.01 × 2,260,000 + 0.01 × 4186 × 60 = 22,600 + 2,511 = **25,111 J**. The same mass of boiling water cooling to 40 °C releases only **2,511 J**, so steam is **10 times** more damaging.
+4. **Sweating:** evaporating 1 kg of sweat takes 2.26 MJ from the body. At 0.5 kg per hour, the cooling power is 0.5 × 2.26 × 10⁶ ÷ 3600 = **314 W**.
+5. **Boiling and pressure:** water boils when its vapour pressure equals the surrounding pressure. At 3000 m (71 kPa) it boils at about **90 °C** (so food cooks slowly), and in a pressure cooker at 2 atm at about **120 °C**.
+/EX
+
+LAB: Ice in a drink | Choose the mass of the drink, its starting temperature and the mass of ice at 0 °C (all of the ice melts in these ranges). The number shows the final temperature. | mw:Mass of the drink (kg):0.2:0.5:0.05:0.2 ;; Tw:Drink temperature (°C):15:40:1:25 ;; mi:Mass of ice (kg):0.005:0.03:0.005:0.02 | (mw*4186*Tw-mi*334000)/((mw+mi)*4186):Final temperature (°C):1 | - | 0,1 | 0,1
+
+### Phase diagrams
+Whether water is solid, liquid or vapour depends on both temperature and pressure. The **triple point** (273.16 K, 611.7 Pa) is the single state in which all three coexist. Above the **critical point** (647 K, 22.06 MPa) there is no difference between liquid and gas. **Sublimation:** at 1 atm, dry ice (solid CO₂) turns directly into gas at −78.5 °C without a liquid phase.
+
+TRAP: During a phase change the temperature **stays constant**, so do not use Q = m c ΔT there: use Q = m L. In mixing problems, check whether all of the ice melts before you assume that the final temperature is above 0 °C. And do not forget to include the heating of the melted water to the final temperature.
+
+### Quick self-check
+QUIZ:
+Q: The heat to melt 2 kg of ice at 0 °C is…; 167 kJ; 334 kJ; 668 kJ; 1130 kJ; 3; 2 × 334 = 668 kJ.
+Q: Which needs more energy for 1 kg of water?; melting at 0 °C; boiling at 100 °C; warming from 0 to 100 °C; all the same; 2; 2260 kJ is the largest.
+Q: During boiling at constant pressure, the temperature…; rises slowly; stays constant; falls; oscillates; 2; The energy goes into the phase change.
+Q: Steam at 100 °C burns more than boiling water at 100 °C because of…; its density; its latent heat; its pressure; its colour; 2; Condensation releases 2260 kJ/kg.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the heat to melt 2 kg of ice at 0 °C. => 2 × 334 = **668 kJ**.
+P: Find the heat to boil 0.5 kg of water at 100 °C. => 0.5 × 2260 = **1130 kJ**.
+LVL: Level 2 | Apply
+P: How much ice at 0 °C is needed to cool 0.3 kg of water from 30 °C to 0 °C? => Heat = 0.3 × 4186 × 30 = 37,674 J. Ice = 37,674 ÷ 334,000 = **0.113 kg**.
+P: 5 g of steam at 100 °C is bubbled into 0.2 kg of water at 20 °C. Find the final temperature. => 0.005 × 2,260,000 + 0.005 × 4186 × (100 − T) = 0.2 × 4186 × (T − 20). So 11,300 + 2,093 − 20.93 T = 837.2 T − 16,744, 30,137 = 858.1 T, **T = 35.1 °C**.
+P: How long does a 2 kW kettle need to boil away 0.3 kg of water that is already at 100 °C? => 0.3 × 2,260,000 ÷ 2000 = **339 s ≈ 5.7 min**.
+P: How much energy takes 1 kg of aluminium from 20 °C to molten at 660 °C (c = 900, L_f = 397 kJ/kg)? => Warming: 900 × 640 = 576,000 J. Melting: 397,000 J. Total **973 kJ**.
+P: Find the energy to turn 100 g of ice at −10 °C into water at 20 °C. => 0.1 × 2090 × 10 = 2,090 J, then 33,400 J, then 0.1 × 4186 × 20 = 8,372 J. Total **43,862 J ≈ 43.9 kJ**.
+LVL: Level 3 | Real
+P: A 70 kg runner produces 600 W of excess heat, all removed by evaporating sweat. How much sweat evaporates per hour? => 600 × 3600 = 2.16 × 10⁶ J. Mass = 2.16 × 10⁶ ÷ 2.26 × 10⁶ = **0.96 kg ≈ 1 L per hour**.
+P: A fridge's freezer must freeze 1.2 kg of water from 20 °C to ice at −10 °C. Find the heat to be removed. => 1.2 × 4186 × 20 = 100,464; freezing 1.2 × 334,000 = 400,800; cooling the ice 1.2 × 2090 × 10 = 25,080. Total **526,344 J ≈ 526 kJ**.
+LVL: Challenge | Will it all melt?
+P: 100 g of ice at −10 °C is added to 300 g of water at 40 °C in an insulated cup. Find the final state. => Heat available from the water cooling to 0 °C: 0.3 × 4186 × 40 = 50,232 J. Heat needed to warm the ice to 0 °C: 0.1 × 2090 × 10 = 2,090 J, and to melt it: 33,400 J, a total of 35,490 J < 50,232 J. So **all the ice melts**. The remaining 14,742 J warms the 0.4 kg of water: ΔT = 14,742 ÷ (0.4 × 4186) = 8.80 K. Final state: **water at 8.8 °C**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- A matrix's columns are the images of (1, 0) and (0, 1). Scale, rotate, reflect, shear, project. T₂ T₁ means first T₁. R(θ)ⁿ = R(nθ). Reflection in the line at θ: [[cos 2θ, sin 2θ], [sin 2θ, −cos 2θ]]. 3 × 3 matrices with (x, y, 1) handle translation.
+- Latent heat Q = m L: L_f = 334 kJ/kg, L_v = 2260 kJ/kg for water. The temperature is constant during a phase change. Heating curve: warm, melt, warm, boil. Steam burns, sweating, boiling point vs pressure.
+
+BN: আজকের সারকথা: ম্যাট্রিক্সের স্তম্ভ = (1,0) ও (0,1) এর রূপান্তর; T₂T₁ মানে আগে T₁; R(θ)ⁿ = R(nθ); বিন্দুর চারদিকে ঘোরাতে 3 × 3 ম্যাট্রিক্স। সুপ্ত তাপ Q = mL; রূপান্তরের সময় তাপমাত্রা ধ্রুব; ফোটাতে সবচেয়ে বেশি শক্তি লাগে।
+
+EXIT:
+E: What is the y-coordinate of the point (2, 0) after a 90° anticlockwise rotation about the origin?; 2; 0.001; The rotation sends (x, y) to (−y, x), giving (0, 2).
+E: How many kJ are needed to melt 0.3 kg of ice at 0 °C (L = 334 kJ/kg)?; 100.2; 0.1; 0.3 × 334 = 100.2.
+E: How many kJ are released when 0.02 kg of steam at 100 °C condenses to water at 100 °C (L = 2260 kJ/kg)?; 45.2; 0.1; 0.02 × 2260 = 45.2.
+
+**Tomorrow:** the rank of a matrix, linear independence, and the three ways heat travels: conduction.
+
+CHECK: notes

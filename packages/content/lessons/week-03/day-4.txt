@@ -1,0 +1,229 @@
+@day Week 3 · Day 4 · Thursday
+# Compound angles, double angles and R sin(x + α). Then: projectiles at an angle
+lead: What is sin(A + B)? It is not sin A + sin B. Today you prove the correct formula from the unit circle, derive double-angle formulas from it, and learn the trick that merges two waves into one. In physics you apply all of it to a ball kicked at an angle: how high, how far and at what angle is the range greatest.
+
+BN: sin(A + B) কিন্তু sin A + sin B নয়। আজ ইউনিট বৃত্ত থেকে সঠিক সূত্রটা প্রমাণ করব, তারপর ডাবল অ্যাঙ্গেল সূত্র বের করব, আর দুটো ঢেউকে এক ঢেউয়ে বদলানোর কৌশল শিখব। পদার্থবিজ্ঞানে কোণ করে ছোঁড়া বলের সর্বোচ্চ উচ্চতা, দূরত্ব আর কোন কোণে সবচেয়ে দূরে যায় তা বের করব।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Identities
+P: Simplify (1 − sin²x) ÷ cos x. => cos²x ÷ cos x = **cos x**.
+P: Solve 2 cos x = 1 for 0 ≤ x ≤ 2π. => **x = π/3 or 5π/3**.
+P: If sin θ = 5/13 and θ is in quadrant I, find cos θ and tan θ. => cos θ = **12/13**, tan θ = **5/12**.
+P: A ball is thrown horizontally at 8 m/s from a 5 m high wall. Find the time to fall (g ≈ 10). => t = √(2 × 5 ÷ 10) = **1 s**, so it lands 8 m away.
+P: Prove sec²x − tan²x = 1. => Divide sin² + cos² = 1 by cos²: tan²x + 1 = sec²x ∎.
+
+CHECK: recall
+
+@section math | 2 · Math: compound and double angles | 60 min
+
+### The wrong guess, and a test
+Is sin(A + B) = sin A + sin B? Test with A = B = 30°: sin 60° = 0.866, but sin 30° + sin 30° = 1. **False.** The right answer needs a proof.
+
+### Proving cos(A − B)
+Take two points on the unit circle: P at angle A, so P = (cos A, sin A), and Q at angle B, so Q = (cos B, sin B). Find the **squared distance** PQ² in two ways.
+
+**Way 1 (coordinates).** PQ² = (cos A − cos B)² + (sin A − sin B)². Expand: cos²A − 2 cos A cos B + cos²B + sin²A − 2 sin A sin B + sin²B. Group sin² + cos² = 1 for each angle: **2 − 2(cos A cos B + sin A sin B)**.
+
+**Way 2 (rotation).** The distance between two points on a circle depends only on the angle between them. Rotate the picture so Q sits at (1, 0). Then P is at angle A − B: P = (cos(A − B), sin(A − B)). PQ² = (cos(A − B) − 1)² + sin²(A − B) = cos² − 2cos + 1 + sin² = **2 − 2 cos(A − B)**.
+
+Setting the two results equal:
+
+EQ: cos(A − B) = cos A cos B + sin A sin B
+
+BN: ইউনিট বৃত্তে দুটো বিন্দু P(cos A, sin A) আর Q(cos B, sin B) নাও। তাদের দূরত্বের বর্গ দুভাবে বের করো: স্থানাঙ্ক দিয়ে সরাসরি, আর ঘুরিয়ে Q কে (1, 0) তে এনে। দুটো উত্তর সমান করলে cos(A − B) = cos A cos B + sin A sin B পাওয়া যায়। এখান থেকেই বাকি সূত্রগুলো আসে।
+
+### The whole family follows
+**cos(A + B):** replace B by −B. Since cos(−B) = cos B and sin(−B) = −sin B:
+
+EQ: cos(A + B) = cos A cos B − sin A sin B
+
+**sin(A + B):** use sin θ = cos(90° − θ). Then sin(A + B) = cos(90° − A − B) = cos((90° − A) − B) = cos(90° − A) cos B + sin(90° − A) sin B:
+
+EQ: sin(A + B) = sin A cos B + cos A sin B
+
+And replacing B by −B: **sin(A − B) = sin A cos B − cos A sin B**. For tangent, divide sin by cos:
+
+EQ: tan(A + B) = (tan A + tan B) ÷ (1 − tan A tan B)
+
+EX: Exact value of sin 75°
+1. 75° = 45° + 30°.
+2. sin 75° = sin 45° cos 30° + cos 45° sin 30° = (√2/2)(√3/2) + (√2/2)(1/2).
+3. = (√6 + √2) ÷ 4 = **0.9659**.
+/EX
+
+EX: Exact value of cos 15°
+1. 15° = 45° − 30°.
+2. cos 15° = cos 45° cos 30° + sin 45° sin 30° = (√2/2)(√3/2) + (√2/2)(1/2) = **(√6 + √2) ÷ 4**.
+3. It matches sin 75°, as it must: sin 75° = cos(90° − 75°) = cos 15°.
+/EX
+
+EX: tan 75°
+1. tan 75° = tan(45° + 30°) = (1 + 1/√3) ÷ (1 − 1/√3).
+2. Multiply top and bottom by √3: (√3 + 1) ÷ (√3 − 1). Multiply by the conjugate (√3 + 1): (√3 + 1)² ÷ 2 = (4 + 2√3) ÷ 2 = **2 + √3**.
+/EX
+
+### Double-angle formulas
+Put B = A in the compound formulas:
+
+EQ: sin 2A = 2 sin A cos A
+EQ: cos 2A = cos²A − sin²A = 2cos²A − 1 = 1 − 2sin²A
+EQ: tan 2A = 2 tan A ÷ (1 − tan²A)
+
+The three forms of cos 2A come from replacing sin² = 1 − cos² or cos² = 1 − sin². Rearranging the last two gives two formulas that will be **vital in calculus** for integrating squares:
+
+EQ: cos²A = (1 + cos 2A) ÷ 2     sin²A = (1 − cos 2A) ÷ 2
+
+EX: If sin A = 3/5 in quadrant I, find sin 2A and cos 2A
+1. cos A = 4/5 (the 3-4-5 triangle).
+2. sin 2A = 2 × (3/5) × (4/5) = **24/25**.
+3. cos 2A = 1 − 2 × (9/25) = 1 − 18/25 = **7/25**.
+4. Check: (24/25)² + (7/25)² = 576/625 + 49/625 = 1 ✓.
+/EX
+
+EX: Solve cos 2x = sin x for 0 ≤ x ≤ 2π
+1. Use cos 2x = 1 − 2sin²x: 1 − 2 sin²x = sin x.
+2. 2 sin²x + sin x − 1 = 0, so (2 sin x − 1)(sin x + 1) = 0.
+3. sin x = 1/2 gives x = π/6, 5π/6. sin x = −1 gives x = 3π/2.
+4. **x = π/6, 5π/6, 3π/2**.
+/EX
+
+BN: ডাবল অ্যাঙ্গেল সূত্র পাওয়া যায় B = A বসিয়ে: sin 2A = 2 sin A cos A, আর cos 2A এর তিনটা রূপ আছে (cos² − sin², 2cos² − 1, 1 − 2sin²)। কোন রূপ নেবে তা নির্ভর করে সমস্যায় কী আছে তার ওপর। cos²A = (1 + cos 2A)/2 সূত্রটা ক্যালকুলাসে যোগজীকরণে বারবার লাগবে, তাই মনে রেখো।
+
+### Merging two waves: a sin x + b cos x = R sin(x + α)
+Two sine-type waves of the same frequency always combine into a **single wave**. Expand the right side:
+
+R sin(x + α) = R sin x cos α + R cos x sin α.
+
+Match this with a sin x + b cos x: so a = R cos α and b = R sin α. Square and add: R² = a² + b². Divide: tan α = b ÷ a.
+
+EQ: a sin x + b cos x = R sin(x + α),   R = √(a² + b²),   tan α = b ÷ a
+
+EX: Write 3 sin x + 4 cos x in the form R sin(x + α)
+1. R = √(9 + 16) = **5**.
+2. tan α = 4 ÷ 3, so α = **0.927 rad** (53.1°). Both a and b are positive, so α is in the first quadrant.
+3. So 3 sin x + 4 cos x = **5 sin(x + 0.927)**. Its maximum is 5 and its minimum is −5.
+/EX
+
+EX: Solve 3 sin x + 4 cos x = 2.5 for 0 ≤ x ≤ 2π
+1. Rewrite: 5 sin(x + 0.927) = 2.5, so sin(x + 0.927) = 0.5.
+2. x + 0.927 = π/6 = 0.524 or 5π/6 = 2.618, or add 2π: 0.524 + 6.283 = 6.807.
+3. x = 2.618 − 0.927 = **1.69** or x = 6.807 − 0.927 = **5.88**. (The value 0.524 − 0.927 is negative, so it is not in the range.)
+/EX
+
+FUNC: Two waves become one | x (rad) | y | 3*sin(x) ;; 4*cos(x) ;; 3*sin(x)+4*cos(x) | 0,2*pi | -6,6 | pi | Teal: 3 sin x. Orange: 4 cos x. Grey dashed: their sum, 3 sin x + 4 cos x. The sum is a single wave of amplitude 5, shifted to the left of the sine curve by 0.927 rad.
+
+BN: যেকোনো a sin x + b cos x কে একটামাত্র ঢেউ R sin(x + α) হিসেবে লেখা যায়, যেখানে R = √(a² + b²) আর tan α = b/a। তাই 3 sin x + 4 cos x এর সর্বোচ্চ মান 5। বিদ্যুৎ সার্কিটে আর ঢেউয়ের মিলনে (superposition) এই কৌশল প্রতিদিন লাগে।
+
+### Quick self-check
+QUIZ:
+Q: sin(A + B) equals…; sin A + sin B; sin A cos B + cos A sin B; cos A cos B − sin A sin B; sin A sin B; 2; This is the compound-angle formula proved above.
+Q: sin 2A equals…; 2 sin A; sin²A; 2 sin A cos A; cos²A − sin²A; 3; Setting B = A in sin(A + B) gives 2 sin A cos A.
+Q: The maximum value of 6 sin x + 8 cos x is…; 14; 10; 2; 48; 2; R = √(36 + 64) = 10.
+Q: cos 2A can be written as…; 2cos²A − 1; 2 cos A; 1 − 2cos²A; cos²A + sin²A; 1; One of the three forms: 2cos²A − 1.
+Q: sin 15° equals…; (√6 − √2) ÷ 4; (√6 + √2) ÷ 4; 1/4; (√3 − 1) ÷ 2; 1; sin(45° − 30°) = (√2/2)(√3/2) − (√2/2)(1/2) = (√6 − √2) ÷ 4.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the exact value of cos 75°. => cos(45° + 30°) = (√2/2)(√3/2) − (√2/2)(1/2) = **(√6 − √2) ÷ 4**.
+P: If cos A = 3/5 (quadrant I), find sin 2A. => sin A = 4/5, so sin 2A = 2 × (4/5) × (3/5) = **24/25**.
+P: Simplify 2 sin 20° cos 20°. => sin 40°.
+LVL: Level 2 | Combine
+P: Show that sin 3x = 3 sin x − 4 sin³x. => sin 3x = sin(2x + x) = sin 2x cos x + cos 2x sin x = 2 sin x cos²x + (1 − 2sin²x) sin x = 2 sin x (1 − sin²x) + sin x − 2 sin³x = 3 sin x − 4 sin³x ∎.
+P: Write √3 sin x + cos x in the form R sin(x + α) and find its maximum. => R = √(3 + 1) = **2**. tan α = 1/√3, so α = **π/6**. So the expression is **2 sin(x + π/6)** with maximum **2**.
+P: Solve sin 2x = sin x for 0 ≤ x ≤ 2π. => 2 sin x cos x − sin x = 0, so sin x (2 cos x − 1) = 0. sin x = 0 gives x = 0, π, 2π. cos x = 1/2 gives x = π/3, 5π/3. **x = 0, π/3, π, 5π/3, 2π**.
+P: Prove (sin 2x) ÷ (1 + cos 2x) = tan x. => Top: 2 sin x cos x. Bottom: 1 + (2cos²x − 1) = 2cos²x. So (2 sin x cos x) ÷ (2cos²x) = sin x ÷ cos x = **tan x** ∎.
+LVL: Level 3 | Real
+P: Two sound waves p₁ = 3 sin(440 × 2πt) and p₂ = 4 cos(440 × 2πt) have the same frequency. Describe the combined wave. => With x = 880πt, 3 sin x + 4 cos x = **5 sin(x + 0.927)**. The combined wave has amplitude **5** (not 7), at the same 440 Hz, but shifted in phase by 0.927 rad.
+P: Find the maximum and minimum of 5 sin x − 12 cos x and the smallest positive x where the maximum occurs. => R = 13. tan α = −12/5, so α = −1.176 rad (a is positive, b is negative). So 5 sin x − 12 cos x = 13 sin(x − 1.176). **Max 13, min −13**. The maximum occurs when x − 1.176 = π/2, so **x = 2.747**.
+LVL: Challenge | Triple angle and exact values
+P: Use sin 3x = 3 sin x − 4 sin³x to find sin 18° exactly. (Hint: 3 × 18° = 54° and 2 × 18° = 36°, and sin 54° = cos 36°, so sin 3x = cos 2x at x = 18°.) => Put s = sin 18°. Then 3s − 4s³ = 1 − 2s², so 4s³ − 2s² − 3s + 1 = 0. Since s = 1 is a root, factor out (s − 1): (s − 1)(4s² + 2s − 1) = 0. The quadratic gives s = (−2 + √20) ÷ 8 = (−1 + √5) ÷ 4, so **sin 18° = (√5 − 1) ÷ 4 ≈ 0.309**.
+
+CHECK: math
+
+@section physics | 3 · Physics: projectile motion at an angle | 30 min
+
+### Launching with an angle
+A ball is kicked with speed u at an angle θ above the horizontal. Split the launch velocity into components, as you learned on Monday:
+
+EQ: uₓ = u cos θ     u_y = u sin θ
+
+Then each direction is a separate problem, linked by time:
+
+- **Horizontal:** constant velocity. x = (u cos θ) t.
+- **Vertical:** constant acceleration −g. y = (u sin θ) t − ½ g t², v_y = u sin θ − g t.
+
+BN: u বেগে θ কোণে ছুঁড়লে বেগকে দুই ভাগ করো: uₓ = u cos θ (এটা কখনো বদলায় না) আর u_y = u sin θ (এটা g এর কারণে কমে)। প্রতিটা দিক আলাদা সমস্যা, আর সময় t সেতু। সর্বোচ্চ বিন্দুতে u_y শূন্য হয়, কিন্তু অনুভূমিক বেগ তখনো আছে, তাই বস্তুটা তখনো থামে না।
+
+### Time, height and range
+**Time of flight** (back to the same height): y = 0 gives t = 2u sin θ ÷ g.
+
+**Maximum height:** v_y = 0 at the top. Then H = u² sin²θ ÷ (2g).
+
+**Range:** R = u cos θ × time = u cos θ × 2u sin θ ÷ g = (u² × 2 sin θ cos θ) ÷ g. Using the double-angle formula sin 2θ = 2 sin θ cos θ:
+
+EQ: T = 2u sin θ ÷ g     H = u² sin²θ ÷ (2g)     R = u² sin 2θ ÷ g
+
+**The best angle.** For a given speed, the range is greatest when sin 2θ = 1, that is 2θ = 90°, so **θ = 45°**. Angles that add to 90° (like 30° and 60°) give the **same range**, because sin 2θ is the same for both.
+
+EX: A kicked ball
+1. A ball is kicked at 20 m/s at 40° above the horizontal.
+2. T = 2 × 20 × sin 40° ÷ 9.8 = 2 × 20 × 0.6428 ÷ 9.8 = **2.62 s**.
+3. H = 400 × sin²40° ÷ 19.6 = 400 × 0.4132 ÷ 19.6 = **8.43 m**.
+4. R = 400 × sin 80° ÷ 9.8 = 400 × 0.9848 ÷ 9.8 = **40.2 m**.
+5. Check R with components: uₓ = 20 cos 40° = 15.32 m/s, so R = 15.32 × 2.62 = 40.1 m ✓.
+/EX
+
+FUNC: Three launch angles, same speed (20 m/s) | x (m) | height (m) | 0.5774*x-0.016333*x**2 ;; x-0.0245*x**2 ;; 1.732*x-0.049*x**2 | 0,42 | 0,18 | - | Teal: 30°. Orange: 45°. Grey dashed: 60°. The 45° path goes the farthest (40.8 m). The 30° and 60° paths both land at 35.3 m (complementary angles), but 60° climbs much higher (15.3 m against 5.1 m).
+
+EX: Finding the angle for a required range
+1. A cannon fires at 25 m/s. At what angle(s) will it hit a target 60 m away on level ground?
+2. R = u² sin 2θ ÷ g gives sin 2θ = g R ÷ u² = 9.8 × 60 ÷ 625 = 0.9408.
+3. 2θ = 70.2° or 109.8°, so **θ = 35.1° or 54.9°**. Two angles give the same range.
+/EX
+
+EX: Launch from a height
+1. A ball is thrown from 2 m above the ground at 15 m/s, 30° above the horizontal. When and where does it land?
+2. Vertical: y = 2 + 15 sin 30° t − 4.9t² = 2 + 7.5t − 4.9t². Set y = 0: 4.9t² − 7.5t − 2 = 0.
+3. Quadratic formula: t = [7.5 + √(56.25 + 39.2)] ÷ 9.8 = [7.5 + 9.77] ÷ 9.8 = **1.76 s** (the negative root is rejected).
+4. Horizontal: 15 cos 30° × 1.76 = 12.99 × 1.76 = **22.9 m**. Note the range formula R = u² sin 2θ ÷ g only works for launch and landing at the same height.
+/EX
+
+TRAP: The formulas for T, H and R assume the landing height equals the launch height and no air resistance. In real life air drag shortens the range, and in sports the best angle is below 45° (for a long jump or a shot put thrown from above the ground).
+
+BN: সূত্র T = 2u sinθ/g, H = u² sin²θ/(2g), R = u² sin2θ/g। সর্বোচ্চ দূরত্ব পেতে θ = 45°, আর যে দুটো কোণের যোগফল 90° (৩০° আর ৬০°) তাদের পাল্লা সমান। ৬০° তে বল অনেক উঁচুতে ওঠে কিন্তু একই দূরত্বে পড়ে। ভূমি থেকে আলাদা উচ্চতা থেকে ছুঁড়লে R এর সূত্র খাটে না, তখন উল্লম্ব সমীকরণ থেকে সময় বের করে আবার শুরু করতে হয়।
+
+### Quick self-check
+QUIZ:
+Q: At the top of a projectile's flight, its velocity is…; zero; purely horizontal; purely vertical; equal to u; 2; The vertical component is zero at the top, but the horizontal component remains.
+Q: For a given speed, the maximum range on level ground is at an angle of…; 30°; 45°; 60°; 90°; 2; R ∝ sin 2θ, which is largest at θ = 45°.
+Q: Which pair of angles gives the same range?; 20° and 60°; 25° and 65°; 35° and 50°; 30° and 30°; 2; Complementary angles (adding to 90°) give the same range.
+Q: A ball is launched at 30 m/s straight up. Its time of flight is about…; 3 s; 6.1 s; 12 s; 0 s; 2; T = 2 × 30 ÷ 9.8 = 6.1 s.
+
+### Practice
+LVL: Level 1 | Direct
+P: A ball is kicked at 25 m/s at 30°. Find the time of flight and the maximum height. => T = 2 × 25 × 0.5 ÷ 9.8 = **2.55 s**. H = 625 × 0.25 ÷ 19.6 = **7.97 m**.
+P: A javelin is thrown at 30 m/s at 45°. Find the range (level ground). => R = 900 × 1 ÷ 9.8 = **91.8 m**.
+LVL: Level 2 | Combine
+P: A stone is thrown at 18 m/s at 50° above the horizontal from level ground. Find the range and the speed after 1 s. => R = 324 × sin 100° ÷ 9.8 = 324 × 0.9848 ÷ 9.8 = **32.6 m**. After 1 s: uₓ = 11.57 m/s, v_y = 13.79 − 9.8 = 3.99 m/s. Speed = √(133.9 + 15.9) = **12.2 m/s**.
+P: A cricketer throws a ball at 24 m/s so that it reaches a stump 40 m away on level ground. Find the two possible launch angles. => sin 2θ = 9.8 × 40 ÷ 576 = 0.6806, so 2θ = 42.9° or 137.1°. **θ = 21.5° or 68.5°**.
+LVL: Challenge | The cliff and the cannon
+P: A cannon on a 30 m cliff fires a ball at 40 m/s at 20° above the horizontal. Find the time of flight and the range along the ground below. => Vertical: y = 30 + 40 sin 20° t − 4.9t² = 30 + 13.68t − 4.9t². Set to zero: 4.9t² − 13.68t − 30 = 0. t = [13.68 + √(187.1 + 588)] ÷ 9.8 = [13.68 + 27.84] ÷ 9.8 = **4.24 s**. Range = 40 cos 20° × 4.24 = 37.59 × 4.24 = **159 m**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- sin(A ± B) = sin A cos B ± cos A sin B. cos(A ± B) = cos A cos B ∓ sin A sin B.
+- sin 2A = 2 sin A cos A. cos 2A = cos²A − sin²A = 2cos²A − 1 = 1 − 2sin²A.
+- a sin x + b cos x = R sin(x + α) with R = √(a² + b²).
+- Projectile: T = 2u sin θ ÷ g, H = u² sin²θ ÷ 2g, R = u² sin 2θ ÷ g. 45° is best. Complementary angles give equal ranges.
+
+BN: আজকের সারকথা: যোগ ও বিয়োগ কোণের সূত্র, ডাবল অ্যাঙ্গেল সূত্র, আর a sin x + b cos x = R sin(x + α)। প্রক্ষেপ গতিতে সর্বোচ্চ পাল্লা ৪৫° তে, আর পরিপূরক কোণে পাল্লা সমান।
+
+**Tomorrow:** the sine and cosine rules for any triangle, inverse trig functions, and inclined planes.
+
+CHECK: notes

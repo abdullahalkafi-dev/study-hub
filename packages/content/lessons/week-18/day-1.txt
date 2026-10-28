@@ -1,0 +1,164 @@
+@day Week 18 · Day 1 · Monday
+# What a differential equation is: growth, decay and cooling. Then: capacitance
+lead: Physics, biology and engineering rarely hand you a formula. They hand you a rule for how a quantity changes: a population grows in proportion to its size, a hot drink cools faster the hotter it is, a radioactive sample decays in proportion to what is left. That rule is a differential equation, and solving it gives the formula. In physics, you meet the capacitor, a device that stores charge and energy in the electric field between two conductors. It is in every phone, camera flash, computer and power supply.
+
+BN: পদার্থবিজ্ঞান, জীববিজ্ঞান ও প্রকৌশল সরাসরি সূত্র দেয় না। দেয় একটা নিয়ম যে রাশিটা কীভাবে বদলায়: জনসংখ্যা তার আকারের সমানুপাতে বাড়ে, গরম পানীয় যত গরম তত দ্রুত ঠান্ডা হয়, তেজস্ক্রিয় নমুনা যা বাকি আছে তার সমানুপাতে ক্ষয় হয়। এই নিয়মই অবকল সমীকরণ, আর এটা সমাধান করলে সূত্র পাওয়া যায়। পদার্থবিজ্ঞানে ধারকের সাথে পরিচয়: দুটো পরিবাহীর মাঝের বৈদ্যুতিক ক্ষেত্রে চার্জ ও শক্তি জমানোর যন্ত্র। এটা প্রতিটি ফোন, ক্যামেরা ফ্ল্যাশ, কম্পিউটার ও পাওয়ার সাপ্লাইয়ে আছে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: Differentiate y = e^(3x). => **3 e^(3x)**.
+P: Differentiate y = 5 e^(−2t). => **−10 e^(−2t)**.
+P: Write ln (a b) and ln (a^n). => **ln a + ln b** and **n ln a**.
+P: What is the field between charged parallel plates with surface density σ? => **E = σ ÷ ε₀**.
+P: How is V related to E between plates a distance d apart? => **V = E d**.
+
+CHECK: recall
+
+@section math | 2 · Math: differential equations as rules of change | 55 min
+
+### What a differential equation is
+A **differential equation** (DE) is an equation that contains an unknown function and its derivatives. A **solution** is a function that makes it true. The **order** is the highest derivative that appears. Solving the DE y′ = f (x) is just integrating; most DEs are harder because y itself appears on the right.
+
+EX: Checking solutions
+1. **y′ = 2y.** Try y = 3 e^(2x): y′ = 6 e^(2x) = 2 × 3 e^(2x) = 2y ✓. In fact **y = C e^(2x)** works for every constant C: a **family** of solutions.
+2. **y′ = −y + 1.** Try y = 1 + C e^(−x): y′ = −C e^(−x) and −y + 1 = −C e^(−x) ✓.
+3. **y″ = −y** (order 2): y = cos x gives y″ = −cos x ✓, and y = sin x works too. (The next weeks.)
+4. **Initial-value problem (IVP):** a DE plus the value at one point, for example y′ = 2y with y (0) = 5. From y = C e^(2x), C = 5: **y = 5 e^(2x)**, so y (1) = 5 e² = **36.95**.
+/EX
+
+BN: অবকল সমীকরণ = অজানা ফাংশন ও তার অবকল সমেত সমীকরণ। সমাধান = যে ফাংশন একে সত্য করে। ক্রম = সর্বোচ্চ অবকলের ক্রম। y′ = 2y এর সমাধান y = Ce^(2x) (অসংখ্য, C ধ্রুবক)। শুরুর শর্ত (y(0) = 5) দিলে C ঠিক হয়: y = 5e^(2x)।
+
+### The most important equation: y′ = k y
+A quantity whose rate of change is proportional to itself:
+
+EQ: dy/dt = k y     ⟹     y (t) = y₀ e^(kt)
+
+If k > 0 it is **exponential growth**, if k < 0 **exponential decay**. Doubling time: t_d = ln 2 ÷ k. Half-life: t_½ = ln 2 ÷ |k|.
+
+EX: Growth and decay
+1. **Bacteria:** 1000 cells double every 3 hours: k = ln 2 ÷ 3 = **0.2310 per hour**. After 10 h: N = 1000 × 2^(10/3) = **10,079** (a 10× increase in 10 hours).
+2. **Carbon-14:** half-life 5730 years, so k = −ln 2 ÷ 5730 = **−1.21 × 10⁻⁴ per year**. After 2000 years the fraction left is 2^(−2000/5730) = **0.785** (78.5%).
+3. **Age of a sample** that has 60% of its original C-14: t = ln (1 ÷ 0.6) ÷ 1.21 × 10⁻⁴ = 0.5108 ÷ 1.21 × 10⁻⁴ = **4223 years**.
+4. **Continuous interest** at 5% per year: doubling time ln 2 ÷ 0.05 = **13.9 years**; 1000 grows to 1000 e^(0.5) = **1649** in 10 years.
+5. **Caffeine** with a half-life of 5 h: from 200 mg, after 12 h you keep 200 × 2^(−2.4) = **37.9 mg** (19%).
+/EX
+
+LAB: Exponential growth and decay | Choose the starting value, the rate k (positive for growth, negative for decay) and the time. The graph shows y = y₀ e^(kt). The numbers give y at your time, the doubling time (growth) or half-life (decay), and the time to reach ten times (growth) or a tenth (decay) of the starting value. | y0:Start y₀:1:100:1:50 ;; k:Rate k (per unit time):-1:1:0.05:0.3 ;; t:Time t:0:10:0.5:4 | y0*exp(k*t):y at time t:2 ;; log(2)/abs(k+1e-9):Doubling time or half-life:2 ;; log(10)/abs(k+1e-9):Time for a factor of ten:2 | y0*exp(k*x) | 0,10 | 0,500
+
+### Newton's law of cooling
+An object at temperature T in surroundings at T_a loses heat in proportion to the difference:
+
+EQ: dT/dt = −k (T − T_a)     ⟹     T (t) = T_a + (T₀ − T_a) e^(−kt)
+
+The difference T − T_a itself decays exponentially.
+
+EX: A cup of coffee
+1. A coffee at 90 °C in a 20 °C room cools to 60 °C in 10 minutes. Then 40 = 70 e^(−10k) and **k = ln (70 ÷ 40) ÷ 10 = 0.0560 per minute**.
+2. **After 20 minutes:** T = 20 + 70 e^(−0.0560 × 20) = 20 + 70 × 0.3265 = **42.9 °C** (the difference fell from 70 to 22.9).
+3. **Time to reach 30 °C:** 10 = 70 e^(−kt), t = ln 7 ÷ 0.0560 = **34.8 minutes**.
+4. **Check with a different k = 0.05 per minute:** T (15) = 20 + 70 e^(−0.75) = **53.1 °C**.
+/EX
+
+LAB: Cooling curve | Choose the starting temperature, the room temperature and the cooling constant k (per minute). The graph shows T (t): it levels off at the room temperature. The numbers give the temperature after your time, the temperature after the time constant 1 ÷ k and the time to lose half of the temperature difference. | T0:Start T₀ (°C):40:100:5:90 ;; Ta:Room temperature (°C):0:30:1:20 ;; k:k (per minute):0.01:0.2:0.01:0.05 ;; t:Time (minutes):0:60:1:15 | Ta+(T0-Ta)*exp(-k*t):Temperature at time t (°C):1 ;; Ta+(T0-Ta)*exp(-1):Temperature after 1 ÷ k (°C):1 ;; log(2)/k:Half-difference time (minutes):1 | Ta+(T0-Ta)*exp(-k*x) | 0,60 | 0,100
+
+TRAP: A differential equation has a **family** of solutions: the constant is fixed only by an initial condition. For cooling, the rate depends on the **difference** T − T_a, not on T: do not write dT/dt = −kT. Be careful with **units**: k has units of 1 ÷ time, so "per hour" and "per minute" differ by 60. And exponential growth is not "fast": it is a constant **percentage** growth (growth by the same factor in equal times).
+
+### Quick self-check
+QUIZ:
+Q: The solution of y′ = 3y with y (0) = 2 is…; 2 e^(3t); 3 e^(2t); 2 + 3t; e^(6t); 1; y = y₀ e^(kt).
+Q: A half-life of 10 days: after 30 days the fraction left is…; 1/2; 1/4; 1/8; 1/3; 3; Three half-lives.
+Q: In cooling the rate of change is proportional to…; T; T − T_a; T_a; t; 2; Newton's law.
+Q: The doubling time at k = 0.1 per year is about…; 6.9 years; 10 years; 0.69 years; 20 years; 1; ln 2 ÷ k.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Verify that y = e^(3x) solves y′ = 3y. => y′ = 3 e^(3x) = 3y ✓.
+P: Solve dy/dt = 2y with y (0) = 5 and find y (1). => y = 5 e^(2t), y (1) = **36.9**.
+P: A 80 g sample has a half-life of 10 days. How much is left after 30 days? => 80 ÷ 8 = **10 g**.
+LVL: Level 2 | Apply
+P: A culture grows from 500 to 4000 cells in 6 hours. Find the doubling time, k and the number at 9 hours. => 4000 ÷ 500 = 8 = 2³, so doubling time **2 hours**; k = ln 2 ÷ 2 = **0.3466 per hour**; N (9) = 500 × 2^4.5 = **11,314**.
+P: A sample has 25% of its C-14 left. How old is it? => Two half-lives: **11,460 years**.
+P: A coffee follows dT/dt = −0.05 (T − 20) with T (0) = 90. Find T (15). => 20 + 70 e^(−0.75) = **53.1 °C**.
+P: A population grows 3% per year (k = 0.03). Find the doubling time and the factor in 50 years. => ln 2 ÷ 0.03 = **23.1 years**; e^(1.5) = **4.48** times.
+P: A drug has a half-life of 6 h. How long until 5% of a dose is left? => k = ln 2 ÷ 6 = 0.1155; t = ln 20 ÷ 0.1155 = **25.9 hours**.
+P: A cup at 80 °C cooled to 50 °C in 10 min in a 20 °C room. When will it reach 25 °C? => k = ln (60 ÷ 30) ÷ 10 = 0.0693; 5 = 60 e^(−kt), t = ln 12 ÷ 0.0693 = **35.9 minutes**.
+LVL: Level 3 | Real
+P: A person takes 200 mg of caffeine with a half-life of 5 h. How much is left after 12 h, and at what time is it below 20 mg? => 200 × 2^(−2.4) = **37.9 mg**. Below 20 mg when 2^(−t/5) = 0.1, t = 5 log₂ 10 = **16.6 hours**.
+LVL: Challenge | Uniqueness
+P: Show that every solution of y′ = k y has the form y = C e^(kt). => Let z = y e^(−kt). Then z′ = (y′ − k y) e^(−kt) = 0, so z is a **constant** C, and y = C e^(kt).
+
+CHECK: math
+
+@section physics | 3 · Physics: capacitance | 35 min
+
+### What a capacitor is
+A **capacitor** is two conductors (plates) close to each other. If you put +Q on one and −Q on the other, there is a potential difference V between them, proportional to Q. The ratio is the **capacitance**:
+
+EQ: C = Q ÷ V     (unit: farad, 1 F = 1 C/V; practical units μF = 10⁻⁶ F, nF = 10⁻⁹ F, pF = 10⁻¹² F)
+
+For **parallel plates** of area A and gap d (Week 16 and 17 gave E = σ ÷ ε₀ = Q ÷ (ε₀ A) and V = E d):
+
+EQ: C = ε₀ A ÷ d     (ε₀ = 8.85 × 10⁻¹² F/m)
+
+C depends only on the **geometry** (and, tomorrow, the material between the plates), not on the charge or the voltage.
+
+BN: ধারক = কাছাকাছি দুটো পরিবাহী পাত। +Q ও −Q দিলে V হয়, C = Q/V (একক ফ্যারাড)। সমান্তরাল পাতের জন্য E = Q/(ε₀A), V = Ed থেকে C = ε₀A/d। C শুধু জ্যামিতির উপর নির্ভর করে, Q বা V এর উপর নয়।
+
+EX: Capacitance numbers
+1. **A = 0.01 m², d = 1 mm:** C = 8.85 × 10⁻¹² × 0.01 ÷ 10⁻³ = **88.5 pF**. At 100 V the charge is Q = C V = **8.85 nC**.
+2. **How big for 1 farad?** With d = 1 mm: A = C d ÷ ε₀ = 1 × 10⁻³ ÷ 8.85 × 10⁻¹² = **1.13 × 10⁸ m²**, about 113 km². A farad is enormous. Real "supercapacitors" reach 1 F in a small package with porous carbon, where the area is about 2000 m² per gram and the gap is about 1 nm: C ≈ ε₀ A ÷ d = 8.85 × 10⁻¹² × 2000 ÷ 10⁻⁹ = **17.7 F per gram**.
+3. **An isolated sphere** of radius R: C = 4π ε₀ R. For R = 10 cm: **11.1 pF**. The **Earth**: C = 4π ε₀ R = **7.1 × 10⁻⁴ F** (710 μF).
+4. **A coaxial cable** (inner radius a = 1 mm, outer b = 5 mm): C per length = 2π ε₀ ÷ ln (b ÷ a) = 5.56 × 10⁻¹¹ ÷ 1.609 = **34.5 pF/m**, so a 10 m cable has 345 pF.
+5. **Concentric spheres** with a = 5 cm and b = 6 cm: C = 4π ε₀ a b ÷ (b − a) = 1.112 × 10⁻¹⁰ × 0.003 ÷ 0.01 = **33.4 pF**.
+6. **The electric field inside:** 12 V across a 0.1 mm gap gives E = 12 ÷ 10⁻⁴ = **1.2 × 10⁵ V/m**. A 470 μF capacitor at 12 V holds Q = 470 × 10⁻⁶ × 12 = **5.64 mC**.
+/EX
+
+LAB: The parallel-plate capacitor | Choose the plate area, the gap and the voltage. The numbers give the capacitance, the charge, the field and the energy ½ C V² stored. The graph shows how C falls as the gap grows (C ∝ 1 ÷ d). | A:Plate area A (cm²):10:1000:10:100 ;; d:Gap d (mm):0.1:5:0.1:1 ;; V:Voltage V (V):1:500:1:100 | 8.85e-12*(A*1e-4)/(d*1e-3)*1e12:Capacitance C (pF):1 ;; 8.85e-12*(A*1e-4)/(d*1e-3)*V*1e9:Charge Q (nC):2 ;; V/(d*1e-3)/1000:Field E (kV/m):1 ;; 0.5*8.85e-12*(A*1e-4)/(d*1e-3)*V^2*1e9:Energy (nJ):1 | 8.85e-12*(A*1e-4)/(x*1e-3)*1e12 | 0.1,5 | 0,1000
+
+TRAP: A capacitor stores charge **separation**, not net charge: the total charge on it is zero (+Q on one plate and −Q on the other), and the Q in C = Q ÷ V is the charge on **one plate**. The formula C = ε₀ A ÷ d holds for plates much **wider than the gap**. And C does not change when you change V: doubling V doubles Q.
+
+### Quick self-check
+QUIZ:
+Q: The capacitance of parallel plates is proportional to…; d; 1 ÷ d; V; Q; 2; C = ε₀ A ÷ d.
+Q: If you double the plate area and the gap, C…; doubles; stays the same; halves; quadruples; 2; A ÷ d is unchanged.
+Q: A 100 nF capacitor at 12 V holds a charge of…; 8.3 nC; 1.2 μC; 12 nC; 1.2 nC; 2; Q = C V.
+Q: The unit farad is equal to…; J/C; C/V; V/C; J/V; 2; 1 F = 1 C/V.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the capacitance if 5 μC raises the voltage to 100 V. => 5 × 10⁻⁶ ÷ 100 = **50 nF**.
+P: Find the capacitance of plates with A = 0.02 m² and d = 2 mm. => 8.85 × 10⁻¹² × 0.02 ÷ 0.002 = **88.5 pF**.
+P: Find the charge of a 100 pF capacitor at 12 V. => **1.2 nC**.
+LVL: Level 2 | Apply
+P: Find the capacitance of an isolated sphere of radius 5 cm. => 4π ε₀ R = **5.56 pF**.
+P: A 470 μF capacitor is charged to 12 V. Find its charge. => **5.64 mC**.
+P: Find the plate area for 1 nF with a gap of 0.1 mm. => A = C d ÷ ε₀ = 10⁻⁹ × 10⁻⁴ ÷ 8.85 × 10⁻¹² = **0.0113 m²** (113 cm²).
+P: Find the field inside plates 0.1 mm apart at 12 V. => **1.2 × 10⁵ V/m**.
+P: A 10 m coaxial cable has a = 1 mm, b = 5 mm. Find its capacitance. => **345 pF**.
+P: A capacitor has C = 20 pF. By what factor does C change when the gap is halved? And what happens if the plates are moved apart while the charge stays fixed? => C doubles (**40 pF**). With Q fixed, V = Q ÷ C rises as the gap increases (V ∝ d), and the field E = σ ÷ ε₀ **stays the same**.
+LVL: Level 3 | Real
+P: A supercapacitor of 3000 F is rated at 2.7 V. Find the charge it holds and the mass of porous carbon needed at 17.7 F/g (ideal figure). => Q = 3000 × 2.7 = **8100 C**. The mass is 3000 ÷ 17.7 = **170 g**. (Real devices have less than the ideal 17.7 F/g.)
+LVL: Challenge | Capacitance of concentric spheres
+P: Show that two concentric spheres (inner a, outer b) have C = 4π ε₀ a b ÷ (b − a), and that b → ∞ gives the isolated sphere. => Between the spheres E = k Q ÷ r², so V = ∫ₐᵇ E dr = k Q (1 ÷ a − 1 ÷ b) = k Q (b − a) ÷ (a b). C = Q ÷ V = a b ÷ [k (b − a)] = **4π ε₀ a b ÷ (b − a)**. For b → ∞: a b ÷ (b − a) → a, so **C = 4π ε₀ a** ✓.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Differential equation: unknown function plus derivatives; solutions form a family fixed by initial conditions. y′ = k y gives y = y₀ e^(kt): doubling time ln 2 ÷ k, half-life ln 2 ÷ |k|. Cooling: T = T_a + (T₀ − T_a) e^(−kt). Examples: bacteria, C-14, interest, caffeine, coffee.
+- Capacitance C = Q ÷ V (farad). Parallel plates C = ε₀ A ÷ d. Sphere 4π ε₀ R. Coax 2π ε₀ ÷ ln (b ÷ a) per metre. Concentric spheres 4π ε₀ a b ÷ (b − a). C depends on geometry only.
+
+BN: আজকের সারকথা: অবকল সমীকরণের সমাধান একটা পরিবার, শুরুর শর্তে ঠিক হয়। y′ = ky ⇒ y = y₀e^(kt); দ্বিগুণ হওয়ার সময় ln2/k, অর্ধায়ু ln2/|k|। শীতলীকরণ T = T_a + (T₀ − T_a)e^(−kt)। ধারকত্ব C = Q/V (ফ্যারাড); সমান্তরাল পাত C = ε₀A/d; গোলক 4πε₀R; C শুধু জ্যামিতির উপর নির্ভর করে।
+
+EXIT:
+E: A sample has a half-life of 10 days. What fraction (in %) is left after 30 days?; 12.5; 0.1; (1/2)³.
+E: What is the capacitance (pF) of plates with A = 0.01 m² and d = 1 mm?; 88.5; 0.5; ε₀ A ÷ d.
+E: A coffee follows T = 20 + 70 e^(−0.05t). What is T (°C) at t = 15 min?; 53.1; 0.1; 20 + 70 e^(−0.75).
+
+**Tomorrow:** separable equations and logistic growth, direction fields, and capacitors in series and parallel.
+
+CHECK: notes

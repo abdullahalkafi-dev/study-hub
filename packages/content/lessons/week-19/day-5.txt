@@ -1,0 +1,149 @@
+@day Week 19 · Day 5 · Friday
+# Q factor and the real world. Then: the phone charging curve and house wiring
+lead: Today's story is the phone charging curve. A phone charges at a constant current for most of the time, then the current dies away exponentially as the battery fills, which is the same first-order differential equation from Week 18. Before that, the Q factor ties damping, resonance width and decay time into one number, from tuning forks to radio. At the end, you learn why house wires get warm, and why fuses and breakers exist.
+
+BN: আজকের গল্প ফোন চার্জিং কার্ভ। বেশিরভাগ সময় ধ্রুব কারেন্টে চার্জ হয়, তারপর ব্যাটারি ভরে এলে কারেন্ট সূচকীয়ভাবে কমে, এটা Week 18 এর সেই প্রথম ক্রমের সমীকরণ। তার আগে Q ফ্যাক্টর: অবমন্দন, অনুনাদের প্রস্থ আর ক্ষয়ের সময় এক সংখ্যায় বাঁধা। শেষে: ঘরের তার কেন গরম হয়, আর ফিউজ বা ব্রেকার কেন লাগে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Write Q in terms of ζ. => **Q = 1 ÷ 2ζ**.
+P: Where is the maximum load power of a battery with internal resistance r? => At **R = r**.
+P: Solve I′ = −I ÷ τ, I (0) = I₀. => **I = I₀ e^(−t ÷ τ)**.
+P: What is P for 230 V and 10 A? => **2300 W**.
+P: Write the junction rule. => **ΣI = 0**.
+
+CHECK: recall
+
+@section math | 2 · Math: Q, decay and the exponential tail | 50 min
+
+### Q in three ways
+For a lightly damped oscillator (ζ small), one number Q = 1 ÷ 2ζ describes three things:
+1. **Resonance height:** at ω₀ the amplitude is Q times the static displacement.
+2. **Resonance width:** the half-power bandwidth is **Δω ≈ ω₀ ÷ Q**: a high Q is a sharp, narrow peak.
+3. **Decay:** each cycle loses a fraction **2π ÷ Q** of the energy, and the amplitude falls by e^(−π ÷ Q) per cycle.
+
+BN: হালকা অবমন্দনে Q = 1/(2ζ) তিনটা জিনিস বলে: ১) অনুনাদে বিস্তার = Q × স্থির সরণ; ২) অর্ধ-ক্ষমতা প্রস্থ Δω ≈ ω₀/Q (বড় Q = সরু শিখর); ৩) প্রতি চক্রে শক্তি 2π/Q ভগ্নাংশ কমে, বিস্তার e^(−π/Q) গুণ।
+
+EX: Q in real things
+1. **Tuning fork:** f = 440 Hz and Q = 1000. The amplitude falls to 1/e after Q ÷ π = **318 cycles = 0.72 s**. The energy lost per cycle is 2π ÷ 1000 = **0.63%**.
+2. **Bandwidth:** the same fork responds only within Δf = 440 ÷ 1000 = **0.44 Hz**: it rings only for a note almost exactly its own.
+3. **A radio tuner:** at 1 MHz and Q = 100: Δf = **10 kHz**, which is the width of one AM station. A higher Q would cut the sound quality, a lower Q would let neighbouring stations in.
+4. **A car suspension** with ζ = 0.612 has Q = 0.82: no real resonance peak, which is the goal.
+5. **A swing** with Q = 50: each cycle loses 2π ÷ 50 = 12.6% of its energy, and the amplitude falls by e^(−π ÷ 50) = 94% per cycle (0.53 after 10 cycles). To keep it going, you add energy once per cycle in time with the swing: resonance.
+6. **Shattering a glass:** a wine glass has Q of order 1000, so a sound at its natural frequency (about 500 to 1000 Hz) builds the amplitude to 1000 times the static one: it breaks. A sound at other frequencies does nothing.
+/EX
+
+### The charging curve as a differential equation
+A lithium-ion phone charger works in two phases:
+- **Constant current (CC):** the current is fixed (here I₀ = 1.5 A) while the battery voltage rises toward 4.2 V.
+- **Constant voltage (CV):** the voltage is held at 4.2 V and the current falls: **I′ = −I ÷ τ**, so **I (t) = I₀ e^(−t ÷ τ)** until it reaches a cut-off I_c, when the charger stops. The charge delivered in the CV phase is ∫ I dt = **I₀ τ (1 − e^(−t ÷ τ))**.
+
+BN: লিথিয়াম-আয়ন চার্জার দুই ধাপে: ধ্রুব কারেন্ট (CC) যতক্ষণ ভোল্টেজ 4.2 V এ ওঠে; তারপর ধ্রুব ভোল্টেজ (CV), কারেন্ট কমে I′ = −I/τ, I = I₀e^(−t/τ), cut-off এ পৌঁছালে বন্ধ। CV ধাপে চার্জ = I₀τ(1 − e^(−t/τ))।
+
+EX: One full charge
+A 3000 mAh phone, I₀ = 1.5 A, τ = 20 min and cut-off I_c = 0.15 A.
+1. **CC phase:** it reaches about 2400 mAh (80%) at 1.5 A in 2.4 ÷ 1.5 = 1.6 h = **96 min**.
+2. **CV phase time:** t = τ ln (I₀ ÷ I_c) = 20 × ln 10 = **46 min**.
+3. **CV charge:** (I₀ − I_c) τ = 1.35 A × (20 ÷ 60) h = **0.45 Ah = 450 mAh**.
+4. **Total:** 2400 + 450 = 2850 mAh = **95%**, in about 142 min. The last 15% takes about 1/3 of the time: this is why a phone gets to 80% quickly.
+5. **Energy stored:** 3 Ah × 3.85 V = **11.55 Wh = 41.6 kJ**. With a charger efficiency of 85%, the wall supplies 11.55 ÷ 0.85 = **13.6 Wh**.
+6. **A year of charging:** 365 × 13.6 Wh = **4.96 kWh**: a phone costs very little to run.
+7. **After one time constant** in the CV phase (t = τ = 20 min) the current is 1.5 × e⁻¹ = **0.55 A**.
+/EX
+
+LAB: Phone charging, the CV phase | Choose the starting current, the time constant and the cut-off current. The graph shows the current against time in minutes. The numbers give the CV time, the charge added in the CV phase (in mAh) and the current after one time constant. | I0:Starting current I₀ (A):0.5:3:0.1:1.5 ;; tau:Time constant τ (min):5:40:1:20 ;; ic:Cut-off current (A):0.05:0.5:0.01:0.15 | tau*log(I0/ic):CV time (min):1 ;; (I0-ic)*tau/60*1000:CV charge (mAh):0 ;; I0*exp(-1):Current at t = τ (A):3 | I0*exp(-x/tau) | 0,120 | 0,3
+
+TRAP: In Q = 1 ÷ 2ζ and Δω = ω₀ ÷ Q, the formulas are for **light damping** (ζ small). In CV charging the current falls to zero only in the limit: you stop at a **cut-off**, so the CV time is τ ln (I₀ ÷ I_c) and not infinite. The charge in mAh needs minutes converted to hours.
+
+### Quick self-check
+QUIZ:
+Q: A fork with Q = 1000 loses what fraction of energy per cycle?; 1%; 0.63%; 6.3%; 63%; 2; 2π ÷ Q.
+Q: The bandwidth for ω₀ = 1000 rad/s and Q = 50 is about…; 5 rad/s; 20 rad/s; 50 rad/s; 1000 rad/s; 2; ω₀ ÷ Q.
+Q: In the CV phase the current…; stays constant; rises; falls exponentially; jumps to zero; 3; I = I₀ e^(−t/τ).
+Q: The CV time for I₀ = 1.5 A, I_c = 0.15 A and τ = 20 min is…; 20 min; 46 min; 92 min; 5 min; 2; τ ln 10.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find Q for ζ = 0.01. => **50**.
+P: Find the CV time for I₀ = 1.5 A, I_c = 0.15 A and τ = 20 min. => **46 min**.
+P: Find the current after one time constant for I₀ = 1.5 A. => **0.55 A**.
+LVL: Level 2 | Apply
+P: The tuning fork (440 Hz, Q = 1000): find the 1/e time. => Q ÷ (π f) = **0.72 s**.
+P: Find the half-power bandwidth for f = 1 MHz and Q = 100. => **10 kHz**.
+P: Find the energy lost per cycle for Q = 50. => **12.6%**.
+P: Find the CV charge for I₀ = 1.5 A, I_c = 0.15 A and τ = 20 min. => **450 mAh**.
+P: Find the energy for a 3000 mAh, 3.85 V battery in kJ. => 11.55 Wh × 3.6 = **41.6 kJ**.
+P: A 20 W charger runs at 85% efficiency for 10 hours a day per month (30 days) at full power. How much energy does it use from the wall? => 20 W ÷ 0.85 = 23.5 W × 300 h = **7.06 kWh** (a full-power assumption, so an upper bound).
+LVL: Level 3 | Real
+P: Fast charging at 3 A (I₀) with τ = 10 min and cut-off 0.3 A. Find the CV time and the CV charge. => t = 10 ln 10 = **23 min**; charge = (3 − 0.3) × (10 ÷ 60) = **0.45 Ah = 450 mAh**: the same charge in half the time, but the heat in the battery is about 4 times higher (I² r).
+LVL: Challenge | Heating
+P: The CC current of 1.5 A flows through an internal resistance 0.15 Ω. Find the heat power. => 1.5² × 0.15 = **0.34 W**: small, but at 3 A it is 1.35 W.
+
+CHECK: math
+
+@section physics | 3 · Physics: wiring, heating and fuses | 35 min
+
+### Joule heating in a wire
+A wire of length L, cross-section A and resistivity ρ has R = ρ L ÷ A. A current I makes **P = I² R** of heat. For a house circuit the supply is 230 V and a breaker or fuse protects the wire from overheating: **I_max = rated current**. A 16 A circuit can carry P = 230 × 16 = **3680 W**.
+
+BN: তার: R = ρL/A, তাপ P = I²R। ঘরের সরবরাহ 230 V; ফিউজ/ব্রেকার তারকে অতিতাপ থেকে বাঁচায়। 16 A সার্কিট 230 × 16 = 3680 W টানতে পারে।
+
+EX: A kitchen circuit
+1. **Heater and kettle:** a 2000 W heater draws 2000 ÷ 230 = **8.7 A** and a 2200 W kettle draws **9.57 A**. Together they draw **18.3 A**, above a 16 A breaker: it trips (and should).
+2. **The wire:** 20 m of 2.5 mm² copper (each way) has a loop length of 40 m: R = 1.7 × 10⁻⁸ × 40 ÷ 2.5 × 10⁻⁶ = **0.272 Ω**.
+3. At 16 A: the voltage drop is **4.35 V** (1.9%) and the heat in the wire is 16² × 0.272 = **69.6 W**: about 1.7 W per metre of wire, which is warm, but fine.
+4. **A 1.5 mm² wire** on the same run (R = 0.453 Ω) would lose **116 W** and drop 7.25 V: too much. That is why a thin wire is limited to a lower current.
+5. **A fuse is a deliberate weak point:** a thin wire that melts first. A 3 kW appliance draws 13 A, so a 13 A plug fuse is a sensible choice and a 3 A fuse would blow at once.
+6. **How fast does a wire heat?** The copper in the 40 m run has a mass of 8960 × 2.5 × 10⁻⁶ × 40 = **0.896 kg**. At 69.6 W with no cooling the temperature rises by 69.6 ÷ (0.896 × 385) = **0.2 K/s**: in 100 s the run would be 20 K hotter. Cooling by the air limits it; a short circuit (hundreds of amps) would melt the wire in seconds, so the breaker must trip within a fraction of a second.
+/EX
+
+LAB: Wire loss in a house circuit | Choose the one-way length, the cross-section of the copper wire and the power of the appliance (supply 230 V, resistivity 1.7 × 10⁻⁸ Ω m, so R = 0.034 L ÷ A for the loop). The graph shows the heat in the wire against the current of the appliance. The numbers give the current, the voltage drop and the heat in the wire. | L:One-way length (m):1:60:1:20 ;; A:Cross-section (mm²):0.75:6:0.25:2.5 ;; P:Appliance power (W):100:3500:50:2000 | P/230:Current (A):2 ;; 0.034*L/A*P/230:Voltage drop (V):2 ;; 0.034*L/A*(P/230)^2:Heat in wire (W):1 | 0.034*L/A*x^2 | 0,20 | 0,150
+
+TRAP: A wire loop has **two** conductors: the length in R = ρ L ÷ A is twice the distance to the appliance. Heating goes as **I²**, not I: doubling the current quadruples the heat. And fuses protect the **wire**, not you: a person is protected by a residual-current device (RCD) that trips at about 30 mA.
+
+### Quick self-check
+QUIZ:
+Q: A 2000 W heater at 230 V draws about…; 0.9 A; 8.7 A; 87 A; 460 A; 2; P ÷ V.
+Q: Doubling the current in a wire multiplies the heat by…; 2; 4; 8; 1; 2; P = I² R.
+Q: The resistance of the 40 m loop of 2.5 mm² copper is about…; 0.027 Ω; 0.27 Ω; 2.7 Ω; 27 Ω; 2; ρ L ÷ A.
+Q: A fuse protects against…; a high voltage; a high current; low frequency; a low temperature; 2; It melts at an overcurrent.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the current drawn by a 2200 W kettle at 230 V. => **9.57 A**.
+P: Find the maximum power on a 16 A, 230 V circuit. => **3680 W**.
+P: Find the resistance of the 40 m loop of 2.5 mm² copper. => **0.272 Ω**.
+LVL: Level 2 | Apply
+P: Find the heat in that wire at 16 A. => **69.6 W**.
+P: Find the voltage drop at 16 A for that wire. => **4.35 V**.
+P: Do the heater (2000 W) and kettle (2200 W) trip a 16 A breaker together? => 4200 ÷ 230 = 18.3 A: **yes**.
+P: Find the temperature rise rate of the 0.896 kg run at 69.6 W with no cooling. => **0.20 K/s**.
+P: How many kWh does a 2000 W heater use in 3 hours? => **6 kWh**.
+P: A 3000 W appliance has a 13 A fuse. Does it blow? => 3000 ÷ 230 = **13.0 A**: right at the limit, so it is marginal. A 5 A fuse would blow at once; a 15 A fuse would pass it.
+LVL: Level 3 | Real
+P: An extension reel uses 1 mm² copper wire, 25 m long, unrolled (the loop is 50 m), with a 2000 W heater. Find the voltage drop and the heat in the wire. => R = 0.034 × 25 ÷ 1 = **0.85 Ω**; I = 8.7 A; drop = **7.4 V**; heat = 8.7² × 0.85 = **64 W** in a wire of low mass: this is the reason reels must be unrolled for a heater: coiled, they overheat.
+LVL: Challenge | Why 230 V transmission
+P: Power P = 2300 W is sent over a wire of R = 1 Ω at 230 V and then at 23 kV. Find the loss. => at 230 V: I = 10 A, loss = **100 W**; at 23 kV: I = 0.1 A, loss = **0.01 W**: this is why the grid uses high voltage.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Q = 1 ÷ 2ζ: resonance height Q, width Δω = ω₀ ÷ Q, energy loss per cycle 2π ÷ Q.
+- Phone charging: CC then CV; I = I₀ e^(−t ÷ τ); the CV time is τ ln (I₀ ÷ I_c); the CV charge is (I₀ − I_c) τ.
+- Wire: R = ρL ÷ A (loop 2L), P = I² R, 230 V × 16 A = 3680 W; the fuse is a deliberate weak point; high voltage cuts the loss in transmission.
+
+BN: আজকের সারকথা: Q = 1/(2ζ); অনুনাদে উচ্চতা Q, প্রস্থ ω₀/Q। চার্জিং: CC তারপর CV, I = I₀e^(−t/τ), CV সময় = τ ln(I₀/I_c)। তার: R = ρL/A (লুপ = 2L), P = I²R। ফিউজ ইচ্ছাকৃত দুর্বল বিন্দু; উচ্চ ভোল্টেজে সঞ্চালনে ক্ষতি কমে।
+
+EXIT:
+E: How many minutes is the CV time for I₀ = 1.5 A, I_c = 0.15 A and τ = 20 min? Give the nearest minute.; 46; 1; τ ln (I₀ ÷ I_c).
+E: What is the current (A) of a 2000 W heater at 230 V? Give 2 decimals.; 8.7; 0.05; P ÷ V.
+E: What is the heat (W) in the 0.272 Ω loop at 16 A?; 69.6; 0.5; I² R.
+
+**Tomorrow:** the weekly test, Week 19.
+
+CHECK: notes

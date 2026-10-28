@@ -1,0 +1,175 @@
+@day Week 9 · Day 1 · Monday
+# Integration by parts. Then: simple harmonic motion
+lead: Integration by parts is the product rule run backwards. It handles integrals like x eˣ, x cos x and ln x that substitution cannot touch. In physics, you meet the most important motion in all of science: the oscillation. A mass on a spring, a pendulum, a vibrating atom, an alternating current: they all follow the same equation and the same sine wave.
+
+BN: খণ্ডাংশে সমাকলন (integration by parts) হলো গুণনের অন্তরকলন নিয়ম উল্টো করে চালানো। এটা x eˣ, x cos x, ln x এর মতো সমাকলন সামলায়, যা প্রতিস্থাপনে হয় না। পদার্থবিজ্ঞানে আজ বিজ্ঞানের সবচেয়ে গুরুত্বপূর্ণ গতির সঙ্গে পরিচয়: দোলন। স্প্রিংয়ে ঝোলানো ভর, দোলক, কম্পমান পরমাণু, পরিবর্তী প্রবাহ: সবারই সমীকরণ ও সাইন তরঙ্গ একই।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Evaluate ∫₀² 6x² dx. => [2x³] = **16**.
+P: Find ∫ x (x² + 1)⁴ dx. => u = x² + 1: **(x² + 1)⁵ ÷ 10 + C**.
+P: A skater at 2 rad/s with I = 6 pulls in to I = 3. Find ω. => **4 rad/s**.
+P: Find the average of f(x) = x² on [0, 3]. => **3**.
+P: A solid sphere rolls down from a height h. Write the bottom speed formula. => **v = √(2 g h ÷ 1.4)**.
+
+CHECK: recall
+
+@section math | 2 · Math: integration by parts | 55 min
+
+### The product rule backwards
+The product rule says d/dx (u v) = u′ v + u v′. Integrate both sides and rearrange:
+
+EQ: ∫ u dv = u v − ∫ v du     (where dv = v′ dx and du = u′ dx)
+
+This turns a hard integral ∫ u dv into a hopefully easier one, ∫ v du. The skill is choosing u and dv.
+
+**Choosing u: the LIATE rule.** Pick u as the first type from this list that appears: **L**ogarithm, **I**nverse trig, **A**lgebraic (powers of x), **T**rig, **E**xponential. The rest is dv. (You want u to get simpler when differentiated and dv to be easy to integrate.)
+
+BN: ∫u dv = uv − ∫v du। u বাছাই: LIATE, মানে লগারিদম, উল্টো ত্রিকোণমিতি, বীজগাণিতিক (x এর ঘাত), ত্রিকোণমিতি, সূচকীয়। এই তালিকায় যে আগে আসে তাকে u নাও (অন্তরকলনে সরল হয়), বাকিটা dv (সহজে সমাকলনযোগ্য)।
+
+PREDICT: For ∫ x eˣ dx, which factor would you pick as u: the x or the eˣ? Think about what happens when you differentiate and integrate each. => Pick u = x. Differentiating x gives 1 (simpler), while eˣ stays the same whether you differentiate or integrate it. If you chose u = eˣ, the x would grow to x²/2 and the integral would get worse.
+
+EX: Basic cases
+1. ∫ x eˣ dx: u = x, dv = eˣ dx, so du = dx and v = eˣ. Result = x eˣ − ∫ eˣ dx = **eˣ (x − 1) + C**. Check: derivative = eˣ (x − 1) + eˣ = x eˣ ✓.
+2. ∫ x cos x dx: u = x, dv = cos x dx, v = sin x. Result = x sin x − ∫ sin x dx = **x sin x + cos x + C**.
+3. ∫ ln x dx: write as ∫ ln x · 1 dx, with u = ln x, dv = dx, du = dx ÷ x, v = x. Result = x ln x − ∫ 1 dx = **x ln x − x + C**.
+4. ∫ x ln x dx: u = ln x, dv = x dx, v = x²/2. Result = (x²/2) ln x − ∫ (x/2) dx = **(x²/2) ln x − x²/4 + C**.
+5. ∫ arctan x dx: u = arctan x, dv = dx. Result = x arctan x − ∫ x ÷ (1 + x²) dx = **x arctan x − ½ ln(1 + x²) + C**.
+/EX
+
+EX: Twice in a row
+1. ∫ x² eˣ dx: first u = x²: x² eˣ − ∫ 2x eˣ dx. Then the remaining integral is 2 ∫ x eˣ dx = 2 eˣ (x − 1). Result = x² eˣ − 2 eˣ (x − 1) = **eˣ (x² − 2x + 2) + C**.
+2. ∫ x² cos x dx = x² sin x − 2 ∫ x sin x dx = x² sin x − 2 (−x cos x + sin x) = **x² sin x + 2x cos x − 2 sin x + C**.
+/EX
+
+EX: The cycle trick
+1. I = ∫ eˣ sin x dx. Take u = sin x, dv = eˣ: I = eˣ sin x − ∫ eˣ cos x dx.
+2. Again, u = cos x: ∫ eˣ cos x dx = eˣ cos x + ∫ eˣ sin x dx = eˣ cos x + I.
+3. So I = eˣ sin x − eˣ cos x − I, giving 2I = eˣ (sin x − cos x). **I = ½ eˣ (sin x − cos x) + C.**
+/EX
+
+### Definite integrals by parts
+The formula is ∫ₐᵇ u dv = [u v] from a to b − ∫ₐᵇ v du.
+
+EX: Definite examples
+1. ∫₀¹ x eˣ dx = [eˣ (x − 1)] = 0 − (−1) = **1**.
+2. ∫₁ᵉ ln x dx = [x ln x − x] = (e − e) − (0 − 1) = **1**.
+3. ∫₀^π x sin x dx = [−x cos x + sin x] = (π + 0) − 0 = **π**. (Fourier series, in Phase 3, are built from integrals like this.)
+/EX
+
+LAB: Accumulating x cos x | The curve f(x) = x cos x is integrated by parts to get F(x) = x sin x + cos x − 1, the area from 0 to x. Move b and compare the number on the right with the orange accumulated-area curve. Where f is positive, F rises, and where f is negative, F falls. | b:Upper limit b:0.5:6:0.1:3 | b*cos(b):Height f(b):3 ;; b*sin(b)+cos(b)-1:Area from 0 to b:3 | x*cos(x) ;; x*sin(x)+cos(x)-1 | 0,6 | -6,6
+
+BN: u = x, dv = eˣ dx নিলে ∫xeˣ dx = eˣ(x − 1)। u = x, dv = cos x dx নিলে ∫x cos x dx = x sin x + cos x। ln x কে ln x · 1 লিখে u = ln x নাও: ∫ln x dx = x ln x − x। eˣ sin x এর বেলায় দুইবার by parts করলে আবার মূল সমাকলন ফিরে আসে, তখন সমীকরণ সমাধান করে I = ½eˣ(sin x − cos x)।
+
+TRAP: Pick u and dv **before** integrating, and **differentiate u, integrate dv**, never both the same way. If the new integral looks worse (power goes up), swap your choice. Remember the minus sign in front of ∫ v du, and in definite integrals evaluate the [u v] term at both limits. Finally, always check by differentiating, since by-parts answers hide sign errors.
+
+### Quick self-check
+QUIZ:
+Q: For ∫ x e^(−x) dx a good choice is…; u = e^(−x); u = x; u = x e^(−x); dv = x; 2; Differentiating x gives 1.
+Q: ∫ ln x dx equals…; 1 ÷ x + C; x ln x − x + C; x ln x + x + C; (ln x)² ÷ 2 + C; 2; Use u = ln x and dv = dx.
+Q: In ∫ u dv = u v − ∫ v du, the second integral comes with a…; plus; minus; factor 2; division; 2; It comes from the product rule rearranged.
+Q: For ∫ x² sin x dx, you will need integration by parts…; zero times; once; twice; never; 3; Each pass lowers the power of x by one.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∫ x eˣ dx. => **eˣ (x − 1) + C**.
+P: Find ∫ x sin x dx. => u = x: −x cos x + ∫ cos x dx = **−x cos x + sin x + C**.
+P: Find ∫ ln x dx. => **x ln x − x + C**.
+P: Find ∫ x e^(2x) dx. => u = x, v = e^(2x) ÷ 2: **x e^(2x) ÷ 2 − e^(2x) ÷ 4 + C**.
+LVL: Level 2 | Apply
+P: Find ∫ x² cos x dx. => **x² sin x + 2x cos x − 2 sin x + C**.
+P: Find ∫ x ln x dx and ∫ x² ln x dx. => **(x²/2) ln x − x²/4 + C** and **(x³/3) ln x − x³/9 + C**.
+P: Evaluate ∫₀^(π/2) x cos x dx. => [x sin x + cos x] = (π/2 + 0) − (0 + 1) = **π/2 − 1 ≈ 0.571**.
+P: Evaluate ∫₁ᵉ x ln x dx. => [(x²/2) ln x − x²/4] = (e²/2 − e²/4) − (0 − 1/4) = **(e² + 1) ÷ 4 ≈ 2.10**.
+P: Find ∫ x² eˣ dx and check at x = 0 by differentiating. => **eˣ (x² − 2x + 2) + C**. Derivative: eˣ (x² − 2x + 2) + eˣ (2x − 2) = x² eˣ ✓.
+LVL: Level 3 | Real
+P: A particle's velocity is v(t) = t e^(−t) m/s. Find its displacement from t = 0 to t = 3 s. => ∫ t e^(−t) dt = −t e^(−t) − e^(−t) = −e^(−t)(t + 1). From 0 to 3: [−4e^(−3)] − [−1] = 1 − 0.199 = **0.801 m**.
+P: The signal f(t) = t sin t is integrated by an analyser over [0, π]. Find the area. => **π** (computed in the examples).
+LVL: Challenge | The cycle and the pattern
+P: Evaluate ∫₀^π eˣ sin x dx. Then find ∫ x³ eˣ dx using the pattern from x² eˣ. => The first: ½ [eˣ (sin x − cos x)] from 0 to π = ½ [e^π (0 + 1) − (0 − 1)] = **(e^π + 1) ÷ 2 ≈ 12.07**. For the second, repeated by parts gives x³ eˣ − 3 ∫ x² eˣ dx = x³ eˣ − 3 eˣ (x² − 2x + 2), so **eˣ (x³ − 3x² + 6x − 6) + C**. (Pattern: alternate the signs and multiply by descending factorials, 1, 3, 6, 6.)
+
+CHECK: math
+
+@section physics | 3 · Physics: simple harmonic motion | 35 min
+
+### The spring equation
+A spring pulls back with a force proportional to its stretch (Hooke's law): F = −k x. Put that in Newton's second law:
+
+EQ: m x″ = −k x     so     x″ = −ω² x     with     ω = √(k ÷ m)
+
+This is the **simple harmonic motion (SHM)** equation: the acceleration is proportional to the displacement and points the opposite way. The solution is a sine wave:
+
+EQ: x(t) = A cos(ω t + φ)     v = −A ω sin(ω t + φ)     a = −A ω² cos(ω t + φ)
+
+**Check:** x″ = −A ω² cos(ω t + φ) = −ω² x ✓. A is the **amplitude**, ω the angular frequency, φ the phase (set by the start). The period and frequency are:
+
+EQ: T = 2π ÷ ω = 2π √(m ÷ k)     f = 1 ÷ T     ω = 2π f
+
+Notice that the period does **not depend on the amplitude**. A stiffer spring (larger k) oscillates faster, a heavier mass slower.
+
+BN: স্প্রিং বল F = −kx, তাই mx″ = −kx, অর্থাৎ x″ = −ω²x, ω = √(k/m)। এই হলো সরল ছন্দিত গতির (SHM) সমীকরণ: ত্বরণ সরণের সমানুপাতিক ও বিপরীতমুখী। সমাধান x = A cos(ωt + φ)। বেগ −Aω sin, ত্বরণ −Aω² cos। পর্যায়কাল T = 2π√(m/k) স্পন্দনের বিস্তারের ওপর নির্ভর করে না।
+
+EX: A spring-mass system
+1. m = 0.5 kg, k = 200 N/m, released from rest at x = A = 0.05 m.
+2. ω = √(200 ÷ 0.5) = √400 = **20 rad/s**. T = 2π ÷ 20 = **0.314 s**. f = **3.18 Hz**.
+3. Max speed v_max = A ω = 0.05 × 20 = **1.0 m/s** (at the centre). Max acceleration a_max = A ω² = 0.05 × 400 = **20 m/s²** (at the ends).
+4. x(t) = 0.05 cos 20t. At t = 0.1 s, 20t = 2 rad: x = 0.05 cos 2 = **−0.0208 m**, and v = −1.0 sin 2 = **−0.909 m/s**.
+/EX
+
+EX: Finding A and φ from the start
+1. ω = 10 rad/s. At t = 0 the mass is at x₀ = 0.04 m moving at v₀ = 0.6 m/s.
+2. x₀ = A cos φ and v₀ = −A ω sin φ. So A² = x₀² + (v₀ ÷ ω)² = 0.0016 + 0.0036 = 0.0052, **A = 0.0721 m**.
+3. tan φ = −v₀ ÷ (ω x₀) = −1.5, with cos φ > 0, so **φ = −0.983 rad**.
+/EX
+
+EX: Springs together and a hanging mass
+1. Two 100 N/m springs side by side (parallel) act like k = 200 N/m. In a line (series) they act like 1 ÷ k = 1/100 + 1/100, k = 50 N/m. With a 1 kg mass: parallel T = 2π√(1/200) = **0.444 s**, series T = 2π√(1/50) = **0.889 s**.
+2. A 0.4 kg mass hangs and stretches a spring 0.098 m at equilibrium. Then k = m g ÷ x = 3.92 ÷ 0.098 = 40 N/m. ω = √(40 ÷ 0.4) = **10 rad/s**, T = 0.628 s. Gravity only shifts the equilibrium. It does not change T.
+/EX
+
+LAB: Mass on a spring | Choose the mass, the stiffness and the amplitude. The graph shows x(t) = A cos(ωt) over one second. Make k large and watch the oscillation speed up. Make m large and watch it slow down. Changing A changes the height of the wave but never its period. | m:Mass m (kg):0.1:5:0.1:0.5 ;; k:Stiffness k (N/m):10:500:10:200 ;; A:Amplitude A (m):0.01:0.2:0.01:0.05 | sqrt(k/m):Angular frequency ω (rad/s):2 ;; 2*pi*sqrt(m/k):Period T (s):3 ;; A*sqrt(k/m):Maximum speed (m/s):3 ;; A*k/m:Maximum acceleration (m/s²):2 | A*cos(sqrt(k/m)*x) | 0,1 | -0.2,0.2
+
+TRAP: **ω is in rad/s, not Hz**: T = 2π ÷ ω, and f = ω ÷ 2π. Keep your calculator in **radians** for cos(ω t + φ). Do not mix up the maximum speed (A ω, at the centre) with the maximum acceleration (A ω², at the ends). And the period does not depend on A or on g (for a vertical spring).
+
+### Quick self-check
+QUIZ:
+Q: Doubling the mass on a spring changes the period by a factor of…; 1/2; √2; 2; 4; 2; T is proportional to √m.
+Q: Doubling the amplitude changes the period by a factor of…; 1; √2; 2; 4; 1; SHM period is independent of amplitude.
+Q: Where is the speed of the mass greatest?; at the ends; at the equilibrium position; halfway; at the start; 2; v_max = A ω at x = 0.
+Q: Where is the acceleration greatest?; at the equilibrium position; at the ends; halfway; nowhere; 2; a = −ω² x is largest at |x| = A.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 0.2 kg mass on an 80 N/m spring. Find ω and T. => ω = √400 = **20 rad/s**. T = **0.314 s**.
+P: A 1 kg mass oscillates with a period of 0.5 s. Find k. => k = 4π² m ÷ T² = 39.48 ÷ 0.25 = **158 N/m**.
+LVL: Level 2 | Apply
+P: A 0.5 kg mass on a 200 N/m spring has an amplitude of 0.05 m. Find v_max, a_max and the speed at x = 0.03 m. => v_max = **1.0 m/s**, a_max = **20 m/s²**. At x = 0.03: v = ω √(A² − x²) = 20 √(0.0025 − 0.0009) = 20 × 0.04 = **0.8 m/s**.
+P: Show that a mass takes T/6 to go from x = A to x = A/2, and T/12 to go from A/2 to the centre. => cos(ωt) = 1/2 gives ωt = π/3, so t = (π/3) ÷ ω = T/6. Reaching the centre: ωt = π/2, so t = T/4. The remaining time = T/4 − T/6 = **T/12**. (The mass moves slowest near the ends, fastest near the centre.)
+P: Two 100 N/m springs attach to a 1 kg mass, one on each side, both stretched slightly from the equilibrium (so both act on the mass). Find the period. => Both oppose the displacement, so k = 200 N/m. T = 2π√(1/200) = **0.444 s**.
+P: A mass oscillates as x = 0.08 cos(5t + π/3) metres. Find A, T, v at t = 0. => A = **0.08 m**, ω = 5, T = **1.26 s**. v(0) = −0.08 × 5 × sin(π/3) = **−0.346 m/s**.
+LVL: Level 3 | Real
+P: A car of mass 1200 kg rides on four identical springs, each with k = 25,000 N/m. Find the vertical bounce frequency, treating the four springs as acting in parallel. => k_total = 100,000 N/m. ω = √(100,000 ÷ 1200) = 9.13 rad/s. T = **0.69 s**, f = **1.45 Hz**. (Real cars are designed around 1 to 1.5 Hz because slower feels seasick and faster feels harsh.)
+LVL: Challenge | Is it really SHM?
+P: A block floats in water with a flat bottom of area A_b and mass m. Pushed down by a small amount x, the extra buoyant force is ρ g A_b x upward. Show that it undergoes SHM and find T for m = 2 kg, A_b = 0.02 m², ρ = 1000 kg/m³. => The restoring force is F = −ρ g A_b x, which has the form −k x with k = ρ g A_b. So SHM with ω = √(ρ g A_b ÷ m). k = 1000 × 9.8 × 0.02 = 196 N/m. ω = √(196 ÷ 2) = 9.9 rad/s. T = 2π ÷ 9.9 = **0.635 s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- By parts: ∫ u dv = u v − ∫ v du. LIATE for u. Repeat for x² eˣ, and use the cycle trick for eˣ sin x. ∫ ln x dx = x ln x − x.
+- SHM: m x″ = −k x, x = A cos(ωt + φ), ω = √(k ÷ m), T = 2π√(m ÷ k). v_max = Aω, a_max = Aω². Period independent of amplitude. Parallel springs add k, series add 1 ÷ k.
+
+BN: আজকের সারকথা: ∫u dv = uv − ∫v du, u বাছাই LIATE; ∫ln x dx = x ln x − x। SHM: mx″ = −kx, x = A cos(ωt + φ), ω = √(k/m), T = 2π√(m/k); v_max = Aω, a_max = Aω²; সমান্তরাল স্প্রিংয়ে k যোগ হয়, ধারায় 1/k যোগ।
+
+EXIT:
+E: Evaluate ∫₀¹ x eˣ dx.; 1; 0.001; [eˣ (x − 1)] from 0 to 1 = 0 − (−1) = 1.
+E: A 2 kg mass is on a spring with k = 200 N/m. What is ω in rad/s?; 10; 0.001; ω = √(200 ÷ 2) = 10.
+E: A mass oscillates with A = 0.1 m and ω = 5 rad/s. What is v_max in m/s?; 0.5; 0.001; v_max = A ω = 0.5.
+
+**Tomorrow:** trigonometric integrals and energy in SHM.
+
+CHECK: notes

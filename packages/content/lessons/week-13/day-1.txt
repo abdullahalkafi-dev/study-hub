@@ -1,0 +1,205 @@
+@day Week 13 · Day 1 · Monday
+# Matrices: the basics. Then: temperature and thermal expansion
+lead: A matrix is a rectangular table of numbers with its own arithmetic. It looks like bookkeeping, but it is the language of computer graphics, robotics, machine learning and quantum mechanics: a matrix is a machine that transforms vectors. In physics, you start thermal physics with the most basic idea: what temperature means, how it is measured, and why things expand when they get hot.
+
+BN: ম্যাট্রিক্স হলো সংখ্যার আয়তাকার সারণি যার নিজস্ব পাটিগণিত আছে। দেখতে হিসাবের খাতার মতো, কিন্তু এটাই কম্পিউটার গ্রাফিক্স, রোবটিক্স, মেশিন লার্নিং ও কোয়ান্টাম বলবিদ্যার ভাষা: ম্যাট্রিক্স হলো ভেক্টর রূপান্তরের একটা যন্ত্র। পদার্থবিজ্ঞানে তাপবিদ্যা শুরু হবে সবচেয়ে মৌলিক ধারণা দিয়ে: তাপমাত্রা কী, কীভাবে মাপা হয়, আর গরম হলে জিনিস কেন প্রসারিত হয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Compute (2 + i)(2 − i). => 4 + 1 = **5**.
+P: Write e^(iπ) in simplest form. => **−1**.
+P: What is the pressure at 10 m depth in water, in atmospheres (absolute)? => About **2 atm**.
+P: State the continuity equation. => **A₁ v₁ = A₂ v₂**.
+P: What is the dot product of (1, 2) and (3, 4)? => 3 + 8 = **11**.
+
+CHECK: recall
+
+@section math | 2 · Math: matrices | 55 min
+
+### What a matrix is
+A **matrix** is a rectangular array of numbers. An m × n matrix has m rows and n columns. The entry in row i, column j is written a_ij.
+
+A = [[1, 2], [3, 4]] is a 2 × 2 matrix: row 1 is (1, 2), row 2 is (3, 4). A vector is a matrix with one column.
+
+BN: ম্যাট্রিক্স হলো সংখ্যার আয়তাকার ছক। m × n ম্যাট্রিক্সে m টা সারি (row) ও n টা স্তম্ভ (column)। i-তম সারি ও j-তম স্তম্ভের সংখ্যা a_ij। ভেক্টর হলো এক স্তম্ভের ম্যাট্রিক্স।
+
+### Addition and scalar multiplication
+Add matrices of the **same size** entry by entry. Multiply by a number c entry by entry.
+
+EX: Entry-by-entry rules
+1. A = [[1, 2], [3, 4]], B = [[0, 1], [1, 0]]. A + B = [[1, 3], [4, 4]].
+2. 3A = [[3, 6], [9, 12]].
+3. A − 2B = [[1, 0], [1, 4]]: since 2B = [[0, 2], [2, 0]].
+4. The **zero matrix** O has all entries 0, and A + O = A.
+/EX
+
+### Matrix multiplication
+To multiply an m × n matrix A by an n × p matrix B, the result AB is m × p. The entry (AB)_ij is the **dot product of row i of A with column j of B**:
+
+EQ: (AB)_ij = a_i1 b_1j + a_i2 b_2j + … + a_in b_nj
+
+The number of columns of A must equal the number of rows of B.
+
+EX: A first product
+1. A = [[1, 2], [3, 4]], B = [[0, 1], [1, 0]].
+2. (AB)₁₁ = 1 × 0 + 2 × 1 = 2. (AB)₁₂ = 1 × 1 + 2 × 0 = 1. (AB)₂₁ = 3 × 0 + 4 × 1 = 4. (AB)₂₂ = 3 × 1 + 4 × 0 = 3.
+3. So AB = [[2, 1], [4, 3]]: B has **swapped the columns** of A.
+4. BA = [[3, 4], [1, 2]]: here the **rows** are swapped. So AB ≠ BA.
+/EX
+
+PREDICT: If A is 2 × 3 and B is 3 × 2, what size are AB and BA? Can both exist? Are they equal? => AB is **2 × 2** and BA is **3 × 3**. Both exist, but they have different sizes, so they can never be equal.
+
+EX: A rectangular product
+1. C = [[1, 0, 2], [−1, 3, 1]] (2 × 3) and D = [[3, 1], [2, 1], [1, 0]] (3 × 2).
+2. CD: row 1 · col 1 = 1×3 + 0×2 + 2×1 = 5. Row 1 · col 2 = 1×1 + 0×1 + 2×0 = 1. Row 2 · col 1 = −3 + 6 + 1 = 4. Row 2 · col 2 = −1 + 3 + 0 = 2. So CD = [[5, 1], [4, 2]].
+3. DC is 3 × 3: DC = [[2, 3, 7], [1, 3, 5], [1, 0, 2]]. For instance (DC)₁₃ = 3 × 2 + 1 × 1 = 7.
+/EX
+
+LAB: Multiply 2 × 2 matrices | A = [[a, b], [c, d]] and B = [[e, f], [g, h]]. The numbers show all four entries of AB and the difference (AB)₁₁ − (BA)₁₁ = b g − c f. Find choices where the difference is zero, and see that it is not zero in general. | a:a:-3:3:1:1 ;; b:b:-3:3:1:2 ;; c:c:-3:3:1:3 ;; d:d:-3:3:1:4 ;; e:e:-3:3:1:0 ;; f:f:-3:3:1:1 ;; g:g:-3:3:1:1 ;; h:h:-3:3:1:0 | a*e+b*g:(AB)₁₁:0 ;; a*f+b*h:(AB)₁₂:0 ;; c*e+d*g:(AB)₂₁:0 ;; c*f+d*h:(AB)₂₂:0 ;; b*g-c*f:(AB)₁₁ − (BA)₁₁:0 | - | 0,1 | 0,1
+
+### Special matrices and the transpose
+- The **identity** I has 1s on the diagonal and 0s elsewhere. IA = AI = A. For 2 × 2: I = [[1, 0], [0, 1]].
+- The **transpose** Aᵀ swaps rows and columns: (Aᵀ)_ij = a_ji. For C above, Cᵀ = [[1, −1], [0, 3], [2, 1]].
+- **Reversal rule:** (AB)ᵀ = Bᵀ Aᵀ.
+
+EX: Checking the rule
+1. With A and B as before, (AB)ᵀ = [[2, 4], [1, 3]].
+2. Bᵀ = B = [[0, 1], [1, 0]] and Aᵀ = [[1, 3], [2, 4]]. BᵀAᵀ = [[2, 4], [1, 3]] ✓.
+3. **Matrix times vector:** A (x, y) = (x + 2y, 3x + 4y). For (1, 1): **(3, 7)**.
+/EX
+
+EX: A real-world product
+1. Three shops sell two products. Units sold (rows are shops, columns are products): S = [[10, 5], [8, 12], [6, 9]]. Prices per unit: p = (4, 3) in euros.
+2. Revenue per shop = S p = (10×4 + 5×3, 8×4 + 12×3, 6×4 + 9×3) = **(55, 68, 54)** euros.
+3. Total revenue = 55 + 68 + 54 = **177** euros. The matrix did three dot products at once.
+/EX
+
+BN: (AB)_ij = A এর i-তম সারি ও B এর j-তম স্তম্ভের ডট গুণফল। A এর স্তম্ভ সংখ্যা = B এর সারি সংখ্যা হতে হবে। AB ≠ BA সাধারণভাবে। (AB)ᵀ = BᵀAᵀ (উল্টো ক্রম)। I দিয়ে গুণ করলে কিছু বদলায় না।
+
+TRAP: Matrix multiplication is **not commutative**: AB ≠ BA in general, so (A + B)² ≠ A² + 2AB + B². Check the sizes before multiplying: (m × n)(n × p). And you cannot "cancel" a matrix: AB = AC does not always imply B = C.
+
+### Quick self-check
+QUIZ:
+Q: If A is 3 × 2 and B is 2 × 4, then AB is…; 3 × 4; 2 × 2; 4 × 3; undefined; 1; (3 × 2)(2 × 4) = 3 × 4.
+Q: The identity matrix I satisfies…; AI = A; AI = 0; AI = Aᵀ; AI = I; 1; I is the neutral element of multiplication.
+Q: (AB)ᵀ equals…; AᵀBᵀ; BᵀAᵀ; ABᵀ; BA; 2; The order reverses.
+Q: For A = [[1, 2], [3, 4]], the product A (1, 1) equals…; (3, 7); (7, 3); (4, 6); (1, 1); 1; Row 1: 1 + 2 = 3. Row 2: 3 + 4 = 7.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Compute 2A + B for A = [[1, 0], [2, 3]] and B = [[1, 1], [0, 1]]. => [[2, 0], [4, 6]] + [[1, 1], [0, 1]] = **[[3, 1], [4, 7]]**.
+P: Find Aᵀ for A = [[1, 2, 3], [4, 5, 6]]. => **[[1, 4], [2, 5], [3, 6]]**.
+P: Compute [[1, 2], [3, 4]] (2, −1). => (2 − 2, 6 − 4) = **(0, 2)**.
+LVL: Level 2 | Apply
+P: Compute AB for A = [[2, 1], [0, 3]] and B = [[1, 4], [2, 0]]. => (AB)₁₁ = 2 + 2 = 4, (AB)₁₂ = 8 + 0 = 8, (AB)₂₁ = 0 + 6 = 6, (AB)₂₂ = 0. **[[4, 8], [6, 0]]**.
+P: For the same A and B compute BA and decide if AB = BA. => BA = [[1×2 + 4×0, 1×1 + 4×3], [2×2 + 0, 2×1 + 0]] = **[[2, 13], [4, 2]]**. Not equal.
+P: Compute A² for A = [[1, 1], [0, 1]], then A³. => A² = [[1, 2], [0, 1]]; A³ = A² A = **[[1, 3], [0, 1]]**. In general Aⁿ = [[1, n], [0, 1]].
+P: For a 2 × 2 matrix A = [[0, 1], [−1, 0]], find A² and A⁴. => A² = [[−1, 0], [0, −1]] = **−I**; A⁴ = (−I)² = **I**. (Compare with i² = −1.)
+P: Find x and y if [[1, 2], [3, 4]] (x, y) = (5, 11). => x + 2y = 5 and 3x + 4y = 11. From the first x = 5 − 2y, so 15 − 6y + 4y = 11, y = 2, x = **1**. Answer (1, 2).
+LVL: Level 3 | Real
+P: A bakery sells 3 products. Matrix of ingredients per unit (flour in kg, sugar in kg): bread (0.5, 0), cake (0.3, 0.2), biscuits (0.2, 0.1). Daily sales: 40 breads, 15 cakes, 100 biscuits. Find the daily flour and sugar use. => Sales vector s = (40, 15, 100) times the ingredient matrix M (rows are products): flour = 40×0.5 + 15×0.3 + 100×0.2 = 20 + 4.5 + 20 = **44.5 kg**; sugar = 0 + 3 + 10 = **13 kg**.
+LVL: Challenge | When does (A + B)² = A² + 2AB + B²?
+P: Expand (A + B)². Check with A = [[1, 2], [3, 4]] and B = [[0, 1], [1, 0]], and say when the "school formula" holds. => (A + B)² = A² + AB + BA + B². With these matrices: A² = [[7, 10], [15, 22]], B² = I, AB + BA = [[2, 1], [4, 3]] + [[3, 4], [1, 2]] = [[5, 5], [5, 5]]. Sum: [[13, 15], [20, 28]], and A + B = [[1, 3], [4, 4]], whose square is [[13, 15], [20, 28]] ✓. The school formula would give A² + 2AB + B² = [[7, 10], [15, 22]] + [[4, 2], [8, 6]] + I = [[12, 12], [23, 29]], which is **wrong**. It holds exactly when **AB = BA** (the matrices commute).
+
+CHECK: math
+
+@section physics | 3 · Physics: temperature and thermal expansion | 35 min
+
+### Temperature
+**Temperature** measures how hot something is: physically, it is related to the average kinetic energy of the molecules. If two objects at different temperatures touch, heat flows until they reach **thermal equilibrium**. The **zeroth law**: if A and B are each in equilibrium with C, then A and B are in equilibrium with each other. That is why a thermometer works.
+
+EQ: T(K) = T(°C) + 273.15     T(°F) = 1.8 T(°C) + 32
+
+The **kelvin** scale starts at **absolute zero**, 0 K = −273.15 °C, where molecular motion is minimal. Differences are the same in kelvin and °C: ΔT(K) = ΔT(°C).
+
+BN: তাপমাত্রা হলো অণুর গড় গতিশক্তির পরিমাপ। দুই বস্তু ছুঁলে তাপ প্রবাহিত হয় যতক্ষণ না তাপীয় সাম্য আসে। শূন্যতম সূত্র: A ও B আলাদাভাবে C এর সাথে সাম্যে থাকলে A ও B পরস্পর সাম্যে। T(K) = T(°C) + 273.15। পার্থক্য কেলভিন ও °C এ একই।
+
+EX: Conversions
+1. Body temperature 37 °C = 37 × 1.8 + 32 = **98.6 °F** = **310.15 K**.
+2. Water boils at 100 °C = 212 °F = 373.15 K.
+3. −40 °C = −40 °F: solve T = 1.8 T + 32, so −0.8 T = 32, T = −40 ✓.
+4. Absolute zero: −273.15 °C = 1.8 × (−273.15) + 32 = **−459.67 °F**.
+5. A warming of 20 °C is a warming of **20 K** and of 36 °F.
+/EX
+
+LAB: Temperature scales | Choose a temperature in degrees Celsius. The numbers show the kelvin and Fahrenheit values. Try 0, 37, 100, and −40. | c:Temperature (°C):-50:150:1:37 | c+273.15:Kelvin (K):2 ;; 1.8*c+32:Fahrenheit (°F):1 | - | 0,1 | 0,1
+
+### Thermal expansion
+Almost everything expands when heated, because the molecules vibrate harder and push apart. For a small temperature change ΔT:
+
+EQ: ΔL = α L₀ ΔT     ΔA = 2 α A₀ ΔT     ΔV = β V₀ ΔT with β = 3 α (solids)
+
+α is the **coefficient of linear expansion** (per kelvin).
+
+| Material | α (10⁻⁶ per K) |
+| Invar (a nickel-steel alloy) | 1.2 |
+| Glass | 9 |
+| Steel | 12 |
+| Concrete | 12 |
+| Copper | 17 |
+| Aluminium | 23 |
+
+EX: Expansion in the real world
+1. **Rail:** a steel rail 30 m long warms by 40 K: ΔL = 12 × 10⁻⁶ × 30 × 40 = 0.0144 m = **14.4 mm**. Railways leave gaps or use welded rails held under stress.
+2. **Bridge:** an aluminium bridge span 100 m, ΔT = 50 K: ΔL = 23 × 10⁻⁶ × 100 × 50 = **11.5 cm**. Bridges have expansion joints.
+3. **Area:** a steel plate of 2 m² heated by 100 K: ΔA = 2 × 12 × 10⁻⁶ × 2 × 100 = **0.0048 m²**. A hole in the plate expands as well, as if it were made of the same material.
+4. **Liquids:** petrol has β = 9.5 × 10⁻⁴ per K. A 50 L tank filled at 10 °C and warmed to 30 °C gains 9.5 × 10⁻⁴ × 50 × 20 = **0.95 L** which overflows.
+5. **Thermal stress:** a steel rod clamped at both ends cannot expand. The stress is σ = E α ΔT = 200 × 10⁹ × 12 × 10⁻⁶ × 40 = **96 MPa**. On a cross-section of 10 cm² this is a force of **96 kN**, enough to buckle a rail.
+/EX
+
+LAB: Expansion of a rod | Choose the coefficient α (in units of 10⁻⁶ per K, steel is 12, aluminium 23), the length, and the temperature rise. The numbers show the change in length (mm) and the thermal stress (MPa) if the ends are clamped (E = 200 GPa). The graph shows ΔL against ΔT. | al:Coefficient α (10⁻⁶ per K):1:25:1:12 ;; L:Length L₀ (m):1:100:1:30 ;; dT:Temperature rise ΔT (K):0:100:5:40 | al*0.001*L*dT:Change in length (mm):2 ;; 0.2*al*dT:Clamped stress (MPa):1 | al*0.001*L*x | 0,100 | 0,260
+
+### The strange case of water
+Most liquids shrink as they cool, but water is densest at **4 °C** (999.97 kg/m³). Below that it expands, and ice (917 kg/m³) is less dense than liquid water. So a lake cools from the top, the 4 °C water sinks, and ice forms at the surface and insulates the water below, which lets fish survive winters.
+
+### The bimetallic strip
+Two metals are bonded together, for example brass (α = 19 × 10⁻⁶) and steel (12 × 10⁻⁶). When heated, brass expands more, so the strip **bends** toward the steel side. This is the heart of a simple thermostat: the strip bends until it breaks a circuit.
+
+BN: প্রসারণ: ΔL = αL₀ΔT, ΔA = 2αA₀ΔT, ΔV = βV₀ΔT (β = 3α)। ইস্পাতের α = 12 × 10⁻⁶/K, অ্যালুমিনিয়ামের 23 × 10⁻⁶/K। আটকানো দণ্ডে তাপীয় পীড়ন σ = EαΔT। পানি 4 °C এ সবচেয়ে ঘন, তাই হ্রদ ওপর থেকে জমে। দ্বিধাতব পাত গরমে বাঁকে এবং থার্মোস্ট্যাটে ব্যবহৃত হয়।
+
+TRAP: Temperature **differences** are the same in °C and K, but the **values** are not: never use °C in gas laws (Week 14). Also do not use the linear formula α for volume without multiplying by 3, and remember that a **hole** gets bigger when the plate is heated.
+
+### Quick self-check
+QUIZ:
+Q: 300 K in Celsius is about…; 27 °C; 573 °C; −27 °C; 300 °C; 1; 300 − 273.15 = 26.85.
+Q: A steel rod is heated by 100 K. The same rod made of aluminium would expand…; less; more; the same; zero; 2; α for aluminium is about twice that of steel.
+Q: A hole in a metal plate, when the plate is heated, gets…; larger; smaller; unchanged; closed; 1; It expands like the material.
+Q: Water is densest at…; 0 °C; 4 °C; 10 °C; 100 °C; 2; That is the water anomaly.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Convert 25 °C to kelvin and Fahrenheit. => **298.15 K** and **77 °F**.
+P: Find the expansion of a copper bar of 2 m heated by 50 K. => 17 × 10⁻⁶ × 2 × 50 = 1.7 × 10⁻³ m = **1.7 mm**.
+LVL: Level 2 | Apply
+P: A glass window is 1.2 m wide. The temperature changes from −10 °C to 30 °C. Find the expansion. => 9 × 10⁻⁶ × 1.2 × 40 = 4.32 × 10⁻⁴ m = **0.43 mm**.
+P: A steel tape is exact at 20 °C. At 35 °C it measures a 50 m distance. What is the error? => Tape length increases by 12 × 10⁻⁶ × 50 × 15 = 9 mm, so it reads **9 mm too small**.
+P: An aluminium sheet 1.5 m × 2.0 m is heated by 80 K. Find the new area increase. => ΔA = 2 × 23 × 10⁻⁶ × 3.0 × 80 = **0.01104 m²**.
+P: A concrete road 1 km long is not allowed to expand when it warms 30 K. Find the stress with E = 30 GPa. => σ = 30 × 10⁹ × 12 × 10⁻⁶ × 30 = **10.8 MPa**.
+P: A 500 mL flask of mercury (β = 1.8 × 10⁻⁴) is warmed by 50 K. By how much does the volume increase (ignore the glass)? => 1.8 × 10⁻⁴ × 500 × 50 = **4.5 mL**.
+LVL: Level 3 | Real
+P: A railway uses steel rails of 25 m laid at 10 °C. In summer the rails reach 50 °C. What gap is needed between rails, and what happens if there is none? => ΔL = 12 × 10⁻⁶ × 25 × 40 = 0.012 m = **12 mm**. Without a gap the stress would be 200 GPa × 12 × 10⁻⁶ × 40 = 96 MPa and the rails buckle (a "sun kink").
+P: A bridge is built from steel and has a total length of 400 m between −20 °C and 45 °C. Find the total expansion. => 12 × 10⁻⁶ × 400 × 65 = **0.312 m = 31 cm**. The expansion joints must accommodate this.
+LVL: Challenge | The brass pendulum clock
+P: A pendulum clock has a brass rod (α = 19 × 10⁻⁶ per K) and keeps perfect time at 20 °C. How many seconds per day does it lose at 30 °C? (Use T ∝ √L.) => The rod lengthens by a fraction α ΔT = 19 × 10⁻⁶ × 10 = 1.9 × 10⁻⁴. The period lengthens by half of that: 0.95 × 10⁻⁴. In a day of 86,400 s the clock loses 86,400 × 0.95 × 10⁻⁴ = **8.2 s per day**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Matrices: m × n, add entry by entry, multiply with row · column (inner sizes must match), AB ≠ BA, I is neutral, (AB)ᵀ = BᵀAᵀ, matrix times vector gives a new vector.
+- Temperature: T(K) = T(°C) + 273.15, T(°F) = 1.8 T(°C) + 32. Expansion ΔL = α L₀ ΔT, ΔA = 2α A₀ ΔT, ΔV = β V₀ ΔT with β = 3α. Clamped stress σ = E α ΔT. Water is densest at 4 °C.
+
+BN: আজকের সারকথা: ম্যাট্রিক্স গুণ = সারি · স্তম্ভ, AB ≠ BA, (AB)ᵀ = BᵀAᵀ। তাপমাত্রা: K = °C + 273.15, °F = 1.8°C + 32; প্রসারণ ΔL = αL₀ΔT, ΔA = 2αA₀ΔT, ΔV = βV₀ΔT; আটকানো দণ্ডে σ = EαΔT; পানি 4 °C এ সবচেয়ে ঘন।
+
+EXIT:
+E: What is the entry (AB)₁₂ if A = [[1, 2], [3, 4]] and B = [[5, 6], [7, 8]]?; 22; 0.001; Row 1 of A times column 2 of B: 1×6 + 2×8 = 22.
+E: What is the expansion in mm of a 2 m aluminium bar heated by 50 K (α = 23 × 10⁻⁶ per K)?; 2.3; 0.01; 23 × 10⁻⁶ × 2 × 50 = 2.3 × 10⁻³ m.
+E: What is 25 °C in kelvin?; 298.15; 0.01; 25 + 273.15 = 298.15.
+
+**Tomorrow:** determinants and inverses of 2 × 2 and 3 × 3 matrices, and heat, specific heat and calorimetry.
+
+CHECK: notes

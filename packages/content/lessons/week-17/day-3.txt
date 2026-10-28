@@ -1,0 +1,169 @@
+@day Week 17 · Day 3 · Wednesday
+# Triple integrals, cylindrical and spherical coordinates. Then: electric potential and energy
+lead: Add one more variable and you can add up over a solid: its volume, its mass, its centre of mass, its moment of inertia. Cylinders and balls are awkward in x, y, z but easy in cylindrical and spherical coordinates, which match their symmetry. In physics, you stop thinking about forces and think about energy: electric potential is the energy per unit charge, a single number at each point that holds the same information as the whole field. It explains batteries, voltage and how fast a particle moves after a voltage boost.
+
+BN: আরেকটা চলক যোগ করলে কঠিন বস্তুর উপর যোগ করা যায়: আয়তন, ভর, ভরকেন্দ্র, জড়তা ভ্রামক। নলাকার ও গোলক x, y, z এ কঠিন, কিন্তু নলাকার ও গোলীয় স্থানাঙ্কে সহজ, কারণ এরা প্রতিসাম্যের সাথে মেলে। পদার্থবিজ্ঞানে বলের বদলে শক্তি নিয়ে ভাববে: বিভব হলো প্রতি একক চার্জে শক্তি, প্রতি বিন্দুতে একটা সংখ্যা যা পুরো ক্ষেত্রের তথ্য ধরে রাখে। এটা ব্যাটারি, ভোল্টেজ এবং ভোল্টেজ পাওয়ার পর কণা কত দ্রুত চলে তা বোঝায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Write dA in polar coordinates. => **r dr dθ**.
+P: Evaluate ∫₀^π sin φ dφ. => **2**.
+P: What is the volume of a sphere of radius R? => **4π R³ ÷ 3**.
+P: What is the field of a 10 nC charge at 0.1 m? => **8990 N/C**.
+P: State the work-energy theorem. => **W_net = ΔKE**.
+
+CHECK: recall
+
+@section math | 2 · Math: triple integrals | 55 min
+
+### Triple integrals
+For a function f (x, y, z) over a solid region E, ∭_E f dV adds f × (tiny volume). With f = 1 it gives the **volume**; with a density ρ it gives the **mass** M = ∭ ρ dV. In Cartesian coordinates dV = dx dy dz, and the integral is three nested single integrals.
+
+EX: A box
+∭ x y z dV over the cube [0, 1]³ = (∫₀¹ x dx)(∫₀¹ y dy)(∫₀¹ z dz) = (1/2)³ = **1/8**. The volume of a box 2 × 3 × 4 is ∭ 1 dV = **24**.
+/EX
+
+### Cylindrical and spherical coordinates
+Choose coordinates that match the shape:
+
+| System | Coordinates | Volume element dV |
+| Cartesian | (x, y, z) | dx dy dz |
+| Cylindrical | (r, θ, z): x = r cos θ, y = r sin θ | **r dr dθ dz** |
+| Spherical | (ρ, φ, θ): x = ρ sin φ cos θ, y = ρ sin φ sin θ, z = ρ cos φ | **ρ² sin φ dρ dφ dθ** |
+
+(φ is the angle from the z-axis, 0 to π; θ is the angle around, 0 to 2π.)
+
+BN: আকৃতির সাথে মেলে এমন স্থানাঙ্ক নাও। নলাকার: dV = r dr dθ dz। গোলীয়: dV = ρ² sin φ dρ dφ dθ (φ = z-অক্ষ থেকে কোণ, 0 থেকে π)। বাড়তি r ও ρ² sin φ কখনো ভুলো না।
+
+EX: Volumes and masses
+1. **A cylinder (radius R, height h):** ∫₀^{2π} ∫₀^R ∫₀^h r dz dr dθ = 2π × R²/2 × h = **π R² h**. For R = 2, h = 5: **62.83**.
+2. **A ball of radius R:** ∫₀^{2π} ∫₀^π ∫₀^R ρ² sin φ dρ dφ dθ = (2π)(2)(R³/3) = **4π R³ ÷ 3**. For R = 2: **33.51**.
+3. **A cone** (base radius R, height h): the radius at height z is R (1 − z ÷ h), so V = ∫₀^h π R² (1 − z ÷ h)² dz = π R² h ÷ 3. For R = 3 and h = 4: **37.70**, a third of the cylinder.
+4. **A ball with density ρ = ρ₀ (1 − ρ ÷ R)** (denser in the centre): M = ∫₀^R 4π ρ² ρ₀ (1 − ρ ÷ R) dρ = 4π ρ₀ (R³/3 − R³/4) = **π ρ₀ R³ ÷ 3**. For R = 1 m and ρ₀ = 1000 kg/m³: **1047 kg**, a quarter of a uniform ball of density 1000 (4189 kg).
+5. **The Earth's mean density:** V = 4π (6.371 × 10⁶)³ ÷ 3 = 1.083 × 10²¹ m³, M = 5.97 × 10²⁴ kg, so mean ρ = **5511 kg/m³**. The surface rock is only 2700 kg/m³: the core must be much denser.
+6. **A hemisphere's centre of mass** (R, z ≥ 0): ∭ z dV = ∫₀^{2π} ∫₀^{π/2} ∫₀^R ρ cos φ ρ² sin φ dρ dφ dθ = 2π × (1/2) × R⁴/4 = π R⁴/4. The volume is 2π R³/3. So **z̄ = 3R ÷ 8**. For R = 0.4 m: **0.15 m**.
+/EX
+
+LAB: Three solids from integrals | Choose a radius and a height. The numbers give the volume of a cylinder (π R² h), of a cone with the same base and height (one third), of a sphere of radius R (4π R³ ÷ 3) and of a hemisphere. | R:Radius R (cm):1:20:1:5 ;; h:Height h (cm):1:30:1:10 | pi*R^2*h:Cylinder (cm³):1 ;; pi*R^2*h/3:Cone (cm³):1 ;; 4*pi*R^3/3:Sphere (cm³):1 ;; 2*pi*R^3/3:Hemisphere (cm³):1 | - | 0,1 | 0,1
+
+### Moments of inertia from integrals
+EX: Solid sphere and cylinder
+1. **A solid cylinder (mass M, radius R) about its axis:** I = ∭ ρ_m r² dV = ρ_m ∫₀^{2π} ∫₀^R ∫₀^h r³ dz dr dθ = ρ_m (2π h R⁴ ÷ 4) = ½ (ρ_m π R² h) R² = **½ M R²**. For M = 3 kg and R = 0.1 m: **0.015 kg m²**.
+2. **A solid sphere about a diameter:** the distance from the z-axis is ρ sin φ, so I = ρ_m ∭ ρ² sin²φ · ρ² sin φ dρ dφ dθ = ρ_m (R⁵ ÷ 5)(2π)(4/3) = 8π ρ_m R⁵ ÷ 15. With M = 4π ρ_m R³ ÷ 3 this is **I = (2/5) M R²** (using ∫₀^π sin³φ dφ = 4/3). For M = 5 kg and R = 0.2 m: **0.08 kg m²**.
+3. These are exactly the numbers in Week 8's table: they were derived from integrals like these.
+/EX
+
+TRAP: Do not forget the **extra factors** in dV: r in cylindrical and ρ² sin φ in spherical coordinates. In spherical coordinates the angle φ runs from 0 to π (from the north pole to the south pole), not to 2π. And a variable ρ (distance from the origin) is not the density ρ: this is why we write the density as ρ_m or σ or λ when you use spherical coordinates.
+
+### Quick self-check
+QUIZ:
+Q: In cylindrical coordinates dV equals…; dr dθ dz; r dr dθ dz; r² dr dθ dz; ρ² sin φ; 2; Same r as the polar dA.
+Q: The volume of a cone is ___ of the cylinder with the same base and height.; 1/2; 1/3; 1/4; 2/3; 2; π R² h ÷ 3.
+Q: The moment of inertia of a solid sphere about a diameter is…; ½ M R²; (2/5) M R²; M R²; (2/3) M R²; 2; Integral result.
+Q: The centre of mass of a uniform hemisphere is at…; R/2 from the flat face; 3R/8 from the flat face; R/4; 2R/3; 2; z̄ = 3R ÷ 8.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the volume of a box 2 × 3 × 5. => **30**.
+P: Find the volume of a cylinder of radius 2 and height 5. => **20π = 62.8**.
+P: Evaluate ∭ x dV over [0, 2] × [0, 1] × [0, 1]. => **2**.
+LVL: Level 2 | Apply
+P: Find the volume of a sphere of radius 3 by integration. => **4π × 27 ÷ 3 = 36π = 113.1**.
+P: Find the volume of a cone with base radius 3 and height 4. => **π × 9 × 4 ÷ 3 = 12π = 37.7**.
+P: Find ∭ z dV over a cylinder of radius 1 and height 2 (0 ≤ z ≤ 2). => π × ∫₀² z dz = π × 2 = **2π = 6.283**. (The centroid is at z = 1, since 6.283 ÷ (2π) = 1.)
+P: A ball of radius 0.5 m has density ρ = 800 (1 − ρ ÷ R). Find its mass. => π ρ₀ R³ ÷ 3 = π × 800 × 0.125 ÷ 3 = **104.7 kg**.
+P: Find the centre of mass height of a hemisphere of radius 0.4 m. => 3R ÷ 8 = **0.15 m**.
+P: Find the mass of a cylinder of radius 0.1 m and height 0.5 m with density 2700 kg/m³ (aluminium). => 2700 × π × 0.01 × 0.5 = **42.4 kg**.
+LVL: Level 3 | Real
+P: A solid cylinder (M = 3 kg, R = 0.1 m) and a solid sphere (M = 3 kg, R = 0.1 m) roll down a ramp. Find their moments of inertia and which one gets to the bottom first. => I_cyl = ½ M R² = **0.015**, I_sph = (2/5) M R² = **0.012 kg m²**. The sphere has the smaller I ÷ (M R²), so more of the energy goes into translation: **the sphere wins** (the acceleration is g sin θ ÷ (1 + I ÷ M R²): 0.714 g sin θ against 0.667 g sin θ).
+LVL: Challenge | The moment of inertia of a hollow shell
+P: A thin spherical shell of mass M and radius R: use σ = M ÷ 4π R² and ∬ (R sin φ)² σ dA with dA = R² sin φ dφ dθ to find I about a diameter. => I = σ R⁴ ∫₀^{2π} ∫₀^π sin³φ dφ dθ = σ R⁴ × 2π × 4/3 = (M ÷ 4π R²) × 8π R⁴ ÷ 3 = **(2/3) M R²**.
+
+CHECK: math
+
+@section physics | 3 · Physics: electric potential and energy | 35 min
+
+### Potential energy of charges
+Bring a charge q from far away (where U = 0) to a distance r from a charge Q. The work you do is the **electric potential energy**:
+
+EQ: U = k Q q ÷ r     (positive for like charges, negative for opposite charges)
+
+**Electric potential** is the potential energy **per unit charge**: V = U ÷ q. For a point charge Q, and for any number of charges (it is a **scalar**, so you add numbers, not vectors):
+
+EQ: V = k Q ÷ r     V = Σ k Qᵢ ÷ rᵢ     (unit: volt, 1 V = 1 J/C)
+
+The work done by the field when a charge q moves from A to B is **W = q (V_A − V_B)**.
+
+BN: স্থিতিশক্তি U = kQq/r (অসীম থেকে আনার কাজ)। বিভব V = U/q = kQ/r, একক ভোল্ট (V = J/C)। বিভব স্কেলার, তাই সংখ্যা যোগ করো, ভেক্টর নয়। ক্ষেত্র বিন্দু A থেকে B তে q সরালে কাজ W = q(V_A − V_B)।
+
+EX: Potential numbers
+1. **A 10 nC charge:** at 0.1 m V = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.1 = **899 V**; at 0.3 m **299.7 V**. At 0.5 m for 2 nC: **35.96 V**.
+2. **Work to bring 1 nC in** to 0.1 m: U = q V = 10⁻⁹ × 899 = **8.99 × 10⁻⁷ J**.
+3. **Moving from A (r = 0.1 m) to B (r = 0.3 m)** a 2 nC charge in the field of 10 nC: ΔV = 899 − 299.7 = 599.3 V and the field does W = q ΔV = 2 × 10⁻⁹ × 599.3 = **1.20 × 10⁻⁶ J** (positive: like charges repel it outward).
+4. **Opposite charges:** +2 nC at x = 0 and −2 nC at x = 0.2 m. At (0.3, 0): V = 8.99 × 10⁹ × 2 × 10⁻⁹ (1 ÷ 0.3 − 1 ÷ 0.1) = 17.98 × (−6.667) = **−119.9 V**. At the midpoint V = **0** (the two terms cancel) although E ≠ 0 there: zero potential does not mean zero field.
+5. **Four equal charges** of 1 nC at the corners of a square of side 0.2 m: at the centre (0.1414 m from each) V = 4 × 8.99 × 10⁹ × 10⁻⁹ ÷ 0.1414 = **254 V**, while the field there is **0** (the four fields cancel). Potential adds as numbers, fields as vectors.
+6. **Energy of a configuration:** three 1 μC charges at the corners of an equilateral triangle of side 0.3 m: U = 3 × k q² ÷ a = 3 × 8.99 × 10⁹ × 10⁻¹² ÷ 0.3 = **0.0899 J**. A charged sphere (Q = 1 μC, R = 0.1 m) has energy k Q² ÷ 2R = **0.045 J**.
+/EX
+
+LAB: Potential and energy of a point charge | Choose the source charge, a test charge and the distance. The numbers give the potential of the source at that point, the potential energy of the pair and the work needed to bring the test charge to half that distance. The graph shows the potential against distance (a 1 ÷ r curve). | Q:Source Q (nC):-20:20:1:10 ;; q:Test charge q (nC):-5:5:1:2 ;; r:Distance r (cm):2:50:1:10 | 8.99e9*Q*1e-9/(r/100):Potential V (V):1 ;; 8.99e9*Q*1e-9*q*1e-9/(r/100)*1e6:Potential energy U (μJ):2 ;; 8.99e9*Q*1e-9*q*1e-9*(1/(r/200)-1/(r/100))*1e6:Work to halve the distance (μJ):2 | 8.99e9*Q*1e-9/(x/100) | 2,50 | -3000,3000
+
+### The electron-volt and energy conservation
+A charge q moved through a potential difference ΔV gains kinetic energy **ΔKE = q ΔV**. The **electron-volt** is the energy of one electron through one volt: **1 eV = 1.602 × 10⁻¹⁹ J**.
+
+EX: Speeds from voltages
+1. **An electron through 500 V:** KE = 500 eV = 8.01 × 10⁻¹⁷ J, so v = √(2 × 8.01 × 10⁻¹⁷ ÷ 9.109 × 10⁻³¹) = **1.33 × 10⁷ m/s** (4.4% of the speed of light: classical physics is still fine).
+2. **A proton through 10 kV:** v = √(2 × 1.602 × 10⁻¹⁹ × 10⁴ ÷ 1.673 × 10⁻²⁷) = **1.38 × 10⁶ m/s**. A proton is 1836 times heavier, so it is about 43 times slower than an electron at the same energy.
+3. **The hydrogen atom:** U = −k e² ÷ r = −8.99 × 10⁹ × (1.602 × 10⁻¹⁹)² ÷ 5.29 × 10⁻¹¹ = −4.36 × 10⁻¹⁸ J = **−27.2 eV**. The orbiting electron has KE = +13.6 eV (half of |U|), so the total is **−13.6 eV**: the energy to ionise hydrogen.
+4. **Rutherford's experiment:** an α-particle (charge 2e) with 5 MeV heads straight at a gold nucleus (charge 79e). It stops at distance r where k (2e)(79e) ÷ r = 5 MeV: r = 8.99 × 10⁹ × 158 × (1.602 × 10⁻¹⁹)² ÷ (5 × 10⁶ × 1.602 × 10⁻¹⁹) = **4.55 × 10⁻¹⁴ m = 45.5 fm**. That is much smaller than an atom (10⁻¹⁰ m) and showed that the positive charge sits in a tiny nucleus.
+5. **Two 3 μC charges 0.2 m apart** hold U = 8.99 × 10⁹ × 9 × 10⁻¹² ÷ 0.2 = **0.405 J**. Released, two 0.1 kg masses fly apart each with KE = 0.2023 J, so v = √(2 × 0.2023 ÷ 0.1) = **2.01 m/s**.
+/EX
+
+LAB: Speed after a voltage boost | Choose the accelerating voltage. The numbers give the kinetic energy in eV and the speeds of an electron and of a proton starting from rest (valid below about 10% of the speed of light). The graph shows the electron's speed against voltage: it grows like the square root. | V:Voltage (V):10:5000:10:500 | V:Kinetic energy (eV):0 ;; sqrt(2*V*1.602e-19/9.109e-31)/1e6:Electron speed (10⁶ m/s):2 ;; sqrt(2*V*1.602e-19/1.673e-27)/1e3:Proton speed (10³ m/s):1 ;; 100*sqrt(2*V*1.602e-19/9.109e-31)/3e8:Electron speed (% of c):1 | sqrt(2*x*1.602e-19/9.109e-31)/1e6 | 10,5000 | 0,25
+
+TRAP: Potential is a **scalar**: add the numbers with their **signs** (V of a negative charge is negative). Zero potential does not mean zero field (the midpoint of a dipole), and zero field does not mean zero potential (the centre of the square). Be careful that U = k Q q ÷ r is the energy of the **pair**, and do not count it twice when you add up the energy of many charges: sum over pairs.
+
+### Quick self-check
+QUIZ:
+Q: The potential of a point charge falls as…; 1/r; 1/r²; 1/r³; constant; 1; V = kQ ÷ r.
+Q: An electron falls through 100 V. Its kinetic energy is…; 100 eV; 1.6 × 10⁻¹⁹ J; 100 J; 0.01 eV; 1; ΔKE = q ΔV.
+Q: Two opposite charges: at the midpoint the potential is…; maximum; zero; infinite; positive; 2; The two terms cancel.
+Q: The unit volt equals…; N/C; J/C; C/J; N m; 2; V = U ÷ q.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the potential at 0.5 m from a 2 nC charge. => 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.5 = **35.96 V**.
+P: Find the kinetic energy of an electron after 200 V, in eV and in joules. => **200 eV = 3.2 × 10⁻¹⁷ J**.
+P: Find the potential energy of 1 nC and 2 nC at 3 cm. => 8.99 × 10⁹ × 2 × 10⁻¹⁸ ÷ 0.03 = **5.99 × 10⁻⁷ J**.
+LVL: Level 2 | Apply
+P: A 2 nC charge moves from r = 0.1 m to r = 0.3 m in the field of a 10 nC charge. Find the work done by the field. => **1.20 × 10⁻⁶ J**.
+P: A proton is released at 5 cm from a fixed 2 μC charge. Find its speed far away. => U = k Q e ÷ r = 8.99 × 10⁹ × 2 × 10⁻⁶ × 1.602 × 10⁻¹⁹ ÷ 0.05 = 5.76 × 10⁻¹⁴ J, v = √(2U ÷ m) = **8.30 × 10⁶ m/s**.
+P: Find the potential at the centre of a square of side 0.2 m with charges +1, +1, −1, −1 nC at the corners. => **0** (two positive and two negative, all at the same distance). The field at the centre is not zero, it depends on the arrangement.
+P: Find the voltage that accelerates an electron to 2 × 10⁷ m/s. => V = m v² ÷ (2e) = 9.109 × 10⁻³¹ × 4 × 10¹⁴ ÷ (2 × 1.602 × 10⁻¹⁹) = **1137 V**.
+P: Find the energy stored in a conducting sphere with Q = 2 μC and R = 0.2 m. => k Q² ÷ 2R = 8.99 × 10⁹ × 4 × 10⁻¹² ÷ 0.4 = **0.0899 J**.
+P: Find the potential energy of an electron and a proton at 0.1 nm, in eV. => −k e² ÷ r = −2.307 × 10⁻²⁸ ÷ 10⁻¹⁰ = −2.307 × 10⁻¹⁸ J = **−14.4 eV**.
+LVL: Level 3 | Real
+P: In a CRT screen an electron is accelerated through 15 kV. Find its speed and the percentage of the speed of light. Does the classical formula still work? => v = √(2 × 15000 × 1.602 × 10⁻¹⁹ ÷ 9.109 × 10⁻³¹) = **7.26 × 10⁷ m/s = 24% of c**. At this speed there is already a relativistic correction of about 4% in the kinetic energy (Week 27): classical physics is only approximately right.
+LVL: Challenge | The energy of a charged sphere
+P: Build up a sphere of radius R by adding shells of charge dq at the potential V = k q ÷ R. Show that U = k Q² ÷ 2R. => dU = V dq = k q dq ÷ R. Integrating q from 0 to Q: U = (k ÷ R) × Q² ÷ 2 = **k Q² ÷ 2R**. For Q = 1 μC and R = 0.1 m: **0.045 J**, as found above.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Triple integrals: volume ∭ 1 dV, mass ∭ ρ dV. Cylindrical dV = r dr dθ dz; spherical dV = ρ² sin φ dρ dφ dθ. Cylinder πR²h, cone ⅓ of it, ball 4πR³ ÷ 3, hemisphere z̄ = 3R ÷ 8. I_cylinder = ½MR², I_sphere = (2/5)MR², I_shell = (2/3)MR².
+- Potential energy U = kQq ÷ r; potential V = kQ ÷ r (scalar, adds with signs), volt = J/C, W = q (V_A − V_B). 1 eV = 1.602 × 10⁻¹⁹ J. ΔKE = q ΔV. Hydrogen −13.6 eV total. Sphere energy kQ² ÷ 2R.
+
+BN: আজকের সারকথা: ত্রি-যোগজ: আয়তন, ভর। নলাকার dV = r dr dθ dz; গোলীয় dV = ρ² sin φ dρ dφ dθ। নলাকার πR²h, কোণক তার ১/৩, গোলক 4πR³/3, অর্ধগোলকের z̄ = 3R/8। I: নল ½MR², গোলক (2/5)MR², খোলক (2/3)MR²। স্থিতিশক্তি U = kQq/r; বিভব V = kQ/r (স্কেলার), ভোল্ট = J/C; W = q(V_A − V_B); 1 eV = 1.602 × 10⁻¹⁹ J; ΔKE = qΔV।
+
+EXIT:
+E: What is the volume of a sphere of radius 3 divided by π?; 36; 0.01; 4 × 27 ÷ 3.
+E: What is the potential (V) at 0.1 m from a 10 nC charge?; 899; 1; k Q ÷ r.
+E: What is the speed (10⁷ m/s) of an electron accelerated through 500 V?; 1.33; 0.02; v = √(2 e V ÷ m).
+
+**Tomorrow:** line integrals and conservative fields, and the relation E = −∇V.
+
+CHECK: notes

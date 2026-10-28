@@ -1,0 +1,208 @@
+@day Week 8 · Day 1 · Monday
+# Antiderivatives and the indefinite integral. Then: moment of inertia
+lead: So far you have asked "given the position, what is the velocity?" Today you reverse the question: "given the acceleration, what is the velocity and the position?" That reverse operation is the antiderivative, and it is the first half of integral calculus. In physics, rotation needs its own "mass": the moment of inertia, which tells you how hard it is to spin something.
+
+BN: এতদিন তুমি জিজ্ঞেস করেছ "অবস্থান জানা থাকলে বেগ কত?" আজ প্রশ্নটা উল্টে দেবে: "ত্বরণ জানা থাকলে বেগ ও অবস্থান কত?" এই উল্টো প্রক্রিয়াই প্রতিঅন্তরকলজ (antiderivative), যা সমাকলনের প্রথম অর্ধেক। পদার্থবিজ্ঞানে ঘূর্ণনের জন্য আলাদা "ভর" লাগে: জড়তার ভ্রামক (moment of inertia), যা বলে কোনো কিছুকে ঘোরানো কতটা কঠিন।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Find lim (x → 0) (e^(2x) − 1) ÷ x. => L'Hôpital: 2e^(2x) → **2**.
+P: Estimate √9.3 by linearisation at 9. => 3 + 0.3 ÷ 6 = **3.05**.
+P: A beam of 4 m has a 50 N weight at 1 m from the left pivot. What upward force at the right end balances it, ignoring beam weight? => Torque about the left: F × 4 = 50 × 1, so **F = 12.5 N**.
+P: A wheel starts at rest with α = 2 rad/s². Find ω after 5 s. => **10 rad/s**.
+P: Differentiate x³ − 5x. => **3x² − 5**.
+
+CHECK: recall
+
+@section math | 2 · Math: the antiderivative | 55 min
+
+### Running differentiation backwards
+An **antiderivative** of f is a function F whose derivative is f: F′(x) = f(x).
+
+For example, F(x) = x² is an antiderivative of 2x, because d/dx (x²) = 2x. But so are x² + 7 and x² − 100, because constants vanish when you differentiate. So we write all of them at once with a constant C:
+
+EQ: ∫ f(x) dx = F(x) + C     (the indefinite integral)
+
+The symbol ∫ is a stretched "S" (for "sum"; Day 2 explains why). The "dx" says the variable is x. The **C** is not a detail: it is the reason one acceleration can lead to many motions (different starting conditions).
+
+BN: F′ = f হলে F হলো f এর প্রতিঅন্তরকলজ। x², x² + 7, x² − 100 এই তিনটারই অন্তরকলজ 2x, কারণ ধ্রুবকের অন্তরকলজ শূন্য। তাই সব উত্তর একসাথে লিখি F(x) + C দিয়ে। C ফেলে দিলে ভুল: একই ত্বরণ থেকে ভিন্ন শুরুর অবস্থায় ভিন্ন গতি আসে।
+
+PREDICT: The functions x² + 7 and x² − 100 look different. What do you get when you differentiate each one? And what does that tell you about two antiderivatives of the same function? => Both give 2x. Two antiderivatives of the same function can only differ by a constant, which is why every antiderivative is written F(x) + C.
+
+### The basic table
+Read the derivative table from right to left:
+
+| Function f(x) | Antiderivative F(x) |
+| xⁿ (n ≠ −1) | xⁿ⁺¹ ÷ (n + 1) |
+| 1 ÷ x | ln abs(x) |
+| eˣ | eˣ |
+| sin x | −cos x |
+| cos x | sin x |
+| sec² x | tan x |
+| 1 ÷ (1 + x²) | arctan x |
+
+Two rules make the table useful. **Constants come out:** ∫ k f dx = k ∫ f dx. **Sums split:** ∫ (f + g) dx = ∫ f dx + ∫ g dx. And always **check by differentiating** your answer.
+
+For the "chain rule in reverse", a linear inside is easy: if F′ = f, then ∫ f(ax + b) dx = F(ax + b) ÷ a + C. (Divide by the inside's derivative a.)
+
+EX: Term by term
+1. ∫ (3x² + 2x − 5) dx = x³ + x² − 5x + C. Check: derivative = 3x² + 2x − 5 ✓.
+2. ∫ (x³ + 1 ÷ x²) dx: write 1 ÷ x² as x⁻². Then x⁴ ÷ 4 + x⁻¹ ÷ (−1) = **x⁴ ÷ 4 − 1 ÷ x + C**.
+3. ∫ √x dx = ∫ x^(1/2) dx = x^(3/2) ÷ (3/2) = **(2/3) x^(3/2) + C**.
+4. ∫ (x + 1)² dx: expand first, x² + 2x + 1, so **x³ ÷ 3 + x² + x + C**.
+5. ∫ (x² + 1) ÷ x² dx = ∫ (1 + x⁻²) dx = **x − 1 ÷ x + C**.
+6. ∫ e^(2x) dx = **e^(2x) ÷ 2 + C**, and ∫ cos 3x dx = **sin 3x ÷ 3 + C**.
+/EX
+
+TRAP: Do not use the power rule on 1 ÷ x: the formula would divide by n + 1 = 0. The answer is ln abs(x). Also, there is no product rule for integrals: ∫ x² · x³ dx is **not** (∫ x² dx)(∫ x³ dx). Multiply out first (x⁵), then integrate. And never forget **+ C**.
+
+### Finding C: initial value problems
+If you know the function's value at one point, C is fixed.
+
+EX: A curve through a point
+1. f′(x) = 6x − 2 and f(1) = 5. Then f(x) = 3x² − 2x + C. At x = 1: 3 − 2 + C = 5, so **C = 4**, f(x) = 3x² − 2x + 4.
+/EX
+
+### From acceleration to position
+Integrate twice. Velocity is the antiderivative of acceleration and position is the antiderivative of velocity, and **each integration brings one constant**: the starting velocity v₀ and the starting position x₀.
+
+EX: Where SUVAT really comes from
+1. Constant acceleration a: v(t) = ∫ a dt = a t + v₀.
+2. x(t) = ∫ (a t + v₀) dt = **½ a t² + v₀ t + x₀**. That is the SUVAT formula, now proved.
+/EX
+
+EX: A ball thrown upward
+1. a = −9.8 m/s², v₀ = 20 m/s, x₀ = 0. Then v = 20 − 9.8t and x = 20t − 4.9t².
+2. At the top v = 0: t = 20 ÷ 9.8 = 2.04 s. Height = 20 × 2.0408 − 4.9 × 4.165 = **20.4 m** (check: v₀² ÷ 2g = 400 ÷ 19.6 = 20.4 ✓).
+/EX
+
+EX: Acceleration that changes
+1. a(t) = 6t m/s², v(0) = 2 m/s, x(0) = 1 m. Then v = 3t² + 2 and x = t³ + 2t + 1.
+2. At t = 2: v = 14 m/s and x = 8 + 4 + 1 = **13 m**. The SUVAT formulas cannot do this, since they need constant a. Integration can.
+/EX
+
+LAB: One acceleration, many motions | Position x(t) is the double antiderivative of the acceleration a. Change the starting position, starting velocity and acceleration. The graph shows position (blue) and velocity (orange). Notice that changing x₀ slides the position curve up and down without changing its shape. That is the constant C. | a:Acceleration a (m/s²):-3:3:0.25:1 ;; v0:Start velocity v₀ (m/s):-10:10:1:4 ;; x0:Start position x₀ (m):-5:5:1:0 | x0+v0*5+0.5*a*25:Position at t = 5 s (m):2 ;; v0+a*5:Velocity at t = 5 s (m/s):2 | x0+v0*x+0.5*a*x^2 ;; v0+a*x | 0,5 | -100,100
+
+BN: দুইবার সমাকলন করলে ত্বরণ থেকে অবস্থান আসে, আর প্রতিবার একটা ধ্রুবক যোগ হয়: শুরুর বেগ v₀ ও শুরুর অবস্থান x₀। এভাবেই SUVAT সূত্র ½at² + v₀t + x₀ প্রমাণিত হয়। ত্বরণ বদলাতে থাকলেও (যেমন a = 6t) সমাকলন কাজ করে, যেখানে SUVAT ব্যর্থ।
+
+### Quick self-check
+QUIZ:
+Q: The integral of 4x³ is…; 12x²; x⁴ + C; 4x⁴ + C; x⁴ ÷ 4 + C; 2; Raise the power to 4 and divide by 4: 4x⁴ ÷ 4 = x⁴.
+Q: ∫ 1 ÷ x dx equals…; ln abs(x) + C; x⁰ ÷ 0; 1 ÷ x² + C; eˣ + C; 1; The power rule fails at n = −1, so the answer is the natural log.
+Q: If a(t) = 6t and v(0) = 2, then v(t) equals…; 6; 3t² + 2; 3t² ; 6t² + 2; 2; Integrate 6t to 3t² and add the constant 2.
+Q: Two antiderivatives of the same function differ by…; a constant; a factor of 2; nothing; a linear function; 1; Their derivatives are equal, so the difference has derivative zero.
+Q: ∫ cos 3x dx equals…; sin 3x ÷ 3 + C; 3 sin 3x + C; −sin 3x ÷ 3 + C; sin 3x + C; 1; Divide by the inside's derivative 3.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∫ 4x³ dx. => **x⁴ + C**.
+P: Find ∫ (5 − 2x) dx. => **5x − x² + C**.
+P: Find ∫ 3eˣ dx. => **3eˣ + C**.
+P: Find ∫ sin x dx. => **−cos x + C** (check: the derivative of −cos x is sin x).
+LVL: Level 2 | Apply
+P: Find ∫ (x² − 4 ÷ x + 2 cos x) dx. => **x³ ÷ 3 − 4 ln abs(x) + 2 sin x + C**.
+P: Find ∫ (2x + 1)² dx. => Expand to 4x² + 4x + 1. The integral is **4x³ ÷ 3 + 2x² + x + C**.
+P: Find ∫ (x − 1) ÷ √x dx. => Split: x^(1/2) − x^(−1/2). The integral is **(2/3) x^(3/2) − 2 x^(1/2) + C**.
+P: Find ∫ (1 + tan² x) dx. => Since 1 + tan² x = sec² x, the answer is **tan x + C**.
+P: Find f if f′(x) = 3x² − 4 and f(2) = 1. => f = x³ − 4x + C. 8 − 8 + C = 1, so **f(x) = x³ − 4x + 1**.
+LVL: Level 3 | Real
+P: A stone is thrown straight down from a 45 m cliff at 5 m/s. How long until it lands, and how fast is it going then? (g = 9.8, take down as positive.) => v = 5 + 9.8t and s = 5t + 4.9t². Set s = 45: 4.9t² + 5t − 45 = 0, so t = (−5 + √907) ÷ 9.8 = (−5 + 30.12) ÷ 9.8 = **2.56 s**. Then v = 5 + 9.8 × 2.563 = **30.1 m/s**.
+P: A factory's marginal cost is C′(q) = 0.02q + 3 dollars per unit, and the fixed cost (with q = 0) is 500 dollars. Find the cost of making 100 units. => C(q) = 0.01q² + 3q + 500. C(100) = 100 + 300 + 500 = **900 dollars**.
+P: A car moving at 20 m/s brakes with constant deceleration 5 m/s². How far does it travel before stopping? => v = 20 − 5t = 0 at t = 4 s. x = 20 × 4 − 2.5 × 16 = 80 − 40 = **40 m**.
+LVL: Challenge | Two right answers
+P: A student integrates sin x cos x dx and gets sin² x ÷ 2 + C. Another gets −cos² x ÷ 2 + C. Both differentiate correctly. Explain. Then find f if f″(x) = 12x² − 2, f(0) = 1 and f′(0) = −3, and evaluate f(1). => The two answers differ by 1/2, since sin² x ÷ 2 − (−cos² x ÷ 2) = (sin² x + cos² x) ÷ 2 = 1/2, a constant, which the C absorbs. **Both are correct.** For the second part: f′ = 4x³ − 2x + C₁, and f′(0) = −3 gives C₁ = −3. Then f = x⁴ − x² − 3x + C₂, and f(0) = 1 gives C₂ = 1. So f(x) = x⁴ − x² − 3x + 1 and **f(1) = −2**.
+
+CHECK: math
+
+@section physics | 3 · Physics: moment of inertia | 35 min
+
+### Rotational "mass"
+In straight-line motion, mass m resists changes in velocity: F = m a, KE = ½ m v². In rotation, the thing that resists changes in angular velocity is the **moment of inertia I**. It depends not only on how much mass there is, but on **how far from the axis** it sits.
+
+For point masses:
+
+EQ: I = Σ m r²     (units: kg·m²;  r is the distance from the axis)
+
+Then the rotational versions follow the linear ones:
+
+EQ: KE(rot) = ½ I ω²     τ = I α     (compare: ½ m v² and F = m a)
+
+**Why r², not r?** A mass twice as far from the axis moves twice as fast (v = ω r), so it has four times the kinetic energy: ½ m (ω r)² = ½ (m r²) ω². The r² is hiding in the kinetic energy.
+
+BN: সরল গতিতে ভর m বেগ বদলাতে বাধা দেয়। ঘূর্ণনে কৌণিক বেগ বদলাতে বাধা দেয় জড়তার ভ্রামক I = Σ m r², যা নির্ভর করে ভর কতটা আর অক্ষ থেকে কত দূরে তার ওপর। দূরত্ব দ্বিগুণ হলে বেগ দ্বিগুণ, তাই শক্তি চার গুণ: ½m(ωr)² = ½(mr²)ω², এই কারণেই r²। এখানে ঘূর্ণন শক্তি ½Iω² এবং τ = Iα, ঠিক ½mv² ও F = ma এর মতো।
+
+EX: Point masses on a rod
+1. Masses 2 kg at 0.5 m and 3 kg at 1.0 m from the axis: I = 2 × 0.25 + 3 × 1.0 = **3.5 kg·m²**. At ω = 4 rad/s, KE = ½ × 3.5 × 16 = **28 J**.
+2. A dumbbell: two 1 kg masses on a 0.6 m rod, axis at the centre. Each is 0.3 m away: I = 2 × 1 × 0.09 = **0.18 kg·m²**. At 10 rad/s: KE = ½ × 0.18 × 100 = **9 J**.
+/EX
+
+EX: The same masses, a different axis
+1. Four 2 kg masses sit at the corners of a square of side 1 m.
+2. Axis through the centre (perpendicular to the square): each is √0.5 m away. I = 4 × 2 × 0.5 = **4 kg·m²**.
+3. Axis through one corner: distances are 0, 1, 1 and √2. I = 2 × (0 + 1 + 1 + 2) = **8 kg·m²**.
+4. **I depends on the axis.** The same object is twice as hard to spin about the corner as about its centre.
+/EX
+
+LAB: A dumbbell and its inertia | Two equal masses sit a distance r from the spin axis. The graph plots I = 2 m r² against r. Slide the masses outward and see how fast I grows (a parabola). The kinetic energy at the chosen ω grows with it. | m:Each mass (kg):0.5:5:0.5:2 ;; r:Distance r (m):0.1:2:0.1:1 ;; w:Angular velocity ω (rad/s):1:20:1:5 | 2*m*r^2:Moment of inertia I (kg·m²):3 ;; 0.5*2*m*r^2*w^2:Kinetic energy (J):1 | 2*m*x^2 | 0,2 | 0,20
+
+### Common shapes
+Spread-out mass means larger I. For uniform solid objects of mass M (derived by integration tomorrow):
+
+| Shape and axis | I |
+| Thin hoop or ring, axis through the centre | M R² |
+| Solid disc or cylinder, axis through the centre | ½ M R² |
+| Solid sphere, axis through the centre | 2/5 M R² |
+| Hollow thin sphere | 2/3 M R² |
+| Thin rod, axis through the centre | 1/12 M L² |
+| Thin rod, axis through one end | 1/3 M L² |
+
+Why is the hoop's number bigger than the disc's? All of the hoop's mass sits at the full radius R, while the disc's mass is spread inward and counts less.
+
+BN: ছড়ানো ভর মানে বড় I। বলয়ের (hoop) সব ভর পুরো ব্যাসার্ধ R এ, তাই I = MR², আর ডিস্কের ভর ভেতরে ছড়ানো, তাই I = ½MR²। দণ্ডের কেন্দ্রে ML²/12, প্রান্তে ML²/3। এই সূত্রগুলো কাল সমাকলন দিয়ে প্রমাণ করব।
+
+TRAP: **I is not a property of the object alone: it depends on the axis.** Always say "about which axis". And do not mix up r (distance from the axis) with the distance from the object's centre or from the origin. Finally, use r², not r: a common slip is I = Σ m r.
+
+### Quick self-check
+QUIZ:
+Q: A mass of 2 kg moves in a circle of radius 3 m about a fixed axis. Its moment of inertia is…; 6 kg·m²; 12 kg·m²; 18 kg·m²; 36 kg·m²; 3; I = m r² = 2 × 9 = 18.
+Q: Doubling the distance of a point mass from the axis makes I…; double; four times; eight times; unchanged; 2; I is proportional to r².
+Q: A ring and a disc have the same mass and radius. Which is harder to spin?; the ring; the disc; equal; depends on the axis only; 1; The ring's mass is all at the full radius, so I = MR² against ½MR².
+Q: What is the kinetic energy of rotation?; I ω; ½ I ω²; ½ I ω; I ω²; 2; It mirrors ½ m v².
+
+### Practice
+LVL: Level 1 | Direct
+P: Find I for a 3 kg point mass 2 m from the axis. => 3 × 4 = **12 kg·m²**.
+P: Find I for a hoop with M = 2 kg and R = 0.5 m, and for a disc of the same M and R. => Hoop: 2 × 0.25 = **0.5 kg·m²**. Disc: ½ × 0.5 = **0.25 kg·m²**.
+LVL: Level 2 | Apply
+P: A thin rod of mass 1.2 kg and length 1 m spins about its centre at 6 rad/s. Find I and KE. => I = (1/12)(1.2)(1) = **0.1 kg·m²**. KE = ½ × 0.1 × 36 = **1.8 J**.
+P: The same rod spins about one end at 6 rad/s. Find I and KE, and compare. => I = (1/3)(1.2)(1) = **0.4 kg·m²**. KE = ½ × 0.4 × 36 = **7.2 J**, four times as much, because I is four times as large.
+P: Masses 1 kg, 2 kg and 3 kg lie on a line at x = 0, 1 m and 3 m. Find I about an axis through x = 0 and about one through x = 1 m. => About x = 0: 0 + 2 × 1 + 3 × 9 = **29 kg·m²**. About x = 1: 1 × 1 + 0 + 3 × 4 = **13 kg·m²**.
+P: A solid sphere of mass 5 kg and radius 0.2 m turns at 10 rad/s. Find its kinetic energy. => I = (2/5)(5)(0.04) = 0.08 kg·m². KE = ½ × 0.08 × 100 = **4 J**.
+LVL: Level 3 | Real
+P: A flywheel is a solid disc of mass 20 kg and radius 0.4 m, spinning at 300 rpm. How much energy does it store? => ω = 300 × 2π ÷ 60 = 31.42 rad/s. I = ½ × 20 × 0.16 = 1.6 kg·m². KE = ½ × 1.6 × 987 = **790 J** (about the energy needed to lift 80 kg by 1 m).
+P: A torque of 12 N·m acts on a disc with I = 0.3 kg·m² for 5 s from rest. Find ω and the kinetic energy gained. => α = 12 ÷ 0.3 = 40 rad/s². ω = 200 rad/s. KE = ½ × 0.3 × 40,000 = **6000 J**.
+LVL: Challenge | The best axis
+P: Two point masses, 1 kg at x = 0 and 3 kg at x = 2 m, are joined by a light rod. The axis is perpendicular to the rod at position x. Write I(x) and use a derivative to find the axis position that makes I smallest. What does this position represent, and what is the smallest I? => I(x) = 1 × x² + 3 (2 − x)². I′ = 2x − 6 (2 − x) = 8x − 12 = 0 gives **x = 1.5 m**, which is the **centre of mass** (3 × 2 ÷ 4 = 1.5). I(1.5) = 2.25 + 3 × 0.25 = **3.0 kg·m²**. (This equals μ L² with μ = (1 × 3) ÷ 4 = 0.75, and 0.75 × 4 = 3 ✓.) Rotating about the centre of mass always gives the least moment of inertia, which Day 2 turns into the parallel axis theorem.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Antiderivative: F′ = f. ∫ f dx = F + C. Power rule: ∫ xⁿ dx = xⁿ⁺¹ ÷ (n + 1), except n = −1 (ln abs(x)). Linear inside: divide by the coefficient.
+- Initial values fix C. Integrate acceleration twice: v = ∫ a dt, x = ∫ v dt, each with its own constant. This gives SUVAT and also handles a changing a.
+- Moment of inertia: I = Σ m r² depends on the axis. KE = ½ I ω². τ = I α. Spread-out mass means larger I.
+
+BN: আজকের সারকথা: প্রতিঅন্তরকলজ ∫f dx = F + C; ঘাত নিয়ম ∫xⁿ dx = xⁿ⁺¹/(n+1) (n = −1 হলে ln|x|)। প্রাথমিক শর্ত C ঠিক করে। ত্বরণকে দুইবার সমাকলন করলে বেগ, তারপর অবস্থান। জড়তার ভ্রামক I = Σmr² অক্ষের ওপর নির্ভর করে; ঘূর্ণন শক্তি ½Iω², আর τ = Iα।
+
+EXIT:
+E: F′(x) = 6x and F(0) = 4. What is F(2)?; 16; 0.001; F = 3x² + 4, so F(2) = 12 + 4 = 16.
+E: a(t) = 2t and v(0) = 0. What is v at t = 3 s?; 9; 0.001; v = t², so v(3) = 9.
+E: A 2 kg mass at 3 m and a 1 kg mass at 1 m rotate about the same axis. What is I in kg·m²?; 19; 0.001; 2 × 9 + 1 × 1 = 19.
+
+**Tomorrow:** area under a curve and the definite integral, plus the moment of inertia of a rod and a disc by integration.
+
+CHECK: notes

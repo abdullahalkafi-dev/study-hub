@@ -1,0 +1,209 @@
+@day Week 3 · Day 1 · Monday
+# Angles, radians and right-triangle trigonometry. Then: vector components
+lead: Trigonometry starts with a simple question: how tall is something you cannot climb? Today you learn the ratios that answer it, meet the radian (the angle unit that mathematicians and physicists actually use), and use trigonometry to break any vector into horizontal and vertical parts.
+
+BN: ত্রিকোণমিতি শুরু হয়েছিল একটা সহজ প্রশ্ন থেকে: যে জিনিসে ওঠা যায় না, তার উচ্চতা কীভাবে মাপব? আজ তুমি সেই অনুপাতগুলো শিখবে, রেডিয়ান (radian) কোণের একক বুঝবে, আর যেকোনো ভেক্টরকে অনুভূমিক ও উল্লম্ব অংশে ভাঙতে শিখবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Week 2
+P: Solve log₂(x) = 5. => **x = 32**.
+P: Evaluate log₁₀(0.01). => **−2**.
+P: If f(x) = x² + 1 and g(x) = 3x, find f(g(2)). => g(2) = 6, f(6) = **37**.
+P: A 4 kg block is pushed with 20 N, friction 8 N. Find a. => 12 ÷ 4 = **3 m/s²**.
+P: A stone is dropped from rest. Find its speed after 3 s (g = 9.8). => **29.4 m/s**.
+
+CHECK: recall
+
+@section math | 2 · Math: right-triangle trigonometry and radians | 60 min
+
+### Similar triangles: the idea behind everything
+Take a right triangle and shrink or enlarge it. Every side changes, but the **ratios** between its sides do not. A triangle with sides 3, 4, 5 and one with 6, 8, 10 have the same shape, and 3 ÷ 5 = 6 ÷ 10 = 0.6.
+
+So the ratio of two sides depends only on the **angles**. If we give those ratios names, we can measure heights and distances using nothing but an angle and one side.
+
+### Naming the sides
+In a right triangle, pick one of the other angles and call it **θ** (theta). The three sides are named relative to θ:
+
+- **Hypotenuse:** the longest side, opposite the right angle.
+- **Opposite:** the side across from θ.
+- **Adjacent:** the side next to θ (that is not the hypotenuse).
+
+### The three ratios
+EQ: sin θ = opposite ÷ hypotenuse     cos θ = adjacent ÷ hypotenuse     tan θ = opposite ÷ adjacent
+
+A memory trick: **SOH-CAH-TOA**. Sine = Opposite ÷ Hypotenuse, Cosine = Adjacent ÷ Hypotenuse, Tangent = Opposite ÷ Adjacent.
+
+BN: SOH-CAH-TOA মনে রাখো: Sin = Opposite ÷ Hypotenuse, Cos = Adjacent ÷ Hypotenuse, Tan = Opposite ÷ Adjacent। Opposite মানে θ কোণের ঠিক বিপরীত বাহু, Adjacent মানে θ এর পাশের বাহু। কোণ বদলালে opposite আর adjacent এর নামও বদলে যায়, তাই আগে θ ঠিক করো।
+
+EX: A tree's height
+1. You stand 20 m from a tree and look at its top at an angle of 35° above the horizontal. How tall is the tree (ignoring your height)?
+2. The distance 20 m is **adjacent** to the angle. The tree's height is **opposite**. The ratio linking opposite and adjacent is tan.
+3. tan 35° = h ÷ 20, so h = 20 × tan 35° = 20 × 0.7002 = **14.0 m**.
+/EX
+
+EX: Finding an angle
+1. A ramp rises 3 m over a horizontal distance of 4 m. What is its angle?
+2. tan θ = 3 ÷ 4 = 0.75.
+3. To go from the ratio back to the angle, use the inverse function **tan⁻¹** on your calculator: θ = tan⁻¹(0.75) = **36.9°**.
+/EX
+
+EX: Finding sides
+1. A ladder 10 m long leans at 40° to the ground. How high does it reach, and how far is its foot from the wall?
+2. Height = opposite: 10 × sin 40° = 10 × 0.6428 = **6.43 m**.
+3. Distance from the wall = adjacent: 10 × cos 40° = 10 × 0.7660 = **7.66 m**.
+4. Check with Pythagoras: 6.43² + 7.66² = 41.3 + 58.7 = 100 ✓.
+/EX
+
+TRAP: Make sure your calculator is in **degree mode** when the question gives degrees, and **radian mode** when it gives radians. This is the number one source of wrong trig answers. Test: sin 30° must give 0.5.
+
+### Special angles from two shapes
+Some angles are so common that you should know their exact values. They come from two triangles:
+
+**The 45-45-90 triangle.** Take a square of side 1 and cut it along a diagonal. The diagonal is √2 (Pythagoras). So sin 45° = 1 ÷ √2 = **√2/2**, cos 45° = √2/2 and tan 45° = **1**.
+
+**The 30-60-90 triangle.** Take an equilateral triangle with side 2 and cut it in half down the middle. The base becomes 1 and the height is √(4 − 1) = √3. So the 30° angle has opposite = 1, hypotenuse = 2, adjacent = √3, and the 60° angle has the opposite and adjacent swapped.
+
+| Angle | sin | cos | tan |
+| 30° | 1/2 | √3/2 | 1/√3 |
+| 45° | √2/2 | √2/2 | 1 |
+| 60° | √3/2 | 1/2 | √3 |
+
+Notice sin 30° = cos 60° and sin 60° = cos 30°. This is no accident:
+
+KEY: In a right triangle the two non-right angles add to 90°, and the side opposite one is adjacent to the other. So **sin θ = cos(90° − θ)**. The "co" in cosine stands for "complement".
+
+And from Pythagoras (opposite² + adjacent² = hypotenuse²), dividing by hypotenuse² gives one of the most important facts of the whole course:
+
+EQ: sin²θ + cos²θ = 1
+
+BN: ৩০-৬০-৯০ আর ৪৫-৪৫-৯০ ত্রিভুজ থেকে বিশেষ কোণগুলোর মান বের হয়: sin 30° = ½, sin 45° = √2/2, sin 60° = √3/2। এগুলো মুখস্থ করার দরকার নেই, ত্রিভুজ এঁকে বের করা যায়। আর পীথাগোরাস ÷ hypotenuse² থেকে পাই sin²θ + cos²θ = 1, যা এই কোর্সের সবচেয়ে গুরুত্বপূর্ণ সূত্রগুলোর একটা।
+
+### Radians: the natural angle unit
+Degrees were invented by ancient Babylonians who liked the number 360. It is an arbitrary choice. Mathematicians use a unit that comes from the circle itself.
+
+**Definition.** One **radian** is the angle at the centre of a circle that subtends an arc **equal in length to the radius**. Since the full circumference is 2πr, the full circle is **2π radians**.
+
+EQ: 2π rad = 360°     so     π rad = 180°     and     1 rad = 180° ÷ π ≈ 57.3°
+
+**Converting:** degrees → radians: multiply by π ÷ 180. Radians → degrees: multiply by 180 ÷ π.
+
+| Degrees | 0° | 30° | 45° | 60° | 90° | 180° | 270° | 360° |
+| Radians | 0 | π/6 | π/4 | π/3 | π/2 | π | 3π/2 | 2π |
+
+Why bother? Because radians make formulas clean:
+
+EQ: arc length s = rθ     sector area A = ½ r² θ     (θ in radians)
+
+EX: Arc and sector
+1. A circle of radius 5 cm. A sector has angle 1.2 rad. Arc length: s = 5 × 1.2 = **6 cm**. Area: A = ½ × 25 × 1.2 = **15 cm²**.
+2. In degrees you would need extra factors of π ÷ 180. With radians there are none.
+/EX
+
+EX: Latitude
+1. The Earth's radius is 6371 km. One degree of latitude is π ÷ 180 = 0.01745 rad.
+2. Arc length = 6371 × 0.01745 = **111 km**. That is why 1° of latitude is about 111 km everywhere.
+/EX
+
+BN: এক রেডিয়ান হলো সেই কোণ, যার চাপের দৈর্ঘ্য ব্যাসার্ধের সমান। পুরো বৃত্ত 2π রেডিয়ান, অর্থাৎ π রেডিয়ান = 180°। রেডিয়ানে লিখলে চাপের দৈর্ঘ্য s = rθ আর সেক্টরের ক্ষেত্রফল ½r²θ খুব পরিষ্কার সূত্র হয়ে যায়। ক্যালকুলাসেও আমরা শুধু রেডিয়ান ব্যবহার করব।
+
+### Quick self-check
+QUIZ:
+Q: In a right triangle the opposite side is 5 and the hypotenuse is 13. What is sin θ?; 5/12; 5/13; 12/13; 13/5; 2; sin θ = opposite ÷ hypotenuse = 5/13.
+Q: sin 30° equals…; √3/2; 1/2; √2/2; 1; 2; From the 30-60-90 triangle, the side opposite 30° is 1 and the hypotenuse is 2.
+Q: 135° in radians is…; π/4; 3π/4; 2π/3; 5π/4; 2; 135 × π/180 = 3π/4.
+Q: Which is always true?; sin θ + cos θ = 1; sin²θ + cos²θ = 1; sin θ = cos θ; tan θ = sin θ + cos θ; 2; This follows from Pythagoras.
+Q: A sector has radius 4 and angle 0.5 rad. Its arc length is…; 2; 8; 4.5; 0.125; 1; s = rθ = 4 × 0.5 = 2.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: A right triangle has legs 6 and 8. Find the hypotenuse, sin θ and cos θ for the angle opposite the side of 6. => Hypotenuse = 10. sin θ = 6/10 = **0.6** and cos θ = 8/10 = **0.8**.
+P: Convert 72° to radians and 5π/6 to degrees. => 72° = **2π/5**. 5π/6 = **150°**.
+P: Write sin 60°, cos 45° and tan 30° exactly. => **√3/2**, **√2/2**, **1/√3** (that is √3/3).
+LVL: Level 2 | Solve triangles
+P: A 12 m flagpole casts a shadow of 9 m. Find the angle of elevation of the Sun. => tan θ = 12/9, so θ = **53.1°**.
+P: A kite string 50 m long makes an angle of 62° with the ground. How high is the kite? => 50 × sin 62° = 50 × 0.8829 = **44.1 m**.
+P: A sector of a circle has radius 10 cm and arc length 15 cm. Find its angle in radians and its area. => θ = 15 ÷ 10 = **1.5 rad**. Area = ½ × 100 × 1.5 = **75 cm²**.
+P: Show that sin 60° · cos 30° + cos 60° · sin 30° = 1. => (√3/2)(√3/2) + (1/2)(1/2) = 3/4 + 1/4 = **1** ✓.
+LVL: Level 3 | Real
+P: From the top of a 30 m cliff, the angle of depression of a boat is 25°. How far is the boat from the foot of the cliff? => The angle of depression equals the angle of elevation from the boat. tan 25° = 30 ÷ d, so d = 30 ÷ 0.4663 = **64.3 m**.
+P: A satellite dish is aimed at 40° above the horizon. A tree 6 m tall stands 10 m in front of the dish. Does the tree block the beam from a dish whose centre is 1.5 m above the ground? => The beam is at height 1.5 + 10 × tan 40° = 1.5 + 8.39 = 9.9 m above the ground at the tree's position, so the tree (6 m) **does not block it**.
+LVL: Challenge | Exact values
+P: Use the 30-60-90 triangle to find the exact value of tan 15°. (Hint: extend one side to make an isosceles triangle.) => Take the triangle with the 30° angle at C: AB = 1 (opposite), BC = √3 (adjacent), AC = 2. Extend BC past C to D so that CD = AC = 2. Triangle ACD is isosceles with apex angle 150°, so its base angles are 15°. In the big right triangle ABD the angle at D is 15°, with opposite 1 and adjacent √3 + 2. So tan 15° = 1 ÷ (2 + √3) = **2 − √3 ≈ 0.268**.
+
+CHECK: math
+
+@section physics | 3 · Physics: vectors and their components | 30 min
+
+### One arrow, two numbers
+Forces and velocities in the real world rarely point exactly along an axis. A kicked football moves up and forward. A rope pulls at an angle. The trick is to **split** each vector into a horizontal part and a vertical part, and then deal with each direction on its own.
+
+For a vector of size V at angle θ above the horizontal:
+
+EQ: Vₓ = V cos θ     V_y = V sin θ
+
+Why? Draw the vector as the hypotenuse of a right triangle. The horizontal side is adjacent to θ (so V cos θ) and the vertical side is opposite (so V sin θ).
+
+To go back from components to the vector:
+
+EQ: V = √(Vₓ² + V_y²)     and     tan θ = V_y ÷ Vₓ
+
+BN: যেকোনো কোণে থাকা ভেক্টরকে দুটো অংশে ভাঙো: অনুভূমিক Vₓ = V cos θ আর উল্লম্ব V_y = V sin θ। এটা SOH-CAH-TOA এর সরাসরি প্রয়োগ। উল্টো দিকে: V = √(Vₓ² + V_y²) আর tan θ = V_y/Vₓ। এভাবে প্রতিটা দিক আলাদাভাবে সামলানো যায়।
+
+EX: A tilted pull
+1. A 50 N force acts at 30° above the horizontal.
+2. Horizontal: Fₓ = 50 cos 30° = 50 × 0.866 = **43.3 N**.
+3. Vertical: F_y = 50 sin 30° = 50 × 0.5 = **25 N**.
+4. Check: √(43.3² + 25²) = √(1875 + 625) = √2500 = 50 ✓.
+/EX
+
+EX: Adding two vectors by components
+1. A hiker walks 100 m at 30° north of east, then 60 m due north. Find the total displacement.
+2. First leg: x = 100 cos 30° = 86.6 m. y = 100 sin 30° = 50 m.
+3. Second leg: x = 0 and y = 60 m.
+4. Total: x = 86.6 and y = 110. Size = √(86.6² + 110²) = √(7500 + 12100) = **140 m**.
+5. Direction: tan θ = 110 ÷ 86.6, so θ = **51.8° north of east**.
+/EX
+
+KEY: To add vectors: (1) split each into x and y parts, (2) add all the x parts, add all the y parts, (3) rebuild the resultant with Pythagoras and tan⁻¹.
+
+EX: Pulling a suitcase
+1. A 20 kg suitcase is pulled along a floor by a strap with 40 N at 25° above the horizontal.
+2. Horizontal component: 40 cos 25° = 36.25 N. Vertical component: 40 sin 25° = 16.9 N upward.
+3. The vertical part lifts a little of the weight, so the normal force is N = mg − 16.9 = 196 − 16.9 = **179.1 N**, less than the weight. This is why pulling at an angle can reduce friction.
+/EX
+
+### Quick self-check
+QUIZ:
+Q: A 10 N force acts at 60° above the horizontal. Its horizontal component is…; 5 N; 8.66 N; 10 N; 17.3 N; 1; 10 cos 60° = 10 × 0.5 = 5 N.
+Q: A velocity of 20 m/s at 30° above the horizontal has vertical component…; 17.3 m/s; 10 m/s; 20 m/s; 34.6 m/s; 2; 20 sin 30° = 10 m/s.
+Q: Components 3 N (x) and 4 N (y) give a resultant of…; 7 N; 5 N; 1 N; 12 N; 2; √(9 + 16) = 5 N.
+Q: When resolving a vector, the component along the direction of the angle uses…; sin if the angle is measured from the same axis; cos if the angle is measured from that axis; tan always; none; 2; The component adjacent to the angle uses cos.
+
+### Practice
+LVL: Level 1 | Direct
+P: Resolve a 100 N force at 37° above the horizontal into components. => Horizontal 100 cos 37° = **79.9 N**. Vertical 100 sin 37° = **60.2 N**.
+P: A velocity has components 8 m/s east and 6 m/s north. Find its size and direction. => √(64 + 36) = **10 m/s**. tan θ = 6/8, so **36.9° north of east**.
+LVL: Level 2 | Add vectors
+P: Add 30 N east and 40 N at 90° (north). Check it against the 3-4-5 result. => **50 N at 53.1° north of east**, the same as the 3-4-5 triangle scaled by 10.
+P: A plane flies 200 km at 40° east of north, then 150 km due east. Find the total displacement. => First leg: east = 200 sin 40° = 128.6, north = 200 cos 40° = 153.2. Second leg: east 150. Total: east 278.6, north 153.2. Size = √(278.6² + 153.2²) = **318 km**. Angle from north: tan⁻¹(278.6 ÷ 153.2) = **61.2° east of north**.
+LVL: Challenge | Equilibrium with an angle
+P: A 5 kg sign hangs from two cables at 30° above the horizontal on each side (symmetrical). Find the tension in each cable. => Each cable provides T sin 30° upward. Two cables: 2T sin 30° = T = weight = 49 N. So **T = 49 N** in each cable. (The horizontal parts cancel by symmetry.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- sin = opp ÷ hyp, cos = adj ÷ hyp, tan = opp ÷ adj.
+- Exact values for 30°, 45°, 60°. sin²θ + cos²θ = 1. sin θ = cos(90° − θ).
+- π rad = 180°. s = rθ and sector area = ½r²θ.
+- Vector components: Vₓ = V cos θ, V_y = V sin θ. Add vectors by components.
+
+BN: আজকের সারকথা: SOH-CAH-TOA, বিশেষ কোণের মান, sin²θ + cos²θ = 1, π রেডিয়ান = 180°, আর ভেক্টর ভাঙা: Vₓ = V cos θ, V_y = V sin θ। ক্যালকুলেটর সঠিক মোডে (degree বা radian) আছে কি না সবসময় দেখে নিও।
+
+**Tomorrow:** the unit circle (trig for any angle), graphs of sin, cos and tan, and relative velocity.
+
+CHECK: notes

@@ -1,0 +1,217 @@
+@day Week 4 · Day 1 · Monday
+# Straight lines and circles in coordinates. Then: friction in depth
+lead: Coordinate geometry turns shapes into equations, so algebra can answer geometry questions. Today: lines, distances and circles. In physics you go deeper into friction: pulling at an angle, the best angle to pull a sledge, and stacked blocks.
+
+BN: স্থানাঙ্ক জ্যামিতিতে আকৃতিকে সমীকরণে বদলে ফেলি, ফলে জ্যামিতির প্রশ্ন বীজগণিত দিয়ে সমাধান হয়। আজ: সরলরেখা, দূরত্ব আর বৃত্ত। পদার্থবিজ্ঞানে ঘর্ষণ আরও গভীরে: কোণ করে টানা, টানার সেরা কোণ, আর একটার ওপর আরেকটা ব্লক।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last week
+P: Find the area of a triangle with sides 6 and 9 and an included angle of 30°. => ½ × 6 × 9 × 0.5 = **13.5**.
+P: Solve sin x = √3/2 for 0 ≤ x ≤ 2π. => **x = π/3, 2π/3**.
+P: Find the acceleration of a block on a smooth 30° slope (g = 10). => g sin 30° = **5 m/s²**.
+P: Find sin 2A if sin A = 3/5 and A is acute. => cos A = 4/5, so 2 × 3/5 × 4/5 = **24/25**.
+P: What is sin⁻¹(−1/2)? => **−π/6**.
+
+CHECK: recall
+
+@section math | 2 · Math: lines, distances and circles | 60 min
+
+### Why coordinates?
+Descartes' idea: fix an origin and two perpendicular axes. Then a point is a pair (x, y), a curve is the set of points satisfying an equation, and a geometry problem becomes an algebra problem.
+
+### Distance and midpoint
+For points A(x₁, y₁) and B(x₂, y₂), form a right triangle with horizontal leg |x₂ − x₁| and vertical leg |y₂ − y₁|. Pythagoras gives:
+
+EQ: distance AB = √((x₂ − x₁)² + (y₂ − y₁)²)     midpoint = ((x₁ + x₂)/2, (y₁ + y₂)/2)
+
+EX: Distance and midpoint
+1. A(1, 2) and B(7, 10). Distance = √(36 + 64) = √100 = **10**.
+2. Midpoint = (4, 6).
+/EX
+
+### The equation of a line
+The **slope** is the rise over the run: m = (y₂ − y₁) ÷ (x₂ − x₁). It equals tan θ, where θ is the angle the line makes with the positive x-axis.
+
+| Form | Equation | Use when you know |
+| Slope-intercept | y = mx + c | The slope and the y-intercept |
+| Point-slope | y − y₁ = m(x − x₁) | The slope and one point |
+| Two-point | (y − y₁) ÷ (y₂ − y₁) = (x − x₁) ÷ (x₂ − x₁) | Two points |
+| General | ax + by + c = 0 | Needed for the distance formula |
+
+EX: Line through two points
+1. Through (1, 2) and (4, 8). Slope = 6 ÷ 3 = 2.
+2. y − 2 = 2(x − 1), so **y = 2x**.
+/EX
+
+### Parallel and perpendicular
+- Parallel lines have equal slopes: m₁ = m₂.
+- Perpendicular lines have slopes whose product is −1: m₁ m₂ = −1.
+
+**Why −1?** Rotate a line with direction (1, m) by 90°. The direction becomes (−m, 1), whose slope is 1 ÷ (−m) = −1/m. So the new slope is the negative reciprocal.
+
+BN: সমান্তরাল রেখার ঢাল সমান। লম্ব রেখার ঢালের গুণফল −১। কারণ: দিক (1, m) কে ৯০° ঘোরালে হয় (−m, 1), যার ঢাল −1/m। অর্থাৎ ঢাল হয় উল্টো ও উল্টো চিহ্নের।
+
+EX: Perpendicular bisector
+1. Find the perpendicular bisector of A(1, 2) and B(5, 6).
+2. Midpoint (3, 4). Slope of AB = 4 ÷ 4 = 1, so the perpendicular slope is −1.
+3. y − 4 = −(x − 3), so **y = −x + 7**.
+4. Every point on it is equally far from A and B. Check with (3, 4): distance to A is √(4 + 4) and to B is √(4 + 4) ✓.
+/EX
+
+### Distance from a point to a line
+EQ: distance from (x₀, y₀) to ax + by + c = 0 equals |a x₀ + b y₀ + c| ÷ √(a² + b²)
+
+**Idea of the proof.** The shortest distance is along the perpendicular. The vector (a, b) is perpendicular to the line. Moving from the line to the point along this direction, the value of ax + by + c grows by (a² + b²) per unit parameter, which is exactly how the formula normalises by √(a² + b²).
+
+EX: Distance
+1. Distance from (3, 4) to 3x − 4y + 5 = 0: |9 − 16 + 5| ÷ √(9 + 16) = 2 ÷ 5 = **0.4**.
+2. Distance between the parallel lines 3x + 4y = 10 and 3x + 4y = 20: pick (0, 2.5) on the first, then |0 + 10 − 20| ÷ 5 = **2**.
+/EX
+
+### Circles
+A circle is all points at distance r from the centre (h, k). Using the distance formula:
+
+EQ: (x − h)² + (y − k)² = r²
+
+Expanding gives the general form x² + y² + Dx + Ey + F = 0. To read off the centre and radius, **complete the square**.
+
+EX: General to standard form
+1. x² + y² − 6x + 4y − 12 = 0.
+2. (x² − 6x + 9) + (y² + 4y + 4) = 12 + 9 + 4, so (x − 3)² + (y + 2)² = 25.
+3. Centre **(3, −2)**, radius **5**.
+/EX
+
+EX: Circle through three points
+1. Points (0, 0), (4, 0) and (0, 2). Use x² + y² + Dx + Ey + F = 0.
+2. (0, 0): F = 0. (4, 0): 16 + 4D = 0, so D = −4. (0, 2): 4 + 2E = 0, so E = −2.
+3. x² + y² − 4x − 2y = 0, so (x − 2)² + (y − 1)² = 5. Centre (2, 1), radius √5.
+/EX
+
+EX: Tangent to a circle
+1. The tangent at (3, 4) on x² + y² = 25 is perpendicular to the radius.
+2. Radius slope = 4/3, so the tangent slope = −3/4.
+3. y − 4 = −(3/4)(x − 3), so **3x + 4y = 25**.
+/EX
+
+EX: Line meets circle
+1. Where does y = x + 1 meet x² + y² = 25?
+2. x² + (x + 1)² = 25 gives 2x² + 2x − 24 = 0, so x² + x − 12 = 0, so (x + 4)(x − 3) = 0.
+3. Points **(3, 4)** and **(−4, −3)**.
+4. The discriminant tells the story: D > 0 means two points, D = 0 means tangent, D < 0 means no intersection.
+/EX
+
+BN: বৃত্তের সমীকরণ (x − h)² + (y − k)² = r²। সাধারণ রূপ থেকে কেন্দ্র ও ব্যাসার্ধ পেতে পূর্ণবর্গ করো। বিন্দুতে স্পর্শক ব্যাসার্ধের সঙ্গে লম্ব। রেখা ও বৃত্ত মেলালে দ্বিঘাত সমীকরণ পাই: D > 0 হলে দুই বিন্দু, D = 0 হলে স্পর্শক, D < 0 হলে ছেদ নেই।
+
+TRAP: When the slope is undefined (a vertical line, x = constant) the formulas with m do not apply. Treat vertical lines separately. Also, the formula for the distance from a point to a line needs the line in **general form** with all terms on one side.
+
+### Quick self-check
+QUIZ:
+Q: The slope of the line through (2, 3) and (6, 11) is…; 1; 2; 4; 1/2; 2; (11 − 3) ÷ (6 − 2) = 2.
+Q: A line is perpendicular to y = 2x + 1. Its slope is…; 2; −2; 1/2; −1/2; 4; The negative reciprocal of 2 is −1/2.
+Q: The circle (x − 1)² + (y + 3)² = 16 has centre and radius…; (1, 3) and 16; (−1, 3) and 4; (1, −3) and 4; (1, −3) and 16; 3; Centre (h, k) = (1, −3) and r = √16 = 4.
+Q: The distance from the origin to the line 3x + 4y − 10 = 0 is…; 2; 10; 5; 1; 1; |−10| ÷ 5 = 2.
+Q: The line y = 5 and the circle x² + y² = 16 …; meet at two points; touch at one point; do not meet; meet at the origin; 3; Distance from the centre to the line is 5 > 4, so no intersection.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the distance between (−2, 1) and (4, 9), and the midpoint. => √(36 + 64) = **10**. Midpoint **(1, 5)**.
+P: Write the line with slope 3 through (2, −1). => y + 1 = 3(x − 2), so **y = 3x − 7**.
+P: Find the centre and radius of x² + y² − 8x + 2y + 8 = 0. => (x − 4)² + (y + 1)² = −8 + 16 + 1 = 9. Centre **(4, −1)**, radius **3**.
+LVL: Level 2 | Combine ideas
+P: Find the foot of the perpendicular from the point (0, 5) to the line y = 2x. => Perpendicular slope −1/2 through (0, 5): y = −x/2 + 5. Set equal: 2x = −x/2 + 5, so 2.5x = 5, x = 2, y = 4. **(2, 4)**.
+P: Find the circle with diameter endpoints A(1, 2) and B(7, 10). => Centre = midpoint (4, 6). Radius = half of AB = 10 ÷ 2 = 5. **(x − 4)² + (y − 6)² = 25**.
+P: For which values of k is the line y = x + k tangent to x² + y² = 8? => Substitute: x² + (x + k)² = 8, so 2x² + 2kx + k² − 8 = 0. D = 4k² − 8(k² − 8) = 64 − 4k² = 0, so k² = 16 and **k = ±4**.
+P: Find the area of the triangle with vertices (0, 0), (6, 0) and (2, 5). => Base 6 along the x-axis, height 5. Area = ½ × 6 × 5 = **15**.
+LVL: Level 3 | Real
+P: A radio mast is at (2, 1) in a map grid (km). A straight road follows the line 3x − 4y + 20 = 0. How close does the road come to the mast? => |6 − 4 + 20| ÷ 5 = 22 ÷ 5 = **4.4 km**.
+LVL: Challenge | Triangle centre
+P: Show that the perpendicular bisectors of the sides of triangle (0, 0), (4, 0), (0, 2) meet at the centre of the circle you found above. => Perpendicular bisector of the base: x = 2. Of the vertical side: y = 1. They meet at **(2, 1)**, which equals the centre found earlier. A point equidistant from all three vertices is the circumcentre.
+
+CHECK: math
+
+@section physics | 3 · Physics: friction in depth | 30 min
+
+### What friction really does
+Friction is a contact force along the surface that opposes sliding (or the tendency to slide). The two laws from Week 2:
+
+- Static: f ≤ μ_s N (any value up to a maximum).
+- Kinetic: f = μ_k N (a fixed value while sliding).
+
+New today: N is **not** always mg. Whenever other forces push into or lift off the surface, N changes, and friction changes with it.
+
+### Pulling at an angle
+A crate of mass m is pulled by a force F at angle θ above the horizontal. Vertical balance: N + F sin θ = mg, so **N = mg − F sin θ**. Pulling upward at an angle lightens the contact, which reduces friction. Horizontal: F cos θ − μ N = m a.
+
+EX: Pulling a crate
+1. m = 20 kg, F = 100 N at 30°, μ_k = 0.3, g = 9.8.
+2. N = 196 − 100 × 0.5 = 146 N, so friction = 0.3 × 146 = 43.8 N.
+3. Horizontal pull = 100 cos 30° = 86.6 N.
+4. Net = 86.6 − 43.8 = 42.8 N, so **a = 2.14 m/s²**.
+/EX
+
+### The best angle to pull
+For constant speed, F cos θ = μ(mg − F sin θ), so F (cos θ + μ sin θ) = μ m g.
+
+EQ: F = μ m g ÷ (cos θ + μ sin θ)
+
+To make F as small as possible, make the denominator as large as possible. The maximum of cos θ + μ sin θ is √(1 + μ²), reached when **tan θ = μ** (this is the same R sin(x + α) idea from Thursday, now used in physics).
+
+EX: The best angle
+1. m = 20 kg, μ = 0.3: best angle θ = tan⁻¹(0.3) = **16.7°**.
+2. F_min = 0.3 × 196 ÷ √(1.09) = 58.8 ÷ 1.044 = **56.3 N**.
+3. Compare with pulling horizontally: F = μ m g = 58.8 N. The saving is small for low μ but larger for high μ.
+/EX
+
+BN: কোণ করে ওপরের দিকে টানলে অভিলম্ব বল কমে: N = mg − F sin θ, ফলে ঘর্ষণও কমে। ধ্রুব বেগে টানতে ন্যূনতম বল লাগে যখন tan θ = μ, আর তখন F_min = μmg/√(1 + μ²)। এটা ত্রিকোণমিতির R sin(x + α) ধারণার সরাসরি প্রয়োগ।
+
+### Stacked blocks
+EX: Will the top block slip?
+1. A 2 kg block sits on an 8 kg block. The coefficient of static friction between them is 0.4. The table is frictionless. A horizontal force F pulls the **bottom** block.
+2. The top block is accelerated only by friction, so its maximum acceleration is μ_s g = 0.4 × 9.8 = 3.92 m/s².
+3. If both move together, F = (2 + 8) × a. At the limit F = 10 × 3.92 = **39.2 N**.
+4. Beyond 39.2 N, the top block slips behind the bottom block.
+/EX
+
+EX: Braking distance
+1. A car on a dry road with μ = 0.7 brakes hard from 25 m/s (wheels locked).
+2. a = μ g = 6.86 m/s², and v² = 2 a d gives d = 625 ÷ 13.72 = **45.6 m**.
+3. On wet road with μ = 0.3: a = 2.94 and d = 625 ÷ 5.88 = **106 m**. Double the speed and the distance becomes four times larger.
+/EX
+
+TRAP: Kinetic friction does not depend on the area of contact or on the sliding speed (in this model). It depends only on μ and N. And do not use N = mg without checking vertical forces.
+
+### Quick self-check
+QUIZ:
+Q: A crate is pulled with a rope angled upward. Compared with a horizontal pull, the normal force is…; larger; smaller; the same; zero; 2; The vertical part of the pull supports some weight, so N = mg − F sin θ is smaller.
+Q: For μ = 1, the smallest pulling force for a given load occurs at an angle of…; 0°; 30°; 45°; 90°; 3; tan θ = μ = 1 gives θ = 45°.
+Q: A car's braking distance on the same road, if its speed doubles, becomes…; double; 3 times; 4 times; 8 times; 3; d = v² ÷ (2 μ g), so d grows as the square of v.
+Q: A small block rests on a large block. The largest acceleration friction can give the small block is…; μ_s m g; μ_s g; g; μ_s; 2; Friction μ_s m g divided by m gives μ_s g.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 10 kg box is dragged on the floor by 50 N horizontal force. μ_k = 0.3 (g = 9.8). Find the acceleration. => f = 29.4 N, so net = 20.6 N and **a = 2.06 m/s²**.
+P: A car brakes with μ = 0.8 from 20 m/s. Find the stopping distance (g = 9.8). => d = 400 ÷ (2 × 7.84) = **25.5 m**.
+LVL: Level 2 | Angled and stacked
+P: A 15 kg sledge is pulled at constant speed by a rope at 25° above the horizontal. μ_k = 0.2 (g = 9.8). Find the tension. => F = μ m g ÷ (cos 25° + 0.2 sin 25°) = 29.4 ÷ (0.9063 + 0.0845) = 29.4 ÷ 0.9908 = **29.7 N**.
+P: A 5 kg block rests on a 15 kg block, μ_s = 0.3 between them, table frictionless. What is the maximum horizontal force on the bottom block so that they move together? => a_max = 0.3 × 9.8 = 2.94 m/s². F = 20 × 2.94 = **58.8 N**.
+P: A 4 kg block is pushed against a vertical wall by a horizontal force F. μ_s = 0.5. What is the smallest F that holds the block still (g = 9.8)? => Friction must balance weight: μ F = m g, so F = 39.2 ÷ 0.5 = **78.4 N**.
+LVL: Challenge | Push or pull?
+P: A 20 kg crate with μ = 0.4 is moved at constant speed either by pulling upward at 20° or by pushing downward at 20° with the same size of force along a line at 20° to the horizontal. Which needs more force, and by how much? (g = 9.8) => Pull: F = 78.4 ÷ (cos 20° + 0.4 sin 20°) = 78.4 ÷ (0.9397 + 0.1368) = 78.4 ÷ 1.0765 = **72.8 N**. Push: N = mg + F sin θ, so F cos θ = μ (mg + F sin θ), giving F = 78.4 ÷ (cos 20° − 0.4 sin 20°) = 78.4 ÷ (0.9397 − 0.1368) = 78.4 ÷ 0.8029 = **97.6 N**. Pushing needs **24.8 N more**, because pushing downward adds to the normal force.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Distance, midpoint, slope. Parallel: m₁ = m₂. Perpendicular: m₁ m₂ = −1.
+- Point-to-line distance |ax₀ + by₀ + c| ÷ √(a² + b²). Circle (x − h)² + (y − k)² = r²; complete the square; tangent is perpendicular to the radius.
+- Friction: N = mg − F sin θ when pulling at an angle. Best angle tan θ = μ. Stacked blocks: top block's maximum acceleration is μ_s g.
+
+BN: আজকের সারকথা: দূরত্ব, মধ্যবিন্দু, ঢাল; সমান্তরাল ও লম্ব রেখা; বিন্দু থেকে রেখার দূরত্ব; বৃত্তের সমীকরণ ও স্পর্শক। পদার্থবিজ্ঞানে: কোণে টানলে N বদলায়, সেরা কোণ tan θ = μ, আর স্তূপ করা ব্লকে ওপরের ব্লকের সর্বোচ্চ ত্বরণ μ_s g।
+
+**Tomorrow:** parabolas, ellipses and hyperbolas, and circular motion.
+
+CHECK: notes

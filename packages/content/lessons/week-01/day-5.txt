@@ -1,0 +1,194 @@
+@day Week 1 · Day 5 · Friday
+# Algebraic fractions, ratio and variation, scientific notation. Then: putting kinematics together
+lead: Today finishes the algebra toolkit with fractions, proportion and powers of ten. In physics you combine everything from the week into longer, multi-step motion problems, including one object chasing another.
+
+BN: আজ অ্যালজেবরার টুলবক্স শেষ করব: বীজগাণিতিক ভগ্নাংশ (algebraic fractions), অনুপাত ও সমানুপাতিকতা (ratio, variation), আর scientific notation। পদার্থবিজ্ঞানে এই সপ্তাহের সব কিছু একসাথে মিলিয়ে বড় সমস্যা সমাধান করব, যেমন একটা গাড়ি আরেকটাকে ধাওয়া করছে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | The week so far
+P: Solve 4 − 3x ≤ 13. => −3x ≤ 9, so **x ≥ −3** (flip).
+P: Solve |x − 5| = 2. => **x = 7 or x = 3**.
+P: Solve x² − 7x + 10 = 0. => (x − 2)(x − 5) = 0, so **x = 2 or x = 5**.
+P: A car with u = 0 and a = 3 m/s² travels 54 m. Find v. => v² = 2 × 3 × 54 = 324, so **v = 18 m/s**.
+P: Make a the subject of v² = u² + 2as. => **a = (v² − u²) ÷ (2s)**.
+
+CHECK: recall
+
+@section math | 2 · Math: fractions, proportion, scientific notation | 55 min
+
+### Algebraic fractions: same rules as ordinary fractions
+A fraction in x behaves exactly like 6/8 = 3/4. You simplify by **cancelling common factors**, not common terms. To do that you must factor first.
+
+EX: Simplify (x² − 9) ÷ (x² + 3x)
+1. Factor the top: x² − 9 = (x − 3)(x + 3).
+2. Factor the bottom: x² + 3x = x(x + 3).
+3. Cancel the common factor (x + 3): **(x − 3) ÷ x**.
+4. This is valid when x ≠ 0 and x ≠ −3, because those values would make the original bottom zero.
+/EX
+
+TRAP: You cannot cancel the x's in (x + 3) ÷ x. The x in the top is a **term** (added to 3), not a factor. Test with x = 1: (1 + 3) ÷ 1 = 4, but cancelling would give 3.
+
+**Multiply** fractions top by top and bottom by bottom. **Divide** by flipping the second fraction and multiplying.
+
+EX: Simplify (x + 2)/(x − 1) × (x² − 1)/(x + 2)
+1. Factor: x² − 1 = (x − 1)(x + 1).
+2. Cancel (x + 2) and (x − 1).
+3. Left with **x + 1**.
+/EX
+
+**Add or subtract** by finding a common denominator, just like 1/2 + 1/3 = 3/6 + 2/6.
+
+EX: Simplify 1/x + 1/(x + 1)
+1. Common denominator: x(x + 1).
+2. 1/x = (x + 1) ÷ [x(x + 1)] and 1/(x + 1) = x ÷ [x(x + 1)].
+3. Add the tops: **(2x + 1) ÷ [x(x + 1)]**.
+/EX
+
+EX: Solve 3/(x − 1) = 2/x
+1. Cross-multiply (valid when x ≠ 1 and x ≠ 0): 3x = 2(x − 1).
+2. 3x = 2x − 2, so **x = −2**.
+3. Check: 3/(−3) = −1 and 2/(−2) = −1 ✓.
+/EX
+
+BN: ভগ্নাংশ সরল করতে আগে ফ্যাক্টর করো, তারপর সাধারণ উৎপাদক (factor) কাটো, পদ (term) নয়। (x + 3)/x তে x কাটা যায় না কারণ উপরে x হলো যোগের একটা পদ। যোগ-বিয়োগে ছোট বা সাধারণ হর (common denominator) বানাতে হবে। আর হর শূন্য হলে অর্থহীন, তাই x এর কিছু মান বাদ যায়।
+
+### Ratio and sharing
+A **ratio** compares quantities. 3 : 5 means "for every 3 of one, 5 of the other". To share 640 taka in the ratio 3 : 5, add the parts (3 + 5 = 8), find one part (640 ÷ 8 = 80), and multiply: **240 and 400**.
+
+### Variation: how one quantity depends on another
+- **Direct variation:** y = kx. Double x and y doubles. Example: distance at constant speed.
+- **Inverse variation:** y = k/x. Double x and y halves. Example: time to do a job versus the number of workers.
+- **Square variation:** y = kx². Double x and y quadruples. Example: braking distance versus speed, which you met yesterday.
+
+The constant k is found from one data point, then used for the rest.
+
+EX: Inverse variation
+1. Six workers finish a job in 10 days. How long for 15 workers (same pace)?
+2. y = k/x with y = days and x = workers: 10 = k/6, so k = 60 worker-days.
+3. With 15 workers: 60 ÷ 15 = **4 days**.
+/EX
+
+EX: Square variation
+1. y varies as the square of x. y = 18 when x = 3. Find y when x = 5.
+2. y = kx²: 18 = 9k, so k = 2.
+3. y = 2 × 25 = **50**.
+/EX
+
+BN: দুটো রাশির সম্পর্ক তিন রকম: সরাসরি (y = kx, একটা দ্বিগুণ হলে অন্যটাও দ্বিগুণ), বিপরীত (y = k/x, একটা দ্বিগুণ হলে অন্যটা অর্ধেক), আর বর্গ (y = kx², একটা দ্বিগুণ হলে অন্যটা চার গুণ)। পদার্থবিজ্ঞানে এই তিনটা বারবার আসবে। প্রথমে একটা তথ্য দিয়ে k বের করো।
+
+### Scientific notation and orders of magnitude
+Engineers handle numbers from the size of an atom (about 10⁻¹⁰ m) to the size of the Sun's distance (1.5 × 10¹¹ m). We write them as **a × 10ⁿ** with 1 ≤ a < 10.
+
+- 4,500,000 = 4.5 × 10⁶
+- 0.00032 = 3.2 × 10⁻⁴
+
+Multiplying: multiply the a's and **add** the powers (exponent rule 1 from Monday).
+
+EX: Multiply (3 × 10⁸)(5 × 10²)
+1. 3 × 5 = 15 and 10⁸ × 10² = 10¹⁰.
+2. That is 15 × 10¹⁰, which is not in standard form. Rewrite 15 = 1.5 × 10¹.
+3. **1.5 × 10¹¹**.
+/EX
+
+EX: Divide (6 × 10⁵) ÷ (2 × 10⁻³)
+1. 6 ÷ 2 = 3 and 10⁵ ÷ 10⁻³ = 10⁵⁻⁽⁻³⁾ = 10⁸.
+2. **3 × 10⁸**.
+/EX
+
+**Estimation.** A quick estimate catches big mistakes. Example: how many seconds are there in 80 years? One year is about 365 × 24 × 3600 ≈ 3.15 × 10⁷ s. So 80 years ≈ 80 × 3.15 × 10⁷ = **2.5 × 10⁹ s**, about 2.5 billion seconds.
+
+KEY: Before trusting any calculation, ask "roughly how big should the answer be?" The order of magnitude (the power of ten) is often all you need to know a number is wrong.
+
+### Quick self-check
+QUIZ:
+Q: Simplify (x² − 4) ÷ (x − 2).; x − 2; x + 2; x² − 2; 2; 2; x² − 4 = (x − 2)(x + 2), so the (x − 2) cancels.
+Q: What is 1/2 + 1/x as a single fraction?; 2/(2 + x); (x + 2)/(2x); 1/(2x); 2/x; 2; Common denominator 2x: x/(2x) + 2/(2x) = (x + 2)/(2x).
+Q: y varies inversely with x, and y = 6 when x = 4. What is y when x = 12?; 2; 18; 8; 3; 1; k = 6 × 4 = 24. Then y = 24 ÷ 12 = 2.
+Q: Write 0.0072 in scientific notation.; 7.2 × 10³; 7.2 × 10⁻³; 72 × 10⁻⁴; 0.72 × 10⁻²; 2; Move the decimal 3 places right to get 7.2, so the power is −3.
+Q: (2 × 10⁴)(4 × 10⁻⁷) equals…; 8 × 10⁻³; 8 × 10¹¹; 6 × 10⁻³; 8 × 10⁻²⁸; 1; 2 × 4 = 8 and 10⁴ × 10⁻⁷ = 10⁻³.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Simplify (6x²) ÷ (3x). => **2x**.
+P: Share 450 in the ratio 2 : 3. => Parts 2 + 3 = 5, one part is 90. So **180 and 270**.
+P: Write 38,000,000 in scientific notation. => **3.8 × 10⁷**.
+P: Compute (4 × 10³)(2 × 10⁵). => 8 × 10⁸ = **8 × 10⁸**.
+LVL: Level 2 | Combine
+P: Simplify (x² + 5x + 6) ÷ (x² − 4). => (x + 2)(x + 3) ÷ [(x − 2)(x + 2)] = **(x + 3) ÷ (x − 2)**.
+P: Simplify 2/(x − 3) + 1/(x + 1). => Common denominator (x − 3)(x + 1): [2(x + 1) + (x − 3)] ÷ [(x − 3)(x + 1)] = **(3x − 1) ÷ [(x − 3)(x + 1)]**.
+P: Solve 5/(x + 2) = 3/x. => 5x = 3(x + 2) = 3x + 6, so 2x = 6 and **x = 3**.
+P: A spring stretches in direct proportion to the force. A 4 N force stretches it by 6 cm. What force gives 15 cm? => k = 6 ÷ 4 = 1.5 cm per N. 15 ÷ 1.5 = **10 N**.
+P: Compute (9 × 10⁶) ÷ (3 × 10⁻²). => **3 × 10⁸**.
+LVL: Level 3 | Real
+P: The kinetic energy of a moving object varies with the square of its speed. A car at 10 m/s has 50 kJ. What energy at 30 m/s? => 50 × (30 ÷ 10)² = 50 × 9 = **450 kJ**.
+P: Light takes 8.3 minutes to reach Earth from the Sun at 3 × 10⁸ m/s. Estimate the distance. => 8.3 × 60 ≈ 500 s. 3 × 10⁸ × 5 × 10² = 15 × 10¹⁰ = **1.5 × 10¹¹ m**.
+P: A pipe fills a tank in 6 h. A second pipe fills it in 3 h. How long do both take together? => Rates add: 1/6 + 1/3 = 1/6 + 2/6 = 1/2 tank per hour. So **2 hours**.
+LVL: Challenge | Algebra with fractions
+P: Show that 1/(x(x + 1)) = 1/x − 1/(x + 1). Then use it to find 1/(1×2) + 1/(2×3) + 1/(3×4) + 1/(4×5). => Combine the right side: [(x + 1) − x] ÷ [x(x + 1)] = 1 ÷ [x(x + 1)] ✓. Now the sum telescopes: (1 − 1/2) + (1/2 − 1/3) + (1/3 − 1/4) + (1/4 − 1/5) = 1 − 1/5 = **4/5**.
+
+CHECK: math
+
+@section physics | 3 · Physics: combining everything | 35 min
+
+### Multi-stage motion
+Real motion happens in stages, such as speeding up, cruising, braking. Treat each stage separately. The **final velocity of one stage is the starting velocity of the next**.
+
+EX: A train between two stations
+1. Stage 1: from rest, a = 1 m/s² until it reaches 20 m/s. Time 20 s, distance ½ × 1 × 400 = 200 m.
+2. Stage 2: cruises at 20 m/s for 60 s, covering 1200 m.
+3. Stage 3: brakes at −2 m/s² from 20 m/s to rest. Time 10 s, distance 400 ÷ 4 = 100 m.
+4. Total distance **1500 m**, total time **90 s**, average speed 1500 ÷ 90 = **16.7 m/s**, which is less than the cruising speed.
+/EX
+
+### One object chasing another
+When two objects meet, they are at the **same place at the same time**. Write each one's position as a function of time, then set them equal.
+
+EX: Catching up
+1. Car B drives at constant 20 m/s. Car A starts from rest at the same place at the same moment with a = 2 m/s². When does A catch B?
+2. Position of A: x_A = ½ × 2 × t² = t². Position of B: x_B = 20t.
+3. Set equal: t² = 20t, so t² − 20t = 0 and t(t − 20) = 0. **t = 0 (the start) or t = 20 s.**
+4. Distance: x = 20 × 20 = **400 m**. At that moment A's velocity is 2 × 20 = 40 m/s, twice B's, so A overtakes.
+/EX
+
+GRAPH: A chases B | time (s) | x (m) | 0,0 5,25 10,100 15,225 20,400 25,625 ;; 0,0 5,100 10,200 15,300 20,400 25,500 | The straight line is B at constant velocity. The curve is A, accelerating from rest. They meet at 20 s at 400 m. Before that, B is ahead. After that, A is ahead.
+
+BN: দুটো বস্তু যখন মিলিত হয়, তখন একই সময়ে একই জায়গায় থাকে। প্রত্যেকের অবস্থান (x) সময়ের সাপেক্ষে লিখে সমান করো। এখানে সোমবার থেকে শেখা সব কাজে লাগল: সূত্র, একটা দ্বিঘাত সমীকরণ, ফ্যাক্টর করা। t = 0 হলো শুরুর মুহূর্ত, t = 20 হলো ধরে ফেলার মুহূর্ত।
+
+KEY: Strategy for any kinematics problem: draw it → list knowns with signs → decide stages → pick the equation that fits the unknown → solve → check with a second route or an estimate.
+
+### Quick self-check
+QUIZ:
+Q: In a multi-stage problem, the starting velocity of stage 2 equals…; zero; the final velocity of stage 1; the acceleration of stage 1; the average velocity; 2; The velocity does not jump between stages, so the end of one is the start of the next.
+Q: Two cars meet when…; their velocities are equal; their accelerations are equal; their positions are equal at the same time; they have travelled for equal time; 3; Meeting means being at the same place at the same time.
+Q: A runner covers 100 m at constant 8 m/s, then 100 m at 4 m/s. Her average speed is…; 6 m/s; 5.33 m/s; 12 m/s; 4 m/s; 2; Total distance 200 m. Time 12.5 + 25 = 37.5 s. Average speed = 200 ÷ 37.5 = 5.33 m/s, not the simple average 6.
+Q: The graph for car A (from rest, accelerating) on an x–t graph is…; a straight line; a curve getting steeper; a horizontal line; a curve getting flatter; 2; Its velocity keeps growing, and the steepness of an x–t graph is the velocity.
+
+### Practice
+LVL: Level 1 | Warm-up
+P: A cyclist travels 600 m at 6 m/s and then 400 m at 4 m/s. Find the total time. => 100 s + 100 s = **200 s**.
+P: A car goes from rest at 2 m/s² for 8 s, then at constant speed for 5 s. Find the total distance. => Stage 1: ½ × 2 × 64 = 64 m, v = 16 m/s. Stage 2: 16 × 5 = 80 m. Total **144 m**.
+LVL: Level 2 | Meeting problems
+P: A goods train 200 m long passes a pole in 20 s at constant speed. What is its speed in km/h? => 200 ÷ 20 = 10 m/s = **36 km/h**.
+P: A is at 0 m moving at 3 m/s. B starts at 100 m moving towards A at 2 m/s. When and where do they meet? => 3t = 100 − 2t, so t = **20 s**. Position = 60 m from A's start.
+P: A truck at 15 m/s passes a stationary police car, which then accelerates at 3 m/s². When does the police car catch the truck? => 15t = ½ × 3t², so 1.5t² − 15t = 0, giving t = **10 s**. They are 150 m away.
+LVL: Challenge | Take-off and landing
+P: A plane accelerates from rest at 4 m/s² along a runway. It takes off at 80 m/s. (a) How long and how far? A pilot who aborts brakes at −5 m/s² from 80 m/s. (b) What stopping distance is needed? (c) What minimum runway does the plane need if it must be able to abort at the last moment? => (a) t = 80 ÷ 4 = **20 s**, s = 6400 ÷ 8 = **800 m**. (b) s = 6400 ÷ 10 = **640 m**. (c) Accelerate 800 m, then stop 640 m: **1440 m**. Real runways add large safety margins on top.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and the plan for tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fractions: factor first, cancel factors (not terms), common denominator to add.
+- Variation: y = kx, y = k/x, y = kx². Find k from one data point.
+- Scientific notation a × 10ⁿ. Multiply: add exponents. Divide: subtract.
+- Kinematics strategy: draw, list, stage, choose equation, solve, check. Meeting means equal positions at equal time.
+
+BN: আজকের সারকথা: ভগ্নাংশে আগে ফ্যাক্টর, তারপর কাটা। সমানুপাতিকতার তিন রূপ y = kx, y = k/x, y = kx²। বড় সংখ্যা a × 10ⁿ আকারে লেখো। গতির সমস্যায় ছবি আঁকো, জানা জিনিস লেখো, ধাপে ভাগ করো, ঠিক সমীকরণ বেছে নাও আর উত্তর যাচাই করো।
+
+**Tomorrow (Saturday):** a weekly test: 12 math questions and 6 physics questions, 90 minutes, then a mistake log and one coding idea. Sleep well and revise your notes for 15 minutes tonight, nothing more.
+
+CHECK: notes

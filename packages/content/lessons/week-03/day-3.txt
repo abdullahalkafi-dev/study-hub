@@ -1,0 +1,221 @@
+@day Week 3 · Day 3 · Wednesday
+# Trig identities and equations. Then: projectile motion, horizontal launch
+lead: An identity is an equation that is true for every angle. Today you learn the identities, prove new ones, and use them to solve trig equations. In physics you meet a powerful idea: a thrown object moves horizontally and vertically as if each direction were a separate problem.
+
+BN: আইডেন্টিটি (identity) হলো এমন সমীকরণ যা সব কোণের জন্য সত্য। আজ আইডেন্টিটি শিখব, নতুন আইডেন্টিটি প্রমাণ করব, আর ত্রিকোণমিতিক সমীকরণ সমাধান করব। পদার্থবিজ্ঞানে একটা শক্তিশালী ধারণা: ছোঁড়া বস্তুর অনুভূমিক আর উল্লম্ব গতি দুটো আলাদা সমস্যার মতো সামলানো যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Unit circle and graphs
+P: Find sin 210°, cos 135° and tan 300° exactly. => **−1/2**, **−√2/2**, **−√3**.
+P: State the amplitude and period of y = 2 sin(3x). => Amplitude **2**, period **2π/3**.
+P: Solve sin x = √2/2 for 0 ≤ x ≤ 2π. => **x = π/4 or 3π/4**.
+P: A boat at 3 m/s relative to water aims across a river with a 4 m/s current. Find the ground speed. => **5 m/s**.
+P: Resolve 40 N at 30° above the horizontal. => Horizontal **34.6 N**, vertical **20 N**.
+
+CHECK: recall
+
+@section math | 2 · Math: identities and equations | 60 min
+
+### The identities you must know
+From the unit circle (and Pythagoras), every point (cos θ, sin θ) is on a circle of radius 1, so:
+
+EQ: sin²θ + cos²θ = 1
+
+Divide every term by cos²θ and by sin²θ to get two more:
+
+EQ: tan²θ + 1 = sec²θ     and     1 + cot²θ = csc²θ
+
+Here the three **reciprocal functions** are:
+
+EQ: sec θ = 1 ÷ cos θ     csc θ = 1 ÷ sin θ     cot θ = 1 ÷ tan θ = cos θ ÷ sin θ
+
+And tan θ = sin θ ÷ cos θ.
+
+BN: মূল আইডেন্টিটি sin²θ + cos²θ = 1। এটাকে cos²θ দিয়ে ভাগ করলে tan²θ + 1 = sec²θ, আর sin²θ দিয়ে ভাগ করলে 1 + cot²θ = csc²θ। এছাড়া তিনটা উল্টো ফাংশন: sec = 1/cos, csc = 1/sin, cot = 1/tan। একটা মনে রাখলে বাকিগুলো নিজে বের করতে পারো।
+
+EX: Deriving tan²θ + 1 = sec²θ
+1. Start with sin²θ + cos²θ = 1.
+2. Divide every term by cos²θ: sin²θ ÷ cos²θ + 1 = 1 ÷ cos²θ.
+3. The first term is tan²θ and the right side is sec²θ. So **tan²θ + 1 = sec²θ**.
+/EX
+
+### Proving identities
+To prove an identity, work on **one side** (usually the more complicated) until it becomes the other. Never "move things across the equals sign", because that assumes what you are trying to prove.
+
+**Strategies that work:**
+1. Rewrite everything in terms of sin and cos.
+2. Combine fractions with a common denominator.
+3. Look for sin² + cos² = 1 in disguise.
+4. Factor, or use a difference of squares.
+5. Multiply top and bottom by a **conjugate** (like 1 − sin x).
+
+EX: Prove (1 − cos²x) ÷ sin x = sin x
+1. Left side: since 1 − cos²x = sin²x, we get sin²x ÷ sin x.
+2. Cancel one sin x: **sin x** = right side ∎.
+/EX
+
+EX: Prove tan x + cot x = sec x csc x
+1. Left side in sin and cos: sin x ÷ cos x + cos x ÷ sin x.
+2. Common denominator sin x cos x: (sin²x + cos²x) ÷ (sin x cos x).
+3. The top is 1: 1 ÷ (sin x cos x) = (1 ÷ cos x)(1 ÷ sin x) = **sec x csc x** ∎.
+/EX
+
+EX: Prove (1 + sin x) ÷ cos x = cos x ÷ (1 − sin x)
+1. Multiply the left side's top and bottom by the conjugate (1 − sin x).
+2. Top: (1 + sin x)(1 − sin x) = 1 − sin²x = cos²x. Bottom: cos x (1 − sin x).
+3. So the left side is cos²x ÷ [cos x (1 − sin x)] = **cos x ÷ (1 − sin x)** ∎.
+/EX
+
+EX: Prove sin⁴x − cos⁴x = sin²x − cos²x
+1. Factor as a difference of squares: (sin²x − cos²x)(sin²x + cos²x).
+2. The second bracket is 1. So the left side is **sin²x − cos²x** ∎.
+/EX
+
+BN: আইডেন্টিটি প্রমাণ করতে এক পাশ নিয়ে কাজ করো (জটিল পাশটা), অন্য পাশের আকারে নিয়ে এসো। "এপাশ ওপাশ করে" সমান চিহ্ন পার করা চলবে না, কারণ তাতে যেটা প্রমাণ করতে চাও সেটাই ধরে নেওয়া হয়। কৌশল: সব sin আর cos এ লেখো, হর সমান করো, sin² + cos² = 1 খোঁজো, ফ্যাক্টর করো, বা conjugate দিয়ে গুণ করো।
+
+### Solving trigonometric equations
+A trig equation like sin x = 1/2 has **many** solutions because the waves repeat. First find the solutions in one period (usually 0 to 2π), then add the repeats.
+
+**General solutions** (n is any whole number):
+
+| Equation | General solution |
+| sin x = a | x = α + 2πn or x = (π − α) + 2πn, where α = sin⁻¹(a) |
+| cos x = a | x = ±α + 2πn, where α = cos⁻¹(a) |
+| tan x = a | x = α + πn, where α = tan⁻¹(a) |
+
+EX: Solve tan x = −1 for 0 ≤ x ≤ 2π
+1. tan is negative in quadrants II and IV. The reference angle is π/4.
+2. **x = 3π/4 or x = 7π/4**.
+3. General solution: x = 3π/4 + πn.
+/EX
+
+EX: Solve sin 2x = √3/2 for 0 ≤ x ≤ 2π
+1. Let u = 2x. Then u ranges from 0 to 4π (two full turns).
+2. sin u = √3/2 gives u = π/3, 2π/3, then add 2π: 7π/3, 8π/3.
+3. Divide by 2: **x = π/6, π/3, 7π/6, 4π/3**. Doubling the angle gave twice as many solutions.
+/EX
+
+### Solving with identities: quadratics in disguise
+When an equation has both sin² and cos, or sin and cos², use sin² = 1 − cos² to get one function, then factor.
+
+EX: Solve 2 sin²x + cos x = 1 for 0 ≤ x ≤ 2π
+1. Replace sin²x = 1 − cos²x: 2(1 − cos²x) + cos x = 1.
+2. 2 − 2cos²x + cos x − 1 = 0, so 2cos²x − cos x − 1 = 0.
+3. Factor (like a quadratic in c = cos x): (2c + 1)(c − 1) = 0.
+4. cos x = −1/2 gives x = 2π/3 or 4π/3. cos x = 1 gives x = 0 or 2π.
+5. **x = 0, 2π/3, 4π/3, 2π**.
+/EX
+
+EX: Solve 2 sin²x − sin x − 1 = 0 for 0 ≤ x < 2π
+1. Factor: (2 sin x + 1)(sin x − 1) = 0.
+2. sin x = −1/2 gives x = 7π/6 or 11π/6. sin x = 1 gives x = π/2.
+3. **x = π/2, 7π/6, 11π/6**.
+/EX
+
+TRAP: Never divide both sides by sin x or cos x. You lose the solutions where that function is zero. Factor instead. For example, with sin x cos x = sin x: move everything left: sin x (cos x − 1) = 0, giving sin x = 0 or cos x = 1.
+
+### Quick self-check
+QUIZ:
+Q: sec x equals…; sin x; 1/sin x; 1/cos x; 1/tan x; 3; sec is the reciprocal of cos.
+Q: Which expression simplifies to 1?; sin²x − cos²x; sin²x + cos²x; sin x + cos x; sin x · cos x; 2; This is the Pythagorean identity.
+Q: How many solutions does sin x = 0.3 have for 0 ≤ x ≤ 2π?; 1; 2; 3; 4; 2; Sine is positive in quadrants I and II, giving two solutions.
+Q: 1 − cos²x equals…; sin x; sin²x; tan²x; 1 + sin²x; 2; From sin²x + cos²x = 1.
+Q: Which step is valid when proving an identity?; adding the same thing to both sides; working on one side only; cross-multiplying both sides; assuming the identity is true; 2; Work on a single side until it turns into the other.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Simplify (sin²x + cos²x) ÷ cos x. => **sec x**.
+P: Simplify sin x ÷ tan x. => sin x × cos x ÷ sin x = **cos x**.
+P: Given sin θ = 3/5 in quadrant I, find cos θ and tan θ. => cos θ = 4/5, tan θ = **3/4** (cos θ = 4/5 from the 3-4-5 triangle).
+LVL: Level 2 | Prove and solve
+P: Prove cos x ÷ (1 − sin x) − tan x = sec x. => Combine: cos x ÷ (1 − sin x) = (1 + sin x) ÷ cos x (conjugate). Then (1 + sin x) ÷ cos x − sin x ÷ cos x = 1 ÷ cos x = **sec x** ∎.
+P: Prove (sin x + cos x)² = 1 + 2 sin x cos x. => Expand: sin²x + 2 sin x cos x + cos²x = 1 + 2 sin x cos x ∎.
+P: Solve 2 cos x = √3 for 0 ≤ x ≤ 2π. => cos x = √3/2, so **x = π/6 or 11π/6**.
+P: Solve sin²x = 3 cos²x for 0° ≤ x ≤ 360°. => tan²x = 3, so tan x = ±√3. **x = 60°, 120°, 240°, 300°**.
+P: Solve 3 tan x = 2 sin x for 0 ≤ x < 2π. => 3 sin x ÷ cos x = 2 sin x, so sin x (3 ÷ cos x − 2) = 0 (do not divide by sin x!). sin x = 0 gives x = 0, π. cos x = 3/2 is impossible. **x = 0, π**.
+LVL: Level 3 | Real
+P: The tide height in metres is h = 3 + 2 sin(πt ÷ 6) with t in hours. When is the tide at 4 m during the first 12 hours? => 2 sin(πt/6) = 1, so sin(πt/6) = 1/2. πt/6 = π/6 or 5π/6 (and 13π/6, 17π/6). The next solution would be 13π/6, which is t = 13 h, beyond the first 12 hours. So **t = 1 h and t = 5 h**.
+LVL: Challenge | Prove it
+P: Prove that sec²x + csc²x = sec²x csc²x. => Write in sin and cos: 1/cos²x + 1/sin²x = (sin²x + cos²x) ÷ (sin²x cos²x) = 1 ÷ (sin²x cos²x) = (1/cos²x)(1/sin²x) = **sec²x csc²x** ∎.
+
+CHECK: math
+
+@section physics | 3 · Physics: projectile motion, horizontal launch | 30 min
+
+### Two independent motions
+Throw a ball sideways off a cliff. It moves forward and falls at the same time. The big idea:
+
+KEY: **Horizontal and vertical motions are independent.** Horizontally there is no force (ignoring air), so the horizontal velocity stays **constant**. Vertically, gravity gives a constant downward acceleration g = 9.8 m/s². Time is the same for both, and links them.
+
+A classic test: drop one ball and fire another horizontally from the same height at the same moment. They hit the ground **at the same time**. The sideways speed does not change how fast gravity pulls down.
+
+BN: প্রক্ষেপ গতির মূল ধারণা: অনুভূমিক আর উল্লম্ব গতি পরস্পর স্বাধীন। অনুভূমিক দিকে কোনো বল নেই (বাতাস বাদ দিলে), তাই বেগ ধ্রুবক। উল্লম্ব দিকে g = 9.8 ত্বরণ। দুই দিকের সংযোগকারী হলো সময় t। একটা বল ফেলে দাও, আরেকটা পাশ থেকে ছোঁড়ো, দুটো একসাথে মাটিতে পড়বে।
+
+### The equations
+For a launch horizontally with speed u from height h (take down as positive):
+
+| Direction | Equations |
+| Horizontal | x = u t  (constant velocity, so vₓ = u) |
+| Vertical | y = ½ g t²  and  v_y = g t (starts from rest vertically) |
+
+Time to fall: t = √(2h ÷ g). Then the range (horizontal distance) is R = u t. Eliminating t gives the **path**: y = g x² ÷ (2u²), a **parabola**.
+
+EX: A stone off a cliff
+1. A stone is thrown horizontally at 15 m/s from the top of a 45 m cliff.
+2. Time to fall: t = √(2 × 45 ÷ 9.8) = √9.18 = **3.03 s**.
+3. Range: x = 15 × 3.03 = **45.5 m** from the base.
+4. Velocity at impact: horizontal 15 m/s, vertical 9.8 × 3.03 = 29.7 m/s downward.
+5. Speed = √(15² + 29.7²) = √1107 = **33.3 m/s**. Angle below the horizontal: tan⁻¹(29.7 ÷ 15) = **63.2°**.
+/EX
+
+FUNC: Path of the stone | x (m) | height (m) | 45-4.9*(x/15)**2 | 0,45 | 0,50 | - | The height above the ground is 45 − 4.9 (x ÷ 15)², a parabola. The stone reaches the ground at x = 45.5 m. Notice the path steepens as it falls.
+
+EX: Dropping supplies
+1. A plane flies level at 500 m with a speed of 60 m/s. A package is released. How far before the target should it be released?
+2. t = √(2 × 500 ÷ 9.8) = **10.1 s**.
+3. Horizontal distance = 60 × 10.1 = **606 m**. The package keeps the plane's forward speed, so it falls **below** the plane, not behind it (ignoring air).
+/EX
+
+EX: A rolling ball leaves a table
+1. A ball leaves a 1.2 m high table at 2 m/s. Where does it land?
+2. t = √(2.4 ÷ 9.8) = 0.495 s.
+3. x = 2 × 0.495 = **0.99 m** from the table edge.
+/EX
+
+BN: ছোঁড়া বস্তুর পথ একটা অধিবৃত্ত (parabola)। উচ্চতা h থেকে অনুভূমিকভাবে u বেগে ছুঁড়লে পড়তে সময় লাগে t = √(2h/g), আর দূরত্ব = u × t। প্লেন থেকে ত্রাণ ফেললে সেটা প্লেনের সামনে এগিয়ে যেতে যেতে নিচে পড়ে, তাই লক্ষ্যের আগেই ছাড়তে হয়। সময় একই, তাই সময়ই দুই দিকের সেতু।
+
+### Quick self-check
+QUIZ:
+Q: A ball is dropped and another is fired horizontally from the same height at the same instant. Which hits first?; the dropped one; the fired one; they land together; depends on speed; 3; The vertical motion is identical, so they take the same time.
+Q: The horizontal velocity of a projectile (no air resistance) is…; increasing; decreasing; constant; zero; 3; No horizontal force means no horizontal acceleration.
+Q: A ball is launched horizontally at 10 m/s from 20 m. The time to fall is about…; 1 s; 2 s; 4 s; 10 s; 2; t = √(40 ÷ 9.8) = 2.02 s.
+Q: A projectile's path is a…; straight line; circle; parabola; hyperbola; 3; Eliminating t gives y = gx² ÷ (2u²), a parabola.
+
+### Practice
+LVL: Level 1 | Direct
+P: A marble rolls off a 0.8 m table at 1.5 m/s. How long is it in the air and how far does it travel? => t = √(1.6 ÷ 9.8) = **0.404 s**. x = 1.5 × 0.404 = **0.61 m**.
+P: A ball is kicked horizontally at 20 m/s from the top of a 80 m cliff. Find the range. => t = √(160 ÷ 9.8) = 4.04 s. Range = **80.8 m**.
+LVL: Level 2 | Impact
+P: Find the speed and the angle of the stone in the first example if the cliff were 20 m high and the speed 12 m/s. => t = √(40 ÷ 9.8) = 2.02 s. v_y = 19.8 m/s. Speed = √(144 + 392) = **23.2 m/s** at tan⁻¹(19.8 ÷ 12) = **58.8°** below horizontal.
+P: A plane at 300 m with a speed of 80 m/s drops a crate. How far ahead of the target must it release, and how fast does it hit the ground? => t = √(600 ÷ 9.8) = 7.82 s. Distance = **626 m**. v_y = 76.6 m/s. Speed = √(6400 + 5868) = **111 m/s**.
+LVL: Challenge | Clear the river
+P: A stunt rider rides horizontally off a ramp 10 m above the water, and must land on the far bank 40 m away. What minimum speed is needed? => t = √(20 ÷ 9.8) = 1.43 s. u = 40 ÷ 1.43 = **28 m/s** (about 100 km/h).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- sin² + cos² = 1; tan² + 1 = sec²; 1 + cot² = csc². sec = 1/cos, csc = 1/sin, cot = 1/tan.
+- Prove an identity by working on one side only. Do not divide by sin or cos in an equation; factor.
+- General solutions: sin: α + 2πn or π − α + 2πn. cos: ±α + 2πn. tan: α + πn.
+- Projectile: horizontal velocity constant, vertical motion like free fall. Time links them. Path is a parabola.
+
+BN: আজকের সারকথা: তিনটা Pythagorean আইডেন্টিটি, প্রমাণ করার কৌশল, সমীকরণে ভাগ না করে ফ্যাক্টর করা, আর সাধারণ সমাধান। প্রক্ষেপ গতিতে অনুভূমিক বেগ ধ্রুবক, উল্লম্ব গতি ফ্রি ফলের মতো, আর সময় দুটোকে যোগ করে।
+
+**Tomorrow:** compound-angle formulas and the R sin(x + α) form, and projectiles launched at an angle.
+
+CHECK: notes

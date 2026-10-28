@@ -1,0 +1,144 @@
+@day Week 19 · Day 2 · Tuesday
+# Complex roots: oscillation. Springs and pendulums. Then: resistors in series and parallel
+lead: When the characteristic equation has complex roots, the solution oscillates: this is the mathematics of springs, pendulums, vibrating strings, alternating current and radio. Euler's formula from Week 12 turns the complex exponentials into sines and cosines. In physics, you now combine resistors: in a chain they add, side by side they share the current, and a clever pair in series makes the voltage divider that every sensor circuit in your electronics projects uses.
+
+BN: বৈশিষ্ট্য সমীকরণের মূল জটিল হলে সমাধান দোলে: এটাই স্প্রিং, দোলক, কম্পমান তার, পরিবর্তী প্রবাহ ও রেডিওর গণিত। সপ্তাহ ১২ এর অয়লারের সূত্র জটিল সূচককে সাইন ও কোসাইনে বদলে দেয়। পদার্থবিজ্ঞানে এবার রোধ জুড়বে: সারিতে যোগ হয়, পাশাপাশি প্রবাহ ভাগ হয়, আর সারিতে দুটো রোধ ভোল্টেজ ডিভাইডার বানায় যা তোমার ইলেকট্রনিক্স প্রজেক্টের প্রতিটি সেন্সর সার্কিটে থাকে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and before
+P: Solve y″ − 5y′ + 6y = 0. => **y = C₁ e^(2x) + C₂ e^(3x)**.
+P: State Euler's formula. => **e^(iθ) = cos θ + i sin θ**.
+P: Find the period of a motion with angular frequency ω = 20 rad/s. => T = 2π ÷ ω = **0.314 s**.
+P: Find the equivalent capacitance of 2 μF and 3 μF in parallel. => **5 μF**.
+P: Solve r² + 4 = 0. => **r = ±2i**.
+
+CHECK: recall
+
+@section math | 2 · Math: oscillation from complex roots | 55 min
+
+### Complex roots
+If a r² + b r + c = 0 has the complex roots r = α ± i β (when b² < 4ac), then e^((α ± iβ)x) = e^(αx) (cos βx ± i sin βx), and the real solutions are
+
+EQ: y = e^(αx) [C₁ cos βx + C₂ sin βx]
+
+α sets the **growth or decay** of the amplitude (α < 0 is a decay) and β the **angular frequency**. With α = 0 the oscillation never changes: **simple harmonic motion**.
+
+BN: মূল r = α ± iβ হলে y = e^(αx)[C₁ cos βx + C₂ sin βx]। α < 0 হলে বিস্তার কমে (অবমন্দন), β = কৌণিক কম্পাঙ্ক। α = 0 হলে সরল ছন্দিত গতি (SHM), যার বিস্তার বদলায় না।
+
+EX: Oscillations
+1. **y″ + 4y = 0, y (0) = 1, y′ (0) = 0.** r = ±2i: y = C₁ cos 2x + C₂ sin 2x. C₁ = 1 and y′ (0) = 2 C₂ = 0: **y = cos 2x**, period π.
+2. **A mass on a spring:** m = 0.5 kg, k = 200 N/m: m x″ + k x = 0 gives ω = √(k ÷ m) = √400 = **20 rad/s**, T = 2π ÷ 20 = **0.314 s**, f = 3.18 Hz. Pulled by 0.1 m and released: x = 0.1 cos 20t, the maximum speed is A ω = **2 m/s**, and the energy is ½ k A² = **1 J**.
+3. **y″ + 2y′ + 5y = 0, y (0) = 1, y′ (0) = 0.** r = (−2 ± √(4 − 20)) ÷ 2 = −1 ± 2i: y = e^(−x) (C₁ cos 2x + C₂ sin 2x). C₁ = 1, and y′ (0) = −C₁ + 2 C₂ = 0 gives C₂ = 1/2: **y = e^(−x) (cos 2x + ½ sin 2x)**. In amplitude form this is 1.118 e^(−x) cos (2x − 26.6°). The period is π, and y (1) = e⁻¹ (cos 2 + 0.5 sin 2) = **0.0142**. The amplitude falls by e each unit of x.
+4. **Amplitude and phase:** C₁ cos βx + C₂ sin βx = A cos (βx − φ), with A = √(C₁² + C₂²) and tan φ = C₂ ÷ C₁.
+5. **A small-angle pendulum:** θ″ = −(g ÷ L) θ, so ω = √(g ÷ L) and **T = 2π √(L ÷ g)**, independent of the mass and (for small swings) of the amplitude. For L = 1 m: T = **2.007 s**. For L = 0.25 m: **1.004 s**. The "seconds pendulum" of a grandfather clock (half-period 1 s) has L = 0.994 m. On the Moon (g = 1.62 m/s²) the 1 m pendulum has T = **4.94 s**.
+6. **Large swings** are slower: T ≈ T₀ (1 + θ₀² ÷ 16), so a swing of 0.5 rad (28.6°) is 1.6% slower, and 1 rad (57°) about 6.6% slower (exact: 1.0663).
+/EX
+
+LAB: A mass on a spring | Choose the mass, the spring constant and the amplitude. The graph shows the displacement x = A cos ωt over time. The numbers give ω, the period, the frequency, the maximum speed and the energy. | m:Mass m (kg):0.1:2:0.1:0.5 ;; k:Spring constant k (N/m):20:400:10:200 ;; A:Amplitude A (cm):1:20:1:10 | sqrt(k/m):Angular frequency ω (rad/s):2 ;; 2*pi/sqrt(k/m):Period (s):3 ;; sqrt(k/m)/(2*pi):Frequency (Hz):2 ;; A/100*sqrt(k/m):Maximum speed (m/s):2 ;; 0.5*k*(A/100)^2:Energy (J):3 | A*cos(sqrt(k/m)*x) | 0,1 | -20,20
+
+LAB: Damped oscillation | The roots are −γ ± iβ, with y (0) = 1 and y′ (0) = 0: y = e^(−γx) (cos βx + (γ ÷ β) sin βx). Choose the decay rate γ and the frequency β. The graph shows the oscillation inside its envelope. The numbers give the period 2π ÷ β, the time for the amplitude to fall by e, and how many oscillations happen in that time. | g:Decay rate γ:0.1:2:0.1:0.5 ;; b:Frequency β:1:8:0.5:4 | 2*pi/b:Period:3 ;; 1/g:Time for amplitude to fall by e:2 ;; b/(2*pi*g):Oscillations in that time:2 | exp(-g*x)*(cos(b*x)+(g/b)*sin(b*x)) | 0,10 | -1.2,1.2
+
+LAB: The pendulum | Choose the length, gravity and the starting angle. The numbers give the small-angle period 2π √(L ÷ g) and the period with the correction (1 + θ₀² ÷ 16 + 11 θ₀⁴ ÷ 3072). The graph shows the period against length. | L:Length L (m):0.1:3:0.05:1 ;; g:Gravity g (m/s²):1.6:10:0.1:9.8 ;; th:Start angle θ₀ (degrees):1:90:1:30 | 2*pi*sqrt(L/g):Small-angle period (s):3 ;; 2*pi*sqrt(L/g)*(1+(th*pi/180)^2/16+11*(th*pi/180)^4/3072):Corrected period (s):3 | 2*pi*sqrt(x/g) | 0.1,3 | 0,4
+
+TRAP: In the solution e^(αx) [C₁ cos βx + C₂ sin βx], β is the **imaginary part** of the root, and the frequency of the damped oscillation is **β**, not the natural frequency √(c ÷ a): they differ when there is damping. The pendulum formula is for **small** angles and measured in **radians** (not degrees). And the period of a spring or pendulum does not depend on the amplitude (isochronism), only because of linearity: for large swings it does.
+
+### Quick self-check
+QUIZ:
+Q: The roots r = −1 ± 2i give a solution that…; grows and oscillates; decays and oscillates; decays only; oscillates forever; 2; e^(−x) with ω = 2.
+Q: The period of a mass on a spring is…; 2π √(k ÷ m); 2π √(m ÷ k); 2π m k; π √(m ÷ k); 2; ω = √(k ÷ m).
+Q: A 1 m pendulum has a period of about…; 1 s; 2 s; 3 s; 0.5 s; 2; 2π √(1 ÷ 9.8).
+Q: If the amplitude of a spring oscillation doubles, the period…; doubles; halves; stays the same; quadruples; 3; Isochronism.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Solve y″ + 9y = 0 with y (0) = 2 and y′ (0) = 0. => **y = 2 cos 3x**.
+P: Find the period of a mass of 0.5 kg on a spring of 200 N/m. => **0.314 s**.
+P: Find the period of a 1 m pendulum. => **2.007 s**.
+LVL: Level 2 | Apply
+P: Solve y″ + 2y′ + 5y = 0 with y (0) = 1, y′ (0) = 0 and find y (1). => y = e^(−x) (cos 2x + ½ sin 2x); **0.0142**.
+P: Find the maximum speed and the energy for a spring (m = 0.5 kg, k = 200 N/m) released from 0.1 m. => **2 m/s** and **1 J**.
+P: Solve y″ + 4y = 0 with y (0) = 0 and y′ (0) = 6. => **y = 3 sin 2x**.
+P: Write 3 cos 2x + 4 sin 2x in the form A cos (2x − φ). => A = **5**, tan φ = 4/3, **φ = 53.1°**.
+P: What length of pendulum has a period of 1 s? => L = g T² ÷ 4π² = 9.8 ÷ 39.5 = **0.248 m**.
+P: Find the roots and describe y″ + 4y′ + 13y = 0. => r = (−4 ± √(16 − 52)) ÷ 2 = **−2 ± 3i**: oscillation with ω = 3 rad/s (period 2.09) and amplitude decaying as e^(−2x).
+LVL: Level 3 | Real
+P: A car mass of 1000 kg is supported by four springs, each with k = 20,000 N/m. Find the period of the bounce with no damping and the frequency. => Total k = 80,000: ω = √(80000 ÷ 1000) = 8.94 rad/s, T = **0.70 s**, f = **1.42 Hz**: typical for a car body.
+LVL: Challenge | Pendulum correction
+P: By how much (in percent) does a pendulum with an amplitude of 30° (0.5236 rad) run slow compared with the small-angle formula? And what is the error of a clock set for small swings after one day? => T ≈ T₀ (1 + θ₀² ÷ 16) = T₀ × 1.0171: **1.7% slower**. In 24 h = 86,400 s it loses 0.017 × 86,400 = **1480 s ≈ 25 minutes**. This is why clock pendulums are designed to swing by only a few degrees.
+
+CHECK: math
+
+@section physics | 3 · Physics: resistors in series and parallel | 35 min
+
+### Series and parallel
+**Series** (one after another): the **same current** flows through all, and the voltages add. **Parallel** (side by side): the **same voltage** across all, and the currents add.
+
+EQ: R_series = R₁ + R₂ + …     1 ÷ R_parallel = 1 ÷ R₁ + 1 ÷ R₂ + …
+
+Parallel is always **smaller than the smallest** resistor. (Capacitors in Week 18 follow the opposite rule.)
+
+BN: শ্রেণি: একই প্রবাহ, ভোল্টেজ যোগ; R = R₁ + R₂ + …। সমান্তরাল: একই ভোল্টেজ, প্রবাহ যোগ; 1/R = 1/R₁ + 1/R₂ + …, ফল সবচেয়ে ছোটটির চেয়েও ছোট। (ধারকের নিয়মের উল্টো।)
+
+EX: Combinations
+1. **6 Ω and 3 Ω:** series **9 Ω**; parallel 1 ÷ R = 1/6 + 1/3 = 1/2, so **2 Ω**. Two equal 10 Ω resistors in parallel give **5 Ω**.
+2. **A network:** R₁ = 4 Ω in series with (6 Ω ∥ 12 Ω). The parallel pair is 6 × 12 ÷ 18 = 4 Ω. The total is **8 Ω**. With 24 V: I = **3 A**. The voltage across the pair is 3 × 4 = **12 V**, so the currents are 12 ÷ 6 = **2 A** and 12 ÷ 12 = **1 A** (2 + 1 = 3 ✓).
+3. **Three in parallel (2, 3, 6 Ω):** 1 ÷ R = 1/2 + 1/3 + 1/6 = 1, so **R = 1 Ω**.
+4. **Voltage divider:** two resistors in series across V_in; the output across R₂ is V_out = V_in R₂ ÷ (R₁ + R₂). With V_in = 12 V, R₁ = 14 kΩ, R₂ = 10 kΩ: V_out = 12 × 10 ÷ 24 = **5.0 V**. (A sensor like an LDR or thermistor replaces one resistor, and the microcontroller reads V_out.)
+5. **Loading effect:** connect a 10 kΩ load across R₂. The parallel pair is 5 kΩ, so V_out = 12 × 5 ÷ (14 + 5) = **3.16 V** instead of 5 V: a divider is accurate only if the load is much larger than R₂.
+6. **LED with a series resistor:** a 5 V supply, an LED that needs 2.0 V and 20 mA: R = (5 − 2) ÷ 0.02 = **150 Ω** and the resistor dissipates 0.02² × 150 = **0.06 W**.
+7. **Wheatstone bridge:** balanced (no current in the detector) when R₁ ÷ R₂ = R₃ ÷ R_x. For R₁ = 100 Ω, R₂ = 200 Ω and R₃ = 150 Ω: R_x = R₃ R₂ ÷ R₁ = **300 Ω** (the way strain gauges are read).
+8. **Batteries:** four 1.5 V cells in series give **6 V**; in parallel they give 1.5 V with four times the capacity (at the same current each cell supplies a quarter).
+9. **Home wiring** uses **parallel** circuits: each appliance gets 230 V, and switching one off does not affect the others. The old Christmas-light strings were in series: one dead bulb broke the circuit.
+/EX
+
+LAB: A resistor network | Three resistors and a battery: R₁ in series with the parallel pair R₂ and R₃. Choose the values. The numbers give the parallel pair, the total resistance, the battery current, and the current in R₂. | R1:R₁ (Ω):1:20:1:4 ;; R2:R₂ (Ω):1:20:1:6 ;; R3:R₃ (Ω):1:20:1:12 ;; V:Battery V (V):1:48:1:24 | R2*R3/(R2+R3):R₂ ∥ R₃ (Ω):2 ;; R1+R2*R3/(R2+R3):Total resistance (Ω):2 ;; V/(R1+R2*R3/(R2+R3)):Battery current (A):2 ;; V/(R1+R2*R3/(R2+R3))*R2*R3/(R2+R3)/R2:Current in R₂ (A):2 | - | 0,1 | 0,1
+
+LAB: Voltage divider with a load | Choose R₁, R₂, the load and the input voltage. The numbers give the output voltage without and with the load, and the fraction by which the load pulls it down. The graph shows the output against the load resistance. | R1:R₁ (kΩ):1:50:1:14 ;; R2:R₂ (kΩ):1:50:1:10 ;; RL:Load R_L (kΩ):1:100:1:10 ;; V:Input V (V):1:24:1:12 | V*R2/(R1+R2):Output without load (V):2 ;; V*(R2*RL/(R2+RL))/(R1+R2*RL/(R2+RL)):Output with load (V):2 ;; 100*(1-((R2*RL/(R2+RL))/(R1+R2*RL/(R2+RL)))/(R2/(R1+R2))):Fall caused by the load (%):1 | V*(R2*x/(R2+x))/(R1+R2*x/(R2+x)) | 1,100 | 0,10
+
+TRAP: Resistors in **parallel**: 1 ÷ R_total = Σ 1 ÷ R, not Σ R. Do not forget to take the **reciprocal** at the end. In a series circuit the **voltage** splits in proportion to R, in a parallel one the **current** splits in inverse proportion to R. A voltage divider loaded by a small resistance does **not** give the unloaded V_out.
+
+### Quick self-check
+QUIZ:
+Q: Two 10 Ω resistors in parallel give…; 20 Ω; 10 Ω; 5 Ω; 2.5 Ω; 3; R ÷ 2.
+Q: In a series circuit the quantity that is the same everywhere is the…; voltage; current; power; resistance; 2; One path for the charge.
+Q: The output of a divider with R₁ = R₂ and V_in = 10 V is…; 10 V; 5 V; 2.5 V; 0 V; 2; V_in ÷ 2.
+Q: Home appliances are wired in parallel so that…; each gets the full voltage; the current is smaller; the wires are shorter; power is saved; 1; Same V across each.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the series and parallel equivalents of 6 Ω and 3 Ω. => **9 Ω** and **2 Ω**.
+P: Find the parallel equivalent of 2, 3 and 6 Ω. => **1 Ω**.
+P: Find the divider output for 12 V, 14 kΩ and 10 kΩ. => **5 V**.
+LVL: Level 2 | Apply
+P: Find the total resistance and current for 4 Ω in series with (6 Ω ∥ 12 Ω) at 24 V, and the current in each of the parallel resistors. => **8 Ω**; **3 A**; **2 A** and **1 A**.
+P: A 10 kΩ load is connected across R₂ of the 12 V divider (14 kΩ and 10 kΩ). Find the new output. => **3.16 V**.
+P: Find the resistor for an LED (2 V, 10 mA) on a 5 V supply. => R = 3 ÷ 0.01 = **300 Ω**.
+P: A Wheatstone bridge has R₁ = 100 Ω, R₂ = 200 Ω and R₃ = 150 Ω at balance. Find R_x. => **300 Ω**.
+P: A thermistor has 10 kΩ at 25 °C and 4.1 kΩ at 50 °C. It is in series with 10 kΩ across 5 V; find the voltage across the fixed resistor at each temperature. => At 25 °C: 5 × 10 ÷ 20 = **2.50 V**. At 50 °C: 5 × 10 ÷ 14.1 = **3.55 V**. The change of 1.05 V is easy to read.
+P: Three bulbs of 60 Ω each are wired in parallel across 12 V. Find the total current. If one burns out, what happens to the others? => R = 20 Ω, I = **0.6 A** (0.2 A each). The others stay at **12 V and 0.2 A**: unchanged.
+LVL: Level 3 | Real
+P: A string of 20 identical bulbs in series is connected across 230 V, each with R = 115 Ω. Find the current, the power of the string and the voltage across each bulb. If one bulb fails open, what happens? => R = 2300 Ω, I = **0.1 A**, P = **23 W**, each bulb **11.5 V**. If one fails open, the circuit is broken: **all** go out (the reason for parallel house wiring, or shunt devices in the bulbs).
+LVL: Challenge | The infinite ladder
+P: An infinite ladder has series resistors R and parallel resistors R repeated forever. Show that its resistance is R φ, where φ = (1 + √5) ÷ 2 is the golden ratio. => Adding one more section to an infinite ladder does not change it, so R_eq = R + (R × R_eq) ÷ (R + R_eq). With R = 1: R_eq (1 + R_eq) = 1 + R_eq + R_eq, so R_eq² − R_eq − 1 = 0 and **R_eq = (1 + √5) ÷ 2 = 1.618 Ω** (the same number as in the Fibonacci ratio, Week 15).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Complex roots α ± iβ: y = e^(αx) (C₁ cos βx + C₂ sin βx) = amplitude A e^(αx) cos (βx − φ). Spring T = 2π √(m ÷ k), pendulum T = 2π √(L ÷ g) (small angles, radians; larger swing slower by θ₀² ÷ 16). SHM energy ½ k A².
+- Series R = ΣR (same I); parallel 1 ÷ R = Σ 1 ÷ R (same V). Divider V_out = V_in R₂ ÷ (R₁ + R₂), loading lowers it. LED resistor, Wheatstone bridge, home wiring in parallel. Infinite ladder R φ.
+
+BN: আজকের সারকথা: মূল α ± iβ হলে y = e^(αx)(C₁ cos βx + C₂ sin βx)। স্প্রিং T = 2π√(m/k), দোলক T = 2π√(L/g) (ছোট কোণ, রেডিয়ান)। SHM শক্তি ½kA²। শ্রেণি R = ΣR (একই I); সমান্তরাল 1/R = Σ1/R (একই V)। ডিভাইডার V_out = V_in R₂/(R₁ + R₂), লোড কমায়। LED রোধ, হুইটস্টোন ব্রিজ, বাড়ির সংযোগ সমান্তরাল।
+
+EXIT:
+E: What is the period (s) of a 0.5 kg mass on a 200 N/m spring?; 0.314; 0.005; 2π ÷ 20.
+E: What is the parallel equivalent (Ω) of 6 Ω and 3 Ω?; 2; 0.01; 18 ÷ 9.
+E: What is the divider output (V) for V_in = 12 V, R₁ = 14 kΩ and R₂ = 10 kΩ?; 5; 0.05; 12 × 10 ÷ 24.
+
+**Tomorrow:** damping (under, critical and over), the car suspension, and Kirchhoff's rules.
+
+CHECK: notes

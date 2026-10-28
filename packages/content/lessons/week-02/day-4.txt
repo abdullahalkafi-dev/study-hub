@@ -1,0 +1,266 @@
+@day Week 2 · Day 4 · Thursday
+# Logarithms 1: the question an exponent cannot answer. Then: Newton's second law
+lead: Today you meet the logarithm as a plain, practical idea, and you learn to read every log as a question. Logs confuse people when they skip this step. We will not skip it.
+
+BN: আজ আমরা লগারিদম (logarithm) শিখব। অনেকেই লগ দেখলে ঘাবড়ে যায়, কারণ লগকে সরাসরি "হিসাব" করতে চায়। আসলে লগ একটা সহজ প্রশ্ন: "কত ঘাত (power) দিলে এই সংখ্যাটা পাব?" এই একটা কথা বুঝে গেলে লগের বাকি সবকিছু সহজ হয়ে যায়। আজকের পাঠে আমরা ধাপে ধাপে যাব, কোনো লাফ ছাড়া।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week and Week 1
+P: Simplify 2³ · 2⁴. => 2⁷ = **128**. Same base, so add the exponents.
+P: What is 5⁰, and what is 2⁻³? => 5⁰ = **1** and 2⁻³ = 1/2³ = **1/8**. A negative exponent means "one over", not "negative".
+P: Evaluate 8^(1/3). => **2**, because 2 · 2 · 2 = 8.
+P: Solve 2^(x + 1) = 16. => 16 = 2⁴, so x + 1 = 4 and **x = 3**.
+P: Yesterday you found the inverse of f(x) = 2x + 3. What was it, and what does "inverse" mean? => f⁻¹(x) = **(x − 3) ÷ 2**. An inverse undoes the function. Keep this idea in mind: it is the whole story of today.
+
+CHECK: recall
+
+@section math | 2 · Math: logarithms | 60 min
+
+### The problem we cannot solve yet
+Suppose a bacteria colony doubles every hour. After x hours there are 2ˣ times as many bacteria as you started with. If x = 3, the colony is 2³ = 8 times bigger.
+
+Now ask the question in reverse. **How many hours until the colony is 8 times bigger?** You can answer it in your head: 3. You solved 2ˣ = 8.
+
+Now try 2ˣ = 10. Since 2³ = 8 and 2⁴ = 16, the answer lies between 3 and 4. But what *is* it? Guessing is slow, and none of the tools you have (adding, multiplying, powers, roots) can pull an exponent out of an equation.
+
+We have been here before. Squaring has an undo button, the square root. Multiplying by 5 has dividing by 5. Mathematicians gave the same help to exponents and named it the **logarithm**.
+
+BN: ধরো ব্যাকটেরিয়া প্রতি ঘণ্টায় ২ গুণ হয়। ৩ ঘণ্টা পর হবে 2³ = 8 গুণ, এটা তুমি আগেই পারো। কিন্তু প্রশ্নটা উল্টে দিলে? "কত ঘণ্টায় ১০ গুণ হবে?" তখন সমীকরণ 2ˣ = 10। এই x বের করার কোনো উপায় আমাদের হাতে এখনো নেই। বর্গ করার উল্টো কাজ যেমন বর্গমূল, তেমনি ঘাত বের করার উল্টো টুলের নাম লগারিদম।
+
+KEY: A logarithm is an exponent. `log_b(y)` means: "What power do I raise b to, to get y?"
+
+### The definition, said slowly
+EQ: log_b(y) = x   means exactly the same as   b^x = y
+
+Read the left side aloud as a question: "log base 2 of 8" is "to what power must I raise 2 to get 8?" The answer is 3, so log₂(8) = 3. The two statements below say the same thing, once in exponent form and once in log form.
+
+EQ: 2³ = 8  ⟺  log₂(8) = 3
+
+The three parts keep their jobs. **b** is the base, the number being multiplied. **y** is the result. **x** is the exponent, and it is what the log gives back.
+
+BN: log₂(8) মানে প্রশ্ন: "2 কে কত ঘাত দিলে 8 হয়?" উত্তর 3। তাই log₂(8) = 3। মনে রাখার সূত্র: লগের **উত্তরটা** সবসময় একটা **ঘাত (exponent)**। base আর ফলাফল থাকে লগের ভেতরে, ঘাতটা থাকে উত্তরে।
+
+TRAP: If you ever get stuck on a log, rewrite it as an exponent. Every time. Do not try to "do" the log directly. Turn log_b(y) = x into b^x = y, and you are back in territory you already know.
+
+BN: আটকে গেলে লগকে ঘাতের আকারে লিখে ফেলো। log_b(y) = x মানেই b^x = y। এটা করলেই অর্ধেক সমস্যা শেষ।
+
+### Worked examples, one move at a time
+EX: log₅(125)
+1. Say it as a question: to what power must 5 be raised to give 125?
+2. Count: 5¹ = 5, 5² = 25, 5³ = 125.
+3. So log₅(125) = **3**.
+/EX
+
+EX: log₂(1/8), with a negative answer
+1. Ask: 2 to what power gives 1/8?
+2. From the warm-up, 2⁻³ = 1/8.
+3. So log₂(1/8) = **−3**. Logs can be negative. The log of a number between 0 and 1 is always negative, because you need a negative exponent to shrink something.
+/EX
+
+EX: log₉(3), with a fractional answer
+1. Ask: 9 to what power gives 3?
+2. A power that turns 9 into its square root. The exponent 1/2 means the square root, and √9 = 3.
+3. So log₉(3) = **1/2**.
+/EX
+
+### Four facts that follow, and why each is true
+| Fact | Why (read it as a question) |
+| log_b(1) = 0 | b to what power gives 1? Any number to the power 0 is 1. |
+| log_b(b) = 1 | b to what power gives b? The power 1. |
+| log_b(bⁿ) = n | b to what power gives bⁿ? Obviously n. The log undoes the exponent. |
+| b^(log_b(y)) = y | The log hands you an exponent, and raising b to it gives y back. The exponent undoes the log. |
+
+The last two rows are the proof that log and exponent are inverses, exactly like the function f and f⁻¹ from yesterday.
+
+### What a log is allowed to take
+Take base 2. Raise it to any power you like: 2³ = 8, 2⁰ = 1, 2⁻⁵ = 1/32. The result is **always positive**. A log asks "which power gives y?", so y has to be something a power can produce.
+
+- y must be **greater than 0**. log₂(−4) and log₂(0) do not exist.
+- The base b must be **positive and not 1**. The base 1 would give 1ˣ = 1 for every x, so it could never produce 8 or anything else.
+- The *answer* x can be any real number, including negative.
+
+BN: লগের ভেতরে শুধু ধনাত্মক (positive) সংখ্যা যাবে। কারণ 2 কে যত ঘাতই দাও, ফল কখনো শূন্য বা ঋণাত্মক হয় না। আর base হতে হবে ধনাত্মক এবং 1 ছাড়া। উত্তরটা (ঘাত) কিন্তু ঋণাত্মক বা ভগ্নাংশ হতেই পারে, যেমন log₂(1/8) = −3।
+
+### The graph: a mirror image
+Plot the points of y = 2ˣ: (0, 1), (1, 2), (2, 4), (3, 8). Now swap each pair. You get (1, 0), (2, 1), (4, 2), (8, 3). Those are the points of y = log₂(x). Inverse functions swap inputs and outputs, so their graphs mirror across the line y = x.
+
+GRAPH: y = 2ˣ and y = log₂(x) | x | y | -1,0.5 0,1 1,2 2,4 3,8 ;; 0.5,-1 1,0 2,1 4,2 8,3 | Teal: y = 2ˣ. Orange: y = log₂(x). The orange curve never touches the vertical axis, since log₂(0) does not exist. It also rises slowly: to get to height 3 it needs x = 8.
+
+BN: 2ˣ এর গ্রাফ আর log₂x এর গ্রাফ আসলে y = x রেখার দুই পাশে আয়নার প্রতিবিম্ব। কারণ ইনভার্স ফাংশনে input আর output জায়গা বদলায়: (3, 8) হয়ে যায় (8, 3)। লগের গ্রাফ খুব ধীরে ওঠে, আর কখনো y-অক্ষ ছুঁয়ে ফেলে না।
+
+### The two logs on your calculator
+Your calculator has two log buttons.
+
+- `log` is base 10. log(1000) = 3 because 10³ = 1000.
+- `ln` is the *natural log*, base e ≈ 2.718 (you met e yesterday).
+
+What about log₂(10)? There is no base 2 button, but there is a trick, and it is short enough to prove right now.
+
+KEY: Change of base: `log_b(a) = log(a) ÷ log(b)`, or with ln, the same formula.
+
+**Why it works.** Let x = log_b(a). Rewrite as an exponent: bˣ = a. Take log (base 10) of both sides: x · log(b) = log(a). (Bringing x down is a log rule you will prove tomorrow. For today, accept it.) Divide: x = log(a) ÷ log(b). ∎
+
+Now we can finally answer the colony question. 2ˣ = 10 means x = log₂(10) = log(10) ÷ log(2) = 1 ÷ 0.30103 ≈ **3.32** hours. It sits between 3 and 4, as we predicted. Check it: 2^3.32 ≈ 9.99.
+
+EX: Solve 5ˣ = 40
+1. x is the exponent of 5 that gives 40, so x = log₅(40).
+2. Change base: x = ln(40) ÷ ln(5) = 3.6889 ÷ 1.6094.
+3. x ≈ **2.29**. Sanity check: 5² = 25 and 5³ = 125, and 40 is closer to 25. ✓
+/EX
+
+BN: ক্যালকুলেটরে শুধু log (base 10) আর ln (base e) বোতাম থাকে। তাই log₂(10) বের করতে চাইলে করো: log(10) ÷ log(2) = 1 ÷ 0.30103 ≈ 3.32। নিয়মটা মনে রাখো: নতুন base দিয়ে ভাগ, উপরে যেটার লগ চাই সেটা, নিচে পুরনো base।
+
+### Why scientists love logs: quantities that span huge ranges
+The faintest sound you can hear and a jet engine differ in intensity by a factor of about 10¹², a trillion. On a normal number line you cannot show both. A log scale counts **powers of ten** instead: each step up the scale means "× 10".
+
+- **Decibels:** loudness in dB = 10 · log₁₀(I ÷ I₀), where I₀ is the faintest audible intensity. A whisper is about 30 dB, normal talk 60 dB, a jet at close range 120 dB.
+- **Richter-type earthquake scales:** each whole step means the shaking amplitude is 10 times larger.
+- **pH in chemistry:** pH 3 is ten times more acidic than pH 4.
+
+EX: Is 80 dB twice as loud as 40 dB?
+1. The difference is 40 dB. Every 10 dB is a factor 10 in intensity, since 10 · log₁₀(10) = 10.
+2. 40 dB means four steps of 10 dB, so the intensity grows by 10 · 10 · 10 · 10 = 10,000.
+3. So 80 dB has **10,000 times** the intensity of 40 dB. "Twice as many dB" is nowhere near "twice as loud". This is why a log scale is both powerful and easy to misread.
+/EX
+
+BN: ডেসিবেল (dB) স্কেলে প্রতি 10 dB বাড়লে শব্দের তীব্রতা 10 গুণ বাড়ে। তাই 40 dB থেকে 80 dB হলে তীব্রতা 10,000 গুণ, দ্বিগুণ নয়! লগ স্কেল বিশাল পরিসরের সংখ্যাকে ছোট জায়গায় দেখাতে পারে, কিন্তু "দ্বিগুণ" মনে করলে ভুল হবে। একই ধরন দেখা যায় ভূমিকম্পের রিখটার স্কেলে আর রসায়নের pH স্কেলে।
+
+### A neat trick: counting digits
+10² = 100 has 3 digits. 10³ = 1000 has 4 digits. So log(100) = 2 is one less than the digit count. In general, a positive whole number N has **⌊log(N)⌋ + 1 digits**, where ⌊ ⌋ means "round down". You will use this in the challenge.
+
+### Today's formula sheet
+| What | Formula | বাংলায় |
+| Definition | log_b(y) = x ⟺ bˣ = y | লগ মানে ঘাত বের করা |
+| Zero and one | log_b(1) = 0, log_b(b) = 1 | যেকোনো base এর জন্য |
+| Undo each other | log_b(bⁿ) = n, b^(log_b y) = y | লগ আর ঘাত একে অপরের উল্টো |
+| Allowed values | y > 0, b > 0, b ≠ 1 | ভেতরে ধনাত্মক সংখ্যা |
+| Change of base | log_b(a) = log(a) ÷ log(b) | ক্যালকুলেটরের জন্য |
+| Decibels | dB = 10 · log₁₀(I ÷ I₀) | 10 dB = ১০ গুণ তীব্রতা |
+| Digits of N | ⌊log(N)⌋ + 1 | সংখ্যায় কয়টা অঙ্ক |
+
+### Where logs come back
+Logs are not a one-day topic. In Week 10 they help test whether a series converges. In Weeks 18 and 19 you differentiate ln(x) and meet exponential decay in capacitor circuits (RC), where the charging time comes from solving an equation like e^(−t/RC) = something, exactly the kind of equation you solved today. In Week 24, log-likelihood turns long products into sums, which tomorrow's laws explain.
+
+BN: লগ শুধু আজকের টপিক নয়। ক্যালকুলাসে ln x এর ঢাল বের করবে, সার্কিটে ক্যাপাসিটর চার্জ হওয়ার সময় বের করবে, আর পরিসংখ্যানে বড় গুণফলকে যোগে বদলাবে। আজ ভিত পাকা করলে সামনের ৩০ সপ্তাহ সহজ হবে।
+
+### Mistakes to avoid
+TRAP: Five common ones. (1) Thinking log₂(8) = 8 ÷ 2 = 4. Log is not division, it is a question about exponents. (2) Forgetting the base: log₂ and log₁₀ are different questions. (3) Taking the log of zero or a negative number. (4) Writing log(a) ÷ log(b) as log(a ÷ b). They are not the same: with a = 100 and b = 10, the first gives 2 ÷ 1 = 2, the second gives log(10) = 1. (5) Mixing up which number is the answer. In log_b(y) = x, the answer x is the exponent.
+
+### Quick self-check
+QUIZ:
+Q: What is log₂(32)?; 4; 5; 16; 6; 2; 2⁵ = 32, so the exponent is 5.
+Q: What is log₁₀(1)?; 0; 1; 10; undefined; 1; 10⁰ = 1. Any base to the power 0 gives 1.
+Q: Which one does NOT exist?; log₃(9); log₃(1); log₃(−9); log₃(1/9); 3; A power of 3 is never negative, so log₃(−9) has no answer. log₃(1/9) = −2 exists.
+Q: What is log₄(8)?; 2; 1.5; 3; 0.5; 2; 4ˣ = 8. Write both as powers of 2: 2^(2x) = 2³, so 2x = 3 and x = 1.5.
+Q: A sound is 20 dB louder than another. Its intensity is how many times bigger?; 2; 20; 100; 200; 3; Every 10 dB is ×10. Two steps: 10 × 10 = 100.
+
+### Practice, easy to hard
+LVL: Level 1 | Reading logs as questions
+P: Evaluate log₃(81). => 3⁴ = 81, so the answer is **4**.
+P: Evaluate log₁₀(0.001). => 0.001 = 1/1000 = 10⁻³, so the answer is **−3**.
+P: Evaluate log₄(2). => 4^(1/2) = √4 = 2, so the answer is **1/2**.
+P: Write 7² = 49 in log form, and log₆(36) = 2 in exponent form. => log₇(49) = 2, and 6² = 36.
+P: Evaluate log₇(1) + log₇(7) + log₇(7⁵). => 0 + 1 + 5 = **6**.
+LVL: Level 2 | Solving and using
+P: Evaluate log₂(1/8) · log₃(9). => log₂(1/8) = −3 and log₃(9) = 2, so the product is **−6**.
+P: Solve log₅(x) = −2. => Rewrite: x = 5⁻² = 1/25 = **0.04**.
+P: Solve log_x(64) = 3. => Rewrite: x³ = 64, so x = **4** (the base must be positive).
+P: Using the change of base rule, find log₃(20) to 2 decimals. => ln(20) ÷ ln(3) = 2.9957 ÷ 1.0986 = **2.73**. Check: 3² = 9 and 3³ = 27, and 20 is near 27. ✓
+P: A concert is 70 dB at your seat, and your ears are fine at 40 dB. How many times greater is the intensity? => 30 dB is three steps of 10 dB, so 10³ = **1000 times**.
+P: Write 10⁻² = 0.01 in log form, and evaluate log₂(64) − log₂(8). => log₁₀(0.01) = −2. And log₂(64) = 6, log₂(8) = 3, so the difference is **3**.
+P: Solve 2ˣ = 50 to 2 decimals. => x = ln(50) ÷ ln(2) = 3.9120 ÷ 0.6931 ≈ **5.64**. Check: 2⁵ = 32 and 2⁶ = 64, and 50 is between.
+P: Without a calculator, between which two whole numbers is log₃(50)? => 3³ = 27 and 3⁴ = 81, and 27 < 50 < 81, so the answer is between **3 and 4**.
+P: Evaluate log₂₅(5) and log₅(25). What do you notice? => log₂₅(5) = 1/2 (since √25 = 5) and log₅(25) = 2. They are **reciprocals**. Swapping base and number flips the answer. This is the change-of-base rule at work.
+LVL: Level 3 | Real problems
+P: Solve log₃(2x − 1) = 2 and check your answer is allowed. => 2x − 1 = 3² = 9, so x = 5. Check: 2(5) − 1 = 9 > 0, so the log exists. **x = 5**.
+P: A bacteria colony of 200 triples every 5 hours. After t hours it has 200 · 3^(t/5). When does it reach 10,000? => 200 · 3^(t/5) = 10,000 gives 3^(t/5) = 50, so t/5 = log₃(50) = ln(50) ÷ ln(3) = 3.912 ÷ 1.0986 = 3.561. Then t = 5 × 3.561 ≈ **17.8 hours**.
+P: An earthquake measures 7.1 and another measures 5.1 on a scale where each step is 10 times the amplitude. How many times bigger is the first one's amplitude? => The gap is 2 steps: 10² = **100 times**.
+P: You put 1000 taka in an account that grows 8% a year, so after t years you have 1000 · 1.08ᵗ. How long to double? => 1.08ᵗ = 2, so t = ln(2) ÷ ln(1.08) = 0.6931 ÷ 0.07696 ≈ **9.0 years**. This matches the "rule of 72": 72 ÷ 8 = 9.
+P: A medicine halves in your body every 6 hours. After an 800 mg dose, when are 25 mg left? => 800 · (1/2)^(t/6) = 25 gives (1/2)^(t/6) = 1/32 = (1/2)⁵, so t/6 = 5 and t = **30 hours**. No calculator needed, because 32 is a power of 2.
+LVL: Challenge | Think before you calculate
+P: How many digits does 2¹⁰⁰ have? And 3²⁰⁰? You may use log(2) ≈ 0.30103 and log(3) ≈ 0.47712. Do not try to multiply it out. => log(2¹⁰⁰) = 100 · log(2) = 30.103 using the rule you prove tomorrow (the exponent moves to the front). So 2¹⁰⁰ has ⌊30.103⌋ + 1 = **31 digits**. For 3²⁰⁰: 200 · 0.47712 = 95.42, so **96 digits**. This is how computers estimate gigantic numbers without computing them.
+
+CHECK: math
+
+@section physics | 3 · Physics: Newton's second law | 35 min
+
+### Why this law exists
+Push a shopping trolley that is empty and then full, using the same effort. The empty one speeds up quickly. The full one barely moves. Now push the empty one harder. It speeds up even faster. Two observations from daily life, both about acceleration (how fast velocity changes, from Week 1):
+
+- More force gives **more** acceleration. Double the force and you double the acceleration.
+- More mass gives **less** acceleration. Double the mass and you halve the acceleration.
+
+Measured carefully in the lab, both relationships turn out to be exact, and they combine into one equation.
+
+KEY: Newton's second law: `F_net = m · a`, or a = F_net ÷ m. The *net* force on an object, which is the sum of all forces with directions included, equals its mass times its acceleration. The acceleration points the same way as the net force.
+
+BN: বল (force) বেশি হলে ত্বরণ (acceleration) বেশি হয়। ভর (mass) বেশি হলে ত্বরণ কমে যায়। দুটো কথা একসাথে লিখলে হয় F = m × a। খেয়াল রাখো, এখানে F মানে **নিট বল (net force)**, অর্থাৎ সব বলের ভেক্টর যোগফল, দিকসহ। ত্বরণ নিট বলের দিকেই হয়।
+
+### The unit comes for free
+Mass is in kg and acceleration in m/s², so force is kg · m/s². We call this one **newton (N)**. So 1 N is the force that gives a 1 kg mass an acceleration of 1 m/s². An apple weighs about 1 N.
+
+**Weight is a force.** It is gravity's pull: W = m · g, with g ≈ 9.8 m/s² near Earth's surface. Your mass stays the same on the Moon. Your weight drops to about one sixth.
+
+BN: 1 নিউটন (N) হলো সেই বল, যা 1 kg ভরকে 1 m/s² ত্বরণ দেয়। ওজন (weight) একটা বল: W = mg। ভর সব জায়গায় একই থাকে, কিন্তু ওজন বদলায়। চাঁদে তোমার ভর একই, ওজন প্রায় ছয় ভাগের এক ভাগ। লিফট উপরে উঠতে শুরু করলে নিজেকে ভারী লাগে কারণ স্কেল তোমাকে বেশি বল দিয়ে ঠেলে (791 N)। নিচে নামতে শুরু করলে হালকা লাগে (581 N)।
+
+### Worked examples
+EX: A car
+1. A 1200 kg car has a net forward force of 3000 N. Find its acceleration, and its speed after 4 s from rest.
+2. a = F ÷ m = 3000 ÷ 1200 = **2.5 m/s²**.
+3. From Week 1, v = u + at = 0 + 2.5 × 4 = **10 m/s** (36 km/h).
+/EX
+
+EX: Net force, the block
+1. You pull a 10 kg block with 50 N. Friction pulls back with 20 N. What is its acceleration?
+2. Choose forward as positive. Net force = 50 − 20 = 30 N. Friction is a force too, and it counts.
+3. a = 30 ÷ 10 = **3 m/s²**.
+/EX
+
+EX: Why you feel heavy in a lift
+1. A 70 kg person stands on a scale in a lift that accelerates *upward* at 1.5 m/s². What does the scale read?
+2. Two forces act: the scale pushes up with N, gravity pulls down with mg = 70 × 9.8 = 686 N.
+3. Take up as positive. Net force = N − mg, and Newton's law says it equals ma. So N − 686 = 70 × 1.5 = 105.
+4. N = **791 N**. The scale reads more than your weight of 686 N, which is exactly the "heavier" feeling when a lift starts upward.
+/EX
+
+TRAP: Three places where students lose marks. (1) **Mass vs weight.** Mass is in kg and never changes. Weight is a force in N. (2) **Using one force instead of the net force.** Add all forces with signs first. (3) **"Moving means a force is acting."** No. Constant velocity means net force zero. A force is needed to *change* velocity, not to keep it.
+
+BN: তিনটা সাধারণ ভুল: (১) ভর আর ওজন গুলিয়ে ফেলা। (২) সব বল যোগ না করে একটা বল দিয়ে হিসাব করা। (৩) ভাবা যে গতি থাকলেই বল আছে। আসলে গতি **বদলাতে** বল লাগে, একই গতিতে চলতে নয়।
+
+### Quick self-check
+QUIZ:
+Q: A net force of 12 N acts on a 3 kg cart. Its acceleration is…; 4 m/s²; 36 m/s²; 0.25 m/s²; 15 m/s²; 1; a = F ÷ m = 12 ÷ 3 = 4 m/s².
+Q: An astronaut has mass 80 kg on Earth. On the Moon her mass is…; about 13 kg; 80 kg; 0 kg; 480 kg; 2; Mass is the amount of matter and does not change. Only her weight changes.
+Q: A box slides at constant velocity on a floor. The net force on it is…; in the direction of motion; against the motion; zero; equal to its weight; 3; Constant velocity means a = 0, so the net force is 0. The push and the friction cancel.
+
+### Practice
+LVL: Level 1 | Direct
+P: What force gives a 0.5 kg football an acceleration of 12 m/s²? => F = ma = 0.5 × 12 = **6 N**.
+P: A 2000 kg truck brakes with a net backward force of 8000 N. What is its acceleration, and how long to stop from 20 m/s? => a = −8000 ÷ 2000 = −4 m/s². From v = u + at: 0 = 20 − 4t, so t = **5 s**.
+P: The same 70 kg person rides the lift *downward* accelerating at 1.5 m/s². What does the scale read? => Take up as positive: N − 686 = 70 × (−1.5) = −105, so N = **581 N**. Lighter, as you feel when a lift drops.
+P: What is the weight in newtons of a 60 kg student on Earth (g = 9.8)? On the Moon (g = 1.6)? => Earth: **588 N**. Moon: **96 N**. The mass is 60 kg in both places.
+P: A 5 kg trolley is pushed with 20 N while friction pulls back with 5 N. Find its acceleration and its speed after 6 s from rest. => Net force = 15 N, so a = 15 ÷ 5 = **3 m/s²**. Then v = 3 × 6 = **18 m/s**.
+P: A 3 kg cart accelerates at 2 m/s² when pulled by 10 N. What friction opposes it? => Net force = ma = 6 N. So 10 − f = 6 and f = **4 N**.
+LVL: Challenge | An engineer's problem
+P: A rocket of mass 500 kg lifts off with an engine thrust of 8000 N. Find (a) its acceleration, and (b) how long it takes to climb the first 100 m, ignoring air and fuel burn. => (a) Weight = 500 × 9.8 = 4900 N down. Net upward force = 8000 − 4900 = 3100 N, so a = 3100 ÷ 500 = **6.2 m/s²**. (b) s = ½at² with u = 0: 100 = 3.1t², so t² = 32.26 and t ≈ **5.7 s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- A logarithm is an exponent: log_b(y) = x means bˣ = y.
+- Stuck on a log? Rewrite it as a power.
+- Logs only take positive numbers. Answers can be negative or fractions.
+- Calculator trick: log_b(a) = log(a) ÷ log(b).
+- Log scales (dB, Richter, pH) count powers of ten, so steps mean multiplication.
+- Newton's second law: F_net = ma. Weight is a force, mass is not.
+
+BN: আজকের সারকথা: লগ মানে ঘাত। আটকে গেলে ঘাতের আকারে লেখো। লগের ভেতরে ধনাত্মক সংখ্যা। ক্যালকুলেটরে base বদলের নিয়ম। আর পদার্থবিজ্ঞানে F = ma, যেখানে F হলো নিট বল।
+
+**Tomorrow:** the three log laws (product, quotient, power), proved from exponent laws, plus log equations and Newton's third law.
+
+CHECK: notes

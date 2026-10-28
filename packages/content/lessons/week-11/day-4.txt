@@ -1,0 +1,100 @@
+@day Week 11 · Day 4 · Thursday
+# Mock Paper 1: mathematics
+lead: Today is a full mock paper in mathematics, under exam conditions, covering Weeks 5 to 10. The mock does not count for anything, so use it to find out what you cannot yet do under time pressure. The solutions are hidden until you finish. The marking and the mistake log afterwards are worth more than the paper itself.
+
+BN: আজ সপ্তাহ ৫ থেকে ১০ এর গণিতের একটা পূর্ণাঙ্গ মক পেপার, পরীক্ষার পরিবেশে। এর নম্বর কোথাও যোগ হবে না, তাই এটা দিয়ে খুঁজে বের করো সময়ের চাপে কী পারছ না। সমাধান শেষ করার আগে খুলবে না। পরের মার্কিং ও ভুলের লগ পেপারের চেয়েও বেশি মূল্যবান।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- **Time: 75 minutes. Marks: 30. No calculator, no notes, no phone.** Use a timer and stop when it rings.
+- Spend about **2.5 minutes per mark**. If you are stuck on a question for more than 5 minutes, circle it and move on.
+- Write all your working. A correct method with an arithmetic slip still earns most of the marks.
+- Cover the solutions in the page. Open them only after the timer.
+- Marking: tick each mark you earned honestly. A method mark needs the right idea written down, not just the final number.
+
+CHECK: recall
+
+@section math | 2 · Paper 1 (30 marks, 75 minutes) | no calculator
+
+### Section A: limits and derivatives (8 marks)
+LVL: Section A | Questions 1 to 5
+P: (1 mark) Find lim (x → 1) (x³ − 1) ÷ (x² − 1). => Factor: (x − 1)(x² + x + 1) ÷ ((x − 1)(x + 1)) = (x² + x + 1) ÷ (x + 1) → **3/2**.
+P: (1 mark) Find lim (x → 0) (e^(2x) − 1 − 2x) ÷ x². => By series, e^(2x) − 1 − 2x = 2x² + (4/3)x³ + …, so the limit is **2**. (L'Hôpital twice gives 4e^(2x) ÷ 2 → 2.)
+P: (2 marks) Differentiate f(x) = (x² + 1) ÷ eˣ and show that f is decreasing for every x. => f = (x² + 1) e^(−x). f′ = 2x e^(−x) − (x² + 1) e^(−x) = −(x² − 2x + 1) e^(−x) = **−(x − 1)² e^(−x)**. This is ≤ 0 for all x (zero only at x = 1), so f is decreasing.
+P: (2 marks) Find dy/dx at (1, 2) on the curve y³ + x y = 10. => First check: 8 + 2 = 10 ✓. Differentiate: 3y² y′ + y + x y′ = 0. At (1, 2): 12 y′ + 2 + y′ = 0, so **y′ = −2/13**.
+P: (2 marks) A box with no lid is made from a 12 cm by 12 cm square of card by cutting a square of side x from each corner and folding. Find x for the maximum volume, and that volume. => V = x (12 − 2x)². V′ = (12 − 2x)² − 4x (12 − 2x) = (12 − 2x)(12 − 6x) = 0 gives x = 2 (x = 6 gives zero volume). V(2) = 2 × 64 = **128 cm³**. The maximum is at **x = 2 cm**.
+
+### Section B: integration (12 marks)
+LVL: Section B | Questions 6 to 12
+P: (1 mark) Evaluate ∫₀¹ (6x² − 4x + 3) dx. => [2x³ − 2x² + 3x] = 2 − 2 + 3 = **3**.
+P: (2 marks) Evaluate ∫₀^(π/2) x cos x dx. => By parts (u = x): [x sin x] − ∫ sin x dx = π/2 − [−cos x] = π/2 − 1. Answer **π/2 − 1 ≈ 0.571**.
+P: (2 marks) Evaluate ∫₀² x ÷ √(x² + 4) dx. => u = x² + 4, du = 2x dx, limits 4 to 8: ½ ∫ u^(−1/2) du = [√u] = √8 − 2 = **2√2 − 2 ≈ 0.828**.
+P: (2 marks) Find ∫ (3x + 1) ÷ (x² − 1) dx. => (3x + 1) ÷ ((x − 1)(x + 1)) = A ÷ (x − 1) + B ÷ (x + 1) with A = 4 ÷ 2 = 2 and B = (−2) ÷ (−2) = 1. So **2 ln abs(x − 1) + ln abs(x + 1) + C**.
+P: (2 marks) Evaluate ∫₁^∞ (ln x) ÷ x² dx. => By parts: [−(ln x) ÷ x − 1 ÷ x] from 1 to ∞ = 0 − (0 − 1) = **1**. (The limit of (ln t) ÷ t is 0.)
+P: (1 mark) Find the area enclosed between y = x and y = x³ for 0 ≤ x ≤ 1. => ∫₀¹ (x − x³) dx = 1/2 − 1/4 = **1/4**.
+P: (2 marks) The region under y = e^(−x) from x = 0 to 1 is spun about the x-axis. Find the volume. => V = π ∫₀¹ e^(−2x) dx = π [−e^(−2x) ÷ 2] = **π (1 − e^(−2)) ÷ 2 ≈ 1.358**.
+
+### Section C: series (10 marks)
+LVL: Section C | Questions 13 to 17
+P: (2 marks) Decide whether Σ (n + 1) ÷ (n³ + 1) converges, with a reason. => For large n the terms behave like 1 ÷ n². The limit comparison with Σ 1 ÷ n² gives a ratio tending to 1, a positive finite number, and Σ 1 ÷ n² converges (p = 2). So it **converges**.
+P: (2 marks) Find the radius and the interval of convergence of Σ (x + 2)ⁿ ÷ (n 4ⁿ). => The ratio gives abs(x + 2) ÷ 4, so **R = 4**, centre −2. At x = 2: Σ 1 ÷ n diverges. At x = −6: Σ (−1)ⁿ ÷ n converges. Interval **[−6, 2)**.
+P: (2 marks) Write the Maclaurin series of x² e^(−x) up to the term in x⁵. => e^(−x) = 1 − x + x²/2 − x³/6 + …, so **x² − x³ + x⁴/2 − x⁵/6**.
+P: (2 marks) Use the first two nonzero terms of the series for cos(x²) to estimate ∫₀^0.5 cos(x²) dx. => cos(x²) = 1 − x⁴/2 + x⁸/24 − …. Integrating the first two terms: [x − x⁵ ÷ 10] = 0.5 − 0.03125 ÷ 10 = **0.496875**. (The next term adds only 0.000009.)
+P: (2 marks) Find Σ from n = 1 of (n + 1) ÷ 3ⁿ. => Split: Σ n ÷ 3ⁿ + Σ 1 ÷ 3ⁿ. The first is x ÷ (1 − x)² at x = 1/3: 3/4. The second is (1/3) ÷ (2/3) = 1/2. Total **5/4**.
+
+CHECK: math
+
+@section physics | 3 · Marking and exam technique | 25 min
+
+### Mark yourself
+- Count your marks out of 30. Use a different colour pen. Be strict: no marks for correct answers with no working when working was asked for.
+- Place your score on this scale: **26 to 30** excellent; **21 to 25** good, review the dropped marks; **15 to 20** gaps to close in the next two days; **under 15** you should tell me, so that I can point you to the right earlier days.
+- For every lost mark classify it: **K** (did not know the idea), **M** (knew it but made an arithmetic or algebra slip), **T** (ran out of time), **R** (misread the question). Count each type. The most frequent letter tells you what to train.
+
+BN: ৩০ এর মধ্যে নম্বর গোনো, কঠোরভাবে। প্রতিটা হারানো নম্বরকে চার ভাগে ফেলো: K (ধারণা জানা ছিল না), M (জানতাম কিন্তু হিসাবে ভুল), T (সময় শেষ), R (প্রশ্ন ভুল পড়েছি)। যে অক্ষর সবচেয়ে বেশি, সেটাই কাল থেকে অনুশীলন করার জায়গা।
+
+### Technique that gains marks
+- **Read the question twice** and underline the command word (find, show, estimate, explain).
+- **Show a check** when cheap: a point lies on the curve, a derivative matches, a result is positive.
+- **Units and signs** at the end: a negative length is a warning.
+- A "show that" question is about the **argument**; the answer is already given.
+- If you have 5 minutes left, go back to a question that has a visible method but no final answer.
+
+### Function explorer
+LAB: A function, its slope and its area | A curve f(x) = a sin(bx) + c, its derivative f′(x) and the accumulated area F(x) = ∫₀ˣ f. Notice that where f is positive F rises, where F is steepest f is largest, and where f′ is zero f has a peak or a trough. This is the whole of calculus in one picture. | a:Amplitude a:0.5:3:0.5:2 ;; b:Frequency b:0.5:3:0.5:1 ;; c:Shift c:-1:1:0.25:0 ;; x0:Point x:0:6.28:0.1:2 | a*sin(b*x0)+c:f at x:3 ;; a*b*cos(b*x0):Slope f′ at x:3 ;; a*(1-cos(b*x0))/b+c*x0:Area F from 0 to x:3 | a*sin(b*x)+c ;; a*b*cos(b*x) ;; a*(1-cos(b*x))/b+c*x | 0,6.28 | -10,10
+
+TRAP: In a mock exam, the most expensive habit is skipping the check. Before moving on, spend 10 seconds asking: is the sign right, is the size plausible, did I answer what was asked?
+
+### Quick self-check
+QUIZ:
+Q: Which letter in the K, M, T, R system suggests you need to practise fluent algebra?; K; M; T; R; 2; M means you knew the idea but slipped in the algebra or arithmetic.
+Q: You are stuck on a 2-mark question for 5 minutes. The best move is…; keep going; circle it and move on; leave the exam; guess; 2; Time is better spent collecting other marks.
+Q: A "show that" question gives…; no answer; the answer; a hint only; an estimate; 2; You must produce the argument that leads to the given answer.
+Q: What should you do with 5 minutes left?; relax; check a question with a method but no final answer; rewrite neatly; stop; 2; Partial credit is available.
+
+CHECK: physics
+
+@section notes | 4 · Recap and mistake log | 20 min
+
+NOTES:
+
+### Your error table
+Fill this in tonight. It is your plan for tomorrow and for Saturday's exam.
+
+| Question | Marks lost | Type (K, M, T, R) | What I will do |
+| Example: Q4 | 1 | M | Write the chain rule step before substituting |
+
+BN: আজ রাতে এই টেবিল ভরো: কোন প্রশ্নে কত নম্বর গেল, ধরন কী, আর কী করব। এটাই কালকের ও শনিবারের পরীক্ষার পরিকল্পনা।
+
+### Recap
+- A mock paper trains time, accuracy and the habit of checking. Your marks matter less than the **pattern** of lost marks.
+- Typical needs: more practice with by parts and substitution (K), more care with signs and fractions (M), choosing which question to do first (T), and reading carefully (R).
+
+EXIT:
+E: A box is made from a 12 cm square card with squares of side x cut from the corners. What x gives the maximum volume, in cm?; 2; 0.001; V = x (12 − 2x)², V′ = 0 at x = 2.
+E: Find ∫₀¹ (6x² − 4x + 3) dx.; 3; 0.001; [2x³ − 2x² + 3x] = 3.
+E: What is the radius of convergence of Σ (x + 2)ⁿ ÷ (n 4ⁿ)?; 4; 0.001; The ratio is abs(x + 2) ÷ 4.
+
+**Tomorrow:** Mock Paper 2: physics.
+
+CHECK: notes

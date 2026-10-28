@@ -1,0 +1,172 @@
+@day Week 17 · Day 5 · Friday
+# Divergence, curl and the big theorems. Then: field energy and why lightning rods work
+lead: The divergence measures how much a field spreads out from a point (a source or a sink). The curl measures how much it swirls around a point. Two theorems connect them to integrals you already know: the divergence theorem (the flux out of a closed surface equals the total divergence inside) and Stokes' theorem (the circulation around a loop equals the total curl through it). They are the mathematical form of Gauss's law and, next weeks, of Faraday's and Ampère's laws. In physics, you finally learn where the energy of the electric field sits (in the field itself) and use everything from this week to explain how a pointed rod protects a building from lightning.
+
+BN: ডাইভারজেন্স মাপে একটা ক্ষেত্র কোনো বিন্দু থেকে কতটা ছড়ায় (উৎস বা শোষক)। কার্ল মাপে ক্ষেত্র বিন্দুর চারপাশে কতটা ঘোরে। দুটো উপপাদ্য এদের জানা যোগজের সাথে জোড়ে: ডাইভারজেন্স উপপাদ্য (বদ্ধ তল দিয়ে বেরোনো ফ্লাক্স = ভেতরের মোট ডাইভারজেন্স) আর স্টোকসের উপপাদ্য (লুপ ঘিরে সঞ্চালন = ভেতর দিয়ে মোট কার্ল)। এরা গাউসের সূত্রের এবং আগামী সপ্তাহগুলোতে ফ্যারাডে ও অ্যাম্পিয়ারের সূত্রের গাণিতিক রূপ। পদার্থবিজ্ঞানে শেষ পর্যন্ত জানবে বৈদ্যুতিক ক্ষেত্রের শক্তি কোথায় থাকে (ক্ষেত্রেই), আর এই সপ্তাহের সবকিছু দিয়ে বুঝবে সূচালো দণ্ড কীভাবে বজ্র থেকে বাড়ি বাঁচায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: State Gauss's law. => **Φ_net = Q_enclosed ÷ ε₀**.
+P: When is a field conservative? => When **F = ∇f**, equivalently **∂P/∂y = ∂Q/∂x** (no holes).
+P: Evaluate ∭ 1 dV over a sphere of radius 2. => **4π × 8 ÷ 3 = 33.5**.
+P: Find ∂/∂x of x² y. => **2xy**.
+P: What is the energy stored in a conducting sphere with charge Q and radius R? => **k Q² ÷ 2R**.
+
+CHECK: recall
+
+@section math | 2 · Math: divergence, curl and two theorems | 55 min
+
+### Divergence
+For F = (P, Q, R) the **divergence** is a number at each point:
+
+EQ: ∇ · F = ∂P/∂x + ∂Q/∂y + ∂R/∂z
+
+Positive divergence: the field **spreads out** (a source); negative: it **converges** (a sink); zero: what flows in flows out. In fluid terms, the divergence of a velocity field is the **rate of expansion** per unit volume.
+
+EX: Divergence
+1. **F = (x, y, z):** ∇ · F = 1 + 1 + 1 = **3** (spreading from the origin equally everywhere).
+2. **F = (2x, 3y, 4z):** **9**. **F = (x y, y z, z x):** y + z + x, which is **6** at (1, 2, 3).
+3. **Expanding gas:** v = (0.1 x, 0.1 y, 0.1 z) m/s (with x, y, z in metres): ∇ · v = **0.3 s⁻¹**: any small volume grows by 30% each second.
+4. **A point charge:** E = kQ (x, y, z) ÷ r³. ∂/∂x (x ÷ r³) = 1 ÷ r³ − 3x² ÷ r⁵ and the three terms add to 3 ÷ r³ − 3 r² ÷ r⁵ = **0** for r ≠ 0. The field has **no divergence away from the charge**: the field lines pass through empty space without starting or ending. All the "source" is concentrated at the charge itself.
+/EX
+
+### Curl
+In two dimensions the **curl** is ∂Q/∂x − ∂P/∂y (as at the end of Day 4). In three dimensions it is a vector:
+
+EQ: ∇ × F = (∂R/∂y − ∂Q/∂z, ∂P/∂z − ∂R/∂x, ∂Q/∂x − ∂P/∂y)
+
+The curl measures the **swirl**: its direction is the axis of the swirl and its length is **twice the angular speed** of a tiny paddle wheel placed in the flow. **A conservative field has zero curl** (∇ × ∇f = 0).
+
+BN: ডাইভারজেন্স ∇·F = P_x + Q_y + R_z: ধনাত্মক হলে ছড়ায় (উৎস), ঋণাত্মক হলে জড়ো হয় (শোষক)। কার্ল ∇×F ঘূর্ণি মাপে: দিক = ঘূর্ণি অক্ষ, মান = ছোট প্যাডেল চাকার কৌণিক বেগের দ্বিগুণ। সংরক্ষণশীল ক্ষেত্রের কার্ল শূন্য। বিন্দু চার্জের ক্ষেত্রের ডাইভারজেন্স চার্জ ছাড়া সব জায়গায় শূন্য।
+
+EX: Curl
+1. **F = (−y, x, 0):** curl = (0, 0, 1 − (−1)) = **(0, 0, 2)**. A rigid rotation v = (−ω y, ω x, 0) has curl **(0, 0, 2ω)**: twice the angular velocity ω.
+2. **F = (y z, x z, x y) = ∇ (x y z):** curl = (x − x, y − y, z − z) = **(0, 0, 0)**, as it must be for a gradient.
+3. **F = (y, x):** curl = 1 − 1 = **0** (the conservative field of Day 4). The unit-circle swirl (−y, x): curl **2**.
+4. **The electric field of fixed charges** has **∇ × E = 0**: that is the differential form of "the electrostatic field is conservative", so V exists.
+/EX
+
+### The two theorems
+EQ: ∯_S F · dA = ∭_E (∇ · F) dV     (Divergence theorem: closed surface S bounding the solid E)
+EQ: ∮_C F · dr = ∬_S (∇ × F) · dA     (Stokes' theorem: loop C bounding the surface S)
+
+The first says the **total flux out** equals the total **source strength inside**. The second says the **circulation round the edge** equals the total **swirl through the surface**.
+
+EX: Checking the theorems
+1. **Divergence theorem for F = (x, y, z) and a sphere of radius R:** the right side is 3 × (4π R³ ÷ 3) = **4π R³**. The left side: on the sphere F · n = R (F points outward with size R), area 4π R², flux **4π R³** ✓. For R = 2: **100.5**.
+2. **The unit cube [0, 1]³ with F = (x, y, z):** ∭ 3 dV = **3**. Direct: the faces x = 1, y = 1, z = 1 each give F · n = 1 over area 1 (total 3); the faces x = 0, y = 0, z = 0 give F · n = −x = 0. Total **3** ✓.
+3. **Stokes for F = (−y, x, 0) around a circle of radius R:** curl · n = 2, area π R², so ∮ = **2π R²** (found by direct integration on Day 4: R = 2 gives 8π). For R = 3: **56.5**.
+4. **Gauss's law from the divergence theorem:** ∯ E · dA = ∭ (∇ · E) dV = Q ÷ ε₀ = ∭ (ρ ÷ ε₀) dV for any region, so **∇ · E = ρ ÷ ε₀** at every point: the **local form of Gauss's law** (the first Maxwell equation). Together with **∇ × E = 0** (electrostatics) this is all of electrostatics in two lines.
+5. **Laplace's equation:** in empty space E = −∇V and ∇ · E = 0 give **∇² V = ∂²V/∂x² + ∂²V/∂y² + ∂²V/∂z² = 0** (the equation from Week 16, Day 1).
+/EX
+
+LAB: Flux equals divergence times area | The field is F = (a x, b y) in a plane. Its divergence is a + b everywhere. Choose a, b and the radius R of a circle. The numbers give the divergence, the outward flux through the circle (found directly: ∮ F · n ds = (a + b) π R²), and the flux per unit area, which equals the divergence. The graph shows the flux against R. | a:a:-2:2:0.5:1 ;; b:b:-2:2:0.5:1 ;; R:Radius R:0.5:3:0.5:1 | a+b:Divergence of F (= a + b):1 ;; (a*pi+b*pi)*R^2:Outward flux through the circle:3 ;; (a*pi+b*pi)*R^2/(pi*R^2):Flux per unit area:1 | (a+b)*pi*x^2 | 0.5,3 | -60,60
+
+TRAP: Divergence and curl are **local** properties (at a point). A field with ∇ · F = 0 can still have a nonzero flux through a surface that does not close, and a field with ∇ × F = 0 can still circulate if the region has a hole. The divergence theorem needs a **closed** surface with the **outward** normal. Stokes' theorem needs the direction of the loop and the normal to follow the **right-hand rule**.
+
+### Quick self-check
+QUIZ:
+Q: The divergence of F = (x, y, z) is…; 0; 1; 3; x + y + z; 3; Three equal terms of 1.
+Q: The divergence of the field of a point charge away from the charge is…; kQ ÷ r²; 0; infinite; 3; 2; Sources only at the charge.
+Q: Stokes' theorem links the circulation to the…; divergence; curl; gradient; potential; 2; Circulation = curl flux.
+Q: A gradient field has curl…; 2; 0; 1; −1; 2; ∇ × ∇f = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the divergence of F = (2x, 3y, 4z). => **9**.
+P: Find the 2D curl of F = (0, x). => ∂Q/∂x − ∂P/∂y = **1**.
+P: Find the flux out of the unit cube for F = (x, y, z). => **3**.
+LVL: Level 2 | Apply
+P: Find the divergence of F = (x y, y z, z x) at (1, 2, 3). => y + z + x = **6**.
+P: Find the curl of F = (−y, x, 0). => **(0, 0, 2)**.
+P: Find the flux of F = (x, y, z) out of a sphere of radius 2. => 3 × (4π × 8 ÷ 3) = **32π = 100.5**.
+P: Find the circulation of F = (−y, x) around the circle of radius 3. => 2 × π × 9 = **18π = 56.5**.
+P: Find the flux of F = (x², y², z²) out of the unit cube. => div = 2 (x + y + z); ∭ = 2 × 3 × (1/2) = **3**.
+P: Is F = (y z, x z, x y) conservative? Find a potential. => curl = 0: yes. f = **x y z**.
+LVL: Level 3 | Real
+P: A fluid has the velocity v = (−2y, 2x, 0) m/s (x, y in metres). Find its curl and the angular velocity of a small floating paddle. => curl = (0, 0, 4), so the paddle spins at ω = curl ÷ 2 = **2 rad/s** (counter-clockwise, period 3.14 s).
+LVL: Challenge | The divergence of the inverse-square field
+P: Show that ∇ · (r̂ ÷ r²) = 0 away from the origin, yet its flux through any sphere around the origin is 4π. Where is the divergence? => With r̂ ÷ r² = (x, y, z) ÷ r³ each term is r⁻³ − 3x² r⁻⁵ and the sum is zero for r ≠ 0. The flux through a sphere of radius r is (1 ÷ r²)(4π r²) = **4π**. By the divergence theorem the volume integral of the divergence is therefore 4π even though the divergence is zero everywhere except at the origin: it is concentrated there as a **delta function**, ∇ · (r̂ ÷ r²) = 4π δ³ (r). This is the mathematical form of a point charge.
+
+CHECK: math
+
+@section physics | 3 · Physics: field energy and lightning rods | 35 min
+
+### Where is the energy?
+Assembling charges costs energy (Day 3). That energy is stored **in the field**, with density
+
+EQ: u = ½ ε₀ E²     (J/m³)
+
+The total energy is ∭ u dV over all space. Check with a charged sphere: ∫_R^∞ ½ ε₀ (kQ ÷ r²)² 4π r² dr = Q² ÷ (8π ε₀ R) = **k Q² ÷ 2R** ✓, exactly the energy found by building up the sphere shell by shell.
+
+BN: ক্ষেত্রের শক্তির ঘনত্ব u = ½ε₀E² (J/m³)। মোট শক্তি = u এর আয়তন যোগজ। চার্জিত গোলকে ∫½ε₀E² dV = kQ²/2R, যা শেল-যোগ করে পাওয়া শক্তির সমান।
+
+EX: Energy in fields
+1. **Air at breakdown** (E = 3 × 10⁶ V/m): u = 0.5 × 8.85 × 10⁻¹² × 9 × 10¹² = **39.8 J/m³**.
+2. **A capacitor** with plate area 0.01 m², gap 1 mm at 100 V: E = 10⁵ V/m, u = 0.5 × 8.85 × 10⁻¹² × 10¹⁰ = **0.0443 J/m³**, volume 0.01 × 0.001 = 10⁻⁵ m³, energy **4.43 × 10⁻⁷ J**. Compare ½ C V² with C = ε₀ A ÷ d = 8.85 × 10⁻¹¹ F: ½ × 8.85 × 10⁻¹¹ × 10⁴ = **4.43 × 10⁻⁷ J** ✓. (Capacitors are Week 18.)
+3. **A thundercloud:** a region of 3 km × 3 km × 2 km (1.8 × 10¹⁰ m³) with an average field of 10⁵ V/m holds 0.0443 × 1.8 × 10¹⁰ = **8 × 10⁸ J** in its field: the same order as the **1.5 × 10⁹ J** of a lightning bolt (Day 4). The bolt discharges the energy stored in the field of the cloud.
+/EX
+
+LAB: Energy stored in an electric field | Choose the field and the volume it fills. The graph shows the energy density u = ½ ε₀ E² against E: it grows with the square of the field. The numbers give u and the total energy. Air breaks down at 3000 kV/m, where u is about 40 J/m³. | E:Field E (kV/m):10:3000:10:100 ;; Vol:Volume (m³):0.001:1000:0.001:1 | 0.5*8.85e-12*(E*1e3)^2:Energy density u (J/m³):4 ;; 0.5*8.85e-12*(E*1e3)^2*Vol:Total energy (J):4 | 0.5*8.85e-12*(x*1e3)^2 | 10,3000 | 0,45
+
+### Lightning rods
+Putting together Day 5 of last week (sharp points concentrate charge) and this week (V is the same on a conductor, E = −∇V, energy):
+
+EX: Why a pointed rod works
+1. **The tip sees an enormous field.** Near a conducting tip of radius R the field is roughly E ≈ V ÷ R (for a sphere it is exactly V ÷ R). A tip of radius 1 mm at a potential of 3 kV already reaches E = 3 × 10⁶ V/m, the breakdown of air: V = E R = 3 × 10⁶ × 10⁻³ = **3 kV**. A ball of radius 10 cm needs **300 kV**.
+2. **Corona and the "upward streamer".** When the cloud's field reaches the tip, the air around the tip ionises before the field anywhere else is strong enough. A conducting path of ions rises from the tip to meet the downward leader of the lightning. The strike is therefore **caught by the rod** and carried to the ground through a thick conductor (a "down conductor") instead of through the building.
+3. **A rough rule for the protected area:** a rod of height h protects roughly a cone beneath it, with a ground radius of about h (a 45° half-angle), for example a 15 m rod covers a circle of about 15 m radius. More careful designs use the "rolling sphere" method.
+4. **The size of the current:** a typical stroke carries about 30 kA for 50 μs (Q ≈ 1.5 C) and a bigger one 200 kA. A copper conductor of cross-section 50 mm² (R = ρ L ÷ A = 1.7 × 10⁻⁸ × 10 ÷ 5 × 10⁻⁵ = 3.4 mΩ per 10 m) dissipates I² R t = (3 × 10⁴)² × 3.4 × 10⁻³ × 5 × 10⁻⁵ = **153 J**. The 10 m of copper has a mass of 4.5 kg, so it warms by only 153 ÷ (4.5 × 385) = **0.09 K**: the metal path is safe. A tree or a wall of brick, with resistance of kilo-ohms, is not: they explode as the water boils.
+5. **Safe behaviour in a storm:** stay in a building or a metal-bodied car (Faraday cage). If you are in the open, crouch with your feet together, so that the voltage between your feet (the "step voltage") is small when the current spreads through the ground. The ground near the strike is not at one potential: V falls with distance from the strike point.
+6. **A sharp tip or a round one for high voltage?** Equipment at high voltage (substations, HV test labs) uses **smooth rounded shapes** (corona rings) to keep E below breakdown and prevent unwanted discharge: the opposite of a lightning rod, with the same physics.
+/EX
+
+LAB: How sharp is sharp enough? | Near a conducting tip of radius R at potential V the field is roughly V ÷ R. Choose the radius and the voltage. The numbers give the tip field, how many times larger it is than the breakdown field of air (3 MV/m), and the voltage at which corona starts. The graph shows the tip field against its radius for your voltage. | R:Tip radius (mm):0.1:50:0.1:1 ;; V:Voltage (kV):0.5:100:0.5:10 | V*1e3/(R*1e-3)/1e6:Field at the tip (MV/m):2 ;; V*1e3/(R*1e-3)/3e6:Ratio to the breakdown field:2 ;; 3e6*R*1e-3/1e3:Corona starts at (kV):2 | V*1e3/(x*1e-3)/1e6 | 0.1,50 | 0,100
+
+TRAP: A lightning rod does **not** "attract" lightning from far away or "discharge the cloud" by itself: it provides a **preferred, safe path** to ground for a strike that is going to happen anyway. The simple formula E ≈ V ÷ R holds for a sphere and gives only the right **order of magnitude** for a real tip. And the energy density ½ ε₀ E² is in the **field**, in the space between the charges, not "on the charges".
+
+### Quick self-check
+QUIZ:
+Q: The energy density of an electric field is…; ε₀ E; ½ ε₀ E²; E²; ε₀ E²; 2; u = ½ ε₀ E².
+Q: A sharp tip of a conductor has a very strong field because…; its charge is larger; the radius is small and E ≈ V ÷ R; it is hotter; it is lighter; 2; The same potential over a small radius.
+Q: A lightning rod works by…; attracting charge from the cloud; offering a safe path to ground; preventing lightning; shielding the cloud; 2; A low-resistance path.
+Q: The first Maxwell equation, ∇ · E = ρ ÷ ε₀, is the local form of…; Coulomb's torque; Gauss's law; Ohm's law; Faraday's law; 2; From the divergence theorem.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the energy density of a field of 10⁵ V/m. => 0.5 × 8.85 × 10⁻¹² × 10¹⁰ = **0.0443 J/m³**.
+P: Find the energy in 2 m³ of that field. => **0.0885 J**.
+P: At what voltage does a tip of radius 2 mm start a corona? => V = E R = 3 × 10⁶ × 0.002 = **6 kV**.
+LVL: Level 2 | Apply
+P: Find the field at the surface of a sphere of radius 1 cm at 20 kV. Does air break down? => E = V ÷ R = 2 × 10⁶ V/m, less than 3 × 10⁶: **no**. At 40 kV: 4 × 10⁶, **yes**.
+P: A parallel-plate capacitor has A = 0.02 m², d = 2 mm, V = 500 V. Find E, u and the stored energy. => E = 250,000 V/m. u = 0.5 × 8.85 × 10⁻¹² × 6.25 × 10¹⁰ = **0.277 J/m³**. Volume 4 × 10⁻⁵ m³: **1.1 × 10⁻⁵ J**. (Check: C = ε₀ A ÷ d = 8.85 × 10⁻¹¹ F, ½ C V² = 1.1 × 10⁻⁵ J ✓.)
+P: Find the energy stored in the field of a charged sphere (Q = 1 μC, R = 0.1 m) from the field integral and compare. => ∫_R^∞ ½ ε₀ E² 4π r² dr = Q² ÷ (8π ε₀ R) = 10⁻¹² ÷ (8π × 8.85 × 10⁻¹² × 0.1) = **0.045 J** (equal to k Q² ÷ 2R ✓).
+P: What fraction of the sphere's energy is stored within a distance R of its surface (r from R to 2R)? => The energy within radius r is proportional to (1 ÷ R − 1 ÷ r): (1 ÷ R − 1 ÷ 2R) ÷ (1 ÷ R) = **50%**. Half the energy sits within one radius of the surface.
+P: A 15 m rod protects roughly what area on the ground (cone rule)? => A circle of radius ≈ 15 m: π × 225 = **707 m²**.
+P: A stroke of 30 kA lasts 50 μs. Find the charge and the energy dissipated in a 3.4 mΩ rod. => Q = I t = **1.5 C**; E = I² R t = 9 × 10⁸ × 3.4 × 10⁻³ × 5 × 10⁻⁵ = **153 J**.
+LVL: Level 3 | Real
+P: A thundercloud field of 10⁵ V/m fills 1.8 × 10¹⁰ m³. Find the stored energy and compare it with the energy of a 1 tonne car at 100 km/h (m v² ÷ 2). => 8.0 × 10⁸ J. The car: 0.5 × 1000 × 27.8² = 3.9 × 10⁵ J. The cloud holds about **2000 times** as much.
+LVL: Challenge | The field energy of a parallel-plate capacitor
+P: Show that the energy in the field of a parallel-plate capacitor equals ½ C V². => E = V ÷ d, u = ½ ε₀ V² ÷ d², volume A d, so U = ½ ε₀ V² A ÷ d = **½ (ε₀ A ÷ d) V² = ½ C V²** with C = ε₀ A ÷ d.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- ∇ · F = P_x + Q_y + R_z (spreading); ∇ × F (swirl; gradient has zero curl). Divergence theorem ∯ F · dA = ∭ ∇ · F dV; Stokes ∮ F · dr = ∬ ∇ × F · dA. Point-charge field: ∇ · E = 0 away from the charge. ∇ · E = ρ ÷ ε₀, ∇ × E = 0.
+- Field energy u = ½ ε₀ E². Sphere kQ² ÷ 2R. Capacitor ½ C V². Lightning rod: tip field ≈ V ÷ R, corona at V = 3 × 10⁶ R, a preferred safe path; stroke ≈ 30 kA, 1.5 C.
+
+BN: আজকের সারকথা: ∇·F = P_x + Q_y + R_z (ছড়ানো); ∇×F (ঘূর্ণি; গ্রেডিয়েন্টের কার্ল শূন্য)। ডাইভারজেন্স উপপাদ্য ∯F·dA = ∭∇·F dV; স্টোকস ∮F·dr = ∬∇×F·dA। ∇·E = ρ/ε₀, ∇×E = 0। ক্ষেত্রের শক্তি u = ½ε₀E²; গোলক kQ²/2R; ধারক ½CV²। বজ্ররোধক: ডগার ক্ষেত্র ≈ V/R, কোরোনা V = 3 × 10⁶ R; নিরাপদ পথ।
+
+EXIT:
+E: Find the divergence of F = (xy, yz, zx) at (1, 2, 3).; 6; 0.01; y + z + x.
+E: What is the energy density (J/m³) of air at breakdown (3 × 10⁶ V/m)?; 39.8; 0.5; ½ ε₀ E².
+E: At what voltage (kV) does a tip of radius 1 mm start a corona (3 × 10⁶ V/m)?; 3; 0.05; V = E R.
+
+**Tomorrow:** the Week 17 test.
+
+CHECK: notes

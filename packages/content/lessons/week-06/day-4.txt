@@ -1,0 +1,199 @@
+@day Week 6 · Day 4 · Thursday
+# Implicit differentiation and related rates. Then: forces from flowing momentum
+lead: Some curves, like a circle, are not a single function y = f(x). Implicit differentiation finds their slopes anyway, and it lets you handle quantities that change together, like a sliding ladder. In physics you use F = dp/dt on streams of water, bullets and rocket exhaust, and see why a rocket works in empty space.
+
+BN: কিছু বক্ররেখা, যেমন বৃত্ত, y = f(x) আকারে লেখা যায় না। অন্তর্নিহিত (implicit) অন্তরকলন দিয়ে তবুও ঢাল বের করা যায়, আর একসঙ্গে বদলানো রাশি, যেমন পিছলে পড়া মই, সামলানো যায়। পদার্থবিজ্ঞানে F = dp/dt ব্যবহার করব পানির ধারা, গুলি আর রকেটের নিঃসরণে, আর দেখব মহাশূন্যে রকেট কীভাবে চলে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Differentiate ln(3x² + 1). => **6x ÷ (3x² + 1)**.
+P: Differentiate arctan(5x). => **5 ÷ (1 + 25x²)**.
+P: Find the CM of 1 kg at x = 0 and 4 kg at x = 5. => 20 ÷ 5 = **4 m**.
+P: A 5 kg mass at 2 m/s sticks to a 5 kg mass at rest. Speed after? => **1 m/s**.
+P: Differentiate x² e^(−x). => **e^(−x) (2x − x²)**.
+
+CHECK: recall
+
+@section math | 2 · Math: implicit differentiation | 55 min
+
+### The problem
+The circle x² + y² = 25 is not one function: for each x there are two y values. But near any point it behaves like a function y(x), so it has a slope. We can find that slope without solving for y.
+
+**The method.** Differentiate **both sides with respect to x**, remembering that y depends on x. Whenever you differentiate something with y, the chain rule adds a factor y′ (for example d/dx y² = 2y y′). Then solve for y′.
+
+EX: The circle
+1. x² + y² = 25. Differentiate: 2x + 2y y′ = 0.
+2. Solve: **y′ = −x ÷ y**.
+3. At (3, 4): y′ = −3/4. This agrees with the tangent we found in Week 4 using the radius.
+4. At (0, 5) the slope is 0 (the top of the circle), and at (5, 0) the denominator is 0: a vertical tangent ✓.
+/EX
+
+EX: An ellipse
+1. x²/9 + y²/4 = 1. Differentiate: 2x/9 + 2y y′/4 = 0, so y y′/2 = −2x/9.
+2. **y′ = −4x ÷ (9y)**. At (3 cos t, 2 sin t) this is a clear slope without solving for y.
+/EX
+
+EX: The folium of Descartes
+1. x³ + y³ = 6xy. Differentiate (product rule on the right): 3x² + 3y² y′ = 6y + 6x y′.
+2. Collect y′: y′ (3y² − 6x) = 6y − 3x², so **y′ = (2y − x²) ÷ (y² − 2x)**.
+3. The point (3, 3) is on the curve (27 + 27 = 54 = 6 × 9). There y′ = (6 − 9) ÷ (9 − 6) = **−1**.
+/EX
+
+EX: Using it for a tangent line
+1. At (3, 3) on the folium: y − 3 = −1 (x − 3), so **y = −x + 6**.
+/EX
+
+LAB: A sliding ladder | A 5 m ladder stands against a wall: x² + y² = 25, where x is the distance of the foot from the wall. The base is pulled away at 0.5 m/s. Move x₀ to see how fast the top slides down. The orange line is the tangent from implicit differentiation, with slope −x/y. | x0:Foot distance x₀ (m):0.5:4.8:0.1:3 | sqrt(25-x0^2):Height of the top y (m):2 ;; -x0/sqrt(25-x0^2):Slope dy/dx:3 ;; 0.5*x0/sqrt(25-x0^2):Speed of the top (m/s):3 | sqrt(25-x^2) ;; -x0/sqrt(25-x0^2)*(x-x0)+sqrt(25-x0^2) | 0,5.2 | 0,5.5
+
+### Related rates
+Two quantities linked by an equation change together. Differentiate the equation with respect to **time** t, then substitute.
+
+EX: The sliding ladder
+1. A 5 m ladder leans against a wall. The foot is pulled away at 0.5 m/s. How fast does the top slide down when the foot is 3 m from the wall?
+2. x² + y² = 25. Differentiate with respect to t: 2x (dx/dt) + 2y (dy/dt) = 0, so dy/dt = −(x ÷ y)(dx/dt).
+3. When x = 3, y = 4, so dy/dt = −(3/4)(0.5) = **−0.375 m/s**: the top slides down at 0.375 m/s.
+4. As the foot approaches 5 m, y → 0 and the top falls faster and faster (the lab shows this).
+/EX
+
+EX: A ripple
+1. A circular ripple has radius increasing at 3 cm/s. How fast is the area growing when r = 10 cm?
+2. A = π r², so dA/dt = 2π r dr/dt = 2π × 10 × 3 = **188.5 cm²/s**.
+/EX
+
+### Steps for related-rates problems
+1. Draw and name the quantities that change.
+2. Write one equation connecting them (valid at all times).
+3. Differentiate **both sides with respect to t**, using the chain rule.
+4. **Only now** substitute the numbers for the moment asked about.
+
+BN: অন্তর্নিহিত অন্তরকলনে দুই পাশকে x এর সাপেক্ষে অন্তরকলন করো; y এর যেকোনো পদে চেইন রুল দিয়ে y′ গুণ হয়। বৃত্ত x² + y² = 25 থেকে y′ = −x/y। সম্পর্কিত হার (related rates) এ সমীকরণকে সময় t এর সাপেক্ষে অন্তরকলন করো, তারপর সংখ্যা বসাও, আগে নয়।
+
+TRAP: Do not substitute numbers **before** differentiating: if you put x = 3 first, the variable disappears and the derivative becomes 0. Also do not forget the y′ factor on every y term: d/dx y³ = 3y² y′, not 3y².
+
+### Quick self-check
+QUIZ:
+Q: For x² + y² = 25, the slope y′ is…; x/y; −x/y; −y/x; y/x; 2; 2x + 2y y′ = 0.
+Q: d/dx (y³) equals…; 3y²; 3y² y′; y³ y′; 3y; 2; The chain rule adds y′.
+Q: The slope of x² + y² = 25 at (0, 5) is…; 0; 1; −1; undefined; 1; −x ÷ y = 0.
+Q: A square's side grows at 2 cm/s. dA/dt when the side is 5 cm is…; 10 cm²/s; 20 cm²/s; 50 cm²/s; 25 cm²/s; 2; A = s², dA/dt = 2s (ds/dt) = 20.
+Q: When should you plug in specific numbers in a related-rates problem?; before differentiating; after differentiating; never; at the start; 2; Otherwise the variable disappears.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find y′ from x² + y² = 100 at (6, 8). => −x ÷ y = **−3/4**.
+P: Find y′ from xy = 12. => y + x y′ = 0, so **y′ = −y ÷ x**.
+P: A circle's radius grows at 2 cm/s. Find dA/dt at r = 5. => 2π × 5 × 2 = **62.8 cm²/s**.
+LVL: Level 2 | Combine
+P: Find y′ for x² + xy + y² = 7 and evaluate at (2, 1). => 2x + y + x y′ + 2y y′ = 0, so y′ = −(2x + y) ÷ (x + 2y). At (2, 1): **−5/4**.
+P: Find the tangent to y² = 4x at (1, 2). => 2y y′ = 4, so y′ = 2/y = 1. y − 2 = x − 1, so **y = x + 1**. This matches the parabola from Week 4.
+P: Find y′ for e^y = x + y. => e^y y′ = 1 + y′, so y′ (e^y − 1) = 1 and **y′ = 1 ÷ (e^y − 1)**.
+P: A 10 m ladder slides down a wall at 1 m/s at the top. How fast is the foot moving when the foot is 6 m from the wall? => x² + y² = 100 and at x = 6, y = 8. 2x x′ + 2y y′ = 0 with y′ = −1: x′ = −(y ÷ x) y′ = (8/6)(1) = **1.33 m/s** outward.
+P: A spherical balloon is filled at 100 cm³/s. How fast does the radius grow when r = 5 cm? => dV/dt = 4π r² dr/dt = 100, so dr/dt = 100 ÷ (4π × 25) = **0.318 cm/s**.
+LVL: Level 3 | Real
+P: Sand falls from a hopper at 2 m³/min forming a cone whose height equals its base radius (h = r). How fast does the height rise when h = 3 m? => V = (1/3) π r² h = (1/3) π h³. dV/dt = π h² dh/dt, so dh/dt = 2 ÷ (π × 9) = **0.0707 m/min**.
+LVL: Challenge | The Lissajous slope
+P: A particle moves so that x = cos t and y = sin 2t. Find dy/dx at t = π/4 using dy/dx = (dy/dt) ÷ (dx/dt). => dy/dt = 2 cos 2t = 0 at t = π/4. dx/dt = −sin t = −0.707. So dy/dx = **0**: a horizontal tangent. This "parametric" form of the chain rule is used for any curve traced by a moving point.
+
+CHECK: math
+
+@section physics | 3 · Physics: forces from flowing momentum | 35 min
+
+### Streams and rates
+When a steady stream of mass hits a surface, the force is the **rate of change of momentum**:
+
+EQ: F = (dm/dt) Δv
+
+where dm/dt is the mass per second and Δv the change in velocity of each piece.
+
+EX: A fire hose
+1. A hose delivers 20 kg of water per second at 15 m/s onto a wall, and the water stops. F = 20 × 15 = **300 N**.
+2. If the water bounces straight back at the same speed, Δv = 30 m/s, so **600 N**.
+/EX
+
+EX: Machine gun
+1. A gun fires 10 bullets per second, each 0.02 kg at 600 m/s. The average recoil force: 10 × 0.02 × 600 = **120 N**.
+/EX
+
+### Variable mass and the product rule
+Newton's law in the form F = dp/dt = d(mv)/dt. If the mass changes, the product rule from Monday applies:
+
+EQ: F = m dv/dt + v dm/dt
+
+EX: A conveyor belt
+1. Sand falls from a hopper onto a belt moving at a constant 2 m/s, at 5 kg/s. The belt's speed does not change, so dv/dt = 0 and F = v dm/dt = 2 × 5 = **10 N**.
+2. Power from the motor = F v = 10 × 2 = **20 W**.
+3. The kinetic energy gained by the sand per second is ½ × 5 × 4 = 10 W. **Half the power is lost** as heat in the sliding of the sand when it first lands on the belt.
+/EX
+
+### Rockets: why they work in empty space
+A rocket throws mass backward at speed v_e (relative to the rocket). Momentum conservation means the rocket gains forward momentum. The thrust is
+
+EQ: thrust = (dm/dt) v_e
+
+and the rocket's acceleration at the launch pad is a = thrust ÷ m − g.
+
+EX: A launch
+1. Burn rate 100 kg/s, exhaust speed 2500 m/s: thrust = 250,000 N.
+2. For a 20,000 kg rocket, a = 250,000 ÷ 20,000 − 9.8 = 12.5 − 9.8 = **2.7 m/s²** upward.
+3. As fuel burns, m falls while the thrust stays the same, so the acceleration **rises**. After 100 s, m = 10,000 kg and a = 25 − 9.8 = **15.2 m/s²**.
+/EX
+
+LAB: Rocket acceleration as fuel burns | Choose the starting mass, the fuel burn rate and the exhaust speed. The graph shows the acceleration at the launch pad (g subtracted) as fuel is used up. | m0:Starting mass (kg):10000:40000:1000:20000 ;; r:Burn rate (kg/s):50:150:10:100 ;; ve:Exhaust speed (m/s):1500:4000:100:2500 | r*ve:Thrust (N):0 ;; r*ve/m0-9.8:Initial acceleration (m/s²):2 ;; r*ve/(m0-r*30)-9.8:Acceleration after 30 s (m/s²):2 | r*ve/(m0-r*x)-9.8 | 0,60 | -10,40
+
+BN: প্রবাহিত ভরের জন্য F = (dm/dt)Δv। চলমান ভর হলে F = m dv/dt + v dm/dt (গুণফল নিয়ম)। রকেট নিজের ভর পেছনে ছুড়ে ভরবেগ পায়: থ্রাস্ট = (dm/dt)v_e। জ্বালানি পুড়ে ভর কমলে থ্রাস্ট একই থাকে, তাই ত্বরণ বাড়ে। মহাশূন্যে বাতাস না থাকলেও রকেট চলে, কারণ ধাক্কা দেয় নিঃসৃত গ্যাসকে।
+
+### Kinetic energy and momentum together
+Since KE = ½ m v² and p = m v, we get
+
+EQ: KE = p² ÷ (2m)
+
+Two bodies with the same momentum have different kinetic energies: the lighter one has more. A 0.02 kg bullet and a 4 kg rifle have equal and opposite momenta, but the bullet has the energy 200 times larger (the mass ratio).
+
+EX: The rifle and bullet
+1. The bullet: p = 12 kg·m/s, KE = 144 ÷ 0.04 = **3600 J**.
+2. The rifle: p = 12, KE = 144 ÷ 8 = **18 J**. The light bullet takes 99.5% of the energy.
+/EX
+
+TRAP: In F = (dm/dt) Δv, Δv is the change in velocity of the **mass that hits** the surface (a bounce doubles it). The rocket's thrust uses the exhaust speed **relative to the rocket**, not relative to the ground. And remember that g is subtracted for a vertical launch.
+
+### Quick self-check
+QUIZ:
+Q: A hose delivers 10 kg/s of water at 6 m/s that stops against a wall. The force is…; 6 N; 16 N; 60 N; 600 N; 3; F = (dm/dt) Δv = 60 N.
+Q: A rocket's thrust depends on…; the exhaust speed and the burn rate; only the mass; only the speed; the launch height; 1; thrust = (dm/dt) v_e.
+Q: As a rocket burns fuel at constant thrust, its acceleration…; falls; rises; stays the same; is zero; 2; The mass decreases.
+Q: Two bodies have equal momentum. The lighter one has…; less kinetic energy; more kinetic energy; the same kinetic energy; no energy; 2; KE = p² ÷ 2m.
+
+### Practice
+LVL: Level 1 | Direct
+P: Rain falls on a roof at 5 kg/s and hits at 8 m/s without bouncing. Find the average force. => **40 N** downward.
+P: A rocket expels 50 kg/s at 3000 m/s. Find the thrust. => **150,000 N**.
+LVL: Level 2 | Apply
+P: A 2000 kg rocket needs a launch acceleration of 5 m/s² upward. Which thrust is required (g = 9.8)? => F − mg = ma, so F = 2000 × 14.8 = **29,600 N**.
+P: A conveyor belt moves at 1.5 m/s and sand falls on it at 8 kg/s. Find the force needed, the motor power, and the power wasted as heat. => F = 1.5 × 8 = **12 N**. Power = 12 × 1.5 = **18 W**. KE gain: ½ × 8 × 2.25 = 9 W. Wasted **9 W**.
+P: A 0.15 kg ball is thrown at a wall at 20 m/s and bounces back at 15 m/s, 8 balls per second from a machine. Find the average force. => Δp per ball = 0.15 × 35 = 5.25 N·s. Rate 8 per second: **42 N**.
+P: Find the KE of a 2 kg and a 8 kg body, each of momentum 40 kg·m/s. => 1600 ÷ 4 = **400 J** and 1600 ÷ 16 = **100 J**.
+LVL: Challenge | Chain of rates in a rocket
+P: A rocket of initial mass 20,000 kg burns fuel at 100 kg/s with exhaust 2500 m/s. After how many seconds does the acceleration reach 20 m/s² (g = 9.8, start from the pad)? => a = 250,000 ÷ m − 9.8 = 20, so m = 250,000 ÷ 29.8 = 8389 kg. Fuel burned = 20,000 − 8389 = 11,611 kg, which takes 11,611 ÷ 100 = **116 s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Implicit differentiation: differentiate both sides, put y′ after every y term, solve for y′. Circle: y′ = −x/y.
+- Related rates: differentiate with respect to t first, plug numbers last.
+- F = (dm/dt) Δv for streams. F = m dv/dt + v dm/dt for variable mass. Rocket thrust = (dm/dt) v_e. KE = p² ÷ 2m.
+
+BN: আজকের সারকথা: অন্তর্নিহিত অন্তরকলনে দুই পাশে অন্তরকলন করে y′ বের করো; সম্পর্কিত হারে আগে t এর সাপেক্ষে অন্তরকলন, পরে সংখ্যা। F = (dm/dt)Δv; চলমান ভরের F = m dv/dt + v dm/dt; রকেটের থ্রাস্ট = (dm/dt)v_e; KE = p²/2m।
+
+EXIT:
+E: Find y′ for x² + y² = 25 at the point (3, 4).; -0.75; 0.001; −x ÷ y = −3/4.
+E: A circle's radius grows at 2 cm/s. What is dA/dt (cm²/s) when r = 5? (Give 2 decimals); 62.83; 0.05; 2π × 5 × 2 = 62.83.
+E: A rocket expels 40 kg/s at 2000 m/s. What is the thrust in newtons?; 80000; 1; 40 × 2000 = 80,000.
+
+**Tomorrow:** logarithmic differentiation, higher derivatives, and mixed momentum problems.
+
+CHECK: notes

@@ -1,0 +1,83 @@
+@day Week 1 · Day 6 · Saturday
+# Week 1 test, mistake log and challenge
+lead: Today you prove to yourself what Week 1 gave you. Take the test cold, mark it honestly, and turn every mistake into a lesson. A mistake you understand is worth more than a right answer you guessed.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিজেকে সৎভাবে যাচাই করো। কোনো উত্তর দেখার আগে নিজে চেষ্টা করো। ভুল হলে সেটা আসলে ভালো খবর, কারণ কোথায় সময় দিতে হবে সেটা এখন জানা গেল। নম্বরের চেয়ে ভুলের কারণ বোঝা বেশি জরুরি।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for the math part. A calculator is fine for physics but try without it first.
+- Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. One mark per question unless it says two.
+- Do not look at your notes while testing. The point is to find what is truly stuck in your memory.
+
+CHECK: recall
+
+@section math | 2 · Part A: Algebra (13 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 12
+P: (1 mark) Simplify (2a²b)³ ÷ (4ab²). => 8a⁶b³ ÷ 4ab² = **2a⁵b**.
+P: (1 mark) Evaluate 16^(3/4) − 2⁻³. => 8 − 1/8 = **63/8** (7⅞).
+P: (1 mark) Simplify √75 − √12. => 5√3 − 2√3 = **3√3**.
+P: (1 mark) Expand and simplify (x + 3)² − (x − 3)². => (x² + 6x + 9) − (x² − 6x + 9) = **12x**.
+P: (1 mark) Factor 6x² + 11x − 10. => 6 × (−10) = −60, so use 15 and −4: 6x² + 15x − 4x − 10 = 3x(2x + 5) − 2(2x + 5) = **(2x + 5)(3x − 2)**.
+P: (1 mark) Solve (2x − 1)/3 − (x + 2)/4 = 1. => Multiply by 12: 4(2x − 1) − 3(x + 2) = 12, so 8x − 4 − 3x − 6 = 12, so 5x = 22 and **x = 22/5 = 4.4**.
+P: (1 mark) Make b the subject of A = ½(a + b)h. => 2A ÷ h = a + b, so **b = 2A/h − a**.
+P: (1 mark) Solve 3x + 2y = 12 and 5x − 2y = 4. => Add: 8x = 16, so x = 2. Then 6 + 2y = 12 and y = 3. **(2, 3)**.
+P: (1 mark) Solve −2(x − 1) ≥ 6. => x − 1 ≤ −3 (flip), so **x ≤ −2**.
+P: (1 mark) Solve |3x + 1| = 8. => 3x + 1 = 8 gives x = 7/3. 3x + 1 = −8 gives x = −3. **x = 7/3 or x = −3**.
+P: (2 marks) Solve x² − x − 12 = 0, and then solve x² − x − 12 < 0. => (x − 4)(x + 3) = 0 gives **x = 4 or x = −3**. The curve is below zero between the roots: **−3 < x < 4**.
+P: (1 mark) Simplify (x² − x − 6) ÷ (x² − 9). => (x − 3)(x + 2) ÷ [(x − 3)(x + 3)] = **(x + 2) ÷ (x + 3)** for x ≠ 3, −3.
+
+CHECK: math
+
+@section physics | 3 · Part B: Motion (7 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 13 to 18
+P: (1 mark) Convert 108 km/h to m/s. => 108 ÷ 3.6 = **30 m/s**.
+P: (2 marks) A v–t graph goes in a straight line from (0 s, 0 m/s) to (8 s, 24 m/s), stays at 24 m/s until 12 s, then falls in a straight line to 0 m/s at 16 s. Find the acceleration in the first part and the total distance. => a = 24 ÷ 8 = **3 m/s²**. Distance = areas: ½ × 8 × 24 = 96, plus 4 × 24 = 96, plus ½ × 4 × 24 = 48. Total **240 m**.
+P: (1 mark) A cyclist with u = 3 m/s accelerates at 0.5 m/s² for 10 s. Find v and s. => v = 3 + 5 = **8 m/s**. s = 30 + ½ × 0.5 × 100 = **55 m**.
+P: (1 mark) A car brakes uniformly from 30 m/s and stops after 75 m. Find the deceleration and the time to stop. => 0 = 900 + 2a(75), so **a = −6 m/s²**. t = 30 ÷ 6 = **5 s**.
+P: (1 mark) A car needs 20 m to stop from 10 m/s. With the same brakes, what distance from 25 m/s? => Braking distance ∝ u²: 20 × (25 ÷ 10)² = 20 × 6.25 = **125 m**.
+P: (1 mark) Car B is 75 m ahead of car A and moves at a constant 10 m/s. At the same moment car A starts from rest with a = 2 m/s². When does A catch B? => Positions: x_A = t², x_B = 75 + 10t. Set equal: t² − 10t − 75 = 0, so (t − 15)(t + 5) = 0 and **t = 15 s** (reject −5). Check: 225 = 75 + 150 ✓.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (13 for algebra, 7 for motion).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 2. Try the challenge below. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). Then Week 2. |
+| 10 to 13 | Some gaps | Re-read the Day sections that match your wrong answers, and redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 1. Tell me, and I will rebalance Week 2. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row. This habit is the fastest way to improve.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q5 | Split the middle term wrongly | Used 10 and −6 instead of 15 and −4 | Numbers must multiply to a × c = −60 and add to b = 11 | Monday |
+
+Types of mistakes to name honestly: **concept** (I did not understand), **careless** (sign or arithmetic slip), **method** (I chose a slow route), **time** (I ran out).
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি লেখো: কী করেছিলাম, কেন ভুল, সঠিক ধারণা কী, কবে আবার করব। ভুলকে চার ভাগে ফেলো: ধারণাগত, অসাবধানতা, পদ্ধতি, সময়। যেটা বারবার হয় সেটাই তোমার আসল দুর্বলতা।
+
+NOTES:
+
+### Challenge of the week
+LVL: Challenge | The sprinter
+P: A 100 m sprinter accelerates uniformly for the first 4 s, then runs at constant speed for the rest of the race. Her total time is 10 s. Find her acceleration and her top speed. => Let the acceleration be a. Top speed v = 4a. Distance in the first phase: ½ × a × 16 = 8a. Distance in the last 6 s: 4a × 6 = 24a. Total: 32a = 100, so **a = 3.125 m/s²** and **top speed = 12.5 m/s** (45 km/h). Sprinters really do accelerate for a few seconds, then hold speed, which is why the first 30 m matters so much.
+
+### Optional coding idea (not part of the study plan)
+**Motion lab:** build a small page with sliders for u, a and t. It draws the v–t graph, shades the area under it, and prints v and s using the three equations. Add a second car so you can see two lines meet on an x–t graph. This turns today's physics into something you can play with.
+
+### What Week 2 looks like
+Functions (the machine idea), quadratics in depth, exponentials and **two full days on logarithms**. In physics: free fall and Newton's three laws. You already have the algebra for all of it.
+
+BN: আগামী সপ্তাহে ফাংশন, দ্বিঘাত সমীকরণ গভীরভাবে, সূচকীয় ফাংশন, আর দুই দিন শুধু লগারিদম। পদার্থবিজ্ঞানে মুক্তভাবে পতন আর নিউটনের তিনটা সূত্র। তোমার অ্যালজেবরা এখন তৈরি।
+
+**Sunday is a rest day.** Real rest. Your brain builds memory while you sleep and play.
+
+CHECK: notes

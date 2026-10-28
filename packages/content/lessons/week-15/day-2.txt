@@ -1,0 +1,174 @@
+@day Week 15 · Day 2 · Tuesday
+# Diagonalisation and powers of matrices. Then: the Carnot cycle
+lead: Once you know the eigenvalues and eigenvectors of a matrix, you can turn it into a diagonal one, and raising a diagonal matrix to the hundredth power is trivial. That is how engineers predict the long-term behaviour of systems. In physics, you meet the most efficient engine that nature allows, the Carnot engine, and the formula that limits every power plant and car: e = 1 − T_C ÷ T_H.
+
+BN: কোনো ম্যাট্রিক্সের eigenvalue ও eigenvector জানলে তাকে কর্ণ ম্যাট্রিক্সে (diagonal) রূপান্তর করা যায়, আর কর্ণ ম্যাট্রিক্সের একশো ঘাত বের করা খুব সহজ। এভাবেই প্রকৌশলীরা ব্যবস্থার দীর্ঘমেয়াদি আচরণ আন্দাজ করেন। পদার্থবিজ্ঞানে প্রকৃতির অনুমোদিত সবচেয়ে দক্ষ ইঞ্জিন, কার্নো ইঞ্জিন, এবং প্রতিটি বিদ্যুৎকেন্দ্র ও গাড়ির সীমা e = 1 − T_C/T_H শিখবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find the eigenvalues of [[2, 1], [1, 2]]. => **1 and 3**.
+P: What is the sum of the eigenvalues of a matrix? => Its **trace**.
+P: Write the efficiency of a heat engine. => **e = W ÷ Q_H = 1 − Q_C ÷ Q_H**.
+P: What is the COP of a refrigerator? => **Q_C ÷ W**.
+P: State the Kelvin–Planck statement. => **No cyclic engine can convert heat from one reservoir entirely into work.**
+
+CHECK: recall
+
+@section math | 2 · Math: diagonalisation | 55 min
+
+### A = P D P⁻¹
+Suppose A has n independent eigenvectors v₁ … vₙ with eigenvalues λ₁ … λₙ. Put the eigenvectors as the columns of P and the eigenvalues on the diagonal of D. Then A P = P D, so
+
+EQ: A = P D P⁻¹     and therefore     Aⁿ = P Dⁿ P⁻¹     (Dⁿ just raises each diagonal entry to the n-th power)
+
+The idea: in the eigenvector basis, A acts as a plain stretch. P⁻¹ converts to that basis, D stretches, and P converts back.
+
+BN: A এর স্বাধীন eigenvector গুলো P এর স্তম্ভ আর eigenvalue গুলো D এর কর্ণ হলে A = PDP⁻¹, তাই Aⁿ = PDⁿP⁻¹। eigenvector এর ভিত্তিতে A শুধু টানে। P⁻¹ সেই ভিত্তিতে নেয়, D টানে, P ফিরিয়ে আনে। **n টা ভিন্ন eigenvalue** থাকলে সবসময় n টা স্বাধীন eigenvector পাওয়া যায়।
+
+EX: Diagonalising A = [[2, 1], [1, 2]]
+1. Eigenvalues 3 and 1 with eigenvectors (1, 1) and (1, −1). So P = [[1, 1], [1, −1]] and D = [[3, 0], [0, 1]].
+2. det P = −2, so P⁻¹ = (1/2) [[1, 1], [1, −1]].
+3. Check: P D = [[3, 1], [3, −1]], and P D P⁻¹ = (1/2) [[3 + 1, 3 − 1], [3 − 1, 3 + 1]] = **[[2, 1], [1, 2]]** ✓.
+4. **Powers:** Aⁿ = P Dⁿ P⁻¹ = (1/2) [[3ⁿ + 1, 3ⁿ − 1], [3ⁿ − 1, 3ⁿ + 1]]. For n = 2: (1/2) [[10, 8], [8, 10]] = [[5, 4], [4, 5]] ✓ (the direct product). For n = 10: 3¹⁰ = 59,049, so A¹⁰ = [[29,525, 29,524], [29,524, 29,525]].
+/EX
+
+EX: Diagonalising A = [[4, 1], [2, 3]]
+1. Eigenvalues 5 and 2, with eigenvectors (1, 1) and (1, −2). P = [[1, 1], [1, −2]], det P = −3, P⁻¹ = (1/3) [[2, 1], [1, −1]].
+2. Aⁿ = P diag (5ⁿ, 2ⁿ) P⁻¹ has the entries: first row ((2 × 5ⁿ + 2ⁿ) ÷ 3, (5ⁿ − 2ⁿ) ÷ 3) and second row ((2 × 5ⁿ − 2 × 2ⁿ) ÷ 3, (5ⁿ + 2 × 2ⁿ) ÷ 3).
+3. Check n = 1: (10 + 2) ÷ 3 = 4 ✓, (5 − 2) ÷ 3 = 1 ✓, (10 − 4) ÷ 3 = 2 ✓, (5 + 4) ÷ 3 = 3 ✓. Check n = 2: [[18, 7], [14, 11]], and the direct product [[16 + 2, 4 + 3], [8 + 6, 2 + 9]] ✓.
+4. **n = 5:** 5⁵ = 3125 and 2⁵ = 32. A⁵ = [[2094, 1031], [2062, 1063]]. Checks: trace = 3157 = 3125 + 32 ✓. det = 2094 × 1063 − 1031 × 2062 = 2,225,922 − 2,125,922 = 100,000 = 10⁵ ✓ (det A = 10).
+/EX
+
+LAB: Powers of a matrix | The matrix has eigenvectors (1, 1) and (1, −1) with eigenvalues λ₁ and λ₂, so A = (1/2) [[λ₁ + λ₂, λ₁ − λ₂], [λ₁ − λ₂, λ₁ + λ₂]]. The numbers show Aⁿ. Try λ₁ = 1 and λ₂ = 0.8 (the entries settle to 1/2), then λ₁ = 3, λ₂ = 1 (the entries explode), then a negative λ₂. | l1:Eigenvalue λ₁:-2:3:0.2:1 ;; l2:Eigenvalue λ₂:-2:3:0.2:0.8 ;; n:Power n:0:10:1:5 | (pow(l1,n)+pow(l2,n))/2:Diagonal entries of Aⁿ:4 ;; (pow(l1,n)-pow(l2,n))/2:Off-diagonal entries of Aⁿ:4 ;; l1+l2:Trace of A:1 ;; l1*l2:Determinant of A:2 | - | 0,1 | 0,1
+
+### More about diagonalising
+EX: Which matrices work?
+1. **Distinct eigenvalues:** [[1, 2, 0], [0, 3, 1], [0, 0, 2]] is triangular with eigenvalues 1, 3, 2: all different, so it is diagonalisable. Eigenvectors: for 1: (1, 0, 0). For 3: (1, 1, 0). For 2: (−2, −1, 1). Check the last: A (−2, −1, 1) = (−2 − 2, −3 + 1, 2) = (−4, −2, 2) = 2 (−2, −1, 1) ✓.
+2. **Not always:** the shear [[1, 1], [0, 1]] has only one eigen-direction, so it is **not** diagonalisable.
+3. **Square root of a matrix:** take the square roots of the eigenvalues. For A = [[2, 1], [1, 2]]: √A = P diag (√3, 1) P⁻¹ = (1/2) [[√3 + 1, √3 − 1], [√3 − 1, √3 + 1]] = [[1.366, 0.366], [0.366, 1.366]]. Check: 1.366² + 0.366² = 1.866 + 0.134 = 2.000 and 2 × 1.366 × 0.366 = 1.000 ✓.
+4. **Reverse engineering:** find the matrix with eigenvalues 2 and 3 and eigenvectors (1, 0) and (1, 1). P = [[1, 1], [0, 1]], P⁻¹ = [[1, −1], [0, 1]], D = diag (2, 3). A = P D P⁻¹ = [[2, 3], [0, 3]] [[1, −1], [0, 1]] = **[[2, 1], [0, 3]]**. Check: A (1, 1) = (3, 3) ✓.
+/EX
+
+EX: Two rooms mixing
+1. Each minute 10% of the air in each of two connected rooms moves to the other. With x = (amount in room 1, amount in room 2), x_{n+1} = A x_n where A = [[0.9, 0.1], [0.1, 0.9]].
+2. Eigenvalues: **1** with eigenvector (1, 1) and **0.8** with eigenvector (1, −1). So Aⁿ = (1/2) [[1 + 0.8ⁿ, 1 − 0.8ⁿ], [1 − 0.8ⁿ, 1 + 0.8ⁿ]].
+3. Starting from (1, 0) after 5 min: 0.8⁵ = 0.32768, so x = (0.664, 0.336). In the long run **(0.5, 0.5)**: equal amounts in both rooms.
+4. The difference between the rooms is 0.8ⁿ. It falls below 1% when 0.8ⁿ < 0.01, n > ln 0.01 ÷ ln 0.8 = 20.6: after **21 minutes**.
+/EX
+
+BN: দুই ঘরে হাওয়া মিশছে: A = [[0.9, 0.1], [0.1, 0.9]], eigenvalue 1 ও 0.8, তাই Aⁿ → [[0.5, 0.5], [0.5, 0.5]], অর্থাৎ শেষে দুই ঘরে সমান। পার্থক্য কমে 0.8ⁿ হারে। ম্যাট্রিক্সের বর্গমূল: eigenvalue এর বর্গমূল নাও। শিয়ার ম্যাট্রিক্স [[1, 1], [0, 1]] কর্ণীকরণযোগ্য নয়।
+
+TRAP: Put the eigenvectors in P **in the same order** as the eigenvalues in D. P⁻¹ goes on the **right**: A = P D P⁻¹, not P⁻¹ D P. And a matrix with a repeated eigenvalue is not always diagonalisable (the shear): check that you really have n independent eigenvectors.
+
+### Quick self-check
+QUIZ:
+Q: If A = P D P⁻¹ then A³ equals…; P³ D³ P⁻³; P D³ P⁻¹; P⁻¹ D³ P; D³; 2; The inner P⁻¹ P cancels.
+Q: A 3 × 3 matrix with three distinct eigenvalues is…; never diagonalisable; always diagonalisable; singular; the identity; 2; Distinct eigenvalues give independent eigenvectors.
+Q: In the two-room model the long-run state is…; all air in room 1; equal amounts in both rooms; all air in room 2; oscillating; 2; The eigenvalue 1 has eigenvector (1, 1).
+Q: If A has eigenvalues 2 and −1, then A¹⁰ has eigenvalues…; 20 and −10; 1024 and 1; 100 and 1; 2 and −1; 2; Each is raised to the tenth power.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: A has eigenvalues 3 and 1 with eigenvectors (1, 1) and (1, −1). Write P and D. => **P = [[1, 1], [1, −1]], D = [[3, 0], [0, 1]]**.
+P: Find the eigenvalues of A² and A¹⁰ for the matrix above. => **9 and 1**; **59,049 and 1**.
+P: Find the (1, 1) entry of Aⁿ for A = [[2, 1], [1, 2]] when n = 4. => (3⁴ + 1) ÷ 2 = **41**.
+LVL: Level 2 | Apply
+P: Use A = P D P⁻¹ to compute A³ for A = [[4, 1], [2, 3]]. => Using the formula with n = 3: 5³ = 125, 2³ = 8: first row ((250 + 8) ÷ 3, (125 − 8) ÷ 3) = (86, 39), second row ((250 − 16) ÷ 3, (125 + 16) ÷ 3) = (78, 47). **A³ = [[86, 39], [78, 47]]**. Check: A² = [[18, 7], [14, 11]], and A² A = [[72 + 14, 18 + 21], [56 + 22, 14 + 33]] = [[86, 39], [78, 47]] ✓.
+P: Find √A for A = [[2, 1], [1, 2]] to two decimals. => **[[1.37, 0.37], [0.37, 1.37]]** (exactly (1/2) [[√3 + 1, √3 − 1], [√3 − 1, √3 + 1]]).
+P: Is [[1, 1], [0, 1]] diagonalisable? => **No**: it has a repeated eigenvalue 1 with only one eigen-direction (1, 0).
+P: For the two-room model, find the amounts after 5 minutes if room 1 starts with 1 and room 2 with 0. => **(0.664, 0.336)**.
+P: Find the matrix with eigenvalues 1 and 4 and eigenvectors (1, 0) and (1, 1). => P = [[1, 1], [0, 1]], A = P D P⁻¹ = [[1, 4], [0, 4]] [[1, −1], [0, 1]] = **[[1, 3], [0, 4]]**. Check: A (1, 1) = (4, 4) ✓.
+LVL: Level 3 | Real
+P: In the two-room model, after how many minutes is the difference below 1% of the initial difference? What happens if 20% moves each minute instead? => For 10%: 0.8ⁿ < 0.01 gives n = **21 min**. For 20%: A = [[0.8, 0.2], [0.2, 0.8]] has eigenvalues 1 and 0.6, 0.6ⁿ < 0.01 gives n > 9.0, so **10 min**. More exchange means faster mixing.
+LVL: Challenge | Trace and determinant of a power
+P: For A with eigenvalues λ₁ and λ₂, find trace (Aⁿ) and det (Aⁿ), and test on A = [[4, 1], [2, 3]] with n = 3. => trace (Aⁿ) = λ₁ⁿ + λ₂ⁿ, det (Aⁿ) = (λ₁ λ₂)ⁿ = (det A)ⁿ. For n = 3: trace = 125 + 8 = **133**, and A³ = [[86, 39], [78, 47]] has trace 86 + 47 = 133 ✓. det = 10³ = **1000**, and 86 × 47 − 39 × 78 = 4042 − 3042 = 1000 ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: the Carnot cycle | 35 min
+
+### The best possible engine
+In 1824 Sadi Carnot asked: what is the highest efficiency an engine can have between a hot reservoir at T_H and a cold one at T_C? His **Carnot cycle** is **reversible** (no friction, heat exchanged only when temperatures are equal), made of four steps:
+
+1. **Isothermal expansion** at T_H: the gas absorbs Q_H = n R T_H ln (V₂ ÷ V₁).
+2. **Adiabatic expansion:** the gas cools from T_H to T_C.
+3. **Isothermal compression** at T_C: the gas rejects Q_C = n R T_C ln (V₃ ÷ V₄).
+4. **Adiabatic compression:** the gas warms back from T_C to T_H.
+
+From the adiabats, T_H V₂^(γ−1) = T_C V₃^(γ−1) and T_H V₁^(γ−1) = T_C V₄^(γ−1). Dividing: V₂ ÷ V₁ = V₃ ÷ V₄, so the two logarithms are equal and Q_C ÷ Q_H = T_C ÷ T_H.
+
+EQ: e_Carnot = 1 − T_C ÷ T_H     (temperatures in kelvin)
+
+**Carnot's theorem:** no engine between the same two reservoirs can beat a reversible engine, and all reversible engines have the same efficiency.
+
+BN: কার্নো চক্র পরিবর্তনীয় (reversible), চারটি ধাপ: T_H তে সমোষ্ণ প্রসারণ, রুদ্ধতাপ প্রসারণ (ঠান্ডা হয়), T_C তে সমোষ্ণ সংকোচন, রুদ্ধতাপ সংকোচন। দক্ষতা e = 1 − T_C/T_H (কেলভিনে)। কার্নোর উপপাদ্য: একই দুই উৎসের মধ্যে কোনো ইঞ্জিন কার্নো ইঞ্জিনের চেয়ে দক্ষ হতে পারে না। 100% দক্ষতার জন্য T_C = 0 K লাগবে, যা অসম্ভব।
+
+EX: A Carnot cycle in numbers
+1. 1 mol of a monatomic gas (γ = 5/3), T_H = 500 K, T_C = 300 K. Start at V₁ = 10 L and expand isothermally to V₂ = 20 L.
+2. **Q_H** = 8.314 × 500 × ln 2 = **2881 J**.
+3. The adiabatic expansion to 300 K: V₃ = V₂ (T_H ÷ T_C)^(1/(γ−1)) = 20 × (5/3)^1.5 = 20 × 2.152 = **43.0 L**. The adiabatic compression back: V₄ = 10 × 2.152 = **21.5 L**. Check V₃ ÷ V₄ = 2 = V₂ ÷ V₁ ✓.
+4. **Q_C** = 8.314 × 300 × ln 2 = **1729 J**.
+5. **W** = 2881 − 1729 = **1153 J** and e = 1153 ÷ 2881 = **40.0%** = 1 − 300 ÷ 500 ✓.
+/EX
+
+LAB: Carnot efficiency | Choose the temperatures of the hot and cold reservoirs (in kelvin). The numbers give the Carnot efficiency and the work from 1000 J of heat. The graph shows how the efficiency grows with the hot temperature for your cold temperature. | TH:Hot temperature T_H (K):400:1500:25:500 ;; TC:Cold temperature T_C (K):250:400:10:300 | (1-TC/TH)*100:Carnot efficiency (%):1 ;; 1000*(1-TC/TH):Work from 1000 J of heat (J):0 ;; 1000*TC/TH:Heat rejected (J):0 | (1-TC/x)*100 | 400,1500 | 0,100
+
+LAB: A Carnot cycle with 1 mol | Choose the temperatures and the expansion ratio r = V₂ ÷ V₁ of the isothermal step. The numbers give Q_H, Q_C and the work. The efficiency does not depend on r. | TH:Hot temperature T_H (K):400:1000:25:500 ;; TC:Cold temperature T_C (K):250:350:10:300 ;; r:Expansion ratio r:1.5:5:0.5:2 | 8.314*TH*log(r):Heat absorbed Q_H (J):0 ;; 8.314*TC*log(r):Heat rejected Q_C (J):0 ;; 8.314*(TH-TC)*log(r):Work W (J):0 ;; (1-TC/TH)*100:Efficiency (%):1 | - | 0,1 | 0,1
+
+### What Carnot tells us about real machines
+EX: Limits
+1. **Steam plant:** T_H = 823 K (550 °C), T_C = 303 K (30 °C): e_Carnot = 1 − 303 ÷ 823 = **63.2%**. Real plants reach about 40%, roughly two thirds of the limit.
+2. **Which helps more?** From T_H = 600 K, T_C = 300 K (e = 50%): raising T_H by 100 K gives 1 − 300 ÷ 700 = **57.1%**. Lowering T_C by 100 K gives 1 − 200 ÷ 600 = **66.7%**. Cooling matters more, but it is much harder to achieve.
+3. **Ocean thermal energy:** warm surface water (300 K) and deep water (277 K) allow only 1 − 277 ÷ 300 = **7.7%**, and real systems manage about 3%. That is why this idea needs huge water flows.
+4. **An impossible claim:** an inventor says that his engine takes 1000 J from a reservoir at 500 K and rejects heat to one at 300 K while doing 600 J of work. The efficiency would be 60%, above the Carnot limit of **40%**: **impossible**.
+5. **Refrigerators:** the best possible COP is T_C ÷ (T_H − T_C). For a fridge at 275 K in a 295 K kitchen: **13.75**. A real fridge has a COP of about 3, which is 22% of the limit. A heat pump heating at 293 K from 273 K air: COP_max = T_H ÷ (T_H − T_C) = **14.65** (real units: 3 to 4).
+/EX
+
+LAB: Best possible fridge or heat pump | Choose the cold and hot temperatures. The numbers give the maximum (Carnot) COP of a refrigerator and of a heat pump working between them. The smaller the temperature gap, the better the COP. | Tc:Cold side (K):260:285:1:275 ;; Th:Hot side (K):290:320:1:295 | Tc/(Th-Tc):Maximum COP of a refrigerator:2 ;; Th/(Th-Tc):Maximum COP of a heat pump:2 | - | 0,1 | 0,1
+
+TRAP: The temperatures in the Carnot formula are **absolute (kelvin)**: using °C gives nonsense. The Carnot limit is for **reversible** engines, and real ones are always below it. And note that the Carnot efficiency depends on **both** temperatures: a power plant with a perfect design still cannot exceed 1 − T_C ÷ T_H.
+
+### Quick self-check
+QUIZ:
+Q: The Carnot efficiency between 600 K and 300 K is…; 25%; 50%; 75%; 100%; 2; 1 − 300 ÷ 600.
+Q: To make a Carnot engine 100% efficient you would need…; T_H = ∞ or T_C = 0; T_H = T_C; a bigger piston; more fuel; 1; Absolute zero is unreachable.
+Q: Two reversible engines operate between the same reservoirs. Their efficiencies are…; different; the same; zero; unrelated to the temperatures; 2; Carnot's theorem.
+Q: A real engine between 600 K and 300 K claims 55% efficiency. This is…; plausible; impossible; exactly Carnot; possible if the engine is large; 2; The limit is 50%.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the Carnot efficiency between 500 K and 300 K. => 1 − 300 ÷ 500 = **40%**.
+P: Find the Carnot efficiency between 600 K and 300 K. => **50%**.
+LVL: Level 2 | Apply
+P: A Carnot engine takes 2000 J from a reservoir at 400 K and rejects heat at 300 K. Find W and Q_C. => e = 25%, W = **500 J**, Q_C = **1500 J**.
+P: What T_H gives a Carnot efficiency of 50% with T_C = 300 K? => 1 − 300 ÷ T_H = 0.5, **T_H = 600 K**.
+P: A power plant operates between 800 K and 300 K with an actual efficiency of 40%. Find the fraction of the Carnot limit reached. => e_Carnot = 62.5%. 40 ÷ 62.5 = **64%**.
+P: Find the maximum COP of a refrigerator working between 270 K and 300 K. => 270 ÷ 30 = **9**.
+P: A heat pump keeps a house at 295 K when it is 275 K outside. Find the maximum COP and the electric power needed for 10 kW of heating at that maximum. => COP_max = 295 ÷ 20 = **14.75**. W = 10 ÷ 14.75 = **0.68 kW**.
+P: An engine takes 1000 J at 500 K, rejects at 300 K and does 450 J of work. Is it possible? => e = 45% > 40%: **impossible**.
+LVL: Level 3 | Real
+P: A Carnot cycle with 1 mol between 600 K and 300 K has an isothermal expansion ratio of 3. Find Q_H, Q_C, W and e. => Q_H = 8.314 × 600 × ln 3 = **5480 J**. Q_C = 8.314 × 300 × ln 3 = **2740 J**. W = **2740 J**. e = **50%**.
+LVL: Challenge | The cycle from last Friday against Carnot
+P: The rectangular cycle from last week had pressure and volume corners at A (200 kPa, 1 L), B (200 kPa, 3 L), C (100 kPa, 3 L), D (100 kPa, 1 L), and its efficiency was 17.4%. Find the highest and lowest temperatures of the cycle in units of P V and compare the efficiency with the Carnot limit between them. => T ∝ P V: A: 200, B: 600, C: 300, D: 100 (in kPa·L). The highest is B (600) and the lowest is D (100). Carnot: 1 − 100 ÷ 600 = **83.3%**. The rectangular cycle reached 17.4%, **21%** of its Carnot limit, because it exchanges heat across large temperature differences (which is irreversible).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Diagonalisation A = P D P⁻¹, Aⁿ = P Dⁿ P⁻¹, n distinct eigenvalues give n independent eigenvectors, √A from √λ. trace (Aⁿ) = Σ λⁿ, det (Aⁿ) = (det A)ⁿ. A shear is not diagonalisable. Mixing models settle at the eigenvalue-1 eigenvector.
+- Carnot cycle: two isotherms and two adiabats, reversible. e = 1 − T_C ÷ T_H, Q_C ÷ Q_H = T_C ÷ T_H. Carnot's theorem. COP_max (fridge) = T_C ÷ (T_H − T_C), COP_max (heat pump) = T_H ÷ (T_H − T_C).
+
+BN: আজকের সারকথা: A = PDP⁻¹, Aⁿ = PDⁿP⁻¹; ভিন্ন eigenvalue থাকলে কর্ণীকরণযোগ্য; trace(Aⁿ) = Σλⁿ। কার্নো চক্র: দুটো সমোষ্ণ ও দুটো রুদ্ধতাপ ধাপ; e = 1 − T_C/T_H; কার্নোর উপপাদ্য; সর্বোচ্চ COP: ফ্রিজ T_C/(T_H − T_C), হিট পাম্প T_H/(T_H − T_C)।
+
+EXIT:
+E: For A = [[2, 1], [1, 2]], what is the (1, 1) entry of A⁴?; 41; 0.001; (3⁴ + 1) ÷ 2 = 41.
+E: What is the Carnot efficiency (in percent) between 600 K and 300 K?; 50; 0.01; 1 − 300 ÷ 600.
+E: A Carnot engine takes 2000 J from a reservoir at 400 K and rejects heat at 300 K. How many joules are rejected?; 1500; 0.5; Q_C = Q_H × T_C ÷ T_H = 2000 × 0.75.
+
+**Tomorrow:** matrices in applications (Fibonacci, Leslie populations, coupled vibrations), and entropy: the quantity that always grows.
+
+CHECK: notes

@@ -1,0 +1,222 @@
+@day Week 2 · Day 3 · Wednesday
+# Exponential functions and growth. Then: Newton's first law
+lead: Exponential growth is the pattern behind money in a bank, viruses spreading, radioactive decay and a phone battery charging. Today you learn how it works and why it behaves so differently from a straight line. In physics: why a moving object keeps moving unless something stops it.
+
+BN: সূচকীয় ফাংশন (exponential function) হলো ব্যাংকের সুদ, ভাইরাস ছড়ানো, তেজস্ক্রিয় ক্ষয়, ফোনের চার্জ, সবকিছুর পিছনের গণিত। আজ বুঝব এটা সরলরেখার চেয়ে এত আলাদা কেন। পদার্থবিজ্ঞানে নিউটনের প্রথম সূত্র: চলন্ত বস্তু কেন থামে না যতক্ষণ কিছু তাকে থামায় না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and before
+P: If f(x) = 2x − 3 and g(x) = x², find g(f(2)). => f(2) = 1, g(1) = **1**.
+P: Find the inverse of f(x) = 5x + 1. => **(x − 1) ÷ 5**.
+P: Simplify 2⁵ · 2⁻³ ÷ 2². => 2² ÷ 2² = **1**.
+P: A 6 kg object has what weight? => 6 × 9.8 = **58.8 N**.
+P: Find the resultant of perpendicular forces 5 N and 12 N. => √(25 + 144) = **13 N**.
+
+CHECK: recall
+
+@section math | 2 · Math: exponential functions | 55 min
+
+### Adding versus multiplying
+A straight line grows by **adding** the same amount each step. A savings account that earns 1000 taka per year in simple interest is linear.
+
+An exponential grows by **multiplying** by the same factor each step. If your money grows 8% every year, each year it is multiplied by 1.08.
+
+EX: Two plans
+1. Plan A: you save 100 taka every day (linear). Plan B: you start with 1 taka and double every day (exponential).
+2. After 10 days: A has 1000. B has 2¹⁰ = 1024.
+3. After 20 days: A has 2000. B has 2²⁰ = **1,048,576**.
+4. After 30 days: A has 3000. B has 2³⁰ = **1,073,741,824**, over a billion.
+/EX
+
+KEY: An **exponential function** has the variable in the exponent: f(x) = aˣ with a > 0 and a ≠ 1. The number a is the **base**, and it is the multiplier per unit step.
+
+BN: সরলরেখায় প্রতিধাপে সংখ্যা যোগ হয়। সূচকীয় ফাংশনে প্রতিধাপে একই সংখ্যা দিয়ে গুণ হয়। x² এ x হলো base আর ঘাত ধ্রুবক; 2ˣ এ ঘাতটাই চলক। ৩০ দিনে সরল পরিকল্পনায় ৩০০০ আর দ্বিগুণ-হওয়া পরিকল্পনায় ১০০ কোটির বেশি, এটাই সূচকীয় বৃদ্ধির শক্তি।
+
+### The graph and its properties
+GRAPH: y = 2ˣ and y = (1/2)ˣ | x | y | -3,0.125 -2,0.25 -1,0.5 0,1 1,2 2,4 3,8 ;; -3,8 -2,4 -1,2 0,1 1,0.5 2,0.25 3,0.125 | The teal curve is 2ˣ (growth). The orange curve is (1/2)ˣ (decay). They are mirror images in the y-axis. Both pass through (0, 1).
+
+- **Passes through (0, 1)** because a⁰ = 1.
+- **Always positive:** a power of a positive number is never zero or negative. The range is y > 0.
+- **Horizontal asymptote y = 0:** it gets closer and closer to the x-axis but never touches it.
+- **Domain:** all real numbers. We can put in any x, including 0.5 (that means √2 for base 2) or −3.
+- If a > 1 it **grows**. If 0 < a < 1 it **decays**.
+
+### Growth and decay in the real world
+A quantity that changes by a fixed percentage each period follows:
+
+EQ: P(t) = P₀ · (1 + r)ᵗ  (growth)     P(t) = P₀ · (1 − r)ᵗ  (decay)
+
+where P₀ is the starting amount, r the rate per period as a decimal, and t the number of periods.
+
+EX: A bank deposit
+1. 1000 taka at 8% per year, compounded yearly. How much after 5 years?
+2. A = 1000 × 1.08⁵ = 1000 × 1.4693 = **1469.33 taka**.
+/EX
+
+EX: A phone loses value
+1. A phone worth 30,000 taka loses 20% of its value each year. What is it worth after 3 years?
+2. V = 30000 × 0.8³ = 30000 × 0.512 = **15,360 taka**.
+/EX
+
+**Half-life.** For radioactive atoms or a medicine in your blood, we often use the time T it takes to halve. Then:
+
+EQ: N(t) = N₀ · (1/2)^(t ÷ T)
+
+EX: A medicine
+1. A dose of 800 mg has a half-life of 6 hours. How much is left after 18 hours?
+2. 18 ÷ 6 = 3 half-lives, so (1/2)³ = 1/8. 800 ÷ 8 = **100 mg**.
+/EX
+
+BN: ক্ষয়ের হিসাবে half-life মানে অর্ধেক হতে যত সময় লাগে। ১৮ ঘণ্টা মানে ৩ বার অর্ধেক: ৮০০ → ৪০০ → ২০০ → ১০০। সূত্র N₀ × (½)^(t/T)। বৃদ্ধির সূত্রে শতকরা হারকে দশমিকে লিখে (১ + r) দিয়ে গুণ করো।
+
+### Compounding more often, and the number e
+Suppose a bank pays 100% interest per year on 1 taka. If it compounds once, you get 1 × 2 = 2. If it compounds twice (50% each half-year): 1.5² = 2.25. What if it compounds more and more often?
+
+| Times per year, n | Value of (1 + 1/n)ⁿ |
+| 1 | 2 |
+| 2 | 2.25 |
+| 4 | 2.4414 |
+| 12 | 2.6130 |
+| 365 | 2.7146 |
+| 1,000,000 | 2.71828 |
+
+The values do not explode. They settle toward a number we call **e ≈ 2.71828**. It is an irrational number like π, and it is the natural base for continuous growth.
+
+EQ: Continuous growth:  P(t) = P₀ · e^(rt)
+
+Why is e "natural"? Among all exponential curves, y = eˣ is the one whose **slope at any point equals its own height**. In Week 8 you will see that this makes calculus beautifully simple. For now, treat e as a number you meet on the calculator key **eˣ** (and its inverse, **ln**, which is Thursday's topic).
+
+EX: Continuous growth
+1. A culture of 500 bacteria grows continuously at rate r = 0.3 per hour. How many after 4 hours?
+2. N = 500 × e^(0.3 × 4) = 500 × e^1.2 = 500 × 3.3201 = **1660**.
+/EX
+
+### Solving simple exponential equations by matching bases
+If both sides can be written with the same base, the exponents must be equal. (This works because an exponential is one-to-one.)
+
+EX: Solve 3^(2x − 1) = 27
+1. Write 27 as 3³.
+2. Match exponents: 2x − 1 = 3, so **x = 2**.
+/EX
+
+EX: Solve 4ˣ = 8
+1. Write both as powers of 2: (2²)ˣ = 2³, so 2^(2x) = 2³.
+2. 2x = 3, so **x = 3/2**.
+/EX
+
+EX: Solve 9ˣ = 1/27
+1. 9 = 3² and 1/27 = 3⁻³. So 3^(2x) = 3⁻³.
+2. 2x = −3, so **x = −3/2**.
+/EX
+
+TRAP: Matching bases only works if both sides are **pure powers of the same base**. 2ˣ = 10 cannot be solved this way because 10 is not a nice power of 2. That is exactly the problem logarithms solve, and it is the story of tomorrow.
+
+### Transformations again
+Yesterday's rules apply: y = 2^(x − 3) is 2ˣ shifted right by 3. y = 2ˣ + 1 shifts up by 1, and its asymptote moves to y = 1.
+
+### Quick self-check
+QUIZ:
+Q: Which function is exponential?; y = x³; y = 3x; y = 3ˣ; y = 3/x; 3; Only y = 3ˣ has the variable in the exponent.
+Q: The graph of y = 5ˣ passes through…; (0, 5); (0, 1); (1, 0); (5, 0); 2; 5⁰ = 1, so it passes through (0, 1).
+Q: A population of 200 grows 10% per year. After 2 years it is…; 220; 240; 242; 400; 3; 200 × 1.1² = 200 × 1.21 = 242.
+Q: Solve 2^(x + 1) = 16.; x = 3; x = 4; x = 7; x = 15; 1; 16 = 2⁴, so x + 1 = 4 and x = 3.
+Q: The number e is approximately…; 3.14; 2.718; 1.414; 1.618; 2; e ≈ 2.71828. (3.14 is π.)
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Evaluate f(x) = 3ˣ at x = 0, 2 and −1. => f(0) = **1**. f(2) = **9**. f(−1) = **1/3**.
+P: Solve 2ˣ = 64. => 64 = 2⁶, so **x = 6**.
+P: A town of 20,000 grows 5% a year. Find its population after 3 years. => 20000 × 1.05³ = 20000 × 1.157625 = **23,153**.
+LVL: Level 2 | Combine
+P: Solve 5^(x − 2) = 125. => 125 = 5³, so x − 2 = 3 and **x = 5**.
+P: Solve 8ˣ = 1/4. => 2^(3x) = 2⁻², so 3x = −2 and **x = −2/3**.
+P: A car costing 800,000 taka loses 15% per year. Find its value after 4 years. => 800000 × 0.85⁴ = 800000 × 0.52200625 = **417,605 taka** (about).
+P: Sketch y = 2ˣ − 3. State the asymptote and the y-intercept. => Shift 2ˣ down by 3. Asymptote **y = −3**. y-intercept: 2⁰ − 3 = **−2**.
+P: Iodine-131 has a half-life of 8 days. What fraction remains after 24 days? => 3 half-lives: (1/2)³ = **1/8**.
+LVL: Level 3 | Real
+P: You invest 5000 taka at 6% a year, compounded monthly (rate per month 0.5%). Find the amount after 2 years. => 24 months: 5000 × 1.005²⁴ = 5000 × 1.12716 = **5635.80 taka**. Compare yearly: 5000 × 1.06² = 5618.
+P: Compare continuous compounding at 6% for 2 years on 5000 taka. => 5000 × e^(0.12) = 5000 × 1.12750 = **5637.48 taka**, barely more than monthly. Compounding more often gives diminishing returns.
+P: A cup of tea cools. Its excess temperature over the room halves every 10 minutes. It starts 60 °C above the room. What is the excess after 30 min and after 25 min? => 30 min = 3 halvings: 60 ÷ 8 = **7.5 °C**. 25 min: 60 × (1/2)^2.5 = 60 × 0.17678 = **10.6 °C**.
+LVL: Challenge | The moon-bound paper
+P: A sheet of paper is 0.1 mm thick. Folding it in half doubles the thickness. If you could fold it 42 times, how thick would the stack be? Compare with the distance to the Moon, 384,000 km. => Thickness = 0.1 mm × 2⁴² = 0.1 × 4.398 × 10¹² mm = 4.398 × 10¹¹ mm = 4.398 × 10⁸ m = **about 440,000 km**, which is more than the distance to the Moon. (In practice you cannot fold paper more than about 7 or 8 times, but the math is a good warning about doubling.)
+
+CHECK: math
+
+@section physics | 3 · Physics: Newton's first law | 35 min
+
+### The old idea and the new idea
+For almost 2000 years people believed that a force is needed to **keep** something moving. Look around: a rolling ball stops, a cart stops, a pushed book stops. It seems obvious.
+
+Galileo noticed something deeper. Roll a ball down one ramp and up another. On a rough ramp it rises a bit less each time. On a smoother ramp, it rises almost to the same height. On a perfectly smooth ramp that goes on forever, he reasoned it would never stop. The thing that stops everyday objects is **friction**, a force, not some natural tendency to rest.
+
+### Newton's first law
+KEY: An object stays at rest, or moves at **constant velocity** in a straight line, unless a **net force** acts on it.
+
+Constant velocity means no acceleration. So the first law says: **zero net force means zero acceleration**, and zero acceleration means the net force is zero. An object at rest and an object moving steadily are in the same situation, called **equilibrium**.
+
+BN: নিউটনের প্রথম সূত্র: নিট বল শূন্য হলে বস্তু স্থির থাকে বা সমবেগে সোজা পথে চলতে থাকে। চলতে থাকতে কোনো বল লাগে না। বলের দরকার বেগ বদলাতে। রাস্তায় বল থামে কারণ ঘর্ষণ বল তাকে থামায়, থেমে থাকাটা বস্তুর স্বাভাবিক ধর্ম নয়।
+
+### Inertia
+The tendency of an object to resist changes in its velocity is called **inertia**. **Mass** is the measure of inertia: more mass means more resistance to change.
+
+You feel inertia all the time. When a bus brakes suddenly, you lurch forward. No force pushes you forward. Your body simply tries to continue at its old velocity while the bus slows. When a bus starts quickly, you press into your seat because your body resists speeding up.
+
+### Equilibrium: balanced forces
+In equilibrium, the forces cancel: the vector sum is zero.
+
+EX: A box at constant velocity
+1. You push a crate along a floor at constant speed with a 80 N horizontal force.
+2. Constant velocity means zero net force, so friction must be **80 N backwards**.
+3. If you push harder (100 N), the net force is 20 N forward and the crate **accelerates**. It does not "go faster at constant speed".
+/EX
+
+EX: A skydiver at terminal velocity
+1. A 70 kg skydiver falls faster and faster. Air resistance grows with speed.
+2. At some speed, the drag equals the weight: D = 686 N. Now the net force is zero.
+3. By the first law, the skydiver falls at **constant velocity** (about 55 m/s for a spread-eagle posture). This is **terminal velocity**.
+/EX
+
+EX: Three forces in equilibrium
+1. Forces of 6 N east and 8 N north act on an object. What third force keeps it in equilibrium?
+2. The resultant of the first two is √(36 + 64) = 10 N at 53° north of east.
+3. The third force must cancel it: **10 N pointing the opposite way**, at 53° south of west.
+/EX
+
+TRAP: "An object moving at constant speed has no forces acting on it." Wrong. It can have **many forces whose sum is zero**. The correct statement is that the **net** force is zero. A car cruising at 80 km/h still has engine force and air drag, balanced.
+
+### Quick self-check
+QUIZ:
+Q: A puck slides at constant velocity on frictionless ice. The net force on it is…; in the direction of motion; opposite to motion; zero; equal to its weight; 3; Constant velocity means zero acceleration, so the net force is zero.
+Q: Which has more inertia?; a 2 kg book; a 10 kg bag; a 5 kg ball; they are equal; 2; Inertia is measured by mass, and the 10 kg bag has the most.
+Q: A crate moves at a steady 2 m/s while you push it with 50 N. The friction force is…; 0; 25 N; 50 N; 100 N; 3; Steady means zero net force, so friction equals the push.
+Q: A passenger lurches forward when a bus brakes because…; a force pushes the passenger forward; the passenger's body tends to keep its velocity; gravity increases; the seat pushes forward; 2; Inertia: the body continues at its original velocity.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 10 kg box moves at constant velocity on a floor with a 25 N push. What is the friction? => **25 N** opposite to the push.
+P: A parachutist of mass 80 kg descends at constant speed. What is the drag force? => Equal to the weight: 80 × 9.8 = **784 N** upward.
+LVL: Level 2 | Equilibrium
+P: A hanging sign of mass 12 kg is held by a single chain. Find the tension. => The sign is in equilibrium: T = **117.6 N**.
+P: Three forces act on an object in equilibrium: 15 N to the right, 6 N to the left and F. Find F. => 15 − 6 + F = 0, so **F = −9 N**: 9 N to the left.
+P: Forces of 3 N east, 4 N north and F act on an object in equilibrium. Find F. => The resultant of the first two is 5 N at 53° north of east, so F = **5 N at 53° south of west**.
+LVL: Challenge | Explain with the first law
+P: Explain why a coin placed on a card on a glass drops into the glass when you flick the card away quickly. => The card is removed by a horizontal force quickly. The coin has inertia and a very small friction on it for a short time, so its horizontal velocity barely changes (it stays at rest). With no support, gravity pulls it down into the glass.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Exponential: f(x) = aˣ. Passes (0, 1), always positive, asymptote y = 0. a > 1 grows, 0 < a < 1 decays.
+- Growth P₀(1 + r)ᵗ, decay P₀(1 − r)ᵗ, half-life N₀(1/2)^(t ÷ T), continuous P₀e^(rt).
+- e ≈ 2.718. Solve by matching bases when possible.
+- First law: net force zero ⟺ constant velocity (or rest). Mass is inertia.
+
+BN: আজকের সারকথা: সূচকীয় ফাংশন মানে চলক ঘাতে। (০, ১) বিন্দু দিয়ে যায়, সবসময় ধনাত্মক। e ≈ ২.৭১৮। সমান base বানিয়ে ঘাত মেলাও। নিউটনের প্রথম সূত্র: নিট বল শূন্য মানে ত্বরণ শূন্য। ভর হলো জড়তার (inertia) মাপ।
+
+**Tomorrow (Thursday):** logarithms 1, the question an exponent cannot answer, and Newton's second law F = ma.
+
+CHECK: notes

@@ -1,0 +1,179 @@
+@day Week 15 · Day 3 · Wednesday
+# Matrices at work: Fibonacci, populations and vibrations. Then: entropy
+lead: Eigenvalues explain how rabbits multiply, how a population stabilises, and why two coupled pendulums swap their energy back and forth. In physics, you meet entropy, the quantity that tells you which way time runs: it measures how much heat is spread out, and the second law says that the total entropy of the universe never decreases.
+
+BN: eigenvalue ব্যাখ্যা করে খরগোশ কীভাবে বাড়ে, জনসংখ্যা কীভাবে স্থির হয়, আর কেন দুটো যুক্ত দোলক শক্তি একে অপরকে আদান-প্রদান করে। পদার্থবিজ্ঞানে এনট্রপি শিখবে: যে রাশি বলে দেয় সময় কোন দিকে চলে। এটা তাপ কতটা ছড়িয়ে গেছে তা মাপে, আর দ্বিতীয় সূত্র বলে মহাবিশ্বের মোট এনট্রপি কখনো কমে না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: If A = P D P⁻¹, what is A⁵? => **P D⁵ P⁻¹**.
+P: What is the Carnot efficiency between 500 K and 300 K? => **40%**.
+P: Find the eigenvalues of [[0, 1], [1, 0]]. => λ² − 1 = 0, **λ = ±1**.
+P: What is the maximum COP of a fridge between 270 K and 300 K? => 270 ÷ 30 = **9**.
+P: What is the latent heat of fusion of water? => **334 kJ/kg**.
+
+CHECK: recall
+
+@section math | 2 · Math: three applications of eigenvalues | 55 min
+
+### 1 · Fibonacci and the golden ratio
+The Fibonacci numbers 1, 1, 2, 3, 5, 8, … obey F_(n+1) = F_n + F_(n−1). In matrix form:
+
+EQ: [[1, 1], [1, 0]]ⁿ = [[F_(n+1), F_n], [F_n, F_(n−1)]]
+
+EX: Eigenvalues of the Fibonacci matrix
+1. F = [[1, 1], [1, 0]]: trace 1, det −1, so λ² − λ − 1 = 0 and **λ = φ = (1 + √5) ÷ 2 = 1.618** (the golden ratio) and **ψ = (1 − √5) ÷ 2 = −0.618**.
+2. Check an eigenvector: F (φ, 1) = (φ + 1, φ) = (φ², φ) = φ (φ, 1), since φ² = φ + 1 ✓.
+3. Diagonalising gives **Binet's formula: F_n = (φⁿ − ψⁿ) ÷ √5**. For n = 10: φ¹⁰ = 122.99, ψ¹⁰ = 0.0081, so F₁₀ = 122.98 ÷ 2.236 = **55** ✓.
+4. Because |ψ| < 1, F_n is the integer nearest to φⁿ ÷ √5. For n = 50: **12,586,269,025**.
+5. The ratio F_(n+1) ÷ F_n tends to φ: 6765 ÷ 4181 = 1.61803.
+6. Taking determinants: det (Fⁿ) = (−1)ⁿ gives **F_(n+1) F_(n−1) − F_n² = (−1)ⁿ**. For n = 10: 89 × 34 − 55² = 3026 − 3025 = 1 ✓.
+/EX
+
+LAB: Fibonacci by Binet | Choose n. The numbers give F_n from Binet's formula (an exact integer, despite the square roots), the ratio F_(n+1) ÷ F_n and its distance from the golden ratio. | n:Index n:1:30:1:10 | (pow(1.6180339887,n)-pow(-0.6180339887,n))/2.2360679775:Fibonacci number F_n:0 ;; (pow(1.6180339887,n+1)-pow(-0.6180339887,n+1))/(pow(1.6180339887,n)-pow(-0.6180339887,n)):Ratio F_(n+1) ÷ F_n:6 ;; abs((pow(1.6180339887,n+1)-pow(-0.6180339887,n+1))/(pow(1.6180339887,n)-pow(-0.6180339887,n))-1.6180339887):Distance from the golden ratio:7 | - | 0,1 | 0,1
+
+### 2 · Populations that grow in stages
+A population has juveniles J and adults A. Each adult produces b juveniles per step; a fraction s_j of the juveniles become adults; a fraction s_a of the adults survive. Then
+
+(J, A)_next = L (J, A), with the **Leslie matrix** L = [[0, b], [s_j, s_a]].
+
+EX: A growing population
+1. b = 2, s_j = 0.5, s_a = 0.8: L = [[0, 2], [0.5, 0.8]]. The trace is 0.8 and the determinant is −1, so λ² − 0.8λ − 1 = 0 and **λ = (0.8 + √4.64) ÷ 2 = 1.477**.
+2. The dominant eigenvalue is the long-run growth factor: the population grows **47.7% per step**.
+3. The eigenvector (A − λI) v = 0: −1.477 J + 2 A = 0, so v = (2, 1.477): juveniles and adults in the ratio **1.354 : 1**.
+4. Start from (10, 10): the next steps are (20, 13), (26, 20.4), (40.8, 29.3), (58.6, 43.9), (87.7, 64.4). The total grows by factors 1.41, 1.51, 1.46, 1.48, … tending to **1.477**.
+5. **Replacement level:** the population is stable when λ = 1, i.e. det (L − I) = 0: (−1)(s_a − 1) − b s_j = 0, so **b = (1 − s_a) ÷ s_j = 0.2 ÷ 0.5 = 0.4**. Fewer than 0.4 juveniles per adult per step and the population dies out.
+/EX
+
+LAB: A two-stage population | The matrix is L = [[0, b], [s_j, s_a]]. The numbers give the long-run growth factor (the dominant eigenvalue, from λ² − s_a λ − b s_j = 0) and the birth rate needed for a stable population. The graph shows λ against b: where it crosses 1 the population is stable. | b:Births per adult b:0.1:3:0.1:2 ;; sj:Juvenile survival s_j:0.2:0.9:0.05:0.5 ;; sa:Adult survival s_a:0.3:0.95:0.05:0.8 | (sa+sqrt(sa^2+4*b*sj))/2:Growth factor λ:3 ;; ((sa+sqrt(sa^2+4*b*sj))/2-1)*100:Growth per step (%):1 ;; (1-sa)/sj:Replacement birth rate:3 | (sa+sqrt(sa^2+4*x*sj))/2 ;; 1 | 0.1,3 | 0,2.5
+
+### 3 · Two coupled oscillators: normal modes
+Two equal masses m are each attached to a wall by a spring k and to each other by a spring k_c. Newton's second law for the displacements x₁, x₂:
+
+m x₁″ = −k x₁ − k_c (x₁ − x₂)     m x₂″ = −k x₂ − k_c (x₂ − x₁)
+
+In matrix form x″ = −M x, with M = (1 ÷ m) [[k + k_c, −k_c], [−k_c, k + k_c]]. Try x = v cos ωt: then M v = ω² v, so **the eigenvalues of M are ω²** and the eigenvectors are the **normal modes**, in which everything oscillates at one frequency.
+
+EX: Normal modes
+1. **In-phase mode** v = (1, 1): M (1, 1) = (k ÷ m)(1, 1), so ω₁² = k ÷ m. The middle spring is not stretched.
+2. **Opposite mode** v = (1, −1): M (1, −1) = ((k + 2k_c) ÷ m)(1, −1), so ω₂² = (k + 2k_c) ÷ m. The middle spring is stretched twice as much, so it oscillates faster.
+3. With m = 1 kg, k = 100 N/m and k_c = 20 N/m: **ω₁ = 10 rad/s** (f₁ = 1.592 Hz) and **ω₂ = √140 = 11.83 rad/s** (f₂ = 1.883 Hz).
+4. Pull only mass 1 and release: x = ½ (in-phase mode) + ½ (opposite mode). The two frequencies **beat** at f₂ − f₁ = 0.292 Hz, and the energy swaps between the masses every **3.43 s**, just like the beats you met in Week 10.
+/EX
+
+LAB: Coupled oscillators | Choose the spring constants and the mass. The numbers give the two normal-mode frequencies and the period at which energy swaps between the masses. With no coupling (k_c = 0) the two modes have the same frequency, so nothing swaps (n/a). | k:Wall spring k (N/m):50:200:10:100 ;; kc:Coupling spring k_c (N/m):0:60:5:20 ;; m:Mass m (kg):0.5:2:0.1:1 | sqrt(k/m):ω₁ in-phase (rad/s):3 ;; sqrt((k+2*kc)/m):ω₂ opposite (rad/s):3 ;; sqrt(k/m)/(2*pi):f₁ (Hz):3 ;; sqrt((k+2*kc)/m)/(2*pi):f₂ (Hz):3 ;; 1/(sqrt((k+2*kc)/m)/(2*pi)-sqrt(k/m)/(2*pi)):Energy swap period (s):2 | - | 0,1 | 0,1
+
+BN: Fibonacci ম্যাট্রিক্সের eigenvalue φ = 1.618 (সোনালি অনুপাত) ও −0.618; Binet: F_n = (φⁿ − ψⁿ)/√5। জনসংখ্যায় Leslie ম্যাট্রিক্সের বৃহত্তম eigenvalue হলো দীর্ঘমেয়াদি বৃদ্ধির গুণক; λ = 1 হলে স্থিতিশীল। যুক্ত দোলকে M এর eigenvalue = ω², eigenvector = স্বাভাবিক মোড: (1,1) একসাথে, (1,−1) বিপরীত। দুই কম্পাঙ্কের বিট থেকে শক্তি আদান-প্রদানের পর্যায় পাওয়া যায়।
+
+TRAP: In Binet's formula do not drop the ψⁿ term for small n (it is tiny only for large n). In the Leslie model the **dominant** eigenvalue (the largest in magnitude) governs the long run. And in the coupled oscillator, eigenvalues of M are ω² (squares of the angular frequencies): take the square root.
+
+### Quick self-check
+QUIZ:
+Q: The ratio F_(n+1) ÷ F_n tends to…; 1; 1.618; 2; 0.618; 2; The golden ratio, the dominant eigenvalue.
+Q: A Leslie matrix has dominant eigenvalue 0.9. In the long run the population…; grows; shrinks; stays the same; oscillates forever; 2; λ < 1.
+Q: In the in-phase normal mode of two equal coupled masses, the coupling spring is…; stretched twice; not stretched; compressed; broken; 2; Both masses move together.
+Q: The eigenvalues of the matrix M in x″ = −M x are…; ω; ω²; 1 ÷ ω; 2ω; 2; x = v cos ωt gives M v = ω² v.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Compute [[1, 1], [1, 0]]⁵ using the Fibonacci numbers 1, 1, 2, 3, 5, 8. => [[F₆, F₅], [F₅, F₄]] = **[[8, 5], [5, 3]]**. Its determinant is 24 − 25 = −1 = (−1)⁵ ✓.
+P: Find the eigenvalues of [[1, 1], [1, 0]]. => λ² − λ − 1 = 0, **λ = 1.618 and −0.618**.
+P: Find the frequencies for m = 2 kg, k = 200 N/m, k_c = 50 N/m. => ω₁ = √(200 ÷ 2) = **10 rad/s**, ω₂ = √((200 + 100) ÷ 2) = √150 = **12.25 rad/s**.
+LVL: Level 2 | Apply
+P: For the Leslie matrix [[0, 1], [0.5, 0.8]] find the dominant eigenvalue and the growth per step. => λ² − 0.8λ − 0.5 = 0, λ = (0.8 + √2.64) ÷ 2 = **1.212**: growth of **21.2%** per step.
+P: What birth rate b makes a population with s_j = 0.5, s_a = 0.8 stable? => b = (1 − 0.8) ÷ 0.5 = **0.4**.
+P: Use F_(n+1) F_(n−1) − F_n² = (−1)ⁿ with n = 7 (F₆ = 8, F₇ = 13, F₈ = 21). => 21 × 8 − 13² = 168 − 169 = **−1** = (−1)⁷ ✓.
+P: Pull mass 1 of the coupled oscillators (m = 1, k = 100, k_c = 20) and release it. After how long has the energy moved entirely to mass 2 for the first time? => Half the swap period: **1.71 s** (the swap period is 3.43 s).
+P: For the Leslie matrix with b = 3, s_j = 0.5, s_a = 0.5, find λ. => λ² − 0.5λ − 1.5 = 0, λ = (0.5 + √(0.25 + 6)) ÷ 2 = (0.5 + 2.5) ÷ 2 = **1.5**.
+P: How many pairs of rabbits are there after 12 months if one pair is born in month 1 and each pair breeds from the second month? (Fibonacci's original problem.) => **F₁₂ = 144** pairs.
+LVL: Level 3 | Real
+P: A bridge has two similar towers joined by a stiff link, which can sway in phase or out of phase with frequencies 0.5 Hz and 0.6 Hz. If a wind gust makes only the first tower sway, how often do the towers swap the swaying? => The beat frequency is 0.6 − 0.5 = 0.1 Hz: the swaying moves from one tower to the other every **10 s** (so a full cycle takes 10 s).
+LVL: Challenge | Binet's formula from the eigenvectors
+P: Show that (φ, 1) and (ψ, 1) are eigenvectors of F = [[1, 1], [1, 0]] with eigenvalues φ and ψ, and that (1, 0) = (1 ÷ (φ − ψ)) [(φ, 1) − (ψ, 1)]. Use this to derive F_n. => F (ψ, 1) = (ψ + 1, ψ) = (ψ², ψ) = ψ (ψ, 1) since ψ² = ψ + 1. For the decomposition: (φ, 1) − (ψ, 1) = (φ − ψ, 0) and φ − ψ = √5, so (1, 0) = (1 ÷ √5) [(φ, 1) − (ψ, 1)]. Then Fⁿ (1, 0) = (1 ÷ √5) [φⁿ (φ, 1) − ψⁿ (ψ, 1)]. The second component of this vector is (φⁿ − ψⁿ) ÷ √5, and the second component of Fⁿ (1, 0) = (F_(n+1), F_n) is F_n. So **F_n = (φⁿ − ψⁿ) ÷ √5**.
+
+CHECK: math
+
+@section physics | 3 · Physics: entropy | 35 min
+
+### A quantity that always grows
+Clausius defined entropy through heat exchanged **reversibly** at temperature T:
+
+EQ: dS = δQ_rev ÷ T     so at constant temperature     ΔS = Q ÷ T     (unit J/K)
+
+Entropy is a **state function**, like energy: it depends only on the state, not on how you got there. The second law, in its entropy form:
+
+EQ: ΔS_total = ΔS_system + ΔS_surroundings ≥ 0     (= 0 only for reversible processes)
+
+BN: এনট্রপি: dS = δQ_rev/T, ধ্রুব তাপমাত্রায় ΔS = Q/T (J/K)। এটা অবস্থার ফাংশন। দ্বিতীয় সূত্র: ΔS_মোট = ΔS_ব্যবস্থা + ΔS_পরিবেশ ≥ 0; পরিবর্তনীয় প্রক্রিয়ায় সমান, অপরিবর্তনীয় প্রক্রিয়ায় বড়। তাপ গরম থেকে ঠান্ডায় গেলে মোট এনট্রপি বাড়ে।
+
+EX: Heat flowing from hot to cold
+1. 1000 J flows from a hot reservoir at 400 K to a cold one at 300 K. The hot one loses entropy: ΔS_H = −1000 ÷ 400 = **−2.50 J/K**. The cold one gains ΔS_C = +1000 ÷ 300 = **+3.33 J/K**.
+2. Total: **+0.83 J/K > 0**. The reverse flow would give −0.83 J/K, forbidden by the second law.
+3. **Lost work:** if instead of conducting, the heat ran a Carnot engine between 400 K and 300 K, the work would be 1000 × (1 − 300 ÷ 400) = 250 J. Direct conduction wastes this 250 J, and exactly **T_C ΔS_total = 300 × 0.833 = 250 J**. Entropy production measures wasted work.
+/EX
+
+LAB: Entropy of a heat flow | A heat Q flows from a hot reservoir T_H to a cold reservoir T_C. The numbers give the entropy change of each, the total (always positive) and the work that could have been obtained with a Carnot engine and is now lost. | Q:Heat Q (J):100:2000:100:1000 ;; TH:Hot reservoir T_H (K):350:600:10:400 ;; TC:Cold reservoir T_C (K):250:340:10:300 | -Q/TH:Entropy change of the hot reservoir (J/K):3 ;; Q/TC:Entropy change of the cold reservoir (J/K):3 ;; Q/TC-Q/TH:Total entropy change (J/K):3 ;; TC*(Q/TC-Q/TH):Lost work (J):1 | - | 0,1 | 0,1
+
+### Entropy changes in common processes
+EX: Calculating ΔS
+1. **Melting ice** at 273.15 K: 1 kg takes 334 kJ, so ΔS = 334,000 ÷ 273.15 = **1223 J/K**. **Boiling** 1 kg of water at 373.15 K: 2.26 × 10⁶ ÷ 373.15 = **6057 J/K**.
+2. **Heating water:** dS = m c dT ÷ T, so ΔS = m c ln (T₂ ÷ T₁). For 1 kg from 20 °C to 80 °C: 4186 × ln (353.15 ÷ 293.15) = **779 J/K**.
+3. **Mixing:** 1 kg of water at 80 °C and 1 kg at 20 °C reach 50 °C (323.15 K). ΔS = 4186 × [ln (323.15 ÷ 353.15) + ln (323.15 ÷ 293.15)] = 4186 × (−0.0888 + 0.0974) = **+36.2 J/K**.
+4. **Ideal gas:** ΔS = n C_V ln (T₂ ÷ T₁) + n R ln (V₂ ÷ V₁). In a **free expansion** to twice the volume, nothing exchanges heat but ΔS = n R ln 2 = **5.76 J/K per mole** (entropy is a state function, so we compute it along any reversible path between the same states).
+5. **An ice cube** of 20 g melts in a 293 K room: the ice gains 0.02 × 334,000 ÷ 273.15 = 24.46 J/K and the room loses 6680 ÷ 293.15 = 22.79 J/K, a total of **+1.67 J/K**.
+6. **A reversible isothermal expansion** has ΔS_gas = n R ln 2 and ΔS_surroundings = −n R ln 2: total **0**. The free expansion has the same ΔS_gas but ΔS_surroundings = 0: total **+n R ln 2**.
+/EX
+
+LAB: Entropy of heating water | Choose the mass and the start and end temperatures (in degrees Celsius). The graph shows the entropy change of heating from the start temperature to any temperature: it grows logarithmically. The number gives your ΔS. | m:Mass (kg):0.5:2:0.5:1 ;; T1:Start temperature (°C):0:60:5:20 ;; T2:End temperature (°C):70:100:5:80 | m*4186*log((T2+273.15)/(T1+273.15)):Entropy change (J/K):1 ;; m*4186*(T2-T1):Heat added (J):0 | m*4186*log((x+273.15)/(T1+273.15)) | 20,100 | 0,2200
+
+### Entropy and the Carnot cycle
+For a Carnot engine, Q_H ÷ T_H = Q_C ÷ T_C: the entropy the engine takes from the hot reservoir equals the entropy it gives to the cold one, and the net entropy change is **zero** (reversible). For a real engine, Q_C ÷ T_C > Q_H ÷ T_H, so more heat must be rejected than in the Carnot case, and **e < e_Carnot**.
+
+A single reservoir cannot drive an engine either: taking Q from one reservoir at T and turning it all into work gives ΔS = −Q ÷ T < 0, forbidden. That is the Kelvin–Planck statement derived from entropy.
+
+TRAP: Use **kelvin** in Q ÷ T. A system's entropy can decrease (a freezing liquid), but then its surroundings gain more, so the **total** never decreases. And entropy is only equal to Q ÷ T for a **reversible** heat exchange: for an irreversible process find a reversible path between the same two states.
+
+### Quick self-check
+QUIZ:
+Q: When heat Q flows from a body at T_H to a body at T_C < T_H, the total entropy change is…; negative; zero; Q (1 ÷ T_C − 1 ÷ T_H) > 0; Q (T_H − T_C); 3; The cold body gains more entropy than the hot body loses.
+Q: The entropy change of melting 1 kg of ice at 273.15 K is about…; 334 J/K; 1223 J/K; 6057 J/K; 0; 2; L ÷ T.
+Q: In a free expansion of an ideal gas to twice the volume, ΔS_gas is…; 0; n R ln 2; −n R ln 2; n R; 2; Entropy is a state function.
+Q: The second law says the total entropy of an isolated system…; never decreases; never increases; stays zero; always doubles; 1; It increases or stays constant.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the entropy change when 2000 J of heat enters a reservoir at 400 K. => 2000 ÷ 400 = **+5 J/K**.
+P: Find the entropy change for melting 0.5 kg of ice at 273.15 K. => 0.5 × 334,000 ÷ 273.15 = **611 J/K**.
+LVL: Level 2 | Apply
+P: 500 J flows from a reservoir at 500 K to one at 250 K. Find the total entropy change and the lost work. => ΔS = 500 (1 ÷ 250 − 1 ÷ 500) = **+1.0 J/K**. Lost work = T_C ΔS = **250 J**.
+P: Find ΔS for heating 2 kg of water from 20 °C to 80 °C. => 2 × 4186 × ln (353.15 ÷ 293.15) = **1559 J/K**.
+P: Find ΔS for 1 mol of an ideal gas doubling its volume in a free expansion. => R ln 2 = **5.76 J/K**.
+P: Find ΔS for boiling 0.1 kg of water at 100 °C. => 0.1 × 2.26 × 10⁶ ÷ 373.15 = **606 J/K**.
+P: A gas does 200 J of work in a reversible isothermal expansion at 400 K. Find ΔS_gas and ΔS_surroundings. => Q = W = 200 J absorbed. ΔS_gas = 200 ÷ 400 = **+0.5 J/K**, ΔS_surroundings = **−0.5 J/K**, total **0**.
+P: Is it possible for 800 J to flow from 300 K to 400 K spontaneously? => ΔS = 800 (1 ÷ 400 − 1 ÷ 300) = **−0.67 J/K < 0**: impossible.
+LVL: Level 3 | Real
+P: A 20 g ice cube melts in a 293 K room. Find the entropy changes of the ice and the room, and the total. => Ice: +24.5 J/K. Room: −22.8 J/K. Total **+1.67 J/K**.
+LVL: Challenge | Entropy forbids a single-reservoir engine
+P: Show that an engine taking Q from a single reservoir at T and converting it all to work in one cycle would violate the second law. => The engine returns to its initial state after the cycle, so its entropy change is **0**. The reservoir loses heat Q, so its entropy change is **−Q ÷ T**. The total is **−Q ÷ T < 0**, which the second law forbids. To satisfy ΔS_total ≥ 0 the engine must dump some heat Q_C into a colder reservoir, with Q_C ÷ T_C ≥ Q_H ÷ T_H, i.e. W ≤ Q_H (1 − T_C ÷ T_H).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fibonacci matrix: eigenvalues φ and ψ, Binet F_n = (φⁿ − ψⁿ) ÷ √5, det (Fⁿ) = (−1)ⁿ. Leslie matrix: dominant eigenvalue = long-run growth, stable when λ = 1. Coupled oscillators: eigenvalues of M are ω², eigenvectors are the normal modes, the beat gives the energy-swap time.
+- Entropy: dS = δQ_rev ÷ T, ΔS = Q ÷ T, phase change ΔS = m L ÷ T, heating ΔS = m c ln (T₂ ÷ T₁), ideal gas ΔS = n C_V ln (T₂ ÷ T₁) + n R ln (V₂ ÷ V₁). Second law ΔS_total ≥ 0, lost work = T_C ΔS_total.
+
+BN: আজকের সারকথা: Fibonacci ম্যাট্রিক্সের eigenvalue φ, ψ; Binet F_n = (φⁿ − ψⁿ)/√5; Leslie ম্যাট্রিক্সের বৃহত্তম eigenvalue = দীর্ঘমেয়াদি বৃদ্ধি; যুক্ত দোলকে M এর eigenvalue = ω²। এনট্রপি: ΔS = Q/T, গলনে mL/T, গরম করায় mc ln(T₂/T₁), আদর্শ গ্যাসে nC_V ln(T₂/T₁) + nR ln(V₂/V₁); ΔS_মোট ≥ 0; নষ্ট কাজ = T_C ΔS_মোট।
+
+EXIT:
+E: What is the Fibonacci number F₁₀?; 55; 0.001; 1, 1, 2, 3, 5, 8, 13, 21, 34, 55.
+E: What is the entropy change in J/K for melting 1 kg of ice at 273.15 K (L = 334 kJ/kg)?; 1222.8; 1; 334,000 ÷ 273.15 = 1222.8.
+E: 1000 J flows from a reservoir at 400 K to one at 300 K. What is the total entropy change in J/K?; 0.833; 0.005; 1000 ÷ 300 − 1000 ÷ 400 = 3.333 − 2.5.
+
+**Tomorrow:** symmetric matrices and principal axes, and the statistical meaning of entropy (S = k ln W).
+
+CHECK: notes

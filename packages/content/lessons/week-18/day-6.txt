@@ -1,0 +1,81 @@
+@day Week 18 · Day 6 · Saturday
+# Week 18 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered first-order differential equations (growth, decay, cooling, separable, logistic, linear with an integrating factor, Euler's method, equilibria) and capacitors (capacitance, series and parallel, energy, dielectrics, RC charging).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: প্রথম ক্রমের অবকল সমীকরণ (বৃদ্ধি, ক্ষয়, শীতলীকরণ, বিচ্ছিন্নযোগ্য, লজিস্টিক, সমাকলন গুণক, অয়লার, সাম্যাবস্থা) এবং ধারক (ধারকত্ব, শ্রেণি ও সমান্তরাল, শক্তি, ডাইইলেকট্রিক, RC চার্জ)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use ε₀ = 8.85 × 10⁻¹² F/m, e = 1.602 × 10⁻¹⁹ C. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: First-order differential equations (14 marks, about 55 min) | no calculator, e³ ≈ 20.1, e⁻² ≈ 0.135
+
+LVL: Part A | Questions 1 to 10
+P: (1 mark) Solve y′ = −3y with y (0) = 4 and find y (1). => y = 4 e^(−3x); y (1) = 4 e⁻³ = **0.199**.
+P: (1 mark) A sample of 80 g has a half-life of 6 days. How much is left after 15 days? => 80 × 2^(−2.5) = 80 × 0.1768 = **14.1 g**.
+P: (2 marks) A coffee at 90 °C in a 20 °C room cools to 55 °C in 10 minutes. Find k and the time to reach 30 °C. => (55 − 20) = 70 e^(−10k) = 35, so e^(−10k) = 1/2 and **k = ln 2 ÷ 10 = 0.0693 per minute** (1 mark). 10 = 70 e^(−kt): t = ln 7 ÷ k = 1.946 ÷ 0.0693 = **28.1 minutes** (1 mark).
+P: (1 mark) Solve dy/dx = 3x² y with y (0) = 2 and find y (1). => ∫ dy ÷ y = ∫ 3x² dx gives ln y = x³ + C: y = 2 e^(x³); y (1) = 2e = **5.44**.
+P: (1 mark) Solve dy/dx = x ÷ y with y (0) = 3 and find y (4). => y dy = x dx, y² = x² + 9: y (4) = √25 = **5**.
+P: (2 marks) A population follows dP/dt = 0.4 P (1 − P ÷ 500) with P (0) = 50. Find P (5) and when it reaches 250. => P = 500 ÷ (1 + 9 e^(−0.4 t)). P (5) = 500 ÷ (1 + 9 × 0.135) = 500 ÷ 2.22 = **225** (1 mark). Half of K when 9 e^(−0.4t) = 1: **t = ln 9 ÷ 0.4 = 5.49 years** (1 mark).
+P: (2 marks) Solve y′ + y ÷ x = 2 with y (1) = 0 (x > 0) and find y (2). => μ = x: (x y)′ = 2x, x y = x² + C (1 mark). y (1) = 0 gives C = −1: y = x − 1 ÷ x, so **y (2) = 1.5** (1 mark).
+P: (1 mark) A 50 L tank of pure water receives salt water at 0.2 kg/L, 5 L/min, and the mixture leaves at 5 L/min. Write dS/dt and solve it. => dS/dt = 1 − 0.1 S, so **S (t) = 10 (1 − e^(−0.1 t))**; the limit is 10 kg.
+P: (2 marks) Use two Euler steps of h = 0.1 for y′ = x + y with y (0) = 1, and compare with the exact y = 2 eˣ − x − 1 at x = 0.2 (value 1.2428). => y₁ = 1 + 0.1 × 1 = **1.1**; y₂ = 1.1 + 0.1 × (0.1 + 1.1) = **1.22** (1 mark). The error is 1.2428 − 1.22 = **0.0228** (1.8%) (1 mark).
+P: (1 mark) Find the equilibria of y′ = y (4 − y) and say which is stable. => 0 and 4. f′ = 4 − 2y: f′ (0) = 4 > 0 **unstable**; f′ (4) = −4 < 0 **stable**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Capacitors (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 11 to 16
+P: (1 mark) Find the capacitance of plates with A = 0.04 m² and d = 2 mm, and the charge at 50 V. => C = 8.85 × 10⁻¹² × 0.04 ÷ 0.002 = **177 pF**; Q = C V = **8.85 nC**.
+P: (1 mark) Find the equivalent capacitance of 4 μF and 12 μF in series and in parallel, and the voltage across the 4 μF in the series connection at 24 V. => Series **3 μF**, parallel **16 μF**. Q = 3 × 24 = 72 μC, so V₄ = 72 ÷ 4 = **18 V**.
+P: (1 mark) A 220 μF capacitor is charged to 100 V and discharged in 2 ms. Find the energy and the average power. => U = ½ × 220 × 10⁻⁶ × 10⁴ = **1.1 J**; P = 1.1 ÷ 0.002 = **550 W**.
+P: (1 mark) A 200 pF capacitor is charged to 100 V and disconnected. A dielectric with κ = 4 fills it. Find the new C, V and the energy before and after. => C = **800 pF**, V = **25 V**; U falls from **1 μJ** to **0.25 μJ**.
+P: (1 mark) An RC circuit has R = 20 kΩ, C = 50 μF and V₀ = 9 V. Find τ, the capacitor voltage at 2 s and the initial current. => τ = **1 s**; V = 9 (1 − e⁻²) = **7.78 V**; I (0) = 9 ÷ 20,000 = **0.45 mA**.
+P: (1 mark) A DRAM cell has C = 30 fF at 1.2 V. Find its charge, the number of electrons and the energy. => Q = **36 fC**; N = 36 × 10⁻¹⁵ ÷ 1.602 × 10⁻¹⁹ = **2.25 × 10⁵**; U = ½ C V² = **21.6 fJ**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 19. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 18. Tell me, and I will rebalance Week 19. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q3 | Used T = 55 e^(−kt) | Forgot to subtract the room temperature | The difference T − T_a decays, so use 35 and 70 | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: শীতলীকরণে ঘরের তাপমাত্রা বিয়োগ করতে ভোলা, শুরুর শর্ত লাগানোর আগে ধ্রুবক C বাদ দেওয়া, রৈখিক সমীকরণকে আদর্শ আকারে (y′ এর সহগ 1) না এনে μ বের করা, ধারক শ্রেণিতে 1/C এর জায়গায় C যোগ করা, ব্যাটারি লাগানো ও খোলা অবস্থার ডাইইলেকট্রিক গুলিয়ে ফেলা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | Which harvest keeps the stock where I want it?
+P: For P′ = 0.5 P (1 − P ÷ 1000) − H find the harvest H that holds the stock at 800 and at 300, and say which is safe. => Equilibrium: H = 0.5 P (1 − P ÷ 1000). For P = 800: H = 0.5 × 800 × 0.2 = **80** and for P = 300: H = 0.5 × 300 × 0.7 = **105**. The slope at an equilibrium f′ (P) = 0.5 (1 − 2P ÷ 1000): at 800 it is 0.5 × (−0.6) = −0.3 < 0, **stable**; at 300 it is 0.5 × 0.4 = +0.2 > 0, **unstable**. So H = 80 holding the stock at 800 is safe, and H = 105 "holding" it at 300 is a trap: any small decrease makes the stock collapse. (Higher harvest for a smaller, riskier stock.)
+
+LVL: Challenge | When has the capacitor lost half its energy?
+P: A capacitor discharges through a resistor: V = V₀ e^(−t/τ). At what time has it lost half its stored energy? And what fraction of the voltage is left? => U ∝ V² = V₀² e^(−2t/τ). Half the energy: e^(−2t/τ) = 1/2, **t = (τ ÷ 2) ln 2 = 0.347 τ**. The voltage is then V₀ ÷ √2 = **70.7%**. The energy falls twice as fast as the voltage, so its time constant is τ ÷ 2.
+
+### Optional coding idea (not part of the study plan)
+**ODE lab:** a page where you type y′ = f (x, y), click to place initial conditions on a direction field, and watch several solution curves (computed by Euler, improved Euler and a smaller step) overlay, with the error against the exact solution when it is known. A second tab simulates a leaky RC circuit and shows V_C (t) live with a slider for R and C; a third simulates a fishery with a harvest slider and shows the sudden collapse as H crosses r K ÷ 4.
+
+### What Week 19 looks like
+**Differential equations 2 and DC circuits.** In maths, equations with a second derivative: springs, pendulums, damping, resonance and the formula that makes a bridge or a swing respond so strongly at one frequency. In physics, DC circuits: Kirchhoff's rules, resistors in series and parallel, and a closer look at the charging curve of your phone's battery.
+
+BN: আগামী সপ্তাহ: অবকল সমীকরণ ২ ও DC বর্তনী। গণিতে দ্বিতীয় অবকলের সমীকরণ: স্প্রিং, দোলক, অবমন্দন, অনুনাদ, আর কেন সেতু বা দোলনা এক কম্পাঙ্কে এত জোরে সাড়া দেয়। পদার্থবিজ্ঞানে DC বর্তনী: কার্শফের নিয়ম, রোধের শ্রেণি ও সমান্তরাল, এবং তোমার ফোনের ব্যাটারি চার্জের বক্ররেখার কাছ থেকে দেখা।
+
+**Sunday is a rest day.**
+
+CHECK: notes

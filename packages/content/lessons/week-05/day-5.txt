@@ -1,0 +1,205 @@
+@day Week 5 · Day 5 · Friday
+# Derivatives of sine, cosine and eˣ. Then: force from potential energy and energy diagrams
+lead: Yesterday you built the derivative machine. Today you feed it the functions of oscillation and growth: sin x, cos x and eˣ. The results are surprisingly neat, and they unlock oscillations and decay. In physics, you discover that force is the slope of the potential-energy curve, so a single graph of energy tells you where things will rest, roll and turn back.
+
+BN: গতকাল অন্তরকলজের যন্ত্র বানিয়েছ। আজ তাকে দিচ্ছি দোলন আর বৃদ্ধির ফাংশন: sin x, cos x ও eˣ। ফলগুলো আশ্চর্য রকম সুন্দর। পদার্থবিজ্ঞানে আবিষ্কার করবে: বল হলো স্থিতিশক্তির লেখচিত্রের ঢাল। অর্থাৎ শক্তির একটা লেখচিত্র দেখেই বলা যায় বস্তু কোথায় থামবে, কোথায় গড়াবে, কোথায় ফিরবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Differentiate x⁵ − 4x² + 3. => **5x⁴ − 8x**.
+P: Find the tangent slope of y = x³ at x = 2. => 3 × 4 = **12**.
+P: A 60 W bulb is on for 5 hours. How many kWh? => 0.06 × 5 = **0.3 kWh**.
+P: Find lim (x → 0) sin 2x ÷ x. => **2**.
+P: A car at 20 m/s with a 900 N resistance. What power? => 900 × 20 = **18 kW**.
+
+CHECK: recall
+
+@section math | 2 · Math: derivatives of sin x, cos x and eˣ | 60 min
+
+### The derivative of sin x
+Start from the definition and use the angle-addition formula from Week 3:
+
+(sin(x + h) − sin x) ÷ h = (sin x cos h + cos x sin h − sin x) ÷ h = sin x · (cos h − 1) ÷ h + cos x · (sin h ÷ h).
+
+Now take h → 0. We know sin h ÷ h → 1. And (cos h − 1) ÷ h = −h · (1 − cos h) ÷ h² → −0 × 1/2 = 0, using the limit (1 − cos h) ÷ h² → 1/2 from Tuesday.
+
+So the first part goes to sin x × 0 = 0 and the second to cos x × 1:
+
+EQ: d/dx (sin x) = cos x     d/dx (cos x) = −sin x     (x in radians)
+
+For cosine, cos(x + h) − cos x = cos x (cos h − 1) − sin x sin h gives, in the same way, −sin x.
+
+BN: sin x এর অন্তরকলজ cos x, আর cos x এর অন্তরকলজ −sin x (শুধু রেডিয়ানে)। প্রমাণে লাগে sin(x + h) এর সূত্র আর দুটি লিমিট: sin h/h → 1 এবং (cos h − 1)/h → 0।
+
+**See it on the graph.** Where sine climbs fastest (at x = 0) its slope is 1, which is the peak value of cosine. At the top of the sine wave the slope is 0, where cosine crosses zero. Where sine falls fastest (at π) the slope is −1, the bottom of cosine. The graph of the derivative is the graph of the slope.
+
+FUNC: The slope of sine is cosine | x (rad) | y | sin(x) ;; cos(x) | 0,2*pi | -1.5,1.5 | pi | Teal: y = sin x. Orange: its slope function, y = cos x. When the teal curve is steepest, the orange curve is at its highest or lowest. When the teal curve is flat (at a peak or a trough), the orange curve is zero.
+
+The derivatives cycle with period four: sin → cos → −sin → −cos → sin.
+
+EX: Using the rules
+1. d/dx (3 sin x − 2 cos x) = 3 cos x + 2 sin x.
+2. The tangent to y = sin x at x = π/3: slope = cos(π/3) = 1/2, and the point is (π/3, √3/2). So y − √3/2 = (1/2)(x − π/3).
+3. Where is y = sin x + cos x flat? The slope cos x − sin x = 0 gives tan x = 1, so x = π/4 or 5π/4, where the values are **√2** and **−√2**. This agrees with the form √2 sin(x + π/4) from Week 3.
+/EX
+
+### The derivative of eˣ
+(e^(x+h) − eˣ) ÷ h = eˣ · (eʰ − 1) ÷ h.
+
+The number e is chosen so that (eʰ − 1) ÷ h → 1 as h → 0. Check by table: h = 0.1 gives 1.0517, h = 0.01 gives 1.00502, h = 0.001 gives 1.0005. So:
+
+EQ: d/dx (eˣ) = eˣ
+
+The function eˣ is **its own derivative**. Its slope at every point equals its height. No other function (apart from multiples of it) does this, and that is why e is the natural base for growth.
+
+On Monday, we found (2ʰ − 1) ÷ h → 0.693 = ln 2. The same argument gives **d/dx (2ˣ) = (ln 2) 2ˣ**, and for any base a: **d/dx (aˣ) = (ln a) aˣ**. Only for a = e is the constant equal to 1.
+
+EX: A constant in the exponent
+1. For eᵏˣ: (eᵏ⁽ˣ⁺ʰ⁾ − eᵏˣ) ÷ h = eᵏˣ · (eᵏʰ − 1) ÷ h = k eᵏˣ · (eᵏʰ − 1) ÷ (kh).
+2. As h → 0, kh → 0 and the last factor → 1. So **d/dx (eᵏˣ) = k eᵏˣ**.
+3. This is the law of growth and decay: a quantity whose rate of change is proportional to itself.
+/EX
+
+EX: Bacteria growth
+1. A culture has N(t) = 500 e^(0.3t) bacteria after t hours.
+2. dN/dt = 0.3 × 500 e^(0.3t) = 150 e^(0.3t) = 0.3 N.
+3. At t = 0 the growth rate is **150 per hour**. At t = 5: N = 500 e^1.5 = 2241 and the rate is 0.3 × 2241 = **672 per hour**. The bigger the culture, the faster it grows.
+/EX
+
+EX: Cooling
+1. A cup of tea cools as T(t) = 20 + 60 e^(−0.1t) °C. Then dT/dt = −6 e^(−0.1t).
+2. At t = 0: **−6 °C per minute**. At t = 10 min: −6 e⁻¹ = **−2.2 °C per minute**. The tea cools quickly at first and slowly later. The room temperature 20 °C is the limit as t → ∞.
+/EX
+
+### Oscillation: a look ahead
+EX: A vibrating mass
+1. A mass on a spring moves as x(t) = 0.05 sin(10t) metres.
+2. Velocity v = x′ = 0.5 cos(10t) m/s (the factor 10 comes out, just as k came out of eᵏˣ). The maximum speed is **0.5 m/s**.
+3. Acceleration a = v′ = −5 sin(10t) = −100 x. The maximum is **5 m/s²**.
+4. Notice a = −100 x: the acceleration is proportional to the displacement and opposite to it. This is the signature of simple harmonic motion, the subject of Week 9.
+/EX
+
+### The second derivative
+The derivative of the derivative is the **second derivative**, written f″(x) or d²y/dx². If f is position, f″ is acceleration. For a graph, f″ > 0 means the slope is increasing (the curve bends upward, like a cup), and f″ < 0 means the curve bends downward.
+
+EX: A second derivative
+1. f(x) = x³ − 3x. f′ = 3x² − 3 and f″ = **6x**.
+2. At x = 1, f″ = 6 > 0, so the curve bends upward and the flat point is a **minimum**. At x = −1, f″ = −6 < 0, so it is a **maximum**.
+/EX
+
+TRAP: The formulas d/dx(sin x) = cos x hold **only in radians**. In degrees there is an extra factor of π/180. Also, do not confuse eˣ (variable exponent) with xⁿ (variable base): the power rule does **not** apply to eˣ, which does **not** give x eˣ⁻¹.
+
+### Quick self-check
+QUIZ:
+Q: d/dx (cos x) equals…; sin x; −sin x; −cos x; cos x; 2; The derivative of cosine is minus sine.
+Q: d/dx (eˣ) equals…; x eˣ⁻¹; eˣ; e; 1; 2; The exponential is its own derivative.
+Q: d/dx (e^(5x)) equals…; e^(5x); 5 e^(5x); 5x e^(5x−1); e^5; 2; The constant in the exponent comes out as a factor.
+Q: If f(x) = sin x, then f″(x) equals…; cos x; −sin x; −cos x; sin x; 2; Differentiating twice: sin → cos → −sin.
+Q: A graph with f″(x) > 0 on an interval bends…; upward; downward; is flat; is a straight line; 1; Positive second derivative means the slope increases, like a cup.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Differentiate 4 sin x + 5 cos x. => **4 cos x − 5 sin x**.
+P: Differentiate 3eˣ − x². => **3eˣ − 2x**.
+P: Find d/dx (e^(2x)). => **2 e^(2x)**.
+LVL: Level 2 | Apply
+P: Find the slope of y = cos x at x = π/6. => −sin(π/6) = **−1/2**.
+P: A radioactive sample has N(t) = 800 e^(−0.05t). Find dN/dt at t = 0 and t = 20. => dN/dt = −0.05 N. At t = 0: **−40 per unit time**. At t = 20: N = 800 e⁻¹ = 294.3, so **−14.7 per unit time**.
+P: Find f″ for f(x) = x⁴ − 2x³. => f′ = 4x³ − 6x², f″ = **12x² − 12x**.
+P: Find where y = 2 sin x + 1 has a horizontal tangent for 0 ≤ x ≤ 2π, and the values there. => 2 cos x = 0, so x = π/2 and 3π/2. The values are **3** and **−1**.
+LVL: Level 3 | Real
+P: A pendulum's angle is θ(t) = 0.2 cos(3t) radians. Find the angular velocity and its maximum. => θ′ = −0.6 sin(3t). The maximum is **0.6 rad/s**. The second derivative is −1.8 cos(3t) = −9 θ, again simple harmonic.
+LVL: Challenge | A mystery function
+P: Find constants A and B so that y = A cos(2x) + B sin(2x) satisfies y″ = −4y and also y(0) = 3, y′(0) = 2. => y′ = −2A sin 2x + 2B cos 2x and y″ = −4A cos 2x − 4B sin 2x = −4y ✓ for any A, B. y(0) = A = 3. y′(0) = 2B = 2, so B = 1. **y = 3 cos 2x + sin 2x**. This is a first look at differential equations.
+
+CHECK: math
+
+@section physics | 3 · Physics: force from potential energy, and energy diagrams | 35 min
+
+### The link between force and energy
+Last time you learned that the work done by a conservative force equals −ΔU. Take a tiny displacement dx: F dx = −dU. Divide by dx:
+
+EQ: F = − dU/dx
+
+**The force is minus the slope of the potential-energy curve.** The system is pushed "downhill" on the graph of U.
+
+EX: Three familiar cases
+1. Spring: U = ½ k x², so F = −k x. ✓ (Hooke's law, restoring.)
+2. Gravity near Earth: U = m g h, so F = −m g. ✓ (Downward.)
+3. Gravity in space: U = −G M m ÷ r. Since d/dr(−G M m r⁻¹) = G M m r⁻², F = **−G M m ÷ r²** ✓ (Newton's law of gravitation, attractive, toward smaller r.)
+/EX
+
+BN: বল = −dU/dx: স্থিতিশক্তির লেখচিত্রের ঢালের ঋণাত্মক মান। স্প্রিং: U = ½kx² থেকে F = −kx। অভিকর্ষ: U = mgh থেকে F = −mg। মহাকর্ষ: U = −GMm/r থেকে F = −GMm/r²। বস্তু লেখচিত্রের "ঢাল বেয়ে নিচে" ঠেলা খায়।
+
+### Reading an energy diagram
+Plot U against position x.
+- **Equilibrium** where dU/dx = 0 (flat slope, zero force).
+- **Stable** equilibrium at a minimum of U: a small push makes the force restore the object, like a marble in a bowl.
+- **Unstable** equilibrium at a maximum: a small push makes it roll away, like a marble on top of a hill.
+- **Turning points:** the total energy E is a horizontal line. Where E = U, the kinetic energy is zero, so the object stops and turns back. It cannot go where U > E, since KE = E − U would be negative.
+
+FUNC: A potential energy curve | position x (m) | U (J) | x**3-3*x | -2.2,2.2 | -4,4 | - | U = x³ − 3x. It has a peak at x = −1 (unstable equilibrium) and a dip at x = 1 (stable equilibrium).
+
+EX: Reading U = x³ − 3x
+1. F = −dU/dx = −(3x² − 3) = 3 − 3x². Equilibrium where 3 − 3x² = 0: **x = ±1**.
+2. At x = 1: U = −2, a minimum (U″ = 6 > 0), so it is **stable**. At x = −1: U = 2, a maximum, so it is **unstable**.
+3. Test: at x = 1.1, F = 3 − 3.63 = −0.63 N (pushes back toward smaller x). At x = 0.9, F = 3 − 2.43 = +0.57 N (pushes toward larger x). Both push toward x = 1 ✓.
+/EX
+
+EX: The spring as an energy well
+1. A 0.2 kg mass on a spring with k = 100 N/m has total energy E = 0.5 J.
+2. Turning points: ½ k x² = 0.5, so x² = 0.01 and **x = ±0.1 m**.
+3. At the centre (x = 0): all energy is kinetic, ½ m v² = 0.5, so v = √5 = **2.24 m/s**, the maximum speed.
+4. This back-and-forth motion in a well is the simple harmonic oscillation (Week 9).
+/EX
+
+EX: The roller coaster as an energy diagram
+1. The height profile is the potential energy curve U = m g h. A car released from rest at the highest hill has E = m g h_max.
+2. At any point, KE = E − m g h, so the car moves fastest at the lowest points and slows on the hills. If a later hill is taller than the first, it can never get over it (U > E there).
+/EX
+
+### A mixed workout
+EX: Ramp, rough floor, spring
+1. A 2 kg block is released from rest at a height of 1.5 m on a smooth ramp. It then crosses 3 m of rough floor (μ = 0.3) and hits a spring with k = 200 N/m on a smooth floor. How far does the spring compress?
+2. Energy at the start: m g h = 2 × 9.8 × 1.5 = 29.4 J.
+3. Friction on the floor: μ m g × 3 = 0.3 × 19.6 × 3 = 17.64 J removed.
+4. Left for the spring: 29.4 − 17.64 = 11.76 J = ½ × 200 × x². So x² = 0.1176 and **x = 0.343 m**.
+/EX
+
+TRAP: A zero force does not always mean the object is at rest: it only means the slope of U is zero. Also, "stable" and "unstable" are about **small displacements**: a marble at the top of a hill is in equilibrium, but any nudge sends it away.
+
+### Quick self-check
+QUIZ:
+Q: The force is related to potential energy by…; F = U; F = −dU/dx; F = U²; F = dU/dx; 2; The force points downhill on the U graph.
+Q: A stable equilibrium occurs at a…; maximum of U; minimum of U; point where U = 0; point where E = 0; 2; Displacements are pushed back toward the minimum.
+Q: A particle with total energy E reaches a turning point where…; U = 0; KE is greatest; KE = 0; F = 0; 3; At a turning point E = U, so KE = 0.
+Q: For U = ½ k x², the force is…; kx; −kx; −½ kx²; −kx²; 2; −dU/dx = −kx.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the force for U(x) = 4x² (in joules, x in metres). => F = −dU/dx = **−8x**.
+P: Find the force for U = 5x + 3. => **−5 N**, a constant force.
+LVL: Level 2 | Apply
+P: For U(x) = x⁴ − 8x² find the equilibrium positions and decide which are stable. => U′ = 4x³ − 16x = 4x(x² − 4) = 0, so x = 0, ±2. U″ = 12x² − 16. At x = 0: −16 < 0, **unstable**. At x = ±2: 32 > 0, **stable**. The curve is a double well, with a peak between two valleys.
+P: A 0.5 kg mass is in the well U = ½ × 50 x² and has total energy 1 J. Find the turning points and the maximum speed. => x² = 2 × 1 ÷ 50 = 0.04, so **x = ±0.2 m**. v_max = √(2 × 1 ÷ 0.5) = **2 m/s**.
+P: A 3 kg block slides 2 m down a smooth ramp inclined at 30° (starting from rest), then compresses a horizontal spring (smooth floor, k = 600 N/m). Find the compression. => Height dropped = 2 × 0.5 = 1 m. Energy = 3 × 9.8 × 1 = 29.4 J = ½ × 600 x², so x² = 0.098 and **x = 0.313 m**.
+LVL: Challenge | The Lennard-Jones taste
+P: The potential energy between two atoms is approximated by U(r) = 1/r¹² − 2/r⁶ (in suitable units). Find the separation where the force is zero and the energy there. Is it stable? => U′ = −12/r¹³ + 12/r⁷ = 12 (r⁶ − 1) ÷ r¹³ = 0, so **r = 1**. U(1) = 1 − 2 = **−1**. For r slightly below 1, U′ < 0 (force pushes outward, repulsive); for r slightly above 1, U′ > 0 (force pulls inward, attractive). So it is a **stable minimum**: atoms settle at this bonding distance.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- (sin x)′ = cos x, (cos x)′ = −sin x (radians). (eˣ)′ = eˣ, (eᵏˣ)′ = k eᵏˣ, (aˣ)′ = (ln a) aˣ. Second derivative: concavity and acceleration.
+- Growth and decay: dN/dt proportional to N. Oscillation: x″ = −ω² x.
+- F = −dU/dx. Equilibrium where U′ = 0: stable at a minimum, unstable at a maximum. Turning points where E = U.
+
+BN: আজকের সারকথা: (sin x)′ = cos x, (cos x)′ = −sin x, (eˣ)′ = eˣ, (eᵏˣ)′ = k eᵏˣ। দ্বিতীয় অন্তরকলজ: ত্বরণ ও বক্রতার দিক। F = −dU/dx; U′ = 0 তে ভারসাম্য: ন্যূনতমে স্থিত, সর্বোচ্চে অস্থিত; E = U তে ঘুরে দাঁড়ানোর বিন্দু।
+
+**Tomorrow (Saturday):** the Week 5 test, mistake log and challenge.
+
+CHECK: notes

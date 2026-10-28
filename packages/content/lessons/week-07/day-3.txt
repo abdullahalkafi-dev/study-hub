@@ -1,0 +1,186 @@
+@day Week 7 · Day 3 · Wednesday
+# Related rates and curve sketching. Then: centre of gravity and the shelf that tips
+lead: You can now read a function's story from its derivatives: where it rises and falls, where it bends, where it levels off. Today you put that together to sketch any curve, and handle more related-rates problems. In physics, you answer this week's story question: when does a shelf, a truck or a tower tip over?
+
+BN: এখন অন্তরকলজ দিয়ে ফাংশনের পুরো গল্প পড়তে পারো: কোথায় বাড়ে বা কমে, কোথায় বাঁকে, কোথায় সমতল হয়। আজ সবটা মিলিয়ে যেকোনো বক্ররেখা আঁকবে, আর আরও সম্পর্কিত-হারের সমস্যা করবে। পদার্থবিজ্ঞানে সপ্তাহের গল্পের প্রশ্নের উত্তর দেবে: তাক, ট্রাক বা মিনার কখন উল্টে পড়ে?
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Last two days
+P: Find the critical points of f(x) = x³ − 12x and classify them. => f′ = 3x² − 12 = 0, x = ±2. f″ = 6x: at −2, −12 < 0 (**local max**, f = 16). At 2, 12 > 0 (**local min**, f = −16).
+P: A rectangle has area 64. Find the least perimeter. => Square 8 × 8: perimeter **32**.
+P: A 100 N sign is held by two equal cables each at 30° to the horizontal. Find the tension. => **100 N**.
+P: A uniform ladder's foot is 3 m from a smooth wall and its top is 4 m up. What minimum μ is needed? => x ÷ (2y) = 3 ÷ 8 = **0.375**.
+P: The torque of 50 N at 0.4 m perpendicular to the lever arm. => **20 N·m**.
+
+CHECK: recall
+
+@section math | 2 · Math: curve sketching and related rates | 55 min
+
+### The checklist for sketching a curve y = f(x)
+1. **Domain.** Where is f defined?
+2. **Intercepts** (and symmetry: even f(−x) = f(x), odd f(−x) = −f(x)).
+3. **Asymptotes.** Vertical (denominator zero), horizontal (limit as x → ±∞), slant (when degree top = degree bottom + 1).
+4. **First derivative.** Where f′ > 0 (rising) and f′ < 0 (falling). Local maxima and minima.
+5. **Second derivative.** Where f″ > 0 (concave up) and f″ < 0 (concave down). Inflection points.
+6. **Plot** the key points and join them smoothly.
+
+EX: A rational curve, f(x) = x ÷ (x² + 1)
+1. Domain: all real numbers (the denominator is never zero). f is odd, so the graph has point symmetry about the origin. Intercept: (0, 0).
+2. Horizontal asymptote: as x → ±∞, f → 0 (degree 1 over degree 2). So y = 0.
+3. f′ = (1 − x²) ÷ (x² + 1)². Zero at x = ±1. Positive for −1 < x < 1 (rising), negative outside (falling). So **a local minimum at (−1, −1/2)** and **a local maximum at (1, 1/2)**.
+4. f″ = 2x (x² − 3) ÷ (x² + 1)³. Zero at x = 0 and x = ±√3. Signs change at each, so these are **inflection points**: (0, 0), (±1.73, ±0.43).
+/EX
+
+FUNC: The curve y = x ÷ (x² + 1) | x | y | x/(x**2+1) | -6,6 | -0.7,0.7 | - | A peak at x = 1 with height 1/2, a trough at x = −1, and a flattening tail toward zero (the horizontal asymptote). The curve is odd: rotate it by 180° about the origin and it looks the same.
+
+EX: A curve with a slant asymptote, f(x) = x² ÷ (x − 1)
+1. Domain: x ≠ 1. Vertical asymptote x = 1. Intercept: (0, 0).
+2. Long division: x² ÷ (x − 1) = x + 1 + 1 ÷ (x − 1). For large |x| the curve approaches the line **y = x + 1**, the slant asymptote.
+3. f′ = (x² − 2x) ÷ (x − 1)² = x (x − 2) ÷ (x − 1)². Zero at x = 0 and x = 2. At x = 0 the slope changes from positive to negative: **local maximum (0, 0)**. At x = 2: **local minimum (2, 4)**.
+4. f″ = 2 ÷ (x − 1)³: positive for x > 1 (concave up), negative for x < 1 (concave down). There is no inflection point since x = 1 is not in the domain.
+/EX
+
+FUNC: Slant asymptote | x | y | x**2/(x-1) ;; x+1 | -4,5 | -10,12 | - | The curve y = x² ÷ (x − 1) (teal) hugs the vertical line x = 1 and the slanted line y = x + 1 (orange). Its local maximum is at the origin and its local minimum at (2, 4).
+
+BN: বক্ররেখা আঁকার তালিকা: সংজ্ঞার ক্ষেত্র, ছেদবিন্দু ও প্রতিসাম্য, অসীমতট (উল্লম্ব, অনুভূমিক, তির্যক), f′ দিয়ে বাড়া/কমা ও সর্বোচ্চ/সর্বনিম্ন, f″ দিয়ে বক্রতার দিক ও নতিবিন্দু, তারপর বিন্দুগুলো মসৃণভাবে জোড়া। x²/(x − 1) এর তির্যক অসীমতট y = x + 1।
+
+### More related rates
+EX: A shadow
+1. A lamp is 5 m high. A man 1.8 m tall walks away at 1.2 m/s. How fast does the tip of his shadow move, and how fast does the shadow lengthen?
+2. Let x be his distance from the lamp and L the shadow's length. Similar triangles: L ÷ 1.8 = (x + L) ÷ 5, so 3.2 L = 1.8 x and L = 0.5625 x.
+3. The tip is at x + L = 1.5625 x. Its speed: 1.5625 × 1.2 = **1.875 m/s**. The shadow lengthens at 0.5625 × 1.2 = **0.675 m/s**.
+4. In general: tip speed = v H ÷ (H − h), shadow growth = v h ÷ (H − h).
+/EX
+
+LAB: The lengthening shadow | Choose the lamp height, the person's height and their walking speed. The graph shows the shadow length growing steadily with time. | H:Lamp height (m):3:10:0.5:5 ;; h:Person height (m):1:2:0.1:1.8 ;; v:Walking speed (m/s):0.5:3:0.1:1.2 | v*H/(H-h):Speed of the shadow tip (m/s):3 ;; v*h/(H-h):Shadow lengthening rate (m/s):3 ;; v*10*h/(H-h):Shadow length after 10 s (m):2 | v*x*h/(H-h) | 0,10 | 0,15
+
+EX: A conical tank
+1. A conical tank (point down) has radius 2 m and height 4 m at the top. Water flows in at 3 m³/min. How fast does the water level rise when the depth is 2 m?
+2. At depth h the radius is r = h/2 (similar triangles), so V = (1/3) π (h/2)² h = π h³ ÷ 12.
+3. dV/dt = π h² ÷ 4 × dh/dt. At h = 2: 3 = π × (4/4) × dh/dt, so dh/dt = 3 ÷ π = **0.955 m/min**.
+4. At greater depth, the surface is wider, so the level rises more slowly.
+/EX
+
+EX: Two cars
+1. Car A drives east at 60 km/h, and car B drives south at 80 km/h, both away from an intersection. How fast is the distance between them growing when A is 3 km and B is 4 km from it?
+2. z² = x² + y². Differentiate: 2z z′ = 2x x′ + 2y y′. At x = 3, y = 4, z = 5.
+3. z′ = (3 × 60 + 4 × 80) ÷ 5 = **100 km/h**.
+/EX
+
+TRAP: In a sketch, a point where f′ = 0 is not necessarily a maximum or minimum (the x³ curve has a flat inflection), and f″ = 0 does not always mean an inflection (x⁴ at 0): you need a **sign change**. In related rates, relate the variables with an equation **before** you differentiate.
+
+### Quick self-check
+QUIZ:
+Q: The horizontal asymptote of f(x) = (3x² + 1) ÷ (x² + 4) is…; y = 0; y = 3; y = 1/4; there is none; 2; The ratio of the leading coefficients is 3.
+Q: The curve y = 1/(x − 2) has a vertical asymptote at…; x = 0; x = 2; x = −2; y = 2; 2; The denominator is zero at x = 2.
+Q: If f′ changes from negative to positive at x = c, then at c there is a…; local max; local min; inflection; vertical asymptote; 2; A falling-then-rising graph has a minimum.
+Q: A circle's area grows at 10 cm²/s. At r = 5, dr/dt is…; 1/π; 2/π; 10/π; 2π; 1; dA/dt = 2πr dr/dt gives dr/dt = 10 ÷ 10π.
+Q: The curve is concave down where…; f′ > 0; f′ < 0; f″ > 0; f″ < 0; 4; A negative second derivative means the slope falls.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: For f(x) = x³ − 6x² + 9x find the local extrema and the inflection point. => f′ = 3 (x − 1)(x − 3). **Local max (1, 4), local min (3, 0)**. f″ = 6x − 12 = 0 at x = 2, so **inflection (2, 2)**.
+P: Find the asymptotes of f(x) = (2x + 1) ÷ (x − 3). => **x = 3** and **y = 2**.
+P: A snowball melts with its radius shrinking at 0.5 cm/min. Find dV/dt at r = 4 cm. => 4π × 16 × (−0.5) = **−32π ≈ −100.5 cm³/min**.
+LVL: Level 2 | Apply
+P: Describe f(x) = 1 ÷ (x² + 1): symmetry, maximum, asymptote and inflection points. => Even (symmetric about the y-axis). Maximum **(0, 1)**. Horizontal asymptote **y = 0**. f″ = (6x² − 2) ÷ (x² + 1)³ = 0 at x = ±1/√3 with y = 3/4: **inflection points (±0.577, 0.75)**. The bell shape.
+P: Find the asymptotes of f(x) = (2x² + 1) ÷ (x − 1). => Vertical **x = 1**. Division: 2x² + 1 = (x − 1)(2x + 2) + 3, so the slant asymptote is **y = 2x + 2**.
+P: Sketch information for f(x) = x⁴ − 4x³: find the critical points and inflection points. => f′ = 4x² (x − 3), f″ = 12x (x − 2). Critical points x = 0 (no sign change, a flat inflection) and x = 3 (**local min, f = −27**). Inflection points at **x = 0 and x = 2**.
+P: A 6 m ladder slides down so that the foot moves away at 0.4 m/s. How fast does the top move when the foot is 2 m away? => y = √(36 − 4) = 5.66. y′ = −(x ÷ y) x′ = −(2 ÷ 5.66)(0.4) = **−0.141 m/s**.
+P: Water drains from a conical tank (point down, radius 3 m, depth 6 m) at 2 m³/min. How fast does the level fall when the depth is 4 m? => r = h/2, V = π h³ ÷ 12, dV/dt = π h² ÷ 4 × dh/dt. At h = 4: −2 = π × 4 × dh/dt, so dh/dt = **−0.159 m/min**.
+LVL: Level 3 | Real
+P: A plane flies horizontally at 3 km altitude at 600 km/h. When the horizontal distance to an observer is 4 km, how fast is the distance to the observer changing? => z² = x² + 9 and z = 5. z′ = x x′ ÷ z = 4 × (−600) ÷ 5 = **−480 km/h** (approaching).
+LVL: Challenge | A flat spot that is not an inflection
+P: Find all the critical points and inflection points of f(x) = x⁵ − 5x⁴, and classify each critical point. => f′ = 5x⁴ − 20x³ = 5x³ (x − 4). Critical points x = 0 and x = 4. f″ = 20x³ − 60x² = 20x² (x − 3). At x = 0: f′ changes sign from + to − (x³ < 0 for x < 0 and (x − 4) < 0, so f′ > 0 for x < 0; for 0 < x < 4 f′ < 0): a **local maximum at (0, 0)**. At x = 4: **local minimum, f(4) = 1024 − 1280 = −256**. f″ changes sign at x = 3, so the inflection is at **(3, −162)**. (At x = 0, f″ = 0 but does not change sign, so it is not an inflection.)
+
+CHECK: math
+
+@section physics | 3 · Physics: centre of gravity and tipping | 35 min
+
+### Where does a body's weight act?
+For ordinary-sized objects, gravity pulls on every bit of mass, and the total weight acts as if it were at one point, the **centre of gravity** (which equals the centre of mass in a uniform gravitational field). For a uniform symmetric body, it is at the geometric centre.
+
+### Tipping rule
+A body on a flat surface stays upright as long as the **vertical line through its centre of gravity falls inside its base of support**. If it falls outside, the weight's torque about the edge of the base tips the body over.
+
+EQ: stable while the CG is above the base; it tips about an edge when the torque of the push exceeds the weight's restoring torque about that edge
+
+EX: A box on a slope
+1. A uniform box has width w = 0.4 m and height H = 1.0 m, standing on a ramp that tilts slowly. When the tilt angle θ is such that the CG is directly above the lower edge, the box tips.
+2. The CG is at height H/2 = 0.5 m above the base and w/2 = 0.2 m from the lower edge. It is above the edge when tan θ = (w/2) ÷ (H/2) = w/H = 0.4.
+3. **θ_tip = tan⁻¹(0.4) = 21.8°**. It slides first if μ < tan θ_tip = 0.4, and tips first if μ is greater.
+/EX
+
+LAB: Tip or slide? | A uniform box stands on a tilting ramp. Choose its width, its height and the friction coefficient. Compare the tipping angle with the sliding angle: the smaller one happens first. | w:Box width (m):0.1:1:0.05:0.4 ;; H:Box height (m):0.2:2:0.05:1 ;; mu:Friction coefficient μ:0.1:1.2:0.05:0.6 | atan(w/H)*180/pi:Tipping angle (degrees):1 ;; atan(mu)*180/pi:Sliding angle (degrees):1 ;; w/H:Tip when tan θ exceeds:3 | - | 0,1 | 0,1
+
+EX: The tipping shelf (this week's story)
+1. A bookshelf is 1.8 m tall and 0.30 m deep, with a mass of 40 kg. Its centre of gravity is 0.9 m up and 0.15 m behind the front edge.
+2. A child pulls on a loaded drawer so that it sticks out in front. A load of m kg sits 0.4 m in front of the front edge (the tipping axis).
+3. Restoring torque about the front edge: 40g × 0.15 = 6g. Tipping torque: m g × 0.4.
+4. Tipping starts when 0.4 m = 6, so **m = 15 kg**. A fuller drawer (more than 15 kg) tips the shelf forward. That is why shelves and wardrobes should be fixed to the wall, and why heavy items go on the lowest shelf: a low CG gives a larger angle before tipping.
+5. A force pulling at the top: a horizontal pull F at 1.8 m height tips it when F × 1.8 = 40g × 0.15, so F = **32.7 N**, about the weight of a 3.3 kg object. A small force at the top is enough.
+/EX
+
+EX: A truck on a bend
+1. A truck has a track width of 2 m and its CG is 1.6 m high. On a flat circular bend of radius 80 m, the friction force that supplies the centripetal force acts at ground level, and the truck tips (about the outer wheels) when the horizontal acceleration a satisfies a × 1.6 = g × 1.0, so a_tip = g × 0.625.
+2. v² ÷ r = 0.625 g gives v = √(0.625 × 9.8 × 80) = √490 = **22.1 m/s** (about 80 km/h).
+3. A car with a low CG (say 0.5 m) has a_tip = 2 g, so it slides (limited by μ) long before it tips. **Tall loaded trucks and SUVs are the vehicles that roll over.**
+/EX
+
+EX: Leaning towers
+1. A uniform tower of width w = 15 m and height 56 m (like the tower of Pisa, roughly) tips when it tilts to tan θ = w/H = 0.268, so θ = **15°**.
+2. The real tower leans about 4°: it is still well inside the limit, though its foundation is under stress.
+/EX
+
+### Three kinds of equilibrium (again, with energy)
+- **Stable:** after a small tilt, the CG rises, so gravity restores the body. A cone on its base, a ball in a bowl.
+- **Unstable:** a small tilt lowers the CG, so the body falls over. A pencil on its tip.
+- **Neutral:** the CG stays at the same height. A ball on a flat table, a cone on its side.
+
+This is the same classification as the energy diagram of Week 5: the height of the CG is the potential energy U = m g h.
+
+BN: কোনো বস্তু তখনই দাঁড়িয়ে থাকে যখন ভারকেন্দ্র দিয়ে যাওয়া উল্লম্ব রেখা তার ভিত্তির ভেতরে থাকে। বাইরে গেলে ওজনের টর্ক ধারের সাপেক্ষে বস্তুটাকে উল্টে দেয়। ঢালে বাক্স উল্টে যায় tan θ = w/H এ। উঁচু ভারকেন্দ্রের ট্রাক বাঁকে উল্টে যায়, নিচু ভারকেন্দ্রের গাড়ি পিছলে যায়। ভারী জিনিস নিচের তাকে রাখো, তাক দেয়ালে আটকাও।
+
+TRAP: When checking for tipping, take torques about the **edge of the base** that the body would rotate around, not about the CG. The normal force acts at that edge at the moment of tipping, so it has zero torque. Also, a wider base **and** a lower CG both help: what matters is the ratio of the half-width to the CG height.
+
+### Quick self-check
+QUIZ:
+Q: A body tips when the vertical line through its CG…; passes through the centre; falls inside the base; falls outside the base; is horizontal; 3; Weight's torque about the edge then tips it over.
+Q: Placing heavy objects low makes a shelf…; more likely to tip; less likely to tip; unchanged; lighter; 2; The CG is lower, so a larger tilt is needed.
+Q: A uniform box of width 0.3 m and height 0.6 m tips on a ramp at about…; 14°; 26.6°; 45°; 63°; 2; tan θ = w/H = 0.5.
+Q: A ball on a flat table is in…; stable equilibrium; unstable equilibrium; neutral equilibrium; no equilibrium; 3; The CG stays at the same height.
+
+### Practice
+LVL: Level 1 | Direct
+P: At what angle does a uniform box 0.6 m wide and 1.2 m tall tip on a ramp? => tan θ = 0.5, **θ = 26.6°**.
+P: Where is the centre of mass of a uniform 3 m rod? => At its middle, **1.5 m** from each end.
+LVL: Level 2 | Apply
+P: A shelf of mass 60 kg has its CG 0.2 m behind the front edge. A drawer load is 0.5 m in front of the front edge. What is the largest load before it tips? => 60g × 0.2 = m g × 0.5, so **m = 24 kg**.
+P: A truck's track width is 2.4 m and its CG is 2.0 m high. At what speed does it tip on a bend of radius 100 m (flat road, high μ)? => a_tip = g × 1.2 ÷ 2.0 = 0.6 g. v = √(0.6 × 9.8 × 100) = **24.2 m/s** (87 km/h).
+P: A uniform cabinet 2.5 m tall and 0.6 m deep, with a mass of 80 kg, is pushed horizontally at its top. What force tips it? => Torque about the front-bottom edge: F × 2.5 = 80 × 9.8 × 0.3, so F = 235.2 ÷ 2.5 = **94.1 N**.
+P: A pencil of height 0.2 m and base diameter 0.8 cm stands on its flat end. At what tilt does it fall? => tan θ = 0.4 ÷ 10 = 0.04, **θ = 2.3°**.
+LVL: Challenge | The overhanging bricks
+P: Identical bricks of length L are stacked so each projects beyond the one below. The top brick can overhang the second by L/2. Show that with 4 bricks you can build an overhang of more than a whole brick length, and find the general sum. => The k-th brick from the top can extend by L ÷ (2k) beyond the one below it (found by balancing the combined CG of the stack above). Total overhang with n bricks = (L/2)(1 + 1/2 + 1/3 + … + 1/n). For n = 4: (L/2)(25/12) = **1.04 L**, more than one brick length. Because the harmonic series 1 + 1/2 + 1/3 + … grows without bound (very slowly), the overhang can be made as large as you like with enough bricks. (We prove the harmonic series diverges in Week 10.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Curve sketching: domain, intercepts, symmetry, asymptotes (vertical, horizontal, slant), f′ for extrema, f″ for concavity and inflection.
+- Related rates: equation first, then differentiate with respect to t, then numbers. Shadows, tanks, cars.
+- Tipping: CG must stay over the base. Box on a slope tips at tan θ = w/H. A low CG and a wide base are stable.
+
+BN: আজকের সারকথা: বক্ররেখা আঁকা: সংজ্ঞার ক্ষেত্র, ছেদ, প্রতিসাম্য, অসীমতট, f′ (চরম মান), f″ (বক্রতা, নতিবিন্দু)। সম্পর্কিত হার: আগে সমীকরণ, তারপর t এর সাপেক্ষে অন্তরকলন, তারপর সংখ্যা। উল্টে পড়া: ভারকেন্দ্র ভিত্তির ওপরে থাকলে স্থির; ঢালে বাক্স tan θ = w/H এ উল্টে যায়।
+
+EXIT:
+E: What is the slant asymptote slope of f(x) = (x² + 1) ÷ (x − 2)? (Give the slope of the line y = x + c); 1; 0.001; Division gives x + 2 + 5 ÷ (x − 2), slope 1.
+E: A shelf of 50 kg has its CG 0.2 m behind its front edge. What is the heaviest load in kg that can hang 0.4 m in front without tipping?; 25; 0.001; 50 × 0.2 ÷ 0.4 = 25.
+E: In the conical tank example, dV/dt = π h² ÷ 4 × dh/dt. For h = 2 m and dV/dt = 3 m³/min, what is dh/dt in m/min? (2 decimals); 0.95; 0.01; 3 ÷ π = 0.955.
+
+**Tomorrow:** linear approximation, Newton's method, and rotational motion.
+
+CHECK: notes

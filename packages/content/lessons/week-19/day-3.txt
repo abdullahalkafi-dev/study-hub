@@ -1,0 +1,142 @@
+@day Week 19 · Day 3 · Wednesday
+# Damping: under, critical and over. Then: Kirchhoff's rules
+lead: Real springs lose energy to friction. Damping changes the solution of m x″ + b x′ + k x = 0 in three different ways, depending on a single number, the discriminant. A car's shock absorbers are tuned to sit right at the best compromise. In physics, you learn Kirchhoff's two rules, which solve any circuit, however tangled: charge does not pile up at a junction, and the voltage gains and drops around a loop add to zero.
+
+BN: বাস্তব স্প্রিং ঘর্ষণে শক্তি হারায়। m x″ + b x′ + k x = 0 এর সমাধান অবমন্দনের কারণে তিন রকম হয়, একটাই সংখ্যার (discriminant) উপর নির্ভর করে। গাড়ির শক অ্যাবজরবার সেরা সমঝোতার ঠিক কাছে বসানো হয়। পদার্থবিজ্ঞানে কার্শফের দুটো নিয়ম শিখবে, যা যেকোনো জটিল বর্তনী সমাধান করে: জংশনে চার্জ জমে না, আর লুপে ভোল্টেজ বৃদ্ধি ও পতনের যোগফল শূন্য।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Solve r² + 2r + 5 = 0. => **r = −1 ± 2i**.
+P: What is the period of a mass-spring system with ω = 8 rad/s? => 2π ÷ 8 = **0.785 s**.
+P: What is the parallel resistance of 6 Ω and 3 Ω? => **2 Ω**.
+P: What does the sign of the discriminant b² − 4ac tell you? => Positive: two real roots; zero: one double root; negative: complex roots.
+P: State V = I R and P = I². R. => **V = I R**, **P = I² R**.
+
+CHECK: recall
+
+@section math | 2 · Math: the three kinds of damping | 55 min
+
+### Three cases
+For m x″ + b x′ + k x = 0 the roots are r = [−b ± √(b² − 4mk)] ÷ 2m. Let ω₀ = √(k ÷ m) and define the **damping ratio** ζ = b ÷ (2√(m k)) (so that **b_c = 2√(m k)** is the critical damping):
+
+- **Underdamped (ζ < 1):** r = −ζω₀ ± i ω_d with ω_d = ω₀ √(1 − ζ²). x = e^(−ζω₀ t) (C₁ cos ω_d t + C₂ sin ω_d t): oscillates with a decaying envelope.
+- **Critically damped (ζ = 1):** double root r = −ω₀. x = (C₁ + C₂ t) e^(−ω₀ t): the fastest return to zero **without** overshoot.
+- **Overdamped (ζ > 1):** two real negative roots, x = C₁ e^(r₁ t) + C₂ e^(r₂ t): slow creep back.
+
+BN: ζ = b/(2√(mk)); b_c = 2√(mk) সংকট অবমন্দন। ζ < 1: দুলে দুলে কমে (ω_d = ω₀√(1 − ζ²)); ζ = 1: দোল ছাড়াই সবচেয়ে দ্রুত ফেরা, x = (C₁ + C₂t)e^(−ω₀t); ζ > 1: দুটো বাস্তব ঋণাত্মক মূল, ধীরে ফেরা।
+
+EX: A car suspension
+A quarter of a car: m = 300 kg and a spring k = 20,000 N/m.
+1. **Natural frequency:** ω₀ = √(20000 ÷ 300) = **8.165 rad/s** (1.30 Hz). **Critical damping:** b_c = 2√(300 × 20000) = **4899 N s/m**.
+2. **b = 3000 N s/m:** ζ = 0.612 (underdamped). ω_d = 8.165 × √(1 − 0.375) = **6.45 rad/s**; the amplitude decays as e^(−5t) (ζω₀ = 5.0 per second). The **overshoot** after one swing is e^(−πζ ÷ √(1 − ζ²)) = **8.8%**. The settling time (to about 2%) is ≈ 4 ÷ (ζω₀) = **0.80 s**. This is a typical good tuning, with a bit of overshoot.
+3. **b = 1500 N s/m:** ζ = 0.306: overshoot **36%**, settling 1.6 s: a bouncy ride that feels "floaty".
+4. **b = 4899 (critical):** no overshoot, settling about 0.49 s.
+5. **b = 8000 N s/m:** ζ = 1.63, the roots are r = −2.79 and −23.9: a very slow creep (time constant 1 ÷ 2.79 = 0.36 s for the slow mode): the car feels "stiff" and gives a hard ride over bumps.
+6. **Critical damping example:** y″ + 4y′ + 4y = 0, y (0) = 1, y′ (0) = 0. Double root r = −2: y = (C₁ + C₂ x) e^(−2x), C₁ = 1 and y′ (0) = −2C₁ + C₂ = 0 gives C₂ = 2: **y = (1 + 2x) e^(−2x)**, y (1) = 3 e⁻² = **0.406**.
+7. **Quality factor:** Q = 1 ÷ (2ζ): ζ = 0.306 gives Q = 1.63. A low ζ (high Q) means a sharp resonance (Day 4).
+/EX
+
+LAB: Damped oscillator | Choose the natural frequency ω₀ and the damping ratio ζ (below 1). The graph shows the motion from x (0) = 1 at rest. The numbers give the damped frequency, the decay rate, the first overshoot (percent) and the settling time 4 ÷ (ζ ω₀). | w0:Natural frequency ω₀ (rad/s):2:12:0.5:8 ;; z:Damping ratio ζ:0.05:0.95:0.05:0.6 | w0*sqrt(1-z^2):Damped frequency ω_d (rad/s):2 ;; z*w0:Decay rate ζ ω₀ (per s):2 ;; 100*exp(-pi*z/sqrt(1-z^2)):Overshoot (%):1 ;; 4/(z*w0):Settling time (s):2 | exp(-z*w0*x)*(cos(w0*sqrt(1-z^2)*x)+z*w0/(w0*sqrt(1-z^2))*sin(w0*sqrt(1-z^2)*x)) | 0,3 | -1,1
+
+TRAP: Do not mix up b² − 4mk with b: heavy damping is **not** "better": the best return is at critical damping, and an overdamped system is slower. The frequency of a damped oscillation is ω_d, which is below ω₀. And the double root needs the extra factor **t** (C₁ + C₂ t), not just C e^(rt) twice.
+
+### Quick self-check
+QUIZ:
+Q: The critical damping of m = 300 kg, k = 20,000 N/m is about…; 490 N s/m; 4899 N s/m; 20,000 N s/m; 300 N s/m; 2; 2√(m k).
+Q: ζ = 0.6 is…; underdamped; critical; overdamped; undamped; 1; ζ < 1.
+Q: The fastest return without overshoot occurs at…; ζ = 0; ζ = 0.5; ζ = 1; ζ = 3; 3; Critical damping.
+Q: The solution at critical damping has the form…; C e^(rt); (C₁ + C₂ t) e^(rt); C cos ωt; C₁ e^(r₁t) + C₂ e^(r₂t); 2; Double root.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ω₀ for m = 300 kg and k = 20,000 N/m. => **8.165 rad/s**.
+P: Find b_c for the same system. => **4899 N s/m**.
+P: Is b = 3000 under- or overdamped? => ζ = 0.612: **underdamped**.
+LVL: Level 2 | Apply
+P: Find the overshoot and settling time for ζ = 0.612 and ω₀ = 8.165. => **8.8%** and **0.8 s**.
+P: Solve y″ + 4y′ + 4y = 0 with y (0) = 1, y′ (0) = 0 and find y (1). => y = (1 + 2x) e^(−2x); **0.406**.
+P: Classify y″ + 6y′ + 5y = 0 and solve it for y (0) = 1, y′ (0) = 0. => b² − 4ac = 36 − 20 > 0: overdamped. r = −1, −5: C₁ + C₂ = 1, −C₁ − 5C₂ = 0: C₂ = −1/4, C₁ = 5/4: **y = (5 e^(−x) − e^(−5x)) ÷ 4**.
+P: What b makes m = 2 kg, k = 50 N/m critically damped? => b = 2√(100) = **20 N s/m**.
+P: A door closer is a spring with k = 40 N/m on a door of m = 2 kg (as a point mass). Find b for critical damping and ω₀. => ω₀ = √20 = 4.47 rad/s; b = **17.9 N s/m**.
+P: Find the damped frequency of m = 1, b = 2, k = 26. => ω₀ = 5.10, ζ = 0.196, ω_d = √(26 − 1) = **5.0 rad/s**.
+LVL: Level 3 | Real
+P: A car has ζ = 0.3 and hits a bump: the body overshoots by 37%. After the damper wears out it is ζ = 0.1. Find the overshoot then. => e^(−π × 0.1 ÷ √0.99) = **73%** and it takes about 3 times as long to settle: a worn shock absorber makes the car bounce.
+LVL: Challenge | Where does the double root come from?
+P: Show that y = x e^(−2x) solves y″ + 4y′ + 4y = 0. => y′ = (1 − 2x) e^(−2x), y″ = (−4 + 4x) e^(−2x). y″ + 4y′ + 4y = e^(−2x) [−4 + 4x + 4 − 8x + 4x] = **0** ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: Kirchhoff's rules | 35 min
+
+### The two rules
+1. **Junction rule** (conservation of charge): the currents entering a junction equal the currents leaving: **Σ I = 0**.
+2. **Loop rule** (conservation of energy, the field is conservative): around any closed loop the potential changes add to zero: **Σ ΔV = 0**. Going through a battery from − to + is a **gain** +ε; going through a resistor **in the direction of the current** is a **drop** −I R.
+
+Method: label the currents with assumed directions (a negative answer means the opposite direction), write the junction equation and as many loop equations as needed to reach as many equations as unknowns, and solve.
+
+BN: ১) জংশন নিয়ম: ΣI = 0 (চার্জ সংরক্ষণ)। ২) লুপ নিয়ম: বদ্ধ লুপে ΣΔV = 0 (শক্তি সংরক্ষণ)। ব্যাটারি − থেকে + এ গেলে +ε; রোধ প্রবাহের দিকে গেলে −IR। প্রবাহের দিক অনুমান করো; উত্তর ঋণাত্মক হলে দিক উল্টো।
+
+EX: A two-battery circuit
+Branch 1 has ε₁ = 12 V and R₁ = 2 Ω, branch 2 has ε₂ = 6 V and R₂ = 3 Ω, and R₃ = 6 Ω is the middle branch. Let I₁ and I₂ flow up through the batteries into the top junction and I₃ flow down through R₃.
+1. **Junction:** I₃ = I₁ + I₂.
+2. **Loop 1:** 12 − 2 I₁ − 6 I₃ = 0. **Loop 2:** 6 − 3 I₂ − 6 I₃ = 0.
+3. Substituting I₃: 12 = 8 I₁ + 6 I₂ and 6 = 6 I₁ + 9 I₂. Solving: **I₁ = 2 A**, **I₂ = −0.667 A**, **I₃ = 1.333 A**.
+4. **Meaning:** I₂ is negative, so the 6 V battery is being **charged** by the 12 V battery (the current flows into its + terminal).
+5. **Check with energy:** ε₁ supplies 12 × 2 = 24 W. ε₂ absorbs 6 × 0.667 = 4 W. The resistors dissipate 2² × 2 + 0.667² × 3 + 1.333² × 6 = 8 + 1.33 + 10.67 = **20 W**, and 24 − 4 = 20 ✓.
+/EX
+
+EX: Smaller cases
+1. **A battery charger:** a 14 V charger charges a 12 V battery with a total resistance 0.1 Ω: I = (14 − 12) ÷ 0.1 = **20 A** at the start. Chargers limit the current.
+2. **A single loop with two batteries opposed:** 9 V and 5 V in series opposition with 4 Ω total: I = (9 − 5) ÷ 4 = **1 A**.
+3. **Two batteries in parallel with unequal EMF** (12 V and 11.8 V, each with r = 0.05 Ω, no load): the circulating current is 0.2 ÷ 0.1 = **2 A**, wasting 0.4 W: never connect unequal batteries in parallel.
+/EX
+
+LAB: Two-loop circuit | Choose the two EMFs and three resistors of the circuit above. The numbers give the currents I₁ and I₂ (a negative value means the battery is being charged) and I₃ = I₁ + I₂ through the middle resistor. | e1:ε₁ (V):1:24:1:12 ;; e2:ε₂ (V):0:24:1:6 ;; R1:R₁ (Ω):1:10:1:2 ;; R2:R₂ (Ω):1:10:1:3 ;; R3:R₃ (Ω):1:20:1:6 | (e1*(R2+R3)-R3*e2)/((R1+R3)*(R2+R3)-R3^2):I₁ (A):3 ;; ((R1+R3)*e2-R3*e1)/((R1+R3)*(R2+R3)-R3^2):I₂ (A):3 ;; (e1*R2+e2*R1)/((R1+R3)*(R2+R3)-R3^2):I₃ (A):3 | - | 0,1 | 0,1
+
+TRAP: Choose the **direction** of each current and keep it: a negative result is not a mistake. In the loop rule the sign depends on the direction **you travel**: crossing a resistor against the current gives +I R. The number of **independent** equations must equal the number of unknowns (do not write all three loops: the third is redundant).
+
+### Quick self-check
+QUIZ:
+Q: Kirchhoff's junction rule expresses conservation of…; energy; charge; momentum; power; 2; ΣI = 0.
+Q: In a loop, going across a resistor along the current gives…; +I R; −I R; 0; ε; 2; A potential drop.
+Q: A negative current from the solution means…; an error; the opposite direction; zero current; a short; 2; The assumed direction was wrong.
+Q: The loop rule expresses conservation of…; charge; energy; mass; momentum; 2; The field is conservative.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: A 9 V battery drives a 3 Ω and a 6 Ω resistor in series. Find I. => **1 A**.
+P: Find the voltage across each resistor. => **3 V** and **6 V**.
+P: 5 A enters a junction and 3 A leaves on one branch. Find the other. => **2 A**.
+LVL: Level 2 | Apply
+P: Solve the two-battery circuit (12 V, 2 Ω; 6 V, 3 Ω; 6 Ω middle). => **I₁ = 2 A, I₂ = −0.667 A, I₃ = 1.333 A**.
+P: Verify energy conservation for it. => **24 W** supplied − **4 W** into the second battery = **20 W** heat ✓.
+P: A 14 V charger with 0.1 Ω total resistance charges a 12 V battery. Find the initial current. => **20 A**.
+P: Find the current in a loop with 9 V and 5 V opposed and 4 Ω. => **1 A**.
+P: Change R₃ to 3 Ω in the two-battery circuit and solve. => det = (2 + 3)(3 + 3) − 9 = 21. I₁ = (12 × 6 − 3 × 6) ÷ 21 = **2.571 A**; I₂ = (5 × 6 − 3 × 12) ÷ 21 = **−0.286 A**; I₃ = **2.286 A**.
+P: Two 12 V batteries (r = 0.05 Ω each) are in parallel across a 1 Ω load. Find the load current and the current from each battery. => The parallel pair has r = 0.025 Ω: I = 12 ÷ 1.025 = **11.7 A**, **5.85 A** from each (twice the capacity, half the internal loss).
+LVL: Level 3 | Real
+P: Jump-starting a car: a good 12.6 V battery (r = 0.02 Ω) is connected through cables (0.03 Ω total) to a flat 10 V battery (r = 0.08 Ω) with a 100 A starter load (R = 0.1 Ω) in parallel with it. Estimate the charging current into the flat battery if the load is not yet running. => I = (12.6 − 10) ÷ (0.02 + 0.03 + 0.08) = **20 A**: a charge current in the right range for jump-starting (the cable gauge matters).
+LVL: Challenge | Redundant equations
+P: In the two-battery circuit the outer loop (through both batteries) gives 12 − 2 I₁ + 3 I₂ − 6 = 0. Check that the solution satisfies it. => 12 − 4 + 3 × (−0.667) − 6 = 12 − 4 − 2 − 6 = **0** ✓. It is the difference of the two loop equations, so it adds no new information.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- m x″ + b x′ + k x = 0: ω₀ = √(k ÷ m), ζ = b ÷ 2√(mk). ζ < 1 decaying oscillation at ω_d = ω₀ √(1 − ζ²), overshoot e^(−πζ ÷ √(1 − ζ²)); ζ = 1 (C₁ + C₂ t) e^(−ω₀ t) fastest without overshoot; ζ > 1 slow. Car suspension ζ ≈ 0.6.
+- Kirchhoff: ΣI = 0 at a junction, ΣΔV = 0 around a loop; keep your sign conventions; negative current means reverse direction. Charger and parallel batteries.
+
+BN: আজকের সারকথা: ζ = b/2√(mk); ζ < 1 দুলে কমে, ω_d = ω₀√(1 − ζ²); ζ = 1 দোল ছাড়া সবচেয়ে দ্রুত; ζ > 1 ধীর। কার্শফ: জংশনে ΣI = 0, লুপে ΣΔV = 0। ঋণাত্মক প্রবাহ মানে উল্টো দিক।
+
+EXIT:
+E: What is the critical damping (N s/m) for m = 300 kg and k = 20,000 N/m? Give the nearest hundred.; 4900; 100; 2√(m k).
+E: What is the overshoot (%) for ζ = 0.612?; 8.8; 0.2; e^(−πζ ÷ √(1 − ζ²)).
+E: What is I₁ (A) in the two-battery circuit?; 2; 0.01; From the two loop equations.
+
+**Tomorrow:** forced oscillations and resonance, and multi-loop circuits and the phone charging curve.
+
+CHECK: notes

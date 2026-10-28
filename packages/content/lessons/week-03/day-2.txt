@@ -1,0 +1,233 @@
+@day Week 3 · Day 2 · Tuesday
+# The unit circle and the graphs of sin, cos and tan. Then: relative velocity
+lead: Right triangles only handle angles below 90°. But wheels turn through hundreds of degrees, and waves repeat forever. Today the triangle becomes a circle, and trigonometry becomes the language of everything that rotates or oscillates. In physics you learn why a boat aimed straight across a river lands downstream.
+
+BN: সমকোণী ত্রিভুজ শুধু ৯০° এর কম কোণ সামলাতে পারে। কিন্তু চাকা শত শত ডিগ্রি ঘোরে, ঢেউ চিরকাল পুনরাবৃত্তি করে। আজ ত্রিভুজ হবে বৃত্ত, আর ত্রিকোণমিতি হবে ঘূর্ণন আর কম্পনের ভাষা। পদার্থবিজ্ঞানে দেখব নদীর ওপারে সোজা নৌকা চালালে কেন স্রোতের দিকে সরে যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and last week
+P: Write sin 30°, cos 60° and tan 45° exactly. => **1/2**, **1/2**, **1**.
+P: Convert 3π/4 to degrees. => **135°**.
+P: A 20 N force acts at 60° above the horizontal. Find its horizontal component. => 20 cos 60° = **10 N**.
+P: Solve 3^(x) = 81. => **x = 4**.
+P: Expand log(a³b²). => **3 log a + 2 log b**.
+
+CHECK: recall
+
+@section math | 2 · Math: the unit circle and trig graphs | 60 min
+
+### From triangle to circle
+Draw a circle of radius 1 centred at the origin (the **unit circle**). Start at the point (1, 0) and rotate **counterclockwise** by an angle θ. You arrive at a point (x, y).
+
+Look at the right triangle formed by that point, the origin and the x-axis. Its hypotenuse is the radius, which is 1. So:
+
+- adjacent = x = cos θ ÷ 1, so **x = cos θ**
+- opposite = y = sin θ ÷ 1, so **y = sin θ**
+
+This gives us the definition that works for **any** angle, even 200°, −50° or 1000°:
+
+EQ: the point on the unit circle at angle θ is (cos θ, sin θ)     and     tan θ = sin θ ÷ cos θ
+
+When the point has a negative x or y, cos or sin become negative. That is how trig functions extend beyond 90°. A **negative angle** means rotating clockwise, and an angle over 360° just goes round again.
+
+KEY: sin θ = the **height** of the point on the unit circle. cos θ = its **horizontal** position. As you walk around the circle, sin and cos trace out the waves you are about to graph.
+
+BN: একক বৃত্তে (ব্যাসার্ধ ১) কোণ θ তে যে বিন্দু পাওয়া যায়, তার স্থানাঙ্ক (cos θ, sin θ)। অর্থাৎ cos হলো বিন্দুর অনুভূমিক অবস্থান আর sin হলো উচ্চতা। এই সংজ্ঞা যেকোনো কোণের জন্য কাজ করে, এমনকি ঋণাত্মক বা ৩৬০° এর বেশি কোণের জন্যও। ঘড়ির উল্টো দিকে ঘোরা ধনাত্মক কোণ।
+
+### Signs in the four quadrants
+| Quadrant | Angle range | sin | cos | tan |
+| I | 0° to 90° | + | + | + |
+| II | 90° to 180° | + | − | − |
+| III | 180° to 270° | − | − | + |
+| IV | 270° to 360° | − | + | − |
+
+Memory aid: **All Students Take Calculus**: **A**ll are positive in I, **S**in in II, **T**an in III, **C**os in IV.
+
+### Reference angles: no new values to learn
+The **reference angle** is the acute angle between the terminal arm and the x-axis. The value of sin, cos or tan at any angle equals the value at its reference angle, up to a sign given by the quadrant.
+
+EX: sin 150°
+1. 150° is in quadrant II. The reference angle is 180° − 150° = 30°.
+2. sin is positive in II. So sin 150° = sin 30° = **1/2**.
+/EX
+
+EX: cos 210°
+1. 210° is in quadrant III. Reference angle 210° − 180° = 30°.
+2. cos is negative in III. So cos 210° = −cos 30° = **−√3/2**.
+/EX
+
+EX: tan(5π/3)
+1. 5π/3 = 300°, in quadrant IV. Reference angle 60°.
+2. tan is negative in IV. tan 300° = −tan 60° = **−√3**.
+/EX
+
+EX: Exact values at the axes
+1. At 0 the point is (1, 0): cos 0 = 1, sin 0 = 0.
+2. At π/2 it is (0, 1): cos = 0, sin = 1, and tan is **undefined** (division by zero).
+3. At π it is (−1, 0). At 3π/2 it is (0, −1). Back to (1, 0) at 2π.
+/EX
+
+BN: কোনো কোণের মান বের করতে প্রথমে রেফারেন্স কোণ (x-অক্ষের সাথে তীক্ষ্ণ কোণ) বের করো, তারপর চতুর্ভাগ দেখে চিহ্ন ঠিক করো। তাই নতুন মান মুখস্থ করতে হয় না। 90° এ tan অসংজ্ঞায়িত কারণ cos = 0 আর ০ দিয়ে ভাগ চলে না।
+
+### The graph of sine
+Walk around the unit circle at steady speed and record the **height** (sin θ). You get a smooth wave that repeats every 2π.
+
+FUNC: y = sin x and y = cos x | x (radians) | y | sin(x) ;; cos(x) | -2*pi,2*pi | -1.5,1.5 | pi | Teal: y = sin x. Orange: y = cos x. Both repeat every 2π and stay between −1 and 1. The cosine curve is the sine curve shifted left by π/2.
+
+**Properties of sin x:**
+- Period 2π (the pattern repeats every 2π). Range from −1 to 1. Amplitude 1.
+- Passes through (0, 0). It is an **odd** function: sin(−x) = −sin x (symmetric about the origin).
+
+**Properties of cos x:**
+- Period 2π. Range from −1 to 1. Starts at its maximum, cos 0 = 1.
+- It is an **even** function: cos(−x) = cos x (symmetric about the y-axis).
+- cos x = sin(x + π/2), a shifted copy of sine.
+
+### The graph of tangent
+Since tan x = sin x ÷ cos x, tangent explodes wherever cos x = 0, that is at x = π/2, 3π/2, and so on. These are **vertical asymptotes**.
+
+FUNC: y = tan x | x (radians) | y | tan(x) | -pi,pi | -4,4 | pi | The tangent curve has period π and vertical asymptotes at odd multiples of π/2. It rises from −∞ to +∞ between each pair of asymptotes.
+
+BN: sin আর cos এর গ্রাফ ঢেউয়ের মতো, প্রতি 2π তে পুনরাবৃত্তি, মান −১ থেকে ১ এর মধ্যে। cos গ্রাফ হলো sin গ্রাফকে π/2 বামে সরানো। tan = sin ÷ cos, তাই যেখানে cos = 0 সেখানে tan অসীমে চলে যায়, সেখানে উল্লম্ব অ্যাসিম্পটোট। tan এর পর্যায়কাল (period) π।
+
+### Transforming the waves
+Yesterday's transformation rules (shift, stretch, flip) apply to waves. The general form:
+
+EQ: y = A · sin(B(x − C)) + D
+
+| Letter | What it does | How to read it |
+| A | Amplitude (height of the wave from its middle) | The size of A, ignoring its sign |
+| B | Squeezes the wave horizontally | Period = 2π ÷ B |
+| C | Phase shift (slides it right) | Shift C to the right |
+| D | Vertical shift (the midline) | Wave oscillates about y = D |
+
+EX: y = 3 sin(2x) + 1
+1. Amplitude = 3. Period = 2π ÷ 2 = **π**. Midline y = 1.
+2. The maximum is 1 + 3 = 4 and the minimum is 1 − 3 = −2.
+/EX
+
+FUNC: y = 3 sin(2x) + 1 | x (radians) | y | 3*sin(2*x)+1 ;; sin(x) | -pi,2*pi | -3,5 | pi | The tall teal wave is y = 3 sin 2x + 1: amplitude 3, period π, midline at y = 1. The orange wave is plain y = sin x for comparison.
+
+EX: Mains electricity
+1. In Bangladesh the supply is 220 V at 50 Hz. The voltage peak is 220 × √2 = 311 V.
+2. The voltage is V(t) = 311 sin(100π t), where t is in seconds.
+3. Here B = 100π, so the period is 2π ÷ 100π = **0.02 s**, which gives 50 cycles per second ✓.
+/EX
+
+BN: A হলো বিস্তার (amplitude), B ঢেউকে চেপে দেয় (পর্যায়কাল = 2π ÷ B), C ডানে সরায়, D পুরো ঢেউকে ওপর-নিচে সরায়। যেমন বাংলাদেশের বিদ্যুৎ ২২০ V, ৫০ Hz, তার সর্বোচ্চ ভোল্টেজ ৩১১ V, আর সূত্র V = 311 sin(100πt)। পর্যায়কাল ০.০২ সেকেন্ড মানে প্রতি সেকেন্ডে ৫০ চক্র।
+
+### First trig equations
+Solve sin x = 1/2 for 0 ≤ x ≤ 2π. Sine is positive in quadrants I and II, and the reference angle is π/6. So **x = π/6 or x = 5π/6**. Because the wave repeats, **all** solutions are x = π/6 + 2πn or x = 5π/6 + 2πn, where n is any whole number. We will practise this fully tomorrow.
+
+### Quick self-check
+QUIZ:
+Q: What is cos 120°?; 1/2; −1/2; √3/2; −√3/2; 2; 120° is in quadrant II with reference angle 60°. cos is negative there, so cos 120° = −cos 60° = −1/2.
+Q: What is the period of y = sin(4x)?; 4π; π/2; 2π; π/4; 2; Period = 2π ÷ 4 = π/2.
+Q: The maximum value of y = 5 cos x − 2 is…; 5; 3; −2; 7; 2; Amplitude 5 and midline −2, so the max is −2 + 5 = 3.
+Q: Where is tan x undefined?; x = 0; x = π; x = π/2; x = 2π; 3; At π/2, cos x = 0, so tan x = sin x ÷ cos x has a zero denominator.
+Q: sin(−30°) equals…; 1/2; −1/2; √3/2; −√3/2; 2; Sine is odd: sin(−x) = −sin x.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the exact values of sin 225°, cos 300° and tan 135°. => sin 225° = −sin 45° = **−√2/2**. cos 300° = cos 60° = **1/2**. tan 135° = −tan 45° = **−1**.
+P: State the amplitude and period of y = 4 sin(3x). => Amplitude **4**, period **2π/3**.
+P: State the range of y = 2 cos x + 1. => From −1 to 3: **−1 ≤ y ≤ 3**.
+LVL: Level 2 | Solve and sketch
+P: Solve cos x = −√3/2 for 0 ≤ x ≤ 2π. => Cosine is negative in II and III, with reference angle π/6: **x = 5π/6 or 7π/6**.
+P: Solve 2 sin x = −1 for 0 ≤ x < 2π. => sin x = −1/2, negative in III and IV, reference π/6: **x = 7π/6 or 11π/6**.
+P: Write down a sine function with amplitude 2, period π and midline y = 3. => A = 2, B = 2π ÷ π = 2, D = 3: **y = 2 sin(2x) + 3**.
+P: The depth of water in a harbour is 6 m ± 2 m with a period of 12 hours, and is highest (8 m) at t = 0. Write a model for depth d(t). => Use cosine since it starts at a maximum: **d(t) = 6 + 2 cos(πt ÷ 6)**. Period = 2π ÷ (π/6) = 12 h ✓.
+P: Using the model above, when is the water 7 m deep for the first time after t = 0? => 6 + 2cos(πt/6) = 7, so cos(πt/6) = 1/2, so πt/6 = π/3 and **t = 2 hours**.
+LVL: Level 3 | Real
+P: A Ferris wheel of radius 20 m has its centre 22 m above the ground. It makes one turn in 40 s, and you board at the lowest point. Write your height h(t). => At t = 0 you are at the bottom, which is a minimum of cosine flipped: **h(t) = 22 − 20 cos(2πt ÷ 40) = 22 − 20 cos(πt ÷ 20)**. At t = 0, h = 2 m. At t = 20 s, h = 42 m ✓.
+P: For the same wheel, when are you above 32 m during the first turn? => 22 − 20cos(πt/20) > 32, so cos(πt/20) < −1/2. This happens for πt/20 between 2π/3 and 4π/3, so **13.3 s < t < 26.7 s**.
+LVL: Challenge | Why tan has period π
+P: Show using the unit circle that tan(θ + π) = tan θ. => Adding π rotates the point (cos θ, sin θ) half a turn to (−cos θ, −sin θ). Then tan(θ + π) = (−sin θ) ÷ (−cos θ) = sin θ ÷ cos θ = **tan θ**. So the tangent repeats every π, half the period of sine and cosine.
+
+CHECK: math
+
+@section physics | 3 · Physics: relative velocity | 30 min
+
+### Velocity depends on who is watching
+A passenger sitting in a train is at rest relative to the train but moves at 100 km/h relative to the ground. Velocity is always measured **relative to something**. When two things move, we use:
+
+EQ: v(A relative to B) = v(A relative to ground) − v(B relative to ground)
+
+Equivalent: v(A relative to ground) = v(A relative to B) + v(B relative to ground). This is just vector addition, which you did yesterday.
+
+EX: Cars on a road
+1. Car A drives east at 90 km/h and car B ahead of it also drives east at 60 km/h.
+2. A relative to B: 90 − 60 = **30 km/h east**. That is how fast A closes the gap.
+3. If B were coming towards A at 60 km/h (west), A relative to B = 90 − (−60) = **150 km/h**.
+/EX
+
+BN: বেগ সবসময় কারো সাপেক্ষে মাপা হয়। A এর B এর সাপেক্ষে বেগ = A এর মাটির সাপেক্ষে বেগ − B এর মাটির সাপেক্ষে বেগ। একই দিকে চললে বেগ বিয়োগ হয়, উল্টো দিকে এলে যোগ হয় (দিক-চিহ্ন সহ)। তাই দুটো গাড়ি মুখোমুখি এলে সংঘর্ষের গতি ভয়ানক বেশি হয়।
+
+### A boat crossing a river
+A boat moves at 4 m/s relative to the water. The river flows at 3 m/s. The boat's actual velocity over the ground is the **sum** of these two vectors.
+
+EX: Aiming straight across
+1. The boat points straight across (perpendicular to the banks). The two velocity vectors are at right angles: 4 m/s across and 3 m/s downstream.
+2. Ground speed = √(16 + 9) = **5 m/s**, at an angle tan⁻¹(3 ÷ 4) = **36.9° downstream** from the line across.
+3. If the river is 200 m wide, the crossing time depends only on the across component: t = 200 ÷ 4 = **50 s**.
+4. In 50 s the current carries the boat 3 × 50 = **150 m downstream**.
+/EX
+
+EX: Reaching the point directly opposite
+1. To land directly opposite, the boat must aim upstream by an angle φ so that its upstream component cancels the current: 4 sin φ = 3.
+2. sin φ = 3/4, so φ = **48.6° upstream** from the perpendicular.
+3. The crossing speed is now 4 cos φ = 4 × 0.661 = **2.65 m/s**, so t = 200 ÷ 2.65 = **75.6 s**. It takes longer.
+/EX
+
+KEY: Perpendicular components do not affect each other. The across speed alone determines the crossing time, and the downstream speed alone determines the drift.
+
+EX: An aeroplane in wind
+1. A plane flies at an airspeed of 200 km/h, heading north. A wind blows from the west at 50 km/h, which pushes the plane east.
+2. Ground velocity: 200 north and 50 east. Speed = √(200² + 50²) = **206 km/h**.
+3. Direction: tan⁻¹(50 ÷ 200) = **14° east of north**. To fly due north on the ground, the pilot must aim into the wind: 200 sin φ = 50, so φ = 14.5° west of north.
+/EX
+
+EX: Rain on a runner
+1. Rain falls vertically at 10 m/s. You run at 4 m/s along a road.
+2. The rain relative to you has components: 10 m/s downward and 4 m/s backwards (opposite your motion). Speed = √(100 + 16) = **10.8 m/s**.
+3. The rain seems to come from ahead, at tan⁻¹(4 ÷ 10) = **21.8° from the vertical**. You should tilt your umbrella forward by that angle.
+/EX
+
+BN: নদীতে নৌকা: সোজা ওপারে মুখ করলে নৌকা স্রোতে ভেসে যায়। পার হওয়ার সময় শুধু ওপারমুখী বেগ নির্ধারণ করে (200 ÷ 4 = 50 s), আর ভেসে যাওয়ার দূরত্ব = স্রোত × সময়। ঠিক বিপরীত বিন্দুতে পৌঁছাতে চাইলে স্রোতের উল্টো দিকে কিছুটা কোণ করে চালাতে হয়। লম্ব উপাদান একে অপরকে প্রভাবিত করে না, এই কথাটা প্রক্ষেপ গতিতেও (projectile) আসবে।
+
+### Quick self-check
+QUIZ:
+Q: A boat aims straight across a 100 m river at 2 m/s relative to the water. The current is 1.5 m/s. How long does the crossing take?; 33 s; 50 s; 100 s; 57 s; 2; Only the across component matters: 100 ÷ 2 = 50 s.
+Q: In that crossing, how far downstream does the boat drift?; 75 m; 50 m; 100 m; 150 m; 1; Drift = 1.5 × 50 = 75 m.
+Q: Two trains approach each other on parallel tracks at 70 km/h and 50 km/h. Their relative speed is…; 20 km/h; 60 km/h; 120 km/h; 3500 km/h; 3; They approach each other, so the speeds add: 120 km/h.
+Q: A plane's airspeed is 300 km/h north and a 40 km/h wind blows from the south. Its ground speed is…; 260 km/h; 340 km/h; 303 km/h; 300 km/h; 2; The wind blows north (from the south), adding to the speed: 340 km/h.
+
+### Practice
+LVL: Level 1 | Direct
+P: A train moves at 25 m/s east. A passenger walks at 1.5 m/s towards the front. Find the passenger's speed relative to the ground and relative to the track at the back, if she walks backwards. => Forward: **26.5 m/s**. Backwards: **23.5 m/s**.
+P: Car A goes 80 km/h east and car B goes 100 km/h east, behind A. How long does B take to close a 5 km gap? => Closing speed 20 km/h. t = 5 ÷ 20 = **0.25 h = 15 min**.
+LVL: Level 2 | In two dimensions
+P: A swimmer swims at 1.2 m/s across a 60 m wide river with a current of 0.9 m/s. Find the crossing time, the drift and the swimmer's ground speed. => t = 60 ÷ 1.2 = **50 s**. Drift = 0.9 × 50 = **45 m**. Ground speed = √(1.44 + 0.81) = **1.5 m/s**.
+P: A plane heads east at 250 km/h in a wind of 40 km/h blowing from the south (toward the north). Find the ground velocity. => East 250, north 40. Speed = √(62500 + 1600) = **253 km/h**, at **9.1° north of east**.
+LVL: Challenge | The shortest crossing
+P: A boat can move at 5 m/s in still water. The current is 3 m/s. Compare the time to cross a 100 m river when aiming straight across, and when aiming to land directly opposite. => Straight across: 100 ÷ 5 = **20 s**, but it lands 60 m downstream. Directly opposite: sin φ = 3/5, so across speed = 5 cos φ = 4 m/s, and t = 100 ÷ 4 = **25 s**. Landing directly opposite costs 5 extra seconds.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Unit circle: (cos θ, sin θ). tan θ = sin ÷ cos. Signs by quadrant (All Students Take Calculus).
+- Reference angle gives the value; the quadrant gives the sign.
+- sin and cos: period 2π, amplitude 1. tan: period π, asymptotes where cos = 0.
+- y = A sin(B(x − C)) + D: amplitude |A|, period 2π ÷ B, shift C, midline D.
+- Relative velocity: subtract velocities. Perpendicular components are independent.
+
+BN: আজকের সারকথা: একক বৃত্তে (cos θ, sin θ), রেফারেন্স কোণ আর চতুর্ভাগ থেকে চিহ্ন, sin/cos এর পর্যায়কাল 2π, tan এর π, আর A sin(B(x − C)) + D এর অর্থ। সাপেক্ষ বেগ মানে ভেক্টর বিয়োগ, আর লম্ব উপাদানগুলো স্বাধীন।
+
+**Tomorrow:** trig identities and equations, and projectile motion (horizontal launch).
+
+CHECK: notes

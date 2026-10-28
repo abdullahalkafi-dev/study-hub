@@ -1,0 +1,179 @@
+@day Week 14 · Day 5 · Friday
+# Iterative methods for big systems. Then: work, heat and the first law of thermodynamics
+lead: Gaussian elimination is perfect for small systems, but physics and engineering produce systems with millions of unknowns, such as the temperature at every point of a plate. For those you guess, improve, and repeat: iterative methods. In physics, you meet the law that governs every engine and refrigerator: the first law of thermodynamics, which says that energy is conserved when heat, work and internal energy trade places.
+
+BN: গাউসীয় অপসারণ ছোট জোটের জন্য নিখুঁত, কিন্তু পদার্থবিজ্ঞান ও প্রকৌশলে লাখ লাখ অজানার জোট আসে, যেমন প্লেটের প্রতিটি বিন্দুর তাপমাত্রা। সেখানে অনুমান করো, উন্নত করো, আবার করো: পুনরাবৃত্তি পদ্ধতি। পদার্থবিজ্ঞানে প্রতিটি ইঞ্জিন ও ফ্রিজ যে সূত্র মেনে চলে তা শিখবে: তাপগতিবিদ্যার প্রথম সূত্র, যা বলে তাপ, কাজ ও অভ্যন্তরীণ শক্তি অদলবদল হলেও শক্তি সংরক্ষিত থাকে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Solve x + 2y = 5, 3x + 4y = 11 by any method. => **(1, 2)**.
+P: What does a large condition number tell you? => Small errors in the data can be **amplified** a lot in the solution.
+P: Write the average kinetic energy of a molecule in terms of T. => **(3/2) k T**.
+P: What is the internal energy of n moles of a monatomic ideal gas? => **(3/2) n R T**.
+P: What is the work done by a gas at constant pressure P when the volume rises by ΔV? => **W = P ΔV**.
+
+CHECK: recall
+
+@section math | 2 · Math: iterative methods | 55 min
+
+### Guess, improve, repeat
+Solve each equation for its own unknown, put a guess on the right, and compute a new guess. Two ways:
+
+- **Jacobi:** use only the old values in every update.
+- **Gauss–Seidel:** use the newest values as soon as they are available.
+
+EX: Jacobi on a 2 × 2 system
+1. System: 4x − y = 7 and −x + 3y = 5. Rewrite: x = (7 + y) ÷ 4 and y = (5 + x) ÷ 3. The exact solution: from the first y = 4x − 7, then −x + 12x − 21 = 5, so x = 26/11 = **2.3636** and y = 27/11 = **2.4545**.
+2. Start at (0, 0). Iteration 1: x = 7 ÷ 4 = 1.75, y = 5 ÷ 3 = 1.667. Iteration 2: x = (7 + 1.667) ÷ 4 = 2.167, y = (5 + 1.75) ÷ 3 = 2.25. Iteration 3: x = 2.3125, y = 2.389. Iteration 4: x = 2.347, y = 2.4375. Iteration 5: x = 2.359, y = 2.449.
+3. The error shrinks by a constant factor each pair of steps (here 1/12).
+/EX
+
+EX: Gauss–Seidel on the same system
+1. Start at (0, 0). Iteration 1: x = 7 ÷ 4 = 1.75, then (using the new x) y = (5 + 1.75) ÷ 3 = 2.25.
+2. Iteration 2: x = (7 + 2.25) ÷ 4 = 2.3125, y = (5 + 2.3125) ÷ 3 = 2.4375. Iteration 3: x = 2.3594, y = 2.4531. Iteration 4: x = 2.3633, y = 2.4544.
+3. After 4 iterations the error is about 0.0003, while Jacobi needed 8 iterations for the same accuracy: **Gauss–Seidel converges about twice as fast**. Its error shrinks by 1/12 **per iteration**.
+/EX
+
+LAB: Jacobi against Gauss–Seidel | The system is 4x − y = 7, −x + 3y = 5. Jacobi's error in x after n steps is (26/11)(1/12)^(n/2) and Gauss–Seidel's is (27/44)(1/12)^(n−1). The graph shows both errors against the number of iterations: Gauss–Seidel falls twice as fast. Choose an even n to see the iterates. | n:Iterations n (even):2:10:2:4 | 26/11*(1-pow(1/12,n/2)):Jacobi x after n steps:4 ;; 27/11*(1-pow(1/12,n/2)):Jacobi y after n steps:4 ;; 26/11*pow(1/12,n/2):Jacobi error in x:5 ;; 26/11-(27/44)*pow(1/12,n-1):Gauss-Seidel x after n steps:4 ;; (27/44)*pow(1/12,n-1):Gauss-Seidel error in x:5 | 26/11*pow(1/12,x/2) ;; 27/44*pow(1/12,x-1) | 1,10 | 0,2.5
+
+### When does it converge?
+A sufficient condition: the matrix is **strictly diagonally dominant**, meaning |a_ii| > Σ_(j≠i) |a_ij| in every row. The smaller the off-diagonal part relative to the diagonal, the faster the convergence.
+
+EX: Dominance matters
+1. 4x − y = 7, −x + 3y = 5: row 1: 4 > 1, row 2: 3 > 1. Dominant, converges.
+2. **Swap the equations:** −x + 3y = 5 first, then 4x − y = 7. Now solving "row i for unknown i" gives x = 3y − 5 and y = 4x − 7. From (0, 0): (−5, −7), then (−26, −27), then (−86, −111): it **diverges**. The same system, a bad ordering.
+3. **Number of iterations:** with Gauss–Seidel's factor 1/12, to reach an error of 10⁻⁴ we need (1/12)ⁿ < 10⁻⁴, so n > 4 ÷ log₁₀ 12 = **3.7**, i.e. 4 iterations. For Jacobi (factor 1/√12 per step): n > 4 ÷ log₁₀ √12 = **7.4**, i.e. 8 iterations.
+/EX
+
+### Why bother? Heat on a plate
+In the steady state, the temperature at each interior point of a plate is the **average of its four neighbours** (that is Laplace's equation, discretised). Each node gives one linear equation, so a plate with 1000 × 1000 nodes means a million unknowns. Elimination would need about 10¹⁸ operations. But each iteration costs only about 5 million operations, and a few hundred iterations are enough.
+
+EX: A small plate
+1. A square with four interior nodes A (top left), B (top right), C (bottom left), D (bottom right). The top edge is held at 100 °C and the other edges at 0 °C. A = (100 + B + C) ÷ 4, B = (100 + A + D) ÷ 4, C = (A + D) ÷ 4, D = (B + C) ÷ 4.
+2. By symmetry A = B and C = D: 3A − C = 100 and 3C = A. So C = A ÷ 3 and (8/3) A = 100: **A = B = 37.5 °C** and **C = D = 12.5 °C**.
+3. Gauss–Seidel from all zeros: sweep 1 gives A = 25, B = 31.25, C = 6.25, D = 9.375. Sweep 2 gives A = 34.375, B = 35.94, C = 10.94, D = 11.72. The values are heading to 37.5 and 12.5.
+4. **A rod:** nodes T₀ = 100, T₁, T₂, T₃, T₄ = 0 with each interior value the average of its neighbours gives the straight line **T₁ = 75, T₂ = 50, T₃ = 25**.
+/EX
+
+BN: Jacobi: শুধু পুরোনো মান ব্যবহার করো। Gauss–Seidel: নতুন মান সঙ্গে সঙ্গে ব্যবহার করো, প্রায় দ্বিগুণ দ্রুত। প্রতি সারিতে |a_ii| > Σ|a_ij| (কর্ণ প্রাধান্য) হলে অভিসৃত হয়, সমীকরণের ক্রম খারাপ হলে অপসারী হতে পারে। প্লেটের তাপমাত্রা: প্রতিটি ভেতরের নোড = চার প্রতিবেশীর গড়। লাখ লাখ অজানায় পুনরাবৃত্তিই একমাত্র উপায়।
+
+TRAP: An iterative method can **diverge** if the matrix is not dominant, and a poor ordering of the equations can ruin a good problem. Always put the large coefficients on the diagonal. And stop the iteration by checking that **successive values agree to the accuracy you need**, not after a fixed number of steps.
+
+### Quick self-check
+QUIZ:
+Q: Gauss–Seidel differs from Jacobi in that it…; uses newer values immediately; ignores the diagonal; always diverges; solves exactly in one step; 1; It uses each new value as soon as it is computed.
+Q: Strict diagonal dominance means in each row…; the diagonal entry is zero; |a_ii| exceeds the sum of the other entries' magnitudes; all entries are equal; the determinant is zero; 2; It guarantees convergence.
+Q: In a steady-state plate each interior temperature equals…; the maximum of its neighbours; the average of its neighbours; the minimum of its neighbours; zero; 2; Laplace's equation.
+Q: Iterative methods are preferred for…; 2 × 2 systems; huge sparse systems; singular systems only; systems with no solution; 2; Cost per iteration is tiny.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Is the system 5x + y = 6, x + 4y = 5 diagonally dominant? => Row 1: 5 > 1. Row 2: 4 > 1. **Yes**.
+P: Do one Jacobi iteration from (0, 0) on 5x + y = 6, x + 4y = 5. => x = 6 ÷ 5 = **1.2**, y = 5 ÷ 4 = **1.25**.
+P: Is [[1, 3], [4, 1]] diagonally dominant? What can you do about it? => No (1 < 3). **Swap the rows** to get [[4, 1], [1, 3]], which is dominant.
+LVL: Level 2 | Apply
+P: Do two Gauss–Seidel iterations from (0, 0) on 5x + y = 6, x + 4y = 5. The exact answer is (1, 1). => Iteration 1: x = 1.2, y = (5 − 1.2) ÷ 4 = 0.95. Iteration 2: x = (6 − 0.95) ÷ 5 = **1.01**, y = (5 − 1.01) ÷ 4 = **0.9975**.
+P: Do three Jacobi iterations on 10x + 2y = 12, x + 8y = 9 from (0, 0). The exact answer is (1, 1). => (1.2, 1.125), then x = (12 − 2.25) ÷ 10 = 0.975 and y = (9 − 1.2) ÷ 8 = 0.975, then x = (12 − 1.95) ÷ 10 = **1.005** and y = (9 − 0.975) ÷ 8 = **1.003**.
+P: In a plate the top edge is 200 °C instead of 100 °C (other edges 0 °C). Find the four interior temperatures using the earlier result. => The equations are linear, so everything doubles: A = B = **75 °C**, C = D = **25 °C**.
+P: How many Gauss–Seidel iterations (factor 1/12 each) give an error below 10⁻⁶? => n > 6 ÷ log₁₀ 12 = 6 ÷ 1.079 = 5.56: **6 iterations**.
+P: A rod of 5 interior nodes between 100 °C and 0 °C: find the temperatures. => A straight line: **83.3, 66.7, 50, 33.3, 16.7 °C**.
+LVL: Level 3 | Real
+P: The top edge of a plate is at 100 °C, the bottom edge at 50 °C, and the sides at 0 °C. Find the four interior temperatures of the 2 × 2 grid. => By left-right symmetry A = B, C = D. A = (100 + A + C) ÷ 4 gives 3A − C = 100. C = (50 + A + C) ÷ 4 gives 3C − A = 50. Then C = 3A − 100, and 9A − 300 − A = 50, so **A = B = 43.75 °C**, **C = D = 31.25 °C**. (This is the sum of the "top = 100" solution (37.5, 12.5) and the "bottom = 50" solution (6.25, 18.75).)
+LVL: Challenge | Why Gauss–Seidel is twice as fast
+P: For 4x − y = 7, −x + 3y = 5, the Jacobi iteration matrix is M = [[0, 1/4], [1/3, 0]]. Show that M² = (1/12) I, and use it to explain the speed difference. How many Jacobi steps match 4 Gauss–Seidel steps? => M² = [[0 × 0 + (1/4)(1/3), 0], [0, (1/3)(1/4) + 0]] = **(1/12) I**. So every **two** Jacobi steps shrink the error by 1/12, while **one** Gauss–Seidel step does the same. Four Gauss–Seidel steps (error factor 12⁻⁴) match **eight** Jacobi steps.
+
+CHECK: math
+
+@section physics | 3 · Physics: work and the first law | 35 min
+
+### Work done by a gas
+When a gas expands against a piston, it pushes the piston and does work. For a tiny volume change dV at pressure P, the work done **by** the gas is dW = P dV, so
+
+EQ: W = ∫ P dV     (the area under the curve on a P–V diagram)
+
+The **first law of thermodynamics** is conservation of energy:
+
+EQ: ΔU = Q − W     (Q = heat added to the gas, W = work done by the gas)
+
+BN: গ্যাস প্রসারিত হলে পিস্টনের ওপর কাজ করে: W = ∫P dV, যা P–V গ্রাফের নিচের ক্ষেত্রফল। তাপগতিবিদ্যার প্রথম সূত্র শক্তির সংরক্ষণ: ΔU = Q − W, যেখানে Q = গ্যাসে যোগ করা তাপ আর W = গ্যাসের করা কাজ। ধনাত্মক W মানে গ্যাস শক্তি হারায়।
+
+### Four processes of an ideal gas
+| Process | What is fixed | Work W | Heat Q | ΔU |
+| Isochoric | V | 0 | n C_V ΔT | n C_V ΔT |
+| Isobaric | P | P ΔV = n R ΔT | n C_P ΔT | n C_V ΔT |
+| Isothermal | T | n R T ln (V₂ ÷ V₁) | = W | 0 |
+| Adiabatic | Q = 0 | (P₁V₁ − P₂V₂) ÷ (γ − 1) | 0 | −W |
+
+Here C_P = C_V + R and γ = C_P ÷ C_V (5/3 for monatomic gases, 7/5 = 1.4 for diatomic gases like air). In an adiabatic process P V^γ = constant and T V^(γ−1) = constant.
+
+EX: One example for each process
+1. **Isothermal:** 1 mol at 300 K expands from 10 L to 20 L. W = 8.314 × 300 × ln 2 = **1729 J**. Q = **1729 J** and ΔU = 0 (the gas takes in heat and turns all of it into work).
+2. **Isobaric:** 2 mol of air heated from 300 K to 400 K at constant pressure. W = n R ΔT = 2 × 8.314 × 100 = **1663 J**. ΔU = 2 × 20.79 × 100 = 4157 J. Q = ΔU + W = **5820 J** (= n C_P ΔT with C_P = 29.1).
+3. **Isochoric:** 1 mol of helium from 300 K to 600 K: W = 0, so Q = ΔU = 12.47 × 300 = **3741 J**.
+4. **Adiabatic compression of air** in a diesel engine: V₁ = 1 L at 101.3 kPa and 293 K is compressed to V₂ = 0.1 L (ratio 10). P₂ = 101.3 × 10^1.4 = **2545 kPa** (25 atm). T₂ = 293 × 10^0.4 = 293 × 2.512 = **736 K = 463 °C**. Diesel fuel ignites at about 400 °C, so the compression alone lights the fuel, with no spark plug.
+5. **Work in the diesel example:** W = (P₁V₁ − P₂V₂) ÷ (γ − 1) = (101.3 − 254.5) ÷ 0.4 = **−383 J** (383 J of work is done on the gas). Check: n = 101,300 × 0.001 ÷ (8.314 × 293) = 0.0416 mol, ΔU = 0.0416 × 20.79 × 443 = **383 J** ✓.
+6. **Free expansion** (a gas rushing into a vacuum): W = 0 and Q = 0, so ΔU = 0 and the temperature of an ideal gas does not change.
+/EX
+
+LAB: Isothermal against adiabatic | A gas starts at 100 kPa, 1 L and temperature T₁. It expands to r times its volume. The graph shows pressure against volume: the isothermal curve P = 100 ÷ V (green) and the adiabatic curve P = 100 V^(−γ) (orange), which falls faster because the gas cools. Choose γ (1.4 for air, 1.67 for helium). | r:Expansion ratio r:1.5:5:0.5:2 ;; g:γ:1.2:1.67:0.01:1.4 ;; T1:Starting temperature (K):250:400:10:300 | 100/r:Final pressure, isothermal (kPa):1 ;; 100*pow(r,-g):Final pressure, adiabatic (kPa):1 ;; T1*pow(r,1-g):Final temperature, adiabatic (K):1 ;; 8.314*T1*log(r):Work by 1 mol, isothermal (J):0 | 100/x ;; 100*pow(x,-g) | 1,5 | 0,100
+
+### A cycle: how an engine works
+Run the gas around a closed loop on the P–V diagram. The net work is the area enclosed.
+
+EX: A rectangular cycle
+1. A → B: expansion at constant P = 200 kPa from 1 L to 3 L. B → C: cooling at constant V = 3 L until P = 100 kPa. C → D: compression at P = 100 kPa from 3 L to 1 L. D → A: heating at constant V = 1 L back to 200 kPa.
+2. Work: A → B: 200 × 2 = +400 J. C → D: 100 × (−2) = −200 J. Net work **W = 200 J** = the area of the rectangle (2 L × 100 kPa).
+3. Heat in (monatomic gas): A → B: Q = (5/2) P ΔV = 2.5 × 200 × 2 = 1000 J. D → A: Q = ΔU = (3/2) V ΔP = 1.5 × 1 × 100 = 150 J. Total heat in = **1150 J**.
+4. **Efficiency** = W ÷ Q_in = 200 ÷ 1150 = **17.4%**. The rest is exhausted as heat. Next week you will see why no engine can do better than the Carnot limit.
+/EX
+
+LAB: Diesel compression | Air at 293 K is compressed adiabatically by a diesel engine. Choose the compression ratio. The graph shows the final temperature in kelvin (green) and the approximate ignition temperature of diesel fuel, 673 K (orange). The numbers give the final temperature and pressure. | r:Compression ratio:5:25:1:15 | 293*pow(r,0.4):Final temperature (K):0 ;; 293*pow(r,0.4)-273.15:Final temperature (°C):0 ;; 1.013*pow(r,1.4):Final pressure (bar):1 | 293*pow(x,0.4) ;; 673 | 5,25 | 0,1200
+
+TRAP: Watch the sign convention: **W is the work done BY the gas**, so compression gives a negative W, and ΔU = Q − W. In the adiabatic formulas use **γ**, not the ratio C_V ÷ C_P. And remember that isothermal does not mean "no heat": the gas absorbs heat to do the work.
+
+### Quick self-check
+QUIZ:
+Q: In an isothermal expansion of an ideal gas, the internal energy…; increases; decreases; stays constant; becomes zero; 3; ΔU depends only on T.
+Q: The work done by a gas in an isochoric process is…; P ΔV; zero; n R T; negative; 2; No volume change.
+Q: In an adiabatic compression, the temperature of the gas…; rises; falls; stays constant; becomes zero; 1; Work is done on the gas with no heat loss.
+Q: The net work in a cycle on a P–V diagram is…; the area enclosed; the heat added; zero; the final pressure; 1; The integral around the loop.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: A gas at 200 kPa expands from 2 L to 5 L at constant pressure. Find the work done by the gas. => 200 × 3 = **600 J**.
+P: A gas absorbs 500 J of heat and does 200 J of work. Find ΔU. => 500 − 200 = **+300 J**.
+P: Find the work by 1 mol at 300 K when the volume doubles isothermally. => **1729 J**.
+LVL: Level 2 | Apply
+P: A monatomic gas at 200 kPa expands from 2 L to 5 L at constant pressure. Find ΔU and Q. => W = 600 J. ΔU = (3/2) P ΔV = **900 J**. Q = ΔU + W = **1500 J**.
+P: A monatomic gas (γ = 5/3) at 100 kPa and 1 L is compressed adiabatically to 0.5 L. Find P₂ and T₂ ÷ T₁. => P₂ = 100 × 2^(5/3) = **317.5 kPa**. T₂ ÷ T₁ = 2^(2/3) = **1.587**.
+P: Find the heat needed to warm 2 mol of nitrogen from 300 K to 350 K at constant volume. => 2 × 20.79 × 50 = **2079 J**.
+P: A gas expands freely into a vacuum. State W, Q, ΔU and the change in T (ideal gas). => **W = 0, Q = 0, ΔU = 0, ΔT = 0**.
+P: For the diesel example, find the final temperature if the compression ratio is 20. => 293 × 20^0.4 = 293 × 3.314 = **971 K = 698 °C**.
+P: A cycle has an enclosed area of 300 J and takes in 1500 J of heat. Find its efficiency and the heat rejected. => η = 300 ÷ 1500 = **20%**. Heat rejected = 1500 − 300 = **1200 J**.
+LVL: Level 3 | Real
+P: A bicycle pump compresses 0.5 L of air at 1 atm and 293 K to 0.1 L very quickly (adiabatic, γ = 1.4). Find the final temperature and pressure. Why does the pump get hot? => Ratio 5: T₂ = 293 × 5^0.4 = 293 × 1.904 = **558 K (285 °C)**. P₂ = 101.3 × 5^1.4 = 101.3 × 9.518 = **964 kPa**. The work done on the gas becomes internal energy (in a real pump the heat leaks away quickly, so the pump is warm, not 285 °C).
+P: Rising air cools adiabatically, with dT ÷ dz = −g ÷ c_p. Find the cooling rate in K per km (c_p = 1005 J/(kg·K)) and the temperature of a parcel that starts at 30 °C and rises 3 km. => Γ = 9.8 ÷ 1005 = 0.00975 K/m = **9.75 K/km**. After 3 km it has cooled by 29.3 K, to about **0.7 °C**.
+LVL: Challenge | Derive the adiabatic work
+P: Starting from P V^γ = K, show that the work done by the gas in an adiabatic expansion from V₁ to V₂ is (P₁V₁ − P₂V₂) ÷ (γ − 1), and check with the diesel numbers. => W = ∫ P dV = ∫ K V^(−γ) dV = K (V₁^(1−γ) − V₂^(1−γ)) ÷ (γ − 1). Since K V₁^(1−γ) = P₁ V₁ and K V₂^(1−γ) = P₂ V₂, **W = (P₁V₁ − P₂V₂) ÷ (γ − 1)**. Diesel: (101.3 × 1 − 2544.6 × 0.1) ÷ 0.4 = (101.3 − 254.5) ÷ 0.4 = **−383 J** (the sign says that the work is done on the gas) ✓.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Iterative methods: Jacobi (old values), Gauss–Seidel (new values, about twice as fast). Convergence is guaranteed for strictly diagonally dominant matrices. Steady-state plate: each node is the average of its neighbours. Rod of nodes: a straight line.
+- First law ΔU = Q − W, W = ∫ P dV. Isochoric W = 0. Isobaric W = P ΔV, Q = n C_P ΔT. Isothermal ΔU = 0, W = n R T ln (V₂ ÷ V₁). Adiabatic Q = 0, P V^γ = const, T V^(γ−1) = const. Net work in a cycle = enclosed area, efficiency = W ÷ Q_in.
+
+BN: আজকের সারকথা: Jacobi (পুরোনো মান), Gauss–Seidel (নতুন মান, দ্বিগুণ দ্রুত); কর্ণ প্রাধান্য থাকলে অভিসৃত হয়। প্লেটে প্রতিটি নোড = প্রতিবেশীর গড়। প্রথম সূত্র ΔU = Q − W; আইসোকোরিক W = 0; আইসোবারিক W = PΔV; আইসোথার্মাল ΔU = 0; অ্যাডিয়াবেটিক Q = 0, PV^γ = ধ্রুব; চক্রে নিট কাজ = আবদ্ধ ক্ষেত্রফল।
+
+EXIT:
+E: Do one Jacobi iteration from (0, 0) on 4x − y = 7 and −x + 3y = 5. What is x?; 1.75; 0.001; x = 7 ÷ 4 = 1.75.
+E: What is the work in joules done by 1 mol of ideal gas at 300 K expanding isothermally to double its volume?; 1729; 2; 8.314 × 300 × ln 2 = 1728.8.
+E: Air at 293 K is compressed adiabatically with ratio 10 (γ = 1.4). What is the final temperature in kelvin?; 736; 2; 293 × 10^0.4 = 736.0.
+
+**Tomorrow:** the Week 14 test, a mistake log, and a preview of Week 15 (eigenvalues and entropy).
+
+CHECK: notes

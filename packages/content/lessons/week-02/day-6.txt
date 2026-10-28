@@ -1,0 +1,82 @@
+@day Week 2 · Day 6 · Saturday
+# Week 2 test, mistake log and challenge
+lead: Same routine as last week: cold test, honest marking, mistake log. This week the test covers functions, quadratics, exponentials and logs, plus free fall and Newton's three laws.
+
+BN: আজ সপ্তাহের পরীক্ষা। আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ফাংশন, দ্বিঘাত, সূচকীয় ফাংশন, লগারিদম, ফ্রি ফল আর নিউটনের তিন সূত্র।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Questions 1 to 6, 7 and 9 to 11. A calculator is allowed for Questions 8, 12 and 13 and for the physics part.
+- Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen.
+- Do not look at your notes. The point is to find what is truly stuck in your memory.
+
+CHECK: recall
+
+@section math | 2 · Part A: Functions, exponentials and logs (14 marks, about 55 min) | calculator only where stated
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find the domain of f(x) = √(x + 2) ÷ (x − 1). => x + 2 ≥ 0 gives x ≥ −2, and x ≠ 1. **x ≥ −2, x ≠ 1**.
+P: (1 mark) Solve 2x² − 3x − 5 = 0 with the quadratic formula. => D = 9 + 40 = 49. x = (3 ± 7) ÷ 4, so **x = 5/2 or x = −1**.
+P: (1 mark) Find the vertex of y = x² − 6x + 5. => x = 6 ÷ 2 = 3. y = 9 − 18 + 5 = −4. **(3, −4)**.
+P: (1 mark) Factor x³ − 2x² − 5x + 6 completely. => p(1) = 0. Synthetic division (1, −2, −5, 6): 1; −1; −6; 0, so the quotient is x² − x − 6 = (x − 3)(x + 2). **(x − 1)(x − 3)(x + 2)**.
+P: (1 mark) With f(x) = 3x − 2 and g(x) = x², find f(g(x)) and g(f(x)). => f(g(x)) = **3x² − 2**. g(f(x)) = **(3x − 2)²**.
+P: (1 mark) Find the inverse of f(x) = (2x + 1) ÷ (x − 3). => Swap: x = (2y + 1) ÷ (y − 3), so xy − 3x = 2y + 1, so y(x − 2) = 3x + 1. **f⁻¹(x) = (3x + 1) ÷ (x − 2)**.
+P: (1 mark) Solve 3^(2x − 1) = 81. => 81 = 3⁴, so 2x − 1 = 4 and **x = 5/2**.
+P: (1 mark, calculator) A town of 50,000 grows 4% a year. Find its population after 5 years. => 50000 × 1.04⁵ = 50000 × 1.21665 = **60,833**.
+P: (1 mark) Evaluate log₂(1/16) + log₉(3). => −4 + 1/2 = **−7/2**.
+P: (1 mark) Expand log(x²√y ÷ z³). => **2 log x + ½ log y − 3 log z**.
+P: (1 mark) Solve log₂(x − 1) + log₂(x + 1) = 3. => log₂(x² − 1) = 3, so x² = 9 and x = ±3. x = −3 is rejected (log of a negative). **x = 3**.
+P: (1 mark, calculator) Solve 5ˣ = 30. => x = ln 30 ÷ ln 5 = 3.4012 ÷ 1.6094 = **2.11**.
+P: (2 marks, calculator) A medicine with a 640 mg dose halves in the body every 4 hours. (a) How much is left after 10 hours? (b) When are 20 mg left? => (a) 640 × (1/2)^(10 ÷ 4) = 640 × 0.17678 = **113 mg**. (b) 640 ÷ 20 = 32 = 2⁵, so 5 half-lives = **20 hours**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Motion and forces (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A ball is thrown straight up at 24.5 m/s. Find the maximum height and the total time in the air (g = 9.8). => h = 24.5² ÷ 19.6 = **30.6 m**. Total time = 2 × 24.5 ÷ 9.8 = **5 s**.
+P: (1 mark) A 70 kg person stands on a scale in a lift accelerating upward at 2 m/s². What does the scale read? => N = m(g + a) = 70 × 11.8 = **826 N**.
+P: (1 mark) A 12 kg crate is pushed along the floor with 60 N. The coefficient of kinetic friction is 0.25. Find its acceleration. => N = 117.6 N, f = 29.4 N, net force 30.6 N. a = **2.55 m/s²**.
+P: (1 mark) Forces of 9 N east and 12 N north act on a body. Find the resultant, and the extra force needed to keep the body in equilibrium. => Resultant = √(81 + 144) = **15 N**. The extra force is **15 N in the opposite direction**.
+P: (1 mark) Two blocks of 5 kg and 3 kg are joined by a rope on a frictionless table. A 24 N force pulls the 5 kg block away from the 3 kg block. Find a and the tension. => a = 24 ÷ 8 = **3 m/s²**. T = 3 × 3 = **9 N**.
+P: (1 mark) A 60 kg skater pushes a 40 kg skater with 80 N on smooth ice. Find both accelerations and state which law explains the second skater's push. => The first: 80 ÷ 60 = **1.33 m/s²**. The second: 80 ÷ 40 = **2.0 m/s²**, in opposite directions. The first skater feels an equal 80 N back by **Newton's third law**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 3. Try the challenge. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 2. Tell me, and I will rebalance Week 3. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q11 | Kept x = −3 | Forgot to check the domain of the logs | A log needs a positive input, so reject answers that break it | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি: কী করেছিলাম, কেন ভুল, সঠিক ধারণা, কবে আবার করব। লগ সমীকরণে সবচেয়ে সাধারণ ভুল: উত্তর যাচাই না করা। ভুলের ধরন লেখো: ধারণাগত, অসাবধানতা, পদ্ধতি, সময়।
+
+NOTES:
+
+### Challenge of the week
+LVL: Challenge | Find the model
+P: An exponential model f(x) = a · bˣ passes through (1, 6) and (3, 54). Find a and b, then find x when f(x) = 2,000,000. => a·b = 6 and a·b³ = 54. Divide: b² = 9, so b = 3 (b must be positive) and a = 2. For f(x) = 2 × 3ˣ = 2,000,000: 3ˣ = 10⁶, so x = 6 ÷ log 3 = 6 ÷ 0.4771 = **12.58**. The trick: dividing two equations removes a.
+
+### Optional coding idea (not part of the study plan)
+**Log-scale explorer:** plot y = a · bˣ with sliders for a and b. Add a toggle that switches the y-axis between linear and logarithmic, and watch the exponential curve turn into a straight line. Let the user drop data points and fit a line to find b.
+
+### What Week 3 looks like
+Trigonometry in full: the unit circle, graphs, identities, compound angles and inverse trig. Physics: vectors in components, projectiles and inclined planes. You already know vectors as arrows, and functions as machines. Now you attach angles to both.
+
+BN: আগামী সপ্তাহে সম্পূর্ণ ত্রিকোণমিতি, আর পদার্থবিজ্ঞানে ভেক্টর বিশ্লেষণ, প্রক্ষেপ গতি (projectile) আর ঢালু তলে গতি। কোণ মাপা আর বৃত্তের ওপর ঘোরার ধারণা এবার ফাংশনের সঙ্গে মিলবে।
+
+**Sunday is a rest day.**
+
+CHECK: notes

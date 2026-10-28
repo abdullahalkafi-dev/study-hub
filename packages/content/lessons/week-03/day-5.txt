@@ -1,0 +1,233 @@
+@day Week 3 · Day 5 · Friday
+# The sine and cosine rules, inverse trig functions. Then: inclined planes
+lead: Surveyors, sailors and engineers measure triangles that are not right-angled. Today you get the two rules that solve any triangle, then meet the inverse trig functions that turn a ratio back into an angle. In physics you tilt the floor: a block on a slope, and how gravity splits into two parts.
+
+BN: সার্ভেয়ার, নাবিক, ইঞ্জিনিয়াররা এমন ত্রিভুজ মাপে যা সমকোণী নয়। আজ পাবে দুটো নিয়ম (sine rule ও cosine rule) যা যেকোনো ত্রিভুজ সমাধান করে, আর উল্টো ত্রিকোণমিতিক ফাংশন যা অনুপাত থেকে কোণ বের করে। পদার্থবিজ্ঞানে ঢালু তলে রাখা বস্তুর ওপর অভিকর্ষ কীভাবে দুই ভাগ হয় তা দেখব।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find the exact value of sin 15°. => (√6 − √2) ÷ 4.
+P: If sin A = 4/5 in quadrant I, find sin 2A. => cos A = 3/5, so sin 2A = 2 × (4/5)(3/5) = **24/25**.
+P: A ball is kicked at 20 m/s at 45°. Find the range (g = 10). => R = 400 ÷ 10 = **40 m**.
+P: Solve 2 sin x = 1 for 0 ≤ x ≤ 2π. => **x = π/6, 5π/6**.
+P: A 6 N force acts at 60° to the horizontal. Find its vertical component. => 6 sin 60° = **3√3 ≈ 5.2 N**.
+
+CHECK: recall
+
+@section math | 2 · Math: any triangle, and the inverse functions | 60 min
+
+### The sine rule
+In a triangle with sides a, b, c opposite angles A, B, C:
+
+EQ: a ÷ sin A = b ÷ sin B = c ÷ sin C
+
+**Proof.** Drop a perpendicular of height h from vertex B to side b. In the left right-triangle, h = c sin A. In the right one, h = a sin C. So c sin A = a sin C, giving a ÷ sin A = c ÷ sin C. The same argument from another vertex links b. ∎
+
+**Use it** when you know a side and its opposite angle, plus one more piece (an angle or another side).
+
+EX: Finding a side
+1. Triangle with A = 40°, B = 65° and a = 12. Find b and c.
+2. C = 180° − 40° − 65° = 75°.
+3. b = a sin B ÷ sin A = 12 × sin 65° ÷ sin 40° = 12 × 0.9063 ÷ 0.6428 = **16.9**.
+4. c = 12 × sin 75° ÷ sin 40° = 12 × 0.9659 ÷ 0.6428 = **18.0**.
+/EX
+
+EX: The ambiguous case
+1. Triangle with a = 8, b = 10 and A = 30°. Find B.
+2. sin B = b sin A ÷ a = 10 × 0.5 ÷ 8 = 0.625.
+3. B = 38.7° **or** B = 180° − 38.7° = 141.3°. Both are possible since sin of an angle and sin of its supplement are equal. Check that the angles fit: 30° + 141.3° = 171.3° < 180°, so a second triangle exists.
+4. So there are **two valid triangles**. Always ask whether the second angle fits. This is called the ambiguous case.
+/EX
+
+### The cosine rule
+EQ: c² = a² + b² − 2ab cos C
+
+**Proof.** Place C at the origin and B at (a, 0). Then A is at (b cos C, b sin C). The squared distance from A to B is c² = (a − b cos C)² + (b sin C)² = a² − 2ab cos C + b² cos²C + b² sin²C = **a² + b² − 2ab cos C**. ∎
+
+When C = 90°, cos C = 0 and the cosine rule becomes Pythagoras. So it is a generalisation.
+
+**Use it** when you know two sides and the angle between them, or all three sides.
+
+EX: Two sides and the included angle
+1. Sides 7 and 8 with 60° between them. Find the third side.
+2. c² = 49 + 64 − 2 × 7 × 8 × cos 60° = 113 − 56 = 57.
+3. c = **7.55**.
+/EX
+
+EX: Three sides, find an angle
+1. A triangle has sides 5, 6 and 7. Find the largest angle (opposite 7).
+2. cos C = (a² + b² − c²) ÷ (2ab) = (25 + 36 − 49) ÷ 60 = 12 ÷ 60 = 0.2.
+3. C = cos⁻¹(0.2) = **78.5°**.
+/EX
+
+### Area of a triangle
+EQ: Area = ½ a b sin C
+
+This follows from the same height: area = ½ × base × height, with height = b sin C.
+
+EX: Area
+1. The triangle with sides 7 and 8 and an included angle of 60°: Area = ½ × 7 × 8 × sin 60° = 28 × 0.866 = **24.2**.
+/EX
+
+BN: দুটো নিয়ম: সাইন রুল a/sin A = b/sin B = c/sin C, যখন একটা বাহু আর তার বিপরীত কোণ জানা আছে। কোসাইন রুল c² = a² + b² − 2ab cos C, যখন দুই বাহু আর তাদের মধ্যবর্তী কোণ জানা, বা তিন বাহুই জানা। কোণ ৯০° হলে cos = 0 আর কোসাইন রুল হয়ে যায় পীথাগোরাস। ক্ষেত্রফল = ½ab sin C।
+
+### Choosing the right rule
+| You know | Use |
+| A side and its opposite angle, plus one more angle or side | Sine rule |
+| Two sides and the angle between them | Cosine rule |
+| All three sides | Cosine rule (to find an angle) |
+| Two angles and any side | Sum of angles = 180°, then sine rule |
+
+EX: Two ships
+1. Two ships leave a port at the same time. One sails 15 km, the other 20 km, with an angle of 80° between their paths. How far apart are they?
+2. Two sides and the included angle, so use the cosine rule: d² = 225 + 400 − 2 × 15 × 20 × cos 80° = 625 − 600 × 0.1736 = 625 − 104.2 = 520.8.
+3. d = **22.8 km**.
+/EX
+
+EX: Height of a tower from two measurements
+1. From a point A on level ground the angle of elevation of the top of a tower is 30°. After walking 50 m towards it, the angle becomes 45°. Find the height.
+2. Let the tower be h and the distance from the second point be d. Then tan 45° = h ÷ d gives d = h. Also tan 30° = h ÷ (d + 50) = h ÷ (h + 50) = 1/√3.
+3. So h√3 = h + 50, giving h (√3 − 1) = 50 and h = 50 ÷ 0.732 = **68.3 m**.
+/EX
+
+### Inverse trigonometric functions
+sin x is not one-to-one over all real numbers, since many angles share the same sine. To define an inverse, we restrict the domain, just as we restricted x² to x ≥ 0 to get the square root.
+
+| Function | Meaning | Output range |
+| sin⁻¹ x (arcsin) | The angle whose sine is x | from −π/2 to π/2 |
+| cos⁻¹ x (arccos) | The angle whose cosine is x | from 0 to π |
+| tan⁻¹ x (arctan) | The angle whose tangent is x | between −π/2 and π/2 |
+
+For sin⁻¹ and cos⁻¹, the input must be between −1 and 1.
+
+FUNC: Inverse sine and inverse cosine | x | angle (radians) | asin(x) ;; acos(x) | -1,1 | -2,3.5 | - | Teal: sin⁻¹x, rising from −π/2 to π/2. Orange: cos⁻¹x, falling from π to 0. They are reflections of the restricted sine and cosine curves in the line y = x.
+
+EX: Values
+1. sin⁻¹(1/2) = **π/6**.
+2. sin⁻¹(−1/2) = **−π/6** (the output range includes negative angles).
+3. cos⁻¹(−1/2) = **2π/3** (in the second quadrant, as the range 0 to π demands).
+4. tan⁻¹(−1) = **−π/4**.
+/EX
+
+EX: A trap
+1. What is sin⁻¹(sin(5π/6))? The inner value is sin(5π/6) = 1/2.
+2. The outer function returns the angle in its own range: sin⁻¹(1/2) = π/6.
+3. So the answer is **π/6**, not 5π/6. The inverse functions only undo the originals inside their restricted range.
+/EX
+
+EX: Composite: sin(cos⁻¹(3/5))
+1. Let θ = cos⁻¹(3/5). Then cos θ = 3/5 and θ is in quadrant I.
+2. Draw the right triangle: adjacent 3, hypotenuse 5, so opposite = 4.
+3. sin θ = **4/5**.
+/EX
+
+BN: sin x একটা ইনভার্স ফাংশন পেতে তার ডোমেইন সীমিত করতে হয়, যেমন x² কে x ≥ 0 এ সীমিত করে বর্গমূল পাই। sin⁻¹ এর আউটপুট −π/2 থেকে π/2 এর মধ্যে, cos⁻¹ এর 0 থেকে π, tan⁻¹ এর −π/2 থেকে π/2 এর মধ্যে। তাই sin⁻¹(sin(5π/6)) = π/6, 5π/6 নয়। ক্যালকুলেটর তোমাকে সবসময় এই সীমার মধ্যের কোণই দেবে।
+
+### Quick self-check
+QUIZ:
+Q: Which rule do you use with two sides and the included angle?; sine rule; cosine rule; Pythagoras only; none; 2; Two sides and the included angle need the cosine rule.
+Q: In triangle ABC, a = 10, A = 30°, B = 45°. Then b is about…; 7.1; 14.1; 5; 20; 2; b = a sin B ÷ sin A = 10 × 0.7071 ÷ 0.5 = 14.14.
+Q: sin⁻¹(1) equals…; 0; π/2; π; 1; 2; sin(π/2) = 1, and π/2 is in the range.
+Q: The area of a triangle with sides 10 and 6 and an included angle of 30° is…; 30; 15; 60; 26; 2; ½ × 10 × 6 × sin 30° = 30 × 0.5 = 15.
+Q: The expression cos⁻¹(2) is…; π/3; 0; undefined; 2π; 3; The cosine of an angle can never exceed 1, so the input is outside the domain.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: In a triangle A = 50°, B = 60° and a = 8. Find b. => b = 8 × sin 60° ÷ sin 50° = 8 × 0.866 ÷ 0.766 = **9.04**.
+P: Sides 9 and 12 with a 90° angle between them: find the third side with the cosine rule. => 81 + 144 − 0 = 225, so **15** (Pythagoras).
+P: Find sin⁻¹(√3/2) and cos⁻¹(0) exactly. => **π/3** and **π/2**.
+LVL: Level 2 | Solve triangles
+P: A triangle has sides 8, 11 and 13. Find its smallest angle and its area. => Smallest angle is opposite 8: cos A = (121 + 169 − 64) ÷ (2 × 11 × 13) = 226 ÷ 286 = 0.7902, so **A = 37.8°**. Area = ½ × 11 × 13 × sin 37.8° = 71.5 × 0.6129 = **43.8**.
+P: A boat leaves a harbour and sails 12 km on a bearing of 050°, then 9 km on a bearing of 110°. How far is it from the harbour? => The angle at the turn between the reversed first leg and the second leg is 180° − (110° − 50°) = 120°. d² = 144 + 81 − 2 × 12 × 9 × cos 120° = 225 + 108 = 333, so d = **18.2 km**.
+P: Find sin(tan⁻¹(5/12)). => tan θ = 5/12 means a 5-12-13 triangle: **5/13**.
+P: How many triangles exist with a = 5, b = 10 and A = 30°? Explain. => sin B = 10 × 0.5 ÷ 5 = 1, so B = 90°. **One triangle** (a right-angled one).
+LVL: Level 3 | Real
+P: A surveyor measures the angle between two stakes seen from a point as 75°. The stakes are 40 m and 55 m from the point. How far apart are they, and what is the area of the triangle they form with the point? => d² = 1600 + 3025 − 2 × 40 × 55 × cos 75° = 4625 − 4400 × 0.2588 = 4625 − 1138.8 = 3486.2, so d = **59.0 m**. Area = ½ × 40 × 55 × sin 75° = 1100 × 0.9659 = **1062.5 m²**.
+LVL: Challenge | Heron and the circumradius
+P: Show that in any triangle a ÷ sin A equals the diameter of the circle passing through all three vertices (2R). Test with the 3-4-5 right triangle. => For the right triangle with hypotenuse 5, the circumscribed circle has the hypotenuse as its diameter, so 2R = 5. Check: a ÷ sin A with a = 3: sin A = 3/5, so 3 ÷ (3/5) = **5** ✓. In general, the angle at the circumference subtending side a equals A, and a = 2R sin A. ∎
+
+CHECK: math
+
+@section physics | 3 · Physics: inclined planes | 30 min
+
+### Splitting weight on a slope
+A block sits on a ramp that makes an angle θ with the horizontal. Weight mg still points straight down, but the ramp's surface is tilted. So it is convenient to split the weight into two parts relative to the **slope**: one **along** the slope and one **perpendicular** to it.
+
+**Why the angle is the same.** The angle between the weight and the perpendicular to the ramp equals the ramp's angle θ (tilting the ramp by θ tilts its perpendicular by θ). So:
+
+EQ: component along the slope = mg sin θ     component perpendicular to the slope = mg cos θ
+
+Check with extremes: for θ = 0 (flat), the along-slope part is 0 and the perpendicular part is mg ✓. For θ = 90° (a vertical wall), the whole weight is along the slope ✓.
+
+BN: ঢালু তলে বস্তুর ওজন mg সোজা নিচে, কিন্তু আমরা তা দুই ভাগে ভাঙি: ঢাল বরাবর mg sin θ (যেটা বস্তুকে নিচে গড়াতে টানে) আর ঢালের লম্বভাবে mg cos θ (যেটাকে অভিলম্ব বল N সামলায়)। যাচাই: θ = 0 হলে ঢাল বরাবর অংশ শূন্য, θ = 90° হলে পুরো ওজনই ঢাল বরাবর।
+
+### The method
+1. Draw the FBD: weight (down), normal force N (perpendicular to the surface, away from it), friction (along the slope, opposite to sliding or the tendency).
+2. Choose axes: x along the slope, y perpendicular to it.
+3. Perpendicular: no acceleration, so **N = mg cos θ**.
+4. Along the slope: net force = m a.
+
+EX: A smooth slope
+1. A block slides down a frictionless 30° slope. Find its acceleration.
+2. Only mg sin θ acts along the slope: m a = m g sin 30°.
+3. **a = g sin 30° = 4.9 m/s²**. The mass cancels, so every block slides with the same acceleration on a smooth slope.
+4. If the slope is 30 m long and the block starts from rest: v² = 2 × 4.9 × 30 = 294, so **v = 17.1 m/s** at the bottom.
+/EX
+
+EX: A rough slope
+1. A 5 kg block slides down a 25° slope with μ_k = 0.2.
+2. N = mg cos 25° = 5 × 9.8 × 0.9063 = 44.4 N.
+3. Friction (up the slope) f = 0.2 × 44.4 = 8.88 N.
+4. Gravity along the slope: mg sin 25° = 49 × 0.4226 = 20.7 N (down the slope).
+5. Net = 20.7 − 8.88 = 11.8 N, so **a = 11.8 ÷ 5 = 2.37 m/s²**. In one line: a = g(sin θ − μ cos θ) = 9.8 × (0.4226 − 0.1813) = 2.37 m/s².
+/EX
+
+EX: When does a block start to slide?
+1. On a slope, friction must balance the along-slope part for the block to stay at rest: f = mg sin θ with f ≤ μ_s N = μ_s mg cos θ.
+2. So it stays put when tan θ ≤ μ_s. At the steepest angle where it still holds, **tan θ = μ_s**, called the **angle of repose**.
+3. For μ_s = 0.5: θ = tan⁻¹(0.5) = **26.6°**. This is also how you measure μ_s: tilt a ramp until the block starts to slide.
+/EX
+
+EX: Pushing up a slope at constant speed
+1. A 10 kg crate is pushed up a 20° ramp at constant speed with a force parallel to the ramp. μ_k = 0.3.
+2. Constant speed means net force zero along the slope: F = mg sin θ + μ mg cos θ.
+3. F = 98 × (0.342 + 0.3 × 0.9397) = 98 × 0.6239 = **61.1 N**.
+/EX
+
+TRAP: The normal force is **not** mg on a slope. It is mg cos θ. Also the angle in "mg sin θ" is the angle of the **slope**, so double-check which angle you are given.
+
+### Quick self-check
+QUIZ:
+Q: On a smooth 30° slope, a block's acceleration is…; 9.8 m/s²; 4.9 m/s²; 8.5 m/s²; 0; 2; a = g sin 30° = 4.9 m/s².
+Q: The normal force on a 10 kg block on a 60° slope is…; 98 N; 49 N; 84.9 N; 0; 2; N = mg cos 60° = 98 × 0.5 = 49 N.
+Q: If μ_s = 1 for rubber on dry road, a car parks without sliding up to a slope angle of…; 30°; 45°; 60°; 90°; 2; tan θ = 1 gives θ = 45°.
+Q: On a rough slope the acceleration is a = g(sin θ − μ cos θ). When does the block not accelerate?; when μ = 0; when μ cos θ ≥ sin θ; when θ = 0; never; 2; If friction can cancel the along-slope part, the block stays at rest or moves steadily.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the acceleration of a block sliding down a frictionless 20° slope. => g sin 20° = 9.8 × 0.342 = **3.35 m/s²**.
+P: What is the normal force on a 8 kg block on a 35° slope? => 8 × 9.8 × cos 35° = **64.2 N**.
+LVL: Level 2 | With friction
+P: A box slides down a 30° slope with μ_k = 0.3. Find its acceleration, and its speed after 3 s from rest. => a = g(sin 30° − 0.3 cos 30°) = 9.8 × (0.5 − 0.2598) = **2.35 m/s²**. v = 2.35 × 3 = **7.06 m/s**.
+P: A 20 kg crate rests on a ramp. The ramp is tilted until the crate just starts to slide at 32°. Find μ_s. => μ_s = tan 32° = **0.62**.
+P: A skier (60 kg) slides down a 15° slope with a drag of 40 N (friction and air together). Find the acceleration. => Along-slope gravity: 588 × sin 15° = 152.2 N. Net = 152.2 − 40 = 112.2 N. a = **1.87 m/s²**.
+LVL: Challenge | Up and back down
+P: A block is projected up a 30° slope at 10 m/s. μ_k = 0.2. How far up does it go, and does it slide back down? What is its speed when it returns to the start? => Going up, gravity and friction both act down the slope: a = −g(sin 30° + 0.2 cos 30°) = −9.8 × (0.5 + 0.1732) = −6.60 m/s². Distance: 0 = 100 − 2 × 6.60 × s, so s = **7.58 m**. At the top, does it slide back? tan 30° = 0.577 > μ_s? We are only given μ_k = 0.2 (and μ_s ≥ 0.2). If μ_s is also about 0.2, then 0.2 < 0.577 and it slides back. Coming down, a = g(sin 30° − 0.2 cos 30°) = 9.8 × 0.3268 = 3.20 m/s². v² = 2 × 3.20 × 7.58 = 48.5, so **v = 6.96 m/s**, slower than the launch speed because friction took energy.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Sine rule: a ÷ sin A = b ÷ sin B = c ÷ sin C (watch the ambiguous case). Cosine rule: c² = a² + b² − 2ab cos C. Area = ½ab sin C.
+- Inverse trig: sin⁻¹ and tan⁻¹ give −π/2 to π/2, cos⁻¹ gives 0 to π.
+- Slope: along = mg sin θ, perpendicular = mg cos θ, N = mg cos θ. Smooth slope a = g sin θ. Rough: a = g(sin θ − μ cos θ). Angle of repose tan θ = μ_s.
+
+BN: আজকের সারকথা: সাইন রুল আর কোসাইন রুল দিয়ে যেকোনো ত্রিভুজ সমাধান, ক্ষেত্রফল ½ab sin C, ইনভার্স ত্রিকোণমিতিক ফাংশনের সীমা, আর ঢালু তলে ওজনের দুই উপাদান: mg sin θ (ঢাল বরাবর) আর mg cos θ (লম্ব)। স্থির থাকার শর্ত tan θ ≤ μ_s।
+
+**Tomorrow (Saturday):** the Week 3 test, mistake log and challenge.
+
+CHECK: notes

@@ -1,0 +1,184 @@
+@day Week 9 · Day 2 · Tuesday
+# Trigonometric integrals. Then: energy in simple harmonic motion
+lead: Sines and cosines appear everywhere in physics and engineering, so you need to integrate them confidently, even when they are squared, cubed or multiplied together. A handful of identities do almost all the work. They also explain why the average of sin² is exactly one half, which is the reason AC voltage is quoted as an RMS value, and why a vibrating spring swaps energy evenly between motion and stretch.
+
+BN: সাইন-কোসাইন পদার্থবিজ্ঞান ও প্রকৌশলের সর্বত্র, তাই বর্গ, ঘন বা গুণফল অবস্থাতেও এদের সমাকলন জানা দরকার। কয়েকটা অভেদই প্রায় সব কাজ করে। এরাই ব্যাখ্যা করে কেন sin² এর গড় ঠিক ½, আর কেন AC ভোল্টেজ RMS মানে বলা হয়, এবং কেন স্পন্দনরত স্প্রিং গতি ও টানের মধ্যে শক্তি সমানভাবে বদলায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find ∫ x cos x dx. => **x sin x + cos x + C**.
+P: Find ∫ ln x dx. => **x ln x − x + C**.
+P: A mass of 0.5 kg is on a spring with k = 50 N/m. Find ω and T. => ω = **10 rad/s**, T = **0.628 s**.
+P: A mass oscillates with A = 0.2 m and ω = 5 rad/s. Find v_max and a_max. => **1 m/s** and **5 m/s²**.
+P: Find ∫₀¹ x eˣ dx. => **1**.
+
+CHECK: recall
+
+@section math | 2 · Math: trigonometric integrals | 55 min
+
+### The identities to know
+| Identity | Use |
+| sin² x + cos² x = 1 | Turn an even power into the other function |
+| sin² x = (1 − cos 2x) ÷ 2 | Integrate even powers |
+| cos² x = (1 + cos 2x) ÷ 2 | Integrate even powers |
+| sin 2x = 2 sin x cos x | Combine products |
+| sin A sin B = ½ [cos(A − B) − cos(A + B)] | Products of different frequencies |
+| sin A cos B = ½ [sin(A + B) + sin(A − B)] | Products of different frequencies |
+| cos A cos B = ½ [cos(A − B) + cos(A + B)] | Products of different frequencies |
+
+BN: মনে রাখার অভেদ: sin² + cos² = 1; sin²x = (1 − cos 2x)/2; cos²x = (1 + cos 2x)/2; sin 2x = 2 sin x cos x। ভিন্ন কম্পাঙ্কের গুণফলকে যোগে বদলানো যায়: sin A sin B = ½[cos(A − B) − cos(A + B)]।
+
+### Even powers: half-angle identities
+EX: Squares
+1. ∫ sin² x dx = ∫ (1 − cos 2x) ÷ 2 dx = **x/2 − sin 2x ÷ 4 + C**.
+2. ∫ cos² x dx = **x/2 + sin 2x ÷ 4 + C**.
+3. ∫₀^π sin² x dx = [x/2 − sin 2x ÷ 4] = **π/2**. So the average of sin² over a half period is (π/2) ÷ π = **1/2**.
+4. ∫₀^(π/2) sin⁴ x dx: sin⁴ x = (1 − cos 2x)² ÷ 4 = (3 − 4 cos 2x + cos 4x) ÷ 8, so the integral = (3π/2) ÷ 8 = **3π/16 ≈ 0.589**. (The cos terms integrate to zero over this interval.)
+5. ∫ sin² x cos² x dx = ∫ (sin 2x)² ÷ 4 dx = ∫ (1 − cos 4x) ÷ 8 dx = **x/8 − sin 4x ÷ 32 + C**.
+/EX
+
+LAB: Area under sin² | The area from 0 to b under sin² x is b/2 − sin(2b)/4. It grows steadily like b/2 (the average height is 1/2) with a small ripple. The orange line b/2 shows the trend. | b:Upper limit b:0.2:12:0.2:3 | b/2-sin(2*b)/4:Area under sin² from 0 to b:3 ;; b/2:Trend line b/2:3 ;; sin(b)^2:Height sin² b:3 | sin(x)^2 ;; x/2-sin(2*x)/4 ;; x/2 | 0,12 | 0,6
+
+### Odd powers: save one factor
+If one power is odd, peel off one factor and use sin² = 1 − cos² (or the reverse) so that a substitution works.
+
+EX: Cubes and mixes
+1. ∫ sin³ x dx = ∫ (1 − cos² x) sin x dx. Let u = cos x, du = −sin x dx: −∫ (1 − u²) du = −u + u³/3 = **−cos x + cos³ x ÷ 3 + C**.
+2. ∫ sin² x cos³ x dx = ∫ sin² x (1 − sin² x) cos x dx. Let u = sin x: ∫ (u² − u⁴) du = **sin³ x ÷ 3 − sin⁵ x ÷ 5 + C**.
+3. ∫₀^(π/2) sin³ x cos² x dx: u = cos x from 1 to 0: ∫₀¹ (1 − u²) u² du = 1/3 − 1/5 = **2/15**.
+4. ∫ sin x cos x dx = **sin² x ÷ 2 + C** (u = sin x).
+/EX
+
+### Other basics
+EX: Tangent and secant
+1. ∫ sec² x dx = tan x + C. Since tan² x = sec² x − 1: ∫ tan² x dx = **tan x − x + C**.
+2. ∫₀^(π/4) tan² x dx = [tan x − x] = 1 − π/4 = **0.2146**.
+3. ∫ sec x dx = ln abs(sec x + tan x) + C (standard result, to be memorised).
+/EX
+
+### Products of different frequencies: orthogonality
+EX: Why sines of different frequencies "don't see each other"
+1. ∫₀^(2π) sin(m x) sin(n x) dx with m, n whole numbers. Use sin A sin B = ½ [cos((m − n)x) − cos((m + n)x)].
+2. If m ≠ n, both cosine terms integrate over a full number of periods and give **0**.
+3. If m = n, the first cosine becomes cos 0 = 1, so we get ½ ∫ (1 − cos 2mx) dx = **π**.
+4. Likewise ∫₀^(2π) sin(m x) cos(n x) dx = **0** for all whole m, n. This "orthogonality" is the key that makes Fourier series work in Phase 3: you can pick out each frequency separately by integrating.
+/EX
+
+BN: জোড় ঘাত: half-angle অভেদে ভেঙে নাও: ∫sin²x dx = x/2 − sin2x/4। বিজোড় ঘাত: একটা গুণক আলাদা করে বাকিটাকে অন্যটার ঘাতে লিখো, তারপর প্রতিস্থাপন (u = cos x ইত্যাদি)। ভিন্ন কম্পাঙ্কের sin(mx)sin(nx) এর 0 থেকে 2π সমাকলন m ≠ n হলে 0, m = n হলে π: এই লম্বতা (orthogonality) পরে ফুরিয়ার সিরিজের ভিত্তি।
+
+TRAP: Never write ∫ sin² x dx = sin³ x ÷ 3. The power rule works only if the derivative of the inside is present. Use the half-angle identity. When using sin 2x forms, remember the **inside factor**: ∫ cos 2x dx = sin 2x ÷ 2, not sin 2x. And for definite integrals over a whole number of periods, sin and cos integrate to **zero**, but sin² and cos² do not (they average to 1/2).
+
+### Quick self-check
+QUIZ:
+Q: ∫₀^π sin² x dx equals…; 1; π ÷ 2; π; 2; 2; The average of sin² is 1/2 over a length of π.
+Q: A good first step for ∫ sin³ x dx is…; the half-angle identity; split off one sin x and write the rest as 1 − cos² x; integrate by parts with u = sin³ x; use sin 3x; 2; An odd power lets you save one factor.
+Q: ∫₀^(2π) sin 3x sin 5x dx equals…; π; 0; 2π; 1; 2; Different whole-number frequencies are orthogonal.
+Q: ∫ tan² x dx equals…; tan x − x + C; sec² x + C; tan³ x ÷ 3 + C; ln abs(sec x) + C; 1; Use tan² = sec² − 1.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∫ cos² x dx. => **x/2 + sin 2x ÷ 4 + C**.
+P: Find ∫ sin x cos x dx. => **sin² x ÷ 2 + C**.
+P: Find ∫ sec²(3x) dx. => **tan 3x ÷ 3 + C**.
+P: Evaluate ∫₀^π cos² x dx. => **π/2**.
+LVL: Level 2 | Apply
+P: Find ∫ sin³ x dx. => **−cos x + cos³ x ÷ 3 + C**.
+P: Evaluate ∫₀^(π/2) sin³ x cos² x dx. => **2/15**.
+P: Find ∫ sin² x cos³ x dx. => **sin³ x ÷ 3 − sin⁵ x ÷ 5 + C**.
+P: Evaluate ∫₀^(π/4) tan² x dx. => **1 − π/4 ≈ 0.215**.
+P: Evaluate ∫₀^(π/2) sin⁴ x dx. => **3π/16 ≈ 0.589**.
+P: Show that ∫₀^π sin x sin 2x dx = 0. => sin x sin 2x = ½ [cos x − cos 3x]. ∫₀^π = ½ [sin x − sin 3x ÷ 3] = ½ (0 − 0) = **0**.
+LVL: Level 3 | Real
+P: The mains voltage is V(t) = 325 sin(100π t) volts. Show that the mean of V² over one period is 325² ÷ 2, and find the RMS voltage. => Mean of sin² = 1/2, so mean V² = 105,625 ÷ 2 = 52,812. V_rms = √52,812 = **229.8 V ≈ 230 V**.
+P: That voltage supplies a 50 Ω heater. Find the average power, and the average of the half-wave rectified voltage (the mean of |V|). => P = V_rms² ÷ R = 52,812 ÷ 50 = **1056 W**. Mean of |V| = V₀ × 2/π = 325 × 0.6366 = **206.9 V**.
+LVL: Challenge | Orthogonality in full
+P: Prove ∫₀^(2π) sin(m x) sin(n x) dx = 0 for whole numbers m ≠ n, and = π for m = n ≥ 1. Then use it to find the number b₃ if f(x) = 2 sin x + 5 sin 3x, using b₃ = (1 ÷ π) ∫₀^(2π) f(x) sin 3x dx. => sin mx sin nx = ½ [cos((m − n)x) − cos((m + n)x)]. For m ≠ n, each cos integrates to 0 over 2π, so the integral is **0**. For m = n: ½ ∫ (1 − cos 2mx) dx = ½ (2π) = **π**. Now ∫ 2 sin x sin 3x = 0 (different frequencies) and ∫ 5 sin 3x sin 3x = 5π. So b₃ = 5π ÷ π = **5**. The integral extracted the coefficient of the sin 3x part.
+
+CHECK: math
+
+@section physics | 3 · Physics: energy in SHM | 35 min
+
+### Two kinds of energy, one total
+At displacement x the spring stores PE = ½ k x² and the mass has KE = ½ m v². With no friction their total never changes:
+
+EQ: E = ½ m v² + ½ k x² = ½ k A²     so     v = ω √(A² − x²)
+
+At the ends (x = ±A) all the energy is potential. At the centre it is all kinetic: ½ m v_max² = ½ k A², so v_max = A ω ✓. The energy depends on A², so doubling the amplitude quadruples the energy.
+
+With x = A cos ωt: PE = ½ k A² cos² ωt and KE = ½ k A² sin² ωt. Both oscillate at twice the frequency, and **each averages to E/2** over a cycle, since sin² and cos² average to 1/2.
+
+BN: যেকোনো মুহূর্তে PE = ½kx², KE = ½mv², এবং মোট E = ½kA²। দুই প্রান্তে সব স্থিতিশক্তি, কেন্দ্রে সব গতিশক্তি। দুটোই দ্বিগুণ কম্পাঙ্কে ওঠানামা করে এবং প্রতিটির গড় E/2। বিস্তার দ্বিগুণ করলে শক্তি চার গুণ। v = ω√(A² − x²) সূত্রে যেকোনো x এ বেগ পাওয়া যায়।
+
+EX: Using energy
+1. m = 0.5 kg, k = 200 N/m, A = 0.05 m. E = ½ × 200 × 0.0025 = **0.25 J**.
+2. At x = 0.03 m: PE = ½ × 200 × 0.0009 = 0.09 J, so KE = 0.25 − 0.09 = 0.16 J and v = √(2 × 0.16 ÷ 0.5) = **0.8 m/s** ✓ (matches ω√(A² − x²) = 20 × 0.04).
+3. KE = PE when ½ k x² = ¼ k A², so **x = A ÷ √2 = 0.707 A**.
+4. At x = A ÷ 2: PE = E/4, so KE = 3E/4.
+/EX
+
+LAB: Energy swap in a spring | Choose the mass, the stiffness and the amplitude, then drag the position x. The graph shows PE (a parabola), the constant total E, and KE = E − PE. At x = ±A all the energy is potential, and at 0 all is kinetic. | m:Mass m (kg):0.1:5:0.1:0.5 ;; k:Stiffness k (N/m):50:500:10:200 ;; A:Amplitude A (m):0.02:0.2:0.01:0.05 ;; x:Position x (m):0:0.2:0.01:0.03 | 0.5*k*A^2:Total energy E (J):3 ;; 0.5*k*x^2:Potential energy (J):3 ;; max(0,0.5*k*(A^2-x^2)):Kinetic energy (J):3 ;; sqrt(max(0,k/m*(A^2-x^2))):Speed at x (m/s):3 | 0.5*k*x^2 ;; 0.5*k*A^2 ;; max(0,0.5*k*(A^2-x^2)) | -0.2,0.2 | 0,10
+
+### Energy methods for springs
+EX: A block hits a spring
+1. A 2 kg block slides at 3 m/s on a smooth table into a spring with k = 800 N/m. KE → PE: ½ × 2 × 9 = ½ × 800 x², so x² = 9 ÷ 400 and **x = 0.15 m**.
+/EX
+
+EX: A ball dropped onto a spring
+1. A 1 kg ball is released 0.5 m above a spring (k = 1000 N/m). It compresses the spring by x before stopping. Energy: m g (0.5 + x) = ½ k x², so 500 x² − 9.8 x − 4.9 = 0.
+2. x = (9.8 + √(96.04 + 9800)) ÷ 1000 = (9.8 + 99.48) ÷ 1000 = **0.109 m**.
+/EX
+
+EX: A spring gun
+1. A spring (k = 500 N/m) is compressed 0.1 m and launches a 0.05 kg ball horizontally. E = ½ × 500 × 0.01 = 2.5 J. v = √(2 × 2.5 ÷ 0.05) = **10 m/s**.
+/EX
+
+### A hanging spring: gravity changes nothing
+For a vertical spring, measure displacement y from the **equilibrium** position (where k d = m g). The total potential energy (elastic plus gravitational) is ½ k (y + d)² − m g y = ½ k y² + k d y + ½ k d² − m g y = **½ k y² + const**, because k d = m g. So the energy equation has exactly the same form, with y in place of x.
+
+### SHM and circular motion
+Look at a point moving around a circle of radius A at angular speed ω. Its shadow on the x-axis is x = A cos(ωt + φ), the SHM solution. So SHM is the "side view" of uniform circular motion, and ω, T and f mean the same in both.
+
+TRAP: Do not use v = ω √(A² − x²) with the wrong amplitude (A is the maximum displacement, not the total spread). The energy is ½ k A², not ½ k (2A)². And a vertical spring's x is measured from the **equilibrium**, not from the unstretched length. If you use the unstretched length you must include gravity.
+
+### Quick self-check
+QUIZ:
+Q: Doubling the amplitude of a spring oscillation makes its total energy…; double; four times; unchanged; half; 2; E = ½ k A².
+Q: At x = A ÷ 2, the kinetic energy is what fraction of E?; 1/4; 1/2; 3/4; 1; 3; PE = E/4, so KE = 3E/4.
+Q: The time-average of KE over a cycle is…; E; E ÷ 2; E ÷ 4; 0; 2; sin² averages to 1/2.
+Q: The energy of a vertical spring oscillation (with displacement from equilibrium) is…; ½ k A² + m g A; ½ k A²; m g A; ½ m g; 2; Gravity only shifts the equilibrium.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the total energy for k = 100 N/m and A = 0.2 m. => ½ × 100 × 0.04 = **2 J**.
+P: What is the maximum speed of a 0.5 kg mass with that energy? => ½ m v² = 2, v = **2.83 m/s**.
+LVL: Level 2 | Apply
+P: A 0.5 kg mass on a 200 N/m spring with A = 0.05 m is at x = 0.04 m. Find the speed. => v = 20 √(0.0025 − 0.0016) = 20 × 0.03 = **0.6 m/s**.
+P: A 2 kg block moving at 3 m/s compresses a spring with k = 800 N/m. Find the maximum compression, and the speed when the compression is 0.1 m. => **0.15 m**. At x = 0.1: ½ × 2 × v² = 9 − ½ × 800 × 0.01 = 5, so v = **2.24 m/s**.
+P: A mass-spring oscillator has amplitude 0.1 m and total energy 4 J. Find k, and the energy when the amplitude is 0.05 m (same k). => k = 2E ÷ A² = 8 ÷ 0.01 = **800 N/m**. Energy = ½ × 800 × 0.0025 = **1 J** (a quarter).
+P: At what positions is the kinetic energy twice the potential? => KE = 2 PE means PE = E/3, so ½ k x² = (1/3)(½ k A²), x = A ÷ √3 = **0.577 A**.
+LVL: Level 3 | Real
+P: A building of mass 2 × 10⁵ kg sways with an effective stiffness 8 × 10⁶ N/m (like a mass on a spring). Find its period, and the energy and maximum speed for a 5 cm sway. => ω = √(8 × 10⁶ ÷ 2 × 10⁵) = √40 = 6.32 rad/s, T = **0.99 s**. E = ½ × 8 × 10⁶ × 0.0025 = **10,000 J**. v_max = 0.05 × 6.32 = **0.316 m/s**. (Earthquakes shake near this period, which is why resonance matters in engineering.)
+LVL: Challenge | The energy of a vertical spring
+P: A mass m hangs from a vertical spring and stretches it by d at equilibrium. Show that the total energy (elastic + gravitational) for a displacement y below equilibrium is ½ k y² + const. Then find the maximum speed if m = 0.4 kg, k = 40 N/m and the mass is pulled down 0.05 m below equilibrium and released. => As derived above, E = ½ m v² + ½ k y² + const. At the extreme, y = A = 0.05 and v = 0. At y = 0, ½ m v² = ½ k A², so v_max = A √(k ÷ m) = 0.05 × 10 = **0.5 m/s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Trig integrals: even powers by half-angle identities (sin² = (1 − cos 2x) ÷ 2), odd powers by saving one factor, products of different frequencies by sum identities. Orthogonality: ∫₀^(2π) sin mx sin nx dx = 0 (m ≠ n) or π (m = n). The average of sin² is 1/2, so RMS = peak ÷ √2.
+- SHM energy: E = ½ k A² = ½ m v² + ½ k x², v = ω √(A² − x²). KE and PE each average E/2. Vertical springs: use displacement from equilibrium.
+
+BN: আজকের সারকথা: জোড় ঘাতে half-angle, বিজোড় ঘাতে একটা গুণক আলাদা করা, ভিন্ন কম্পাঙ্কের গুণফলে যোগ-অভেদ। লম্বতা: ∫₀^(2π) sin mx sin nx dx = 0 বা π। sin² এর গড় ½, তাই RMS = শীর্ষমান/√2। SHM শক্তি: E = ½kA², v = ω√(A² − x²), KE ও PE প্রতিটির গড় E/2।
+
+EXIT:
+E: Evaluate ∫₀^π cos² x dx.; 1.5708; 0.001; The average of cos² is 1/2 over a length of π, so the area is π/2.
+E: A spring with k = 200 N/m has amplitude 0.1 m. What is the total energy in joules?; 1; 0.001; E = ½ × 200 × 0.01 = 1.
+E: A 0.5 kg mass with E = 1 J passes the centre. What is its speed in m/s?; 2; 0.001; ½ × 0.5 × v² = 1 gives v² = 4.
+
+**Tomorrow:** partial fractions, and the pendulum.
+
+CHECK: notes

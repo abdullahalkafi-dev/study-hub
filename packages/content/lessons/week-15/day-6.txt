@@ -1,0 +1,84 @@
+@day Week 15 · Day 6 · Saturday
+# Week 15 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered eigenvalues and eigenvectors, diagonalisation and its uses, symmetric matrices with principal axes and PCA, and in physics the second law, entropy (Clausius and Boltzmann), heat engines, refrigerators, and real engines.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: eigenvalue ও eigenvector, কর্ণীকরণ, প্রতিসম ম্যাট্রিক্স, মুখ্য অক্ষ ও PCA; পদার্থবিজ্ঞানে দ্বিতীয় সূত্র, এনট্রপি, তাপ ইঞ্জিন, ফ্রিজ ও বাস্তব ইঞ্জিন।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use k = 1.381 × 10⁻²³ J/K, R = 8.314 J/(mol·K), c_water = 4186 J/(kg·K). Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Eigenvalues and symmetric matrices (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find the eigenvalues of A = [[4, 1], [2, 3]]. => trace 7, det 10: λ² − 7λ + 10 = 0, **λ = 5 and 2**.
+P: (1 mark) Find an eigenvector of A = [[4, 1], [2, 3]] for λ = 5, and check it. => A − 5I = [[−1, 1], [2, −2]], so −v₁ + v₂ = 0 and **v = (1, 1)**. Check: A v = (5, 5) = 5 v ✓.
+P: (1 mark) Write down the eigenvalues of [[3, 5], [0, −2]] without calculating. => Triangular: the diagonal entries, **3 and −2**.
+P: (1 mark) A has eigenvalues 5 and 2. Give the eigenvalues of A², A⁻¹ and A + 3I. => A²: **25 and 4**. A⁻¹: **1/5 and 1/2**. A + 3I: **8 and 5**.
+P: (2 marks) Diagonalise A = [[4, 1], [2, 3]] (the eigenvector for λ = 2 is (1, −2)) and use it to find A³. => P = [[1, 1], [1, −2]], D = diag (5, 2), P⁻¹ = (1/3) [[2, 1], [1, −1]] (1 mark). A³ = P diag (125, 8) P⁻¹ = (1/3) [[125 + 8, ...]] giving **[[86, 39], [78, 47]]** (1 mark). Check by multiplying: A² = [[18, 7], [14, 11]], A³ = A² A = [[72 + 14, 18 + 21], [56 + 22, 14 + 33]] = [[86, 39], [78, 47]] ✓.
+P: (1 mark) A population has juveniles and adults with the matrix [[0, 2], [0.5, 0.5]]. Find the long-run growth factor. => λ² − 0.5 λ − 1 = 0, λ = (0.5 + √4.25) ÷ 2 = (0.5 + 2.062) ÷ 2 = **1.281**: the population grows by **28% per step**.
+P: (1 mark) Two equal masses of 1 kg, each joined to a wall by a spring of 100 N/m and to each other by a spring of 20 N/m. Find the two normal-mode frequencies. => ω₁ = √(100 ÷ 1) = **10 rad/s** (in phase). ω₂ = √((100 + 2 × 20) ÷ 1) = √140 = **11.83 rad/s** (opposite).
+P: (1 mark) For the symmetric matrix [[3, 1], [1, 3]] find unit eigenvectors and the matrix Q with A = Q D Qᵀ. => λ = 4 with (1, 1) ÷ √2 and λ = 2 with (1, −1) ÷ √2. **Q = (1 ÷ √2) [[1, 1], [1, −1]]**, D = diag (4, 2).
+P: (1 mark) Identify the curve 2x² + 2xy + 2y² = 1 and find its semi-axes. => A = [[2, 1], [1, 2]], λ = 3 and 1: 3u² + v² = 1, an **ellipse** with semi-axes **1 ÷ √3 = 0.577** and **1**.
+P: (1 mark) Is [[2, 3], [3, 5]] positive definite? And [[1, 2], [2, 1]]? => First: a = 2 > 0 and det = 10 − 9 = 1 > 0: **yes**. Second: det = 1 − 4 = −3 < 0: **no**.
+P: (1 mark) The data (1, 2), (2, 4), (3, 6) have s_xx = 1, s_yy = 4, s_xy = 2. Find λ₁, λ₂, the first principal component and the share explained. => trace 5, det 4 − 4 = 0, **λ = 5 and 0**. PC1 = **(1, 2) ÷ √5**, explaining **100%**: the points lie exactly on a line.
+P: (1 mark) A plate has σ_x = 30, σ_y = −10 and τ = 40 MPa. Find the principal stresses and the maximum shear. => trace 20, det −300 − 1600 = −1900, λ² − 20λ − 1900 = 0, λ = 10 ± √(100 + 1900) = 10 ± 44.72: **54.7 and −34.7 MPa**. Maximum shear = (54.72 + 34.72) ÷ 2 = **44.7 MPa**.
+P: (1 mark) Find the principal moments of 1 kg at (1, 2) and 1 kg at (−1, −2). => Σ m x² = 2, Σ m y² = 8, Σ m xy = 4: I = [[8, −4], [−4, 2]], trace 10, det 16 − 16 = 0: **λ = 10 and 0**. The moment is 0 about the axis along the line of the masses and 10 kg m² about the perpendicular axis (check: each mass is √5 away, 2 × 5 = 10 ✓).
+
+CHECK: math
+
+@section physics | 3 · Part B: Entropy and engines (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) Four coins are tossed. Find the probability of exactly one head and the entropy of a macrostate with W = 10²². => 4 ÷ 16 = **25%**. S = k ln W = 1.381 × 10⁻²³ × 50.66 = **7.0 × 10⁻²² J/K**.
+P: (1 mark) Find the entropy change when 2 kg of water is heated from 20 °C to 50 °C. => ΔS = m c ln (T₂ ÷ T₁) = 2 × 4186 × ln (323.15 ÷ 293.15) = 8372 × 0.0975 = **816 J/K**.
+P: (1 mark) 800 J of heat flows from a reservoir at 400 K to one at 300 K. Find the total entropy change. => −800 ÷ 400 + 800 ÷ 300 = −2 + 2.667 = **+0.667 J/K**.
+P: (1 mark) Find the ideal Otto efficiency for a compression ratio of 7 (γ = 1.4). => 1 − 7^(−0.4) = 1 − 0.459 = **54.1%**.
+P: (1 mark) One mole of ideal gas expands freely into four times its volume. Find ΔS. => R ln 4 = 8.314 × 1.386 = **11.5 J/K** (equal to N k ln 4).
+P: (1 mark) A real engine takes 1000 J at 600 K, rejects heat at 300 K and produces 300 J. Find the entropy produced and the lost work. => Q_C = 700 J. ΔS = 700 ÷ 300 − 1000 ÷ 600 = 2.333 − 1.667 = **0.667 J/K**. Lost work = 300 × 0.667 = **200 J** (check: Carnot gives 500 J, and 500 − 300 = 200 ✓).
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 16. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 15. Tell me, and I will rebalance Week 16. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q5 | Used P D P⁻¹ with D³ not applied | Forgot to cube the eigenvalues | A^n = P Dⁿ P⁻¹: only the diagonal entries get the power | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: det(A − λI) এ চিহ্ন ভুল, eigenvector স্বাভাবিক (normalise) না করা, Aⁿ এ D এর পাওয়ার ভুলে যাওয়া, সেলসিয়াসে এনট্রপির লগ নেওয়া (কেলভিন লাগবে), এবং Otto সূত্রে সংকোচন অনুপাত ও চাপ অনুপাত গুলিয়ে ফেলা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The Fibonacci eigenvalue
+P: Show that the golden ratio φ = (1 + √5) ÷ 2 is an eigenvalue of the Fibonacci matrix [[1, 1], [1, 0]], find its eigenvector, and use it to explain why F(n+1) ÷ F(n) → φ. => λ² − λ − 1 = 0 gives λ = φ = 1.618 and −0.618. For φ: (A − φI) v = 0 gives v = (φ, 1). Applying A n times multiplies the φ-component by φⁿ and the other by (−0.618)ⁿ → 0, so the vector (F(n+1), F(n)) turns towards (φ, 1) and the ratio tends to **φ = 1.618**.
+
+LVL: Challenge | Entropy of a mixed gas
+P: A box is divided in two halves, one with 1 mol of helium and one with 1 mol of neon, at the same T and P. The partition is removed. Find ΔS, and say what happens if both halves hold the same gas. => Each gas doubles its volume: ΔS = 2 × R ln 2 = 2 × 5.76 = **11.5 J/K**. For the **same** gas on both sides, nothing observable changes (the molecules are identical, so W does not change), so **ΔS = 0**. This is Gibbs's paradox: entropy counts only distinguishable arrangements.
+
+### Optional coding idea (not part of the study plan)
+**Eigen playground:** a page where you drag two arrows (the columns of a 2 × 2 matrix) and see the unit circle turned into an ellipse, with the eigenvectors drawn as lines that stay on themselves. A second tab drops 200 random points with a chosen correlation and draws the PCA axes live. A third tab shows two boxes of coins swapping heads and tails and plots the entropy rising to its maximum.
+
+### What Week 16 looks like
+**Multivariable calculus 1 and Coulomb's law.** In maths, functions of two or more variables: partial derivatives, the gradient (the direction of steepest climb) and finding the highest and lowest points of a surface. In physics you start electricity: electric charge, Coulomb's force, the electric field, and the story of a static shock when you touch a door handle.
+
+BN: আগামী সপ্তাহ: বহুচলকবিশিষ্ট ক্যালকুলাস ১ ও কুলম্বের সূত্র। গণিতে দুই বা বেশি চলকের ফাংশন: আংশিক অবকল, গ্রেডিয়েন্ট (সবচেয়ে খাড়া ওঠার দিক) এবং পৃষ্ঠের সর্বোচ্চ ও সর্বনিম্ন বিন্দু খোঁজা। পদার্থবিজ্ঞানে বিদ্যুৎ শুরু: চার্জ, কুলম্বের বল, বৈদ্যুতিক ক্ষেত্র, আর দরজার হাতলে হাত দিলে স্ট্যাটিক শক-এর গল্প।
+
+**Sunday is a rest day.**
+
+CHECK: notes

@@ -1,0 +1,204 @@
+@day Week 7 · Day 1 · Monday
+# Finding maxima and minima. Then: torque and the lever
+lead: The derivative's most useful job is finding the best value of something: the largest area, the cheapest can, the maximum profit. Today you learn the method and the tests that prove an answer is a maximum or a minimum. In physics you meet torque, the turning effect of a force, which explains levers, wrenches, doors and seesaws.
+
+BN: অন্তরকলজের সবচেয়ে কাজের ব্যবহার হলো কোনো কিছুর সেরা মান খোঁজা: সবচেয়ে বড় ক্ষেত্রফল, সবচেয়ে সস্তা কৌটা, সর্বোচ্চ মুনাফা। আজ পদ্ধতিটা আর তা সর্বোচ্চ না সর্বনিম্ন তা যাচাইয়ের পরীক্ষা শিখবে। পদার্থবিজ্ঞানে টর্ক (torque), অর্থাৎ বলের ঘোরানোর প্রভাব, যা লিভার, স্প্যানার, দরজা ও দোলনার ব্যাখ্যা দেয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Week 6
+P: Differentiate x² ln x. => **x (2 ln x + 1)**.
+P: Differentiate e^(3x) sin x. => **e^(3x) (3 sin x + cos x)**.
+P: Find y′ for x² + y² = 50 at (1, 7). => −1/7.
+P: A 2 kg body at 6 m/s sticks to a 4 kg body at rest. Find the final speed. => **2 m/s**.
+P: Find f″ for f = x⁴ − 2x². => **12x² − 4**.
+
+CHECK: recall
+
+@section math | 2 · Math: optimisation | 55 min
+
+### Critical points
+Where can a smooth function have a maximum or a minimum? Only where the tangent is horizontal (f′ = 0), or at a point where the derivative does not exist, or at the **ends** of the interval. A point in the interior where f′ = 0 or f′ does not exist is called a **critical point**.
+
+**The Extreme Value Theorem.** A continuous function on a closed interval [a, b] always has both an absolute maximum and an absolute minimum. (Last week's continuity pays off here: no jumps means no skipped values.)
+
+### The closed-interval method
+1. Find all critical points inside (a, b).
+2. Evaluate f at each critical point **and at both endpoints**.
+3. The largest value is the absolute maximum. The smallest is the absolute minimum.
+
+EX: A cubic on an interval
+1. f(x) = x³ − 3x² − 9x + 5 on [−2, 6]. f′ = 3x² − 6x − 9 = 3 (x − 3)(x + 1). Critical points: x = −1 and x = 3.
+2. Values: f(−2) = −8 − 12 + 18 + 5 = 3. f(−1) = −1 − 3 + 9 + 5 = 10. f(3) = 27 − 27 − 27 + 5 = −22. f(6) = 216 − 108 − 54 + 5 = 59.
+3. **Absolute maximum 59 at x = 6** (an endpoint!). **Absolute minimum −22 at x = 3.** The local maximum 10 at x = −1 is not the absolute one.
+/EX
+
+### Classifying a critical point
+**First derivative test.** If f′ changes from positive to negative at c, it is a local maximum. From negative to positive, a local minimum. No sign change means neither (like x³ at 0).
+
+**Second derivative test.** At a critical point c (f′(c) = 0): if f″(c) > 0 the graph is a cup, so a local minimum. If f″(c) < 0, a cap, so a local maximum. If f″(c) = 0, the test fails: use the first derivative test.
+
+EX: Both tests
+1. f(x) = x³ − 3x² − 9x + 5: f″ = 6x − 6. At x = −1: f″ = −12 < 0, so a **local maximum**. At x = 3: f″ = 12 > 0, so a **local minimum**.
+2. f(x) = x⁴: f′ = 4x³ = 0 at 0, and f″(0) = 0, so the second test fails. The first derivative test: f′ < 0 before and > 0 after, so a **minimum**.
+/EX
+
+BN: সর্বোচ্চ বা সর্বনিম্ন থাকতে পারে যেখানে f′ = 0, বা f′ নেই, বা বন্ধ ব্যবধানের প্রান্তে। বন্ধ ব্যবধান পদ্ধতি: ক্রান্তি বিন্দু ও দুই প্রান্তে মান বের করো; সবচেয়ে বড়টা সর্বোচ্চ, ছোটটা সর্বনিম্ন। দ্বিতীয় অন্তরকলজ পরীক্ষা: f″ > 0 হলে ন্যূনতম (কাপ), f″ < 0 হলে সর্বোচ্চ (টুপি)।
+
+### A method for word problems
+1. **Read and draw.** Name the quantities.
+2. **Objective:** write the quantity to maximise or minimise.
+3. **Constraint:** write the given fixed relation.
+4. **Reduce to one variable** with the constraint, and state its domain.
+5. **Differentiate**, set to zero, solve.
+6. **Check** it is the max or min (endpoints, or the second derivative).
+7. **Answer the question** in words with units.
+
+EX: The best rectangular pen
+1. 100 m of fence encloses a rectangular pen against a straight river (so only three sides need fencing). Maximise the area.
+2. Let the two sides perpendicular to the river be x, and the side parallel be y = 100 − 2x. Area A = x (100 − 2x) = 100x − 2x², with 0 < x < 50.
+3. A′ = 100 − 4x = 0 gives x = 25. A″ = −4 < 0, so it is a maximum.
+4. Dimensions **25 m by 50 m**, area **1250 m²**. Notice the parallel side is twice each other side.
+/EX
+
+EX: The open box
+1. From a square sheet of side 12 cm, cut equal squares of side x from the corners and fold up to make an open box. Maximise the volume.
+2. V = x (12 − 2x)², with 0 < x < 6.
+3. V′ = (12 − 2x)² + x × 2 (12 − 2x)(−2) = (12 − 2x)(12 − 2x − 4x) = (12 − 2x)(12 − 6x). Zero at x = 6 (volume 0) and **x = 2**.
+4. V(2) = 2 × 8² = **128 cm³**. At the ends V = 0, so this is the maximum.
+/EX
+
+LAB: Cutting the box | Choose the size x of the corner squares. The curve shows the volume of the box. The tangent line is flat at the best cut, x = 2 cm. | x0:Corner square x (cm):0.1:5.9:0.1:1 | x0*(12-2*x0)^2:Volume (cm³):1 ;; (12-2*x0)*(12-6*x0):Slope dV/dx:1 ;; 12-2*x0:Base side (cm):1 | x*(12-2*x)^2 ;; (12-2*x0)*(12-6*x0)*(x-x0)+x0*(12-2*x0)^2 | 0,6 | 0,150
+
+EX: The cheapest can
+1. A cylindrical can holds 1000 cm³ (one litre). Minimise the metal used (surface area S = 2π r² + 2π r h).
+2. Constraint: π r² h = 1000, so h = 1000 ÷ (π r²). Then S = 2π r² + 2000 ÷ r.
+3. S′ = 4π r − 2000 ÷ r² = 0, so r³ = 500 ÷ π = 159.2 and **r = 5.42 cm**.
+4. h = 1000 ÷ (π × 29.4) = **10.8 cm = 2r**. S = 184.5 + 369.1 = **553.6 cm²**.
+5. The best can has height equal to its diameter. Real cans are often taller because of other costs, such as the seams and what fits a hand or a shelf.
+/EX
+
+EX: Maximum profit
+1. A factory's profit from selling x items is P(x) = −2x² + 120x − 500. P′ = −4x + 120 = 0 gives **x = 30**.
+2. P(30) = −1800 + 3600 − 500 = **1300**. P″ = −4 < 0, so a maximum.
+/EX
+
+TRAP: Do not forget the endpoints: in the cubic example the true maximum was at an endpoint. Also state the **domain** of the variable (x between 0 and 6 for the box), and make sure the final answer answers the question asked, with units, not just the value of x.
+
+### Quick self-check
+QUIZ:
+Q: The critical points of f(x) = x³ − 12x are…; x = 0; x = ±2; x = ±4; x = 12; 2; f′ = 3x² − 12 = 0.
+Q: If f′(c) = 0 and f″(c) = 5, then f has at c a…; local maximum; local minimum; inflection; nothing; 2; Positive f″ means concave up.
+Q: The maximum area of a rectangle with perimeter 40 is…; 50; 100; 400; 200; 2; A square with side 10 gives 100.
+Q: To find the absolute max of a continuous function on [a, b], compare f at…; critical points only; endpoints only; critical points and endpoints; the midpoint; 3; The maximum could be at either.
+Q: In the box problem V = x (12 − 2x)², the best x is…; 1; 2; 3; 4; 2; V′ = (12 − 2x)(12 − 6x) = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the critical points of f(x) = x² − 6x + 5 and classify them. => f′ = 2x − 6 = 0, x = 3. f″ = 2 > 0. **Minimum at (3, −4)**.
+P: Find the absolute max and min of f(x) = x² on [−1, 2]. => f′ = 2x = 0 at 0. Values f(−1) = 1, f(0) = 0, f(2) = 4. **Max 4 at x = 2, min 0 at x = 0**.
+P: Two positive numbers have sum 20. Maximise their product. => x (20 − x), maximum at x = 10, product **100**.
+LVL: Level 2 | Apply
+P: Find the local extrema of f(x) = 2x³ − 9x² + 12x. => f′ = 6x² − 18x + 12 = 6 (x − 1)(x − 2). f″ = 12x − 18. At x = 1: −6 < 0, **local max f(1) = 5**. At x = 2: 6 > 0, **local min f(2) = 4**.
+P: A farmer has 200 m of fence for a rectangular field divided into two equal pens by a fence parallel to one side. Find the dimensions for the largest area. => Let the dividing fence have length x (a short side) and the long side y: 3x + 2y = 200, so y = 100 − 1.5x. A = x (100 − 1.5x). A′ = 100 − 3x = 0, x = 33.3, y = 50. **33.3 m by 50 m**, area **1667 m²**.
+P: Find the point on the line y = 2x + 1 closest to the origin. => Minimise d² = x² + (2x + 1)². (d²)′ = 2x + 4 (2x + 1) = 10x + 4 = 0, x = −0.4, y = 0.2. **(−0.4, 0.2)**, distance √0.2 = 0.447.
+P: Find the maximum of f(x) = x e^(−x) for x ≥ 0. => f′ = e^(−x)(1 − x) = 0 at x = 1. f(1) = **1/e = 0.368**. f″ = e^(−x)(x − 2) = −e⁻¹ < 0 ✓.
+LVL: Level 3 | Real
+P: A cylindrical can is open at the top and holds 500 cm³. Find the radius that minimises the metal (S = π r² + 2π r h). => h = 500 ÷ (π r²). S = π r² + 1000 ÷ r. S′ = 2π r − 1000 ÷ r² = 0, so r³ = 500 ÷ π = 159.2, **r = 5.42 cm**, and h = 5.42 cm, so **h = r** for an open can.
+LVL: Challenge | Closest point on a curve
+P: Find the point(s) on the parabola y = x² nearest to the point (0, 3). => d² = x² + (x² − 3)². Differentiate: 2x + 2 (x² − 3)(2x) = 2x (2x² − 5) = 0. x = 0 gives d² = 9 (a local maximum). x² = 2.5 gives y = 2.5 and d² = 2.5 + 0.25 = 2.75. So **(±1.58, 2.5)**, distance **1.66**.
+
+CHECK: math
+
+@section physics | 3 · Physics: torque and the lever | 35 min
+
+### Turning effects
+A force can change straight-line motion (Newton's second law), and it can also change **rotation**. The turning effect depends on the force, on how far from the pivot it acts, and on the direction. You push a door near the hinge and it barely moves, near the handle and it swings easily.
+
+EQ: τ = r F sin θ = F × d⊥     unit: N·m
+
+- r is the distance from the pivot (the axis) to the point where the force acts.
+- θ is the angle between the force and the line from the pivot to the point.
+- **d⊥ = r sin θ is the lever arm**: the perpendicular distance from the pivot to the line of the force.
+
+In vector form, τ = r × F, from Week 4. The direction (by the right-hand rule) is along the axis: counterclockwise is usually positive.
+
+LAB: Torque and angle | Choose the force and the distance from the pivot. The graph shows how the torque changes as the force direction rotates from along the wrench (0°) to straight across (90°) and back. | F:Force (N):10:200:5:100 ;; r:Distance from pivot (m):0.1:1:0.05:0.3 ;; a:Angle θ (degrees):0:180:5:90 | r*F*sin(a*pi/180):Torque (N·m):1 ;; r*sin(a*pi/180):Lever arm (m):3 ;; 20/(r*sin(a*pi/180)+0.0001):Force needed for 20 N·m (N):0 | r*F*sin(x*pi/180) | 0,180 | 0,320
+
+EX: A wrench
+1. A force of 100 N at the end of a 0.3 m wrench, applied at 90°: τ = 0.3 × 100 × 1 = **30 N·m**.
+2. At 30° to the wrench: τ = 0.3 × 100 × 0.5 = **15 N·m**. Pulling along the wrench (0°) gives zero.
+3. To get 30 N·m with a shorter 0.15 m wrench you need 200 N: a longer handle means less force.
+/EX
+
+BN: টর্ক τ = rF sin θ = F × (লম্ব দূরত্ব)। লম্ব দূরত্ব d⊥ = r sin θ কে বলে বাহু (lever arm)। বল আর অক্ষের দূরত্ব যত বেশি, ঘোরানোর প্রভাব তত বেশি; বল ঘূর্ণন-ব্যাসার্ধ বরাবর হলে টর্ক শূন্য। একক N·m, কিন্তু এটা জুল নয় (শক্তি নয়, একটা ভেক্টর)।
+
+### Balance: the lever and the seesaw
+A body does not rotate if the **net torque is zero**. Take torques about the same pivot, with clockwise and counterclockwise having opposite signs. For a lever with forces F₁ and F₂ at distances d₁ and d₂ on opposite sides:
+
+EQ: F₁ d₁ = F₂ d₂
+
+EX: A seesaw
+1. A 30 kg child sits 2 m from the pivot. Where must a 60 kg adult sit to balance?
+2. Weights: 30g × 2 = 60g × d, so d = **1 m**. The heavier person sits closer.
+/EX
+
+EX: Prising a nail
+1. A claw hammer: the effort arm (from the pivot to your hand) is 30 cm, the load arm (from the pivot to the nail) is 3 cm.
+2. Mechanical advantage = 30 ÷ 3 = **10**. A 20 N effort produces a 200 N pull on the nail.
+3. A lever trades force for distance: your hand moves 10 times farther than the nail.
+/EX
+
+EX: A uniform plank
+1. A uniform 6 kg plank of length 3 m rests on a pivot 1 m from its left end. A child stands on the left end to balance it. Find the child's mass.
+2. The plank's weight acts at its centre of mass, 1.5 m from the left end, which is 0.5 m to the right of the pivot. Torque from the plank: 6 × 0.5 = 3 kg·m (times g).
+3. The child is 1 m left of the pivot: m × 1 = 3, so **m = 3 kg**.
+/EX
+
+EX: A metre stick
+1. A metre stick (uniform, mass negligible here) is pivoted at 50 cm. A 200 g mass is at 20 cm. What mass at 70 cm balances it?
+2. Left distance: 30 cm. Right distance: 20 cm. 200 × 30 = m × 20, so **m = 300 g**.
+/EX
+
+TRAP: Always measure the lever arm **perpendicular** to the line of the force, not just the distance along the beam. And the torque depends on the chosen pivot, so pick one pivot for the whole problem (a smart choice is the point where an unknown force acts, which makes that force's torque zero). Do not confuse torque (N·m) with energy (J), even though the unit looks the same.
+
+### Quick self-check
+QUIZ:
+Q: A 50 N force acts at 90° at 0.4 m from the pivot. The torque is…; 20 N·m; 12.5 N·m; 200 N·m; 0.008 N·m; 1; τ = r F sin 90° = 20.
+Q: A force along the line through the pivot produces a torque of…; the maximum; half the maximum; zero; infinite; 3; sin 0° = 0 (the lever arm is zero).
+Q: A lever with load arm 0.1 m and effort arm 0.5 m has a mechanical advantage of…; 0.2; 5; 50; 0.5; 2; MA = effort arm ÷ load arm = 5.
+Q: A seesaw balances with 40 kg at 1.5 m. A mass at 1 m must be…; 40 kg; 60 kg; 27 kg; 80 kg; 2; 40 × 1.5 = m × 1, so 60 kg.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the torque of a 25 N force at 90° and 0.6 m from the pivot. => **15 N·m**.
+P: A 20 kg child sits 1.5 m from the pivot of a seesaw. Where must a 30 kg child sit? => 20 × 1.5 = 30 × d, so **1.0 m**.
+LVL: Level 2 | Apply
+P: A door is 0.9 m wide. A force of 20 N pushes it at the edge at 60° to the door plane. Find the torque about the hinges. => 0.9 × 20 × sin 60° = **15.6 N·m**.
+P: A 4 m uniform plank (12 kg) rests on two supports, 0.5 m from each end, so the supports are 3 m apart. A 24 kg person stands 1 m from the left support, between the supports. Find the force on each support (g = 9.8). => Take torques about the right support. The plank's weight acts 1.5 m to its left, and the person 2 m to its left. N_L × 3 = 12g × 1.5 + 24g × 2 = 66g, so N_L = 22g = **215.6 N**. The total weight is 36g = 352.8 N, so N_R = **137.2 N**.
+P: A 2 m uniform beam of mass 10 kg is hinged to a wall and held horizontal by a vertical cable at its outer end. Find the tension (g = 9.8). => Torque about the hinge: T × 2 = 10 × 9.8 × 1. **T = 49 N**.
+P: A 5 kg mass hangs 0.8 m to the left of the pivot of a light rod. A spring scale pulls **down** on the other side, 0.2 m from the pivot, to hold the rod level. What does it read? => 5g × 0.8 = F × 0.2, so F = 20g = **196 N**.
+LVL: Challenge | Optimal lever
+P: A force F is applied to a rod hinged at one end. The force always has magnitude 50 N, and you apply it at 0.4 m from the hinge. At which angle θ is the torque largest, and how can you prove it using the derivative? => τ = 0.4 × 50 sin θ = 20 sin θ. τ′ = 20 cos θ = 0 at θ = 90°, and τ″ = −20 sin θ < 0, so it is a **maximum of 20 N·m at 90°**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Critical points: f′ = 0 or undefined. Closed-interval method: compare critical values and endpoints. Tests: first derivative (sign change) and second derivative (cup or cap).
+- Word-problem method: objective, constraint, one variable, derivative, check, answer in words. Best box, can, fence.
+- Torque τ = r F sin θ = F d⊥. Lever: F₁d₁ = F₂d₂. Balance: net torque zero about any pivot.
+
+BN: আজকের সারকথা: ক্রান্তি বিন্দু, বন্ধ ব্যবধান পদ্ধতি, প্রথম ও দ্বিতীয় অন্তরকলজ পরীক্ষা, আর শব্দ-সমস্যার ধাপ: উদ্দেশ্য, শর্ত, এক চলক, অন্তরকলন, যাচাই, উত্তর। টর্ক τ = rF sin θ; লিভারে F₁d₁ = F₂d₂; ভারসাম্যে যেকোনো কেন্দ্রের সাপেক্ষে মোট টর্ক শূন্য।
+
+EXIT:
+E: Find the x-value where f(x) = x² − 8x + 3 is smallest.; 4; 0.001; f′ = 2x − 8 = 0.
+E: What is the torque (N·m) of 40 N at 90° at 0.25 m from the pivot?; 10; 0.001; 0.25 × 40 = 10.
+E: Two positive numbers add to 30. What is their largest product?; 225; 0.001; 15 × 15 = 225.
+
+**Tomorrow:** more optimisation (including the lifeguard problem), and equilibrium.
+
+CHECK: notes

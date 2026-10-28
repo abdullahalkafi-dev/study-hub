@@ -1,0 +1,39 @@
+# secrets: never commit
+.env
+.env.*
+!.env.example
+
+# dependencies and build output
+node_modules/
+.next/
+dist/
+build/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# generated: rebuilt by `npm run content:build` (and in Docker)
+packages/content/data/
+
+# local-only files (old builds, zips, drafts, roadmap)
+local/
+
+# uploads and storage data
+uploads/
+minio-data/
+data/
+
+# logs and test output
+*.log
+npm-debug.log*
+.tmp/
+tmp/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp

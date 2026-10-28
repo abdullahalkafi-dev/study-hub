@@ -1,0 +1,178 @@
+@day Week 15 · Day 5 · Friday
+# Principal components and principal axes. Then: real engines and entropy production
+lead: Today the eigenvector idea does two jobs. In data science it finds the direction along which your data varies most (principal component analysis, PCA), which is how a hundred measurements are squeezed into two numbers. In mechanics it finds the axes about which a body spins most easily or most stubbornly (the inertia tensor). In physics you meet the engines in your car, with the Otto and Diesel cycles, learn why real engines reach only half of the Carnot limit, and measure the waste as entropy produced.
+
+BN: আজ eigenvector দিয়ে দুটো কাজ: ডেটা বিজ্ঞানে ডেটা সবচেয়ে বেশি ছড়ায় যে দিকে সেটা খোঁজা (PCA), যান্ত্রিকবিদ্যায় বস্তু যে অক্ষের চারপাশে সবচেয়ে সহজে বা কঠিনে ঘোরে সেটা খোঁজা (জড়তা টেন্সর)। পদার্থবিজ্ঞানে গাড়ির ইঞ্জিন (Otto ও Diesel চক্র) শিখবে, আর দেখবে বাস্তব ইঞ্জিন কেন কার্নো সীমার অর্ধেকের কাছাকাছি থাকে, এবং অপচয়কে এনট্রপি উৎপাদন হিসেবে মাপবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and this week
+P: What are the eigenvalues of [[5, 2], [2, 2]]? => **6 and 1**.
+P: What is Q Qᵀ for an orthogonal matrix Q? => **I** (the identity).
+P: State S = k ln W in words. => Entropy is Boltzmann's constant times the logarithm of the number of microstates of the macrostate.
+P: What is the Carnot efficiency between 600 K and 300 K? => **50%**.
+P: Adiabatic: T V^(γ−1) = constant. A gas at 300 K is compressed to 1/8 of its volume (γ = 1.4). What is T₂? => 300 × 8^0.4 = **689 K**.
+
+CHECK: recall
+
+@section math | 2 · Math: PCA and the inertia tensor | 55 min
+
+### The covariance matrix
+Take n data points (xᵢ, yᵢ). Subtract the means to get deviations. The **covariance matrix** is
+
+EQ: C = [[s_xx, s_xy], [s_xy, s_yy]]     with s_xx = Σ dx² ÷ (n − 1), s_yy = Σ dy² ÷ (n − 1), s_xy = Σ dx·dy ÷ (n − 1)
+
+It is **symmetric**, so yesterday's theorem applies: real eigenvalues, perpendicular eigenvectors. The eigenvector of the **largest** eigenvalue is the **first principal component**: the direction of greatest spread. The eigenvalue is the variance along it, and the share λ₁ ÷ (λ₁ + λ₂) is the fraction of the total variance it explains.
+
+BN: সহভেদাংক ম্যাট্রিক্স C প্রতিসম, তাই eigenvalue বাস্তব আর eigenvector লম্ব। বৃহত্তম eigenvalue এর eigenvector হলো প্রথম মুখ্য উপাদান: ডেটা সবচেয়ে বেশি ছড়ায় যে দিকে। eigenvalue = ঐ দিকের ভেদাংক; λ₁/(λ₁+λ₂) = কত অংশ ভেদাংক সে ব্যাখ্যা করে।
+
+EX: A four-point data set
+1. Data: (2, 3), (4, 5), (6, 9), (8, 9). Means: x̄ = 5, ȳ = 6.5.
+2. Deviations: dx = −3, −1, 1, 3 and dy = −3.5, −1.5, 2.5, 2.5.
+3. s_xx = (9 + 1 + 1 + 9) ÷ 3 = **6.667**. s_yy = (12.25 + 2.25 + 6.25 + 6.25) ÷ 3 = 27 ÷ 3 = **9**. s_xy = (10.5 + 1.5 + 2.5 + 7.5) ÷ 3 = 22 ÷ 3 = **7.333**.
+4. Trace = 15.667 and det = 6.667 × 9 − 7.333² = 60 − 53.78 = 6.222. So λ² − 15.667λ + 6.222 = 0 and **λ₁ = 15.26, λ₂ = 0.408**.
+5. The first principal component: (C − 15.26 I) v = 0 gives v₁ = **(0.649, 0.761)**, at an angle tan⁻¹ (0.761 ÷ 0.649) = **49.5°**. The variance explained is 15.26 ÷ 15.667 = **97.4%**.
+6. The "scores" (the coordinate of each point along v₁): −3 × 0.649 − 3.5 × 0.761 = **−4.61**, then **−1.79**, **+2.55**, **+3.85**. Four points in two dimensions are reduced to four single numbers, and 97.4% of the information is kept.
+/EX
+
+LAB: Principal components of a data cloud | Choose the spread along x, along y and the correlation r (so s_xy = r √(s_xx s_yy)). The numbers give the two eigenvalues, the share of variance explained and the angle of the first principal component. The graph shows the variance along a direction at angle θ: its peak is λ₁ and its trough is λ₂. | sxx:Variance of x (s_xx):1:10:0.5:7 ;; syy:Variance of y (s_yy):1:10:0.5:9 ;; r:Correlation r:-0.95:0.95:0.05:0.9 | ((sxx+syy)/2+sqrt(((sxx-syy)/2)^2+(r^2)*sxx*syy)):λ₁ (largest variance):3 ;; ((sxx+syy)/2-sqrt(((sxx-syy)/2)^2+(r^2)*sxx*syy)):λ₂ (smallest variance):3 ;; 100*((sxx+syy)/2+sqrt(((sxx-syy)/2)^2+(r^2)*sxx*syy))/(sxx+syy):Variance explained by PC1 (%):1 ;; sxx*syy*(1-r^2):Determinant:2 | sxx*cos(x*pi/180)^2+2*r*sqrt(sxx*syy)*sin(x*pi/180)*cos(x*pi/180)+syy*sin(x*pi/180)^2 | 0,180 | 0,20
+
+### Why PCA is useful
+EX: Compression and tomography of data
+1. **Images and faces:** 10,000 pixel values per face. PCA finds, say, 50 directions ("eigenfaces") that capture 95% of the variation, so each face is stored as 50 numbers.
+2. **Dimension reduction for machine learning:** remove the directions with tiny eigenvalues (noise) before training, which makes models faster and often better.
+3. **Reading the scree:** if the eigenvalues are 15.26 and 0.41, one direction does almost everything. If they were 8 and 7.7, the cloud would be round and there would be nothing to gain.
+4. **Always centre first:** subtract the means. Without that, the first "component" just points at the mean.
+/EX
+
+TRAP: PCA finds directions of **variance**, not of importance. If one column is in millimetres and another in kilometres, the large numbers dominate, so **standardise** (divide by the standard deviation) when the units differ. And the sign of an eigenvector is arbitrary: (0.649, 0.761) and (−0.649, −0.761) are the same axis.
+
+### The inertia tensor in a plane
+For point masses in the xy-plane the moment of inertia about an axis through the origin in the plane in direction n = (n_x, n_y) is Σ m (x n_y − y n_x)². This is a quadratic form nᵀ I n with the symmetric matrix
+
+EQ: I = [[Σ m y², −Σ m x y], [−Σ m x y, Σ m x²]]
+
+Its eigenvectors are the **principal axes**, its eigenvalues the **principal moments**.
+
+EX: Two bodies
+1. **A dumbbell on the diagonal:** 2 kg at (1, 1) and 2 kg at (−1, −1). Σ m y² = 4, Σ m x² = 4, Σ m xy = 4. So I = [[4, −4], [−4, 4]], with **λ = 8 along (1, −1)** and **λ = 0 along (1, 1)**. Check: about the axis along the dumbbell the masses are on the axis, so the moment is 0 ✓. About the perpendicular axis through the centre, each mass is √2 away: 2 × (√2)² × 2 = **8** ✓.
+2. **A cross:** 1 kg at (±3, 0) and 1 kg at (0, ±1). Σ m x² = 18, Σ m y² = 2, Σ m xy = 0. I = [[2, 0], [0, 18]]: already diagonal, so the coordinate axes are the principal axes. The moment is **2** about the x-axis and **18** about the y-axis: the body is easy to spin about its long axis and hard about the short one.
+3. **Why engineers care:** a body spinning about a principal axis has angular momentum parallel to its angular velocity and does not wobble. An unbalanced car wheel is one whose spin axis is not a principal axis: it shakes, and the garage adds small masses until it is.
+/EX
+
+BN: ভরের বিন্দু-সংগ্রহের জন্য I = [[Σmy², −Σmxy], [−Σmxy, Σmx²]]। eigenvector = মুখ্য অক্ষ, eigenvalue = মুখ্য জড়তা ভ্রামক। মুখ্য অক্ষে ঘুরলে বস্তু টলে না; গাড়ির চাকার ব্যালান্সিং আসলে ঘূর্ণন অক্ষকে মুখ্য অক্ষে আনা।
+
+### Quick self-check
+QUIZ:
+Q: The first principal component is the eigenvector with the…; smallest eigenvalue; largest eigenvalue; zero eigenvalue; first row; 2; It is the direction of greatest variance.
+Q: Before PCA you should…; square the data; subtract the means; sort the data; delete half; 2; Centre the data.
+Q: If the eigenvalues are 15 and 0.4, PC1 explains about…; 50%; 74%; 97%; 100%; 3; 15 ÷ 15.4.
+Q: A body spins without wobble about…; any axis; a principal axis; only the x-axis; none; 2; L is parallel to ω.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the covariance matrix entries for the data (1, 2), (3, 4), (5, 6). => Means 3 and 4. dx = −2, 0, 2 and dy = −2, 0, 2. s_xx = 8 ÷ 2 = **4**, s_yy = **4**, s_xy = **4**.
+P: For C = [[4, 4], [4, 4]] find λ and the first principal component. => trace 8, det 0, **λ = 8 and 0**. PC1 = **(1, 1) ÷ √2**: the points lie exactly on a line.
+P: What share of the variance does PC1 explain when λ₁ = 8 and λ₂ = 2? => 8 ÷ 10 = **80%**.
+LVL: Level 2 | Apply
+P: Find the eigenvalues of C = [[3, 1], [1, 3]] and the PC1 direction. => **λ = 4 and 2**; PC1 = **(1, 1) ÷ √2** (45°); PC1 explains **66.7%**.
+P: Find the inertia matrix of 3 kg at (2, 0) and 3 kg at (−2, 0), and the principal moments. => Σ m x² = 24, Σ m y² = 0, Σ m xy = 0. I = [[0, 0], [0, 24]]: **0 about the x-axis** (the masses lie on it) and **24 kg m² about the y-axis** (6 × 4 = 24 ✓).
+P: The data cloud has s_xx = 4, s_yy = 1 and s_xy = 0. What are the principal axes? => Already diagonal: **the x and y axes**, with variances 4 and 1. PC1 is the x-axis.
+P: Compute the correlation r for s_xx = 6.667, s_yy = 9, s_xy = 7.333. => r = 7.333 ÷ √(60) = 7.333 ÷ 7.746 = **0.947**.
+P: Project the point with deviation (3, 2.5) on v₁ = (0.649, 0.761). => 3 × 0.649 + 2.5 × 0.761 = 1.947 + 1.903 = **3.85**.
+P: Find the eigenvalues of C = [[2, 0], [0, 5]] and say what the cloud looks like. => **5 and 2**; an ellipse elongated along y, with no tilt.
+LVL: Level 3 | Real
+P: Four measurements of a plate (deviations of length and width, in cm) have s_xx = 9, s_yy = 4, s_xy = 6. Find the principal variances and whether one number can describe the plate. => trace 13, det 36 − 36 = 0, so **λ = 13 and 0**: the points lie exactly on a line (width = 2/3 × length), and **one number describes everything** (100% explained).
+LVL: Challenge | Variance along any direction
+P: Show that for C = [[s_xx, s_xy], [s_xy, s_yy]] the variance along the unit vector (cos θ, sin θ) is s_xx cos²θ + 2 s_xy sin θ cos θ + s_yy sin²θ, and find its maximum for C = [[3, 1], [1, 3]]. => The projection of each deviation is dx cos θ + dy sin θ. Squaring and averaging gives exactly that expression. For [[3, 1], [1, 3]]: 3 cos²θ + 2 sin θ cos θ + 3 sin²θ = 3 + sin 2θ, whose maximum is **4** at 2θ = 90°, **θ = 45°**, matching the eigenvalue 4 along (1, 1) ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: real engines | 35 min
+
+### The Otto cycle (petrol engine)
+Four strokes idealised as: **adiabatic compression** (ratio r = V₁ ÷ V₂), **heating at constant volume** (the spark), **adiabatic expansion**, **cooling at constant volume** (exhaust). The efficiency depends only on r:
+
+EQ: η_Otto = 1 − r^(1 − γ) = 1 − 1 ÷ r^(γ − 1)     (γ = 1.4 for air)
+
+EX: A petrol engine
+1. **r = 8:** η = 1 − 8^(−0.4) = 1 − 0.4353 = **56.5%**.
+2. **r = 9:** η = 1 − 9^(−0.4) = 1 − 0.4152 = **58.5%**. **r = 10:** **60.2%**. Higher compression gives better efficiency, but too high a ratio makes the fuel ignite early ("knocking").
+3. **Step by step for r = 8, T₁ = 300 K, peak T₃ = 1800 K:** T₂ = 300 × 8^0.4 = **689 K**. Heat in (per mole, C_V = 20.79 J/(mol K)) = 20.79 × (1800 − 689) = **23,090 J**. T₄ = 1800 ÷ 8^0.4 = **783.5 K**. Heat out = 20.79 × (783.5 − 300) = **10,050 J**. Work = 23,090 − 10,050 = **13,040 J**. η = 13,040 ÷ 23,090 = **56.5%** ✓ (the formula agrees).
+4. **Compare with Carnot between 1800 K and 300 K:** 1 − 300 ÷ 1800 = **83.3%**. The Otto cycle is lower because it takes in heat over a range of temperatures, not all at the top one.
+/EX
+
+BN: Otto চক্র (পেট্রোল ইঞ্জিন): রুদ্ধতাপ সংকোচন, স্থির আয়তনে তাপ গ্রহণ, রুদ্ধতাপ প্রসারণ, স্থির আয়তনে তাপ বর্জন। η = 1 − r^(1−γ), শুধু সংকোচন অনুপাত r এর উপর নির্ভর। r = 8 হলে η = 56.5%, r = 10 হলে 60.2%। কার্নো (1800 K ও 300 K) দিত 83.3%।
+
+LAB: Otto efficiency | Choose the compression ratio and γ (1.4 for air, 1.67 for a monatomic gas). The numbers give the ideal efficiency and the heat wasted per 1000 J of fuel heat. The graph shows how the efficiency rises with the compression ratio, quickly at first, then slowly. | r:Compression ratio r:4:20:1:9 ;; g:γ (gas):1.2:1.67:0.01:1.4 | 100*(1-r^(1-g)):Ideal efficiency (%):1 ;; 1000*r^(1-g):Heat rejected per 1000 J in (J):0 ;; 1000*(1-r^(1-g)):Work per 1000 J in (J):0 | 100*(1-x^(1-g)) | 1,20 | 0,100
+
+### The Diesel cycle
+Diesel engines compress air alone (r around 18), then inject fuel that burns **at constant pressure** while the gas expands from V₂ to ρV₂ (ρ = cut-off ratio). The efficiency is
+
+EQ: η_Diesel = 1 − (1 ÷ r^(γ − 1)) × (ρ^γ − 1) ÷ (γ (ρ − 1))
+
+EX: A diesel engine
+r = 18, ρ = 2, γ = 1.4: r^(−0.4) = 0.3147. (2^1.4 − 1) ÷ (1.4 × 1) = (2.639 − 1) ÷ 1.4 = 1.1707. So η = 1 − 0.3147 × 1.1707 = **63.2%**. Diesels are efficient because their large r (no knocking, since only air is compressed) beats the extra penalty from the constant-pressure heating.
+/EX
+
+### Real engines and real devices
+- **Real petrol engines: 25–35%; real diesels: 35–45%.** The ideal Otto formula gives 56–60%. The gap comes from heat lost to the cylinder walls, friction, incomplete combustion, pumping losses and finite speed (the processes are not quasi-static).
+- **Power stations:** steam at 550 °C (823 K), condenser at 27 °C (300 K): Carnot limit 1 − 300 ÷ 823 = **63.5%**. Real coal plants reach about 38%, combined-cycle gas plants about 60%.
+- **Refrigerator:** COP = Q_C ÷ W; the Carnot limit is T_C ÷ (T_H − T_C). **Heat pump:** COP = Q_H ÷ W, Carnot limit T_H ÷ (T_H − T_C). Between 0 °C outdoors and 20 °C indoors (273 K and 293 K) the ideal heat pump has COP = 293 ÷ 20 = **14.65**; real ones achieve 3–4. With COP 3.5, delivering 10 kWh of heat costs 10 ÷ 3.5 = **2.86 kWh** of electricity, a third of electric heating.
+
+### Entropy produced by a real engine
+EX: How much is lost and where
+A real engine takes Q_H = 1000 J from a reservoir at 800 K and rejects heat to 300 K with an efficiency of 35%.
+1. W = 0.35 × 1000 = **350 J**, Q_C = **650 J**.
+2. Entropy change: reservoir H loses 1000 ÷ 800 = 1.25 J/K, reservoir C gains 650 ÷ 300 = 2.167 J/K. Total **ΔS = 0.917 J/K > 0**.
+3. A Carnot engine would give W = 1000 × (1 − 300 ÷ 800) = **625 J**. The work lost to irreversibility is 625 − 350 = **275 J**, and indeed **T_C × ΔS = 300 × 0.917 = 275 J** ✓. This is the key idea: **lost work = T_cold × entropy produced**.
+/EX
+
+LAB: Where the lost work goes | The engine takes Q_H from the reservoir at T_H, rejects heat at T_C and reaches a fraction of the Carnot efficiency. The numbers give the Carnot limit, the real efficiency, the entropy produced and the work lost. The graph shows how the entropy produced falls to zero as the engine approaches the Carnot efficiency. | QH:Heat taken Q_H (J):500:2000:100:1000 ;; TH:T_H (K):500:1000:50:800 ;; TC:T_C (K):250:400:10:300 ;; f:Fraction of Carnot reached:0.2:1:0.05:0.56 | 100*(1-TC/TH):Carnot efficiency (%):1 ;; 100*f*(1-TC/TH):Real efficiency (%):1 ;; QH*(1-f*(1-TC/TH))/TC-QH/TH:Entropy produced (J/K):3 ;; TC*(QH*(1-f*(1-TC/TH))/TC-QH/TH):Work lost (J):1 | QH*(1-x*(1-TC/TH))/TC-QH/TH | 0.2,1 | 0,2
+
+TRAP: Efficiency formulas for Otto and Diesel use **γ = 1.4** and the compression ratio r, not the pressure ratio. Temperatures must be **absolute (kelvin)** in Carnot and COP formulas. And the Carnot limit is a limit for **any** engine between the two reservoirs; real engines have **two** limits to blame: the Carnot (second law) and irreversibility (friction, finite speed).
+
+### Quick self-check
+QUIZ:
+Q: The ideal Otto efficiency increases with…; larger r; smaller r; larger volume; none; 1; η = 1 − r^(1−γ).
+Q: A heat pump with COP 4 supplies 8 kWh of heat. The electricity used is…; 2 kWh; 4 kWh; 32 kWh; 8 kWh; 1; W = Q ÷ COP.
+Q: The lost work of an irreversible process equals…; T_H ΔS; T_C ΔS; Q; 0; 2; Lost work = T_cold × entropy produced.
+Q: The Otto efficiency at r = 8, γ = 1.4 is about…; 36%; 46%; 56%; 86%; 3; 1 − 0.435.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the ideal Otto efficiency for r = 10 (γ = 1.4). => 1 − 10^(−0.4) = 1 − 0.398 = **60.2%**.
+P: Find the Carnot limit of a power station with 823 K and 300 K. => **63.5%**.
+P: A heat pump with COP 3 delivers 6 kWh. How much electricity does it use? => 6 ÷ 3 = **2 kWh**.
+LVL: Level 2 | Apply
+P: For an Otto engine with r = 9, T₁ = 300 K and T₃ = 1700 K, find T₂, T₄ and η. => T₂ = 300 × 9^0.4 = 300 × 2.408 = **722 K**. T₄ = 1700 ÷ 2.408 = **706 K**. η = 1 − 9^(−0.4) = **58.5%** (check: 1 − T₁ ÷ T₂ = 1 − 300 ÷ 722 = 58.5% ✓).
+P: A real engine takes 2000 J at 900 K, rejects at 300 K and makes 800 J of work. Find η, the entropy produced and the lost work. => η = **40%**. Q_C = 1200 J. ΔS = 1200 ÷ 300 − 2000 ÷ 900 = 4 − 2.222 = **1.78 J/K**. Lost work = 300 × 1.78 = **533 J** (check: Carnot work 2000 × (1 − 1/3) = 1333; 1333 − 800 = 533 ✓).
+P: An ideal fridge works between 4 °C (277 K) and 25 °C (298 K). Find its COP and the work to remove 1000 J. => COP = 277 ÷ 21 = **13.2**; W = 1000 ÷ 13.2 = **75.8 J**.
+P: What compression ratio would give an ideal Otto efficiency of 50% with γ = 1.4? => r^(−0.4) = 0.5, r = 0.5^(−2.5) = **5.66**.
+P: A diesel engine has r = 16, ρ = 2 and γ = 1.4. Find η. => 16^(−0.4) = 0.3299; (2.639 − 1) ÷ 1.4 = 1.1707; η = 1 − 0.3299 × 1.1707 = 1 − 0.3862 = **61.4%**.
+P: Heat flows 600 J from 500 K to 300 K through a metal rod. Find the entropy produced. => −600 ÷ 500 + 600 ÷ 300 = −1.2 + 2 = **0.8 J/K**.
+LVL: Level 3 | Real
+P: A car engine burns fuel at 35 MJ/L and has an overall efficiency of 30%. Find the useful energy per litre, and the waste heat. => **10.5 MJ** useful and **24.5 MJ** waste (to the exhaust and coolant). If the Carnot limit is 80%, the engine is at 37.5% of it.
+LVL: Challenge | Does a hotter exhaust help?
+P: An engine takes heat at T_H = 800 K. Find the Carnot efficiency for T_C = 300 K, 350 K and 400 K, and explain why cold sinks matter. => 1 − 300 ÷ 800 = **62.5%**, 1 − 350 ÷ 800 = **56.25%**, 1 − 400 ÷ 800 = **50%**. A colder sink raises the limit: power plants are built by rivers or the sea, and cold climates favour efficient plants. A 100 K warmer exhaust costs 12.5 percentage points.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Covariance matrix is symmetric. PC1 = eigenvector of the largest eigenvalue = direction of greatest variance. Share explained = λ₁ ÷ (λ₁ + λ₂). Centre (and standardise) first. Inertia matrix I = [[Σmy², −Σmxy], [−Σmxy, Σmx²]]: principal axes and principal moments.
+- Otto: η = 1 − r^(1−γ). Diesel: η = 1 − r^(1−γ) (ρ^γ − 1) ÷ (γ(ρ − 1)). Real engines are below because of irreversibility. Heat pump COP = T_H ÷ (T_H − T_C). Lost work = T_C × ΔS_produced.
+
+BN: আজকের সারকথা: সহভেদাংক ম্যাট্রিক্সের বৃহত্তম eigenvalue এর eigenvector = PC1; ব্যাখ্যা করা অংশ = λ₁/(λ₁+λ₂); আগে গড় বাদ দাও। জড়তা ম্যাট্রিক্সের eigenvector = মুখ্য অক্ষ। Otto: η = 1 − r^(1−γ); r = 8 হলে 56.5%। বাস্তব ইঞ্জিন অপরিবর্তনীয়তার কারণে কম। হারানো কাজ = T_C × উৎপন্ন এনট্রপি।
+
+EXIT:
+E: What is the share (%) of variance explained by PC1 in the 4-point example (λ = 15.26 and 0.408)?; 97.4; 0.2; 15.26 ÷ 15.667.
+E: What is the ideal Otto efficiency (%) for r = 8 and γ = 1.4?; 56.5; 0.2; 1 − 8^(−0.4).
+E: What is the lost work (J) for an engine making 350 J from 1000 J at 800 K with T_C = 300 K?; 275; 1; 625 − 350 = 275 = 300 × 0.917.
+
+**Tomorrow:** the Week 15 test.
+
+CHECK: notes

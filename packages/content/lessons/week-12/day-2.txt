@@ -1,0 +1,211 @@
+@day Week 12 · Day 2 · Tuesday
+# Polar form, Euler and De Moivre. Then: buoyancy and Archimedes
+lead: Yesterday you wrote complex numbers as a + bi. Today you write them as a length and an angle. In this form multiplication becomes "multiply the lengths, add the angles", and powers and roots become trivial. In physics you meet the force that makes ships float and balloons rise: buoyancy.
+
+BN: গতকাল জটিল সংখ্যা লিখেছিলে a + bi আকারে। আজ লিখবে দৈর্ঘ্য ও কোণ দিয়ে (polar form)। এই আকারে গুণ মানে "দৈর্ঘ্য গুণ, কোণ যোগ", আর ঘাত ও মূল বের করা খুব সহজ। পদার্থবিজ্ঞানে শিখবে যে বল জাহাজ ভাসায় আর বেলুন ওড়ায়: প্লবতা (buoyancy)।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Compute (1 + i)². => 1 + 2i − 1 = **2i**.
+P: Find abs(3 − 4i). => **5**.
+P: What is the gauge pressure at 10 m depth in water? => **98,000 Pa**.
+P: Write Euler's formula and evaluate it at x = π. => e^(ix) = cos x + i sin x, so e^(iπ) = **−1**.
+P: What does multiplying by i do to a point on the Argand plane? => Rotates it **90° anticlockwise**.
+
+CHECK: recall
+
+@section math | 2 · Math: polar form and Euler | 55 min
+
+### Length and angle
+A point (a, b) can be described by its distance r from the origin and the angle θ from the positive real axis (the **argument**, arg z):
+
+EQ: a = r cos θ     b = r sin θ     r = √(a² + b²)     tan θ = b ÷ a
+
+So z = r (cos θ + i sin θ). Euler's formula e^(iθ) = cos θ + i sin θ compresses this to
+
+EQ: z = r e^(iθ)
+
+BN: বিন্দু (a, b) কে দূরত্ব r আর কোণ θ দিয়ে লেখা যায়: a = r cos θ, b = r sin θ। অয়লারের সূত্র e^(iθ) = cos θ + i sin θ দিয়ে z = r e^(iθ)। কোণ মাপা হয় ধনাত্মক বাস্তব অক্ষ থেকে ঘড়ির উল্টো দিকে। সাবধান: tan θ = b/a থেকে কোণ বের করলে কোন চতুর্ভাগে বিন্দুটা আছে তা দেখে নিতে হবে।
+
+EX: Converting both ways
+1. z = 1 + i: r = √2, θ = 45°. So z = **√2 e^(i 45°)**.
+2. z = −1 + i√3: r = √(1 + 3) = 2. The point is in quadrant 2, with reference angle 60°, so θ = **120°**. A calculator giving atan(−√3) = −60° would be wrong: add 180°.
+3. z = 3 − 3i: r = 3√2 ≈ 4.243, θ = **−45°** (or 315°).
+4. Back to rectangular: 4 e^(i 30°) = 4 (cos 30° + i sin 30°) = 4 (0.866 + 0.5 i) = **3.464 + 2 i** (that is 2√3 + 2i).
+/EX
+
+PREDICT: Take z₁ = 2 e^(i 20°) and z₂ = 3 e^(i 50°). What do you expect for the modulus and the angle of z₁ z₂? => Modulus **6** and angle **70°**. Moduli multiply, angles add, because e^(ia) e^(ib) = e^(i(a + b)).
+
+LAB: Polar to rectangular | Choose the length r and the angle θ in degrees. The numbers give the real and imaginary parts, and the graph shows the real part r cos θ as the angle sweeps (the rectangular coordinates are the "shadow" of the rotating arrow). | r:Length r:0:5:0.5:2 ;; t:Angle θ (degrees):0:360:15:60 | r*cos(t*pi/180):Real part a:3 ;; r*sin(t*pi/180):Imaginary part b:3 ;; sqrt((r*cos(t*pi/180))^2+(r*sin(t*pi/180))^2):Check, r from a and b:3 | r*cos(x*pi/180) | 0,360 | -5,5
+
+### Multiplication and division
+Using the exponent rule:
+
+EQ: z₁ z₂ = r₁ r₂ e^(i(θ₁ + θ₂))     z₁ ÷ z₂ = (r₁ ÷ r₂) e^(i(θ₁ − θ₂))
+
+The product **scales** by r₂ and **rotates** by θ₂. This is the geometry behind every rotation in computer graphics, robotics and signal processing.
+
+EX: Multiplying in polar form
+1. (1 + i)(1 + i√3): moduli √2 and 2, angles 45° and 60°. Product: modulus **2√2 ≈ 2.828**, angle **105°**. Check by direct multiplication: (1 − √3) + (1 + √3) i = −0.732 + 2.732 i. Its modulus is √(0.536 + 7.464) = √8 ✓, and it lies in quadrant 2 with angle 105° ✓.
+2. (2 e^(i 70°)) ÷ (4 e^(i 30°)) = 0.5 e^(i 40°).
+3. Conjugate: if z = r e^(iθ) then z̄ = r e^(−iθ), so z z̄ = r² ✓.
+/EX
+
+LAB: Multiply two complex numbers | Pick two numbers by length and angle. The product has length r₁ r₂ and angle θ₁ + θ₂. Try angles that add past 360°, and check how the rectangular form reads. | r1:Length r₁:0.5:3:0.5:2 ;; t1:Angle θ₁ (°):0:180:15:30 ;; r2:Length r₂:0.5:3:0.5:1.5 ;; t2:Angle θ₂ (°):0:180:15:60 | r1*r2:Length of product:2 ;; t1+t2:Angle of product (°):0 ;; r1*r2*cos((t1+t2)*pi/180):Real part of product:3 ;; r1*r2*sin((t1+t2)*pi/180):Imaginary part of product:3 | - | 0,1 | 0,1
+
+### De Moivre's theorem and roots
+Repeating the multiplication n times gives
+
+EQ: (r e^(iθ))ⁿ = rⁿ e^(i n θ)     that is     (cos θ + i sin θ)ⁿ = cos nθ + i sin nθ
+
+EX: Powers
+1. (1 + i)⁸: r = √2, θ = 45°. r⁸ = 16, nθ = 360°. Result **16** (matches yesterday).
+2. (√3 + i)⁶: r = 2, θ = 30°. 2⁶ = 64, 6 × 30° = 180°. Result **−64**.
+3. (1 − i)¹⁰: r = √2, θ = −45°. r¹⁰ = 32, angle −450° ≡ −90°. Result 32 e^(−i 90°) = **−32 i**.
+/EX
+
+To find an n-th root of z = r e^(iθ), note that adding 360° to θ describes the same point, so there are **n different roots**:
+
+EQ: z^(1/n) = r^(1/n) e^(i (θ + 360° k) ÷ n),     k = 0, 1, …, n − 1
+
+They sit at the corners of a regular n-sided polygon centred at the origin.
+
+EX: Roots
+1. **Cube roots of 8:** r = 8, θ = 0°. Roots 2 e^(i 0°) = 2, 2 e^(i 120°) = **−1 + i√3**, 2 e^(i 240°) = **−1 − i√3**. Check: (−1 + i√3)² = 1 − 2i√3 − 3 = −2 − 2i√3, times (−1 + i√3) gives 2 − 2i√3 + 2i√3 + 6 = 8 ✓.
+2. **Fourth roots of −4:** r = 4, θ = 180°. Roots √2 e^(i 45°, 135°, 225°, 315°) = **±1 ± i**. Check: (1 + i)⁴ = (2i)² = −4 ✓.
+3. **Roots of unity:** the sixth roots of 1 are at 0°, 60°, 120°, 180°, 240°, 300°. Their sum is **0**, and so is the sum of the n-th roots of 1 for any n > 1.
+/EX
+
+EX: A trig identity for free
+1. Expand (cos θ + i sin θ)³ = cos 3θ + i sin 3θ using the binomial theorem: the real part is cos³θ − 3 cos θ sin²θ.
+2. Replace sin²θ with 1 − cos²θ: cos 3θ = cos³θ − 3 cos θ (1 − cos²θ) = **4 cos³θ − 3 cos θ**.
+3. Test at θ = 0: 4 − 3 = 1 = cos 0 ✓. Test at θ = 60°: 4 × 0.125 − 3 × 0.5 = −1 = cos 180° ✓.
+/EX
+
+BN: ডি-মোভারের সূত্র: (re^(iθ))ⁿ = rⁿe^(inθ)। n-তম মূল n টা, বিন্দুগুলো একটা সুষম বহুভুজের কোণায় বসে: কোণ (θ + 360°k)/n। 8 এর ঘনমূল তিনটা: 2, −1 + i√3, −1 − i√3। এককের n-তম মূলগুলোর যোগফল সবসময় 0।
+
+TRAP: Always check the quadrant before you accept the angle from tan⁻¹. For z = −1 − i the calculator gives 45°, but the real answer is **225°** (or −135°). And when taking roots, do not stop at k = 0: there are n of them.
+
+### Quick self-check
+QUIZ:
+Q: The polar form of −1 + i√3 has angle…; 60°; 120°; 150°; 240°; 2; The point is in quadrant 2 with reference angle 60°.
+Q: (2 e^(i 30°)) (3 e^(i 60°)) equals…; 6 e^(i 90°); 5 e^(i 90°); 6 e^(i 1800°); 6 e^(i 30°); 1; Multiply the lengths, add the angles.
+Q: (√3 + i)⁶ equals…; 64; −64; 64 i; 8; 2; r⁶ = 64 and the angle becomes 180°.
+Q: How many distinct fourth roots does −4 have?; 1; 2; 4; 8; 3; An n-th root has exactly n values.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Write 1 + i√3 in polar form. => r = 2, θ = 60°: **2 e^(i 60°)**.
+P: Write 2 e^(i 90°) in rectangular form. => **2 i**.
+P: Find the modulus and argument of −2. => **2** and **180°**.
+LVL: Level 2 | Apply
+P: Compute (2 e^(i 70°)) ÷ (4 e^(i 30°)). => **0.5 e^(i 40°)**.
+P: Find (1 + i√3)⁶. => 2⁶ = 64 and 6 × 60° = 360°, so **64**.
+P: Find (1 − i)¹⁰. => **−32 i**.
+P: Find the cube roots of −8. => r = 8, θ = 180°. Angles 60°, 180°, 300°. Roots **1 + i√3, −2, 1 − i√3**.
+P: Express cos 3θ in terms of cos θ. => **4 cos³θ − 3 cos θ**.
+LVL: Level 3 | Real
+P: A point in a computer game is at (4, 0). It is rotated 30° about the origin and then scaled to 1.5 times the distance. Find its new position using complex numbers. => Multiply by 1.5 e^(i 30°): 4 × 1.5 = 6, angle 30°. Position = 6 (cos 30°, sin 30°) = **(5.196, 3.0)**.
+P: Two voltages in an AC circuit are V₁ = 10 e^(i 0°) and V₂ = 10 e^(i 120°) (volts, written as phasors). Find the magnitude of V₁ + V₂. => V₂ = −5 + 8.660 i. Sum = 5 + 8.660 i. Modulus = √(25 + 75) = **10 V**. (Phasors add like arrows, not like plain numbers.)
+LVL: Challenge | Sum of a geometric series
+P: Show that 1 + cos θ + cos 2θ + … + cos (n − 1)θ equals the real part of (1 − e^(inθ)) ÷ (1 − e^(iθ)), and evaluate the sum for n = 4, θ = 90°. => The sum is the real part of the geometric series with ratio e^(iθ). For n = 4, θ = 90°: the terms are cos 0 + cos 90° + cos 180° + cos 270° = 1 + 0 − 1 + 0 = **0**. The formula: e^(i 4 × 90°) = e^(i 360°) = 1, so the numerator is 1 − 1 = 0 and the denominator 1 − i is not zero, so the sum is **0** ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: buoyancy and Archimedes | 35 min
+
+### Why things float
+Pressure increases with depth, so the water pushes **up** on the bottom of a submerged object harder than it pushes **down** on the top. The difference is the **buoyant force**.
+
+**Archimedes' principle:** the buoyant force equals the weight of the fluid displaced.
+
+EQ: B = ρ_fluid V_displaced g
+
+Proof for a cuboid of height h and area A, submerged with its top at depth y: the force up on the bottom is ρ g (y + h) A, the force down on the top is ρ g y A. The net is ρ g h A = ρ g V ✓.
+
+BN: আর্কিমিডিসের সূত্র: প্লবতা বল = অপসারিত তরলের ওজন, B = ρ_তরল V_অপসারিত g। প্রমাণ: ঘনকের নিচের তলায় চাপ বেশি, ওপরের তলায় কম, তাই নিট বল ওপরের দিকে ρ g h A = ρ g V।
+
+EX: Weighing under water
+1. A 1000 cm³ aluminium block (ρ = 2700) has weight 2.7 × 9.8 = **26.46 N**. Fully submerged in water: B = 1000 × 10⁻³ × 9.8 = **9.8 N**. A scale reads the **apparent weight** 26.46 − 9.8 = **16.66 N**.
+2. **The crown test.** A crown has mass 0.5 kg, so weight 4.9 N. In water a scale reads 4.5 N, so B = 0.4 N and V = 0.4 ÷ 9800 = 4.08 × 10⁻⁵ m³. Density = 0.5 ÷ 4.08 × 10⁻⁵ = **12,250 kg/m³**. Pure gold is 19,300, so the crown is not pure gold. (This is the story of Archimedes.)
+/EX
+
+### Floating
+An object floats when B equals its weight. A floating object displaces a volume of fluid of the same **weight** as the object:
+
+EQ: ρ_object V_object = ρ_fluid V_submerged     so     V_submerged ÷ V_object = ρ_object ÷ ρ_fluid
+
+EX: How much is above the surface?
+1. A cube of side 0.1 m and density 600 kg/m³ in water: submerged fraction **0.60**, so **6 cm** under water. Its weight is 600 × 10⁻³ × 9.8 = 5.88 N, equal to B ✓.
+2. **Iceberg.** Ice has ρ = 917. In seawater (1025): submerged fraction 917 ÷ 1025 = **0.895**, so **10.5%** is above the water. In fresh water the fraction above is only 8.3%.
+3. **Ship.** A ship of mass 5 × 10⁶ kg displaces 5 × 10⁶ ÷ 1025 = **4878 m³** of seawater. In fresh water it displaces 5000 m³, so it sits slightly lower. That is why a ship has a Plimsoll line with different marks.
+/EX
+
+LAB: Floating block | Choose the density of the block and the density of the liquid. The numbers show what fraction of the block is submerged. Try wood (600) in water (1000), then ice (917) in seawater (1025), then in fresh water. | ro:Block density (kg/m³):200:900:10:600 ;; rf:Liquid density (kg/m³):1000:1300:25:1000 | ro/rf:Submerged fraction:3 ;; ro/rf*100:Percent below surface:1 ;; (1-ro/rf)*100:Percent above surface:1 | - | 0,1 | 0,1
+
+### Balloons and airships
+Air is also a fluid. A balloon of volume V with a lighter gas inside has net lift (ρ_air − ρ_gas) V g, minus the weight of the envelope and the load.
+
+EX: Lifting
+1. **Hot-air balloon,** V = 2500 m³. Outside air 1.2 kg/m³, inside hot air 0.95: lift = (1.2 − 0.95) × 2500 = **625 kg** equivalent, so about 6125 N. The envelope, basket and passengers must weigh less than 625 kg.
+2. **Helium** (0.17 kg/m³): each cubic metre lifts 1.2 − 0.17 = **1.03 kg**. A 14-litre party balloon lifts 0.0144 kg = 14 g, slightly more than its rubber, so it rises slowly.
+3. **Submarine:** it takes in water to raise its average density to 1025 kg/m³ and sink, or blows it out with compressed air to rise.
+/EX
+
+LAB: Balloon lift | Choose the volume of the balloon and the density of the hot gas inside. The numbers show the maximum payload (kg) the balloon can lift including its own envelope. Outside air is 1.2 kg/m³. | V:Volume (m³):500:3000:100:2500 ;; rg:Gas density (kg/m³):0.17:1.1:0.01:0.95 | (1.2-rg)*V:Lift capacity (kg):0 ;; (1.2-rg)*V*9.8:Lift force (N):0 | - | 0,1 | 0,1
+
+### Stability: a floating cylinder oscillates
+Push a floating cylinder of cross-section A down by x. The extra displaced volume is A x, so the buoyancy force increases by ρ g A x, which is a **restoring force** −k x with k = ρ g A. That is **SHM** with ω = √(ρ g A ÷ m).
+
+EX: A floating log
+1. A cylinder of mass 0.5 kg and cross-section A = 0.005 m² floats upright in water. ω² = 1000 × 9.8 × 0.005 ÷ 0.5 = **98**, so ω = **9.90 rad/s**.
+2. T = 2π ÷ 9.90 = **0.635 s**.
+3. A heavier cylinder (same A) oscillates more slowly: T ∝ √m.
+/EX
+
+TRAP: Archimedes' principle uses the volume of **fluid displaced**, which is the submerged volume for a floating object but the whole volume for a fully submerged one. And never say "heavy things sink": a ship is very heavy and floats, because its **average density** is below that of water.
+
+### Quick self-check
+QUIZ:
+Q: A block of density 800 kg/m³ floats in water. What fraction is below the surface?; 20%; 80%; 100%; 125%; 2; The ratio of densities.
+Q: A 2 kg object displaces 3 kg of water when fully submerged. It will…; sink to the bottom; stay where it is; stay at the bottom of the tank; rise towards the surface; 4; The buoyancy of 3 kg-weight exceeds its weight of 2 kg-weight.
+Q: The helium lift per cubic metre is about…; 1.03 kg; 0.17 kg; 1.2 kg; 10 kg; 1; Air minus helium density.
+Q: Compared with fresh water, an iceberg in seawater has a fraction above the surface that is…; smaller; larger; the same; zero; 2; Seawater is denser.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the buoyant force on a 0.002 m³ object fully submerged in water. => 1000 × 0.002 × 9.8 = **19.6 N**.
+P: What fraction of a block of density 600 floats below the surface of water? => **0.6**.
+LVL: Level 2 | Apply
+P: A 2 kg stone has a volume of 800 cm³. Find the apparent weight in water. => Weight 19.6 N, B = 7.84 N, apparent = **11.76 N**.
+P: What fraction of an iceberg is above seawater? => **10.5%**.
+P: Find the lift of a 100 m³ helium balloon. => 103 kg equivalent, about **1010 N**, before subtracting the envelope.
+P: A piece of metal weighs 5.0 N in air and 4.4 N in water. Find its density. => B = 0.6 N, V = 0.6 ÷ 9800 = 6.12 × 10⁻⁵ m³, mass = 5.0 ÷ 9.8 = 0.510 kg. Density = **8330 kg/m³** (like brass).
+P: A cylinder of cross-section 0.01 m² and mass 2 kg floats upright in water. Find T. => ω² = 1000 × 9.8 × 0.01 ÷ 2 = 49, ω = 7 rad/s. T = 2π ÷ 7 = **0.898 s**.
+LVL: Level 3 | Real
+P: A raft of 10 logs, each 3 m long with a cross-section of 0.05 m² and density 700, floats in a river. What total mass of people can it carry before the logs are fully submerged? => Volume of logs = 10 × 3 × 0.05 = 1.5 m³. Max buoyancy = 1500 kg. Logs' mass = 1050 kg. Load = **450 kg**.
+P: A person floats in the Dead Sea (ρ = 1240) with 5% of the body above the surface. Would they float in fresh water? => The average body density = 0.95 × 1240 = 1178 kg/m³, which exceeds 1000, so the person would **sink** in fresh water. (This is why swimmers float so well in the Dead Sea.)
+LVL: Challenge | Tilting and dynamic floating
+P: An ice cube floats in a glass of water filled to the brim. When the ice melts, does the water overflow, fall or stay the same? Show it with numbers for a 100 g ice cube. => The floating ice displaces 100 g of water (equal to its weight), which is 100 cm³. When it melts, 100 g of water has a volume of 100 cm³, exactly the displaced volume. The level **stays the same**, nothing overflows. (For ice in seawater the melt water is slightly less dense than seawater so the level rises very slightly, which is a real concern for sea-level rise from floating ice.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Polar form z = r e^(iθ), r = √(a² + b²), a = r cos θ, b = r sin θ. Check the quadrant for θ. Multiply: lengths multiply, angles add. De Moivre: zⁿ = rⁿ e^(inθ). Roots: n of them at angles (θ + 360°k) ÷ n. Roots of unity sum to 0. cos 3θ = 4 cos³θ − 3 cos θ.
+- Buoyancy: B = ρ_fluid V_displaced g. Floating: V_sub ÷ V = ρ_object ÷ ρ_fluid. Apparent weight = W − B. Balloon lift (ρ_air − ρ_gas) V. A floating cylinder is SHM with ω² = ρ g A ÷ m.
+
+BN: আজকের সারকথা: z = re^(iθ); গুণে দৈর্ঘ্য গুণ ও কোণ যোগ; ডি-মোভার zⁿ = rⁿe^(inθ); n-তম মূল n টা। প্লবতা: B = ρVg; ভাসলে নিমজ্জিত অংশ = ρ_বস্তু/ρ_তরল; আপাত ওজন = W − B; ভাসমান সিলিন্ডার একটা SHM, ω² = ρgA/m।
+
+EXIT:
+E: What is the argument in degrees of −1 + i√3?; 120; 0.5; r = 2 and the point is in quadrant 2 with reference angle 60°.
+E: What is the imaginary part of (2 e^(i 30°)) (3 e^(i 60°))?; 6; 0.001; The product is 6 e^(i 90°) = 6 i.
+E: What percent of an iceberg (ρ = 917) is above seawater (ρ = 1025)?; 10.5; 0.1; 1 − 917 ÷ 1025 = 0.1054.
+
+**Tomorrow:** complex numbers in engineering (impedance and phasors preview), and fluids in motion: continuity and Bernoulli.
+
+CHECK: notes

@@ -1,0 +1,10 @@
+# Local development only (NOT loaded automatically, so it can never expose ports on the VPS):
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d minio
+# Publishes the API and the MinIO S3 port so `npm run dev` on your PC can reach them.
+services:
+  api:
+    ports: ["4000:4000"]
+  minio:
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"

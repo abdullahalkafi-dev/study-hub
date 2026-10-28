@@ -1,0 +1,86 @@
+@day Week 4 · Day 6 · Saturday
+# Week 4 test, mistake log and challenge. Phase 1 complete
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers coordinate geometry, conics, dot and cross products, sequences and series, plus circular motion and gravitation. When you finish, Phase 1 (the fast foundations) is done.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: স্থানাঙ্ক জ্যামিতি, কনিক, ডট ও ক্রস গুণফল, ধারা, বৃত্তাকার গতি আর মহাকর্ষ। এই পরীক্ষার পর প্রথম ধাপ (Phase 1) শেষ।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Questions 1 to 6 and 8 to 13. A calculator is allowed for Question 7 and for the physics part.
+- Use these constants when needed: g = 9.8 m/s², G M_Earth = 3.986 × 10¹⁴ m³/s².
+- Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Geometry, vectors and series (14 marks, about 55 min) | calculator only where stated
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find the distance from the point (1, 2) to the line 3x + 4y − 5 = 0. => |3 + 8 − 5| ÷ 5 = **6/5 = 1.2**.
+P: (1 mark) Find the centre and radius of x² + y² + 4x − 6y − 12 = 0. => (x + 2)² + (y − 3)² = 12 + 4 + 9 = 25. Centre **(−2, 3)**, radius **5**.
+P: (1 mark) Find the equation of the tangent to x² + y² = 25 at the point (−3, 4). => The radius has slope −4/3, so the tangent has slope 3/4. y − 4 = (3/4)(x + 3), so **3x − 4y + 25 = 0**. Check: −9 − 16 + 25 = 0 ✓.
+P: (1 mark) For x²/25 + y²/9 = 1, find the foci and the eccentricity. => c² = 16, so foci **(±4, 0)** and e = 4/5 = **0.8**.
+P: (1 mark) Find the asymptotes of x²/9 − y²/16 = 1. => **y = ±(4/3) x**.
+P: (1 mark) Find the focus of y² = 24x. => 4a = 24, a = 6, so the focus is **(6, 0)**.
+P: (1 mark, calculator) Find the angle between a = (1, 2, 2) and b = (2, −1, 2). => a · b = 2 − 2 + 4 = 4 and |a| = |b| = 3. cos θ = 4/9 = 0.4444, so **θ = 63.6°**.
+P: (1 mark) Compute (1, 0, 2) × (0, 3, 1). => (0 × 1 − 2 × 3 , 2 × 0 − 1 × 1 , 1 × 3 − 0 × 0) = **(−6, −1, 3)**.
+P: (1 mark) Find the area of the triangle with AB = (2, 0, 0) and AC = (0, 3, 4). => AB × AC = (0 × 4 − 0 × 3 , 0 × 0 − 2 × 4 , 2 × 3 − 0 × 0) = (0, −8, 6), with length 10. Area = **5**.
+P: (1 mark) For the sequence 5, 9, 13, … find the 12th term and the sum of the first 12 terms. => a₁₂ = 5 + 11 × 4 = **49**. S₁₂ = 6 × (5 + 49) = **324**.
+P: (1 mark) Find the sum of the first 6 terms of 2, −4, 8, … => r = −2. S₆ = 2 × (1 − (−2)⁶) ÷ (1 − (−2)) = 2 × (−63) ÷ 3 = **−42**.
+P: (1 mark) Find the sum to infinity of 12 + 4 + 4/3 + … => a = 12 and r = 1/3, so 12 ÷ (2/3) = **18**.
+P: (2 marks) Evaluate Σ from k = 1 to 12 of (k² − k). => Σk² = 12 × 13 × 25 ÷ 6 = 650 and Σk = 78. So **572**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Circular motion and gravitation (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) Find the maximum speed of a car on a flat bend of radius 80 m with μ = 0.5. => √(0.5 × 9.8 × 80) = √392 = **19.8 m/s**.
+P: (1 mark) At what angle should a frictionless bend of radius 200 m be banked for a design speed of 25 m/s? => tan θ = 625 ÷ (200 × 9.8) = 0.3189, so **θ = 17.7°**.
+P: (1 mark) A 0.5 kg mass moves in a vertical circle of radius 1 m. At the top its speed is 5 m/s. Find the tension there. => T = m v² ÷ r − m g = 0.5 × 25 − 4.9 = **7.6 N**.
+P: (1 mark) A planet has mass 4 × 10²³ kg and radius 2.5 × 10⁶ m. Find the gravitational field strength at its surface (G = 6.674 × 10⁻¹¹). => 6.674 × 10⁻¹¹ × 4 × 10²³ ÷ 6.25 × 10¹² = **4.27 m/s²**.
+P: (1 mark) Find the speed of a satellite in a circular orbit of radius 9000 km around Earth. => √(3.986 × 10¹⁴ ÷ 9 × 10⁶) = √(4.429 × 10⁷) = **6655 m/s**.
+P: (1 mark) A planet orbits a Sun-like star at a distance of 9 AU. Find its period in years. => T² = a³ gives T = 9^1.5 = **27 years**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 5. Try the challenge. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 4. Tell me, and I will rebalance Week 5. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q5 | Wrote y = ±(3/4) x | Swapped a and b | The asymptote slope is b/a, where a² is under x² | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি: কী করেছিলাম, কেন ভুল, সঠিক ধারণা, কবে আবার করব। এই সপ্তাহের সাধারণ ভুল: কনিকে a আর b উল্টে ফেলা, ক্রস গুণফলের চিহ্ন, আর ধারায় পদসংখ্যা গোনা।
+
+NOTES:
+
+### Challenge of the week: GPS satellites
+LVL: Challenge | The GPS orbit
+P: GPS satellites orbit at r = 26,560 km from the Earth's centre. Find their speed and period. Why do you think the designers chose a period of about 12 hours? => v = √(3.986 × 10¹⁴ ÷ 2.656 × 10⁷) = √(1.5008 × 10⁷) = **3874 m/s**. T = 2π × 2.656 × 10⁷ ÷ 3874 = **43,076 s = 11.97 hours**, about half a sidereal day. So each satellite passes over the same spots twice a day, giving a repeating pattern, so ground stations can predict and track them. The height (about 20,200 km) is a compromise: high enough for each satellite to be seen by a large area, low enough for a strong signal and a short delay.
+P: A satellite orbit is an ellipse with its closest point 1 unit and farthest point 9 units from the focus (the planet), such as x²/25 + y²/9 = 1 with a focus at (4, 0). Find the ratio of the speeds at the closest and farthest points. => The nearest point is (5, 0) at distance 1 from the focus, and the farthest is (−5, 0) at distance 9. Equal areas means r × v is constant at the two ends, so the speed ratio is **9 : 1**. Note a = (1 + 9) ÷ 2 = 5 and c = 4.
+
+### Optional coding idea (not part of the study plan)
+**Orbit simulator:** simulate a planet around a star by repeatedly adding the gravitational acceleration G M ÷ r² to its velocity in tiny time steps. Let the user change the starting speed and watch the orbit change from a circle to an ellipse to an escape path. Print the period and check Kepler's third law with a table of different radii.
+
+### Phase 1 is done
+You have covered algebra, functions, exponentials and logs, trigonometry, coordinate geometry and conics, vectors, sequences and series, and Newtonian motion up to gravitation. This is the whole toolbox for calculus.
+
+### What Week 5 looks like
+**Limits, continuity and the derivative from its definition**, with intuition first and the algebra second. Physics: **work, kinetic and potential energy, and power**. The story: a rooftop water tank, where the energy of lifted water meets the idea of a rate of change.
+
+BN: Phase 1 শেষ। বীজগণিত, ফাংশন, সূচক ও লগ, ত্রিকোণমিতি, স্থানাঙ্ক জ্যামিতি, কনিক, ভেক্টর, ধারা আর মহাকর্ষ পর্যন্ত নিউটনীয় গতিবিদ্যা। এটাই ক্যালকুলাসের পূর্ণ সরঞ্জাম। আগামী সপ্তাহে লিমিট, ধারাবাহিকতা (continuity) আর অন্তরকলের (derivative) সংজ্ঞা, সঙ্গে পদার্থবিজ্ঞানে কাজ, শক্তি ও ক্ষমতা।
+
+**Sunday is a rest day.**
+
+CHECK: notes

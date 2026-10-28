@@ -1,0 +1,160 @@
+@day Week 17 · Day 1 · Monday
+# Double integrals. Then: electric flux and Gauss's law
+lead: A single integral adds up a quantity along a line. A double integral adds up a quantity over a region of a plane: the mass of a plate whose density varies, the volume under a surface, the average temperature of a sheet. You compute it as two ordinary integrals, one after the other. In physics, you meet the most powerful tool of electrostatics: Gauss's law. It says the total electric flux through any closed surface depends only on the charge inside, and it turns many hard field problems into one line of algebra.
+
+BN: একটা যোগজ রেখা বরাবর কোনো রাশি যোগ করে। দ্বিঘাত যোগজ সমতলের একটা অঞ্চলের উপর কোনো রাশি যোগ করে: পরিবর্তনশীল ঘনত্বের পাতের ভর, তলের নিচের আয়তন, পাতের গড় তাপমাত্রা। হিসাব হয় দুটো সাধারণ যোগজ পরপর করে। পদার্থবিজ্ঞানে তড়িৎস্থিতিবিদ্যার সবচেয়ে শক্তিশালী হাতিয়ার: গাউসের সূত্র। এটা বলে যেকোনো বদ্ধ তলের ভেতর দিয়ে মোট বৈদ্যুতিক ফ্লাক্স শুধু ভেতরের চার্জের উপর নির্ভর করে, আর এতে অনেক কঠিন ক্ষেত্রের সমস্যা এক লাইনের বীজগণিতে নামে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: Evaluate ∫₀² x dx. => **2**.
+P: Evaluate ∫₀¹ x² dx. => **1/3**.
+P: What is the area of a sphere of radius r? => **4π r²**.
+P: Write Coulomb's field of a point charge Q. => **E = k Q ÷ r²**.
+P: What is the dot product of two perpendicular vectors? => **0**.
+
+CHECK: recall
+
+@section math | 2 · Math: double integrals | 55 min
+
+### From Riemann sums to a double integral
+Cut a rectangle R = [a, b] × [c, d] into small cells of area ΔA. In each cell take the value of f, multiply by ΔA, and add. As the cells shrink the sum tends to the **double integral**
+
+EQ: ∬_R f (x, y) dA = lim Σ f (xᵢ, yⱼ) ΔA
+
+If f ≥ 0 this is the **volume** under the surface z = f (x, y) above R. If f = 1 it is the **area** of R.
+
+### Computing it: iterated integrals
+**Fubini's theorem:** for a rectangle you may integrate in either order. Do the inner integral first, treating the other variable as a constant, then the outer one:
+
+EQ: ∬_R f dA = ∫ₐᵇ [ ∫_c^d f (x, y) dy ] dx = ∫_c^d [ ∫ₐᵇ f (x, y) dx ] dy
+
+BN: আয়তক্ষেত্রকে ছোট ঘরে ভাগ করে প্রতিটিতে f × ΔA যোগ করলে দ্বিঘাত যোগজ। f ≥ 0 হলে এটা তলের নিচের আয়তন; f = 1 হলে ক্ষেত্রফল। হিসাব: ভিতরের যোগজ আগে (অন্য চলক ধ্রুবক), তারপর বাইরের। আয়তক্ষেত্রে ক্রম বদলানো যায় (Fubini)।
+
+EX: Four double integrals
+1. **∬ x y dA over [0, 2] × [0, 3].** Inner: ∫₀³ x y dy = x × 9/2 = 4.5 x. Outer: ∫₀² 4.5 x dx = 4.5 × 2 = **9**. Since f = x · y separates, it is also (∫₀² x dx)(∫₀³ y dy) = 2 × 4.5 = 9 ✓.
+2. **∬ (x² + y) dA over [0, 1] × [0, 2].** Inner: ∫₀² (x² + y) dy = 2x² + 2. Outer: ∫₀¹ (2x² + 2) dx = 2/3 + 2 = **8/3 = 2.667**.
+3. **Volume under z = 4 − x − y over [0, 2] × [0, 2].** ∫₀² ∫₀² (4 − x − y) dy dx. Inner: 4 × 2 − 2x − 2 = 6 − 2x. Outer: ∫₀² (6 − 2x) dx = 12 − 4 = **8**. The **average height** is 8 ÷ area 4 = **2**.
+4. **Average temperature.** A square plate −1 ≤ x, y ≤ 1 has T = 100 − x² − 2y². ∬ T dA = 100 × 4 − ∬ x² dA − 2 ∬ y² dA = 400 − 4/3 − 8/3 = **396**. Average = 396 ÷ 4 = **99 °C** (hotter at the centre, cooler at the edges).
+/EX
+
+LAB: Riemann sums for a double integral | The function is f = x² + y² on the unit square. Divide the square into n × n cells and use the value at the centre of each cell. The numbers show the sum, the exact value 2/3 and the error. The sum converges as n grows. The graph shows the sum against n. | n:Cells per side n:1:20:1:4 | 2*(4*n^2-1)/(12*n^2):Midpoint sum:5 ;; 2/3:Exact value:5 ;; 100*abs(2*(4*n^2-1)/(12*n^2)-2/3)/(2/3):Error (%):3 | 2*(4*x^2-1)/(12*x^2) ;; 2/3 | 1,20 | 0.4,0.8
+
+### Uses
+EX: What a double integral measures
+1. **Mass of a plate** with surface density σ (x, y): M = ∬ σ dA. A plate [0, 2] × [0, 1] m with σ = 1 + x kg/m²: ∫₀¹ ∫₀² (1 + x) dx dy = ∫₀¹ (2 + 2) dy = **4 kg**.
+2. **Centre of mass:** x̄ = (1 ÷ M) ∬ x σ dA. For the plate above: ∬ x (1 + x) dA = ∫₀² (x + x²) dx × 1 = 2 + 8/3 = 14/3, so x̄ = 14/3 ÷ 4 = **1.167 m** (right of centre 1 m, since the right side is heavier).
+3. **Probability:** a probability density p (x, y) satisfies ∬ p dA = 1. (This is the setup of the normal distribution in Phase 4.)
+4. **Swapping the order** is a trick: the same number, an easier path. For example ∫₀¹ ∫ₓ¹ e^(y²) dy dx cannot be done in this order, but over the same triangle (0 ≤ x ≤ y ≤ 1) it equals ∫₀¹ ∫₀^y e^(y²) dx dy = ∫₀¹ y e^(y²) dy = (e − 1) ÷ 2 = **0.859**.
+/EX
+
+TRAP: In an iterated integral the **limits of the inner integral may depend on the outer variable** (for non-rectangular regions, tomorrow), but the limits of the outer integral must be **constants**. When integrating in y, x is a constant: pull it out in front. And the order only changes freely if the region is described correctly in the new order.
+
+### Quick self-check
+QUIZ:
+Q: The double integral of f = 1 over a region gives its…; mass; area; volume; perimeter; 2; ∬ 1 dA = area.
+Q: ∬ x y dA over [0, 1] × [0, 1] is…; 1; 1/2; 1/4; 1/8; 3; (1/2)(1/2).
+Q: To compute an iterated integral you integrate first…; the outer variable; the inner variable; both at once; neither; 2; Inner first, others constant.
+Q: The average value of f over R is…; ∬ f dA; ∬ f dA ÷ area(R); f at the centre; the maximum; 2; Total divided by the area.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Evaluate ∬ 6 dA over [0, 2] × [0, 5]. => 6 × 10 = **60**.
+P: Evaluate ∬ x dA over [0, 2] × [0, 1]. => ∫₀² x dx × 1 = **2**.
+P: Evaluate ∬ y dA over [0, 3] × [0, 2]. => 3 × ∫₀² y dy = 3 × 2 = **6**.
+LVL: Level 2 | Apply
+P: Evaluate ∬ (x + y) dA over [0, 1] × [0, 2]. => ∫₀² (x + y) dy = 2x + 2; ∫₀¹ (2x + 2) dx = 1 + 2 = **3**.
+P: Evaluate ∬ x² y dA over [0, 2] × [0, 3]. => (∫₀² x² dx)(∫₀³ y dy) = (8/3)(9/2) = **12**.
+P: Evaluate ∬ e^(x + y) dA over [0, 1] × [0, 1]. => (e − 1)² = **2.953**.
+P: Find the volume under z = x y over [0, 2] × [0, 2] and the average height. => (∫₀² x dx)² = 4. Average = 4 ÷ 4 = **1**.
+P: Find the average of f = x² + y² on [0, 1] × [0, 1]. => ∬ = 1/3 + 1/3 = 2/3. Average = **2/3** (area is 1).
+P: A plate [0, 1] × [0, 1] m has σ = 1 + y kg/m². Find its mass and the y-coordinate of the centre of mass. => M = ∫₀¹ (1 + y) dy = 1.5 kg. ∬ y σ dA = ∫₀¹ (y + y²) dy = 1/2 + 1/3 = 5/6. ȳ = (5/6) ÷ 1.5 = **0.556 m**.
+LVL: Level 3 | Real
+P: The rainfall (mm) over a field [0, 4] × [0, 2] km is R = 10 + 2x + y. Find the total volume of rain if 1 mm over 1 km² is 1000 m³. => ∬ R dA = ∫₀² ∫₀⁴ (10 + 2x + y) dx dy = ∫₀² (40 + 16 + 4y) dy = 112 + 8 = **120 mm km²**, i.e. **1.2 × 10⁵ m³**. The average depth is 120 ÷ 8 = **15 mm**.
+LVL: Challenge | A triangle by swapping the order
+P: Evaluate ∫₀¹ ∫ₓ¹ e^(y²) dy dx. => The region is 0 ≤ x ≤ y ≤ 1. Swapping: ∫₀¹ ∫₀^y e^(y²) dx dy = ∫₀¹ y e^(y²) dy = ½ [e^(y²)]₀¹ = **(e − 1) ÷ 2 = 0.859**.
+
+CHECK: math
+
+@section physics | 3 · Physics: electric flux and Gauss's law | 35 min
+
+### Electric flux
+The **flux** of a field through a surface counts how much field "passes through" it. For a flat surface of area A in a uniform field E, with θ the angle between E and the **normal** to the surface:
+
+EQ: Φ = E A cos θ = E · A     (unit: N m²/C)
+
+For a curved surface in a varying field, split the surface into small patches and add: **Φ = ∬ E · dA**. This is the double integral of today applied to a surface.
+
+EX: Flux numbers
+1. **A rectangle 0.2 m × 0.3 m in E = 500 N/C at 60° to the normal:** Φ = 500 × 0.06 × cos 60° = **15 N m²/C**.
+2. **Face-on (θ = 0):** Φ = 500 × 0.06 = **30**. **Edge-on (θ = 90°):** Φ = **0**.
+3. **A sphere of radius r around a point charge Q.** E = kQ ÷ r² is the same at every point and points along the outward normal, so Φ = E × 4π r² = (kQ ÷ r²)(4π r²) = **4π k Q = Q ÷ ε₀**. The radius **cancels**: the flux does not depend on how big the sphere is.
+/EX
+
+### Gauss's law
+The remarkable fact is that the result above holds for **any** closed surface, of any shape, and any arrangement of charges:
+
+EQ: Φ_net = ∯ E · dA = Q_enclosed ÷ ε₀     (ε₀ = 8.85 × 10⁻¹² C²/(N m²))
+
+Why: the field lines that leave a closed surface are the lines that start on the charges inside. Charges **outside** send in as many lines as go out: net flux zero. With the inverse-square law (1 ÷ r²) and the area of a sphere (r²), the numbers cancel perfectly: this is a mathematical consequence of the inverse-square form. Gauss's law is **Coulomb's law in a different form**, and it is one of the four Maxwell equations.
+
+BN: তড়িৎ ফ্লাক্স Φ = E A cos θ (একক N m²/C)। গাউসের সূত্র: যেকোনো বদ্ধ তলের জন্য Φ_net = Q_ভিতরে/ε₀। বিন্দু চার্জকে ঘিরে গোলকে Φ = (kQ/r²)(4πr²) = 4πkQ = Q/ε₀, r কেটে যায়। তলের বাইরের চার্জ যতটা ঢোকায় ততটাই বের করে, নেট শূন্য। এটা কুলম্বের সূত্রেরই অন্য রূপ, ম্যাক্সওয়েলের চার সমীকরণের একটি।
+
+EX: Gauss's law numbers
+1. **A closed surface around 2 nC:** Φ = 2 × 10⁻⁹ ÷ 8.85 × 10⁻¹² = **226 N m²/C**.
+2. **A cube with the 2 nC at its centre.** By symmetry each of the 6 faces carries the same flux: 226 ÷ 6 = **37.7 N m²/C** per face. (Computing that by integrating E over one face would be a hard double integral.)
+3. **Charge outside:** a 5 nC charge outside a closed box gives Φ_net = **0**. The lines go in on one side and out on the other.
+4. **Find the charge from the flux:** if the net flux through a surface is −1130 N m²/C, then Q = ε₀ Φ = 8.85 × 10⁻¹² × (−1130) = **−1.0 × 10⁻⁸ C = −10 nC**.
+5. **Two charges, +5 nC and −2 nC, inside one surface:** Φ = (5 − 2) × 10⁻⁹ ÷ 8.85 × 10⁻¹² = **339 N m²/C**. Only the **net** enclosed charge matters.
+/EX
+
+LAB: Flux through a tilted loop | A flat loop in a uniform field. Choose the field, the area and the angle between the field and the normal to the loop. The graph shows the flux as the loop is turned from face-on (0°) to edge-on (90°) and beyond: a cosine curve. The numbers give the flux and the largest possible flux. | E:Field E (N/C):100:1000:50:500 ;; A:Area A (m²):0.01:0.2:0.01:0.06 ;; th:Angle θ (degrees):0:180:5:60 | E*A*cos(th*pi/180):Flux Φ (N m²/C):2 ;; E*A:Largest flux E A (N m²/C):2 | E*A*cos(x*pi/180) | 0,180 | -60,60
+
+LAB: Gauss's law: the flux from the enclosed charge | Choose the charges inside a closed surface. The numbers give the net flux and, if the surface is a cube with the charges at its centre, the flux through each face. Move a charge outside and the flux does not change (not shown: only the enclosed sum matters). | q1:Charge q₁ (nC):-10:10:1:5 ;; q2:Charge q₂ (nC):-10:10:1:-2 | (q1+q2)*1e-9/8.85e-12:Net flux (N m²/C):1 ;; (q1+q2)*1e-9/8.85e-12/6:Flux per cube face (N m²/C):1 | - | 0,1 | 0,1
+
+TRAP: Gauss's law uses the **net** charge inside the surface and the **net** flux through the **whole closed** surface. It does not say the field is zero when the flux is zero (charges outside, or a dipole, can leave the field nonzero with Φ = 0). And the area vector points **outward** from a closed surface, so flux leaving is positive.
+
+### Quick self-check
+QUIZ:
+Q: The flux through a closed surface depends on…; its shape; the enclosed charge; its size; the outside charges; 2; Φ = Q ÷ ε₀.
+Q: A loop is edge-on to a field. The flux is…; maximum; zero; negative; infinite; 2; θ = 90°, cos θ = 0.
+Q: A +3 nC charge is outside a closed surface. The net flux is…; 339; 0; −339; 3; 2; Everything entering also leaves.
+Q: The flux through a sphere around a charge when the radius doubles…; doubles; halves; quadruples; stays the same; 4; The r² cancels.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the flux through a 0.5 m² loop face-on to a field of 200 N/C. => **100 N m²/C**.
+P: Find the net flux for an enclosed charge of 8.85 nC. => 8.85 × 10⁻⁹ ÷ 8.85 × 10⁻¹² = **1000 N m²/C**.
+P: What is the net flux through a closed surface that encloses no charge? => **0**.
+LVL: Level 2 | Apply
+P: A 0.1 m × 0.2 m coil is at 30° to the normal in a field of 400 N/C. Find the flux. => 400 × 0.02 × cos 30° = **6.93 N m²/C**.
+P: Find the flux through each face of a cube with 6 nC at its centre. => 6 × 10⁻⁹ ÷ 8.85 × 10⁻¹² = 678 total; ÷ 6 = **113 N m²/C**.
+P: Net flux through a closed surface is +300 N m²/C. Find the enclosed charge. => 300 × 8.85 × 10⁻¹² = **2.66 × 10⁻⁹ C = 2.66 nC**.
+P: The flux through the curved side of a hemisphere (radius 10 cm) around a charge at the centre of its flat face is half that of the full sphere. Find it for 4 nC. => Total 4 × 10⁻⁹ ÷ 8.85 × 10⁻¹² = 452; half = **226 N m²/C**.
+P: A charge of +4 nC sits at the centre of a cube of side 20 cm. Find the field at the middle of a face and compare with Φ ÷ A. => The face centre is 0.1 m from the charge: E = 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.01 = **3596 N/C**. Average flux density = (452 ÷ 6) ÷ 0.04 = **1883 N/C**, smaller than the value at the middle because the field is weaker (and tilted) at the corners.
+P: Two charges +6 nC and −4 nC are enclosed with a third charge Q. The net flux is zero. Find Q. => Q = −(6 − 4) = **−2 nC**.
+LVL: Level 3 | Real
+P: The Earth has a downward field of about 100 N/C at its surface. Treat the Earth as a sphere (R = 6.371 × 10⁶ m) and find its net charge using Gauss's law. => Φ = E × 4π R² (inward, so negative) = −100 × 5.10 × 10¹⁴ = −5.10 × 10¹⁶ N m²/C. Q = ε₀ Φ = **−4.5 × 10⁵ C**. The Earth carries about 450,000 C of negative charge, balanced by positive charges in the atmosphere.
+LVL: Challenge | Why 1 ÷ r² matters
+P: Suppose a force law were 1 ÷ r³. Would the flux through a sphere around a point charge depend on its radius? What does that say about Gauss's law? => E ∝ 1 ÷ r³, area ∝ r², so Φ ∝ **1 ÷ r**: it would shrink as the sphere grows. Gauss's law (flux independent of the surface) holds **only for the inverse-square law**. So Gauss's law and the exponent 2 in Coulomb's law stand or fall together (tested to better than 1 part in 10¹⁶).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- ∬ f dA = iterated integral (inner first, other variable constant, Fubini for rectangles). Area, volume, mass M = ∬ σ dA, centre of mass x̄ = ∬ x σ dA ÷ M, average = ∬ f dA ÷ area. Swapping the order can make a hard integral easy.
+- Flux Φ = ∬ E · dA = E A cos θ. Gauss: Φ_net = Q_enc ÷ ε₀ for any closed surface. Point charge: 4πkQ = Q ÷ ε₀. Cube: Φ ÷ 6 per face. Outside charge: no net flux. Needs the inverse square law.
+
+BN: আজকের সারকথা: ∬ f dA = পুনরাবৃত্ত যোগজ (ভিতরেরটা আগে)। ভর M = ∬σ dA, ভরকেন্দ্র x̄ = ∬xσ dA/M, গড় = ∬f dA/ক্ষেত্রফল। ফ্লাক্স Φ = E·A = EA cos θ; গাউস: Φ_net = Q_ভিতরে/ε₀। বিন্দু চার্জে 4πkQ; ঘনকের প্রতি তলে Φ/6; বাইরের চার্জে নেট শূন্য; বিপরীত বর্গ নিয়মের উপর নির্ভর।
+
+EXIT:
+E: Evaluate ∬ x y dA over [0, 2] × [0, 3].; 9; 0.01; 2 × 4.5.
+E: What is the net flux (N m²/C) through a closed surface enclosing 2 nC?; 226; 1; Q ÷ ε₀ = 2 × 10⁻⁹ ÷ 8.85 × 10⁻¹².
+E: What is the flux (N m²/C) through a 0.06 m² loop in 500 N/C at 60° to the normal?; 15; 0.1; 500 × 0.06 × cos 60°.
+
+**Tomorrow:** double integrals over curved regions and in polar coordinates, and Gauss's law applied to spheres, lines and planes.
+
+CHECK: notes

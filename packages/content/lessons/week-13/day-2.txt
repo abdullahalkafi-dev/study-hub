@@ -1,0 +1,201 @@
+@day Week 13 · Day 2 · Tuesday
+# Determinants and inverses. Then: heat, specific heat and calorimetry
+lead: The determinant is a single number that tells you whether a matrix can be undone and how much it stretches area or volume. The inverse matrix is how you "divide" by a matrix. In physics, you separate two ideas that are easy to confuse, temperature and heat, and learn to calculate how much energy it takes to warm something up.
+
+BN: নির্ণায়ক (determinant) একটা সংখ্যা যা বলে দেয় ম্যাট্রিক্সটা উল্টানো যাবে কি না এবং ক্ষেত্রফল বা আয়তন কতটা বাড়ায়। বিপরীত ম্যাট্রিক্স হলো ম্যাট্রিক্স দিয়ে "ভাগ" করার উপায়। পদার্থবিজ্ঞানে তাপমাত্রা ও তাপ নামের দুটো সহজে গুলিয়ে ফেলা ধারণা আলাদা করবে এবং কোনো কিছু গরম করতে কত শক্তি লাগে তা হিসাব করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Compute [[1, 2], [3, 4]] times [[0, 1], [1, 0]]. => **[[2, 1], [4, 3]]**.
+P: If A is 2 × 3 and B is 3 × 4, what size is AB? => **2 × 4**.
+P: Convert 27 °C to kelvin. => **300.15 K**.
+P: Find the expansion of a 10 m steel rod (α = 12 × 10⁻⁶) heated by 50 K. => **6 mm**.
+P: At what temperature is water densest? => **4 °C**.
+
+CHECK: recall
+
+@section math | 2 · Math: determinants and inverses | 55 min
+
+### The 2 × 2 determinant and inverse
+EQ: det [[a, b], [c, d]] = a d − b c
+
+If the determinant is not zero, the inverse exists:
+
+EQ: A⁻¹ = (1 ÷ det A) × [[d, −b], [−c, a]]     and     A A⁻¹ = A⁻¹ A = I
+
+Swap the diagonal, negate the off-diagonal, divide by the determinant.
+
+BN: 2 × 2 নির্ণায়ক = ad − bc। বিপরীত ম্যাট্রিক্স: কর্ণের সংখ্যা দুটো অদলবদল করো, অপর দুটোর চিহ্ন উল্টাও, তারপর নির্ণায়ক দিয়ে ভাগ করো। নির্ণায়ক 0 হলে বিপরীত ম্যাট্রিক্স নেই (singular)।
+
+EX: An inverse
+1. A = [[1, 2], [3, 4]]. det A = 1×4 − 2×3 = **−2**.
+2. A⁻¹ = (−1/2) [[4, −2], [−3, 1]] = **[[−2, 1], [1.5, −0.5]]**.
+3. Check: row 1 of A times column 1 of A⁻¹ = 1×(−2) + 2×1.5 = 1 ✓. Row 1 times column 2: 1×1 + 2×(−0.5) = 0 ✓. Row 2 times column 1: 3×(−2) + 4×1.5 = 0 ✓. Row 2 times column 2: 3×1 + 4×(−0.5) = 1 ✓.
+4. **Solve a system:** x + 2y = 5 and 3x + 4y = 11 means A (x, y) = (5, 11). So (x, y) = A⁻¹ (5, 11) = (−2×5 + 1×11, 1.5×5 − 0.5×11) = **(1, 2)**.
+/EX
+
+### What the determinant means
+The columns of A tell you where the unit vectors go: (1, 0) → (a, c) and (0, 1) → (b, d). The unit square becomes a parallelogram with area **abs(det A)**. The sign tells you whether the picture was flipped (negative: a reflection).
+
+EX: Geometric meaning
+1. [[2, 0], [0, 3]] stretches x by 2 and y by 3: det = 6, area × 6.
+2. A rotation [[cos θ, −sin θ], [sin θ, cos θ]] has det = cos²θ + sin²θ = **1**: area is kept.
+3. A reflection in the x-axis [[1, 0], [0, −1]] has det **−1**.
+4. [[1, 2], [2, 4]] has det 4 − 4 = **0**: the columns (1, 2) and (2, 4) are parallel, so the whole plane is **squashed onto a line**. Information is lost, so no inverse exists. The matrix is **singular**.
+5. A triangle with vertices (0, 0), (2, 0), (0, 2) has area 2. Under A = [[2, 1], [0, 3]] (det 6) its area becomes 2 × 6 = **12**. The image vertices are (0, 0), (4, 0), (2, 6): area = ½ × 4 × 6 = 12 ✓.
+/EX
+
+LAB: What a 2 × 2 matrix does to the unit square | Choose A = [[a, b], [c, d]]. The unit square becomes the parallelogram with corners (0, 0), (a, c), (a + b, c + d) and (b, d). The numbers show the determinant, the area of the parallelogram and the image of the corner (1, 1). When the determinant is zero the area collapses to zero. | a:a:-3:3:1:2 ;; b:b:-3:3:1:1 ;; c:c:-3:3:1:0 ;; d:d:-3:3:1:3 | a*d-b*c:Determinant:0 ;; abs(a*d-b*c):Area of the image:0 ;; a+b:x of image of (1, 1):0 ;; c+d:y of image of (1, 1):0 | - | 0,1 | 0,1
+
+### 3 × 3 determinants
+Expand along the first row. Each entry multiplies the determinant of the 2 × 2 matrix left when you delete its row and column, with signs + − +:
+
+EQ: det = a (e i − f h) − b (d i − f g) + c (d h − e f)     for the matrix with rows (a, b, c), (d, e, f), (g, h, i)
+
+EX: Computing 3 × 3 determinants
+1. Rows (2, 1, 0), (1, 3, 2), (0, 1, 1): det = 2 (3×1 − 2×1) − 1 (1×1 − 2×0) + 0 = 2 × 1 − 1 × 1 = **1**.
+2. Rows (1, 2, 3), (0, 1, 4), (5, 6, 0): det = 1 (0 − 24) − 2 (0 − 20) + 3 (0 − 5) = −24 + 40 − 15 = **1**. Check with Sarrus' rule (sum of the three "down" diagonals minus the three "up" diagonals): (1×1×0 + 2×4×5 + 3×0×6) − (3×1×5 + 1×4×6 + 2×0×0) = 40 − 39 = 1 ✓.
+3. This second matrix has the inverse with rows (−24, 18, 5), (20, −15, −4), (−5, 4, 1). Check one entry: row 1 times column 1 = 1×(−24) + 2×20 + 3×(−5) = 1 ✓, and row 1 times column 2 = 18 − 30 + 12 = 0 ✓.
+4. **Volume:** the columns (1, 0, 0), (1, 2, 0), (1, 1, 3) span a parallelepiped. The matrix is triangular, so the determinant is the product of the diagonal: 1 × 2 × 3 = **6**, which is the volume.
+/EX
+
+### Rules to remember
+1. det (A B) = det A × det B. 2. det (Aᵀ) = det A. 3. Swapping two rows changes the sign. 4. A row of zeros, or two equal rows, gives det = 0. 5. (AB)⁻¹ = B⁻¹ A⁻¹ (reversed order).
+
+EX: Checking the product rule
+1. A = [[1, 2], [3, 4]] (det −2), B = [[0, 1], [1, 0]] (det −1). AB = [[2, 1], [4, 3]], with det 6 − 4 = **2** = (−2) × (−1) ✓.
+2. The inverse of a product: (AB)⁻¹ = B⁻¹ A⁻¹. Here B⁻¹ = B, so (AB)⁻¹ = B A⁻¹ = [[0, 1], [1, 0]] [[−2, 1], [1.5, −0.5]] = [[1.5, −0.5], [−2, 1]]. Check: AB times this = [[2×1.5 + 1×(−2), 2×(−0.5) + 1×1], [4×1.5 + 3×(−2), 4×(−0.5) + 3×1]] = [[1, 0], [0, 1]] ✓.
+/EX
+
+BN: নির্ণায়ক ক্ষেত্রফল (বা আয়তন) এর গুণক। det = 0 মানে সমতল একটা রেখায় চেপ্টে যায়, তথ্য হারায়, তাই বিপরীত নেই। det(AB) = det A · det B। (AB)⁻¹ = B⁻¹A⁻¹ (উল্টো ক্রম)। ঘূর্ণনের det = 1, প্রতিফলনের det = −1।
+
+TRAP: Do not forget to **divide by the determinant** when inverting. The signs in the 3 × 3 expansion alternate + − +. And (AB)⁻¹ is B⁻¹ A⁻¹, **not** A⁻¹ B⁻¹. A matrix with det = 0 has no inverse, so never write 1 ÷ A.
+
+### Quick self-check
+QUIZ:
+Q: The determinant of [[3, 2], [1, 4]] is…; 14; 10; 12; −10; 2; 3×4 − 2×1.
+Q: A matrix with determinant 0 is called…; singular; orthogonal; identity; transpose; 1; It has no inverse.
+Q: A matrix with det 3 maps a region of area 4 to a region of area…; 7; 12; 1.33; 3; 2; Area is multiplied by abs(det).
+Q: (AB)⁻¹ equals…; A⁻¹B⁻¹; B⁻¹A⁻¹; (BA)⁻¹ always; AB; 2; The order reverses.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find det [[2, 3], [1, 4]]. => 8 − 3 = **5**.
+P: Find the inverse of [[2, 1], [1, 1]]. => det = 1, so **[[1, −1], [−1, 2]]**.
+P: Is [[3, 6], [1, 2]] invertible? => det = 6 − 6 = 0: **no** (singular).
+LVL: Level 2 | Apply
+P: Find the inverse of [[3, 1], [5, 2]] and use it to solve 3x + y = 7, 5x + 2y = 12. => det = 6 − 5 = 1, so the inverse is [[2, −1], [−5, 3]]. (x, y) = (2×7 − 12, −5×7 + 3×12) = **(2, 1)**. Check: 3×2 + 1 = 7 ✓, 5×2 + 2 = 12 ✓.
+P: Find k so that [[k, 2], [3, k + 1]] is singular. => k (k + 1) − 6 = 0, so k² + k − 6 = 0, **k = 2 or k = −3**.
+P: Find the determinant of the matrix with rows (1, 0, 2), (3, 1, 0), (2, −1, 1). => 1 (1 − 0) − 0 + 2 (−3 − 2) = 1 − 10 = **−9**. Sarrus: (1 − 6 + 0) − (4 + 0 + 0) = −5 − 4 = −9 ✓.
+P: If det A = 3 and A is 3 × 3, find det (2A) and det (A⁻¹). => det (2A) = 2³ × 3 = **24** (each of the three rows is doubled). det (A⁻¹) = **1/3**.
+P: Show that a rotation by 90° followed by a reflection in the x-axis has det −1. => R = [[0, −1], [1, 0]] (det 1), F = [[1, 0], [0, −1]] (det −1). det (FR) = (−1)(1) = **−1**.
+LVL: Level 3 | Real
+P: A transformation A = [[2, 1], [0, 3]] is applied to a triangle with vertices (0, 0), (2, 0), (0, 2). Find the new vertices and the new area. => Images: (0, 0), (4, 0), (2, 6). Area = ½ × 4 × 6 = **12**. This equals the original area 2 times det A = 6 ✓.
+LVL: Challenge | Rotation matrices and the angle-sum formulas
+P: Let R(θ) = [[cos θ, −sin θ], [sin θ, cos θ]]. Show that R(a) R(b) = R(a + b) and read off the formulas for cos (a + b) and sin (a + b). Verify with a = 30°, b = 60°. => Multiply: the entry (1, 1) is cos a cos b − sin a sin b, the entry (2, 1) is sin a cos b + cos a sin b. The product has the form of R(a + b), so **cos (a + b) = cos a cos b − sin a sin b** and **sin (a + b) = sin a cos b + cos a sin b**. Check: cos 90° = 0.866 × 0.5 − 0.5 × 0.866 = 0 ✓ and R(30°) R(60°) = R(90°) = [[0, −1], [1, 0]]. This is the matrix version of multiplying e^(i a) by e^(i b).
+
+CHECK: math
+
+@section physics | 3 · Physics: heat and calorimetry | 35 min
+
+### Heat versus temperature
+**Temperature** describes the state of an object. **Heat** Q is the energy that **flows** between objects because of a temperature difference. It is measured in **joules** (or the older calorie: 1 cal = 4.186 J, and a food "Calorie" is 1 kcal = 4186 J).
+
+The amount of heat to change the temperature of a mass m by ΔT is
+
+EQ: Q = m c ΔT
+
+where c is the **specific heat capacity**, the energy needed to warm 1 kg by 1 K.
+
+| Substance | c (J/(kg·K)) |
+| Water | 4186 |
+| Ice | 2090 |
+| Steam | 2010 |
+| Aluminium | 900 |
+| Iron, steel | 450 |
+| Copper | 385 |
+| Lead | 130 |
+| Air (constant pressure) | 1005 |
+
+Water has a very high specific heat, so it stores a lot of energy and changes temperature slowly. This is why coastal climates are mild.
+
+BN: তাপমাত্রা অবস্থা বোঝায়, আর তাপ Q হলো তাপমাত্রার পার্থক্যের কারণে প্রবাহিত শক্তি (জুল)। Q = mcΔT, c হলো আপেক্ষিক তাপ: ১ kg কে ১ K গরম করতে প্রয়োজনীয় শক্তি। পানির c = 4186 J/(kg·K), অনেক বেশি, তাই পানি ধীরে গরম বা ঠান্ডা হয়।
+
+EX: Heating water
+1. Heat 1.5 kg of water from 20 °C to 100 °C: Q = 1.5 × 4186 × 80 = **502,320 J ≈ 502 kJ**.
+2. A 2000 W kettle (energy per second 2000 J): time = 502,320 ÷ 2000 = **251 s ≈ 4.2 min** if there are no losses. At 80% efficiency: 251 ÷ 0.8 = **314 s**.
+3. **Food:** a 250 kcal snack = 250 × 4186 = **1,046,500 J ≈ 1.05 MJ**, enough to warm 1 kg of water by 250 K, if it could be used that way.
+4. **Joule's experiment:** a 10 kg weight falls 2 m, 100 times, turning a paddle in 0.5 kg of water: energy = 10 × 9.8 × 2 × 100 = 19,600 J, so ΔT = 19,600 ÷ (0.5 × 4186) = **9.4 K**. Work and heat are both forms of energy.
+/EX
+
+LAB: Heating water | Choose the mass of water, its starting temperature and the power of the heater. The numbers show the energy to reach 100 °C and the time (no losses). The graph shows temperature against time for your settings (ignore the part above 100 °C). | m:Mass of water (kg):0.5:5:0.5:1.5 ;; t0:Starting temperature (°C):0:80:5:20 ;; P:Heater power (W):500:3000:100:2000 | m*4.186*(100-t0):Energy to boil (kJ):1 ;; m*4186*(100-t0)/P:Time to reach 100 °C (s):0 ;; m*4186*(100-t0)/P/60:Time (minutes):1 | t0+P*x/(m*4186) | 0,300 | 0,100
+
+### Calorimetry: heat exchanged is heat gained
+When objects at different temperatures are mixed in an insulated container, **heat lost by the hot one = heat gained by the cold one** (conservation of energy). The final temperature T_f satisfies Σ m c (T_f − T_initial) = 0.
+
+EX: Mixing
+1. **Water with water:** 200 g at 80 °C mixed with 300 g at 20 °C. T_f = (200 × 80 + 300 × 20) ÷ 500 = 22,000 ÷ 500 = **44 °C**.
+2. **Hot copper into water:** 0.3 kg copper at 100 °C into 0.5 kg water at 20 °C. 0.3 × 385 × (100 − T) = 0.5 × 4186 × (T − 20). So 11,550 − 115.5 T = 2093 T − 41,860, giving 53,410 = 2208.5 T and **T = 24.2 °C**. Copper's low specific heat means it barely warms the water.
+3. **Find an unknown c:** a 0.15 kg metal sample at 100 °C is dropped into 0.4 kg of water at 20 °C and the final temperature is 26.0 °C. Heat lost = heat gained: 0.15 × c × 74 = 0.4 × 4186 × 6, so c = 10,046 ÷ 11.1 = **905 J/(kg·K)**. This matches **aluminium**.
+/EX
+
+LAB: Mixing two water samples | Mix two samples of water. The final temperature is the mass-weighted average. The numbers also show the heat that the hot sample gave up. | m1:Hot mass (kg):0.1:1:0.1:0.2 ;; t1:Hot temperature (°C):40:100:5:80 ;; m2:Cold mass (kg):0.1:1:0.1:0.3 ;; t2:Cold temperature (°C):0:30:5:20 | (m1*t1+m2*t2)/(m1+m2):Final temperature (°C):2 ;; m1*4.186*(t1-(m1*t1+m2*t2)/(m1+m2)):Heat given up by hot water (kJ):2 | - | 0,1 | 0,1
+
+### Cooling: Newton's law
+A hot object loses heat at a rate proportional to the temperature difference with its surroundings: dT/dt = −k (T − T_env). This separable equation (you know the method from integration) has the solution
+
+EQ: T(t) = T_env + (T₀ − T_env) e^(−k t)
+
+EX: Coffee
+1. Coffee at 90 °C in a 20 °C room cools to 60 °C in 10 min. e^(−10k) = 40 ÷ 70 = 4/7, so k = ln (7/4) ÷ 10 = 0.5596 ÷ 10 = **0.0560 per min**.
+2. Time to reach 40 °C: 20 = 70 e^(−k t), so t = ln 3.5 ÷ k = 1.2528 ÷ 0.0560 = **22.4 min**.
+3. The cooling is fast at first and slows down as the difference gets small, which is why the last degrees take forever.
+/EX
+
+LAB: Newton's law of cooling | Choose the starting temperature, the room temperature and the cooling constant k. The graph shows T(t) for 60 minutes, and the numbers give the temperature at the chosen time. | T0:Starting temperature (°C):50:100:5:90 ;; Te:Room temperature (°C):0:30:5:20 ;; k:Cooling constant k (per min):0.01:0.15:0.01:0.06 ;; t:Time t (min):0:60:5:10 | Te+(T0-Te)*exp(-k*t):Temperature at time t (°C):1 ;; log(2)/k:Half-life of the temperature difference (min):1 | Te+(T0-Te)*exp(-k*x) | 0,60 | 0,100
+
+TRAP: Heat and temperature are **not** the same: a bathtub of warm water holds far more heat than a cup of boiling water. In calorimetry, write **final minus initial** for each body, and check that the signs of the heat terms add to zero. The specific heat is per kilogram, so convert grams first.
+
+### Quick self-check
+QUIZ:
+Q: The heat needed to warm 2 kg of water by 10 K is…; 8.4 kJ; 83.7 kJ; 837 kJ; 20 J; 2; 2 × 4186 × 10 = 83,720 J.
+Q: The final temperature when 1 kg at 80 °C mixes with 1 kg at 20 °C (both water) is…; 40 °C; 50 °C; 60 °C; 100 °C; 2; The average.
+Q: A metal heats up quickly with little energy. It has a…; high c; low c; high density; zero c; 2; Q = m c ΔT.
+Q: In Newton's cooling law, doubling k…; halves the cooling time; doubles the cooling time; does not change anything; stops the cooling; 1; The exponent doubles in speed.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the heat to warm 0.5 kg of water by 30 K. => 0.5 × 4186 × 30 = **62,790 J**.
+P: Find the final temperature of 100 g at 90 °C and 100 g at 10 °C (water). => **50 °C**.
+LVL: Level 2 | Apply
+P: A 2 kW heater warms 10 kg of water from 15 °C to 65 °C. How long does it take? => Q = 10 × 4186 × 50 = 2,093,000 J. Time = 2,093,000 ÷ 2000 = **1046 s ≈ 17.4 min**.
+P: A 0.2 kg iron nail (c = 450) at 150 °C is dropped into 0.3 kg of water at 20 °C. Find the final temperature. => 0.2 × 450 × (150 − T) = 0.3 × 4186 × (T − 20): 90 (150 − T) = 1255.8 (T − 20). 13,500 − 90 T = 1255.8 T − 25,116, so 38,616 = 1345.8 T, **T = 28.7 °C**.
+P: A 10 g lead bullet (c = 130) moving at 200 m/s hits a wall, and all its kinetic energy becomes heat in the bullet. Find its temperature rise. => KE = ½ × 0.01 × 200² = 200 J. ΔT = 200 ÷ (0.01 × 130) = **154 K**. (Real bullets melt a little.)
+P: A cup of tea at 85 °C cools in a 25 °C room with k = 0.04 per min. Find T after 15 min. => T = 25 + 60 e^(−0.6) = 25 + 60 × 0.5488 = **57.9 °C**.
+P: An 800 W microwave warms 250 g of water in 90 s (efficiency 100%). Find ΔT. => Energy 72,000 J. ΔT = 72,000 ÷ (0.25 × 4186) = **68.8 K**.
+LVL: Level 3 | Real
+P: A house loses heat so that the indoor air (1005 J/(kg·K)) of a 60 m³ room (density 1.2 kg/m³) must be warmed from 10 °C to 20 °C. How much energy is needed, and for how long does a 1.5 kW heater run? => Mass 72 kg. Q = 72 × 1005 × 10 = 723,600 J = **0.72 MJ**. Time = 723,600 ÷ 1500 = **482 s ≈ 8 min** (ignoring the walls and furniture, which also need heat).
+LVL: Challenge | The ocean as a battery
+P: The top 100 m of the ocean over an area of 1 km² cools by 1 K. How much energy is released, and how many typical households (average power 1 kW) could it supply for a year (1 year = 3.15 × 10⁷ s)? Use ρ = 1025 kg/m³. => Volume = 10⁶ m² × 100 m = 10⁸ m³. Mass = 1.025 × 10¹¹ kg. Q = 1.025 × 10¹¹ × 4186 × 1 = **4.29 × 10¹⁴ J**. One household uses 1000 × 3.15 × 10⁷ = 3.15 × 10¹⁰ J per year. Number = 4.29 × 10¹⁴ ÷ 3.15 × 10¹⁰ = about **13,600 households**. A tiny change in ocean temperature involves enormous energy: this is why the oceans moderate the climate.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- det [[a, b], [c, d]] = ad − bc. Inverse = (1 ÷ det) [[d, −b], [−c, a]]. det = 0 means singular (no inverse). |det| = area (or volume) scaling. det (AB) = det A det B. (AB)⁻¹ = B⁻¹A⁻¹. 3 × 3 by expansion along a row (signs + − +) or Sarrus. Rotation matrices have det 1 and multiply like angles add.
+- Heat Q = m c ΔT. Water c = 4186 J/(kg·K). Calorimetry: heat lost = heat gained. Newton cooling T = T_env + (T₀ − T_env) e^(−kt).
+
+BN: আজকের সারকথা: det = ad − bc, বিপরীত = (1/det)[[d, −b], [−c, a]], det = 0 হলে বিপরীত নেই, |det| = ক্ষেত্রফলের গুণক, det(AB) = det A det B। তাপ Q = mcΔT, পানির c = 4186; ক্যালরিমিতি: হারানো তাপ = পাওয়া তাপ; নিউটনের শীতলীকরণ T = T_env + (T₀ − T_env)e^(−kt)।
+
+EXIT:
+E: What is the determinant of [[3, 2], [1, 4]]?; 10; 0.001; 3×4 − 2×1 = 10.
+E: How many kJ are needed to warm 2 kg of water from 20 °C to 70 °C?; 418.6; 0.1; 2 × 4186 × 50 = 418,600 J.
+E: What is the final temperature in °C of 300 g of water at 70 °C mixed with 100 g of water at 30 °C?; 60; 0.01; (300 × 70 + 100 × 30) ÷ 400 = 60.
+
+**Tomorrow:** matrices as transformations (rotation, scaling, shear, composition), and phase changes and latent heat.
+
+CHECK: notes

@@ -1,0 +1,218 @@
+@day Week 5 · Day 1 · Monday
+# The idea of a limit. Then: work and kinetic energy
+lead: Calculus starts with one question: what happens as you get closer and closer to something you cannot reach? Today you meet limits through the problem that created calculus, instantaneous speed. In physics you meet work and kinetic energy, a second way of solving motion problems that often skips the forces and the time completely.
+
+BN: ক্যালকুলাস শুরু হয় একটা প্রশ্ন দিয়ে: যে জায়গায় পৌঁছানো যায় না, তার যত কাছে যাই, ঘটনাটা কী দাঁড়ায়? আজ লিমিট (limit) শিখব তাৎক্ষণিক গতি (instantaneous speed) দিয়ে, যে সমস্যা থেকে ক্যালকুলাসের জন্ম। পদার্থবিজ্ঞানে কাজ ও গতিশক্তি: গতির সমস্যা সমাধানের দ্বিতীয় পথ, যেখানে অনেক সময় বল আর সময় না জেনেই উত্তর মেলে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Phase 1 highlights
+P: Find the sum 1 + 2 + 3 + … + 40. => 40 × 41 ÷ 2 = **820**.
+P: A satellite orbits at radius r around mass M. How does its speed change if r becomes 4 times larger? => v ∝ 1/√r, so it halves. **v/2**.
+P: Compute (1, 2, 3) · (2, 0, −1). => 2 + 0 − 3 = **−1**.
+P: Factor x² − 9x + 20. => **(x − 4)(x − 5)**.
+P: A ball is thrown up at 20 m/s (g = 10). Find the maximum height. => 400 ÷ 20 = **20 m**.
+
+CHECK: recall
+
+@section math | 2 · Math: limits | 60 min
+
+### The problem: speed at a single instant
+A stone falls from rest. After t seconds it has fallen s = 5t² metres (using g ≈ 10 m/s²). **What is its speed at exactly t = 2?**
+
+Speed means distance ÷ time. But at one instant, no time passes and no distance is covered, so we get 0 ÷ 0, which is meaningless. The trick: compute the **average** speed over a short interval from t = 2 to t = 2 + h, and see where it heads as h shrinks.
+
+Average speed = (5(2 + h)² − 5 × 2²) ÷ h = (20h + 5h²) ÷ h = **20 + 5h**.
+
+| h | Average speed |
+| 1 | 25 |
+| 0.1 | 20.5 |
+| 0.01 | 20.05 |
+| 0.001 | 20.005 |
+
+The averages approach 20. We say the instantaneous speed is **20 m/s**. We could never plug in h = 0 directly (that gives 0 ÷ 0), but we can see exactly where the values are heading. That "heading toward" is a limit.
+
+BN: তাৎক্ষণিক গতি বের করতে গেলে পাই 0 ÷ 0, যার কোনো অর্থ নেই। তাই ছোট ব্যবধান h নিয়ে গড় গতি বের করি, আর দেখি h ছোট হতে হতে মানটা কোথায় যাচ্ছে। এখানে গড় গতি = 20 + 5h, h → 0 হলে 20। এই "যেদিকে যাচ্ছে" মানটাই লিমিট।
+
+### Definition (informal)
+EQ: lim (x → a) f(x) = L
+
+means: as x gets closer and closer to a (from both sides, but never equal to a), the values f(x) get closer and closer to the number L.
+
+Two important points:
+- The limit depends only on what happens **near** a, not **at** a. The function may not even be defined at a.
+- "Closer and closer" can be made as close as we like. (The exact version with ε and δ comes in a later week.)
+
+EX: A limit with a hole
+1. f(x) = (x² − 1) ÷ (x − 1). At x = 1 we get 0 ÷ 0, so f(1) is undefined.
+2. Table: f(0.9) = 1.9, f(0.99) = 1.99, f(0.999) = 1.999. From the right: f(1.1) = 2.1, f(1.01) = 2.01.
+3. For x ≠ 1: (x² − 1) ÷ (x − 1) = (x − 1)(x + 1) ÷ (x − 1) = x + 1. So the graph is the line y = x + 1 with **one hole** at (1, 2).
+4. **lim (x → 1) f(x) = 2**, even though f(1) does not exist.
+/EX
+
+EX: A famous limit by table
+1. sin x ÷ x for x in radians: x = 0.5 gives 0.9589, x = 0.1 gives 0.99833, x = 0.01 gives 0.999983.
+2. **lim (x → 0) sin x ÷ x = 1**. This is the limit behind the derivative of sine, which you meet on Friday.
+3. It is true only when x is in **radians**.
+/EX
+
+FUNC: Approaching a limit: sin x ÷ x | x (radians) | y | sin(x)/x | -10,10 | -0.5,1.2 | - | The curve is not defined at x = 0 (the formula gives 0 ÷ 0), but as x approaches 0 from either side, y approaches 1.
+
+### One-sided limits
+Sometimes the left and right sides disagree. Write x → a⁻ for approaching from the left and x → a⁺ for approaching from the right.
+
+EQ: lim (x → a) f(x) = L exists exactly when lim (x → a⁻) f(x) = lim (x → a⁺) f(x) = L
+
+EX: A jump
+1. f(x) = |x| ÷ x. For x > 0 it equals 1. For x < 0 it equals −1.
+2. Left limit at 0 is −1 and right limit is +1. They differ, so **the limit at 0 does not exist**.
+3. Real example: a thermostat or a switch. At the moment of switching, the output jumps.
+/EX
+
+### The three ways a limit can fail
+1. **A jump:** left and right limits differ (like |x| ÷ x at 0).
+2. **Blow-up:** the values grow without bound, like 1 ÷ x² near 0 (we write lim = ∞ to describe the behaviour, but strictly the limit does not exist as a number).
+3. **Wild oscillation:** like sin(1 ÷ x) near 0, which swings between −1 and 1 infinitely often.
+
+### Limits at infinity
+What happens to f(x) as x grows without bound? Write x → ∞.
+
+EX: Dividing by the highest power
+1. lim (x → ∞) 1 ÷ x = **0**. Big denominators make small fractions.
+2. lim (x → ∞) (3x² + 1) ÷ (x² + 5): divide top and bottom by x² to get (3 + 1/x²) ÷ (1 + 5/x²). As x grows, 1/x² and 5/x² go to 0, so the limit is **3 ÷ 1 = 3**.
+3. The graph of the function levels off at the horizontal line y = 3, a **horizontal asymptote**.
+/EX
+
+BN: লিমিটের অনানুষ্ঠানিক সংজ্ঞা: x যত a এর কাছে যায় (দুই দিক থেকে, কিন্তু a এর সমান না হয়ে), f(x) তত L এর কাছে যায়। লিমিট শুধু a এর আশেপাশের আচরণ দেখে, a তে মান থাকতেও হবে না। বাম ও ডান লিমিট আলাদা হলে লিমিট নেই। অসীমে লিমিটের জন্য ভাজক ও ভাজ্যকে সর্বোচ্চ ঘাত দিয়ে ভাগ করো।
+
+TRAP: A limit is not the value of the function. f(1) might not exist, or might be a different number, and the limit as x → 1 can still be 2. Also, 1 ÷ x does not "equal ∞" at 0. The symbol ∞ is not a number, it describes growth without bound.
+
+### Quick self-check
+QUIZ:
+Q: For f(x) = (x² − 4) ÷ (x − 2), the limit as x → 2 is…; 0; 2; 4; does not exist; 3; For x ≠ 2, f(x) = x + 2, which approaches 4.
+Q: If the left limit at a is 3 and the right limit is 5, then the limit at a…; is 3; is 4; is 5; does not exist; 4; Both sides must agree for the limit to exist.
+Q: lim (x → ∞) (5x + 2) ÷ (2x + 7) equals…; 0; 5/2; 2/7; ∞; 2; Divide by x: (5 + 2/x) ÷ (2 + 7/x) → 5/2.
+Q: A stone falls with s = 5t². Its average speed from t = 3 to t = 3 + h is…; 30 + 5h; 15 + 5h; 5 + 30h; 45; 1; (5(3 + h)² − 45) ÷ h = (30h + 5h²) ÷ h = 30 + 5h.
+Q: The limit of sin x ÷ x as x → 0 (radians) is…; 0; 1; ∞; does not exist; 2; The standard result.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find lim (x → 3) (x² + 2x). => Plug in: 9 + 6 = **15** (polynomials are well behaved).
+P: Find lim (x → 2) (x² − 4) ÷ (x − 2). => (x − 2)(x + 2) ÷ (x − 2) = x + 2, so **4**.
+P: Find lim (x → ∞) 7 ÷ x². => **0**.
+LVL: Level 2 | Think
+P: Use a table to estimate lim (x → 0) (2ˣ − 1) ÷ x, trying x = 0.1, 0.01 and 0.001. => 2^0.1 = 1.07177, so 0.7177. 2^0.01 = 1.006956, so 0.6956. 2^0.001 = 1.000693, so 0.693. The values approach **0.693**, which is ln 2 (a number you will meet again in Week 6).
+P: Does lim (x → 0) 1 ÷ x exist? Check from the left and right. => From the right, values grow to +∞. From the left they fall to −∞. They do not settle on any number, so it **does not exist**.
+P: Find lim (x → ∞) (4x³ − x) ÷ (2x³ + 5x²). => Divide by x³: (4 − 1/x²) ÷ (2 + 5/x) → **2**.
+P: Find lim (x → 0) (√(x + 9) − 3) ÷ x. => Multiply top and bottom by (√(x + 9) + 3): (x + 9 − 9) ÷ (x (√(x + 9) + 3)) = 1 ÷ (√(x + 9) + 3) → 1/6. **1/6**.
+LVL: Level 3 | Real
+P: A car's position is s = t² + 3t (metres). Find its average speed between t = 4 and t = 4 + h, and the instantaneous speed at t = 4. => s(4) = 28. s(4 + h) = 16 + 8h + h² + 12 + 3h = 28 + 11h + h². Average speed = (11h + h²) ÷ h = 11 + h. As h → 0 we get **11 m/s**.
+LVL: Challenge | Limit by squeezing
+P: Explain why lim (x → 0) x sin(1/x) = 0, even though sin(1/x) itself has no limit. => Since −1 ≤ sin(1/x) ≤ 1, we have −|x| ≤ x sin(1/x) ≤ |x|. Both bounds go to 0, so the middle is **squeezed** to 0. This is the squeeze theorem.
+
+CHECK: math
+
+@section physics | 3 · Physics: work and kinetic energy | 35 min
+
+### Why a second method?
+Forces and Newton's second law need the details of every moment. But often you only know the start and the end: a car goes from 10 to 20 m/s, a ball falls from the roof to the ground. The **energy method** links start and end directly, with no time involved.
+
+### Work
+When a constant force acts through a displacement, the **work** done is
+
+EQ: W = F · d = F d cos θ     unit: joule (J) = N·m
+
+(You already know this as a dot product from last week.) Only the part of the force **along** the motion counts.
+
+| Angle between force and motion | Work |
+| 0° | Positive, the force helps (the largest, F d) |
+| between 0° and 90° | Positive |
+| 90° | **Zero** (normal force, centripetal force) |
+| 180° | Negative, the force opposes the motion (friction, braking) |
+
+EX: Work by different forces
+1. A 40 N push at 30° below the horizontal along 5 m: W = 40 × 5 × cos 30° = **173 J**.
+2. Lifting a 20 kg box by 1.5 m at constant speed: the lifting force is mg = 196 N, so W = 196 × 1.5 = **294 J**.
+3. Friction of 30 N acting against a 4 m slide: W = 30 × 4 × cos 180° = **−120 J**.
+4. Gravity on a ball in horizontal flight: perpendicular to the motion, so W = **0**.
+/EX
+
+### Kinetic energy: where the formula comes from
+A constant net force F acts on a mass m over a distance d and speeds it from u to v. Newton gives F = m a. The SUVAT result gives v² = u² + 2 a d, so a d = (v² − u²) ÷ 2. Then:
+
+W = F d = m a d = m (v² − u²) ÷ 2 = ½ m v² − ½ m u².
+
+So the work done by the net force equals the change in the quantity **½ m v²**, called the **kinetic energy**.
+
+EQ: KE = ½ m v²     **Work-energy theorem:** W_net = KE_final − KE_initial
+
+BN: কাজ W = F d cos θ, একক জুল। বলের যেটুকু অংশ গতির দিকে কাজ করে শুধু সেটুকুই গণ্য; গতির লম্ব বলের (অভিলম্ব বল, কেন্দ্রমুখী বল) কাজ শূন্য। কাজ-শক্তি উপপাদ্য: মোট বলের কাজ = গতিশক্তির পরিবর্তন, যেখানে গতিশক্তি KE = ½mv²। এতে সময় আর বিস্তারিত বল লাগে না।
+
+EX: A car speeds up
+1. A 1200 kg car goes from 10 m/s to 20 m/s. ΔKE = ½ × 1200 × (400 − 100) = **180,000 J**.
+2. If this happens over 150 m, the average net force is 180,000 ÷ 150 = **1200 N**.
+/EX
+
+EX: Stopping distance by energy
+1. A 1000 kg car at 25 m/s brakes with friction μ = 0.7. Work by friction = −μ m g d.
+2. Work-energy: −μ m g d = 0 − ½ m v². Mass cancels: d = v² ÷ (2 μ g) = 625 ÷ 13.72 = **45.6 m**, the same answer as with SUVAT on Day 1 of Week 4, but now without finding the acceleration.
+/EX
+
+EX: A bullet in a wall
+1. A 10 g bullet at 400 m/s stops in 5 cm of wood. Its kinetic energy: ½ × 0.01 × 160,000 = **800 J**.
+2. The wood does −800 J of work: F × 0.05 = 800, so F = **16,000 N** on average, which is large because the stopping distance is small.
+/EX
+
+### Kinetic energy grows as the square of speed
+Doubling the speed **quadruples** the kinetic energy, and so the braking distance. This is why speed limits matter near schools.
+
+EX: Speed and damage
+1. At 50 km/h vs 30 km/h, the speed ratio is 1.67, so the energy ratio is 1.67² = **2.78**. A car at 50 km/h carries almost three times the energy of one at 30 km/h.
+/EX
+
+### Work by a variable force
+If the force changes along the way, the work is the **area under the force-distance graph**. For a spring, the force is F = k x (proportional to the stretch).
+
+FUNC: Force of a spring | x (m) | F (N) | 200*x | 0,0.2 | 0,45 | - | A spring with k = 200 N/m. The area under the line from x = 0 to x = 0.1 m is a triangle: ½ × 0.1 × 20 = 1 J, the work done to stretch it by 10 cm.
+
+EX: Stretching a spring
+1. k = 200 N/m, stretched from 0 to 0.1 m. Area = ½ × 0.1 × 20 = **1 J**.
+2. In general W = ½ k x². We use it properly on Wednesday.
+/EX
+
+TRAP: Work is a **scalar**. It can be negative, but it has no direction. Another trap: a person holding a heavy bag still does no work on it (no displacement), even though it feels tiring. Muscles burn energy to stay tense, but the bag gains nothing.
+
+### Quick self-check
+QUIZ:
+Q: How much work does gravity do on a satellite in a circular orbit in one revolution?; positive; negative; zero; mg × 2πr; 3; The gravitational force is perpendicular to the displacement at every moment.
+Q: A 2 kg ball moves at 3 m/s. Its kinetic energy is…; 3 J; 6 J; 9 J; 18 J; 3; ½ × 2 × 9 = 9 J.
+Q: If the speed of a car triples, its kinetic energy becomes…; 3 times; 6 times; 9 times; 27 times; 3; KE grows as v².
+Q: Friction acts on a sliding block over 2 m with a force of 10 N. The work done by friction is…; +20 J; −20 J; 0; 5 J; 2; The force opposes the motion, so W = 10 × 2 × cos 180° = −20 J.
+
+### Practice
+LVL: Level 1 | Direct
+P: How much work is needed to push a crate with 80 N along 6 m (force along the motion)? => **480 J**.
+P: Find the kinetic energy of a 0.145 kg baseball at 40 m/s. => ½ × 0.145 × 1600 = **116 J**.
+LVL: Level 2 | Apply
+P: A 70 kg cyclist (with bike, total 90 kg) speeds up from 4 m/s to 10 m/s. How much work is done? => ½ × 90 × (100 − 16) = **3780 J**.
+P: A 0.5 kg block slides along a rough floor at 6 m/s and stops after 4.5 m. Find the friction force and μ (g = 9.8). => KE = ½ × 0.5 × 36 = 9 J. f × 4.5 = 9, so f = **2 N**. μ = 2 ÷ 4.9 = **0.41**.
+P: A force on a crate increases steadily from 0 to 40 N over 5 m. Find the work done. => Area of a triangle: ½ × 5 × 40 = **100 J**.
+LVL: Challenge | Stopping on ice
+P: Two cars on ice (μ = 0.1) travel at 10 m/s and 20 m/s. Find the stopping distances and compare them (g = 9.8). => d = v² ÷ (2 μ g) = v² ÷ 1.96. For 10 m/s: **51 m**. For 20 m/s: **204 m**. Doubling the speed gives 4 times the distance. On ice, a safe following distance of about 50 m is not enough at 20 m/s.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Limit: the value f(x) approaches as x approaches a. It ignores the value at a. One-sided limits must agree. Limits at infinity: divide by the highest power.
+- Limits to remember: lim (x → 0) sin x ÷ x = 1 (radians). Instantaneous speed is the limit of average speed.
+- Work W = F d cos θ. KE = ½ m v². Work-energy theorem: W_net = ΔKE. Variable force: area under the F-x graph.
+
+BN: আজকের সারকথা: লিমিট মানে x যেদিকে এগোচ্ছে f(x) কোন সংখ্যার দিকে যাচ্ছে। a তে মান না থাকলেও লিমিট থাকতে পারে। বাম ও ডান লিমিট না মিললে লিমিট নেই। sin x/x → 1 (রেডিয়ানে)। কাজ W = Fd cos θ, গতিশক্তি ½mv², কাজ-শক্তি উপপাদ্য W = ΔKE।
+
+**Tomorrow:** limit laws and algebraic tricks, and the work-energy theorem at work.
+
+CHECK: notes

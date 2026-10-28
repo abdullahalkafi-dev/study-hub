@@ -1,0 +1,84 @@
+@day Week 8 · Day 6 · Saturday
+# Week 8 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers antiderivatives, definite integrals and the fundamental theorem, substitution, areas, averages and volumes, and the physics of moment of inertia, torque, angular momentum and rolling.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: প্রতিঅন্তরকলজ, নির্দিষ্ট সমাকলন ও মৌলিক উপপাদ্য, প্রতিস্থাপন, ক্ষেত্রফল, গড় মান ও আয়তন, এবং জড়তার ভ্রামক, টর্ক, কৌণিক ভরবেগ ও গড়ানোর পদার্থবিজ্ঞান।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use g = 9.8 m/s². Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Integration (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find ∫ (4x³ − 6x + 2) dx. => **x⁴ − 3x² + 2x + C**.
+P: (1 mark) Find ∫ (e^(2x) + 1 ÷ x) dx for x > 0. => **e^(2x) ÷ 2 + ln x + C**.
+P: (1 mark) Find f if f′(x) = 6x − 4 and f(1) = 3. => f = 3x² − 4x + C. 3 − 4 + C = 3, so C = 4 and **f(x) = 3x² − 4x + 4**.
+P: (1 mark) Evaluate ∫₀³ (x² + 2x) dx. => [x³ ÷ 3 + x²] = 9 + 9 = **18**.
+P: (1 mark) Evaluate ∫₁⁴ 1 ÷ √x dx. => [2√x] = 4 − 2 = **2**.
+P: (1 mark) Evaluate ∫₀^π (1 + sin x) dx. => [x − cos x] = (π + 1) − (0 − 1) = **π + 2**.
+P: (1 mark) Find ∫ 2x (x² + 5)³ dx. => u = x² + 5: **(x² + 5)⁴ ÷ 4 + C**.
+P: (1 mark) Evaluate ∫₀¹ x e^(x²) dx. => u = x² from 0 to 1: ½ (e − 1) = **0.859**.
+P: (1 mark) Find the area enclosed between y = x² and y = x + 2. => They meet where x² − x − 2 = 0, so x = −1 and 2. The line is on top. ∫₋₁² (x + 2 − x²) dx = [x²/2 + 2x − x³/3] = (2 + 4 − 8/3) − (1/2 − 2 + 1/3) = 10/3 + 7/6 = **9/2 = 4.5**.
+P: (1 mark) Find the average value of f(x) = x³ on [0, 2]. => (1/2) [x⁴ ÷ 4] = (1/2)(4) = **2**.
+P: (1 mark) Find d/dx ∫₀^(x²) eᵗ dt. => eˣ² × 2x = **2x e^(x²)**.
+P: (1 mark) Estimate ∫₀² x² dx with four right-endpoint rectangles. => Δx = 0.5, heights 0.25, 1, 2.25, 4. Sum = 7.5 × 0.5 = **3.75** (exact 8/3).
+P: (2 marks) A particle has velocity v(t) = 2t − 6 m/s for 0 ≤ t ≤ 5. Find its displacement and the total distance it travels. => Displacement = [t² − 6t] = 25 − 30 = **−5 m**. The velocity is zero at t = 3. ∫₀³ v dt = 9 − 18 = −9, and ∫₃⁵ v dt = (−5) − (−9) = +4. Distance = 9 + 4 = **13 m**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Rotation (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) Find I for a 3 kg mass at 0.4 m and a 1 kg mass at 1.2 m from the same axis. => 3 × 0.16 + 1 × 1.44 = 0.48 + 1.44 = **1.92 kg·m²**.
+P: (1 mark) A uniform rod (1.5 kg, 2 m) spins about one end at 3 rad/s. Find I and the kinetic energy. => I = (1/3)(1.5)(4) = **2 kg·m²**. KE = ½ × 2 × 9 = **9 J**.
+P: (1 mark) A 20 N force acts tangentially on the rim of a solid disc (M = 10 kg, R = 0.5 m) free to turn about its centre. Find α. => I = ½ × 10 × 0.25 = 1.25. τ = 20 × 0.5 = 10 N·m. α = **8 rad/s²**.
+P: (1 mark) A skater spins at 4 rad/s with I = 3 kg·m² and pulls in to I = 1 kg·m². Find the new ω and the work she does. => ω₂ = 12 ÷ 1 = **12 rad/s**. KE₁ = ½ × 3 × 16 = 24 J, KE₂ = ½ × 1 × 144 = 72 J. Work = **48 J**.
+P: (1 mark) Masses of 1 kg and 3 kg hang over a solid disc pulley of mass 2 kg. Find the acceleration and the tension on the heavier side. => I ÷ R² = M ÷ 2 = 1 kg. a = (3 − 1) × 9.8 ÷ (1 + 3 + 1) = **3.92 m/s²**. T₂ = 3 (9.8 − 3.92) = **17.6 N**.
+P: (1 mark) A solid sphere rolls without slipping from rest down a ramp, dropping 0.7 m. Find its speed at the bottom. => v = √(2 × 9.8 × 0.7 ÷ 1.4) = √9.8 = **3.13 m/s**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 9. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 8. Tell me, and I will rebalance Week 9. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q9 | Integrated (x² − x − 2) | Took the parabola as the top curve | Test a point between the limits: the line is on top, so use top minus bottom | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: + C ভুলে যাওয়া, প্রতিস্থাপনে সীমা না বদলানো, ক্ষেত্রফলে উপর-নিচ উল্টানো, সরণ ও দূরত্ব গুলিয়ে ফেলা, আর কৌণিক ভরবেগ সংরক্ষণে ভুল অক্ষ নেওয়া।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | A bowl by revolution
+P: The region under y = x² between x = 0 and x = 2 is spun about the **y-axis**, which makes a bowl of depth 4 (use slices at height y with radius x = √y). Find the volume the bowl holds. => A slice at height y is a disc of radius √y, so area π y. V = π ∫₀⁴ y dy = π × 16 ÷ 2 = **8π ≈ 25.1**. (Check: the cylinder of radius 2 and height 4 has volume 16π, and the bowl holds exactly half.)
+
+LVL: Challenge | A rod that gets heavier
+P: A rod of length L has a mass per unit length λ(x) = λ₀ (1 + x ÷ L), where x is measured from one end. Find its total mass M, its centre of mass, and its moment of inertia about the x = 0 end in terms of M and L. Compare with the uniform rod. => M = ∫₀ᴸ λ₀ (1 + x ÷ L) dx = λ₀ (L + L ÷ 2) = **1.5 λ₀ L**. Centre of mass: (1 ÷ M) ∫ x λ dx = λ₀ (L² ÷ 2 + L² ÷ 3) ÷ (1.5 λ₀ L) = (5/6) L ÷ 1.5 = **5L ÷ 9** (a bit beyond the middle, as expected). I = ∫ x² λ dx = λ₀ (L³ ÷ 3 + L³ ÷ 4) = (7/12) λ₀ L³ = (7/12)(M ÷ 1.5) L² = **7 M L² ÷ 18 ≈ 0.389 M L²**, compared with 0.333 M L² for the uniform rod: more mass far from the axis means a larger I.
+
+### Optional coding idea (not part of the study plan)
+**Integral and skater explorer:** a page where the user types a function and limits, and the page shows left, right, midpoint and trapezoid sums converging to the exact value (using the fundamental theorem when it knows an antiderivative). A second panel animates a skater whose arm length you control, drawing ω and the kinetic energy as I changes with L fixed.
+
+### What Week 9 looks like
+**Integration, part 2:** integration by parts, trigonometric integrals and partial fractions, and improper integrals. Physics: **simple harmonic motion** of springs and pendulums. The story: why a car bounces after a pothole and how a shock absorber stops it. You will see that oscillation is just an integral you already know how to do, solved by sines and cosines.
+
+BN: আগামী সপ্তাহে সমাকলন পর্ব ২: খণ্ডাংশে সমাকলন (by parts), ত্রিকোণমিতিক সমাকলন, আংশিক ভগ্নাংশ, আর অপ্রকৃত সমাকলন। পদার্থবিজ্ঞানে স্প্রিং ও দোলকের সরল ছন্দিত গতি (SHM)। গল্প: গর্তে পড়ার পর গাড়ি কেন লাফায় আর শক-অ্যাবজর্বার কীভাবে থামায়।
+
+**Sunday is a rest day.**
+
+CHECK: notes

@@ -1,0 +1,209 @@
+@day Week 4 · Day 3 · Wednesday
+# The dot product of vectors. Then: banked curves and vertical circles
+lead: The dot product multiplies two vectors into a single number that tells you how much they point the same way. It gives the angle between vectors and the work done by a force. In physics you use circular motion on tilted roads, in loops and in conical pendulums.
+
+BN: ডট গুণফল (dot product) দুটি ভেক্টরকে গুণ করে একটি সংখ্যা দেয়, যা বলে ভেক্টর দুটি কতটা একই দিকে। এর সাহায্যে ভেক্টরের মধ্যবর্তী কোণ আর বলের কাজ বের করা যায়। পদার্থবিজ্ঞানে বৃত্তাকার গতিকে ব্যবহার করব ঢালু রাস্তা, উল্লম্ব বৃত্ত আর শঙ্কু দোলকে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find the foci of x²/25 + y²/9 = 1. => c = 4, so **(±4, 0)**.
+P: What conic is x² − y² = 1? => A **hyperbola** (a = b = 1, asymptotes y = ±x).
+P: A 1 kg ball whirls at 3 m/s on a 1.5 m string, horizontal circle. Find the tension. => 1 × 9 ÷ 1.5 = **6 N**.
+P: The maximum speed on a flat bend of radius 40 m with μ = 0.9 (g = 10)? => √(0.9 × 10 × 40) = √360 = **19 m/s**.
+P: What is the centripetal acceleration of a point at radius 0.5 m rotating at 6 rad/s? => 36 × 0.5 = **18 m/s²**.
+
+CHECK: recall
+
+@section math | 2 · Math: the dot product | 55 min
+
+### Vectors in components
+A vector in the plane is a = (a₁, a₂), in 3D it is a = (a₁, a₂, a₃). Its length is |a| = √(a₁² + a₂² + a₃²). Adding is component-wise, and so is multiplying by a number.
+
+### Two ways to define the dot product
+EQ: a · b = |a| |b| cos θ     and     a · b = a₁b₁ + a₂b₂ + a₃b₃
+
+where θ is the angle between the vectors when they start from the same point.
+
+**Why do the two agree?** Apply the cosine rule to the triangle formed by a, b and a − b: |a − b|² = |a|² + |b|² − 2|a||b| cos θ. Now expand the left side in components: (a₁ − b₁)² + (a₂ − b₂)² = |a|² + |b|² − 2(a₁b₁ + a₂b₂). Comparing the two shows |a||b| cos θ = a₁b₁ + a₂b₂. ∎
+
+BN: ডট গুণফলের দুটি রূপ: |a||b|cos θ আর উপাদান ধরে a₁b₁ + a₂b₂ + a₃b₃। দুটি সমান, এটা কোসাইন রুল থেকে প্রমাণ হয় (|a − b|² কে দুভাবে লিখে)। ফল একটি সংখ্যা, ভেক্টর নয়।
+
+### Properties
+- a · b = b · a (commutative), and a · (b + c) = a · b + a · c (distributive).
+- a · a = |a|², so the length is |a| = √(a · a).
+- **a · b = 0 exactly when the vectors are perpendicular** (cos 90° = 0), assuming neither is the zero vector.
+- Positive means the angle is acute. Negative means the angle is obtuse.
+
+EX: Compute
+1. a = (2, 1, −2) and b = (1, 2, 2). Then a · b = 2 + 2 − 4 = **0**. They are perpendicular.
+2. a = (3, 4) and b = (5, 12). a · b = 15 + 48 = 63, |a| = 5 and |b| = 13.
+3. cos θ = 63 ÷ 65 = 0.9692, so **θ = 14.25°**.
+/EX
+
+EX: Angle in a triangle
+1. A(0, 0), B(4, 0), C(1, 3). At A: AB = (4, 0) and AC = (1, 3).
+2. AB · AC = 4, |AB| = 4 and |AC| = √10. cos A = 4 ÷ (4√10) = 1/√10 = 0.3162.
+3. **A = 71.6°**.
+/EX
+
+EX: Finding an unknown
+1. For which k are (2, k, 1) and (k, −3, 4) perpendicular?
+2. 2k − 3k + 4 = 0, so **k = 4**.
+/EX
+
+### Projection
+How much of a lies along b? The **scalar projection** of a onto b is |a| cos θ = a · b ÷ |b|. The **vector projection** is that length times the unit vector along b.
+
+EQ: scalar projection of a on b = (a · b) ÷ |b|     vector projection = ((a · b) ÷ (b · b)) b
+
+EX: Projection
+1. a = (4, 3) and b = (2, −1). a · b = 8 − 3 = 5 and |b| = √5.
+2. Scalar projection = 5 ÷ √5 = **√5 = 2.24**.
+3. Vector projection = (5 ÷ 5) × (2, −1) = **(2, −1)**.
+/EX
+
+### Work as a dot product
+A constant force F moving something through a displacement d does work
+
+EQ: W = F · d = |F| |d| cos θ
+
+Only the component of force **along** the motion does work. A force perpendicular to the motion (like the normal force on a flat floor) does zero work.
+
+EX: Work
+1. A 50 N pull at 30° above the horizontal drags a sledge 20 m horizontally. W = 50 × 20 × cos 30° = **866 J**.
+2. In components, F = (43.3, 25) and d = (20, 0), so F · d = 866 ✓.
+/EX
+
+TRAP: The dot product is a number, so (a · b) · c makes no sense. Another trap: a · b = a · c does **not** mean b = c, since the difference b − c could just be perpendicular to a.
+
+### Quick self-check
+QUIZ:
+Q: The dot product of (1, 2, 3) and (4, −5, 6) is…; 12; 32; 0; 24; 1; 4 − 10 + 18 = 12.
+Q: Two vectors are perpendicular when their dot product is…; 1; −1; 0; their product of lengths; 3; cos 90° = 0.
+Q: If a · b is negative, the angle between a and b is…; acute; right; obtuse; zero; 3; A negative cosine means the angle lies between 90° and 180°.
+Q: The length of (6, −8) is…; 2; 10; 14; 100; 2; √(36 + 64) = 10.
+Q: A force of 10 N acts at 60° to a displacement of 4 m. The work done is…; 40 J; 20 J; 34.6 J; 0; 2; 10 × 4 × 0.5 = 20 J.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Compute (3, −2) · (4, 5). => 12 − 10 = **2**.
+P: Find the length of (1, 2, 2). => √9 = **3**.
+P: Are (2, 3) and (−6, 4) perpendicular? => −12 + 12 = 0, so **yes**.
+LVL: Level 2 | Combine
+P: Find the angle between (1, 1, 0) and (0, 1, 1). => Dot = 1, each length √2, so cos θ = 1/2 and **θ = 60°**.
+P: Find a unit vector perpendicular to (3, 4). => (4, −3) is perpendicular (12 − 12 = 0), with length 5. The unit vector is **(0.8, −0.6)**.
+P: Find the scalar projection of (5, 5) on (3, 4). => (15 + 20) ÷ 5 = **7**.
+P: A force of (6, 2) N moves a body by (3, 4) m. Find the work and the angle between the force and displacement. => W = 18 + 8 = **26 J**. |F| = √40 = 6.325, |d| = 5, so cos θ = 26 ÷ 31.62 = 0.822, giving **θ = 34.7°**.
+LVL: Level 3 | Real
+P: A wind blows with velocity (4, 3) m/s. A flag pole sways along the direction (1, 0). How much of the wind speed acts along the swaying direction? => The scalar projection is (4 × 1 + 0) ÷ 1 = **4 m/s**.
+LVL: Challenge | The parallelogram law
+P: Prove that |a + b|² + |a − b|² = 2(|a|² + |b|²). Test with a = (1, 2) and b = (3, −1). => |a + b|² = |a|² + 2 a·b + |b|² and |a − b|² = |a|² − 2 a·b + |b|². Adding cancels the dot products, leaving 2|a|² + 2|b|². ∎ Test: a + b = (4, 1) so 17. a − b = (−2, 3) so 13. Sum = **30**. And 2 × (5 + 10) = **30** ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: banked curves, vertical circles and conical pendulums | 35 min
+
+### The banked curve
+On a flat curve only friction supplies the inward force. Tilt the road toward the centre (**bank** it by angle θ) and the normal force, which is perpendicular to the road, now has an inward component.
+
+Ignore friction first. The forces are weight mg (down) and the normal force N (tilted).
+- Vertical: N cos θ = m g.
+- Horizontal, toward the centre: N sin θ = m v² ÷ r.
+Divide the second by the first:
+
+EQ: tan θ = v² ÷ (r g)
+
+At this "design speed", no friction is needed at all, and the road would work even on ice. It does not depend on the mass.
+
+EX: Design a bend
+1. A highway bend of radius 100 m is designed for 20 m/s.
+2. tan θ = 400 ÷ (100 × 9.8) = 0.408, so **θ = 22.2°**.
+/EX
+
+**With friction.** At the **maximum** speed, the car is about to slide up the bank, so friction acts down the slope. Resolving: N sin θ + μ N cos θ = m v² ÷ r and N cos θ − μ N sin θ = m g. Divide and then divide top and bottom by cos θ:
+
+EQ: v²_max = r g (tan θ + μ) ÷ (1 − μ tan θ)
+
+EX: Maximum speed on a bank
+1. r = 100 m, θ = 15° (tan 15° = 0.2679), μ = 0.4.
+2. v² = 980 × (0.2679 + 0.4) ÷ (1 − 0.4 × 0.2679) = 980 × 0.6679 ÷ 0.8928 = 733.1.
+3. **v_max = 27.1 m/s** (about 97 km/h). Compare with the flat curve (θ = 0): √(0.4 × 980) = 19.8 m/s. Banking helps a lot.
+/EX
+
+BN: ঢালু (banked) বাঁকে অভিলম্ব বলের একটা উপাদান কেন্দ্রের দিকে থাকে। ঘর্ষণ ছাড়া: N cos θ = mg আর N sin θ = mv²/r, ভাগ করলে tan θ = v²/(rg)। এই নকশা-গতিতে ঘর্ষণ লাগেই না, ভরও লাগে না।
+
+### The vertical circle
+In a vertical circle the speed and the force change as the object moves, because gravity helps or hinders. Take a mass on a string (or a bucket swung overhead).
+
+**At the top.** Tension and weight both point toward the centre (down): T + m g = m v² ÷ r.
+**At the bottom.** Tension points up (toward the centre) and weight points away: T − m g = m v² ÷ r.
+
+EQ: top: T = m v²/r − m g     bottom: T = m v²/r + m g
+
+At the top, the string can only pull. The least speed to keep the string tight is when T = 0, so m g = m v² ÷ r, giving **v_min = √(g r)**.
+
+EX: Swinging a mass
+1. m = 2 kg on r = 0.8 m. At the top the speed is 4 m/s: T = 2 × 16 ÷ 0.8 − 19.6 = 40 − 19.6 = **20.4 N**.
+2. At the bottom the speed is 7 m/s: T = 2 × 49 ÷ 0.8 + 19.6 = 122.5 + 19.6 = **142.1 N**.
+3. The least speed at the top: √(9.8 × 0.8) = √7.84 = **2.8 m/s**.
+/EX
+
+EX: Why water stays in a swung bucket
+1. Radius 1 m. At the top, the bucket needs at least √(9.8 × 1) = 3.13 m/s.
+2. With a higher speed the bucket pushes down on the water with a normal force N + m g = m v² ÷ r. The water presses on the bucket, so it does not fall out, and you do not need to feel any "magic".
+/EX
+
+EX: The roller-coaster loop
+1. A loop has radius 10 m. At the top the speed is 15 m/s. The seat pushes on a 60 kg rider with N = m v² ÷ r − m g = 60 × 225 ÷ 10 − 588 = 1350 − 588 = **762 N**, about 1.3 times the weight. The rider feels pressed into the seat even upside down.
+/EX
+
+### The conical pendulum
+A mass on a string of length L swings in a horizontal circle. The string makes angle θ with the vertical.
+- Vertical: T cos θ = m g.
+- Horizontal: T sin θ = m v² ÷ r with r = L sin θ.
+Dividing: tan θ = v² ÷ (r g), the same as the banked curve. Using v = ω r we get ω² = g ÷ (L cos θ).
+
+EX: A conical pendulum
+1. L = 1.5 m, θ = 30°. r = 1.5 × sin 30° = 0.75 m.
+2. ω² = 9.8 ÷ (1.5 × 0.866) = 7.54, so ω = 2.75 rad/s and the period = 2π ÷ ω = **2.29 s**.
+3. v = ω r = 2.06 m/s. For a 0.2 kg bob, T = m g ÷ cos θ = 1.96 ÷ 0.866 = **2.26 N**.
+/EX
+
+TRAP: In a vertical circle, the speed is **not** constant, so the formula a = v²/r gives only the **centripetal** part of the acceleration. There is also a tangential part (not needed here as we use the instantaneous speed). And never include "m v²/r" as a force on the free-body diagram: it is the result of adding the real forces.
+
+### Quick self-check
+QUIZ:
+Q: A frictionless banked road works perfectly at a speed where…; tan θ = v²/(rg); tan θ = rg/v²; sin θ = v²/(rg); θ = 45° always; 1; N sin θ = mv²/r and N cos θ = mg give tan θ = v²/(rg).
+Q: At the top of a vertical circle, tension T and weight mg…; point opposite ways; both point toward the centre; both point outward; cancel; 2; At the top, both point downward, toward the centre.
+Q: The minimum speed at the top of a vertical circle of radius r (string tight) is…; g r; √(g r); g/r; 2g r; 2; At T = 0, m g = m v²/r gives v = √(g r).
+Q: At the bottom of a vertical circle, the tension is…; less than mg; equal to m v²/r − mg; equal to m v²/r + mg; zero; 3; The net force upward is T − mg = m v²/r.
+Q: For a conical pendulum, tan θ equals…; v²/(r g); g/(v² r); v r g; r g/v; 1; Same ratio as the banked curve.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the bank angle for a frictionless curve with r = 50 m designed for 15 m/s (g = 9.8). => tan θ = 225 ÷ 490 = 0.459, so **θ = 24.7°**.
+P: What is the least speed at the top of a vertical circle of radius 2.5 m? => √(9.8 × 2.5) = **4.95 m/s**.
+LVL: Level 2 | Apply
+P: A 1.5 kg mass is whirled in a vertical circle of radius 0.6 m at a constant 5 m/s. Find the tension at the top and bottom. => m v² ÷ r = 1.5 × 25 ÷ 0.6 = 62.5 N. Top: 62.5 − 14.7 = **47.8 N**. Bottom: 62.5 + 14.7 = **77.2 N**.
+P: A conical pendulum with a 1 m string rotates so that the string makes 40° with the vertical. Find its period. => ω² = 9.8 ÷ (1 × cos 40°) = 9.8 ÷ 0.766 = 12.79, so ω = 3.58 rad/s and the period is **1.76 s**.
+P: A racetrack bend of radius 150 m is banked at 10°. What is the design speed? => v² = r g tan θ = 150 × 9.8 × 0.1763 = 259.2, so **v = 16.1 m/s**.
+LVL: Challenge | A car on a hill
+P: A car drives over the top of a round hill of radius 40 m. At what speed does it just lose contact with the road? Then explain what the driver feels at that speed (g = 9.8). => At the top, mg − N = m v² ÷ r. Contact is lost when N = 0: v = √(g r) = √392 = **19.8 m/s** (about 71 km/h). At this speed the driver feels weightless, since the road does not push on the car at all. At higher speed the car leaves the road and follows a projectile path.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Dot product: a · b = |a||b| cos θ = a₁b₁ + a₂b₂ + a₃b₃. Zero means perpendicular. Projection (a · b) ÷ |b|. Work W = F · d.
+- Banked curve (no friction): tan θ = v²/(r g). Vertical circle: top T = mv²/r − mg, bottom T = mv²/r + mg, minimum top speed √(gr).
+- Conical pendulum: tan θ = v²/(r g), ω² = g/(L cos θ).
+
+BN: আজকের সারকথা: ডট গুণফল a·b = |a||b|cos θ, শূন্য হলে ভেক্টর দুটি লম্ব; প্রক্ষেপণ ও কাজ W = F·d। ঢালু বাঁকে tan θ = v²/(rg); উল্লম্ব বৃত্তে ওপরে T = mv²/r − mg, নিচে T = mv²/r + mg, ওপরে ন্যূনতম গতি √(gr)।
+
+**Tomorrow:** the cross product, Newton's law of gravitation and weight.
+
+CHECK: notes

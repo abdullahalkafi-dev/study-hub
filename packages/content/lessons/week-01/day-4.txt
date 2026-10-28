@@ -1,0 +1,224 @@
+@day Week 1 · Day 4 · Thursday
+# Inequalities, absolute value, quadratics by factoring. Then: the third equation of motion and stopping distance
+lead: Today you handle "less than" and "distance from" statements, solve your first quadratic equations, and then use the third equation of motion to see why speed limits exist.
+
+BN: আজকের পাঠ: (১) অসমতা (inequality) আর পরম মান (absolute value), (২) ফ্যাক্টর করে দ্বিঘাত সমীকরণ সমাধান, (৩) পদার্থবিজ্ঞানে গতির তৃতীয় সমীকরণ v² = u² + 2as এবং কেন গতিসীমা মানা জরুরি তা হিসাব করে দেখা।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | The last three days
+P: Make t the subject of v = u + at. => **t = (v − u) ÷ a**.
+P: Solve x + y = 9 and x − y = 1. => Add: 2x = 10, so x = 5 and y = 4. **(5, 4)**.
+P: Factor x² − 3x − 10. => −5 × 2 = −10 and −5 + 2 = −3, so **(x − 5)(x + 2)**.
+P: A car starts from rest with a = 2 m/s². Find v and s after 5 s. => v = 10 m/s. s = ½ × 2 × 25 = **25 m**.
+P: Simplify (2x³)² ÷ (4x²). => 4x⁶ ÷ 4x² = **x⁴**.
+
+CHECK: recall
+
+@section math | 2 · Math: inequalities, absolute value and quadratics | 55 min
+
+### Inequalities
+An **inequality** says one side is bigger or smaller: x > 3 means "x is greater than 3". Solutions are usually a whole range of numbers, so we draw them on a number line. An open circle ○ means the endpoint is not included (> or <). A filled circle ● means it is included (≥ or ≤).
+
+You solve inequalities almost exactly like equations. Add or subtract the same thing from both sides, or multiply and divide by a **positive** number. There is one critical difference.
+
+KEY: When you multiply or divide both sides by a **negative** number, **flip the inequality sign**.
+
+**Why the flip?** Start with a true statement: −1 < 2. Multiply both sides by −1. We get 1 and −2. But 1 is now greater than −2, so the sign must turn: 1 > −2. Negative numbers reverse the order on the number line.
+
+EX: Solve 3x − 5 > 10
+1. Add 5: 3x > 15.
+2. Divide by 3 (positive, so no flip): **x > 5**.
+/EX
+
+EX: Solve −2x ≤ 8
+1. Divide both sides by −2. This is a negative number, so flip the sign.
+2. **x ≥ −4**. Check with x = 0: −2(0) = 0 ≤ 8 ✓. Check with x = −6: 12 ≤ 8 is false ✓ (−6 is not in the answer).
+/EX
+
+EX: Solve −3 < 2x + 1 ≤ 9 (a double inequality)
+1. Do the same operation to all three parts. Subtract 1: −4 < 2x ≤ 8.
+2. Divide by 2: **−2 < x ≤ 4**.
+/EX
+
+BN: অসমতা সমীকরণের মতোই সমাধান হয়, শুধু একটা নিয়ম আলাদা: ঋণাত্মক সংখ্যা দিয়ে গুণ বা ভাগ করলে চিহ্ন উল্টে যায়। কারণ −1 < 2 কে −1 দিয়ে গুণ করলে 1 > −2 হয়। ঋণাত্মক সংখ্যা সংখ্যারেখার ক্রম উল্টে দেয়।
+
+### Absolute value: distance from zero
+The **absolute value** |x| is the distance of x from 0, so it is never negative. |5| = 5 and |−5| = 5. More generally |x − a| is the **distance between x and a**. That one idea solves everything.
+
+- |x − 2| = 3 means "x is 3 away from 2", so x = 5 or x = −1.
+- |x − 2| < 3 means "x is less than 3 away from 2", so −1 < x < 5.
+- |x − 2| > 3 means "x is more than 3 away from 2", so x < −1 or x > 5.
+
+EX: Solve |2x − 1| = 5
+1. The inside is either +5 or −5.
+2. 2x − 1 = 5 gives x = 3. 2x − 1 = −5 gives x = −2.
+3. **x = 3 or x = −2**. Check x = −2: |−5| = 5 ✓.
+/EX
+
+EX: Solve |x + 4| ≤ 6
+1. Write it as a double inequality: −6 ≤ x + 4 ≤ 6.
+2. Subtract 4 from all parts: **−10 ≤ x ≤ 2**.
+/EX
+
+BN: |x − a| মানে x আর a এর মধ্যে দূরত্ব। তাই |x − 2| < 3 মানে "২ থেকে ৩ এর কম দূরে", অর্থাৎ −1 < x < 5। আর > হলে উত্তর দুই ভাগে: x < −1 বা x > 5। দূরত্ব কখনো ঋণাত্মক হয় না, তাই |x| = −3 এর কোনো সমাধান নেই।
+
+### Quadratic equations by factoring
+A **quadratic equation** has an x² term: ax² + bx + c = 0. You met the key idea on Tuesday: if a product is zero, one of the factors is zero.
+
+KEY: Steps: (1) move everything to one side so the other side is 0, (2) factor, (3) set each factor to 0, (4) solve, (5) check.
+
+EX: Solve x² − 5x + 6 = 0
+1. Factor: (x − 2)(x − 3) = 0.
+2. x − 2 = 0 or x − 3 = 0.
+3. **x = 2 or x = 3**.
+/EX
+
+EX: Solve x² = 3x
+1. Move everything to one side: x² − 3x = 0.
+2. Factor out x: x(x − 3) = 0.
+3. **x = 0 or x = 3**.
+4. Do not divide both sides by x. That would throw away the solution x = 0.
+/EX
+
+EX: Solve 2x² − x − 6 = 0
+1. Multiply the front number by the last: 2 × (−6) = −12. We need two numbers that multiply to −12 and add to −1: 3 and −4.
+2. Split the middle: 2x² + 3x − 4x − 6 = 0.
+3. Group: x(2x + 3) − 2(2x + 3) = 0, so (2x + 3)(x − 2) = 0.
+4. **x = −3/2 or x = 2**.
+/EX
+
+TRAP: Never "solve" (x − 2)(x − 3) = 6 by saying x − 2 = 6 or x − 3 = 6. The zero-product rule only works when the product equals **zero**. Expand first: x² − 5x + 6 = 6, so x² − 5x = 0 and x(x − 5) = 0.
+
+### What the answers mean on a graph
+The graph of y = x² − x − 6 is a U-shape called a **parabola**. Its solutions of x² − x − 6 = 0 are the places where it crosses the x-axis.
+
+GRAPH: y = x² − x − 6 | x | y | -3,6 -2,0 -1,-4 0,-6 1,-6 2,-4 3,0 4,6 | The curve (drawn with straight pieces between the plotted points) crosses zero at x = −2 and x = 3. Between those two values the curve is below zero, so x² − x − 6 < 0 exactly when −2 < x < 3.
+
+### Quadratic inequalities
+Solve x² − x − 6 < 0. Factor: (x − 3)(x + 2) < 0. The product is negative when the factors have opposite signs. Using the graph above, the curve is below the x-axis between its roots, so **−2 < x < 3**. For x² − x − 6 > 0, the answer is outside the roots: x < −2 or x > 3.
+
+BN: দ্বিঘাত অসমতায় আগে মূল দুটো বের করো (সমীকরণের মতো)। তারপর গ্রাফের কথা ভাবো: U-আকৃতির বক্ররেখা মূল দুটোর মাঝখানে x-অক্ষের নিচে থাকে, বাইরে উপরে থাকে। তাই < 0 হলে উত্তর মূল দুটোর মাঝখানে, > 0 হলে বাইরে।
+
+### A first physical use
+A ball thrown straight up from the ground has height h = 20t − 5t² metres after t seconds. When is it back on the ground? Set h = 0: 20t − 5t² = 0, so 5t(4 − t) = 0, giving **t = 0 (the throw) or t = 4 s (the landing)**. You will see this again in Week 2 as free fall.
+
+### Quick self-check
+QUIZ:
+Q: Solve −3x > 12.; x > −4; x < −4; x > 4; x < 4; 2; Divide by −3 and flip the sign: x < −4.
+Q: Solve |x − 1| < 4.; x < 5; −3 < x < 5; x < −3 or x > 5; −5 < x < 3; 2; Distance from 1 is less than 4, so x lies between 1 − 4 and 1 + 4.
+Q: The solutions of x² − 7x + 12 = 0 are…; 3 and 4; −3 and −4; 2 and 6; 1 and 12; 1; (x − 3)(x − 4) = 0.
+Q: Solve x² − 4 > 0.; −2 < x < 2; x < −2 or x > 2; x > 2 only; x < 2; 2; x² − 4 = (x − 2)(x + 2). The curve is above the axis outside the roots −2 and 2.
+Q: How many solutions does |x| = −3 have?; 1; 2; 0; Infinitely many; 3; An absolute value is a distance and cannot be negative, so there is no solution.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Solve 2x + 3 < 11. => 2x < 8, so **x < 4**.
+P: Solve −x ≥ 5. => Multiply by −1 and flip: **x ≤ −5**.
+P: Solve |x| = 7. => **x = 7 or x = −7**.
+P: Solve x² − 8x + 15 = 0. => (x − 3)(x − 5) = 0, so **x = 3 or x = 5**.
+P: Solve x² + 4x = 0. => x(x + 4) = 0, so **x = 0 or x = −4**.
+LVL: Level 2 | Mixed
+P: Solve 5 − 2x > 9. => −2x > 4, so **x < −2** (flip).
+P: Solve |3x − 2| = 7. => 3x − 2 = 7 gives x = 3. 3x − 2 = −7 gives x = −5/3. So **x = 3 or x = −5/3**.
+P: Solve |x + 1| ≥ 3. => x + 1 ≥ 3 or x + 1 ≤ −3, so **x ≥ 2 or x ≤ −4**.
+P: Solve 3x² − 10x + 3 = 0. => 3 × 3 = 9 needs two numbers that multiply to 9 and add to −10: −1 and −9. Split: 3x² − x − 9x + 3 = x(3x − 1) − 3(3x − 1) = (3x − 1)(x − 3). So **x = 1/3 or x = 3**.
+P: Solve x² − 2x − 8 < 0. => (x − 4)(x + 2) < 0, so **−2 < x < 4**.
+LVL: Level 3 | Stories
+P: A rectangular garden is 3 m longer than it is wide, and its area must be at most 40 m². What widths are possible? => w(w + 3) ≤ 40, so w² + 3w − 40 ≤ 0, which factors as (w + 8)(w − 5) ≤ 0. So −8 ≤ w ≤ 5. A width must be positive: **0 < w ≤ 5 m**.
+P: A ball's height is h = 30t − 5t² metres. When is it above 40 m? => 30t − 5t² > 40, so 5t² − 30t + 40 < 0, so t² − 6t + 8 < 0, which is (t − 2)(t − 4) < 0. **2 s < t < 4 s**.
+P: The temperature of a lab must stay within 3 °C of 22 °C. Write this with absolute value and as an interval. => |T − 22| ≤ 3, so **19 °C ≤ T ≤ 25 °C**.
+LVL: Challenge | Spot the error
+P: A student solves x² = 5x by dividing by x to get x = 5. What did they miss, and what is the full solution? => x² − 5x = 0, so x(x − 5) = 0, giving **x = 0 or x = 5**. Dividing by x assumed x ≠ 0, so they lost the solution x = 0.
+
+CHECK: math
+
+@section physics | 3 · Physics: the third equation of motion and stopping distance | 35 min
+
+### The equation that does not need time
+Sometimes a problem gives you no time at all: "a car brakes from 20 m/s to rest over 40 m". For these we want an equation without t. Build it from two we already know.
+
+EX: Eliminating t
+1. From v = u + at: t = (v − u) ÷ a.
+2. From s = ½(u + v)t, put in that t: s = ½(u + v)(v − u) ÷ a.
+3. Use the identity (v + u)(v − u) = v² − u²: s = (v² − u²) ÷ (2a).
+4. Rearrange: **v² = u² + 2as**.
+/EX
+
+EQ: v² = u² + 2as
+
+BN: যখন সময় (t) দেওয়া নেই, তখন এই সমীকরণ কাজে লাগে। এটা বের হয়েছে প্রথম দুটো সমীকরণ থেকে t কে বাদ দিয়ে। এখানে সোমবারের (a + b)(a − b) = a² − b² identity কাজে লাগল। দেখো, অ্যালজেবরা আর পদার্থবিজ্ঞান একসাথে কাজ করছে।
+
+### Which equation do I use?
+| Missing quantity | Use |
+| s (not needed) | v = u + at |
+| v (not needed) | s = ut + ½at² |
+| a (not needed) | s = ½(u + v)t |
+| t (not needed) | v² = u² + 2as |
+
+EX: A runway
+1. An aircraft must reach 60 m/s to take off. Its engines give a = 2.5 m/s² from rest. How long must the runway be?
+2. Known: u = 0, v = 60, a = 2.5. Unknown s. No time involved.
+3. v² = u² + 2as: 3600 = 0 + 5s, so **s = 720 m**.
+/EX
+
+EX: A braking car
+1. A car at 20 m/s brakes with a = −5 m/s² until it stops. Find the braking distance.
+2. 0 = 400 + 2(−5)s, so 10s = 400 and **s = 40 m**.
+/EX
+
+EX: A bullet stopped by wood
+1. A bullet at 400 m/s stops after 0.2 m in a block. Find its acceleration.
+2. 0 = 400² + 2a(0.2), so 0.4a = −160000 and **a = −400,000 m/s²**. That is a deceleration of about 40,000 g, which is why bullets stop so violently.
+/EX
+
+### Why speed limits exist
+Stopping distance has two parts:
+- **Thinking distance** = u × reaction time (the car keeps moving at speed u while you react).
+- **Braking distance** = u² ÷ (2|a|), from v² = u² + 2as with v = 0.
+
+Take a = −6 m/s² (a good road) and a reaction time of 1 s.
+
+| Speed | Thinking | Braking | Total stopping |
+| 15 m/s (54 km/h) | 15 m | 15² ÷ 12 = 18.75 m | 33.75 m |
+| 30 m/s (108 km/h) | 30 m | 30² ÷ 12 = 75 m | 105 m |
+
+Double the speed and the thinking distance doubles, but the **braking distance quadruples**, because u is squared. That is why a small speed increase is dangerous.
+
+BN: গতি দ্বিগুণ হলে থামার দূরত্ব চার গুণ হয়, কারণ ব্রেকিং দূরত্ব u² এর সমানুপাতিক। ৫৪ km/h এ থামতে ৩৪ m, ১০৮ km/h এ থামতে ১০৫ m! শুধু সূত্র নয়, এটা জীবন বাঁচানোর হিসাব।
+
+### Quick self-check
+QUIZ:
+Q: Which equation do you use when time is not given?; v = u + at; v² = u² + 2as; s = ut + ½at²; s = ½(u + v)t; 2; v² = u² + 2as has no t.
+Q: A ball is thrown at u = 0 and accelerates at 5 m/s² over 10 m. What is v?; 5 m/s; 10 m/s; 50 m/s; 100 m/s; 2; v² = 2 × 5 × 10 = 100, so v = 10 m/s.
+Q: If speed doubles, braking distance (same braking) becomes…; 2 times; 3 times; 4 times; 8 times; 3; s = u² ÷ (2|a|), so doubling u multiplies s by 2² = 4.
+Q: A car brakes from 10 m/s at −2 m/s². The braking distance is…; 5 m; 10 m; 25 m; 50 m; 3; s = u² ÷ (2|a|) = 100 ÷ 4 = 25 m.
+
+### Practice
+LVL: Level 1 | Direct
+P: A car goes from rest with a = 4 m/s² over 50 m. Find v. => v² = 0 + 2 × 4 × 50 = 400, so **v = 20 m/s**.
+P: A cyclist brakes from 8 m/s to rest at −2 m/s². Find the braking distance. => 0 = 64 − 4s, so **s = 16 m**.
+P: A train accelerates from 10 m/s to 20 m/s over 300 m. Find a. => 400 = 100 + 600a, so **a = 0.5 m/s²**.
+LVL: Level 2 | Choose your equation
+P: A car goes from 12 m/s to 28 m/s with a = 2 m/s². Find the distance and the time. => Distance: 784 = 144 + 4s, so s = **160 m**. Time: t = (28 − 12) ÷ 2 = **8 s**.
+P: A driver at 25 m/s has a 0.8 s reaction time and brakes at −5 m/s². Find the total stopping distance. => Thinking: 25 × 0.8 = 20 m. Braking: 625 ÷ 10 = 62.5 m. Total **82.5 m**.
+LVL: Challenge | How sensitive is it?
+P: By what factor does the braking distance change if (a) the road is wet and the braking deceleration halves, (b) the speed rises by 50%? => (a) s ∝ 1/|a|, so halving |a| doubles s: **×2**. (b) s ∝ u², so (1.5)² = **×2.25**. Both together: 2 × 2.25 = **×4.5**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Inequalities: like equations, but flip the sign when multiplying or dividing by a negative.
+- |x − a| is the distance between x and a. < gives one range, > gives two.
+- Quadratics: move to 0, factor, set each factor to 0. Never divide by x.
+- v² = u² + 2as when time is not involved. Braking distance ∝ u².
+
+BN: আজকের সারকথা: ঋণাত্মক দিয়ে গুণ-ভাগে অসমতার চিহ্ন উল্টাও। |x − a| মানে দূরত্ব। দ্বিঘাত সমাধানে ডানদিক শূন্য করো, ফ্যাক্টর করো, আর x দিয়ে ভাগ কোরো না। সময় না থাকলে v² = u² + 2as। গতি দ্বিগুণ হলে ব্রেকিং দূরত্ব চার গুণ।
+
+**Tomorrow (Friday):** simplifying algebraic fractions, ratio and variation, scientific notation, and a physics problem set that puts all of Week 1 together. Saturday is the weekly test.
+
+CHECK: notes

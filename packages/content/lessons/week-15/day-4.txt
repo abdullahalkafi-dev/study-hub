@@ -1,0 +1,177 @@
+@day Week 15 · Day 4 · Thursday
+# Symmetric matrices, principal axes and quadratic forms. Then: the statistical meaning of entropy
+lead: Symmetric matrices are the best-behaved matrices in science: their eigenvalues are real and their eigenvectors are perpendicular, so they define a natural set of axes, the principal axes. They describe ellipses, stresses, moments of inertia and the covariance of data. In physics you finally learn why entropy exists: it counts the number of ways the microscopic parts can arrange themselves, S = k ln W, and that explains why the second law is not just "unlikely to be broken" but overwhelmingly certain.
+
+BN: প্রতিসম ম্যাট্রিক্স বিজ্ঞানের সবচেয়ে সুবিন্যস্ত ম্যাট্রিক্স: এদের eigenvalue বাস্তব আর eigenvector পরস্পর লম্ব, তাই এরা একটা স্বাভাবিক অক্ষ-জোট (মুখ্য অক্ষ) তৈরি করে। এরা উপবৃত্ত, পীড়ন, জড়তার ভ্রামক ও তথ্যের সহভেদাংক বর্ণনা করে। পদার্থবিজ্ঞানে অবশেষে জানবে এনট্রপি কেন আছে: ক্ষুদ্র অংশগুলো কত উপায়ে সাজতে পারে তার গণনা, S = k ln W, আর এটাই বোঝায় দ্বিতীয় সূত্র কেন "ভাঙার সম্ভাবনা কম" নয়, বরং প্রায় নিশ্চিতভাবে অটুট।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find the eigenvalues of [[2, 1], [1, 2]]. => **1 and 3**.
+P: What is ΔS for 1000 J of heat entering a reservoir at 500 K? => 1000 ÷ 500 = **2 J/K**.
+P: State the second law in terms of entropy. => **ΔS_total ≥ 0**.
+P: What is the Carnot efficiency for T_H = 600 K and T_C = 300 K? => **50%**.
+P: What is the dot product of (2, 1) and (1, −2)? => 2 − 2 = **0** (perpendicular).
+
+CHECK: recall
+
+@section math | 2 · Math: symmetric matrices and principal axes | 55 min
+
+### The spectral theorem
+A real matrix is **symmetric** if A = Aᵀ (the entry in row i, column j equals the entry in row j, column i). For symmetric matrices:
+
+1. All eigenvalues are **real**.
+2. Eigenvectors for different eigenvalues are **perpendicular**.
+3. A = Q D Qᵀ, where the columns of Q are **unit** eigenvectors and Qᵀ Q = I (Q is **orthogonal**, so Q⁻¹ = Qᵀ: no inverse computation needed).
+
+EX: A first decomposition
+1. A = [[2, 1], [1, 2]] has λ = 3 with (1, 1) and λ = 1 with (1, −1). Their dot product is 1 − 1 = **0** ✓.
+2. Normalise: (1, 1) ÷ √2 and (1, −1) ÷ √2. So Q = (1 ÷ √2) [[1, 1], [1, −1]].
+3. Q Qᵀ = (1/2) [[1 + 1, 1 − 1], [1 − 1, 1 + 1]] = **I** ✓. And A = Q diag (3, 1) Qᵀ.
+4. **Second example:** A = [[5, 2], [2, 2]]: trace 7, det 6, so λ² − 7λ + 6 = 0 and **λ = 6 and 1**. For 6: A − 6I = [[−1, 2], [2, −4]], eigenvector **(2, 1)**. For 1: A − I = [[4, 2], [2, 1]], eigenvector **(1, −2)**. The dot product is 2 − 2 = **0** ✓.
+/EX
+
+BN: প্রতিসম ম্যাট্রিক্সে (A = Aᵀ): সব eigenvalue বাস্তব; ভিন্ন eigenvalue এর eigenvector গুলো লম্ব; A = QDQᵀ, Q এর স্তম্ভ একক eigenvector, Qᵀ Q = I তাই Q⁻¹ = Qᵀ। উদাহরণ: [[5, 2], [2, 2]] এর eigenvalue 6 ও 1, eigenvector (2, 1) ও (1, −2), ডট গুণফল শূন্য।
+
+### Quadratic forms and conics
+A **quadratic form** is the expression Q (x, y) = [x y] A [x y]ᵀ = a x² + 2b xy + c y² for the symmetric matrix A = [[a, b], [b, c]]. Rotating to the principal axes (u, v), the cross term disappears:
+
+EQ: a x² + 2b xy + c y² = λ₁ u² + λ₂ v²     (λ₁, λ₂ = the eigenvalues, u, v = coordinates along the eigenvectors)
+
+So **Q = 1** is an **ellipse** if both eigenvalues are positive (semi-axes 1 ÷ √λ), a **hyperbola** if they have opposite signs. The axes are rotated by an angle θ with **tan 2θ = 2b ÷ (a − c)**.
+
+EX: Conics
+1. **5x² + 4xy + 2y² = 1:** A = [[5, 2], [2, 2]] with λ = 6, 1. In principal axes 6u² + v² = 1: an **ellipse** with semi-axes 1 ÷ √6 = **0.408** (along (2, 1)) and **1** (along (1, −2)). The angle: tan 2θ = 4 ÷ 3, 2θ = 53.13°, **θ = 26.57°** (the direction (2, 1)).
+2. **x² + 4xy + y² = 1:** A = [[1, 2], [2, 1]] with λ = 3 and −1. So 3u² − v² = 1: a **hyperbola** with its vertices on the line y = x at distance 1 ÷ √3 = **0.577**.
+3. **Maximum and minimum:** on the unit circle x² + y² = 1, the form Q takes its largest value λ₁ and smallest λ₂ at the eigenvectors. For A = [[5, 2], [2, 2]]: at (2, 1) ÷ √5: 5 × 4/5 + 4 × 2/5 + 2 × 1/5 = 4 + 1.6 + 0.4 = **6** ✓.
+4. **Positive definite** means all eigenvalues are positive (Q > 0 for every x ≠ 0). For a 2 × 2 matrix: a > 0 and det > 0. [[2, 1], [1, 2]] is positive definite; [[1, 3], [3, 1]] has det −8 and is not.
+/EX
+
+LAB: A conic from a symmetric matrix | Choose A = [[a, b], [b, c]]. The graph shows the curve a x² + 2b xy + c y² = 1: an ellipse when a c > b², otherwise a hyperbola. The numbers give the eigenvalues (the principal values), the determinant and the semi-axes. | a:a:0.5:5:0.5:5 ;; b:b:-3:3:0.5:2 ;; c:c:0.5:5:0.5:2 | ((a+c)/2+sqrt(((a-c)/2)^2+b^2)):Larger eigenvalue λ₁:3 ;; ((a+c)/2-sqrt(((a-c)/2)^2+b^2)):Smaller eigenvalue λ₂:3 ;; a*c-b^2:Determinant:2 ;; 1/sqrt(((a+c)/2+sqrt(((a-c)/2)^2+b^2))):Short semi-axis 1 ÷ √λ₁:3 ;; 1/sqrt(((a+c)/2-sqrt(((a-c)/2)^2+b^2))):Long semi-axis 1 ÷ √λ₂ (n/a for a hyperbola):3 | (-b*x+sqrt(b^2*x^2-c*(a*x^2-1)))/c ;; (-b*x-sqrt(b^2*x^2-c*(a*x^2-1)))/c | -1.5,1.5 | -1.5,1.5
+
+### Why symmetric matrices matter
+EX: Where they appear
+1. **Stress:** in a flat piece of steel the stresses on a small square form a symmetric matrix [[σ_x, τ], [τ, σ_y]]. Take σ_x = 50, σ_y = 10, τ = 30 MPa. Then trace 60 and det 500 − 900 = −400, so λ² − 60λ − 400 = 0 and **λ = 66.1 and −6.1 MPa** (the principal stresses). The principal direction has tan 2θ = 2 × 30 ÷ (50 − 10) = 1.5, **θ = 28.2°**. The largest shear stress is (66.1 + 6.1) ÷ 2 = **36.1 MPa**. Engineers design along the principal axes.
+2. **Moment of inertia** of a rigid body is a symmetric 3 × 3 matrix; its eigenvectors are the principal axes about which the body spins without wobble.
+3. **Covariance of data** is symmetric: its eigenvectors are the directions of greatest spread (principal component analysis, tomorrow).
+/EX
+
+BN: দ্বিঘাত রাশি ax² + 2bxy + cy² মুখ্য অক্ষে λ₁u² + λ₂v² হয়। Q = 1 হলো উপবৃত্ত (দুটো λ ধনাত্মক, অর্ধ-অক্ষ 1/√λ) অথবা অধিবৃত্ত (বিপরীত চিহ্ন)। অক্ষের কোণ: tan 2θ = 2b/(a − c)। ইস্পাতের পীড়ন, ঘূর্ণনশীল বস্তুর জড়তা ও তথ্যের সহভেদাংক সবই প্রতিসম ম্যাট্রিক্স।
+
+TRAP: The cross term 2b xy has a factor **2**: the matrix entry is b, not 2b. Eigenvectors must be **normalised** (divided by their length) before you put them in Q. And "tan 2θ = 2b ÷ (a − c)" gives the angle of **one** of the two axes, the other is 90° away.
+
+### Quick self-check
+QUIZ:
+Q: The eigenvectors of a symmetric matrix for different eigenvalues are…; parallel; perpendicular; equal; complex; 2; The spectral theorem.
+Q: For an orthogonal matrix Q, the inverse Q⁻¹ equals…; Q; Qᵀ; 2Q; −Q; 2; Qᵀ Q = I.
+Q: The curve 3u² − v² = 1 is a…; circle; ellipse; hyperbola; parabola; 3; The eigenvalues have opposite signs.
+Q: The matrix [[1, 3], [3, 1]] is positive definite…; yes; no; only if x > 0; always; 2; det = −8 < 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Is [[3, 1], [1, 3]] symmetric? Find its eigenvalues. => Yes. trace 6, det 8, **λ = 4 and 2**.
+P: Are the eigenvectors (1, 1) and (1, −1) perpendicular? => 1 − 1 = 0: **yes**.
+P: Is [[2, 1], [1, 2]] positive definite? => a = 2 > 0 and det = 3 > 0: **yes**.
+LVL: Level 2 | Apply
+P: Find the principal axes and semi-axes of 3x² + 2xy + 3y² = 1. => A = [[3, 1], [1, 3]], λ = 4 (along (1, 1)) and 2 (along (1, −1)). 4u² + 2v² = 1: semi-axes **1 ÷ √4 = 0.5** (along (1, 1)) and **1 ÷ √2 = 0.707** (along (1, −1)). Check at (1, 1) ÷ √2: 3/2 + 2/2 + 3/2 = 4 ✓.
+P: Identify x² + 4xy + y² = 1 and find the vertices. => λ = 3 and −1, so 3u² − v² = 1: a **hyperbola**, with vertices at distance 1 ÷ √3 = **0.577** along (1, 1).
+P: Find the maximum and minimum of 5x² + 4xy + 2y² on x² + y² = 1. => The eigenvalues: **6 and 1**.
+P: Normalise the eigenvectors (2, 1) and (1, −2) and check that Q = (1 ÷ √5) [[2, 1], [1, −2]] is orthogonal. => Columns have length √5 each. Dot product 2 − 2 = 0. Qᵀ Q = (1/5) [[4 + 1, 2 − 2], [2 − 2, 1 + 4]] = **I** ✓.
+P: For A = [[4, 2], [2, 1]], find λ, the axis angle and the curve 4x² + 4xy + y² = 1. => trace 5, det 0, **λ = 5 and 0**. tan 2θ = 4 ÷ 3, **θ = 26.57°**. The curve is 5u² = 1: **two parallel lines** at distance 1 ÷ √5 = 0.447 from the line through the origin along (1, −2).
+P: Show that (x + y)² = x² + 2xy + y² is a quadratic form with a singular matrix. => A = [[1, 1], [1, 1]], det = 0, eigenvalues **2 and 0**. In principal axes it is 2u² (one direction is "flat").
+LVL: Level 3 | Real
+P: The stress in a plate is σ_x = 80, σ_y = 20, τ = 40 MPa. Find the principal stresses and the maximum shear stress. => trace 100, det 1600 − 1600 = 0, so λ² − 100λ = 0: **λ = 100 and 0 MPa**. Maximum shear = **50 MPa**. (A uniaxial stress state in the principal direction.)
+LVL: Challenge | Why eigenvectors are perpendicular
+P: Prove that for a symmetric matrix A, eigenvectors v₁, v₂ with different eigenvalues λ₁ ≠ λ₂ are perpendicular, and check with A = [[5, 2], [2, 2]]. => (A v₁) · v₂ = λ₁ (v₁ · v₂). Because A is symmetric, (A v₁) · v₂ = v₁ · (A v₂) = λ₂ (v₁ · v₂). So (λ₁ − λ₂)(v₁ · v₂) = 0, and since λ₁ ≠ λ₂, **v₁ · v₂ = 0**. Check: v₁ = (2, 1), v₂ = (1, −2): 2 − 2 = 0 ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: entropy as counting | 35 min
+
+### Macrostates and microstates
+A **microstate** is a complete description of every part (which coin shows heads, where each molecule is). A **macrostate** is what you observe (the number of heads, the pressure). Many microstates give the same macrostate. Boltzmann's great insight:
+
+EQ: S = k ln W     k = 1.381 × 10⁻²³ J/K     (W = number of microstates of the macrostate)
+
+Since W multiplies for independent systems, S adds. The system will most probably be found in the macrostate with the largest W: that is the second law.
+
+BN: সূক্ষ্ম অবস্থা (microstate) = প্রতিটি অংশের পূর্ণ বর্ণনা; স্থূল অবস্থা (macrostate) = যা আমরা দেখি। বোলৎসমান: S = k ln W, W = ঐ স্থূল অবস্থার সূক্ষ্ম অবস্থার সংখ্যা। স্বাধীন ব্যবস্থায় W গুণ হয় বলে S যোগ হয়। ব্যবস্থা সবচেয়ে সম্ভবত সবচেয়ে বেশি W এর অবস্থায় থাকে: এটাই দ্বিতীয় সূত্র।
+
+EX: Counting with coins
+1. **4 coins.** The numbers of ways to get 0, 1, 2, 3, 4 heads are 1, 4, 6, 4, 1 (16 microstates in all). Two heads is the most likely macrostate: probability 6 ÷ 16 = **37.5%**; all heads: 1 ÷ 16 = 6.25%.
+2. **100 coins.** The macrostate "50 heads" has W = C(100, 50) = **1.01 × 10²⁹** microstates. Its entropy is S = k ln W = 1.381 × 10⁻²³ × 66.78 = **9.2 × 10⁻²² J/K**. The probability of all heads is 2⁻¹⁰⁰ = **7.9 × 10⁻³¹**.
+3. **Gas in a box.** If a gas is allowed to fill twice the volume, each of its N molecules has two times as many places, so W grows by 2^N and ΔS = k ln 2^N = **N k ln 2 = n R ln 2** (= 5.76 J/K per mole), exactly the thermodynamic result for the free expansion. The statistical entropy agrees with Clausius.
+4. **Why gases never un-expand:** the chance that all N molecules are found in the left half is 2⁻ᴺ. For N = 100 it is 8 × 10⁻³¹, and for a mole of gas it is 2^(−6 × 10²³), a number so small that it will not happen in the age of the universe. The second law is not strictly a law of "never", but its violations are so improbable that we never see them.
+/EX
+
+LAB: Coin entropy | A collection of coins shows heads with fraction f. The entropy per coin, in units of k, is −f ln f − (1 − f) ln (1 − f) (from Stirling's formula). The graph shows that it is largest at f = 0.5. The numbers give the entropy per coin and the approximate number of microstates for 100 coins. | f:Fraction of heads f:0.05:0.95:0.05:0.5 | -f*log(f)-(1-f)*log(1-f):Entropy per coin (units of k):3 ;; (-f*log(f)-(1-f)*log(1-f))/log(2):Entropy per coin (bits):3 ;; 100*(-f*log(f)-(1-f)*log(1-f))/log(10):log₁₀ of the number of microstates (100 coins):1 | -x*log(x)-(1-x)*log(1-x) | 0.01,0.99 | 0,0.8
+
+### Two small blocks share energy
+Model each block as oscillators sharing **quanta** of energy. Two blocks of 2 oscillators each share 4 quanta. If block A has q_A quanta, it has q_A + 1 microstates and block B (with 4 − q_A quanta) has 5 − q_A, so W = (q_A + 1)(5 − q_A):
+
+| Quanta in A | W_A | W_B | W (total) | Probability |
+| 0 | 1 | 5 | 5 | 14.3% |
+| 1 | 2 | 4 | 8 | 22.9% |
+| 2 | 3 | 3 | 9 | 25.7% |
+| 3 | 4 | 2 | 8 | 22.9% |
+| 4 | 5 | 1 | 5 | 14.3% |
+
+(The 35 microstates in all.) The most probable macrostate shares the energy equally. For two huge blocks the peak is so sharp that heat **always flows until the temperatures are equal**: the second law in statistical form.
+
+### Entropy and information
+Shannon measured information (in bits) by H = −Σ pᵢ log₂ pᵢ, and Boltzmann's entropy is the same formula in disguise: S = k ln 2 × H.
+
+EX: Bits and joules
+1. A fair coin: H = **1 bit**. A fair die: log₂ 6 = **2.585 bits**.
+2. A biased coin with P(heads) = 0.9: H = −0.9 log₂ 0.9 − 0.1 log₂ 0.1 = 0.137 + 0.332 = **0.469 bits**. It is more predictable, so it carries less information (data compression exploits this).
+3. **Landauer's principle:** erasing one bit of information must produce at least k T ln 2 of heat. At 300 K: 1.381 × 10⁻²³ × 300 × 0.693 = **2.87 × 10⁻²¹ J**. For a 1 TB disk (8 × 10¹² bits): 8 × 10¹² × 2.87 × 10⁻²¹ = **2.3 × 10⁻⁸ J**, far below what real hardware uses.
+4. **The third law:** as T → 0, a perfect crystal has a single microstate, W = 1, and S → 0.
+/EX
+
+LAB: Probability of all molecules on one side | Choose the number of molecules N. The numbers give the power of ten of the probability that all of them are found in the left half of a box (2⁻ᴺ), and the entropy increase k ln 2ᴺ when the gas spreads to fill the whole box, in units of k. | N:Number of molecules N:10:1000:10:100 | -0.30103*N:log₁₀ of the probability 2⁻ᴺ:1 ;; N*log(2):Entropy increase on spreading (units of k):1 | - | 0,1 | 0,1
+
+TRAP: S = k ln W uses the **natural** logarithm and the number of microstates of the **macrostate** (not the total number of microstates). "Entropy is disorder" is a rough picture: what counts is the number of microscopic arrangements compatible with what you see. And the statistical second law is about **probabilities**: for few particles the "forbidden" outcomes do happen.
+
+### Quick self-check
+QUIZ:
+Q: With 4 coins the most likely number of heads is…; 0; 1; 2; 4; 3; W = 6 is the largest.
+Q: If W doubles, the entropy S increases by…; k; k ln 2; 2k; k ln 4; 2; S = k ln W.
+Q: The probability that N gas molecules are all in the left half of a box is…; 1 ÷ N; 2⁻ᴺ; 1 ÷ 2N; 0.5; 2; Each molecule has probability 1/2.
+Q: The entropy of a perfect crystal at absolute zero is…; infinite; zero; k; unknown; 2; W = 1 so S = k ln 1 = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: With 4 coins, find the probability of exactly 2 heads. => 6 ÷ 16 = **37.5%**.
+P: Find the entropy of a macrostate with W = 10²⁰. => k ln W = 1.381 × 10⁻²³ × 46.05 = **6.36 × 10⁻²² J/K**.
+LVL: Level 2 | Apply
+P: In the two-block model, what is the probability that A has all 4 quanta? And that the energy is shared equally? => 5 ÷ 35 = **14.3%**; 9 ÷ 35 = **25.7%**.
+P: Find the probability that 10 molecules are all in the left half of a box. => 2⁻¹⁰ = **1/1024 ≈ 9.8 × 10⁻⁴**.
+P: Find the entropy increase of one mole of gas when its volume doubles. => N k ln 2 = n R ln 2 = **5.76 J/K**.
+P: Find the Shannon entropy of a fair die and of a biased coin with p = 0.9. => **2.585 bits** and **0.469 bits**.
+P: Find the minimum heat produced by erasing one bit at 300 K. => k T ln 2 = **2.87 × 10⁻²¹ J**.
+P: Does the entropy of the coins in the 100-coin case grow or shrink when the fraction of heads moves from 0.1 to 0.5? => The entropy per coin goes from 0.325 k to 0.693 k: it **grows**, and the 50-50 macrostate is by far the most likely.
+LVL: Level 3 | Real
+P: How much energy would be needed at the very least to erase a 1 TB hard disk at 300 K? Compare with the energy in 1 AA battery (about 10⁴ J). => 8 × 10¹² × 2.87 × 10⁻²¹ = **2.3 × 10⁻⁸ J**, about 10⁻¹² of one AA battery.
+LVL: Challenge | Stirling's approximation
+P: Use ln C(N, N/2) ≈ N ln 2 − ½ ln (π N ÷ 2) to estimate the number of microstates of 50 heads in 100 coins, and compare with the exact value 1.009 × 10²⁹. => N ln 2 = 100 × 0.6931 = 69.31. ½ ln (π × 100 ÷ 2) = ½ ln 157.08 = ½ × 5.057 = 2.528. So ln W ≈ 66.79 and **W ≈ e^66.79 = 1.0 × 10²⁹**, which agrees with the exact value to within 1%. The probability of exactly 50 heads is W ÷ 2¹⁰⁰ = 1.009 × 10²⁹ ÷ 1.268 × 10³⁰ = **0.0796**: even the most likely single outcome has only an 8% chance, but being within a few percent of 50 heads is nearly certain.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Symmetric matrices have real eigenvalues, perpendicular eigenvectors, A = Q D Qᵀ with Qᵀ = Q⁻¹. Quadratic form a x² + 2b xy + c y² = λ₁u² + λ₂v², an ellipse if both λ > 0, a hyperbola otherwise. tan 2θ = 2b ÷ (a − c). Positive definite means all λ > 0. Principal stresses and axes.
+- Statistical entropy S = k ln W. 4 coins: 1, 4, 6, 4, 1. A gas doubling its volume: ΔS = N k ln 2. All N molecules in half the box: 2⁻ᴺ. Two blocks share energy most likely equally. Shannon H = −Σ p log₂ p, Landauer k T ln 2 per bit erased.
+
+BN: আজকের সারকথা: প্রতিসম ম্যাট্রিক্স: বাস্তব eigenvalue, লম্ব eigenvector, A = QDQᵀ; দ্বিঘাত রাশি = λ₁u² + λ₂v²; tan 2θ = 2b/(a − c)। পরিসংখ্যানিক এনট্রপি S = k ln W; গ্যাসের আয়তন দ্বিগুণে ΔS = Nk ln 2; সব অণু অর্ধেক বাক্সে থাকার সম্ভাবনা 2⁻ᴺ; শ্যানন H = −Σp log₂p; ল্যান্ডাউয়ার kT ln 2।
+
+EXIT:
+E: What is the larger eigenvalue of [[5, 2], [2, 2]]?; 6; 0.001; trace 7, det 6, λ = 6 or 1.
+E: In how many ways can 2 heads appear among 4 coins?; 6; 0.001; C(4, 2) = 6.
+E: What is the Landauer minimum energy (in units of 10⁻²¹ J) to erase one bit at 300 K?; 2.87; 0.02; k T ln 2 = 1.381 × 10⁻²³ × 300 × 0.693.
+
+**Tomorrow:** principal component analysis (finding patterns in data) and real engines (Otto and Diesel cycles) with their entropy.
+
+CHECK: notes

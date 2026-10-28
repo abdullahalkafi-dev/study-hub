@@ -1,0 +1,232 @@
+@day Week 4 · Day 5 · Friday
+# Sequences and series. Then: orbits and Kepler's laws
+lead: A sequence is an ordered list of numbers that follow a rule, and a series is what you get when you add them up. Savings plans, loans, bouncing balls and decimal expansions all hide a series. In physics you use gravity plus circular motion to predict satellite speeds, periods and planetary years.
+
+BN: অনুক্রম (sequence) হলো নিয়ম মেনে সাজানো সংখ্যার তালিকা, আর ধারা (series) হলো তাদের যোগফল। সঞ্চয়, ঋণ, লাফানো বল আর দশমিক সংখ্যার মধ্যে ধারা লুকিয়ে আছে। পদার্থবিজ্ঞানে মহাকর্ষ ও বৃত্তাকার গতি মিলিয়ে বের করব উপগ্রহের গতি, পর্যায়কাল আর গ্রহের বছর।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find (1, 2, 0) × (0, 1, 0). => (2 × 0 − 0 × 1 , 0 × 0 − 1 × 0 , 1 × 1 − 2 × 0) = **(0, 0, 1)**.
+P: If gravity at the surface is g₀, what is it at a distance 3R from the centre? => **g₀/9**.
+P: Write the standard form of the parabola with focus (2, 0). => a = 2, so **y² = 8x**.
+P: A car goes round a flat bend (radius 20 m, μ = 0.5, g = 10). What is its maximum speed? => √100 = **10 m/s**.
+P: Find the angle between (0, 2) and (3, 3). => Dot = 6, lengths 2 and 3√2, so cos θ = 6 ÷ (6√2) = 1/√2, **45°**.
+
+CHECK: recall
+
+@section math | 2 · Math: sequences and series | 60 min
+
+### Sequences
+A sequence is a function from the positive integers: a₁, a₂, a₃, … Two families appear everywhere.
+
+| Type | Rule | nth term |
+| Arithmetic | add a fixed **common difference** d | aₙ = a + (n − 1) d |
+| Geometric | multiply by a fixed **common ratio** r | aₙ = a rⁿ⁻¹ |
+
+EX: Find terms
+1. 3, 7, 11, … is arithmetic with a = 3 and d = 4. The 20th term is 3 + 19 × 4 = **79**.
+2. 2, 6, 18, … is geometric with a = 2 and r = 3. The 8th term is 2 × 3⁷ = **4374**.
+/EX
+
+### Arithmetic series: the Gauss trick
+The story goes that a young Gauss summed 1 + 2 + … + 100 instantly. Write the sum forwards and backwards:
+
+S = 1 + 2 + 3 + … + 99 + 100
+S = 100 + 99 + 98 + … + 2 + 1
+
+Add column by column: every pair makes 101, and there are 100 pairs, so 2S = 100 × 101 and S = **5050**.
+
+In general, for n terms with first term a and last term l:
+
+EQ: Sₙ = n/2 (a + l) = n/2 (2a + (n − 1) d)
+
+EX: Arithmetic sums
+1. 3, 7, 11, … 20 terms: S₂₀ = 10 × (6 + 76) = **820**.
+2. A theatre has 15 rows. The first row has 20 seats and each row has 2 more than the one before. Last row: 20 + 14 × 2 = 48. Total = 15 ÷ 2 × (20 + 48) = **510 seats**.
+3. Three numbers in arithmetic progression sum to 21 and have product 315. Write them as 7 − d, 7, 7 + d (the middle is 21 ÷ 3). Then 7 (49 − d²) = 315, so d² = 4. The numbers are **5, 7, 9**.
+/EX
+
+BN: সমান্তর ধারার যোগফল: প্রথম ও শেষ পদ যোগ করে অর্ধেক পদসংখ্যা দিয়ে গুণ, Sₙ = n/2 (a + l)। গাউসের কৌশল: ধারাটা সামনে-পেছনে লিখে যোগ করলে প্রতিটা জোড়া একই যোগফল দেয়।
+
+### Geometric series
+Let S = a + a r + a r² + … + a rⁿ⁻¹. Multiply by r: r S = a r + a r² + … + a rⁿ. Subtract: S − r S = a − a rⁿ. So:
+
+EQ: Sₙ = a (1 − rⁿ) ÷ (1 − r)     (r ≠ 1)
+
+EX: A geometric sum
+1. 2 + 6 + 18 + … (8 terms): S₈ = 2 × (3⁸ − 1) ÷ (3 − 1) = 3⁸ − 1 = **6560**.
+2. The third term of a geometric sequence is 12 and the sixth is 96. Then r³ = 96 ÷ 12 = 8, so r = 2 and a = 12 ÷ 4 = 3. The sum of the first 10 terms is 3 × (2¹⁰ − 1) = **3069**.
+/EX
+
+### Infinite geometric series
+If |r| < 1, then rⁿ shrinks toward 0 as n grows. So the sum of all the terms settles to a finite value:
+
+EQ: S∞ = a ÷ (1 − r)     valid only for |r| < 1
+
+EX: Infinite sums
+1. 8 + 4 + 2 + 1 + … has a = 8 and r = 1/2, so S∞ = 8 ÷ (1/2) = **16**.
+2. Repeating decimal 0.3333… = 0.3 + 0.03 + 0.003 + … has a = 0.3 and r = 0.1, so S∞ = 0.3 ÷ 0.9 = **1/3**.
+3. 0.727272… = 0.72 + 0.0072 + … has a = 0.72 and r = 0.01, so S∞ = 0.72 ÷ 0.99 = 72/99 = **8/11**.
+4. 0.999… has a = 0.9 and r = 0.1, so S∞ = 0.9 ÷ 0.9 = **1**. So 0.999… equals 1 exactly. It is not "just below" 1.
+/EX
+
+EX: A bouncing ball
+1. A ball is dropped from 10 m. After each bounce, it rises to 60% of its previous height.
+2. Down distance: 10. Then up and down each time: 2 × (6 + 3.6 + 2.16 + …), a geometric series with a = 6 and r = 0.6, whose sum is 6 ÷ 0.4 = 15.
+3. Total distance = 10 + 2 × 15 = **40 m**, even though there are infinitely many bounces.
+/EX
+
+EX: A savings plan
+1. You save 100 each month, and the account earns 0.5% a month. Each deposit grows for a different number of months, so the final amount is a geometric series.
+2. At the end of month 12, the first deposit has grown by 1.005¹¹ and the last by 1.005⁰ (if deposits are made at the end of each month), so the total is 100 × (1.005¹² − 1) ÷ 0.005 = 100 × 12.336 = **1233.56**.
+3. Total deposits: 1200. The interest earned is **33.56**.
+/EX
+
+BN: গুণোত্তর ধারা: Sₙ = a(1 − rⁿ)/(1 − r)। অসীম ধারা যোগফল পায় যখন |r| < 1: S∞ = a/(1 − r)। উদাহরণ: 0.999… = 1, কারণ a = 0.9, r = 0.1। লাফানো বল অসীম বার ওঠানামা করলেও মোট দূরত্ব সসীম।
+
+### Sigma notation
+The symbol Σ means "add up". Σₖ₌₁ⁿ f(k) means f(1) + f(2) + … + f(n).
+
+Useful sums:
+
+EQ: Σk = n(n + 1)/2     Σk² = n(n + 1)(2n + 1)/6     Σk³ = (n(n + 1)/2)²
+
+Quick checks: for n = 3, Σk² = 1 + 4 + 9 = 14 and 3 × 4 × 7 ÷ 6 = 14 ✓. For n = 4, Σk³ = 1 + 8 + 27 + 64 = 100 and (4 × 5 ÷ 2)² = 100 ✓.
+
+EX: Telescoping
+1. Sum 1/(k(k + 1)) from k = 1 to n. Split: 1/(k(k + 1)) = 1/k − 1/(k + 1).
+2. The sum is (1 − 1/2) + (1/2 − 1/3) + … + (1/n − 1/(n + 1)). Almost everything cancels, leaving **1 − 1/(n + 1)**.
+3. As n grows, the total tends to **1**.
+/EX
+
+EX: Using the formulas
+1. Σ (2k + 1) from k = 1 to 10 = 2 × 55 + 10 = **120**.
+2. Σ k² from k = 1 to 10 = 10 × 11 × 21 ÷ 6 = **385**.
+/EX
+
+TRAP: Using S∞ = a/(1 − r) when |r| ≥ 1. A series such as 1 + 2 + 4 + 8 + … does not settle; it grows forever. Another trap is counting terms: from k = 5 to k = 12 there are 12 − 5 + 1 = **8** terms, not 7.
+
+### Quick self-check
+QUIZ:
+Q: The 10th term of 5, 8, 11, … is…; 32; 35; 38; 50; 1; a = 5, d = 3, so 5 + 9 × 3 = 32.
+Q: The sum 1 + 2 + … + 50 equals…; 1250; 1275; 2550; 1300; 2; 50 × 51 ÷ 2 = 1275.
+Q: The sum of 1 + 1/3 + 1/9 + … is…; 3/2; 2; 4/3; 3; 1; a = 1, r = 1/3, so 1 ÷ (2/3) = 3/2.
+Q: For which r does a geometric series converge?; any r; r > 1; |r| < 1; r = 1; 3; The terms must shrink to zero.
+Q: 0.666… equals…; 6/10; 2/3; 66/100; 3/5; 2; 0.6 ÷ 0.9 = 2/3.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the 15th term and the sum of the first 15 terms of 4, 9, 14, … => a₁₅ = 4 + 14 × 5 = 74. S₁₅ = 15 ÷ 2 × (4 + 74) = **585**.
+P: Find the sum of 3 + 6 + 12 + … to 6 terms. => 3 × (2⁶ − 1) = **189**.
+P: Find S∞ for 20 + 10 + 5 + … => **40**.
+LVL: Level 2 | Combine
+P: How many terms of 2, 5, 8, … are needed for the sum to exceed 1000? => Sₙ = n ÷ 2 × (4 + 3(n − 1)) = n(3n + 1) ÷ 2. For n = 25: 25 × 76 ÷ 2 = 950. For n = 26: 26 × 79 ÷ 2 = 1027. So **26 terms**.
+P: Write 0.4545… as a fraction. => 0.45 ÷ 0.99 = **5/11**.
+P: A geometric sequence has a first term of 5 and S∞ = 20. Find r. => 5 ÷ (1 − r) = 20, so 1 − r = 1/4 and **r = 3/4**.
+P: Evaluate Σ from k = 1 to 20 of (3k − 2). => 3 × 210 − 40 = **590**.
+LVL: Level 3 | Real
+P: A loan of 5000 is repaid with 10 payments, the first of 400, each next 25 more than the one before. Is the loan covered? Compute the total. => Last payment = 400 + 9 × 25 = 625. Total = 10 ÷ 2 × (400 + 625) = **5125**. This covers the 5000 and leaves 125 extra.
+LVL: Challenge | How close is close?
+P: How many terms of 1 + 1/2 + 1/4 + … are needed for the sum to be within 0.001 of its limit? => The limit is 2. Sₙ = 2 (1 − (1/2)ⁿ), so the gap is 2 ÷ 2ⁿ. We need 2 ÷ 2ⁿ < 0.001, so 2ⁿ > 2000. Since 2¹⁰ = 1024 and 2¹¹ = 2048, **n = 11 terms**.
+
+CHECK: math
+
+@section physics | 3 · Physics: orbits and Kepler's laws | 35 min
+
+### Circular orbits from two ideas
+A satellite in a circular orbit is in free fall around the planet. Gravity is the only force, so it must supply the centripetal force:
+
+G M m ÷ r² = m v² ÷ r
+
+The satellite mass cancels:
+
+EQ: v = √(G M ÷ r)     T = 2π r ÷ v = 2π √(r³ ÷ (G M))
+
+Two things follow. A higher orbit means a **slower** speed (v falls as r grows), and **T² is proportional to r³**.
+
+BN: উপগ্রহ বৃত্তাকার কক্ষপথে ঘোরে কারণ মহাকর্ষই কেন্দ্রমুখী বল: GMm/r² = mv²/r। এতে উপগ্রহের ভর কাটা যায়, ফলে v = √(GM/r)। উঁচু কক্ষপথে গতি কম। পর্যায়কাল T = 2π√(r³/GM), অর্থাৎ T² ∝ r³।
+
+EX: The International Space Station
+1. r = 6371 + 400 = 6771 km, GM = 3.986 × 10¹⁴.
+2. v = √(3.986 × 10¹⁴ ÷ 6.771 × 10⁶) = √(5.887 × 10⁷) = **7673 m/s** (about 27,600 km/h).
+3. T = 2π × 6.771 × 10⁶ ÷ 7673 = **5545 s = 92.4 minutes**. The station circles the Earth about 15.6 times per day.
+/EX
+
+EX: A geostationary satellite
+1. It must stay above one point of the Earth, so its period equals one rotation of the Earth: T = 86,164 s.
+2. r³ = G M T² ÷ 4π² = 3.986 × 10¹⁴ × 7.424 × 10⁹ ÷ 39.48 = 7.497 × 10²², so r = **4.217 × 10⁷ m**.
+3. Height above the surface = 42,166 − 6371 = **about 35,800 km**. TV dishes point at these satellites and never need to move.
+/EX
+
+EX: Weighing the Sun
+1. The Earth orbits at r = 1.496 × 10¹¹ m with T = 3.156 × 10⁷ s.
+2. From T² = 4π² r³ ÷ (G M): M = 4π² r³ ÷ (G T²) = 39.48 × 3.348 × 10³³ ÷ (6.674 × 10⁻¹¹ × 9.96 × 10¹⁴) = **1.99 × 10³⁰ kg**.
+3. You can weigh a star just by watching a planet go round. The same method weighs Jupiter from the period of its moons.
+/EX
+
+### Kepler's three laws
+Johannes Kepler found these from decades of data on Mars. Newton later explained them.
+
+1. **Orbits are ellipses** with the Sun at one focus (here is where Tuesday's conics get used).
+2. **A line from the Sun to a planet sweeps equal areas in equal times.** A planet moves fastest near the Sun (perihelion) and slowest far away (aphelion). Reason: gravity points to the Sun, so it exerts no torque, so the angular momentum (r × v) stays constant.
+3. **T² ∝ a³**, where a is the semi-major axis. In years and astronomical units (AU): T² = a³.
+
+EX: Using the third law
+1. Mars has a = 1.524 AU. T = 1.524^1.5 = **1.88 years**.
+2. Halley's comet has a period of 76 years, so a = 76^(2/3) = **17.9 AU**.
+3. Its closest approach is 0.586 AU, so the farthest point is 2a − 0.586 = 35.9 − 0.586 = **35.3 AU**, beyond Neptune.
+/EX
+
+EX: Speeds at the two ends of an orbit
+1. Earth's distance from the Sun is 0.983 AU at perihelion and 1.017 AU at aphelion.
+2. Equal areas means r × v is constant, so v_perihelion ÷ v_aphelion = 1.017 ÷ 0.983 = **1.035**. The Earth moves about 3.5% faster in January than in July.
+/EX
+
+### Escape velocity (preview)
+How fast must you throw something upward so that it never comes back? Using energy ideas (which we derive properly in the Work and Energy week), the result is:
+
+EQ: v_esc = √(2 G M ÷ R) = √(2 g R)
+
+EX: Escape
+1. Earth: v_esc = √(2 × 9.81 × 6.371 × 10⁶) = √(1.25 × 10⁸) = **11,180 m/s** (about 11.2 km/s).
+2. Moon: √(2 × 1.63 × 1.737 × 10⁶) = **2380 m/s**.
+3. The escape speed is √2 times the circular-orbit speed at the surface. A planet with a high escape speed keeps its atmosphere. The Moon's low value explains why it has none.
+/EX
+
+TRAP: A satellite does not "escape gravity" when orbiting. Gravity is what keeps it in orbit. Also, r in every formula is measured from the **centre** of the planet, so add the planet's radius to the altitude. And a faster satellite does not go to a higher orbit by speeding up in a stable circle: higher orbits have lower speed.
+
+### Quick self-check
+QUIZ:
+Q: In a circular orbit of radius r around mass M, the speed is…; GM/r; √(GM/r); GM/r²; √(GMr); 2; Setting gravity equal to m v²/r gives v = √(GM/r).
+Q: If a planet's orbital radius becomes 4 times larger, its period becomes…; 4 times; 8 times; 16 times; 2 times; 2; T² ∝ r³, so T ∝ 4^1.5 = 8.
+Q: A planet moves fastest when it is…; farthest from the Sun; nearest to the Sun; in the middle; at a constant speed; 2; The areas-law implies a higher speed at perihelion.
+Q: A geostationary satellite has a period of…; 90 minutes; 12 hours; 24 hours (one sidereal day); 365 days; 3; It must keep pace with the rotating Earth.
+
+### Practice
+LVL: Level 1 | Direct
+P: A satellite orbits Earth at r = 8000 km. Find its speed (GM = 3.986 × 10¹⁴). => √(3.986 × 10¹⁴ ÷ 8 × 10⁶) = √(4.98 × 10⁷) = **7059 m/s**.
+P: A planet has a = 4 AU around a Sun-like star. Find its period. => 4^1.5 = **8 years**.
+LVL: Level 2 | Apply
+P: The Moon orbits at 3.84 × 10⁸ m. Use GM = 3.986 × 10¹⁴ to find its period in days. => T = 2π √(r³ ÷ GM) = 2π √(5.662 × 10²⁵ ÷ 3.986 × 10¹⁴) = 2π √(1.4205 × 10¹¹) = 2π × 3.769 × 10⁵ = 2.368 × 10⁶ s = **27.4 days** ✓.
+P: Jupiter's moon Io orbits at 4.22 × 10⁸ m with a period of 1.77 days (152,900 s). Find Jupiter's mass. => M = 4π² r³ ÷ (G T²) = 39.48 × 7.515 × 10²⁵ ÷ (6.674 × 10⁻¹¹ × 2.338 × 10¹⁰) = 2.967 × 10²⁷ ÷ 1.5604 = **1.90 × 10²⁷ kg**.
+P: A satellite is at r = 2R_E above the centre. How does its speed compare with the speed in a surface-skimming orbit? => v ∝ 1/√r, so v = v₀/√2 = **0.707 v₀**.
+LVL: Challenge | Changing orbit
+P: A satellite is in a circular orbit at r = 7000 km. Find its speed and period. Then find the new period if the radius increases to 14,000 km. => v = √(3.986 × 10¹⁴ ÷ 7 × 10⁶) = **7546 m/s**. T = 2π × 7 × 10⁶ ÷ 7546 = **5828 s** (97.1 min). At r = 14,000 km, T grows by 2^1.5 = 2.83: **16,484 s ≈ 275 min**. The speed drops to 5336 m/s.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Arithmetic: aₙ = a + (n − 1) d, Sₙ = n/2 (2a + (n − 1) d). Geometric: aₙ = a rⁿ⁻¹, Sₙ = a(1 − rⁿ)/(1 − r), S∞ = a/(1 − r) for |r| < 1.
+- Σ formulas for k, k², k³. Telescoping sums.
+- Orbit: v = √(GM/r), T = 2π √(r³/GM), T² ∝ r³. Kepler: ellipses, equal areas, T² ∝ a³. Escape speed √(2GM/R).
+
+BN: আজকের সারকথা: সমান্তর ধারা Sₙ = n/2 (2a + (n − 1)d), গুণোত্তর ধারা Sₙ = a(1 − rⁿ)/(1 − r), অসীম ধারা a/(1 − r) যখন |r| < 1। কক্ষপথে v = √(GM/r), T² ∝ r³; কেপলারের তিন সূত্র: উপবৃত্ত, সমান ক্ষেত্রফল, T² ∝ a³।
+
+**Tomorrow (Saturday):** the Week 4 test, which closes Phase 1.
+
+CHECK: notes

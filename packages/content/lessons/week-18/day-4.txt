@@ -1,0 +1,146 @@
+@day Week 18 · Day 4 · Thursday
+# Applications and Euler's method. Then: dielectrics
+lead: Not every differential equation has a neat formula, and in practice engineers solve most of them on a computer, step by step. The simplest recipe, Euler's method, just follows the slope for a small step and repeats. It is the ancestor of every simulation you will meet. You also use today's tools on a detective problem: when did a body die? In physics, you put an insulating material, a dielectric, between the plates of a capacitor and see why it increases the capacitance, why it weakens the field, and why water is such a good solvent.
+
+BN: সব অবকল সমীকরণের সুন্দর সূত্র থাকে না, আর বাস্তবে প্রকৌশলীরা বেশিরভাগই কম্পিউটারে ধাপে ধাপে সমাধান করেন। সবচেয়ে সরল পদ্ধতি অয়লারের পদ্ধতি: ছোট ধাপে ঢাল অনুসরণ করো, আবার করো। এটাই সব সিমুলেশনের পূর্বপুরুষ। আজকের হাতিয়ার দিয়ে একটা গোয়েন্দা সমস্যাও করবে: মৃত্যু কখন হয়েছিল? পদার্থবিজ্ঞানে ধারকের পাতের মাঝে অপরিবাহী পদার্থ (ডাই-ইলেকট্রিক) রাখলে কেন ধারকত্ব বাড়ে, ক্ষেত্র কমে, এবং পানি কেন এত ভালো দ্রাবক তা দেখবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Solve y′ + y = 1 with y (0) = 0. => **y = 1 − e^(−x)**.
+P: What is the Newton cooling solution? => **T = T_a + (T₀ − T_a) e^(−kt)**.
+P: What is the capacitance of plates with A = 0.01 m² and d = 1 mm? => **88.5 pF**.
+P: What is the energy of 100 μF at 12 V? => **7.2 mJ**.
+P: What is the force on a charge q in a field E? => **F = q E**.
+
+CHECK: recall
+
+@section math | 2 · Math: Euler's method and applications | 55 min
+
+### Euler's method
+Given y′ = f (x, y) and y (x₀) = y₀, follow the tangent for a small step h, then recompute the slope:
+
+EQ: x_{n+1} = x_n + h     y_{n+1} = y_n + h f (x_n, y_n)
+
+It is a first-order method: halving h roughly halves the error.
+
+EX: Euler in action
+1. **y′ = y, y (0) = 1** (exact: eˣ, e = 2.71828). With step h = 0.1 the factor per step is 1.1, so y (1) ≈ 1.1¹⁰ = **2.594** (4.6% too low). With h = 0.01: 1.01¹⁰⁰ = **2.705** (0.5% low). With h = 0.5: 1.5² = **2.25**. Smaller steps converge to e: (1 + 1/n)ⁿ → e.
+2. **y′ = x − y, y (0) = 1** (exact: y = x − 1 + 2 e^(−x), y (1) = 2e⁻¹ = **0.7358**). With h = 0.25: y₁ = 1 + 0.25 × (−1) = 0.75, y₂ = 0.75 + 0.25 × (0.25 − 0.75) = 0.625, y₃ = 0.625 + 0.25 × (0.5 − 0.625) = 0.59375, y₄ = 0.59375 + 0.25 × (0.75 − 0.59375) = **0.6328**: 14% below the exact value. With h = 0.1 the result is **0.6974** (5.2% below).
+3. **Logistic growth** P′ = 0.5 P (1 − P ÷ 1000), P₀ = 100 and h = 1 year: P₁ = 145.0, P₂ = 207.0, P₃ = 289.1, P₄ = 391.8, P₅ = **511.0**, compared with the exact **575** (11% low) because the growth rate is increasing and Euler always lags.
+4. **A better recipe:** the improved Euler method (Heun) averages the slope at the beginning and at the end of the step. For y′ = y with h = 0.1 the factor is 1 + h + h²/2 = 1.105, so y (1) = 1.105¹⁰ = **2.7141**, error only **0.15%**. (Runge-Kutta 4, in Week 20, is far more accurate still.)
+5. **Stability warning.** For y′ = −10 y with h = 0.3, Euler gives y_{n+1} = y_n (1 − 3) = −2 y_n: the numbers alternate and **grow** (1, −2, 4, −8, …) although the true solution decays. For decay equations the step must satisfy h < 2 ÷ |k| (here h < 0.2).
+/EX
+
+BN: অয়লার: y_{n+1} = y_n + h f(x_n, y_n)। ছোট h এ ভালো, h অর্ধেক করলে ত্রুটি প্রায় অর্ধেক। y′ = y এ h = 0.1 দিলে y(1) ≈ 2.594 (সঠিক e = 2.718)। উন্নত অয়লার (Heun) ঢালের গড় নেয়, ত্রুটি 0.15%। h বেশি বড় হলে (y′ = −10y এ h = 0.3) সংখ্যা ভুল দিকে বাড়ে।
+
+LAB: Euler's method for y′ = y | Use n steps of size 1 ÷ n to estimate y (1) for y′ = y, y (0) = 1. The exact value is e = 2.71828. The numbers show the Euler estimate (1 + 1 ÷ n)ⁿ, the error and the improved Euler (Heun) estimate with the same step. The graph shows Euler's estimate against n, approaching e slowly. | n:Number of steps n:1:50:1:10 | (1+1/n)^n:Euler estimate:4 ;; 100*(2.718281828-(1+1/n)^n)/2.718281828:Euler error (%):2 ;; (1+1/n+0.5/n^2)^n:Heun (improved Euler) estimate:5 | (1+1/x)^x ;; 2.718281828 | 1,50 | 2,2.8
+
+### Applications
+EX: Detective work and engineering
+1. **When did the death occur?** A body is found at noon at 28 °C in a room at 20 °C, and an hour later it is 25 °C. Normal body temperature is 37 °C. Newton's law: T − 20 = 17 e^(−kt) with t counted from death. The two readings give (28 − 20) ÷ (25 − 20) = e^(k × 1 h) = 1.6, so **k = ln 1.6 = 0.470 per hour**. Death occurred when T − 20 = 17: the time from death to noon is t = ln (17 ÷ 8) ÷ 0.470 = 0.754 ÷ 0.470 = **1.60 h = 96 minutes**. So the death was at about **10:24**. (Real cooling is more complicated, so this is only an estimate.)
+2. **Quenching a metal part** from 600 °C to 100 °C in a 20 °C oil bath: T − 20 falls from 580 to 80 and k = 0.1 per second gives t = ln (580 ÷ 80) ÷ 0.1 = **19.8 s**.
+3. **Terminal speed** (Day 2): with m = 70 kg and b = 10 kg/s the speed after 7 s is 43.4 m/s (63% of the terminal 68.6 m/s). The time constant is the time for 63% of the change, in all linear first-order systems.
+4. **Time constants** of everyday systems: a cup of coffee 20–30 minutes; a house cooling about 10 hours; an RC circuit with R = 1 kΩ and C = 100 μF: 0.1 s; a drug with a half-life of 5 h: τ = t_½ ÷ ln 2 = 7.2 h.
+/EX
+
+LAB: When did the death occur? | The body temperature is measured twice, one interval apart. Choose the room temperature, the two readings and the interval. The numbers give the cooling constant k, and the time before the first reading at which the body was at 37 °C, in minutes. | Ta:Room temperature (°C):10:25:1:20 ;; T1:First reading (°C):25:36:1:28 ;; T2:Second reading (°C):21:35:1:25 ;; dt:Interval (hours):0.5:3:0.5:1 | log((T1-Ta)/(T2-Ta))/dt:k (per hour):3 ;; 60*log((37-Ta)/(T1-Ta))/(log((T1-Ta)/(T2-Ta))/dt):Minutes since death at the first reading:0 | - | 0,1 | 0,1
+
+TRAP: Euler's method is **approximate**: the error depends on the step size, and a step that is too big can give nonsense (instability). Always test by halving the step: if the answer changes a lot, the step was too big. In the cooling problem the formula T − T_a means you must subtract the room temperature in **both** readings before taking the ratio, and the "time of death" assumes a constant room temperature and a normal starting body temperature.
+
+### Quick self-check
+QUIZ:
+Q: One Euler step for y′ = y, y (0) = 1, h = 0.1 gives…; 1.0; 1.1; 1.2; 1.01; 2; y₁ = 1 + 0.1 × 1.
+Q: Halving the step of Euler's method roughly…; halves the error; doubles the error; does nothing; makes it exact; 1; First-order method.
+Q: The Euler estimate for y′ = y at x = 1 is always…; above e; below e; equal to e; random; 2; (1 + 1/n)ⁿ < e.
+Q: The time constant of a linear first-order system is when the change reaches…; 50%; 63%; 90%; 100%; 2; 1 − e⁻¹ = 0.632.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Do one Euler step for y′ = y with y (0) = 1 and h = 0.1. => y₁ = **1.1**.
+P: Do two Euler steps for y′ = 2x with y (0) = 0 and h = 0.5. => y₁ = 0 + 0.5 × 0 = 0; y₂ = 0 + 0.5 × 1 = **0.5** (exact value of x² at x = 1 is 1).
+P: What is the Euler estimate of e with 10 steps? => 1.1¹⁰ = **2.594**.
+LVL: Level 2 | Apply
+P: Use Euler with h = 0.25 on y′ = x − y, y (0) = 1 to estimate y (1) and compare with the exact value 0.7358. => **0.6328**, an error of **14%**.
+P: A body is found at 25 °C at 1 pm, and at 23 °C at 2 pm in a 20 °C room. Estimate the time of death. => (25 − 20) ÷ (23 − 20) = 5/3, k = ln (5/3) = 0.511 per hour. Time from 37 °C: ln (17 ÷ 5) ÷ 0.511 = 1.224 ÷ 0.511 = **2.40 h** before 1 pm, about **10:36 am**.
+P: Show that Euler with h = 0.3 is unstable for y′ = −10y. => y_{n+1} = (1 − 3) y_n = −2 y_n: **1, −2, 4, −8, …** The true solution e^(−10x) decays, so the method is unstable. Use h < 0.2.
+P: Use improved Euler for y′ = y with h = 0.1 and compare with the exact. => Factor 1 + 0.1 + 0.005 = 1.105; 1.105¹⁰ = **2.7141** against e = 2.7183: error **0.15%**.
+P: A hot part at 600 °C is quenched in 20 °C oil with k = 0.1 per second. When does it reach 100 °C? => (100 − 20) = 580 e^(−0.1 t): t = ln (580 ÷ 80) ÷ 0.1 = **19.8 s**.
+P: Find the time constant of a drug with half-life 5 h. => τ = 5 ÷ ln 2 = **7.21 h**.
+LVL: Level 3 | Real
+P: Use Euler with h = 1 year to simulate P′ = 0.5 P (1 − P ÷ 1000) from P₀ = 100 for 5 years and compare with the exact 575. => **145, 207, 289, 392, 511**: **11% too low**. With h = 0.5 the estimate is better: about 544.
+LVL: Challenge | The error of Euler's method
+P: For y′ = y show that Euler with n steps gives (1 + 1/n)ⁿ and find the error for large n. => (1 + 1/n)ⁿ = e^(n ln (1 + 1/n)) = e^(1 − 1/(2n) + 1/(3n²) − …) ≈ e × (1 − 1/(2n)). So the error is about e ÷ (2n): for n = 10 it is 0.136 (the actual 0.124) and it **halves when n doubles**: first order.
+
+CHECK: math
+
+@section physics | 3 · Physics: dielectrics | 35 min
+
+### What a dielectric does
+A **dielectric** is an insulator. In an electric field its molecules **polarise**: the charges shift slightly, so that the face next to the positive plate gets a thin layer of negative **bound charge** and the other face a positive one. This bound charge produces a field that **opposes** the original field, so the net field inside is **reduced** by a factor κ (the **dielectric constant**, κ ≥ 1):
+
+EQ: E = E₀ ÷ κ     C = κ C₀     σ_bound = σ (1 − 1 ÷ κ)
+
+Typical κ: air 1.0006, paper 3.7, glass 5 to 10, water 80, barium titanate ceramic about 1000 or more.
+
+BN: ডাইইলেকট্রিক = অপরিবাহী। ক্ষেত্রে এর অণুগুলো মেরুকৃত হয়, ফলে পৃষ্ঠে বাঁধা চার্জ (bound charge) দেখা দেয় যা মূল ক্ষেত্রের বিরোধিতা করে। নেট ক্ষেত্র E = E₀/κ, ধারকত্ব C = κC₀, বাঁধা চার্জ σ_b = σ(1 − 1/κ)। κ: বাতাস 1.0006, কাগজ 3.7, কাচ 5–10, পানি 80, সিরামিক 1000+।
+
+EX: Filling a capacitor
+Plates with A = 0.01 m², d = 1 mm (C₀ = 88.5 pF) with a dielectric κ = 5:
+1. **New capacitance:** C = 5 × 88.5 = **442.5 pF**.
+2. **Battery connected (V = 100 V stays fixed).** The charge rises to Q = C V = 44.25 nC (5 times more), E stays 10⁵ V/m (V ÷ d), and the energy rises to ½ C V² = **2.21 μJ** (5 times more). The battery supplies the extra charge.
+3. **Battery disconnected (Q = 8.85 nC stays fixed).** C rises 5 times, so V falls to 100 ÷ 5 = **20 V**, E falls to **2 × 10⁴ V/m** and the energy falls to Q² ÷ 2C = **8.85 × 10⁻⁸ J** from 4.43 × 10⁻⁷ J. The difference, **3.5 × 10⁻⁷ J**, is the work done by the field **pulling the dielectric slab into the capacitor**: a slab is sucked in.
+4. **Bound charge:** σ = Q ÷ A = 8.85 × 10⁻⁷ C/m². σ_bound = σ (1 − 1/5) = **7.08 × 10⁻⁷ C/m²**, leaving a net σ − σ_bound = 1.77 × 10⁻⁷ C/m² and E = 1.77 × 10⁻⁷ ÷ 8.85 × 10⁻¹² = **2 × 10⁴ V/m** ✓.
+5. **Paper dielectric with a strength of about 16 MV/m**, d = 0.1 mm: the maximum voltage is 16 × 10⁶ × 10⁻⁴ = **1600 V**, and with A = 0.01 m² the capacitance is 3.7 × 8.85 × 10⁻¹² × 0.01 ÷ 10⁻⁴ = **3.27 nF**. Dielectrics both raise C **and** allow thinner gaps without sparks (air breaks down at 3 MV/m).
+6. **A ceramic capacitor** (κ = 1200, A = 1 cm², d = 10 μm): C = 1200 × 8.85 × 10⁻¹² × 10⁻⁴ ÷ 10⁻⁵ = **106 nF**: a chip the size of a rice grain with a stack of many such layers holds microfarads (the capacitors in every phone).
+7. **Why water dissolves salt:** the force between Na⁺ and Cl⁻ at 0.28 nm is k e² ÷ r² = **2.9 × 10⁻⁹ N** in vacuum. In water (κ = 80) the force becomes **3.7 × 10⁻¹¹ N**, 80 times weaker: thermal motion can then pull the ions apart.
+/EX
+
+LAB: Insert a dielectric | The plates have area A and gap d. Choose the dielectric constant and the voltage of the original capacitor. The numbers give the capacitance with the dielectric, the charge and the energy if the battery stays connected, and the voltage and the energy if the battery is disconnected first. The graph shows the capacitance against κ. | A:Area A (cm²):10:500:10:100 ;; d:Gap d (mm):0.1:5:0.1:1 ;; k:Dielectric constant κ:1:80:1:5 ;; V:Voltage V₀ (V):10:500:10:100 | k*8.85e-12*(A*1e-4)/(d*1e-3)*1e12:New capacitance (pF):1 ;; k*8.85e-12*(A*1e-4)/(d*1e-3)*V*1e9:Charge, battery connected (nC):2 ;; 0.5*k*8.85e-12*(A*1e-4)/(d*1e-3)*V^2*1e6:Energy, battery connected (μJ):3 ;; V/k:Voltage, battery disconnected (V):1 ;; 0.5*8.85e-12*(A*1e-4)/(d*1e-3)*V^2/k*1e6:Energy, battery disconnected (μJ):3 | k*8.85e-12*(A*1e-4)/(d*1e-3)*1e12 | 1,80 | 0,60000
+
+TRAP: Always say whether the battery is **connected** (V fixed) or **disconnected** (Q fixed): the answers are opposite. With the battery on, inserting the dielectric raises Q and U; with it off, V, E and U all fall by κ. A dielectric **reduces** the field (it does not cancel it) because the bound charge is smaller than the free charge by a factor 1 − 1/κ. And a conductor can be thought of as a dielectric with κ → ∞ (E = 0 inside).
+
+### Quick self-check
+QUIZ:
+Q: A dielectric of constant κ multiplies the capacitance by…; 1 ÷ κ; κ; κ²; √κ; 2; C = κ C₀.
+Q: With the battery disconnected, inserting a dielectric makes V…; rise κ times; fall κ times; stay; become zero; 2; V = Q ÷ C.
+Q: The bound charge density is…; σ κ; σ (1 − 1 ÷ κ); σ ÷ κ; 0; 2; So that E = σ ÷ (κ ε₀).
+Q: Salt dissolves in water partly because κ ≈ 80 makes the ion attraction…; 80 times stronger; 80 times weaker; unchanged; infinite; 2; F = F₀ ÷ κ.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the capacitance of plates with A = 0.01 m², d = 1 mm filled with a dielectric κ = 5. => **442.5 pF**.
+P: By what factor does the field fall with a dielectric κ = 4 at fixed free charge? => **4**.
+P: What is C₀ if C = 400 pF with κ = 8? => **50 pF**.
+LVL: Level 2 | Apply
+P: With a 100 V battery connected, a κ = 5 slab is inserted into the 88.5 pF capacitor. Find the new charge and energy. => **44.25 nC** and **2.21 μJ**.
+P: With the battery disconnected, find V, E and U after inserting the slab. => **20 V**, **2 × 10⁴ V/m**, **8.85 × 10⁻⁸ J** (from 4.43 × 10⁻⁷ J).
+P: Find the bound charge density for σ = 8.85 × 10⁻⁷ C/m² and κ = 5. => **7.08 × 10⁻⁷ C/m²**.
+P: A paper capacitor has d = 0.1 mm, A = 0.01 m², κ = 3.7 and strength 16 MV/m. Find C and V_max. => **3.27 nF** and **1600 V**.
+P: Find the force between Na⁺ and Cl⁻ in water at 0.28 nm. => 2.94 × 10⁻⁹ ÷ 80 = **3.7 × 10⁻¹¹ N**.
+P: A 10 μF capacitor charged to 50 V is disconnected, and a dielectric κ = 2 is inserted. Find the new voltage, the energy before and after, and the work done by the slab. => V = **25 V**. U₀ = ½ × 10 × 2500 = 12,500 μJ; U = 6250 μJ. The field does **6250 μJ** of work pulling the slab in.
+LVL: Level 3 | Real
+P: A ceramic chip capacitor has κ = 3000, a layer thickness of 5 μm and an electrode area of 2 mm² per layer. Find the capacitance per layer and the number of layers for 10 μF. => C = 3000 × 8.85 × 10⁻¹² × 2 × 10⁻⁶ ÷ 5 × 10⁻⁶ = **10.6 nF** per layer (the layers are in parallel). N = 10 μF ÷ 10.6 nF = **940 layers**, stacked into a chip about 5 mm thick (940 × 5 μm = 4.7 mm).
+LVL: Challenge | The field in a dielectric
+P: A slab of dielectric κ fills the gap of a capacitor with free surface charge σ. Show that E = σ ÷ (κ ε₀) using the bound charge, and that C = κ ε₀ A ÷ d. => The net surface charge is σ − σ_b with σ_b = σ (1 − 1/κ), so σ_net = σ ÷ κ and E = σ_net ÷ ε₀ = **σ ÷ (κ ε₀)**. V = E d = σ d ÷ (κ ε₀), so C = Q ÷ V = σ A ÷ V = **κ ε₀ A ÷ d**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Euler: y_{n+1} = y_n + h f (x_n, y_n); first-order accuracy; (1 + 1/n)ⁿ → e; improved Euler (Heun) error 0.15% for n = 10; unstable for h > 2 ÷ |k| in decay. Time of death from Newton cooling; time constant = time to reach 63%.
+- Dielectric: E = E₀ ÷ κ, C = κ C₀, σ_b = σ (1 − 1 ÷ κ). Battery on: Q and U rise κ times; battery off: V, E, U fall κ times and the slab is pulled in. κ: air 1, paper 3.7, glass 5–10, water 80, ceramics 1000+.
+
+BN: আজকের সারকথা: অয়লার y_{n+1} = y_n + h f; প্রথম ক্রম; (1 + 1/n)ⁿ → e; Heun ত্রুটি 0.15%; h বেশি বড় হলে অস্থির। মৃত্যুর সময় নিউটনের শীতলীকরণ থেকে। ডাইইলেকট্রিক: E = E₀/κ, C = κC₀, σ_b = σ(1 − 1/κ)। ব্যাটারি লাগানো: Q ও U κ গুণ বাড়ে; ব্যাটারি খোলা: V, E, U κ ভাগ কমে, পাতটা ভিতরে টেনে নেওয়া হয়।
+
+EXIT:
+E: What is the Euler estimate of y (1) for y′ = y with n = 10 steps?; 2.594; 0.005; 1.1¹⁰.
+E: What is the capacitance (pF) of A = 0.01 m², d = 1 mm with κ = 5?; 442.5; 0.5; κ ε₀ A ÷ d.
+E: With the battery disconnected, a κ = 5 dielectric is inserted into a capacitor at 100 V. What is the new voltage (V)?; 20; 0.1; V ÷ κ.
+
+**Tomorrow:** existence and stability, phase lines, and capacitors in practice (RC charging, touch screens and keyboards).
+
+CHECK: notes

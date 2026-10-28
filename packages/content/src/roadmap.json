@@ -1,0 +1,205 @@
+{
+ "PHASES": [
+  {
+   "name": "Fast foundations",
+   "from": 1,
+   "to": 4
+  },
+  {
+   "name": "Calculus + mechanics",
+   "from": 5,
+   "to": 11
+  },
+  {
+   "name": "Linear algebra, multivariable, thermal, electricity",
+   "from": 12,
+   "to": 23
+  },
+  {
+   "name": "Probability, discrete math, modern physics",
+   "from": 24,
+   "to": 31
+  },
+  {
+   "name": "Capstone and finish",
+   "from": 32,
+   "to": 34
+  }
+ ],
+ "W": [
+  [
+   "Algebra in full",
+   "SI units, 1D motion, SUVAT",
+   "Braking distance"
+  ],
+  [
+   "Functions, exponentials and logs",
+   "Free fall, Newton's laws",
+   "Loan growth, decibels"
+  ],
+  [
+   "Trigonometry in full",
+   "Vectors, projectiles, inclines",
+   "Best throw angle"
+  ],
+  [
+   "Coordinate geometry and vectors",
+   "Friction, circular motion, gravitation",
+   "GPS satellites"
+  ],
+  [
+   "Limits and the derivative",
+   "Work, energy, power",
+   "Rooftop water tank"
+  ],
+  [
+   "Differentiation rules",
+   "Momentum, impulse, collisions",
+   "Crumple zones"
+  ],
+  [
+   "Applications of derivatives",
+   "Torque and rotation",
+   "Will the shelf tip?"
+  ],
+  [
+   "Integration 1",
+   "Rotational dynamics, angular momentum",
+   "Spinning ice skater"
+  ],
+  [
+   "Integration 2",
+   "Simple harmonic motion",
+   "Car suspension"
+  ],
+  [
+   "Sequences, series, Taylor series",
+   "Waves and sound",
+   "Guitar strings"
+  ],
+  [
+   "Review + Phase test 1",
+   "Mechanics test",
+   "Mixed case study"
+  ],
+  [
+   "Complex numbers",
+   "Fluids",
+   "Why ships float"
+  ],
+  [
+   "Matrices and determinants",
+   "Temperature and heat",
+   "Cooling tea"
+  ],
+  [
+   "Linear systems, vector spaces",
+   "Gas laws, first law",
+   "Bike pump"
+  ],
+  [
+   "Eigenvalues and eigenvectors",
+   "Entropy, second law, engines",
+   "Engine waste heat"
+  ],
+  [
+   "Multivariable 1: partial derivatives",
+   "Coulomb's law, electric field",
+   "Static shock"
+  ],
+  [
+   "Multivariable 2: multiple and line integrals",
+   "Gauss's law, potential",
+   "Lightning rods"
+  ],
+  [
+   "Differential equations 1",
+   "Capacitance",
+   "Camera flash"
+  ],
+  [
+   "Differential equations 2",
+   "DC circuits, RC",
+   "Phone charging curve"
+  ],
+  [
+   "Laplace transforms, numerical methods",
+   "RL, RLC, AC",
+   "Radio tuning"
+  ],
+  [
+   "Fourier series",
+   "Magnetic fields and forces",
+   "Electric motors"
+  ],
+  [
+   "Fourier transform, signals",
+   "Induction, Maxwell's equations",
+   "Power station"
+  ],
+  [
+   "Review + Phase test 2",
+   "Waves, thermal, E&M test",
+   "Mixed case study"
+  ],
+  [
+   "Counting and probability",
+   "Light and EM waves",
+   "Sunglasses"
+  ],
+  [
+   "Random variables, distributions",
+   "Geometric optics",
+   "Camera lens"
+  ],
+  [
+   "Statistics: estimation, tests, regression",
+   "Interference, diffraction",
+   "Soap bubbles"
+  ],
+  [
+   "Bayes and Markov chains",
+   "Special relativity 1",
+   "GPS clocks"
+  ],
+  [
+   "Logic, sets, proof, induction",
+   "Special relativity 2",
+   "E = mc²"
+  ],
+  [
+   "Graph theory, number theory, recurrences",
+   "Quantum 1: photons, matter waves",
+   "Solar panels"
+  ],
+  [
+   "Optimization, gradient descent",
+   "Quantum 2: Schrödinger, atoms",
+   "Why atoms have colors"
+  ],
+  [
+   "Lagrangian mechanics intro",
+   "Semiconductors",
+   "Sand to chip"
+  ],
+  [
+   "Engineering case studies 1",
+   "Nuclear physics",
+   "Carbon dating"
+  ],
+  [
+   "Case studies 2 + weak-spot catch-up",
+   "Bridge, EV, satellite, phone signal",
+   "Full problems"
+  ],
+  [
+   "Final exam + BSc plan",
+   "Final exam",
+   "n/a"
+  ]
+ ],
+ "dates": {
+  "start": "2026-11-02",
+  "end": "2027-06-26"
+ }
+}

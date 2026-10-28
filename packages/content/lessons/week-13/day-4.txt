@@ -1,0 +1,196 @@
+@day Week 13 · Day 4 · Thursday
+# Independence, rank and row operations. Then: heat conduction
+lead: When are two vectors really giving you two directions, and when is one a waste? Linear independence and rank answer that question, and row operations are the machine that computes it (and finds inverses). In physics, you study the first of three ways heat travels: conduction, where energy passes from molecule to molecule through a material. It explains why a woollen jumper keeps you warm and why a metal spoon in hot soup burns your fingers.
+
+BN: দুটো ভেক্টর সত্যিই দুটো দিক দিচ্ছে নাকি একটা বাড়তি? রৈখিক স্বাধীনতা ও র‍্যাঙ্ক এই প্রশ্নের উত্তর দেয়, আর সারি-প্রক্রিয়া (row operations) হলো তা বের করার এবং বিপরীত ম্যাট্রিক্স খোঁজার যন্ত্র। পদার্থবিজ্ঞানে তাপ চলার তিন পথের প্রথমটি পড়বে: পরিবহন (conduction), যেখানে শক্তি অণু থেকে অণুতে যায়। এ কারণেই পশমি সোয়েটার গরম রাখে আর গরম স্যুপে ধাতব চামচ হাত পোড়ায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Write the matrix of a rotation by 90° anticlockwise. => **[[0, −1], [1, 0]]**.
+P: If you apply T₁ first and then T₂, what is the combined matrix? => **T₂ T₁**.
+P: How much heat melts 1 kg of ice at 0 °C? => **334 kJ**.
+P: Find the determinant of [[3, 1], [2, 4]]. => **10**.
+P: Why does the temperature of boiling water not rise? => The energy goes into the **phase change** (latent heat), not into molecular kinetic energy.
+
+CHECK: recall
+
+@section math | 2 · Math: independence, rank and row operations | 55 min
+
+### Linear combinations and span
+A **linear combination** of vectors v₁, v₂ is a v₁ + b v₂ for numbers a and b. The set of all of them is their **span**.
+
+Vectors are **linearly independent** if none of them is a linear combination of the others. Equivalently, the only way to get a v₁ + b v₂ = 0 is a = b = 0.
+
+BN: v₁, v₂ এর রৈখিক সমাবেশ a v₁ + b v₂। সব সমাবেশের সেট হলো span। কোনো ভেক্টর অন্যগুলোর সমাবেশ না হলে তারা রৈখিকভাবে স্বাধীন। দুটো স্বাধীন ভেক্টর সমতলের যেকোনো বিন্দুতে পৌঁছাতে পারে, কিন্তু সমান্তরাল দুটো ভেক্টর শুধু একটা রেখায় আটকে থাকে।
+
+EX: Two vectors in the plane
+1. v₁ = (1, 2), v₂ = (2, 4). Since v₂ = 2 v₁, they are **dependent**. Their span is just the line through (1, 2). det [[1, 2], [2, 4]] = 0.
+2. v₁ = (1, 2), v₂ = (3, 1). det [[1, 3], [2, 1]] = 1 − 6 = −5 ≠ 0, so they are **independent** and span the whole plane.
+3. Write (7, 4) = a (1, 2) + b (3, 1): a + 3b = 7 and 2a + b = 4. From the second b = 4 − 2a, so a + 12 − 6a = 7, **a = 1**, **b = 2**. Check: (1 + 6, 2 + 2) = (7, 4) ✓.
+/EX
+
+EX: Three vectors in space
+1. u = (1, 0, 1), v = (0, 1, 1), w = (1, 1, 2). Since w = u + v, they are **dependent** (the three lie in one plane). The determinant of the matrix with these rows: 1 (2 − 1) − 0 + 1 (0 − 1) = **0** ✓.
+2. Replace w by (1, 1, 0): det = 1 (0 − 1) − 0 + 1 (0 − 1) = **−2**. Now they are **independent** and span all of 3D space.
+3. **Rule:** n vectors in n dimensions are independent exactly when the determinant is not zero.
+/EX
+
+### Row operations and rank
+Three **row operations** do not change the solutions of a linear system, nor the rank:
+1. Swap two rows. 2. Multiply a row by a non-zero number. 3. Add a multiple of one row to another.
+
+Use them to make an **echelon form** (zeros below each leading entry). The **rank** is the number of non-zero rows left, which equals the maximum number of independent rows (or columns).
+
+EX: Finding the rank
+1. Rows (1, 2, 3), (2, 4, 6), (1, 0, 1). R₂ − 2R₁ = (0, 0, 0). R₃ − R₁ = (0, −2, −2). The echelon form has two non-zero rows, so **rank = 2**.
+2. Rows (1, 2, 1), (2, 5, 3), (1, 1, 0). R₂ − 2R₁ = (0, 1, 1). R₃ − R₁ = (0, −1, −1). R₃ + R₂ = (0, 0, 0). **Rank = 2**, and the determinant is 1 (0 − 3) − 2 (0 − 3) + 1 (2 − 5) = −3 + 6 − 3 = 0 ✓.
+3. Rows (1, 2, 3), (0, 1, 4), (5, 6, 0): the determinant is 1, so **rank = 3** (full).
+4. **Rank 1:** the matrix [[1, 2], [2, 4], [3, 6]] is the product of the column (1, 2, 3) and the row (1, 2). Every row is a multiple of (1, 2), so the rank is 1. A rank-1 image of 1000 × 1000 pixels needs only 1000 + 1000 numbers instead of a million, which is the idea behind image compression with low-rank matrices.
+/EX
+
+LAB: Independent or dependent? | Choose two vectors v₁ = (a, b) and v₂ = (c, d). The determinant is zero exactly when they are parallel. The numbers show the determinant, the area of the parallelogram they span and the angle between them. Try c = 2a and d = 2b to see the dependent case. | a:a:1:5:1:1 ;; b:b:-3:3:1:2 ;; c:c:1:5:1:3 ;; d:d:-3:3:1:1 | a*d-b*c:Determinant:0 ;; abs(a*d-b*c):Area of the parallelogram:0 ;; acos((a*c+b*d)/(sqrt(a^2+b^2)*sqrt(c^2+d^2)))*180/pi:Angle between the vectors (°):1 | - | 0,1 | 0,1
+
+### The inverse by row operations (Gauss–Jordan)
+Write the augmented matrix [A | I] and use row operations to turn the left half into I. The right half then becomes A⁻¹.
+
+EX: Inverting [[2, 1], [5, 3]]
+1. Start: rows (2, 1 | 1, 0) and (5, 3 | 0, 1).
+2. R₁ ÷ 2: (1, 0.5 | 0.5, 0). R₂ − 5R₁: (0, 0.5 | −2.5, 1).
+3. R₂ × 2: (0, 1 | −5, 2). R₁ − 0.5 R₂: (1, 0 | 0.5 + 2.5, 0 − 1) = (1, 0 | 3, −1).
+4. So A⁻¹ = **[[3, −1], [−5, 2]]**. The formula gives the same: det = 6 − 5 = 1, and (1 ÷ 1) [[3, −1], [−5, 2]] ✓.
+5. If a row of zeros appears on the left, the matrix has **no inverse**.
+/EX
+
+BN: [A | I] থেকে সারি-প্রক্রিয়ায় বাম পাশকে I বানালে ডান পাশে A⁻¹ পাওয়া যায়। বামে শূন্য সারি এলে বিপরীত নেই। র‍্যাঙ্ক = অশূন্য সারির সংখ্যা। n × n ম্যাট্রিক্স উল্টানো যায় ⇔ র‍্যাঙ্ক n ⇔ det ≠ 0 ⇔ স্তম্ভগুলো স্বাধীন।
+
+TRAP: Row operations change the **determinant** (swapping a row flips its sign, scaling multiplies it), so do not read the determinant off the echelon form unless you track every operation. And independence is about **all** the vectors together: three vectors in the plane are **always** dependent, even if every pair is independent.
+
+### Quick self-check
+QUIZ:
+Q: The vectors (1, 2) and (3, 6) are…; independent; dependent; perpendicular; unit vectors; 2; (3, 6) = 3 (1, 2).
+Q: The rank of the matrix with rows (1, 2), (2, 4) is…; 0; 1; 2; 3; 2; The second row is twice the first.
+Q: Three vectors in the plane are…; always independent; always dependent; independent if perpendicular; independent if unit length; 2; The plane has dimension 2.
+Q: A 3 × 3 matrix of rank 3 has a determinant that is…; zero; non-zero; negative; one; 2; It is invertible.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Are (2, 3) and (4, 6) independent? => **No**: (4, 6) = 2 (2, 3).
+P: Find the rank of [[1, 0], [0, 0]]. => **1**.
+P: Find the determinant of the matrix with rows (1, 1), (1, 2) and say whether the rows are independent. => det = 2 − 1 = 1 ≠ 0: **independent**.
+LVL: Level 2 | Apply
+P: Write (5, 1) as a combination of (1, 1) and (2, −1). => a + 2b = 5 and a − b = 1. Subtract: 3b = 4, **b = 4/3**, **a = 7/3**. Check: 7/3 + 8/3 = 5 ✓, 7/3 − 4/3 = 1 ✓.
+P: Find the rank of the matrix with rows (1, 2, 3), (4, 5, 6), (7, 8, 9). => R₂ − 4R₁ = (0, −3, −6). R₃ − 7R₁ = (0, −6, −12). R₃ − 2R₂ = (0, 0, 0). **Rank = 2** (the determinant is 0).
+P: Find the inverse of [[1, 2], [3, 7]] by Gauss–Jordan. => (1, 2 | 1, 0), (3, 7 | 0, 1). R₂ − 3R₁: (0, 1 | −3, 1). R₁ − 2R₂: (1, 0 | 1 + 6, 0 − 2) = (1, 0 | 7, −2). **[[7, −2], [−3, 1]]**. Check: det = 7 − 6 = 1 ✓.
+P: For which value of k are (1, 2, 3), (2, 1, 0) and (3, 3, k) dependent? => The determinant: 1 (k − 0) − 2 (2k − 0) + 3 (6 − 3) = k − 4k + 9 = 9 − 3k. It is zero for **k = 3** (indeed (3, 3, 3) = (1, 2, 3) + (2, 1, 0)).
+P: A matrix A has rank 1 and equals the product of the column (2, 1) with the row (3, 4). Write A and find its determinant. => A = [[6, 8], [3, 4]]. det = 24 − 24 = **0** ✓ (rank 1 means singular).
+LVL: Level 3 | Real
+P: A sensor network measures three quantities, and two of the three measuring directions are (1, 0, 1) and (0, 1, 1). A third sensor measures along (2, 3, 5). Does it give new information? => Check: 2 (1, 0, 1) + 3 (0, 1, 1) = (2, 3, 5). It is **a combination of the first two**, so it adds no new independent direction.
+LVL: Challenge | Rank and powers
+P: Show that for A = [[0, 1], [0, 0]] we have A² = O even though A ≠ O. Find the rank of A and A². => A² = [[0×0 + 1×0, 0×1 + 1×0], [0, 0]] = O. **Rank A = 1, rank A² = 0.** So "if A² = 0 then A = 0" is false for matrices (such a matrix is called nilpotent). In the complex plane, i² = −1 ≠ 0 would never do this.
+
+CHECK: math
+
+@section physics | 3 · Physics: conduction | 35 min
+
+### Heat flowing through a material
+In **conduction**, faster-vibrating molecules pass their energy to their slower neighbours, and in metals free electrons carry energy quickly too. The rate of heat flow through a slab of area A and thickness L, with temperature difference ΔT across it:
+
+EQ: P = Q ÷ t = k A ΔT ÷ L
+
+k is the **thermal conductivity** (W/(m·K)).
+
+| Material | k (W/(m·K)) |
+| Copper | 400 |
+| Aluminium | 240 |
+| Steel | 50 |
+| Ice | 2.2 |
+| Glass | 1.0 |
+| Concrete | 1.0 |
+| Water | 0.6 |
+| Brick | 0.7 |
+| Wood | 0.12 |
+| Fibreglass insulation | 0.04 |
+| Polystyrene foam | 0.033 |
+| Air (still) | 0.026 |
+
+BN: পরিবহনে দ্রুত কাঁপা অণু তার ধীর প্রতিবেশীকে শক্তি দেয় (ধাতুতে মুক্ত ইলেকট্রনও)। P = kAΔT/L, k হলো তাপ পরিবাহিতা। তামার k = 400, বায়ুর k = 0.026: তাই আটকে থাকা বায়ু ভালো অন্তরক, আর পশম বা ফোম মূলত বায়ু আটকে রাখে।
+
+EX: Heat flow
+1. **A single window:** glass 4 mm thick, area 1.5 m², ΔT = 20 K: P = 1.0 × 1.5 × 20 ÷ 0.004 = **7500 W** (an ideal figure: real windows lose less because of air films on both sides).
+2. **A copper pan:** bottom 3 mm thick, area 0.03 m², ΔT = 5 K: P = 400 × 0.03 × 5 ÷ 0.003 = **20,000 W**, so the heat spreads evenly.
+3. **Why a metal feels cold:** a metal spoon and a wooden spoon at 20 °C. The metal carries heat away from your skin far faster than the wood does, so your skin cools more and the metal feels "cold". The temperature is the same.
+/EX
+
+### Layers in series: thermal resistance
+For a slab, define the **thermal resistance per unit area** R = L ÷ k (m²·K/W). Layers in series add their resistances, like electrical resistors:
+
+EQ: R_total = R₁ + R₂ + …     P = A ΔT ÷ R_total
+
+EX: Walls and windows
+1. **A wall:** brick 0.2 m (k = 0.7) gives R = 0.2857. Add fibreglass 0.1 m (k = 0.04) giving R = 2.5. Total R = **2.786 m²·K/W**.
+2. For A = 12 m² and ΔT = 25 K: P = 12 × 25 ÷ 2.786 = **107.7 W**. Without the insulation: 12 × 25 ÷ 0.2857 = **1050 W**. Insulation cuts the loss by a factor of nearly **10**.
+3. **Temperature drops:** the heat flux is 25 ÷ 2.786 = 8.97 W/m². Drop across the brick: 8.97 × 0.2857 = **2.6 K**. Drop across the insulation: 8.97 × 2.5 = **22.4 K**. Almost all the temperature drop is in the insulation.
+4. **Double glazing:** two 4 mm glass sheets with a 12 mm air gap. R = 0.004 + 0.4615 + 0.004 = 0.4695. Compared with a single sheet (R = 0.004), the loss is cut by a factor of about **117** in this idealised model (real windows improve by a factor of about 2, because of air films and convection in the gap).
+/EX
+
+LAB: Conduction through a wall | Choose the conductivity, the thickness, the area and the temperature difference. The numbers give the thermal resistance and the heat flow. The graph shows the heat flow against thickness: doubling the thickness halves the loss. | k:Conductivity k (W/(m·K)):0.05:1:0.05:0.7 ;; L:Thickness L (cm):2:30:1:20 ;; A:Area (m²):1:30:1:12 ;; dT:Temperature difference (K):5:40:1:25 | L/100/k:Resistance R (m²·K/W):3 ;; k*A*dT/(L/100):Heat flow (W):0 | k*A*dT/(x/100) | 2,30 | 0,5000
+
+LAB: Adding insulation | The wall is 0.2 m of brick (k = 0.7), A = 12 m², ΔT = 25 K. Choose the thickness of extra fibreglass insulation (k = 0.04). The graph shows the heat loss against the insulation thickness: the first few centimetres do most of the work. | x:Insulation thickness (cm):0:20:1:10 | 12*25/(0.2/0.7+x/100/0.04):Heat loss (W):1 ;; 0.2/0.7+x/100/0.04:Total R (m²·K/W):2 | 300/(0.2/0.7+x/4) | 0,20 | 0,1100
+
+### Ice on a pond: a differential equation
+Ice grows downward from the surface. Heat flows through the ice of thickness h (air at −T_a above, water at 0 °C below). The heat freezing a new layer dh of ice (density ρ, latent heat L_f) is carried by conduction: ρ L_f dh/dt = k ΔT ÷ h.
+
+EQ: h dh = (k ΔT ÷ (ρ L_f)) dt     so     h = √(2 k ΔT t ÷ (ρ L_f))
+
+EX: Skating weather
+1. Take an air temperature of −10 °C (ΔT = 10 K), k = 2.2, ρ = 917, L_f = 334,000. Then 2 k ΔT ÷ (ρ L_f) = 44 ÷ 3.063 × 10⁸ = 1.437 × 10⁻⁷ m²/s.
+2. After 1 day (86,400 s): h² = 0.01241, **h = 11.1 cm**.
+3. After 7 days: h² = 0.0869, h = **29.5 cm**. After 10 days: **35.2 cm**. The thickness grows like √t: the thicker the ice, the slower it grows, since it insulates the water below.
+/EX
+
+TRAP: In P = k A ΔT ÷ L the thickness L is in **metres**: convert centimetres first. And do not add conductivities in series: add the **resistances** L ÷ k. Finally, remember that "cold" is not a thing that flows: heat flows from hot to cold.
+
+### Quick self-check
+QUIZ:
+Q: Doubling the thickness of a wall changes the heat loss by a factor of…; 2; 1/2; 4; 1/4; 2; P ∝ 1 ÷ L.
+Q: Two layers in series have resistances 1.0 and 3.0 m²·K/W. The total is…; 0.75; 2; 3; 4; 4; Resistances add.
+Q: Why do wool and foam insulate well?; they are cold; they trap still air; they have a high density; they conduct heat well; 2; Still air has k = 0.026.
+Q: Ice grows on a pond with thickness proportional to…; t; √t; t²; constant; 2; h² ∝ t.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the heat flow through a 2 cm thick wooden board of area 1 m² with ΔT = 10 K (k = 0.12). => 0.12 × 1 × 10 ÷ 0.02 = **60 W**.
+P: Find R for 5 cm of polystyrene (k = 0.033). => 0.05 ÷ 0.033 = **1.52 m²·K/W**.
+LVL: Level 2 | Apply
+P: A concrete wall 0.25 m thick, A = 10 m², ΔT = 20 K. Find the heat loss (k = 1.0). => 1.0 × 10 × 20 ÷ 0.25 = **800 W**.
+P: A roof has 20 cm of fibreglass (k = 0.04) over 1 cm of wood (k = 0.12). Find the total R and the loss through 50 m² at ΔT = 20 K. => R = 5 + 0.083 = 5.083. P = 50 × 20 ÷ 5.083 = **197 W**.
+P: A steel rod (k = 50) of length 0.5 m and cross-section 2 cm² connects a 100 °C bath to a 0 °C bath. Find the heat flow along the rod. => 50 × 2 × 10⁻⁴ × 100 ÷ 0.5 = **2 W**.
+P: A copper rod and an aluminium rod of the same size are used in the same way. Find the ratio of the heat flows. => 400 ÷ 240 = **1.67**.
+P: Find the time for 0.5 kg of ice at 0 °C to melt when the steel rod above (2 W) is the only heat source. => 0.5 × 334,000 = 167,000 J. Time = 167,000 ÷ 2 = **83,500 s ≈ 23 h**.
+LVL: Level 3 | Real
+P: A house of wall area 150 m² has walls of R = 3.0 m²·K/W. Inside 20 °C, outside −5 °C. How much heat must the heater supply per hour? => P = 150 × 25 ÷ 3.0 = 1250 W. In an hour: 1250 × 3600 = **4.5 MJ**.
+P: If the owner adds 5 cm of polystyrene (R = 1.52) to the walls, what is the new heat loss? => New R = 4.52. P = 150 × 25 ÷ 4.52 = **830 W** (a 34% saving).
+LVL: Challenge | Skating weather
+P: How many days does it take for a pond to freeze to a safe thickness of 15 cm at −10 °C, using h² = 1.437 × 10⁻⁷ t? And at −20 °C? => t = h² ÷ 1.437 × 10⁻⁷ = 0.0225 ÷ 1.437 × 10⁻⁷ = 156,576 s = **1.81 days**. At −20 °C, ΔT doubles so the time halves: **0.91 days**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Span, independence (det ≠ 0 for n vectors in n-D), row operations (swap, scale, add), echelon form, rank = number of non-zero rows. Gauss–Jordan: [A | I] → [I | A⁻¹]. Rank 1 matrices = column × row. Three vectors in the plane are always dependent.
+- Conduction P = k A ΔT ÷ L. Series R_total = Σ L ÷ k. A good insulator traps still air. Ice thickness h = √(2 k ΔT t ÷ (ρ L_f)).
+
+BN: আজকের সারকথা: রৈখিক স্বাধীনতা, র‍্যাঙ্ক = অশূন্য সারির সংখ্যা; [A | I] → [I | A⁻¹]। পরিবহন P = kAΔT/L; সিরিজে R = ΣL/k যোগ হয়; আটকে থাকা বায়ু ভালো অন্তরক; বরফের পুরুত্ব h = √(2kΔT t/(ρL))।
+
+EXIT:
+E: What is the rank of the matrix with rows (1, 2, 3), (2, 4, 6), (1, 0, 1)?; 2; 0.001; The second row is twice the first, and the remaining two rows are independent.
+E: How many watts flow through a 2 cm wooden board (k = 0.12) of area 1 m² with ΔT = 10 K?; 60; 0.01; 0.12 × 1 × 10 ÷ 0.02 = 60.
+E: What is the total thermal resistance in m²·K/W of 0.2 m brick (k = 0.7) and 0.1 m fibreglass (k = 0.04), to two decimals?; 2.79; 0.01; 0.2857 + 2.5 = 2.786.
+
+**Tomorrow:** applications of matrices (networks and an economy model), and convection and radiation.
+
+CHECK: notes

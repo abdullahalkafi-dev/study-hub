@@ -1,0 +1,159 @@
+@day Week 18 · Day 3 · Wednesday
+# Linear first-order equations and the integrating factor. Then: energy in capacitors and the camera flash
+lead: Many real systems follow a linear first-order equation: a tank being filled with salty water, a drug being infused into the blood, a loan being repaid, a capacitor being charged. They all have the form "the rate of change of y is a push minus a leak proportional to y". The integrating factor turns the left side into a single derivative and solves them all in one move. In physics, you learn why a capacitor is the heart of a camera flash and a defibrillator: it stores energy slowly and releases it in a thousandth of a second.
+
+BN: অনেক বাস্তব ব্যবস্থা রৈখিক প্রথম ক্রমের সমীকরণ মেনে চলে: লবণ-পানিতে ভরা ট্যাংক, রক্তে ওষুধের ইনফিউশন, ঋণ পরিশোধ, ধারকের চার্জ হওয়া। সবার আকার একই: "y এর পরিবর্তনের হার = একটা ধাক্কা − y এর সমানুপাতিক ক্ষরণ"। সমাকলন গুণক বাম পাশকে একটা অবকলে নামিয়ে সবগুলো এক চালেই সমাধান করে। পদার্থবিজ্ঞানে বুঝবে কেন ধারকই ক্যামেরা ফ্ল্যাশ ও ডিফিব্রিলেটরের হৃদয়: সে ধীরে শক্তি জমায় আর হাজার ভাগের এক সেকেন্ডে ছাড়ে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Solve y′ = −2y with y (0) = 3. => **y = 3 e^(−2x)**.
+P: Differentiate x e^(2x). => **(1 + 2x) e^(2x)**.
+P: What is the energy stored in a capacitor? (You know it from Week 17's field energy.) => **U = ½ C V²**.
+P: What is the equivalent of 2 μF and 3 μF in series? => **1.2 μF**.
+P: State the product rule. => **(u v)′ = u′ v + u v′**.
+
+CHECK: recall
+
+@section math | 2 · Math: the integrating factor | 55 min
+
+### The method
+A **linear first-order** equation has the form
+
+EQ: y′ + p (x) y = q (x)
+
+Multiply by the **integrating factor** μ (x) = e^(∫ p dx). By the product rule, (μ y)′ = μ y′ + μ′ y = μ (y′ + p y) because μ′ = p μ. So the equation becomes **(μ y)′ = μ q**, which you integrate directly:
+
+EQ: y = (1 ÷ μ) [ ∫ μ q dx + C ]
+
+BN: y′ + p(x)y = q(x) আকারের সমীকরণে μ = e^(∫p dx) দিয়ে গুণ করলে বাম পাশ হয় (μy)′ (গুণফলের নিয়মে), তাই (μy)′ = μq, যোগজ করে y = (1/μ)[∫μq dx + C]।
+
+EX: Four equations
+1. **y′ + 2y = 6, y (0) = 0.** μ = e^(2x). (e^(2x) y)′ = 6 e^(2x), so e^(2x) y = 3 e^(2x) + C and y = 3 + C e^(−2x). y (0) = 0 gives C = −3: **y = 3 (1 − e^(−2x))**. y (1) = 3 × 0.8647 = **2.594**. (It rises to the steady value 3.)
+2. **y′ + y ÷ x = x², x > 0, y (1) = 1.** μ = e^(ln x) = x. (x y)′ = x³, so x y = x⁴/4 + C, y = x³/4 + C ÷ x. y (1) = 1 gives C = 3/4: **y = x³/4 + 3 ÷ (4x)**, and y (2) = 2 + 0.375 = **2.375**.
+3. **y′ − y = e^(2x), y (0) = 0.** μ = e^(−x). (e^(−x) y)′ = e^x, so e^(−x) y = e^x + C and y = e^(2x) + C e^x. C = −1: **y = e^(2x) − e^x**, y (1) = e² − e = **4.671**.
+4. **y′ + y = sin x, y (0) = 0.** μ = e^x: (e^x y)′ = e^x sin x, and ∫ e^x sin x dx = (e^x ÷ 2)(sin x − cos x). So y = (sin x − cos x) ÷ 2 + C e^(−x), C = 1/2: **y = (sin x − cos x + e^(−x)) ÷ 2**. After a short **transient** (the e^(−x) term) it settles into a steady oscillation ½ (sin x − cos x): the pattern of every driven circuit (Week 20).
+/EX
+
+### Mixing, infusion and loans
+EX: The same equation everywhere
+1. **Mixing tank.** 100 L of solution holds 10 kg of salt. Salt water at 0.5 kg/L flows in at 4 L/min, and the mixture flows out at 4 L/min. dS/dt = 4 × 0.5 − 4 × S/100 = 2 − 0.04 S. The solution: **S (t) = 50 − 40 e^(−0.04 t)**. At 30 min: 50 − 40 e^(−1.2) = **37.95 kg**. It tends to 50 kg (0.5 kg/L × 100 L). The salt reaches 40 kg when e^(−0.04 t) = 1/4, at **t = 34.7 min**.
+2. **Drug infusion.** A drug is infused at R = 10 mg/h into a body of V = 40 L that eliminates a fraction k = 0.1 per hour. dC/dt = R ÷ V − k C = 0.25 − 0.1 C. The steady concentration is R ÷ (k V) = **2.5 mg/L**, reached as C (t) = 2.5 (1 − e^(−0.1 t)). At 10 h: **1.58 mg/L** (63% of the steady value).
+3. **A loan.** B dollars grow at 6% per year (continuous) and you pay 2400 per year: dB/dt = 0.06 B − 2400. With B (0) = 10,000: B (t) = 40,000 − 30,000 e^(0.06 t). It is paid off when e^(0.06 t) = 4/3: **t = ln (4/3) ÷ 0.06 = 4.8 years**. (If the payment were only 600 per year, the debt grows forever: 600 ÷ 0.06 = 10,000 is the threshold.)
+4. **A capacitor charging** (preview of Week 19): R dq/dt + q ÷ C = V₀. In standard form dq/dt + q ÷ (R C) = V₀ ÷ R, so q (t) = C V₀ (1 − e^(−t/RC)). For R = 1 kΩ, C = 100 μF (τ = R C = 0.1 s) and V₀ = 12 V: at t = 0.2 s the capacitor is at 12 × (1 − e^(−2)) = **10.4 V**.
+/EX
+
+LAB: A linear first-order equation | The equation is y′ + a y = b. The solution is y = b ÷ a + (y₀ − b ÷ a) e^(−a t): it moves from the starting value to the steady value b ÷ a with time constant 1 ÷ a. Choose a, b and y₀. This covers mixing, infusion, cooling and charging. | a:Leak rate a:0.1:2:0.1:0.5 ;; b:Push b:0:10:0.5:5 ;; y0:Start y₀:0:20:1:0 ;; t:Time t:0:20:1:4 | b/a:Steady value b ÷ a:2 ;; 1/a:Time constant 1 ÷ a:2 ;; b/a+(y0-b/a)*exp(-a*t):y at time t:2 | b/a+(y0-b/a)*exp(-a*x) | 0,20 | 0,20
+
+LAB: Salt in a tank | Choose the salt concentration of the incoming water, the flow rate and the tank volume. The graph shows the salt mass starting from zero, which approaches the steady value c × V. The numbers give the steady mass, the time constant V ÷ flow and the mass at your chosen time. | c:Inflow concentration (kg/L):0.1:1:0.1:0.5 ;; f:Flow (L/min):1:10:1:4 ;; V:Tank volume (L):50:500:10:100 ;; t:Time (min):0:100:5:30 | c*V:Steady salt mass (kg):1 ;; V/f:Time constant V ÷ flow (min):1 ;; c*V*(1-exp(-f*t/V)):Salt mass at time t (kg):2 | c*V*(1-exp(-f*x/V)) | 0,100 | 0,60
+
+TRAP: Put the equation in **standard form** (coefficient of y′ equal to 1) before finding μ. Do not forget the **constant of integration** C and apply the initial condition **after** dividing by μ. And in mixing problems write "rate in − rate out" with **units**: kg/min = (kg/L × L/min), and the outflow concentration is the **current** S ÷ V, not the inflow one.
+
+### Quick self-check
+QUIZ:
+Q: The integrating factor for y′ + 2y = 6 is…; e^(−2x); e^(2x); 2x; x²; 2; μ = e^(∫2 dx).
+Q: The steady value of y′ + 0.5 y = 5 is…; 2.5; 10; 5; 0.1; 2; b ÷ a.
+Q: In the loan example the debt is paid off in about…; 2 years; 4.8 years; 10 years; never; 2; t = ln (4/3) ÷ 0.06.
+Q: The transient in y′ + y = sin x decays like…; sin x; e^(−x); x; e^x; 2; The homogeneous solution.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Solve y′ + y = 1 with y (0) = 0 and find y (2). => y = 1 − e^(−x); y (2) = **0.8647**.
+P: Find the integrating factor for y′ + 3y = x. => **e^(3x)**.
+P: Find the steady value of y′ + 2y = 8. => **4**.
+LVL: Level 2 | Apply
+P: Solve y′ + 2y = 6 with y (0) = 0 and find y (1). => **2.594**.
+P: Solve y′ + y ÷ x = x² with y (1) = 1 and find y (2). => **2.375**.
+P: Solve y′ − y = e^(2x) with y (0) = 0 and find y (1). => **4.671**.
+P: The tank in the examples starts with 10 kg of salt. Find the salt after 30 min and when it reaches 40 kg. => **37.95 kg** and **34.7 min**.
+P: A drug is infused at 10 mg/h in V = 40 L with k = 0.1 per hour. Find the steady concentration and C (10 h). => **2.5 mg/L** and **1.58 mg/L**.
+P: A 200 L tank of pure water receives salt water at 0.3 kg/L, 5 L/min, with a 5 L/min outflow. Find the salt after 40 min. => dS/dt = 1.5 − 0.025 S, S = 60 (1 − e^(−0.025 t)), S (40) = 60 × (1 − e^(−1)) = **37.9 kg**.
+LVL: Level 3 | Real
+P: A loan of 10,000 at 6% (continuous), with payments of 2400 per year. How long to pay it off? And the total paid? => **4.8 years**, total 2400 × 4.795 = **11,508**, so 1508 of interest.
+LVL: Challenge | A driven equation
+P: Solve y′ + y = cos x with y (0) = 0. => μ = e^x: ∫ e^x cos x dx = (e^x ÷ 2)(cos x + sin x). So y = (cos x + sin x) ÷ 2 + C e^(−x); y (0) = 0 gives C = −1/2: **y = (cos x + sin x − e^(−x)) ÷ 2**. For large x: ½ (cos x + sin x) = (√2 ÷ 2) cos (x − π/4), an oscillation with the same frequency but a **phase lag of 45°** (the same as a low-pass filter, Week 20).
+
+CHECK: math
+
+@section physics | 3 · Physics: energy in capacitors and the camera flash | 35 min
+
+### Energy stored
+Moving charge dq onto a capacitor at voltage V = q ÷ C costs dU = V dq = (q ÷ C) dq. Adding up from 0 to Q:
+
+EQ: U = ½ C V² = ½ Q V = Q² ÷ (2C)
+
+It is the energy of the **field** between the plates (Week 17: u = ½ ε₀ E²).
+
+BN: ধারকে জমা শক্তি U = ½CV² = ½QV = Q²/2C। এটা প্লেটের মাঝের ক্ষেত্রে জমা থাকে (u = ½ε₀E²)।
+
+EX: Energy numbers
+1. **100 μF at 12 V:** U = 0.5 × 100 × 10⁻⁶ × 144 = **7.2 mJ**. **1 μF at 100 V:** **5 mJ**.
+2. **A camera flash:** 100 μF charged to 300 V stores U = 0.5 × 10⁻⁴ × 9 × 10⁴ = **4.5 J** and Q = C V = **30 mC**.
+3. **Why a capacitor?** Discharged through the lamp in 1 ms, the power is 4.5 J ÷ 10⁻³ s = **4500 W**. Two AA cells (3 V, 1 A at most, about 3 W) could never deliver that directly. A circuit charges the capacitor slowly (4.5 J ÷ 3 W = **1.5 s** in the ideal case, a few seconds in real life) and the capacitor releases it quickly. Energy is stored slowly and spent fast: **power is stretched in time**.
+4. **A defibrillator** delivers about 200 J. With C = 100 μF it needs U = ½ C V²: V = √(2 × 200 ÷ 10⁻⁴) = **2000 V**, Q = C V = **0.2 C**, in a pulse of about 5 ms (average power 40 kW).
+5. **A supercapacitor** of 3000 F at 2.7 V stores 0.5 × 3000 × 2.7² = **10.9 kJ**, about the energy of one AA battery (2000 mAh × 1.5 V × 3600 = 10.8 kJ). But it can be charged in seconds, and delivers hundreds of amps. A 100 μF, 300 V capacitor holds **2400 times** less than that AA battery.
+6. **A 10 F supercapacitor at 5 V:** 0.5 × 10 × 25 = **125 J**, enough to lift a 1 kg mass 12.8 m.
+/EX
+
+LAB: Camera flash capacitor | Choose the capacitor, the voltage, the flash duration and the battery power. The numbers give the stored energy, the charge, the peak power during the flash and the minimum time to charge the capacitor from the battery. | C:Capacitance (μF):50:500:10:100 ;; V:Voltage (V):100:400:10:300 ;; t:Flash duration (ms):0.1:5:0.1:1 ;; Pb:Battery power (W):1:10:0.5:3 | 0.5*C*1e-6*V^2:Stored energy (J):2 ;; C*1e-6*V*1000:Charge (mC):1 ;; 0.5*C*1e-6*V^2/(t*1e-3):Peak power during the flash (W):0 ;; 0.5*C*1e-6*V^2/Pb:Charging time at the battery power (s):2 | - | 0,1 | 0,1
+
+### Force between the plates
+The plates attract each other. For fixed charge Q the energy is U = Q² d ÷ (2 ε₀ A), which grows with the gap d, so the force is F = −dU/dd (with sign: it pulls the plates together):
+
+EQ: F = Q² ÷ (2 ε₀ A) = ½ Q E = ½ ε₀ A E²
+
+The ½ appears because each plate feels only the field of the **other** plate (E ÷ 2), not its own.
+
+EX: Force and work
+1. **A = 0.02 m², Q = 1 μC:** F = 10⁻¹² ÷ (2 × 8.85 × 10⁻¹² × 0.02) = **2.83 N**.
+2. **Doubling the gap** from 1 mm to 2 mm at fixed Q costs W = F Δd = 2.83 × 10⁻³ = **2.83 mJ**. Check: U = Q² d ÷ (2 ε₀ A): 2.83 mJ at 1 mm and 5.65 mJ at 2 mm ✓. The voltage doubles as well: V = Q ÷ C and C halves.
+3. **Charging from a battery (the half that is lost).** The battery moves a charge Q = C V through a voltage V, so it gives Q V = C V². The capacitor stores only ½ C V²: **half the energy is lost as heat in the resistance** (whatever its size): for C = 100 μF and V = 12 V the battery gives 14.4 mJ, the capacitor holds 7.2 mJ, and 7.2 mJ becomes heat.
+4. **Discharging through a resistor:** the whole ½ C V² becomes heat (in the lamp, in a flash bulb as light and heat).
+/EX
+
+TRAP: Energy and charge are **different**: doubling V doubles Q but makes the energy **four times** larger. In a battery-charged capacitor, the energy from the battery is C V², and **half** is lost, so efficiency tricks like "charge it more slowly" do not help unless you change the way the voltage is applied. When connecting charged capacitors, the lost energy is not a violation of anything: it is radiated or heated in the wires.
+
+### Quick self-check
+QUIZ:
+Q: If V doubles, the stored energy…; doubles; quadruples; halves; stays; 2; U ∝ V².
+Q: A 100 μF capacitor at 300 V stores…; 4.5 J; 9 J; 45 J; 0.45 J; 1; ½ C V².
+Q: Charging a capacitor from a battery through a resistor wastes…; nothing; half the battery's energy; all; a tenth; 2; The battery gives C V², the capacitor holds ½ C V².
+Q: A flash lamp uses a capacitor because it can…; store charge for years; deliver high power for a short time; make light; change voltage; 2; Slow charge, fast discharge.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the energy of 100 μF at 12 V. => **7.2 mJ**.
+P: Find the energy of 1 μF at 100 V. => **5 mJ**.
+P: Find the energy of a capacitor holding 5 mC at 12 V. => ½ Q V = **30 mJ**.
+LVL: Level 2 | Apply
+P: A flash capacitor of 150 μF is charged to 300 V. Find the energy, the charge and the average power over 1 ms. => **6.75 J**; **45 mC**; **6.75 kW**.
+P: A defibrillator capacitor of 100 μF stores 200 J. Find the voltage and the charge. => V = √(2U ÷ C) = **2000 V**; Q = **0.2 C**.
+P: Find the energy of a 10 F supercapacitor at 5 V and how high it could lift 1 kg. => **125 J**; h = 125 ÷ 9.8 = **12.8 m**.
+P: Plates with A = 0.02 m² carry Q = 1 μC. Find the attractive force, and the work to double the gap from 1 mm to 2 mm. => **2.83 N** and **2.83 mJ**.
+P: A capacitor of 20 μF is charged from a 9 V battery through a resistor. Find the energy from the battery, the stored energy and the heat. => Battery: C V² = **1.62 mJ**; stored **0.81 mJ**; heat **0.81 mJ**.
+P: How many times more energy does a 1000 μF capacitor at 100 V store than a 100 μF one at 100 V? And one at 200 V? => 1000 ÷ 100 = **10 times**; at 200 V it holds **4 times** as much as at 100 V (40 times in total).
+LVL: Level 3 | Real
+P: An AA battery stores about 10.8 kJ. How large a capacitor at 300 V would hold the same energy, and what would be its volume if the energy density of a good capacitor is 1 MJ/m³? => C = 2U ÷ V² = 21,600 ÷ 90,000 = **0.24 F**. Volume = 10.8 × 10³ ÷ 10⁶ = **0.0108 m³ = 10.8 L**, compared with 0.008 L for the AA battery (about a thousand times larger).
+LVL: Challenge | Why exactly half is lost
+P: A capacitor C is charged from a battery V through any resistor R. Show that the heat in R is exactly ½ C V², independent of R. => The current is i = (V ÷ R) e^(−t/RC). Heat = ∫₀^∞ i² R dt = (V² ÷ R) ∫₀^∞ e^(−2t/RC) dt = (V² ÷ R)(R C ÷ 2) = **½ C V²**. The battery gives C V², the capacitor keeps ½ C V², and the resistor gets the other half whatever its value.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Linear first order: y′ + p y = q, μ = e^(∫p dx), (μ y)′ = μ q. Solutions go to a steady value b ÷ a with time constant 1 ÷ a. Mixing S = c V (1 − e^(−ft/V)), infusion R ÷ (kV), loan payoff time, capacitor charging q = CV₀ (1 − e^(−t/RC)).
+- U = ½ C V² = ½ Q V = Q² ÷ 2C. Camera flash: slow charge, fast discharge (4.5 J at 4.5 kW). Defibrillator 200 J at 2000 V. Supercapacitor 3000 F at 2.7 V = 10.9 kJ. Plate force Q² ÷ 2ε₀A. Charging from a battery wastes half.
+
+BN: আজকের সারকথা: y′ + py = q; μ = e^(∫p); (μy)′ = μq। সমাধান স্থির মান b/a এ যায়, সময় ধ্রুবক 1/a। মিশ্রণ, ইনফিউশন, ঋণ, ধারক চার্জ সবই এই সমীকরণ। U = ½CV² = ½QV = Q²/2C। ক্যামেরা ফ্ল্যাশ: ধীরে চার্জ, দ্রুত ডিসচার্জ (4.5 J, 4.5 kW)। ডিফিব্রিলেটর 200 J। ব্যাটারি থেকে চার্জে অর্ধেক শক্তি তাপ হয়।
+
+EXIT:
+E: Solve y′ + 2y = 6 with y (0) = 0. What is y (1)?; 2.594; 0.005; 3 (1 − e^(−2)).
+E: What is the energy (J) stored in 100 μF at 300 V?; 4.5; 0.01; ½ C V².
+E: What is the average power (kW) if 4.5 J is released in 1 ms?; 4.5; 0.01; E ÷ t.
+
+**Tomorrow:** applications (cooling, drag, circuits) and numerical solution by Euler's method, and dielectrics.
+
+CHECK: notes

@@ -1,0 +1,243 @@
+@day Week 2 · Day 5 · Friday
+# Logarithms 2: the three laws and equations. Then: Newton's third law and friction
+lead: Yesterday you learned what a log is. Today you learn why logs became one of the most useful tools in history: they turn multiplication into addition. You will prove each law yourself, then use them to solve equations that were out of reach before. In physics: forces come in pairs, and friction gets a number.
+
+BN: গতকাল শিখেছ লগ মানে কী। আজ শিখবে লগ কেন এত কাজের: লগ গুণকে যোগে বদলে দেয়। প্রতিটা নিয়ম নিজে প্রমাণ করবে, তারপর সেগুলো দিয়ে সমীকরণ সমাধান করবে। পদার্থবিজ্ঞানে আজ নিউটনের তৃতীয় সূত্র (বল সবসময় জোড়ায় আসে) আর ঘর্ষণ।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Logs and Newton
+P: Evaluate log₂(32), log₃(1/9) and log₁₀(1000). => **5**, **−2** and **3**.
+P: Write log₇(x) = 3 as an exponent. => **7³ = x**, so x = 343.
+P: Solve 2^(x − 1) = 32. => 32 = 2⁵, so x − 1 = 5 and **x = 6**.
+P: A 4 kg object has a net force of 10 N. Find its acceleration. => **2.5 m/s²**.
+P: Is a log of a negative number defined? => **No.** A positive base raised to any power is positive.
+
+CHECK: recall
+
+@section math | 2 · Math: the log laws and solving equations | 60 min
+
+### Before calculators: the problem logs solved
+In 1614 John Napier published tables of logarithms. Astronomers and navigators had to multiply huge numbers by hand, like 3,481,972 × 6,208. A single slip ruined a whole calculation. The idea: replace multiplication, which is slow, with addition, which is fast. Look up the logs, add them, then look up the answer. It worked so well that slide rules based on logs were used by engineers until the 1970s, including the people who put a man on the Moon.
+
+BN: ১৬১৪ সালে নেপিয়ার লগের টেবিল বানালেন। বিশাল দুটো সংখ্যা গুণ করা ছিল কষ্টের আর ভুলের ঝুঁকিপূর্ণ কাজ। ধারণাটা ছিল: গুণকে যোগে বদলাও, কারণ যোগ সহজ। প্রযুক্তিবিদরা স্লাইড রুল (লগ ভিত্তিক) ১৯৭০ এর দশক পর্যন্ত ব্যবহার করেছেন, চাঁদে মানুষ পাঠানোর হিসাবেও।
+
+### Law 1: the product law
+EQ: log_b(M · N) = log_b(M) + log_b(N)
+
+**Proof.** Let m = log_b(M) and n = log_b(N). Written as exponents, M = bᵐ and N = bⁿ. Multiply: M · N = bᵐ · bⁿ = bᵐ⁺ⁿ (the exponent law from Week 1). Now read this as a log: log_b(M · N) = m + n. ∎
+
+EX: Check with numbers
+1. log₂(8 · 4) = log₂(32) = 5.
+2. log₂(8) + log₂(4) = 3 + 2 = 5 ✓.
+/EX
+
+### Law 2: the quotient law
+EQ: log_b(M ÷ N) = log_b(M) − log_b(N)
+
+**Proof.** With M = bᵐ and N = bⁿ: M ÷ N = bᵐ ÷ bⁿ = bᵐ⁻ⁿ. So log_b(M ÷ N) = m − n. ∎
+
+### Law 3: the power law
+EQ: log_b(Mᵏ) = k · log_b(M)
+
+**Proof.** With M = bᵐ: Mᵏ = (bᵐ)ᵏ = bᵐᵏ (power of a power). So log_b(Mᵏ) = mk = k · log_b(M). ∎
+
+This law is the one that lets you **bring an unknown exponent down to the ground**, so you can solve for it. It is also the step we skipped when we proved the change of base rule on Thursday.
+
+KEY: Product → sum. Quotient → difference. Power → multiplier. But there is **no** rule for log(M + N) or log(M − N).
+
+BN: তিনটা নিয়ম: গুণ → যোগ, ভাগ → বিয়োগ, ঘাত → সামনে গুণক। প্রমাণ আসলে ঘাতের নিয়ম থেকে এসেছে (গুণে ঘাত যোগ, ভাগে ঘাত বিয়োগ, ঘাতের ঘাতে গুণ)। সবচেয়ে বেশি কাজে লাগে তৃতীয়টা, কারণ ঘাতে থাকা অজানাকে নিচে নামিয়ে আনে। কিন্তু log(M + N) এর কোনো সহজ নিয়ম নেই।
+
+TRAP: log(M + N) is **not** log(M) + log(N). Test: log(10 + 10) = log(20) ≈ 1.301, but log(10) + log(10) = 2. Also log(M) ÷ log(N) is **not** log(M ÷ N).
+
+EX: Expand log_b(x³ · √y ÷ z)
+1. Product and quotient: log(x³) + log(√y) − log(z).
+2. Power law, with √y = y^(1/2): **3 log x + ½ log y − log z**.
+/EX
+
+EX: Condense 2 log 3 + log 5 − log 15 into a single log
+1. 2 log 3 = log 9.
+2. log 9 + log 5 = log 45.
+3. log 45 − log 15 = log(45 ÷ 15) = **log 3**.
+/EX
+
+EX: Use log 2 ≈ 0.301 and log 3 ≈ 0.477 to find log 6, log 8 and log 5
+1. log 6 = log(2 · 3) = 0.301 + 0.477 = **0.778**.
+2. log 8 = log(2³) = 3 × 0.301 = **0.903**.
+3. log 5 = log(10 ÷ 2) = 1 − 0.301 = **0.699**.
+/EX
+
+### Solving log equations
+Strategy: (1) combine the logs into one log, (2) rewrite as an exponent, (3) solve, (4) **check that every log in the original is defined**. A log needs a positive input.
+
+EX: Solve log₂(x) + log₂(x − 2) = 3
+1. Combine: log₂[x(x − 2)] = 3.
+2. Exponent form: x(x − 2) = 2³ = 8, so x² − 2x − 8 = 0.
+3. Factor: (x − 4)(x + 2) = 0, so x = 4 or x = −2.
+4. Check: x = −2 makes log₂(−2) undefined. So **x = 4** only. Verify: log₂4 + log₂2 = 2 + 1 = 3 ✓.
+/EX
+
+EX: Solve log₃(x + 2) − log₃(x − 1) = 1
+1. Combine: log₃[(x + 2) ÷ (x − 1)] = 1.
+2. Exponent form: (x + 2) ÷ (x − 1) = 3.
+3. x + 2 = 3x − 3, so 2x = 5 and **x = 5/2**.
+4. Check: log₃(4.5) − log₃(1.5) = log₃(3) = 1 ✓.
+/EX
+
+BN: লগ সমীকরণ সমাধানের ধাপ: (১) লগগুলো এক লগে জোড়া লাগাও, (২) ঘাতের আকারে লেখো, (৩) সমাধান করো, (৪) **অবশ্যই যাচাই করো**: মূল সমীকরণের লগের ভেতরে ধনাত্মক সংখ্যা বসছে কি না। যে উত্তরে লগের ভেতর ঋণাত্মক হয়, সেটা বাদ। যেমন x = −2 বাদ গেল।
+
+### Solving exponential equations with logs
+Now the problem from Thursday is solved. If the unknown is in the exponent and the bases cannot be matched, **take a log of both sides** and use the power law.
+
+EX: Solve 3ˣ = 20
+1. Take log of both sides: log(3ˣ) = log(20).
+2. Power law: x · log 3 = log 20.
+3. x = log 20 ÷ log 3 = 1.3010 ÷ 0.4771 = **2.727**.
+4. Check: 3² = 9 and 3³ = 27, and 20 is in between ✓.
+/EX
+
+EX: Solve 2^(3x − 1) = 50
+1. Take ln of both sides: (3x − 1) ln 2 = ln 50.
+2. 3x − 1 = ln 50 ÷ ln 2 = 3.9120 ÷ 0.6931 = 5.644.
+3. 3x = 6.644, so **x = 2.215**.
+/EX
+
+EX: Solve e^(0.3t) = 5
+1. Take ln of both sides. ln(e^(0.3t)) = 0.3t, because ln and e undo each other.
+2. 0.3t = ln 5 = 1.6094.
+3. **t = 5.36**.
+/EX
+
+### e and ln: the natural pair
+The natural logarithm ln(x) = log_e(x) is the inverse of eˣ. So **ln(eˣ) = x** and **e^(ln x) = x**. It follows every rule above, with base e. Physicists, engineers and statisticians use ln almost everywhere, because e makes calculus clean.
+
+### Applications
+EX: Doubling time
+1. At 8% growth per year, 1.08ᵗ = 2.
+2. t = ln 2 ÷ ln 1.08 = 0.6931 ÷ 0.07696 = **9.0 years**.
+3. For any rate r: doubling time ≈ 0.693 ÷ ln(1 + r), and for small r roughly **72 ÷ (r in percent)**. That is the "rule of 72".
+/EX
+
+EX: Carbon dating
+1. Living things take in carbon-14, which decays with half-life 5730 years. A wooden tool has 30% of the original C-14. How old is it?
+2. 0.3 = (1/2)^(t ÷ 5730). Take ln: ln 0.3 = (t ÷ 5730) · ln 0.5.
+3. t = 5730 × (−1.204) ÷ (−0.693) = 5730 × 1.737 = **about 9950 years**.
+/EX
+
+### Straight lines from curves: log scales
+If y = y₀ · aˣ, then log y = log y₀ + x · log a. This is a straight line in x and log y. So when data grows exponentially, plotting **log y** against x gives a **straight line**, and the slope gives log a. Scientists use this to check whether data is exponential and to find the growth rate. Graph paper with a log axis is called semi-log paper.
+
+BN: যদি y = y₀ · aˣ হয়, তাহলে log y = log y₀ + x · log a, যা x আর log y এর মধ্যে একটা সরলরেখা। তাই ডেটা সূচকীয়ভাবে বাড়ছে কি না যাচাই করতে log y এর গ্রাফ আঁকা হয়: সরল রেখা এলে হ্যাঁ। ঢালটা দেয় log a।
+
+### Quick self-check
+QUIZ:
+Q: log₂(12) + log₂(4/3) equals…; 4; 16; 5; log₂(16/3); 1; log₂(12 · 4/3) = log₂(16) = 4.
+Q: log₅(x²) equals…; (log₅ x)²; 2 log₅ x; log₅ x + 2; x log₅ 2; 2; The power law moves the exponent to the front.
+Q: Which is true?; log(a + b) = log a + log b; log(ab) = log a + log b; log(a ÷ b) = log a ÷ log b; log(ab) = log a · log b; 2; Only the product law is correct. The others are common mistakes.
+Q: Solve 2ˣ = 12 to 1 decimal place.; 3.6; 6; 2.4; 3.0; 1; x = ln 12 ÷ ln 2 = 2.4849 ÷ 0.6931 = 3.58.
+Q: Solve log(x) + log(x − 3) = 1.; x = 5; x = −2; x = 5 and x = −2; x = 10; 1; x(x − 3) = 10 gives (x − 5)(x + 2) = 0. x = −2 is rejected because log of a negative is undefined. So x = 5.
+
+### Practice, easy to hard
+LVL: Level 1 | The laws
+P: Write log₃(6) + log₃(9) − log₃(2) as one log, then evaluate. => log₃(6 · 9 ÷ 2) = log₃(27) = **3**.
+P: Expand log(a²b³). => **2 log a + 3 log b**.
+P: Evaluate log₂(48) − log₂(3). => log₂(16) = **4**.
+P: Given log 2 ≈ 0.301, find log 20 and log 0.2. => log 20 = log 2 + log 10 = **1.301**. log 0.2 = log 2 − 1 = **−0.699**.
+LVL: Level 2 | Equations
+P: Solve log₂(x + 1) = 4. => x + 1 = 16, so **x = 15**.
+P: Solve log(x) + log(x + 9) = 1. => x(x + 9) = 10, so x² + 9x − 10 = 0, (x + 10)(x − 1) = 0. x = −10 is rejected, so **x = 1**.
+P: Solve 5ˣ = 40 using the power law. => x = log 40 ÷ log 5 = 1.6021 ÷ 0.6990 = **2.29**.
+P: Solve 4^(x + 1) = 7^x. => (x + 1) ln 4 = x ln 7, so x(ln 4 − ln 7) = −ln 4 and x = ln 4 ÷ (ln 7 − ln 4) = 1.3863 ÷ 0.5596 = **2.48**.
+P: Solve ln(x) + ln(x − 4) = ln(12). => x(x − 4) = 12, so x² − 4x − 12 = 0, (x − 6)(x + 2) = 0. Only **x = 6** is valid.
+LVL: Level 3 | Real problems
+P: A population grows from 2000 to 5000 in 8 years (exponential). Find the yearly growth factor and when it reaches 20,000. => 2000 · aᵗ = 5000 gives a⁸ = 2.5, so a = 2.5^(1/8) = **1.1213** (12.1% a year). For 20,000: 10 = aᵗ, so t = ln 10 ÷ ln 1.1213 = 2.3026 ÷ 0.11454 = **20.1 years**.
+P: A capacitor's voltage falls as V = 12 e^(−t ÷ 0.5) volts (t in seconds). When does it fall to 3 V? => 3 = 12 e^(−2t), so e^(−2t) = 0.25, so −2t = ln 0.25 = −1.386 and t = **0.69 s**.
+P: A sound is 85 dB. By how many times must the intensity fall to reach 55 dB? => 30 dB lower is 10³ = **1000 times** lower.
+P: How many years for 1000 taka to grow to 5000 at 7% compounded yearly? => 1.07ᵗ = 5, so t = ln 5 ÷ ln 1.07 = 1.6094 ÷ 0.06766 = **23.8 years**.
+LVL: Challenge | Show it
+P: Show that log_b(a) × log_a(b) = 1. Then solve 2ˣ = 3^(x − 1) exactly and numerically. => Using change of base: log_b a = ln a ÷ ln b and log_a b = ln b ÷ ln a. Their product is **1**. For the equation: x ln 2 = (x − 1) ln 3, so x ln 2 − x ln 3 = −ln 3, so x = ln 3 ÷ (ln 3 − ln 2) = 1.0986 ÷ 0.4055 = **2.71**.
+
+CHECK: math
+
+@section physics | 3 · Physics: Newton's third law and friction | 35 min
+
+### Forces come in pairs
+Push on a wall. You feel the wall push back on your hand. Step off a small boat and the boat moves backward. A rocket pushes gas downward and the gas pushes the rocket upward. In every case, two objects interact, and each pushes on the other.
+
+KEY: Newton's third law: if object A exerts a force on object B, then B exerts a force on A that is **equal in size, opposite in direction, and of the same type**. The two forces act on **different objects**.
+
+BN: নিউটনের তৃতীয় সূত্র: A যদি B এর ওপর বল দেয়, তাহলে B ও A এর ওপর সমান মানের উল্টো দিকের বল দেয়। দুটো বল **দুটো ভিন্ন বস্তুর** ওপর কাজ করে। তাই এরা একে অপরকে বাতিল করে না, কারণ বাতিল হতে হলে একই বস্তুর ওপর থাকতে হতো।
+
+**Why don't they cancel?** Because they act on different objects. To decide if something accelerates, you add up only the forces **on that object**.
+
+EX: Walking
+1. Your foot pushes the ground backward (friction on the ground).
+2. By the third law, the ground pushes your foot **forward** with an equal force.
+3. This forward force on you is what accelerates you. On ice, the ground can only provide a tiny push, so walking is hard.
+/EX
+
+EX: Two skaters
+1. A 80 kg skater pushes a 60 kg skater with 120 N on smooth ice.
+2. The first pushes the second with 120 N, so the second pushes the first back with **120 N** the other way.
+3. Accelerations: 120 ÷ 80 = **1.5 m/s²** for the heavier skater and 120 ÷ 60 = **2.0 m/s²** for the lighter skater, in opposite directions. Equal forces, unequal accelerations, because the masses differ.
+/EX
+
+EX: Two blocks and a rope
+1. A 4 kg block is pulled by 20 N on a frictionless table. It is attached by a rope to a 6 kg block behind it.
+2. Whole system: 20 ÷ (4 + 6) = **2 m/s²**.
+3. Tension: it is the force that accelerates the 6 kg block alone: T = 6 × 2 = **12 N**.
+4. Check on the 4 kg block: 20 − 12 = 8 = 4 × 2 ✓.
+/EX
+
+TRAP: The weight of a book and the normal force from the table are **not** a third-law pair. They act on the same object. The pair of "Earth pulls the book down" is "the book pulls Earth up".
+
+### Friction
+Friction is the contact force along a surface that resists sliding.
+
+- **Static friction** keeps an object from starting to slide. It adjusts to match the push, up to a maximum: f_s ≤ μ_s N.
+- **Kinetic friction** acts on an object already sliding: **f_k = μ_k N**. The numbers μ_s and μ_k are the **coefficients of friction**, and μ_s is usually bigger than μ_k.
+
+EX: Pushing a crate
+1. A 20 kg crate sits on a floor with μ_s = 0.5 and μ_k = 0.3. Weight = 196 N, so the normal force N = 196 N.
+2. To start moving, you must beat static friction: 0.5 × 196 = **98 N**.
+3. Once it slides, kinetic friction is 0.3 × 196 = **58.8 N**.
+4. You push with 100 N. The net force is 100 − 58.8 = 41.2 N, so a = 41.2 ÷ 20 = **2.06 m/s²**.
+/EX
+
+BN: স্থির ঘর্ষণ (static) বস্তুকে নড়তে দেয় না, এর সর্বোচ্চ মান μ_s × N। গতিশীল ঘর্ষণ (kinetic) f = μ_k × N, যা স্থির ঘর্ষণের সর্বোচ্চ মানের চেয়ে সাধারণত কম। তাই ঠেলে শুরু করা কঠিন, একবার চললে সহজ। N হলো অভিলম্ব বল, ওজন নয় (যদিও সমতলে সমান হতে পারে)।
+
+### Quick self-check
+QUIZ:
+Q: You push a wall with 50 N. The wall pushes you with…; 0 N; 25 N; 50 N; 100 N; 3; Third law pairs are equal in size and opposite in direction.
+Q: Why do third-law pairs not cancel?; they are different sizes; they act on different objects; they act at different times; they are not forces; 2; Only forces on the same object can cancel in a net force calculation.
+Q: A 10 kg block slides on a floor with μ_k = 0.2. The friction force is…; 2 N; 20 N; 19.6 N; 49 N; 3; N = 98 N, so f = 0.2 × 98 = 19.6 N.
+Q: Which friction is usually larger at its maximum?; kinetic; static; they are the same; neither; 2; Static friction can hold up to μ_s N, which is larger than the kinetic value.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 5 kg block on a floor has μ_k = 0.4. Find the friction when sliding. => N = 49 N, f = 0.4 × 49 = **19.6 N**.
+P: A boy of 40 kg stands on a skateboard and pushes a wall with 80 N. What happens to him? => The wall pushes him with 80 N. a = 80 ÷ 40 = **2 m/s²** away from the wall.
+LVL: Level 2 | Combine laws
+P: A 12 kg box is pulled with 50 N across a floor with μ_k = 0.25. Find its acceleration. => Friction: 0.25 × 117.6 = 29.4 N. Net force 20.6 N. a = **1.72 m/s²**.
+P: Two blocks of 3 kg and 2 kg are joined by a rope on a frictionless table. A 15 N force pulls the 3 kg block. Find a and the tension. => a = 15 ÷ 5 = **3 m/s²**. T = 2 × 3 = **6 N**.
+LVL: Challenge | The horse and cart
+P: "If the cart pulls back on the horse with the same force the horse pulls the cart, how can the cart ever move?" Answer clearly. => The two forces act on **different objects**. For the cart, only the forward pull from the horse (and friction from the ground) matter. For the horse, the ground pushes it forward more than the cart pulls it back. The horse accelerates because the **ground pushes it forward** (third-law pair with its feet pushing back), and that is bigger than the cart's backward pull.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and the plan for Saturday | 10 min
+
+NOTES:
+
+### Recap
+- Laws: log(MN) = log M + log N. log(M/N) = log M − log N. log(Mᵏ) = k log M.
+- Solve log equations by combining, converting to an exponent, solving, then checking the domain.
+- Solve exponential equations by taking logs: x = log b ÷ log a.
+- ln is the inverse of eˣ: ln(eˣ) = x.
+- Third law: forces in pairs, equal and opposite, on different objects. Friction f = μN.
+
+BN: আজকের সারকথা: লগের তিন নিয়ম, লগ সমীকরণ সমাধানের পর অবশ্যই ডোমেইন যাচাই, আর সূচকীয় সমীকরণে দুই পাশে লগ নিয়ে x বের করা। নিউটনের তৃতীয় সূত্রে বল জোড়ায় থাকে, ভিন্ন বস্তুর ওপর। ঘর্ষণ f = μN।
+
+**Tomorrow (Saturday):** the Week 2 test, mistake log and challenge.
+
+CHECK: notes

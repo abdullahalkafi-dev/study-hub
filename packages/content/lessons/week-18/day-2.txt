@@ -1,0 +1,168 @@
+@day Week 18 · Day 2 · Tuesday
+# Separable equations, logistic growth and direction fields. Then: capacitors in series and parallel
+lead: Many equations of change can be solved by moving everything with y to one side and everything with x (or t) to the other, then integrating: that is separation of variables. It handles falling with air resistance, populations that level off, and chemical reactions. When no formula exists you can still draw the behaviour with a direction field. In physics, you combine capacitors: side by side they add, one after another they share the voltage, and a surprising amount of energy disappears when a charged capacitor is connected to an empty one.
+
+BN: পরিবর্তনের অনেক সমীকরণ সমাধান করা যায় y সংক্রান্ত সব একপাশে আর x (বা t) সংক্রান্ত সব অন্যপাশে এনে যোগজ করে: একে চলক পৃথকীকরণ বলে। এতে বাতাসের বাধায় পতন, সীমায় থেমে যাওয়া জনসংখ্যা এবং রাসায়নিক বিক্রিয়ার সমাধান হয়। সূত্র না থাকলেও দিকক্ষেত্র (direction field) দিয়ে আচরণ আঁকা যায়। পদার্থবিজ্ঞানে ধারক জুড়বে: পাশাপাশি যোগ হয়, একটার পর একটা ভোল্টেজ ভাগ করে, আর চার্জিত ধারক খালি ধারকের সাথে জুড়লে আশ্চর্যজনক পরিমাণ শক্তি হারিয়ে যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and before
+P: Solve y′ = 2y with y (0) = 3. => **y = 3 e^(2t)**.
+P: Evaluate ∫ 1 ÷ y dy. => **ln |y| + C**.
+P: Evaluate ∫ x dx. => **x²/2 + C**.
+P: Find the capacitance of plates with A = 0.01 m² and d = 1 mm. => **88.5 pF**.
+P: Decompose 1 ÷ (P (1 − P)) into partial fractions. => **1 ÷ P + 1 ÷ (1 − P)**.
+
+CHECK: recall
+
+@section math | 2 · Math: separable equations | 55 min
+
+### The method
+If the equation can be written dy/dx = g (x) h (y), separate and integrate:
+
+EQ: ∫ dy ÷ h (y) = ∫ g (x) dx + C
+
+Solve for y if you can; use the initial condition to fix C. Remember the **constant solutions** (where h (y) = 0), which separation can lose.
+
+EX: Four separable equations
+1. **dy/dx = x y, y (0) = 2.** ∫ dy ÷ y = ∫ x dx gives ln y = x²/2 + C, so y = A e^(x²/2); A = 2. **y = 2 e^(x²/2)**, and y (1) = 2 e^0.5 = **3.297**.
+2. **dy/dx = x ÷ y, y (0) = 2.** ∫ y dy = ∫ x dx gives y²/2 = x²/2 + C, so y² = x² + 4 (C from y (0) = 2). **y = √(x² + 4)**, y (3) = √13 = **3.606**.
+3. **dy/dx = y², y (0) = 1.** ∫ dy ÷ y² = ∫ dx gives −1 ÷ y = x + C, and C = −1: **y = 1 ÷ (1 − x)**. At x = 0.5, y = 2. As x → 1 the solution **blows up to infinity in finite time**: a warning that fast growth rates (y² rather than y) behave very differently from exponential.
+4. **Terminal velocity.** A skydiver (m = 70 kg) with linear drag: m dv/dt = m g − b v, with b = 10 kg/s. Write dv ÷ (g − (b/m) v) = dt and integrate: **v (t) = (m g ÷ b) (1 − e^(−b t/m))**. The terminal speed is m g ÷ b = 70 × 9.8 ÷ 10 = **68.6 m/s**, with time constant m ÷ b = **7 s**. After 7 s: v = 68.6 × (1 − e⁻¹) = **43.4 m/s**.
+/EX
+
+BN: dy/dx = g(x)h(y) হলে ∫dy/h(y) = ∫g(x)dx + C; তারপর শুরুর শর্তে C। দ্রুত বাড়ার সমীকরণ dy/dx = y² এর সমাধান y = 1/(1 − x) সসীম সময়ে অসীম হয়ে যায়। বাতাসের বাধায় পতন: v = (mg/b)(1 − e^(−bt/m)), সীমা বেগ mg/b।
+
+LAB: Falling with air resistance | Choose the mass and the drag constant b. The graph shows the speed against time: it approaches the terminal speed m g ÷ b. The numbers give the terminal speed, the time constant m ÷ b and the speed at your chosen time. | m:Mass m (kg):1:100:1:70 ;; b:Drag constant b (kg/s):1:50:1:10 ;; t:Time t (s):0:30:1:7 | m*9.8/b:Terminal speed (m/s):1 ;; m/b:Time constant m ÷ b (s):2 ;; m*9.8/b*(1-exp(-b*t/m)):Speed at time t (m/s):1 | m*9.8/b*(1-exp(-b*x/m)) | 0,30 | 0,100
+
+### Logistic growth
+Unlimited exponential growth cannot last: food, space or customers run out. The **logistic equation** has growth rate r at small sizes and zero growth at the **carrying capacity** K:
+
+EQ: dP/dt = r P (1 − P ÷ K)     ⟹     P (t) = K ÷ [1 + ((K − P₀) ÷ P₀) e^(−r t)]
+
+It is separable (use partial fractions). The curve is an S-shape (a sigmoid): slow, then fast, then levelling at K. The fastest growth is at **P = K/2**, with rate **r K ÷ 4**.
+
+EX: A population
+K = 1000, P₀ = 100 and r = 0.5 per year: P (t) = 1000 ÷ (1 + 9 e^(−0.5 t)).
+1. **At t = 5:** e^(−2.5) = 0.0821, so P = 1000 ÷ (1 + 0.739) = **575**.
+2. **When does it reach 500?** 1 + 9 e^(−0.5t) = 2, e^(−0.5t) = 1/9, **t = 2 ln 9 = 4.39 years**.
+3. **The fastest growth** is at P = 500 (t = 4.39 years), at the rate 0.5 × 1000 ÷ 4 = **125 per year**.
+4. **Another case:** dP/dt = 0.02 P (1 − P ÷ 500) with P₀ = 50: P (100) = 500 ÷ (1 + 9 e^(−2)) = **225**.
+5. **An epidemic or a rumour** in a town of 10,000 with 10 infected and r = 0.4 per day: P = 10000 ÷ (1 + 999 e^(−0.4 t)). Half the town is reached at t = ln 999 ÷ 0.4 = **17.3 days**, when the spread is the fastest, at r K ÷ 4 = **1000 new cases per day**. (This model is also used for how fast new technology is adopted.)
+/EX
+
+LAB: Logistic growth | Choose the carrying capacity K, the starting size and the growth rate r. The graph shows the S-shaped curve. The numbers give the size at your time, the time at which the population reaches K ÷ 2 and the maximum growth rate. | K:Carrying capacity K:100:10000:100:1000 ;; P0:Start P₀:1:500:1:100 ;; r:Rate r (per year):0.1:1.5:0.1:0.5 ;; t:Time t (years):0:30:1:5 | K/(1+(K-P0)/P0*exp(-r*t)):Population at time t:0 ;; log((K-P0)/P0)/r:Time to reach K ÷ 2 (years):2 ;; r*K/4:Maximum growth rate (per year):1 | K/(1+(K-P0)/P0*exp(-r*x)) | 0,30 | 0,10000
+
+### Direction fields
+Even when you cannot solve dy/dx = f (x, y), you can draw small slope segments at many points: a **direction field**. Solution curves follow the segments. Where f = 0 the segments are horizontal.
+
+EX: Reading a direction field
+1. **dy/dx = x − y.** At (0, 0) the slope is 0; at (1, 0) it is **1**; at (0, 1) it is **−1**; at (2, 2) it is **0**. The slopes are zero along the line y = x (an **isocline** with slope 0). A solution starting at (0, 1) goes down at first, then bends up towards the line y = x − 1 (the solution which is a straight line: y = x − 1 gives y′ = 1 = x − (x − 1) ✓).
+2. **dy/dt = r y (1 − y ÷ K):** the segments are horizontal at y = 0 and y = K. Between them they point up: all solutions starting there climb to K. Above K they point down. So y = K is **stable** and y = 0 is **unstable**.
+3. **Equilibria:** a constant solution y = c where f (c) = 0. It is stable if nearby solutions approach it.
+/EX
+
+TRAP: When you divide by h (y) you may **lose a solution** where h (y) = 0 (for the logistic equation, P = 0 and P = K). Do not forget the **constant** of integration before you apply the initial condition (put it in at the integration step). And when you take the exponential of ln y = x²/2 + C, the constant becomes a **factor**: y = A e^(x²/2), not y = e^(x²/2) + A.
+
+### Quick self-check
+QUIZ:
+Q: The equation dy/dx = x y is solved by…; y = A e^(x²/2); y = A e^x; y = x² + A; y = A x; 1; ∫ dy/y = ∫ x dx.
+Q: The logistic curve grows fastest when P equals…; 0; K ÷ 4; K ÷ 2; K; 3; The growth rate peaks at K/2.
+Q: The terminal speed of a falling body with linear drag is…; b ÷ m g; m g ÷ b; m ÷ b; g ÷ b; 2; Where the net force is zero.
+Q: For dy/dx = y² with y (0) = 1 the solution…; grows exponentially; blows up at x = 1; decays; stays at 1; 2; y = 1 ÷ (1 − x).
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Solve dy/dx = 2xy with y (0) = 1 and find y (1). => y = e^(x²); y (1) = **e = 2.718**.
+P: Solve dy/dx = x ÷ y with y (0) = 2 and find y (3). => y² = x² + 4, y (3) = **√13 = 3.606**.
+P: Solve dy/dx = y² with y (0) = 1 and find y (0.5). => y = 1 ÷ (1 − x), **2**.
+LVL: Level 2 | Apply
+P: A logistic population has K = 1000, P₀ = 100 and r = 0.5. Find P (5) and the time to reach 500. => **575** and **4.39 years**.
+P: A skydiver has m = 70 kg and b = 10 kg/s. Find the speed at 3.5 s. => 68.6 (1 − e^(−0.5)) = **27.0 m/s**.
+P: Solve the logistic equation dP/dt = 0.02 P (1 − P ÷ 500) with P₀ = 50 and find P (100). => **225** (P = 500 ÷ (1 + 9 e^(−0.02 t))).
+P: Solve dy/dx = e^x y² with y (0) = 1. => ∫ dy ÷ y² = ∫ e^x dx: −1 ÷ y = e^x + C, C = −2. **y = 1 ÷ (2 − e^x)**, which blows up at x = ln 2 = 0.693.
+P: A 100 L tank holds pure water. Salt water at 0.2 kg/L flows in at 5 L/min and the well-mixed solution flows out at 5 L/min. Find the salt mass S (t) and the time to reach 10 kg. => dS/dt = 1 − 0.05 S, so S = 20 (1 − e^(−0.05 t)); S = 10 when e^(−0.05t) = 1/2, **t = 13.9 min**. The limit is **20 kg** (0.2 kg/L × 100 L).
+P: Sketch (in words) the direction field of dy/dx = −y. => Slopes are negative above the x-axis and positive below, horizontal on y = 0: all curves decay to y = 0, the solutions y = C e^(−x). **y = 0 is stable.**
+LVL: Level 3 | Real
+P: A town of 10,000 has 10 infected and r = 0.4 per day (logistic). Find the time to infect half the town and the maximum daily rate. => t = ln 999 ÷ 0.4 = **17.3 days**; max rate = r K ÷ 4 = **1000 per day**.
+LVL: Challenge | Solving the logistic equation
+P: Derive P (t) = K ÷ [1 + ((K − P₀) ÷ P₀) e^(−r t)]. => ∫ dP ÷ [P (1 − P ÷ K)] = ∫ r dt. Partial fractions: 1 ÷ [P (1 − P ÷ K)] = 1 ÷ P + (1 ÷ K) ÷ (1 − P ÷ K), so ln P − ln (K − P) = r t + C and P ÷ (K − P) = A e^(rt) with A = P₀ ÷ (K − P₀). Solving: P = K A e^(rt) ÷ (1 + A e^(rt)) = **K ÷ (1 + ((K − P₀) ÷ P₀) e^(−rt))**.
+
+CHECK: math
+
+@section physics | 3 · Physics: capacitors in series and parallel | 35 min
+
+### Parallel
+Capacitors connected side by side (same V across each) act like one large plate: charges add and so do capacitances.
+
+EQ: C_parallel = C₁ + C₂ + …     (same V; Q_total = Σ Qᵢ)
+
+### Series
+Capacitors connected end to end (same Q on each, since the middle plates are isolated) share the voltage:
+
+EQ: 1 ÷ C_series = 1 ÷ C₁ + 1 ÷ C₂ + …     (same Q; V_total = Σ Vᵢ)
+
+The series total is always **smaller than the smallest** capacitor (a thicker effective gap).
+
+BN: সমান্তরাল: প্রতিটিতে একই V; C = C₁ + C₂ + …। শ্রেণি: প্রতিটিতে একই Q; 1/C = 1/C₁ + 1/C₂ + …; ফল সবচেয়ে ছোট ধারকের চেয়েও ছোট। (রোধের সূত্রের ঠিক উল্টো।)
+
+EX: Combinations
+1. **2 μF and 3 μF in parallel:** 5 μF. **In series:** 1 ÷ C = 1/2 + 1/3 = 5/6, **C = 1.2 μF**.
+2. **12 V across the series pair:** Q = C V = 1.2 × 12 = **14.4 μC** on each capacitor. V₁ = Q ÷ C₁ = 14.4 ÷ 2 = **7.2 V**, V₂ = 14.4 ÷ 3 = **4.8 V**: the **smaller** capacitor gets the larger voltage. The sum is 12 V ✓.
+3. **12 V across the parallel pair:** Q₁ = 2 × 12 = **24 μC**, Q₂ = 3 × 12 = **36 μC**, total 60 μC = 5 μF × 12 V ✓.
+4. **A network:** C₁ = 4 μF in series with (2 μF ∥ 6 μF). The parallel part is 8 μF. Series: 1 ÷ C = 1/4 + 1/8 = 3/8, **C = 2.667 μF**. With 24 V: Q = 2.667 × 24 = **64 μC**. V across C₁: 64 ÷ 4 = **16 V**; across the pair: 64 ÷ 8 = **8 V**. The charge on the 2 μF is 2 × 8 = **16 μC** and on the 6 μF is **48 μC** (16 + 48 = 64 ✓).
+5. **Three identical 10 μF:** in series **3.33 μF**; in parallel **30 μF**.
+6. **Voltage rating:** two 100 μF, 50 V capacitors in series make 50 μF rated at 100 V (ideally); in parallel they make 200 μF rated at 50 V.
+7. **Charge sharing.** A 6 μF capacitor charged to 12 V (Q = 72 μC) is connected to an uncharged 3 μF. The charge is conserved and the voltage becomes V = 72 ÷ 9 = **8 V**. Energy before: ½ × 6 × 10⁻⁶ × 144 = **432 μJ**. After: ½ × 9 × 10⁻⁶ × 64 = **288 μJ**. The missing **144 μJ** (one third) went into the spark, heat and radiation in the wires: **energy is not conserved in the capacitors alone**.
+/EX
+
+LAB: Two capacitors in series and parallel | Choose two capacitances and a battery voltage. The numbers give the equivalent capacitance of the series and the parallel connections, the voltage across C₁ in the series connection, and the charge on C₁ in the parallel connection. | C1:C₁ (μF):1:10:0.5:2 ;; C2:C₂ (μF):1:10:0.5:3 ;; V:Battery V (V):1:50:1:12 | C1+C2:Parallel total (μF):2 ;; C1*C2/(C1+C2):Series total (μF):3 ;; C1*C2/(C1+C2)*V/C1:Voltage across C₁ in series (V):2 ;; C1*V:Charge on C₁ in parallel (μC):1 | - | 0,1 | 0,1
+
+LAB: Sharing charge | A capacitor C₁ charged to V₁ is connected to an uncharged capacitor C₂. The numbers give the final voltage, and the energy before, after and lost. The graph shows the lost fraction of the energy as C₂ grows: it is C₂ ÷ (C₁ + C₂). | C1:C₁ (μF):1:10:0.5:6 ;; C2:C₂ (μF):0.5:20:0.5:3 ;; V1:V₁ (V):1:50:1:12 | C1*V1/(C1+C2):Final voltage (V):2 ;; 0.5*C1*V1^2:Energy before (μJ):1 ;; 0.5*(C1*V1)^2/(C1+C2):Energy after (μJ):1 ;; 0.5*C1*V1^2-0.5*(C1*V1)^2/(C1+C2):Energy lost (μJ):1 | 100*x/(C1+x) | 0.5,20 | 0,100
+
+TRAP: Capacitors combine **opposite** to resistors: parallel capacitances **add**, series ones add as **reciprocals**. In a series connection the charge is the **same** on every capacitor, while the voltages differ; in parallel the voltage is the same while the charges differ. And never assume energy is conserved when you connect capacitors at different voltages: the lost energy shows up as heat and radiation.
+
+### Quick self-check
+QUIZ:
+Q: Capacitors in parallel have the same…; charge; voltage; energy; capacitance; 2; Same V across each.
+Q: Two identical capacitors C in series give…; 2C; C ÷ 2; C; C²; 2; 1/C + 1/C = 2/C.
+Q: In a series connection, the larger voltage is across the…; larger capacitor; smaller capacitor; both equally; neither; 2; V = Q ÷ C with the same Q.
+Q: In the charge-sharing example the energy…; is conserved; rises; falls by a third; falls by half; 3; 432 → 288 μJ.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the equivalent of 2 μF and 3 μF in parallel and in series. => **5 μF** and **1.2 μF**.
+P: Find the equivalent of three 10 μF capacitors in series. => **3.33 μF**.
+P: Find the charge on each of two series capacitors (2 μF and 3 μF) across 12 V. => **14.4 μC** each.
+LVL: Level 2 | Apply
+P: Find the voltage across each in the series pair (2 μF and 3 μF) at 12 V. => **7.2 V** and **4.8 V**.
+P: Find the equivalent of 4 μF in series with (2 μF ∥ 6 μF) and the voltages at 24 V. => **2.667 μF**; 16 V on the 4 μF and 8 V on the pair.
+P: A 6 μF capacitor at 12 V is connected to an uncharged 3 μF. Find the final voltage and the lost energy. => **8 V** and **144 μJ**.
+P: Find the equivalent capacitance of 1 μF, 2 μF and 3 μF in series. => 1/C = 1 + 1/2 + 1/3 = 11/6, **C = 0.545 μF**.
+P: A 10 μF capacitor at 20 V is connected to a 5 μF capacitor at 5 V (same polarity). Find the final voltage and the energy lost. => Q = 200 + 25 = 225 μC, C = 15 μF, V = **15 V**. Before: ½ × 10 × 400 + ½ × 5 × 25 = 2000 + 62.5 = 2062.5 μJ. After: ½ × 15 × 225 = 1687.5 μJ. Lost **375 μJ**.
+P: With a 12 V battery, which uses more energy: C₁ = 2 μF and C₂ = 3 μF in series or in parallel? => Series: ½ × 1.2 × 144 = **86.4 μJ**. Parallel: ½ × 5 × 144 = **360 μJ**.
+LVL: Level 3 | Real
+P: Two 100 μF, 50 V electrolytic capacitors are connected in series across 80 V. If they are perfectly equal, what is the voltage on each, and what happens if one has leakage that gives it only 1/3 of the other's resistance? => Equal: **40 V** each. With unequal leakage the voltage divides in proportion to the resistances in steady state: the leaky one takes only 20 V and the other **60 V, over its rating**. This is why real series stacks of capacitors add **balancing resistors**.
+LVL: Challenge | Always smaller than the smallest
+P: Show that two capacitors in series always give C < min (C₁, C₂), and find the value of C₂ that maximises the total series capacitance for a fixed C₁ + C₂ = 10 μF. => C = C₁ C₂ ÷ (C₁ + C₂) and 1 ÷ C = 1 ÷ C₁ + 1 ÷ C₂ > 1 ÷ C₁, so C < C₁ (and C < C₂). For C₁ + C₂ = 10 the series total is C₁ (10 − C₁) ÷ 10, largest at **C₁ = C₂ = 5 μF** giving **2.5 μF** (a function of two variables with a constraint: Lagrange multipliers or just calculus).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Separable: ∫ dy ÷ h (y) = ∫ g (x) dx + C. y′ = xy gives A e^(x²/2); y′ = y² blows up in finite time; drag gives v = (mg ÷ b)(1 − e^(−bt/m)). Logistic: P = K ÷ (1 + ((K − P₀) ÷ P₀) e^(−rt)), fastest growth at K/2 with rate rK ÷ 4. Direction fields; equilibria stable or unstable.
+- Parallel: C = ΣC, same V. Series: 1/C = Σ 1/C, same Q, the smaller C has the larger V. Charge sharing: V = (C₁ V₁) ÷ (C₁ + C₂), a fraction C₂ ÷ (C₁ + C₂) of the energy is lost.
+
+BN: আজকের সারকথা: বিচ্ছিন্নযোগ্য সমীকরণ: ∫dy/h = ∫g dx + C; dy/dx = y² সসীম সময়ে অসীম; বাতাসের বাধায় সীমা বেগ mg/b; লজিস্টিক P = K/(1 + ((K − P₀)/P₀)e^(−rt)), সবচেয়ে দ্রুত বৃদ্ধি P = K/2 এ, হার rK/4। সমান্তরালে C যোগ, V একই; শ্রেণিতে 1/C যোগ, Q একই, ছোট ধারকে বেশি V। চার্জ ভাগাভাগিতে শক্তির C₂/(C₁ + C₂) অংশ হারায়।
+
+EXIT:
+E: Solve dy/dx = x y with y (0) = 2. What is y (1)?; 3.30; 0.01; 2 e^0.5.
+E: What is the series equivalent (μF) of 2 μF and 3 μF?; 1.2; 0.01; 6 ÷ 5.
+E: A logistic population has K = 1000, P₀ = 100, r = 0.5 per year. What is P (5)?; 575; 1; 1000 ÷ (1 + 9 e^(−2.5)).
+
+**Tomorrow:** linear first-order equations with an integrating factor, mixing problems, and the energy stored in capacitors (and the camera flash).
+
+CHECK: notes

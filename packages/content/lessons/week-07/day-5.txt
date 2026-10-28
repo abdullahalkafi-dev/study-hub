@@ -1,0 +1,208 @@
+@day Week 7 · Day 5 · Friday
+# The mean value theorem and L'Hôpital's rule. Then: trusses, stress and strain
+lead: Two powerful theorems close the week's calculus. The mean value theorem says that the average rate of change is always matched by an instantaneous rate somewhere. L'Hôpital's rule uses derivatives to settle the 0 ÷ 0 limits that stumped you in Week 5. In physics, you do what structural engineers do: find the forces in the members of a truss, and see how much a loaded cable stretches.
+
+BN: সপ্তাহের ক্যালকুলাস শেষ করছে দুটি শক্তিশালী উপপাদ্য। গড় মান উপপাদ্য (mean value theorem) বলে: গড় পরিবর্তনের হার কোথাও না কোথাও তাৎক্ষণিক হার হিসেবেও থাকবে। লোপিতালের নিয়ম (L'Hôpital's rule) অন্তরকলজ দিয়ে 0 ÷ 0 ধরনের লিমিট সমাধান করে। পদার্থবিজ্ঞানে স্থপতিদের কাজ: ট্রাসের (truss) প্রতিটি দণ্ডের বল বের করা, আর ভার পড়লে তার কতটা লম্বা হয় তা মাপা।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Do one Newton step for f(x) = x² − 10 from x₀ = 3. => 3 − (9 − 10) ÷ 6 = **3.1667**.
+P: Estimate √25.5 by linearisation at 25. => 5 + 0.5 ÷ 10 = **5.05**.
+P: A wheel turns from rest at α = 4 rad/s². Find ω after 3 s. => **12 rad/s**.
+P: Convert 600 rpm to rad/s. => **20π ≈ 62.8 rad/s**.
+P: Find the largest rectangle area with perimeter 24. => **36** (a 6 × 6 square).
+
+CHECK: recall
+
+@section math | 2 · Math: the mean value theorem and L'Hôpital's rule | 55 min
+
+### Rolle's theorem and the mean value theorem
+**Rolle's theorem.** If f is continuous on [a, b], differentiable on (a, b), and f(a) = f(b), then somewhere between a and b the tangent is horizontal: f′(c) = 0. (A hill or a valley must lie between two points at the same height.)
+
+**Mean value theorem (MVT).** If f is continuous on [a, b] and differentiable on (a, b), there is a number c in (a, b) with
+
+EQ: f′(c) = (f(b) − f(a)) ÷ (b − a)
+
+**Picture.** Draw the chord from (a, f(a)) to (b, f(b)). Somewhere on the curve, the tangent is parallel to the chord.
+
+**Why it is true.** Tilt the picture so the chord becomes horizontal: define g(x) = f(x) − (the chord line). Then g(a) = g(b) = 0 and Rolle's theorem gives a point where g′ = 0, which means f′ equals the slope of the chord. ∎
+
+BN: গড় মান উপপাদ্য: জ্যা (chord) এর ঢাল = কোনো না কোনো বিন্দুতে স্পর্শকের ঢাল। রোলের উপপাদ্য: সমান উচ্চতার দুই বিন্দুর মাঝে কোথাও স্পর্শক অনুভূমিক। যেমন, এক ঘণ্টায় ১০০ কিমি গেলে কোনো মুহূর্তে গতি ঠিক ১০০ কিমি/ঘণ্টা ছিলই।
+
+EX: Finding c
+1. f(x) = x³ on [0, 2]. The chord slope is (8 − 0) ÷ 2 = 4. Solve 3c² = 4: **c = 2/√3 = 1.155**, which lies in (0, 2).
+/EX
+
+EX: A speed trap
+1. A car passes a toll gate at 10:00 and another gate 150 km later at 11:30. The average speed is 100 km/h. By the MVT, at some moment its speedometer read exactly **100 km/h**. (Speed cameras use this: two time-stamped cameras and the MVT prove a driver exceeded the limit even without a measurement at the instant.)
+/EX
+
+### What the MVT tells us
+- If f′ = 0 everywhere on an interval, f is **constant** there.
+- If f′ > 0 on an interval, f is **increasing** (so the first derivative test works).
+- If two functions have the same derivative, they differ by a constant.
+
+EX: Exactly one root
+1. Show that x³ + x − 1 = 0 has exactly one real root. Week 5 gave existence (IVT).
+2. f′ = 3x² + 1 > 0 for all x, so f is strictly increasing and can cross zero only once. If there were two roots, Rolle's theorem would give a point with f′ = 0, which is impossible. **Exactly one root** (0.6823).
+/EX
+
+EX: An inequality
+1. Show |sin b − sin a| ≤ |b − a|. By the MVT, sin b − sin a = cos c × (b − a) for some c, and |cos c| ≤ 1. ∎ In words: sine is never steeper than 1.
+/EX
+
+### L'Hôpital's rule
+In Week 5, forms like 0 ÷ 0 required clever tricks. The MVT gives a uniform way:
+
+**L'Hôpital's rule.** If lim f(x) ÷ g(x) is of the form 0 ÷ 0 or ∞ ÷ ∞, and lim f′(x) ÷ g′(x) exists, then
+
+EQ: lim f(x) ÷ g(x) = lim f′(x) ÷ g′(x)
+
+(The idea: near the point, f and g both behave like straight lines through zero, so the ratio of the functions equals the ratio of their slopes.) You may apply it repeatedly.
+
+EX: Basic uses
+1. lim (x → 0) (eˣ − 1) ÷ x is 0 ÷ 0. Differentiate: eˣ ÷ 1 → **1**.
+2. lim (x → 0) (eˣ − 1 − x) ÷ x² is 0 ÷ 0. First: (eˣ − 1) ÷ 2x is still 0 ÷ 0. Again: eˣ ÷ 2 → **1/2**.
+3. lim (x → 0) (1 − cos x) ÷ x² → sin x ÷ 2x → cos x ÷ 2 → **1/2** (the answer that took trickery in Week 5).
+4. lim (x → ∞) ln x ÷ x is ∞ ÷ ∞: (1/x) ÷ 1 → **0**.
+/EX
+
+LAB: A limit that needs L'Hôpital | The ratio (e^(ax) − 1 − ax) ÷ x² is 0 ÷ 0 at x = 0. Choose a and watch the ratio settle at a²/2 as x gets smaller. The numbers show the limit and the value at your chosen x₀. | a:Parameter a:-3:3:0.25:2 ;; x0:Small x₀:0.05:2:0.05:0.5 | (exp(a*x0)-1-a*x0)/x0^2:Ratio at x₀:3 ;; a^2/2:Limit a²/2 (L'Hôpital twice):3 | (exp(a*x)-1-a*x)/x^2 | 0.05,2 | 0,15
+
+### Other indeterminate forms
+L'Hôpital applies directly only to 0 ÷ 0 and ∞ ÷ ∞. Other forms must be rewritten.
+
+| Form | Method |
+| 0 × ∞ | Write as a quotient: f g = f ÷ (1/g) |
+| ∞ − ∞ | Combine into one fraction |
+| 1^∞, 0⁰, ∞⁰ | Take ln, turn it into a product, then a quotient |
+
+EX: Rewriting
+1. lim (x → ∞) x e^(−x) = lim x ÷ eˣ (∞ ÷ ∞) → 1 ÷ eˣ → **0**. The exponential wins over any power.
+2. lim (x → 0⁺) x ln x = lim ln x ÷ (1/x) (∞ ÷ ∞) → (1/x) ÷ (−1/x²) = −x → **0**.
+3. lim (x → 0⁺) xˣ: ln y = x ln x → 0, so y → e⁰ = **1**.
+4. lim (x → ∞) (1 + 1/x)ˣ: ln y = ln(1 + 1/x) ÷ (1/x) → 0 ÷ 0, derivative: (−1/x²) ÷ (1 + 1/x) ÷ (−1/x²) = 1 ÷ (1 + 1/x) → 1, so y → **e**.
+/EX
+
+**Growth ranking.** From L'Hôpital: as x → ∞, **eˣ grows faster than any power xⁿ, and any power grows faster than ln x**. In symbols: ln x ≪ xⁿ ≪ eˣ. This is why exponential processes (viruses, interest) outrun every polynomial.
+
+TRAP: Check that the limit really is 0 ÷ 0 or ∞ ÷ ∞ **before** applying the rule. For lim (x → 0) (x + 1) ÷ (x + 2) the answer is 1/2 by substitution; the rule would give 1, which is wrong. Also, differentiate the top and bottom **separately** (this is not the quotient rule).
+
+### Quick self-check
+QUIZ:
+Q: lim (x → 0) sin 3x ÷ x by L'Hôpital is…; 1; 3; 0; 1/3; 2; 3 cos 3x ÷ 1 → 3.
+Q: lim (x → ∞) x² ÷ eˣ equals…; ∞; 1; 0; 2; 3; Exponentials beat powers.
+Q: The mean value theorem guarantees a point where f′(c) equals…; zero; the slope of the chord; the maximum slope; the average value of f; 2; The slope of the chord between the endpoints.
+Q: A car's average speed over 2 hours is 90 km/h. At some moment its speed was…; at most 90; exactly 90; at least 100; zero; 2; MVT.
+Q: lim (x → 0) (1 + x)^(1/x) equals…; 0; 1; e; ∞; 3; ln y = ln(1 + x) ÷ x → 1.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find lim (x → 2) (x² − 4) ÷ (x − 2) with L'Hôpital. => 2x ÷ 1 → **4**.
+P: Find lim (x → 0) (eˣ − 1) ÷ sin x. => eˣ ÷ cos x → **1**.
+P: Find the value c from the MVT for f(x) = x² on [1, 3]. => The chord slope is (9 − 1) ÷ 2 = 4. 2c = 4, so **c = 2**.
+LVL: Level 2 | Apply
+P: Find lim (x → 0) (sin x − x) ÷ x³. => (cos x − 1) ÷ 3x² → (−sin x) ÷ 6x → (−cos x) ÷ 6 = **−1/6**.
+P: Find lim (x → ∞) x³ e^(−x). => x³ ÷ eˣ → 3x² ÷ eˣ → 6x ÷ eˣ → 6 ÷ eˣ → **0**.
+P: Find lim (x → 0⁺) x² ln x. => ln x ÷ (1/x²) → (1/x) ÷ (−2/x³) = −x² ÷ 2 → **0**.
+P: Find lim (x → 0) (1/x − 1/sin x). => (sin x − x) ÷ (x sin x) is 0 ÷ 0: (cos x − 1) ÷ (sin x + x cos x) is 0 ÷ 0: (−sin x) ÷ (2 cos x − x sin x) → 0 ÷ 2 = **0**.
+P: Find lim (x → ∞) (1 + 2/x)^x. => ln y = x ln(1 + 2/x) = ln(1 + 2/x) ÷ (1/x) → (−2/x²) ÷ (1 + 2/x) ÷ (−1/x²) = 2 ÷ (1 + 2/x) → 2, so y → **e²**.
+LVL: Level 3 | Real
+P: A cooling object's temperature difference is D(t) = 80 e^(−0.1t). Show that the average rate of change between t = 0 and t = 10 is equal to the instantaneous rate at some time, and find that time. => D(0) = 80, D(10) = 80/e = 29.43. Average rate = (29.43 − 80) ÷ 10 = −5.057 °C per unit time. D′(c) = −8 e^(−0.1c) = −5.057, so e^(−0.1c) = 0.632, c = −10 ln 0.632 = **4.59**. (The cooling is faster early and slower later, so the instantaneous rate matches the average somewhere in the middle.)
+LVL: Challenge | Compound interest at the limit
+P: A bank pays an annual interest rate r, compounded n times a year, so 1 grows to (1 + r/n)ⁿ. Use L'Hôpital to find lim (n → ∞) (1 + r/n)ⁿ. => ln y = n ln(1 + r/n) = ln(1 + r/n) ÷ (1/n). Differentiate with respect to n (L'Hôpital): numerator derivative = (−r/n²) ÷ (1 + r/n); denominator derivative = −1/n². Ratio = r ÷ (1 + r/n) → r. So y → **eʳ**. This is continuous compounding: 1 grows to e^r in a year.
+
+CHECK: math
+
+@section physics | 3 · Physics: trusses, stress and strain | 35 min
+
+### A simple truss
+A **truss** is a framework of straight members joined at pins, designed so each member carries only **tension** (pull) or **compression** (push) along its length. Bridges, roofs and cranes use trusses because they carry large loads with little material.
+
+**Method of joints.** Treat each pin as a particle in equilibrium: the forces on it (loads, supports, member forces) sum to zero in x and y.
+
+EX: A triangular roof truss
+1. A symmetric truss spans 8 m. The apex is 3 m above the middle of the bottom chord. A load of 12 kN hangs at the apex.
+2. By symmetry each support carries 6 kN upward.
+3. Each rafter has length √(4² + 3²) = 5 m, at an angle α to the horizontal with sin α = 3/5, cos α = 4/5.
+4. Joint at the left support: vertical balance: 6 kN (support) pushes up and the rafter pushes down with F sin α, so F × 3/5 = 6 and **F = 10 kN (compression)**.
+5. Horizontal balance: the bottom chord pulls the pin inward with T = F cos α = 10 × 4/5 = **8 kN (tension)**.
+6. Check at the apex: two rafters push down 2 × 10 × 3/5 = 12 kN, which equals the load ✓.
+/EX
+
+LAB: The roof truss | Choose the span, the height of the apex and the load. The graph shows how the tension in the bottom chord grows as the roof gets flatter. | s:Span (m):4:16:1:8 ;; h:Apex height (m):0.5:6:0.25:3 ;; P:Apex load (kN):2:30:1:12 | P/2/(h/sqrt((s/2)^2+h^2)):Rafter force (kN, compression):2 ;; P/2*(s/2)/h:Bottom chord tension (kN):2 ;; atan(h/(s/2))*180/pi:Rafter angle (degrees):1 | P/2*(s/2)/x | 0.5,6 | 0,60
+
+**What the lab shows:** a flat roof (small h) makes both the rafter force and the chord tension large, since T = (P ÷ 2)(s/2) ÷ h. Steeper roofs need less force but more material. That is why long, shallow bridges need deep trusses or massive beams.
+
+BN: ট্রাসে প্রতিটি দণ্ড শুধু টান (tension) বা চাপ (compression) বহন করে। সন্ধি পদ্ধতিতে প্রতিটি সংযোগস্থলকে ভারসাম্যে থাকা কণা ধরে x ও y দিকে বল শূন্য করো। 8 মিটার প্রস্থ, 3 মিটার উচ্চতা, 12 kN ভারে প্রতিটি রাফটারে 10 kN চাপ আর নিচের দণ্ডে 8 kN টান। চাল যত চ্যাপ্টা, বল তত বেশি।
+
+### Stress and strain
+How strong must a member be? **Stress** is the force per area, and **strain** is the fractional stretch:
+
+EQ: stress σ = F ÷ A     (pascal, Pa = N/m²)     strain ε = ΔL ÷ L     (no unit)
+
+For small loads, stress is proportional to strain (Hooke's law for materials):
+
+EQ: σ = E ε     so     ΔL = F L ÷ (A E)     (E is Young's modulus)
+
+| Material | Young's modulus E | Typical failure stress |
+| Steel | 200 GPa | 400 MPa and up |
+| Aluminium | 70 GPa | 200 MPa |
+| Concrete (compression) | 30 GPa | 30 MPa |
+| Rubber | about 0.01 GPa | stretches enormously |
+
+EX: A loaded steel cable
+1. A steel cable (cross-section 1.0 cm² = 1 × 10⁻⁴ m², length 10 m) holds a 500 kg load. F = 4900 N.
+2. Stress σ = 4900 ÷ 10⁻⁴ = **49 MPa**, far below the 400 MPa failure stress. The **safety factor** is 400 ÷ 49 = **8.2**.
+3. Extension ΔL = F L ÷ (A E) = 4900 × 10 ÷ (10⁻⁴ × 2 × 10¹¹) = **2.45 mm**.
+4. As a spring: k = A E ÷ L = 2 × 10⁶ N/m. Steel behaves like a very stiff spring, and its elastic energy is ½ k ΔL² = **6.0 J**.
+/EX
+
+EX: The most load a rope can lift
+1. A cable of area 2 cm² is rated at a maximum stress of 100 MPa for safe use. Its maximum load is 100 × 10⁶ × 2 × 10⁻⁴ = **20,000 N**, about 2000 kg. Doubling the diameter multiplies the area (and the capacity) by **four**.
+/EX
+
+BN: পীড়ন (stress) σ = F/A, বিকৃতি (strain) ε = ΔL/L, আর ছোট ভারে σ = Eε (ইয়ং গুণাঙ্ক E)। তাই ΔL = FL/(AE)। নিরাপত্তা গুণক = ভাঙার পীড়ন ÷ প্রকৃত পীড়ন। ব্যাস দ্বিগুণ করলে ক্ষমতা চার গুণ।
+
+TRAP: In truss problems, decide each member's direction by the joint: a member that pulls a pin away is in tension, and one that pushes into it is in compression. A common slip is to forget the support reactions, which you must find first from whole-body equilibrium. And for cables: A is the cross-section **area**, not the diameter.
+
+### Quick self-check
+QUIZ:
+Q: A member that pushes against the joint is in…; tension; compression; shear; neither; 2; Pushing means compression.
+Q: A steel wire has stress 100 MPa and E = 200 GPa. The strain is…; 0.0005; 0.005; 0.05; 2; 1; ε = σ ÷ E = 5 × 10⁻⁴.
+Q: Doubling the diameter of a cable makes its maximum load…; double; four times; eight times; the same; 2; The area grows as the square of the diameter.
+Q: A flatter truss (smaller height) means the forces in its members are…; smaller; larger; the same; zero; 2; T = (P ÷ 2)(s/2) ÷ h grows when h falls.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 2 kN load hangs from a wire of area 4 × 10⁻⁶ m². Find the stress. => 2000 ÷ 4 × 10⁻⁶ = **500 MPa** (more than many steels can take).
+P: A wire stretches 2 mm over 4 m. Find the strain. => **5 × 10⁻⁴**.
+LVL: Level 2 | Apply
+P: A truss spans 10 m with a 4 m high apex and a 20 kN apex load. Find the force in each rafter and in the bottom chord. => Rafter length = √(25 + 16) = 6.40. sin α = 4 ÷ 6.4 = 0.625. F = 10 ÷ 0.625 = **16 kN** (compression). T = F cos α = 16 × 0.781 = **12.5 kN** (tension). (Check: T = (P ÷ 2)(s/2) ÷ h = 10 × 5 ÷ 4 = 12.5 ✓.)
+P: A steel rod (E = 200 GPa), 2 m long with a cross-section of 3 cm², carries a tension of 60 kN. Find the stress and elongation. => σ = 60,000 ÷ 3 × 10⁻⁴ = **200 MPa**. ΔL = σ L ÷ E = 200 × 10⁶ × 2 ÷ 200 × 10⁹ = **2 mm**.
+P: A 70 kg climber hangs from a nylon rope with an effective E = 1 GPa, area 0.5 cm², 10 m long. How much does the rope stretch? => F = 686 N. ΔL = F L ÷ (A E) = 686 × 10 ÷ (5 × 10⁻⁵ × 10⁹) = **0.137 m**. A real climbing rope stretches much more, which is what softens the shock of a fall.
+P: Find the cable tension needed to hold a 5 kN traffic sign hung from the middle of a cable between two poles 12 m apart, with a 0.3 m sag. => sin φ = 0.3 ÷ 6.0075 = 0.04994. 2T sin φ = 5000, so **T = 50.1 kN**, about 10 times the load: a taut cable needs enormous tension.
+LVL: Challenge | Design a support
+P: A 1000 kg water tank hangs from two identical vertical steel rods. The failure stress is 400 MPa and you want a safety factor of 4. What is the smallest rod diameter? (g = 9.8) => Each rod carries 4900 N. Allowed stress = 400 ÷ 4 = 100 MPa. Area = 4900 ÷ 10⁸ = 4.9 × 10⁻⁵ m². Diameter: d = √(4A ÷ π) = **7.9 mm**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Rolle and MVT: f′(c) = (f(b) − f(a)) ÷ (b − a). f′ > 0 means increasing. L'Hôpital: 0 ÷ 0 or ∞ ÷ ∞ gives lim f′ ÷ g′. Other forms need rewriting. ln x ≪ xⁿ ≪ eˣ.
+- Truss: method of joints, rafter force F = (P ÷ 2) ÷ sin α, chord tension (P ÷ 2)(s/2) ÷ h. Stress σ = F ÷ A, strain ε = ΔL ÷ L, σ = Eε, ΔL = F L ÷ (A E).
+
+BN: আজকের সারকথা: গড় মান উপপাদ্য f′(c) = (f(b) − f(a))/(b − a); লোপিতালের নিয়ম 0/0 বা ∞/∞ এ f′/g′; বৃদ্ধির ক্রম ln x ≪ xⁿ ≪ eˣ। ট্রাস: সন্ধি পদ্ধতি, প্রতি দণ্ডে টান বা চাপ। পীড়ন σ = F/A, বিকৃতি ε = ΔL/L, ΔL = FL/(AE)।
+
+EXIT:
+E: Find lim (x → 0) (e^(2x) − 1) ÷ x.; 2; 0.001; L'Hôpital: 2e^(2x) → 2.
+E: A cable of area 2 × 10⁻⁴ m² carries 10,000 N. What is the stress in MPa?; 50; 0.001; 10,000 ÷ 2 × 10⁻⁴ = 5 × 10⁷ Pa.
+E: A truss has span 8 m and apex height 2 m with a 10 kN load. What is the chord tension in kN?; 10; 0.001; (P ÷ 2)(s/2) ÷ h = 5 × 4 ÷ 2 = 10.
+
+**Tomorrow (Saturday):** the Week 7 test, mistake log and challenge.
+
+CHECK: notes

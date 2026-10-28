@@ -1,0 +1,206 @@
+@day Week 10 · Day 2 · Tuesday
+# Convergence tests. Then: waves on a string and the wave equation
+lead: Not every series can be summed exactly, but you can almost always decide whether it converges. A few tests, the p-series, comparison, the ratio test and the alternating test, cover nearly every case you will meet. In physics, you derive the wave equation from Newton's second law for a stretched string, and discover that the speed of a wave depends only on the tension and the mass per metre.
+
+BN: সব ধারার যোগফল ঠিকঠাক বের করা যায় না, কিন্তু অভিসারী কি না প্রায় সবসময়ই বলা যায়। কয়েকটা পরীক্ষা (p-ধারা, তুলনা, অনুপাত ও পর্যায়ক্রমিক পরীক্ষা) তুমি যত ধরনের ধারা দেখবে প্রায় সব সামলে ফেলে। পদার্থবিজ্ঞানে টানা তারের জন্য নিউটনের দ্বিতীয় সূত্র থেকে তরঙ্গ সমীকরণ বের করবে, আর দেখবে তরঙ্গের দ্রুতি নির্ভর করে শুধু টান ও প্রতি মিটার ভরের ওপর।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find 6 + 2 + 2/3 + … => a = 6, r = 1/3: **9**.
+P: Does Σ 1/n diverge or converge? => It **diverges** (harmonic series).
+P: A wave has f = 100 Hz and v = 340 m/s. Find λ. => **3.4 m**.
+P: In y = 0.02 sin(3x − 12t) find v. => **4 m/s**.
+P: Write 0.4545… as a fraction. => 45/99 = **5/11**.
+
+CHECK: recall
+
+@section math | 2 · Math: tests for convergence | 55 min
+
+### Your toolbox
+| Test | Use when | Conclusion |
+| Divergence test | Always check first | If aₙ does not tend to 0, it diverges |
+| Geometric | aₙ = a rⁿ | Converges iff abs(r) < 1, sum a ÷ (1 − r) |
+| p-series | aₙ = 1 ÷ nᵖ | Converges iff p > 1 |
+| Comparison | Similar to a known series | Smaller than a convergent series converges, bigger than a divergent series diverges |
+| Limit comparison | Rational or root forms | If aₙ ÷ bₙ → a positive finite number, both do the same |
+| Integral test | f(n) positive and decreasing | Series and ∫ f dx converge or diverge together |
+| Ratio test | Factorials, powers | L = lim abs(aₙ₊₁ ÷ aₙ): L < 1 converges, L > 1 diverges, L = 1 no answer |
+| Alternating test | Signs alternate | Converges if terms decrease to 0 |
+
+BN: প্রথমে সবসময় দেখো পদ 0 তে যায় কি না (না গেলে অপসারী)। তারপর ধরন অনুযায়ী: গুণোত্তর, p-ধারা, তুলনা, সীমা-তুলনা, ইন্টিগ্রাল পরীক্ষা, অনুপাত পরীক্ষা (ফ্যাক্টরিয়াল ও ঘাতে ভালো), পর্যায়ক্রমিক পরীক্ষা (চিহ্ন বদলালে)।
+
+### The p-series and the integral test
+Σ 1 ÷ nᵖ behaves exactly like ∫₁^∞ 1 ÷ xᵖ dx (last week): it converges for p > 1 and diverges for p ≤ 1. The integral test explains why: the area under the curve is sandwiched by sums of rectangles.
+
+EQ: ∫₁^∞ f(x) dx ≤ Σ from 1 of f(n) ≤ f(1) + ∫₁^∞ f(x) dx     (f positive and decreasing)
+
+EX: Using the integral test
+1. Σ 1 ÷ n² : ∫₁^∞ 1 ÷ x² dx = 1, so 1 ≤ S ≤ 2. (The truth is π²/6 = 1.645.)
+2. Σ 1 ÷ (n ln n) for n ≥ 2: ∫₂^∞ 1 ÷ (x ln x) dx = [ln ln x] → ∞. **Diverges**, even more slowly than the harmonic series.
+3. Σ n e^(−n²): ∫₁^∞ x e^(−x²) dx = ½ e^(−1), finite. **Converges**.
+/EX
+
+LAB: Bounds on a p-series | The graph shows 1 ÷ xᵖ. The sum Σ 1 ÷ nᵖ is trapped between the area under the curve from 1 (the lower bound 1 ÷ (p − 1)) and that area plus the first term (the upper bound 1 + 1 ÷ (p − 1)). Increase p and the sum shrinks toward 1. For p = 2 the true sum is 1.645. | p:Power p:1.2:4:0.2:2 | 1/(p-1):Lower bound 1 ÷ (p − 1):3 ;; 1+1/(p-1):Upper bound 1 + 1 ÷ (p − 1):3 ;; (1+1/(p-1)+1/(p-1))/2:Midpoint estimate:3 | x^(-p) | 1,10 | 0,1
+
+### Comparison and the ratio test
+EX: Comparison
+1. Σ 1 ÷ (n² + 1): each term is less than 1 ÷ n² (a convergent p-series), so it **converges**.
+2. Σ 1 ÷ (√n − 1) for n ≥ 2: each term is bigger than 1 ÷ √n (p = 1/2, divergent), so it **diverges**.
+3. Σ (2n + 1) ÷ (n³ + 4): compare with 2 ÷ n². The ratio of terms tends to 1, a positive finite number, so by the limit comparison test it **converges**.
+4. Σ n ÷ (n² + 1): compare with 1 ÷ n. The ratio tends to 1, so it **diverges**.
+/EX
+
+EX: The ratio test
+1. Σ n ÷ 2ⁿ: aₙ₊₁ ÷ aₙ = (n + 1) ÷ (2n) → 1/2 < 1. **Converges**.
+2. Σ 2ⁿ ÷ n!: the ratio is 2 ÷ (n + 1) → 0 < 1. **Converges** (to e² − 1 when starting at n = 1).
+3. Σ n! ÷ 10ⁿ: the ratio is (n + 1) ÷ 10 → ∞. **Diverges**.
+4. Σ xⁿ ÷ n! : the ratio is abs(x) ÷ (n + 1) → 0 for **every** x. It always converges (this is the series for eˣ).
+5. Σ 1 ÷ n²: the ratio tends to 1: the test says nothing (use p-series).
+/EX
+
+### Alternating series
+If the terms alternate in sign, decrease in size and tend to 0, the series converges. The error after N terms is at most the **first omitted term**.
+
+EX: Alternating series
+1. 1 − 1/2 + 1/3 − 1/4 + … converges (to ln 2 = 0.693). But Σ 1 ÷ n diverges, so we call this **conditional** convergence.
+2. 1 − 1/4 + 1/9 − 1/16 + … : S₄ = 0.7986. The error is at most 1/25 = 0.04 (the truth is π²/12 = 0.8225, error 0.024 ✓). This converges **absolutely**, since Σ 1 ÷ n² converges.
+3. How many terms of Σ (−1)^(n+1) ÷ n² give an error below 0.001? Need 1 ÷ (N + 1)² < 0.001, so N + 1 > 31.6 and **N = 31**.
+/EX
+
+BN: ইন্টিগ্রাল পরীক্ষা: ∫₁^∞ f dx ≤ Σ f(n) ≤ f(1) + ∫₁^∞ f dx। অনুপাত পরীক্ষা: L = lim |aₙ₊₁/aₙ|; L < 1 হলে অভিসারী, L > 1 হলে অপসারী, L = 1 হলে বলা যায় না। পর্যায়ক্রমিক ধারা পদ কমে 0 তে গেলে অভিসারী, আর ত্রুটি ≤ প্রথম বাদ পড়া পদ। ধারা |aₙ| সহ অভিসারী হলে absolutely, নইলে conditionally।
+
+TRAP: The ratio test gives **no answer** at L = 1 (p-series always give L = 1). For the alternating test, the terms must **decrease** to zero, not just alternate. And comparison needs the right direction: a series smaller than a **divergent** one proves nothing.
+
+### Quick self-check
+QUIZ:
+Q: Σ 1 ÷ n³…; diverges; converges; equals 1; is zero; 2; p = 3 > 1.
+Q: For Σ 3ⁿ ÷ n!, the ratio test gives L equal to…; 3; 1; 0; ∞; 3; The ratio is 3 ÷ (n + 1) → 0.
+Q: Σ (−1)ⁿ ÷ √n…; diverges; converges conditionally; converges absolutely; equals 0; 2; Alternating test works, but Σ 1 ÷ √n diverges.
+Q: To compare Σ (2n + 1) ÷ (n³ + 4) we use…; 1 ÷ n; 1 ÷ n²; 1 ÷ n³; 2ⁿ; 2; The dominant behaviour is 2n ÷ n³.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Does Σ 1 ÷ n³ converge? => p = 3 > 1: **converges**.
+P: Does Σ 1 ÷ √n converge? => p = 1/2: **diverges**.
+P: Apply the ratio test to Σ 3ⁿ ÷ n!. => Ratio = 3 ÷ (n + 1) → 0: **converges**.
+LVL: Level 2 | Apply
+P: Test Σ (2n + 1) ÷ (n³ + 4). => Compare with 2 ÷ n²: converges.
+P: Test Σ n ÷ (n² + 1). => Compare with 1 ÷ n: **diverges**.
+P: Test Σ n² ÷ 2ⁿ. => Ratio = (n + 1)² ÷ (2n²) → 1/2: **converges**.
+P: Test Σ (−1)ⁿ ÷ √n for absolute and conditional convergence. => It alternates, decreases to 0: converges. But Σ 1 ÷ √n diverges, so it converges **conditionally**.
+P: Test Σ 1 ÷ (n ln n) for n ≥ 2. => Integral test: [ln ln x] → ∞, so it **diverges**.
+P: For what x does Σ n xⁿ converge? => Ratio = (n + 1) abs(x) ÷ n → abs(x). So it converges for **abs(x) < 1**, and diverges for abs(x) > 1 (and at x = ±1 the terms do not tend to 0).
+LVL: Level 3 | Real
+P: How many terms of 1 − 1/2 + 1/3 − … (which sums to ln 2) are needed for an error below 0.01? => 1 ÷ (N + 1) < 0.01, so N + 1 > 100 and **N = 100 terms**. (A slow series.)
+P: Estimate e = Σ from n = 0 of 1 ÷ n! using terms up to n = 6 and bound the error. => 1 + 1 + 0.5 + 0.16667 + 0.04167 + 0.00833 + 0.00139 = **2.71806**. The remaining terms are less than 1/7! × (1 + 1/8 + 1/64 + …) = 0.000198 × 1.143 = 0.00023, so e lies in [2.71806, 2.71829] (the truth is 2.71828 ✓).
+LVL: Challenge | Trapping the Basel sum
+P: S₁₀ = Σ₁¹⁰ 1 ÷ n² = 1.5498. Use the integral test on the tail to trap the whole sum between two numbers, and compare with π²/6. => The tail Σ from n = 11 is at least ∫₁₁^∞ 1 ÷ x² dx = 1/11 = 0.0909 and at most ∫₁₀^∞ 1 ÷ x² dx = 1/10 = 0.1. So 1.5498 + 0.0909 ≤ S ≤ 1.5498 + 0.1, that is **1.6407 ≤ S ≤ 1.6498**. The truth, π²/6 = 1.6449, lies inside with a gap of only 0.009.
+
+CHECK: math
+
+@section physics | 3 · Physics: waves on a string | 35 min
+
+### Deriving the wave equation
+A string of mass per unit length μ (kg/m) is stretched with tension T. Look at a tiny piece of length Δx. The tension pulls on both ends, and because the string is slightly curved, the two pulls do not cancel:
+
+- Net vertical force ≈ T [∂y/∂x at the right end − ∂y/∂x at the left end] ≈ T (∂²y/∂x²) Δx. (The slope changes by (∂²y/∂x²) Δx over the piece.)
+- Newton's second law for the piece (mass μ Δx): μ Δx (∂²y/∂t²) = T (∂²y/∂x²) Δx.
+
+Cancel Δx:
+
+EQ: ∂²y/∂t² = (T ÷ μ) ∂²y/∂x²     so the wave speed is     v = √(T ÷ μ)
+
+A **tighter** string carries waves faster, and a **heavier** one slower. The wave speed depends only on the medium, not on the frequency or amplitude.
+
+BN: তারের ক্ষুদ্র অংশে টান দুই প্রান্তে টানে, বাঁকা বলে টানদ্বয় কাটাকাটি হয় না: নিট বল ≈ T(∂²y/∂x²)Δx। নিউটনের দ্বিতীয় সূত্র: μΔx(∂²y/∂t²) = T(∂²y/∂x²)Δx। অতএব ∂²y/∂t² = (T/μ)∂²y/∂x² এবং v = √(T/μ)। টান বাড়লে দ্রুত, ভারী হলে ধীর। দ্রুতি শুধু মাধ্যমের ওপর নির্ভর করে, কম্পাঙ্ক বা বিস্তারের ওপর নয়।
+
+EX: Wave speed on a string
+1. A rope has T = 200 N and μ = 0.5 kg/m: v = √400 = **20 m/s**.
+2. A guitar string has μ = 5 × 10⁻⁴ kg/m and T = 70 N: v = √(70 ÷ 5 × 10⁻⁴) = √140,000 = **374 m/s**.
+3. To double the speed you must raise the tension **four** times, since v ∝ √T.
+/EX
+
+LAB: Speed on a string | Choose the tension, the mass per metre, the frequency and the amplitude. The graph shows how the speed grows as the square root of the tension. The numbers give the speed, the wavelength at your frequency, and the average power the wave carries, P = ½ μ ω² A² v. | T:Tension T (N):10:200:10:70 ;; mu:Mass per metre μ (kg/m):0.001:0.02:0.001:0.005 ;; f:Frequency f (Hz):50:1000:10:200 ;; Amm:Amplitude A (mm):1:10:1:3 | sqrt(T/mu):Wave speed v (m/s):1 ;; sqrt(T/mu)/f:Wavelength λ (m):3 ;; 0.5*mu*(2*pi*f)^2*(Amm/1000)^2*sqrt(T/mu):Average power (W):4 | sqrt(x/mu) | 10,200 | 0,500
+
+### Energy and power
+A travelling wave carries energy. Each bit of string of mass μ Δx oscillates in SHM with amplitude A and angular frequency ω, so it has energy ½ μ Δx ω² A². Energy flows at speed v, so the **average power** is
+
+EQ: P = ½ μ ω² A² v
+
+It grows with the **square** of both the frequency and the amplitude.
+
+EX: A power calculation
+1. μ = 0.01 kg/m, v = 20 m/s, A = 0.01 m, f = 100 Hz. ω = 628.3 rad/s.
+2. P = ½ × 0.01 × 394,784 × 10⁻⁴ × 20 = **3.95 W**.
+3. Doubling the amplitude would quadruple this to 15.8 W.
+/EX
+
+### Meeting a boundary
+When a wave reaches a change of medium, part reflects and part transmits. The **frequency never changes** (the same oscillation drives both sides), but v and λ do.
+
+For a string wave going from speed v₁ to speed v₂ (displacement amplitudes):
+
+EQ: r = (v₂ − v₁) ÷ (v₁ + v₂)     t = 2 v₂ ÷ (v₁ + v₂) = 1 + r
+
+- If the second string is **heavier** (v₂ < v₁), r is **negative**: the reflected pulse is **upside down**.
+- A **fixed end** (v₂ → 0) gives r = −1: complete inversion. A **free end** gives r = +1.
+
+EX: Light string into heavy string
+1. v₁ = 200 m/s (light string), v₂ = 100 m/s (heavy), f = 200 Hz. Then λ₁ = 1 m and λ₂ = 0.5 m.
+2. r = (100 − 200) ÷ 300 = **−1/3** and t = 1 + r = **2/3**.
+3. Power reflected: r² = 1/9. Power transmitted: 8/9 (because the heavier string has twice the impedance μ v, so (Z₂ ÷ Z₁) t² = 2 × 4/9 = 8/9). The total is 1 ✓.
+/EX
+
+### Beyond strings
+| Medium | Wave speed | Example |
+| String | √(T ÷ μ) | 374 m/s on a guitar string |
+| Gas | √(γ R T ÷ M) | air at 20 °C: √(1.4 × 8.314 × 293 ÷ 0.029) = 343 m/s |
+| Solid rod | √(Y ÷ ρ) | steel: √(2 × 10¹¹ ÷ 7800) = 5064 m/s |
+| Shallow water | √(g d) | d = 4000 m: √(39,200) = 198 m/s (713 km/h) |
+
+TRAP: The wave speed depends on the **medium** (T and μ), not on how hard or how fast you shake it. And at a boundary the **frequency stays the same** while the wavelength changes. Do not mix μ (kg per **metre**) with the total mass of the string.
+
+### Quick self-check
+QUIZ:
+Q: If the tension of a string increases by a factor of 4, the wave speed…; doubles; quadruples; halves; is unchanged; 1; v is proportional to √T.
+Q: A wave goes from a light string into a heavy string. What happens to its frequency?; doubles; halves; stays the same; falls to zero; 3; The source of vibration is the same on both sides.
+Q: A pulse reflects from a fixed end. The reflected pulse is…; upright; inverted; absorbed; faster; 2; r = −1 at a fixed end.
+Q: Doubling the amplitude of a wave multiplies its power by…; 2; 4; 8; 1; 2; P is proportional to A².
+
+### Practice
+LVL: Level 1 | Direct
+P: Find v for T = 100 N and μ = 0.25 kg/m. => √400 = **20 m/s**.
+P: What tension gives v = 50 m/s on a string with μ = 0.002 kg/m? => T = μ v² = 0.002 × 2500 = **5 N**.
+LVL: Level 2 | Apply
+P: A 0.65 m guitar string with μ = 5 × 10⁻⁴ kg/m and T = 70 N is plucked. Find the wave speed, and the frequency of the standing wave whose wavelength is 2L. => v = **374 m/s**. λ = 1.3 m, so f = 374 ÷ 1.3 = **288 Hz** (close to D4).
+P: Find the speed of sound in air at 35 °C (308 K), using v = 343 √(T ÷ 293). => 343 × √(308.15 ÷ 293.15) = **351.7 m/s**.
+P: A string of speed 40 m/s is joined to one of speed 20 m/s. Find the reflection and transmission coefficients for the displacement. => r = (20 − 40) ÷ 60 = **−1/3**, t = **2/3**.
+P: A wave on a string of μ = 0.02 kg/m with v = 25 m/s has A = 5 mm and f = 40 Hz. Find the average power. => ω = 251.3. P = ½ × 0.02 × 63,165 × 2.5 × 10⁻⁵ × 25 = **0.395 W**.
+P: A 3 m wire has a mass of 15 g and is under 60 N. Find v. => μ = 0.015 ÷ 3 = 0.005 kg/m. v = √(60 ÷ 0.005) = **110 m/s**.
+LVL: Level 3 | Real
+P: A tsunami crosses an ocean where the depth is 4000 m, with speed √(g d). Find its speed in km/h and the time to cross 5000 km. => v = √(9.8 × 4000) = 198 m/s = **713 km/h**. Time = 5000 ÷ 713 = **7.0 hours**. (In a harbour 10 m deep it slows to 9.9 m/s = 36 km/h, but it piles up into a high wave.)
+P: Calculate the speed of longitudinal waves in steel (Y = 2 × 10¹¹ Pa, ρ = 7800 kg/m³), and the time for a sound to travel along a 100 m steel rail. => v = √(2 × 10¹¹ ÷ 7800) = **5064 m/s**. Time = 100 ÷ 5064 = **0.020 s**, compared with 0.29 s through the air.
+LVL: Challenge | Across a junction
+P: A wave of frequency 200 Hz travels on a thin string (μ₁ = 0.002 kg/m) under 80 N and joins a thick one (μ₂ = 0.008 kg/m) under the same tension. Find both wave speeds and wavelengths, and the fractions of the power reflected and transmitted. => v₁ = √(80 ÷ 0.002) = **200 m/s** and v₂ = √(80 ÷ 0.008) = **100 m/s**. λ₁ = 1 m and λ₂ = **0.5 m**. r = (100 − 200) ÷ 300 = −1/3, so the reflected power fraction is r² = **1/9 ≈ 11%** and the transmitted fraction is **8/9 ≈ 89%**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Tests: divergence, geometric, p-series (p > 1), comparison and limit comparison, integral test, ratio test (L < 1), alternating test (error ≤ first omitted term). Absolute versus conditional convergence.
+- String waves: ∂²y/∂t² = (T ÷ μ) ∂²y/∂x², v = √(T ÷ μ), P = ½ μ ω² A² v. At a boundary f is fixed, r = (v₂ − v₁) ÷ (v₁ + v₂), t = 1 + r. Other speeds: sound √(γRT ÷ M), solids √(Y ÷ ρ), shallow water √(g d).
+
+BN: আজকের সারকথা: পরীক্ষাগুলো: ডাইভার্জেন্স, গুণোত্তর, p-ধারা, তুলনা, ইন্টিগ্রাল, অনুপাত (L < 1), পর্যায়ক্রমিক (ত্রুটি ≤ প্রথম বাদ পড়া পদ)। তারের তরঙ্গ: v = √(T/μ), P = ½μω²A²v; সীমানায় কম্পাঙ্ক অপরিবর্তিত, r = (v₂ − v₁)/(v₁ + v₂), t = 1 + r।
+
+EXIT:
+E: Apply the ratio test to Σ 5ⁿ ÷ n!. What does the ratio tend to?; 0; 0.001; The ratio is 5 ÷ (n + 1) → 0, so the series converges.
+E: A string has T = 36 N and μ = 0.01 kg/m. What is v in m/s?; 60; 0.001; v = √(36 ÷ 0.01) = √3600 = 60.
+E: The amplitude of a string wave is tripled. By what factor does the power change?; 9; 0.001; P is proportional to A², so 3² = 9.
+
+**Tomorrow:** power series and the radius of convergence, and superposition, interference and beats.
+
+CHECK: notes

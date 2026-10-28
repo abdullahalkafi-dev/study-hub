@@ -1,0 +1,248 @@
+@day Week 1 · Day 1 · Monday
+# Algebra is a language: exponents, roots, and how physics measures the world
+lead: Today you take a 30-minute diagnostic so we know what you already own. Then we rebuild the exponent and root rules from first principles, and start physics with the one skill every engineer needs first: units.
+
+BN: আজ প্রথম দিন। আগে ৩০ মিনিটের একটা ছোট ডায়াগনস্টিক টেস্ট দেবে, যাতে আমরা বুঝতে পারি তুমি কী কী ইতিমধ্যে পারো। তারপর ঘাত (exponent) আর মূল (root) এর নিয়মগুলো আমরা মুখস্থ নয়, যুক্তি দিয়ে বানাব। শেষে পদার্থবিজ্ঞানের প্রথম দক্ষতা: একক (units)।
+
+@section recall | 1 · Diagnostic test | 30 min · no calculator · paper only
+
+Do this before reading anything else today. It is not graded by anyone but you. Write each answer on paper, then open the solution and mark yourself. Wrong answers are useful: they tell us where to spend time.
+
+LVL: Diagnostic | Algebra (11 questions)
+P: Simplify 3x + 2x − 4. => **5x − 4**. Only like terms combine.
+P: Expand (x + 3)(x − 2). => x² − 2x + 3x − 6 = **x² + x − 6**.
+P: Factor x² − 9. => Difference of squares: **(x − 3)(x + 3)**.
+P: Solve 2x + 5 = 17. => 2x = 12, so **x = 6**.
+P: Simplify 2³ · 2⁴ ÷ 2⁵. => 2⁷ ÷ 2⁵ = 2² = **4**.
+P: Find 9^(1/2) and 27^(1/3). => **3** and **3**. The exponent 1/n means the n-th root.
+P: Solve x² − 5x + 6 = 0. => (x − 2)(x − 3) = 0, so **x = 2 or x = 3**.
+P: Make r the subject of V = πr²h. => r² = V ÷ (πh), so **r = √(V ÷ (πh))**.
+P: Solve the system 2x + y = 7 and x − y = 2. => Add the equations: 3x = 9, so x = 3. Then y = 1. **(3, 1)**.
+P: Solve |x − 2| < 3. => The distance of x from 2 is less than 3, so **−1 < x < 5**.
+P: Write 0.00045 in scientific notation. => **4.5 × 10⁻⁴**.
+
+LVL: Diagnostic | Physics (3 questions)
+P: A car travels 120 km in 2 hours. What is its average speed in km/h? => 120 ÷ 2 = **60 km/h**.
+P: Convert 72 km/h into m/s. => 72 × 1000 ÷ 3600 = **20 m/s**.
+P: A ball starts at rest and speeds up at 2 m/s² for 5 s. What is its final speed? => Speed gained = 2 × 5 = **10 m/s**.
+
+### How to read your score
+- **12 to 14 correct:** you own most of this. Tomorrow's warm-ups will feel easy. Spend your time on the challenge problems.
+- **7 to 11 correct:** normal. Your gaps are exactly what Week 1 fixes.
+- **0 to 6 correct:** also fine. You said you forgot the basics. Do every worked example this week and do not skip the Bangla boxes.
+
+BN: নম্বর দেখে ঘাবড়ে যেও না। কোন প্রশ্নগুলো ভুল হলো সেগুলো কাগজে টুকে রাখো (Notes অংশে)। আমি ওই টপিকগুলোতে বেশি সময় দেব। ভুল উত্তর মানে সময় নষ্ট নয়, বরং ঠিক জায়গাটা খুঁজে পাওয়া।
+
+CHECK: recall
+
+@section math | 2 · Math: the exponent and root rules, built from scratch | 45 min
+
+### Why exponents exist
+Multiplying the same number many times is tiring to write: 2 × 2 × 2 × 2 × 2 × 2. We shorten it to 2⁶. The small raised number, the **exponent**, counts how many copies of the **base** you multiply.
+
+EQ: aⁿ = a × a × ... × a   (n copies of a)
+
+Everything else today comes from counting copies. Nothing needs memorising if you can count.
+
+BN: ঘাত (exponent) মানে একই সংখ্যাকে কতবার গুণ করছ তার গণনা। 2⁶ = ২ কে ৬ বার গুণ। সব নিয়ম এই "কপি গোনা" থেকেই বের হয়।
+
+### Rule 1: same base, multiply → add exponents
+EX: Why 2³ · 2⁴ = 2⁷
+1. Write it out: 2³ = 2 · 2 · 2 and 2⁴ = 2 · 2 · 2 · 2.
+2. Multiplying them puts all the copies in one long line: 2 · 2 · 2 · 2 · 2 · 2 · 2.
+3. Count the copies: 3 + 4 = 7. So 2³ · 2⁴ = **2⁷**.
+/EX
+
+EQ: aᵐ · aⁿ = aᵐ⁺ⁿ
+
+### Rule 2: same base, divide → subtract exponents
+EX: Why 2⁵ ÷ 2² = 2³
+1. Write it as a fraction: (2 · 2 · 2 · 2 · 2) ÷ (2 · 2).
+2. Cancel two copies from top and bottom.
+3. Three copies remain: 5 − 2 = 3. So the answer is **2³**.
+/EX
+
+EQ: aᵐ ÷ aⁿ = aᵐ⁻ⁿ
+
+### Rule 3: power of a power → multiply exponents
+EX: Why (2³)² = 2⁶
+1. (2³)² means 2³ times itself: 2³ · 2³.
+2. By Rule 1 the exponents add: 3 + 3 = 6.
+3. In general you add n copies of m, which is m × n. So the answer is **2⁶**.
+/EX
+
+EQ: (aᵐ)ⁿ = aᵐⁿ
+
+### Rule 4: power of a product
+(2 · 3)² = (2 · 3)(2 · 3) = 2 · 2 · 3 · 3 = 2² · 3². The power goes to each factor.
+
+EQ: (ab)ⁿ = aⁿ · bⁿ   and   (a/b)ⁿ = aⁿ / bⁿ
+
+KEY: These rules work only for **multiplying or dividing** powers, never for adding them. (a + b)² is NOT a² + b². Test it: (1 + 2)² = 9, but 1² + 2² = 5.
+
+### The strange-looking cases: zero, negative, fractions
+Why does anything to the power zero equal 1? Use Rule 2 on something that must be 1: 2³ ÷ 2³ = 1. But Rule 2 says 2³⁻³ = 2⁰. So **2⁰ = 1**. The rule forces the answer.
+
+Negative exponents work the same way: 2² ÷ 2⁵ = 2⁻³ by Rule 2. But written out, (2 · 2) ÷ (2 · 2 · 2 · 2 · 2) = 1 ÷ 2³. So **2⁻³ = 1/2³ = 1/8**. A negative exponent means "flip", not "negative number".
+
+Fractional exponents: if (a^(1/2))² = a^(1/2 · 2) = a¹ = a (Rule 3), then a^(1/2) is the number that squares to a, so it is **√a**. In general a^(1/n) is the n-th root, and a^(m/n) = (ⁿ√a)ᵐ.
+
+EQ: a⁰ = 1     a⁻ⁿ = 1/aⁿ     a^(1/n) = ⁿ√a     a^(m/n) = (ⁿ√a)ᵐ
+
+BN: শূন্য ঘাত (2⁰ = 1) কেউ জোর করে বানায়নি। 2³ ÷ 2³ = 1, আবার নিয়ম ২ অনুযায়ী ওটা 2⁰। তাই 2⁰ = 1। ঋণাত্মক ঘাত মানে উল্টে দেওয়া (reciprocal), ঋণাত্মক সংখ্যা নয়। 2⁻³ = 1/8, −8 নয়। আর 1/2 ঘাত মানে বর্গমূল।
+
+EX: Evaluate 8^(2/3)
+1. The denominator 3 means cube root: ³√8 = 2.
+2. The numerator 2 means square it: 2² = 4.
+3. So 8^(2/3) = **4**. Do the root first: it keeps numbers small.
+/EX
+
+EX: Simplify (3x²y)³ ÷ (9x⁴y)
+1. Cube everything inside: 27x⁶y³.
+2. Divide by 9x⁴y: numbers 27 ÷ 9 = 3; x⁶ ÷ x⁴ = x²; y³ ÷ y = y².
+3. Result: **3x²y²**.
+/EX
+
+### Roots and surds
+A **square root** undoes squaring: √25 = 5 because 5² = 25. When the answer is not a whole number, such as √2 ≈ 1.414, we often leave it as √2. That exact form is called a **surd**. Exact answers matter in engineering because rounding early spreads errors.
+
+Two facts come from Rule 4 in root form:
+
+EQ: √(ab) = √a · √b     √(a/b) = √a / √b
+
+EX: Simplify √72
+1. Find the biggest perfect square factor of 72: 36 (since 72 = 36 · 2).
+2. Split: √72 = √36 · √2.
+3. √36 = 6, so the answer is **6√2** (≈ 8.485).
+/EX
+
+EX: Rationalise 1/√2
+1. Having a root in the denominator is awkward. Multiply top and bottom by √2: (1 · √2) ÷ (√2 · √2).
+2. √2 · √2 = 2.
+3. So 1/√2 = **√2/2** (≈ 0.707). You will see this number often in trigonometry and AC circuits.
+/EX
+
+TRAP: √(a + b) is NOT √a + √b. Try √(9 + 16) = √25 = 5, but √9 + √16 = 3 + 4 = 7. Roots split over multiplication, never over addition.
+
+BN: √(a + b) কখনোই √a + √b নয়। √(9+16) = 5, কিন্তু √9 + √16 = 7। রুট শুধু গুণ আর ভাগে ভাঙে, যোগে নয়। একই ভুল (a+b)² এ-ও হয়।
+
+### Quick self-check
+QUIZ:
+Q: What is 2⁴ · 2³?; 2⁷; 2¹²; 4⁷; 2¹; 1; Same base, so add the exponents: 4 + 3 = 7.
+Q: What is 5⁰ + 3⁻¹?; 1; 4/3; 1/3; 2; 2; 5⁰ = 1 and 3⁻¹ = 1/3, so the sum is 1 + 1/3 = 4/3.
+Q: What is 16^(3/4)?; 4; 8; 12; 2; 2; The fourth root of 16 is 2, and 2³ = 8. So the answer is 8.
+Q: Simplify √50.; 5√2; 25√2; 2√5; 10√5; 1; 50 = 25 · 2, so √50 = √25 · √2 = 5√2.
+Q: Is (a + b)² equal to a² + b²?; Yes always; Never; Only if ab = 0; Only if a = b; 3; (a + b)² = a² + 2ab + b². The extra 2ab vanishes only when ab = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Apply the rules
+P: Simplify 3⁵ · 3² ÷ 3⁴. => 3⁷ ÷ 3⁴ = **3³ = 27**.
+P: Evaluate 2⁻⁴. => 1/2⁴ = **1/16**.
+P: Evaluate 25^(1/2) and 125^(1/3). => **5** and **5**.
+P: Simplify (x³)⁴. => **x¹²**.
+P: Simplify √98. => 98 = 49 · 2, so **7√2**.
+LVL: Level 2 | Combine rules
+P: Simplify (2a³b)² · (3ab²). => 4a⁶b² · 3ab² = **12a⁷b⁴**.
+P: Evaluate 27^(−2/3). => ³√27 = 3, squared = 9, negative exponent flips it: **1/9**.
+P: Simplify (x⁵y⁻²) ÷ (x²y⁻⁵). => x³ · y⁻²⁻⁽⁻⁵⁾ = x³y³. So **x³y³**.
+P: Rationalise 6/√3. => 6√3 ÷ 3 = **2√3**.
+P: Write 1/√x as a power of x. => **x^(−1/2)**.
+LVL: Level 3 | Think
+P: Solve 2^x = 64. => 64 = 2⁶, so **x = 6**.
+P: Solve 3^(x + 1) = 81. => 81 = 3⁴, so x + 1 = 4 and **x = 3**.
+P: Is 2^(2³) the same as (2²)³? Work both out. => 2^(2³) = 2⁸ = 256. (2²)³ = 4³ = 64. **Not the same.** A tower of powers is evaluated from the top.
+LVL: Challenge | Think before you calculate
+P: Without a calculator, which is larger: 2¹⁰⁰ or 3⁶⁰? => Write both as powers with a common exponent: 2¹⁰⁰ = (2⁵)²⁰ = 32²⁰ and 3⁶⁰ = (3³)²⁰ = 27²⁰. Since 32 > 27, **2¹⁰⁰ is larger**.
+
+CHECK: math
+
+@section physics | 3 · Physics: units and how we describe motion | 30 min
+
+### What physics is
+Physics is the habit of describing nature with numbers, building a rule (a model), and testing whether the rule predicts what happens next. If your rule predicts where a ball lands, you can build a cricket bowling machine, a rocket or a bridge. The rule is only useful if every number has a **unit**.
+
+BN: পদার্থবিজ্ঞান মানে প্রকৃতিকে সংখ্যা দিয়ে বর্ণনা করা, একটা নিয়ম বানানো, আর যাচাই করা নিয়মটা ভবিষ্যৎ ঠিকঠাক বলতে পারে কি না। আর প্রতিটা সংখ্যার সঙ্গে একটা একক (unit) না থাকলে সেই সংখ্যার কোনো মানে নেই। "৫" মানে ৫ মিটার না ৫ সেকেন্ড?
+
+### SI units: the base three you need now
+| Quantity | Unit | Symbol |
+| Length | metre | m |
+| Mass | kilogram | kg |
+| Time | second | s |
+
+Every other unit we meet is built from these. Speed is metres per second (m/s). Acceleration is m/s per second, written m/s². Force will be kg·m/s², which we call the newton.
+
+Prefixes shift the size by powers of ten:
+
+| Prefix | Meaning | Example |
+| kilo (k) | 10³ | 1 km = 1000 m |
+| centi (c) | 10⁻² | 1 cm = 0.01 m |
+| milli (m) | 10⁻³ | 1 ms = 0.001 s |
+| micro (µ) | 10⁻⁶ | 1 µm = 10⁻⁶ m |
+| mega (M) | 10⁶ | 1 MW = 10⁶ W |
+
+### Converting units without mistakes
+Treat a unit like a number that can cancel. Multiply by a fraction that equals 1, such as 1000 m / 1 km, so the unwanted unit cancels.
+
+EX: Convert 72 km/h to m/s
+1. Write it as a fraction: 72 km / 1 h.
+2. Multiply by (1000 m / 1 km) and by (1 h / 3600 s). The km and the h cancel.
+3. 72 × 1000 ÷ 3600 = **20 m/s**.
+/EX
+
+KEY: Shortcut: km/h → m/s means **divide by 3.6**. m/s → km/h means multiply by 3.6. You now know where 3.6 comes from: 3600 ÷ 1000.
+
+### Dimensional analysis: a free error-checker
+If you write s = v t (distance = speed × time), the units on both sides must match: m = (m/s) × s = m ✓. If you ever get m on one side and m/s on the other, your formula is wrong before you even calculate. We will use this all year.
+
+### Scalar or vector?
+- A **scalar** has size only: 5 kg, 20 s, 30 °C.
+- A **vector** has size and direction: 5 m to the east, 20 m/s upward.
+
+Two pairs get mixed up all the time:
+- **Distance** (scalar) is the total length of path travelled. **Displacement** (vector) is the straight-line change in position, with direction.
+- **Speed** (scalar) is distance ÷ time. **Velocity** (vector) is displacement ÷ time.
+
+EX: A round trip
+1. You walk 300 m east to a shop, then 300 m back to your starting point in 400 s.
+2. Distance = 300 + 300 = **600 m**. Displacement = **0 m**, since you are back where you started.
+3. Average speed = 600 ÷ 400 = **1.5 m/s**. Average velocity = 0 ÷ 400 = **0 m/s**.
+/EX
+
+BN: দূরত্ব (distance) হলো মোট কতটা পথ হাঁটলে। সরণ (displacement) হলো শুরু আর শেষ বিন্দুর সোজা দূরত্ব, দিকসহ। বাড়ি থেকে দোকান গিয়ে ফিরে এলে দূরত্ব ৬০০ m কিন্তু সরণ ০। তাই গড় বেগ ০, অথচ গড় দ্রুতি ১.৫ m/s।
+
+### Quick self-check
+QUIZ:
+Q: 2.5 km equals how many metres?; 25 m; 250 m; 2500 m; 25,000 m; 3; kilo means 1000, so 2.5 × 1000 = 2500 m.
+Q: 90 km/h in m/s is…; 25 m/s; 324 m/s; 9 m/s; 0.4 m/s; 1; Divide by 3.6: 90 ÷ 3.6 = 25 m/s.
+Q: A runner completes one 400 m lap and ends at the start line. Her displacement is…; 400 m; 200 m; 0 m; 800 m; 3; She finished where she started, so the straight-line change in position is zero.
+Q: Which is a vector?; mass; time; velocity; temperature; 3; Velocity has direction. The others only have size.
+
+### Practice
+LVL: Level 1 | Units
+P: Convert 36 km/h to m/s. => 36 ÷ 3.6 = **10 m/s**.
+P: Convert 5 m/s to km/h. => 5 × 3.6 = **18 km/h**.
+P: Write 0.0035 s in milliseconds. => 0.0035 × 1000 = **3.5 ms**.
+LVL: Level 2 | Motion words
+P: A cyclist rides 6 km north, then 2 km south, in 1 hour total. Find distance, displacement, average speed and average velocity. => Distance 8 km. Displacement 4 km north. Average speed **8 km/h**. Average velocity **4 km/h north**.
+P: Use unit-checking to decide if v = s ÷ t² could be a speed formula. => Units: m ÷ s² = m/s², which is acceleration, not speed. **So no.**
+LVL: Challenge | Estimation
+P: The light from the Sun takes about 500 s to reach Earth, travelling at 3 × 10⁸ m/s. How far away is the Sun? => distance = speed × time = 3 × 10⁸ × 500 = 1.5 × 10¹¹ m, which is **150 million km**. Check the units: (m/s) × s = m ✓.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 15 min
+
+NOTES:
+
+### Recap
+- Exponent = count of copies. Same base: multiply → add, divide → subtract, power of power → multiply.
+- a⁰ = 1, a⁻ⁿ = 1/aⁿ, a^(1/n) = n-th root.
+- Surds: √(ab) = √a·√b, but never √(a + b).
+- SI base units: m, kg, s. Convert by multiplying by fractions equal to 1. km/h ÷ 3.6 = m/s.
+- Distance and speed are scalars. Displacement and velocity are vectors.
+
+BN: আজকের সারকথা: ঘাত মানে কপি গোনা। একই base হলে গুণে ঘাত যোগ, ভাগে ঘাত বিয়োগ। a⁰ = 1, ঋণাত্মক ঘাত মানে উল্টে দেওয়া। √(a+b) ≠ √a + √b। আর পদার্থবিজ্ঞানে একক ছাড়া কোনো সংখ্যা নয়।
+
+**Tomorrow:** expanding and factoring (the three identities every engineer memorises), solving linear equations, and acceleration with velocity-time graphs.
+
+CHECK: notes

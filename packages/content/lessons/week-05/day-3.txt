@@ -1,0 +1,237 @@
+@day Week 5 · Day 3 · Wednesday
+# Continuity and the intermediate value theorem. Then: potential energy and conservation of energy
+lead: A continuous function is one you can draw without lifting your pen. That simple picture has a powerful consequence: if a continuous function goes from negative to positive, it must pass through zero. In physics, stored energy (potential energy) lets you trade height and spring compression for speed, and gives you one of the most useful laws in science: conservation of energy.
+
+BN: ধারাবাহিক (continuous) ফাংশন হলো যার লেখচিত্র কলম না তুলে আঁকা যায়। এই সহজ ধারণা থেকেই একটা শক্তিশালী ফল আসে: ধারাবাহিক ফাংশন ঋণাত্মক থেকে ধনাত্মক হলে মাঝখানে কোথাও শূন্য হতেই হবে। পদার্থবিজ্ঞানে সঞ্চিত শক্তি (stored energy বা potential energy) দিয়ে উচ্চতা আর স্প্রিংয়ের সংকোচনকে গতিতে বদলানো যায়, আর পাই শক্তির সংরক্ষণ, বিজ্ঞানের সবচেয়ে কাজের সূত্রগুলোর একটি।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find lim (x → 0) sin 6x ÷ x. => **6**.
+P: Find lim (x → 3) (x² − 9) ÷ (x − 3). => **6**.
+P: A block slides from rest down a smooth ramp with a vertical drop of 0.8 m (g = 10). Find its speed. => √(2 × 10 × 0.8) = √16 = **4 m/s**.
+P: How much work is stored in a spring with k = 100 N/m stretched by 0.2 m? => ½ × 100 × 0.04 = **2 J**.
+P: Find lim (x → ∞) (2x − 1) ÷ (x + 4). => **2**.
+
+CHECK: recall
+
+@section math | 2 · Math: continuity | 55 min
+
+### Definition
+A function f is **continuous at a point a** when three things hold:
+1. f(a) is defined,
+2. lim (x → a) f(x) exists,
+3. lim (x → a) f(x) = f(a).
+
+In words: the limit equals the value, so there is no hole, jump or blow-up at a. A function is **continuous on an interval** if it is continuous at every point of it.
+
+**Which functions are continuous?** Polynomials, sin, cos, eˣ, and root functions (on their domains) are continuous everywhere on their domains. Sums, products, compositions and quotients (where the denominator is not zero) of continuous functions are continuous. So rational functions are continuous everywhere except where the denominator is zero.
+
+### Types of discontinuity
+| Type | What happens | Example at the point shown |
+| Removable | The limit exists but f(a) is missing or different | (x² − 1) ÷ (x − 1) at x = 1 |
+| Jump | Left and right limits differ | x ÷ abs(x) at x = 0, or a floor function |
+| Infinite | The function blows up | 1 ÷ x at x = 0 |
+| Oscillating | No limit as the values wiggle | sin(1 ÷ x) at x = 0 |
+
+A **removable** discontinuity can be repaired by defining f at that point to be the limit.
+
+EX: Repairing a hole
+1. f(x) = (x² − 1) ÷ (x − 1) for x ≠ 1. We found the limit 2 at x = 1.
+2. Define f(1) = 2 and the function becomes x + 1 everywhere, which is continuous.
+/EX
+
+EX: Choosing k
+1. f(x) = x² + k when x < 2, and f(x) = 3x − 1 when x ≥ 2. Find k so that f is continuous at 2.
+2. Left limit: 4 + k. The value from the right piece: f(2) = 5, and the right limit is also 5.
+3. Set 4 + k = 5, so **k = 1**.
+/EX
+
+EX: Where is it continuous?
+1. f(x) = (x + 1) ÷ (x² − 5x + 6) = (x + 1) ÷ ((x − 2)(x − 3)).
+2. It is continuous everywhere **except x = 2 and x = 3**, where the denominator is zero. Both are infinite discontinuities (vertical asymptotes), since the numerator is nonzero there.
+/EX
+
+BN: f, a বিন্দুতে ধারাবাহিক যদি (১) f(a) আছে, (২) লিমিট আছে, (৩) লিমিট = f(a)। বিচ্ছিন্নতা চার ধরনের: ছিদ্র (removable, লিমিট আছে কিন্তু মান নেই), লাফ (jump), অসীম (blow-up), ও দোলন। ছিদ্র মেরামত করা যায় সেই বিন্দুতে লিমিটটাই মান ধরে।
+
+### Asymptotes at a glance
+EX: Vertical and horizontal
+1. f(x) = (2x + 1) ÷ (x − 3).
+2. Vertical asymptote at **x = 3** (the denominator is zero, the numerator is 7).
+3. Horizontal asymptote: divide by x to get (2 + 1/x) ÷ (1 − 3/x) → **y = 2**.
+/EX
+
+FUNC: Both kinds of asymptote | x | y | (2*x+1)/(x-3) | -6,12 | -10,10 | - | The curve has two branches. It climbs or falls without bound near x = 3 (the vertical asymptote, not drawn) and levels off toward y = 2 on the far left and right (the horizontal asymptote, not drawn).
+
+### The Intermediate Value Theorem (IVT)
+**Statement.** If f is continuous on [a, b] and N is any number between f(a) and f(b), then there is at least one c in (a, b) with f(c) = N.
+
+**Why it is believable.** To go from f(a) to f(b) without lifting your pen, the graph must cross every height in between. Without continuity (a jump), it can skip a height.
+
+The special case N = 0 is the most useful: if f(a) < 0 < f(b) (or the reverse), the equation f(x) = 0 has a **root** between a and b.
+
+EX: Proving that a root exists
+1. Show that x³ + x − 1 = 0 has a root between 0 and 1.
+2. f(x) = x³ + x − 1 is a polynomial, so it is continuous. f(0) = −1 < 0 and f(1) = 1 > 0.
+3. By the IVT there is a root in (0, 1). ∎
+/EX
+
+### The bisection method: finding the root to any accuracy
+Repeatedly halve the interval, keeping the half where the sign changes.
+
+| Step | Interval | Midpoint m | f(m) | Next interval |
+| 1 | (0, 1) | 0.5 | −0.375 | (0.5, 1) |
+| 2 | (0.5, 1) | 0.75 | +0.172 | (0.5, 0.75) |
+| 3 | (0.5, 0.75) | 0.625 | −0.131 | (0.625, 0.75) |
+| 4 | (0.625, 0.75) | 0.6875 | +0.012 | (0.625, 0.6875) |
+
+After four halvings the root lies in an interval of width 0.0625. Each step doubles the accuracy. The true root is **0.6823…**. This simple, safe method is how many calculators and programs find roots. (You will code it as an optional idea at the end of this week.)
+
+EX: cos x = x
+1. Define f(x) = cos x − x. f(0) = 1 > 0 and f(1) = 0.540 − 1 = −0.460 < 0.
+2. It is continuous, so there is a solution of cos x = x in (0, 1). Bisection gives x ≈ **0.739** (in radians).
+3. If you press cos on a calculator over and over starting from any number, the result settles at this value.
+/EX
+
+EX: A walk up the mountain
+1. You walk from 6 am to 6 pm up a path. The next day you come down the same path, also 6 am to 6 pm.
+2. Define f(t) = (position going up at time t) − (position coming down at time t). At 6 am it is negative (or zero) and at 6 pm positive (or zero), so by the IVT it equals zero at some time. **You were at the same spot at the same time of day on both days**, whatever speed you walked.
+/EX
+
+### A taste of the exact definition (ε and δ)
+"Closer and closer" can be made exact. lim (x → a) f(x) = L means: for **every** tolerance ε > 0 there is a δ > 0 such that whenever 0 < |x − a| < δ, we have |f(x) − L| < ε.
+
+EX: A small proof
+1. Show that lim (x → 2) (3x − 1) = 5.
+2. |(3x − 1) − 5| = 3 |x − 2|. This is less than ε when |x − 2| < ε ÷ 3.
+3. So choose **δ = ε ÷ 3**. For any tolerance, we have found how close x must be. ∎
+/EX
+
+TRAP: The IVT needs **continuity** on the whole interval. For f(x) = 1 ÷ x, f(−1) = −1 and f(1) = 1, but there is no root in between, because f is not continuous at 0. Also, the IVT says a root **exists**; it does not say it is unique or tell you where it is.
+
+### Quick self-check
+QUIZ:
+Q: f(x) = (x² − 4) ÷ (x − 2) at x = 2 has…; a removable discontinuity; a jump; an infinite discontinuity; no problem; 1; The limit is 4, but f(2) is undefined: a hole.
+Q: Which function is continuous everywhere?; 1 ÷ x; tan x; x² + 1; |x| ÷ x; 3; Polynomials are continuous on all of ℝ.
+Q: f is continuous on [1, 3] with f(1) = −2 and f(3) = 5. The IVT says…; f has a root in (1, 3); f is increasing; f(2) = 1.5; f has no root; 1; A sign change forces a zero.
+Q: The horizontal asymptote of (3x + 2) ÷ (x − 1) is…; y = 1; y = 2; y = 3; there is none; 3; The ratio of leading coefficients is 3.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Where is f(x) = 1 ÷ (x + 5) discontinuous? => At **x = −5** (an infinite discontinuity).
+P: Show that x² − 3 = 0 has a root between 1 and 2. => f(1) = −2 < 0 and f(2) = 1 > 0, and f is continuous, so a root exists. (It is √3 = 1.732.)
+LVL: Level 2 | Think
+P: Find k so that f is continuous at 1, with f(x) = (x² + x − 2) ÷ (x − 1) for x ≠ 1 and f(1) = k. => (x + 2)(x − 1) ÷ (x − 1) = x + 2 → 3, so **k = 3**.
+P: Find a and b so that f is continuous, with f(x) = x + 1 for x < 1, f(x) = ax + b for 1 ≤ x ≤ 3, f(x) = 2x − 4 for x > 3. => At x = 1: 2 = a + b. At x = 3: 3a + b = 2 × 3 − 4 = 2. Subtract: 2a = 0, so **a = 0 and b = 2**.
+P: Use the IVT to show cos x = x² has a solution in (0, 1). => f(x) = cos x − x²: f(0) = 1 > 0 and f(1) = 0.540 − 1 = −0.460 < 0. A root exists.
+P: Do two bisection steps for x³ = 5 on (1, 2). => f(x) = x³ − 5. f(1.5) = 3.375 − 5 = −1.625 < 0, so the root is in (1.5, 2). f(1.75) = 5.359 − 5 = 0.359 > 0, so it is in (1.5, 1.75). The true value 1.710 fits.
+LVL: Level 3 | Real
+P: A thermostat reads 14°C at 6 am and 26°C at 2 pm, and temperature changes continuously. Show that the temperature was exactly 20°C at some moment. => Temperature is continuous and goes from 14 to 26, and 20 is between them, so by the IVT there is a time with T = 20°C.
+LVL: Challenge | Spinning wheel
+P: A wheel turns steadily. Explain why there must be a pair of opposite points on the rim with exactly the same temperature, using a continuous temperature around the rim. => Let T(θ) be the temperature at angle θ and define f(θ) = T(θ) − T(θ + π). Then f(π) = T(π) − T(2π) = −f(0). So f(0) and f(π) have opposite signs (or both zero). By the IVT, f(θ) = 0 for some θ, so **T(θ) = T(θ + π)**. This is a famous result: there are always two opposite points with equal temperature.
+
+CHECK: math
+
+@section physics | 3 · Physics: potential energy and conservation of energy | 35 min
+
+### Stored energy
+Work can be stored and recovered. Lift a book: you do work, and later it can fall and gain speed. That stored ability is **potential energy** (PE).
+
+| Type | Formula | Where it comes from |
+| Gravitational, near Earth | U = m g h | work done against gravity to raise a mass by h |
+| Elastic (spring) | U = ½ k x² | work to stretch or compress a spring by x |
+
+The zero of height is your choice. Only **changes** in PE matter.
+
+### Conservative forces
+A force is **conservative** if the work it does between two points does not depend on the path. Gravity and springs are conservative: lifting a book 1 m straight up or by a winding route costs the same m g h. Friction is **not**: the longer the path, the more energy it removes, as heat.
+
+For a conservative force: **work done by the force = − (change in PE)**.
+
+### Conservation of mechanical energy
+If only conservative forces do work, then ΔKE = −ΔPE, so
+
+EQ: KE + PE = constant     ½ m v₁² + m g h₁ = ½ m v₂² + m g h₂
+
+If friction or other non-conservative forces also act, include their work:
+
+EQ: E_start + W_non-conservative = E_end
+
+BN: সঞ্চিত শক্তি: স্থিতিশক্তি U = mgh (অভিকর্ষ) আর U = ½kx² (স্প্রিং)। রক্ষণশীল বলের (conservative force) কাজ পথের ওপর নির্ভর করে না: অভিকর্ষ ও স্প্রিং এমন, ঘর্ষণ নয়। শুধু রক্ষণশীল বল কাজ করলে KE + PE ধ্রুব। ঘর্ষণ থাকলে E_শুরু + W_ঘর্ষণ = E_শেষ, যেখানে W_ঘর্ষণ ঋণাত্মক।
+
+EX: A ball thrown up
+1. A 0.5 kg ball is thrown up at 12 m/s. At the top v = 0, so ½ × 0.5 × 144 = 0.5 × 9.8 × h and h = 144 ÷ 19.6 = **7.35 m**.
+2. At 5 m height: ½ v² = ½ × 144 − 9.8 × 5 = 72 − 49 = 23, so v² = 46 and **v = 6.78 m/s**. The mass cancels again.
+/EX
+
+EX: The pendulum
+1. A 1 m pendulum is released from rest at 60° from the vertical. The bob drops by h = L (1 − cos 60°) = 0.5 m.
+2. At the bottom: v = √(2 × 9.8 × 0.5) = **3.13 m/s**.
+3. Tension at the bottom for a 0.3 kg bob: T = m g + m v² ÷ r = 0.3 × (9.8 + 9.8) = **5.88 N** (the vertical-circle formula of Week 4).
+/EX
+
+EX: Falling onto a spring
+1. A 0.5 kg mass is dropped from 0.3 m above a spring (k = 400 N/m). How far does the spring compress?
+2. Let the compression be x. The mass falls a total distance of 0.3 + x and ends at rest: m g (0.3 + x) = ½ k x².
+3. 4.9 (0.3 + x) = 200 x², so 200 x² − 4.9 x − 1.47 = 0.
+4. x = (4.9 + √(24.01 + 1176)) ÷ 400 = (4.9 + 34.64) ÷ 400 = **0.0989 m**, about 9.9 cm.
+/EX
+
+EX: With friction
+1. A 2 kg block slides down a rough slope from a height of 3 m, reaching the bottom at 6 m/s. How much energy did friction take?
+2. E_start = m g h = 2 × 9.8 × 3 = 58.8 J. E_end = ½ × 2 × 36 = 36 J.
+3. W_friction = 36 − 58.8 = **−22.8 J**. The missing 22.8 J became heat.
+/EX
+
+### Gravity in space: a better potential energy (preview)
+M g h is only for small heights where g is constant. For the whole inverse-square law, the potential energy of a mass m at distance r from the centre of a planet of mass M is
+
+EQ: U = − G M m ÷ r
+
+(negative because we take zero at infinity, and gravity is attractive). We will justify this with integration in Week 8. For now, test it: moving from R to R + h changes U by G M m h ÷ (R (R + h)). For small h this is about G M m h ÷ R² = m g h ✓, matching the near-Earth formula.
+
+**Escape speed.** To just escape, the total energy must be zero at the start: ½ m v² − G M m ÷ R = 0, so **v_esc = √(2 G M ÷ R)**, the result we quoted last week.
+
+**Orbits.** In a circular orbit, KE = ½ m v² = G M m ÷ (2r) and U = −G M m ÷ r, so the total is **E = −G M m ÷ (2r)**, which is negative for any bound orbit.
+
+EX: Energy to reach orbit
+1. Per kilogram, the energy at rest on the ground is −G M ÷ R = −3.986 × 10¹⁴ ÷ 6.371 × 10⁶ = −6.256 × 10⁷ J/kg.
+2. In the ISS orbit: −G M ÷ (2r) = −3.986 × 10¹⁴ ÷ (2 × 6.771 × 10⁶) = −2.943 × 10⁷ J/kg.
+3. The difference is **3.31 × 10⁷ J/kg**: about 33 MJ for every kilogram lifted to the station's orbit, which is why rockets need so much fuel.
+/EX
+
+TRAP: Energy conservation applies **only** when no non-conservative force does work. When friction is present, mechanical energy is lost to heat (the total energy is still conserved, but not the mechanical part). Also, never mix the zero level: choose one height as zero and stay with it.
+
+### Quick self-check
+QUIZ:
+Q: A 2 kg ball falls 5 m. It loses gravitational PE of…; 10 J; 49 J; 98 J; 196 J; 3; 2 × 9.8 × 5 = 98 J.
+Q: Which force is not conservative?; gravity; the spring force; friction; the force of a rope; 3; Friction's work depends on the path.
+Q: A pendulum bob released from a height h above the lowest point has speed at the bottom…; √(g h); √(2 g h); 2 g h; g h; 2; ½ v² = g h.
+Q: The total energy of a satellite in a circular orbit is…; positive; zero; negative; infinite; 3; E = −G M m ÷ (2r) < 0.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 3 kg object is lifted 4 m. Find its change in PE. => 3 × 9.8 × 4 = **117.6 J**.
+P: A ball is dropped from 10 m. Find its speed at 4 m height. => ½ v² = 9.8 × 6 → v² = 117.6 → **10.8 m/s**.
+LVL: Level 2 | Apply
+P: A 60 kg skier starts from rest at the top of a 30 m high hill. What is the speed at the bottom if friction removes 3000 J? => PE = 60 × 9.8 × 30 = 17,640 J. KE = 17,640 − 3000 = 14,640 J, so v = √(2 × 14,640 ÷ 60) = **22.1 m/s**.
+P: A 0.2 kg block is held against a spring (k = 800 N/m) compressed by 5 cm on a smooth table, then released. Find its speed after leaving the spring. => ½ × 800 × 0.0025 = 1 J, so v = √(2 ÷ 0.2) = **3.16 m/s**.
+P: A mass hangs from a spring and is released from the unstretched position. Show that the maximum stretch is 2 m g ÷ k. => At the lowest point v = 0: m g x = ½ k x², so x = **2 m g ÷ k**. This is twice the stretch at equilibrium (m g ÷ k).
+LVL: Challenge | Satellite energy
+P: A 500 kg satellite moves from a circular orbit at r = 7000 km to one at r = 10,000 km. How much energy must the engines add in total? (GM = 3.986 × 10¹⁴) => E = −G M m ÷ (2r). At 7000 km: −3.986 × 10¹⁴ × 500 ÷ (1.4 × 10⁷) = −1.4236 × 10¹⁰ J. At 10,000 km: −3.986 × 10¹⁴ × 500 ÷ (2 × 10⁷) = −9.965 × 10⁹ J. The difference is **4.27 × 10⁹ J**. Interesting: the orbit is slower at the higher radius, yet more energy is needed.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Continuity: limit = value. Four types of discontinuity. IVT: sign change on a continuous function means a root. Bisection halves the interval each step.
+- PE: m g h and ½ k x². KE + PE conserved without friction; otherwise E_start + W_nc = E_end. U = −GMm/r, E_orbit = −GMm/(2r).
+
+BN: আজকের সারকথা: ধারাবাহিকতা: লিমিট = মান। IVT: চিহ্ন বদলালে মূল থাকবেই; দ্বিখণ্ডন পদ্ধতিতে প্রতি ধাপে ব্যবধান অর্ধেক। শক্তি: mgh ও ½kx², ঘর্ষণ না থাকলে KE + PE ধ্রুব। মহাকর্ষের স্থিতিশক্তি U = −GMm/r, কক্ষপথের মোট শক্তি −GMm/(2r)।
+
+**Tomorrow:** the derivative from its definition, and energy problems with friction and power.
+
+CHECK: notes

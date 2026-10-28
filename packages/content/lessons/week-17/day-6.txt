@@ -1,0 +1,81 @@
+@day Week 17 · Day 6 · Saturday
+# Week 17 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered double and triple integrals (Cartesian, polar, cylindrical, spherical), line integrals and conservative fields, divergence and curl, and in physics electric flux, Gauss's law, electric potential and energy, and lightning rods.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: দ্বি ও ত্রি-যোগজ (কার্তেসীয়, পোলার, নলাকার, গোলীয়), রেখা যোগজ ও সংরক্ষণশীল ক্ষেত্র, ডাইভারজেন্স ও কার্ল; পদার্থবিজ্ঞানে তড়িৎ ফ্লাক্স, গাউসের সূত্র, বিভব ও শক্তি এবং বজ্ররোধক।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use k = 8.99 × 10⁹ N m²/C², ε₀ = 8.85 × 10⁻¹² C²/(N m²), e = 1.602 × 10⁻¹⁹ C, m_e = 9.109 × 10⁻³¹ kg. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Multiple integrals and vector calculus (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 10
+P: (1 mark) Evaluate ∬ (x + 2y) dA over [0, 2] × [0, 1]. => ∫₀¹ ∫₀² (x + 2y) dx dy = ∫₀¹ (2 + 4y) dy = 2 + 2 = **4**.
+P: (1 mark) Find the area between y = x² and y = x by a double integral. => ∫₀¹ (x − x²) dx = 1/2 − 1/3 = **1/6**.
+P: (1 mark) Evaluate ∬ y dA over the triangle 0 ≤ y ≤ x, 0 ≤ x ≤ 2. => ∫₀² x²/2 dx = (1/2)(8/3) = **4/3**.
+P: (2 marks) Evaluate ∬ (x² + y²) dA over the disk of radius 2 using polar coordinates. => ∫₀^{2π} ∫₀² r² · r dr dθ (1 mark, including the extra r) = 2π × 16/4 = **8π = 25.1** (1 mark).
+P: (2 marks) Find the volume under z = 9 − x² − y² above the plane z = 0. => The region is r ≤ 3. V = ∫₀^{2π} ∫₀³ (9 − r²) r dr dθ (1 mark) = 2π [9r²/2 − r⁴/4]₀³ = 2π (40.5 − 20.25) = **40.5π = 127.2** (1 mark).
+P: (1 mark) Find the volume of a cone of base radius 3 and height 4. => V = π R² h ÷ 3 = π × 9 × 4 ÷ 3 = **12π = 37.7**.
+P: (1 mark) Evaluate ∭ (x + y + z) dV over the cube [0, 1]³. => By symmetry each term gives 1/2: **3/2**.
+P: (1 mark) Evaluate ∫ F · dr for F = (y, x) along the straight line from (0, 0) to (2, 3). => r = (2t, 3t): F · r′ = 3t × 2 + 2t × 3 = 12t, ∫₀¹ 12t dt = **6** (= x y at the end point, since F = ∇ (x y)).
+P: (2 marks) Show that F = (2x + y, x + 3y²) is conservative and find ∫ F · dr from (0, 0) to (1, 2). => ∂P/∂y = 1 = ∂Q/∂x ✓ (1 mark). f = x² + x y + y³, so the integral is f (1, 2) − f (0, 0) = 1 + 2 + 8 = **11** (1 mark).
+P: (2 marks) Find the divergence and the curl of F = (x² y, y² z, z² x) at (1, 1, 1). => div = 2xy + 2yz + 2zx = **6** (1 mark). curl = (∂R/∂y − ∂Q/∂z, ∂P/∂z − ∂R/∂x, ∂Q/∂x − ∂P/∂y) = (0 − y², 0 − z², 0 − x²) = **(−1, −1, −1)** (1 mark).
+
+CHECK: math
+
+@section physics | 3 · Part B: Flux, Gauss's law and potential (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 11 to 16
+P: (1 mark) Find the flux through a 0.25 m² loop in a uniform field of 200 N/C when the normal makes 45° with the field. => Φ = 200 × 0.25 × cos 45° = **35.4 N m²/C**.
+P: (1 mark) Find the net flux through a closed surface that encloses +3 nC, and the flux through each face of a cube with the charge at its centre. => 3 × 10⁻⁹ ÷ 8.85 × 10⁻¹² = **339 N m²/C**; per face **56.5 N m²/C**.
+P: (1 mark) A uniformly charged insulating sphere has Q = 6 nC and R = 3 cm. Find the field at r = 2 cm and r = 6 cm. => Inside: k Q r ÷ R³ = 8.99 × 10⁹ × 6 × 10⁻⁹ × 0.02 ÷ 2.7 × 10⁻⁵ = **3.996 × 10⁴ N/C**. Outside: k Q ÷ r² = 53.94 ÷ 0.0036 = **1.50 × 10⁴ N/C**.
+P: (1 mark) Find the potential at 5 cm from a 2 nC charge and the potential energy of a 3 nC charge placed there. => V = 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.05 = **360 V**. U = q V = 3 × 10⁻⁹ × 360 = **1.08 × 10⁻⁶ J**.
+P: (1 mark) An electron starts from rest and is accelerated through 300 V. Find its speed. => v = √(2 e V ÷ m) = √(2 × 1.602 × 10⁻¹⁹ × 300 ÷ 9.109 × 10⁻³¹) = **1.03 × 10⁷ m/s**.
+P: (1 mark) The potential in a region is V = 4x² − 3x y. Find the electric field at (1, 2). => E = −∇V = (−8x + 3y, 3x) = **(−2, 3) V/m**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 18. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 17. Tell me, and I will rebalance Week 18. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q4 | Integrated ∫∫ r² dr dθ and got 4π | Forgot the extra r in dA = r dr dθ | In polar coordinates the area element is r dr dθ | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: পোলারে dA = r dr dθ এর বাড়তি r ভুলে যাওয়া, গোলীয় স্থানাঙ্কে ρ² sin φ ভুলে যাওয়া, রেখা যোগজে F(r(t))·r′(t) এর বদলে শুধু F নেওয়া, গাউসের সূত্রে বাইরের চার্জ গুনে ফেলা, বিভব ও ক্ষেত্র গুলিয়ে ফেলা (V স্কেলার, E ভেক্টর), E = −∇V এর মাইনাস চিহ্ন ভোলা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The volume of a ball from a paraboloid trick
+P: Use spherical coordinates to find ∭ (x² + y² + z²) dV over a ball of radius R, and use it to find the average value of r² in the ball. => ∫₀^{2π} ∫₀^π ∫₀^R ρ² · ρ² sin φ dρ dφ dθ = 2π × 2 × R⁵ ÷ 5 = **4π R⁵ ÷ 5**. Dividing by the volume 4π R³ ÷ 3: average r² = **3 R² ÷ 5**, so the root-mean-square distance from the centre is R √(3/5) = **0.775 R**. (Used in the potential of a uniformly charged sphere and in the moment of inertia I = (2/5) M R², which is (2/3) × the average of r² times M.)
+
+LVL: Challenge | Two spheres, one rod
+P: A conducting sphere of radius 10 cm (Q = 10 nC) and a pointed tip of effective radius 1 mm are joined by a wire and share one potential. Find that potential and the field at the tip's surface, and compare with the breakdown field 3 × 10⁶ V/m. => V = k Q ÷ R (the charge stays mostly on the large sphere) = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.1 = **899 V**. Tip field ≈ V ÷ r_tip = 899 ÷ 0.001 = **9 × 10⁵ V/m**: about 30% of breakdown. For a **10 kV** potential the tip field would be 10⁷ V/m, over three times the breakdown field, and corona would start.
+
+### Optional coding idea (not part of the study plan)
+**Gauss and Stokes playground:** a page that shows a vector field as arrows on a grid, a closed curve or a sphere you can drag, and live numbers for the flux, circulation, divergence and curl computed numerically. A second panel draws a charge distribution and its potential as a colour map, with equipotential lines, and lets you click to see E = −∇V as an arrow. A third panel runs a simple lightning demonstration: a field strength map around a tall rod, with the corona region marked in red where E exceeds 3 × 10⁶ V/m.
+
+### What Week 18 looks like
+**Differential equations 1 and capacitance.** In maths you meet equations that describe change itself: growth and decay, cooling and mixing, solved by separation of variables and by integrating factors. In physics, capacitors: the energy and charge they store, dielectric materials, and the story of the camera flash.
+
+BN: আগামী সপ্তাহ: অবকল সমীকরণ ১ ও ধারকত্ব। গণিতে পরিবর্তনকেই বর্ণনা করা সমীকরণ: বৃদ্ধি ও ক্ষয়, শীতলীকরণ ও মিশ্রণ, যা চলক পৃথকীকরণ ও সমাকলন গুণক দিয়ে সমাধান হয়। পদার্থবিজ্ঞানে ধারক: তারা কত শক্তি ও চার্জ জমায়, ডাইইলেকট্রিক পদার্থ, এবং ক্যামেরার ফ্ল্যাশের গল্প।
+
+**Sunday is a rest day.**
+
+CHECK: notes

@@ -1,0 +1,187 @@
+@day Week 10 · Day 3 · Wednesday
+# Power series. Then: superposition, interference and beats
+lead: A power series is an "infinitely long polynomial", and it is the tool that turns hard functions into easy ones. Today you learn where a power series works (its radius of convergence) and how to differentiate and integrate it term by term. In physics, you add waves together: they reinforce, cancel, and, when their frequencies are slightly different, produce the throbbing sound called beats.
+
+BN: ঘাত ধারা (power series) হলো "অসীম দৈর্ঘ্যের বহুপদী", আর এটাই কঠিন ফাংশনকে সহজ করার হাতিয়ার। আজ শিখবে ঘাত ধারা কোথায় কাজ করে (অভিসারিতার ব্যাসার্ধ) এবং কীভাবে পদে পদে অন্তরকলন ও সমাকলন করতে হয়। পদার্থবিজ্ঞানে তরঙ্গ যোগ করবে: তারা বাড়ে, কাটে, আর কম্পাঙ্ক সামান্য আলাদা হলে স্পন্দ (beats) নামের ধপধপ শব্দ তৈরি করে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Apply the ratio test to Σ n ÷ 3ⁿ. => Ratio → 1/3 < 1: **converges**.
+P: Does Σ 1 ÷ n² converge? => **Yes** (p = 2).
+P: Find v for a string with T = 50 N and μ = 0.02 kg/m. => √2500 = **50 m/s**.
+P: A string wave passes from a fast to a slow string. What stays the same? => The **frequency**.
+P: How many terms of Σ (−1)^(n+1) ÷ n² guarantee an error below 0.01? => 1 ÷ (N + 1)² < 0.01 gives N + 1 > 10, so **N = 10**.
+
+CHECK: recall
+
+@section math | 2 · Math: power series | 55 min
+
+### Polynomials with infinitely many terms
+A **power series** about x = a is
+
+EQ: Σ from n = 0 of cₙ (x − a)ⁿ = c₀ + c₁ (x − a) + c₂ (x − a)² + …
+
+For each x it is an ordinary series, which may or may not converge. The set of x where it converges is an **interval** centred at a. Its half-width is the **radius of convergence R**: converges for abs(x − a) < R, diverges for abs(x − a) > R, and the two endpoints must be checked separately.
+
+**Finding R:** apply the ratio test to the terms: L = lim abs(cₙ₊₁ ÷ cₙ) × abs(x − a), and require L < 1.
+
+BN: ঘাত ধারা Σ cₙ(x − a)ⁿ কেন্দ্র a ঘিরে একটা ব্যবধানে অভিসারী। ব্যবধানের অর্ধেক-প্রস্থ হলো অভিসারিতার ব্যাসার্ধ R: |x − a| < R এ অভিসারী, |x − a| > R এ অপসারী, আর দুই প্রান্ত আলাদাভাবে পরীক্ষা করতে হয়। R বের করতে অনুপাত পরীক্ষা ব্যবহার করো।
+
+EX: Radius and interval
+1. Σ xⁿ: ratio = abs(x), so R = **1**. At x = ±1 the terms do not tend to 0. Interval **(−1, 1)**, and the sum is 1 ÷ (1 − x).
+2. Σ xⁿ ÷ n!: ratio = abs(x) ÷ (n + 1) → 0. R = **∞**: converges for every x.
+3. Σ n! xⁿ: ratio = (n + 1) abs(x) → ∞ for x ≠ 0. R = **0**: converges only at x = 0.
+4. Σ xⁿ ÷ n: R = 1. At x = 1 it is the harmonic series (diverges). At x = −1 it is the alternating harmonic series (converges). Interval **[−1, 1)**.
+5. Σ xⁿ ÷ n²: R = 1. Both endpoints give convergent series (p = 2, and absolutely convergent alternating). Interval **[−1, 1]**.
+6. Σ (x − 2)ⁿ ÷ (n 3ⁿ): ratio → abs(x − 2) ÷ 3, so R = **3**, centre 2. At x = 5: harmonic, diverges. At x = −1: alternating harmonic, converges. Interval **[−1, 5)**.
+/EX
+
+LAB: Building eˣ from powers | The orange curve is the polynomial 1 + x + x²/2! + … with the number of terms you choose, and the blue curve is the real eˣ. The series converges for every x (R = ∞), but you need more terms the further x is from 0. | N:Highest power N:1:8:1:3 ;; x0:Test value x:-3:3:0.25:1 | exp(x0):True e^x:5 ;; 1+(N>=1)*x0+(N>=2)*x0^2/2+(N>=3)*x0^3/6+(N>=4)*x0^4/24+(N>=5)*x0^5/120+(N>=6)*x0^6/720+(N>=7)*x0^7/5040+(N>=8)*x0^8/40320:Polynomial value:5 ;; abs(exp(x0)-(1+(N>=1)*x0+(N>=2)*x0^2/2+(N>=3)*x0^3/6+(N>=4)*x0^4/24+(N>=5)*x0^5/120+(N>=6)*x0^6/720+(N>=7)*x0^7/5040+(N>=8)*x0^8/40320)):Error:5 | exp(x) ;; 1+(N>=1)*x+(N>=2)*x^2/2+(N>=3)*x^3/6+(N>=4)*x^4/24+(N>=5)*x^5/120+(N>=6)*x^6/720+(N>=7)*x^7/5040+(N>=8)*x^8/40320 | -3,3 | -5,20
+
+### Calculus with power series
+Inside the interval of convergence you may **differentiate and integrate term by term**, and the radius stays the same.
+
+EX: New series from old
+1. Start from 1 ÷ (1 − x) = 1 + x + x² + x³ + … (abs(x) < 1). Differentiate: **1 ÷ (1 − x)² = 1 + 2x + 3x² + 4x³ + …** = Σ (n + 1) xⁿ.
+2. Replace x by −x: 1 ÷ (1 + x) = 1 − x + x² − x³ + …. Integrate: **ln(1 + x) = x − x²/2 + x³/3 − x⁴/4 + …**.
+3. Replace x by −x²: 1 ÷ (1 + x²) = 1 − x² + x⁴ − …. Integrate: **arctan x = x − x³/3 + x⁵/5 − …**. At x = 1 this gives **π/4 = 1 − 1/3 + 1/5 − 1/7 + …** (the Leibniz series).
+4. Differentiate Σ xⁿ ÷ n!: you get the same series, so d/dx eˣ = eˣ ✓.
+/EX
+
+EX: Using them
+1. e^0.5 ≈ 1 + 0.5 + 0.125 + 0.020833 + 0.002604 + 0.000260 = **1.648698** (the truth is 1.648721).
+2. ln(1.2) ≈ 0.2 − 0.02 + 0.002667 − 0.0004 = **0.18227** (truth 0.18232). The error is at most the next term, 0.2⁵ ÷ 5 = 0.000064 ✓.
+3. arctan 0.5 ≈ 0.5 − 0.04167 + 0.00625 − 0.00112 + 0.00022 = **0.46368** (truth 0.46365).
+4. Σ n ÷ 2ⁿ: Σ n xⁿ = x ÷ (1 − x)² (multiply the derivative above by x). At x = 1/2: 0.5 ÷ 0.25 = **2**.
+/EX
+
+BN: ব্যবধানের ভেতরে পদে পদে অন্তরকলন ও সমাকলন করা যায়, ব্যাসার্ধ একই থাকে। 1/(1 − x) = Σxⁿ থেকে: অন্তরকলনে 1/(1 − x)² = Σ(n + 1)xⁿ; −x বসিয়ে সমাকলনে ln(1 + x) = x − x²/2 + x³/3 − …; −x² বসিয়ে সমাকলনে arctan x = x − x³/3 + x⁵/5 − …, x = 1 এ π/4 = 1 − 1/3 + 1/5 − …।
+
+TRAP: Always test the **endpoints** separately: the ratio test says nothing there. Term-by-term calculus keeps the same R but may change the endpoint behaviour (for example, the endpoint can start or stop converging). And when you replace x by something (like −x²), the interval changes with it: 1 ÷ (1 + x²) works only for abs(x) < 1.
+
+### Quick self-check
+QUIZ:
+Q: The radius of convergence of Σ xⁿ ÷ n! is…; 0; 1; e; ∞; 4; The ratio abs(x) ÷ (n + 1) tends to 0 for every x.
+Q: The radius of convergence of Σ (x − 2)ⁿ ÷ 3ⁿ is…; 2; 3; 1/3; 5; 2; abs(x − 2) ÷ 3 < 1.
+Q: Differentiating Σ xⁿ term by term gives…; Σ n xⁿ⁻¹ = 1 ÷ (1 − x)²; Σ xⁿ⁺¹; Σ xⁿ ÷ n; 1 ÷ (1 − x); 1; The derivative of 1 ÷ (1 − x) is 1 ÷ (1 − x)².
+Q: The series for arctan x at x = 1 gives…; π; π ÷ 2; π ÷ 4; 1; 3; 1 − 1/3 + 1/5 − … = π ÷ 4.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find R for Σ xⁿ ÷ 3ⁿ. => Ratio → abs(x) ÷ 3: **R = 3**.
+P: Find R for Σ (n + 1) xⁿ. => **R = 1**.
+P: Find R for Σ n! xⁿ. => **R = 0**.
+LVL: Level 2 | Apply
+P: Find the interval of convergence of Σ xⁿ ÷ (n 3ⁿ). => R = 3. At x = 3: harmonic, diverges. At x = −3: alternating harmonic, converges. Interval **[−3, 3)**.
+P: Find the interval of convergence of Σ (x + 1)ⁿ ÷ (2ⁿ n²). => R = 2, centre −1. At x = 1: Σ 1 ÷ n² converges. At x = −3: alternating, converges. Interval **[−3, 1]**.
+P: Estimate ln(1.1) using three terms of the series and bound the error. => 0.1 − 0.005 + 0.000333 = **0.095333**. The error is at most 0.1⁴ ÷ 4 = 0.000025. (True value 0.095310.)
+P: Find the sum Σ from n = 1 of n ÷ 3ⁿ. => x ÷ (1 − x)² at x = 1/3: (1/3) ÷ (4/9) = **3/4**.
+P: Find a power series for 1 ÷ (1 + x²) and for 2x ÷ (1 + x²)². => 1 ÷ (1 + x²) = 1 − x² + x⁴ − x⁶ + …. Differentiating gives −2x ÷ (1 + x²)² = −2x + 4x³ − 6x⁵ + …, so 2x ÷ (1 + x²)² = **2x − 4x³ + 6x⁵ − …**.
+LVL: Level 3 | Real
+P: Compute e^0.5 using terms up to x⁴ and give the error bound. => 1 + 0.5 + 0.125 + 0.020833 + 0.002604 = **1.648437**. The first omitted term is 0.000260, and the true error is 0.000284.
+P: A calculator needs sin-type accuracy of 10⁻⁶ for arctan(0.1). How many terms are needed? => The alternating terms x^(2n+1) ÷ (2n + 1) with x = 0.1: 0.1, 0.000333, 0.000002, 0.00000001. Terms to x⁵ give an error below 10⁻⁶, so **three terms** are enough (0.1 − 0.000333 + 0.000002 = 0.099669).
+LVL: Challenge | Sums from derivatives
+P: Starting from 1 ÷ (1 − x) = Σ xⁿ, find a formula for Σ n² xⁿ, and use it to sum Σ n² ÷ 2ⁿ. => Differentiate: Σ n xⁿ⁻¹ = 1 ÷ (1 − x)². Multiply by x: Σ n xⁿ = x ÷ (1 − x)². Differentiate again: Σ n² xⁿ⁻¹ = (1 + x) ÷ (1 − x)³. Multiply by x: **Σ n² xⁿ = x (1 + x) ÷ (1 − x)³**. At x = 1/2: 0.5 × 1.5 ÷ 0.125 = **6**.
+
+CHECK: math
+
+@section physics | 3 · Physics: superposition, interference and beats | 35 min
+
+### The principle of superposition
+When two waves meet in the same place, the displacement is the **sum** of the individual displacements. (The wave equation is linear, as you saw on Day 1.) After they pass, each continues as if nothing happened.
+
+For two waves of the same frequency and amplitude A₀ that differ in phase by Δφ:
+
+EQ: A = 2 A₀ abs(cos(Δφ ÷ 2))     and the intensity is proportional to A²
+
+- **Constructive:** Δφ = 0, 2π, 4π, … gives A = 2A₀ (intensity 4 times one wave).
+- **Destructive:** Δφ = π, 3π, … gives A = 0.
+
+When the phase difference comes from a **path difference** d, one wavelength is 2π of phase: Δφ = 2π d ÷ λ.
+
+EQ: Constructive: d = m λ     Destructive: d = (m + ½) λ     (m = 0, 1, 2, …)
+
+BN: দুই তরঙ্গ একই জায়গায় মিললে সরণ যোগ হয় (সমীকরণ রৈখিক)। সমান কম্পাঙ্ক ও বিস্তারে দশা-পার্থক্য Δφ হলে A = 2A₀|cos(Δφ/2)|। গঠনমূলক (constructive): পথ-পার্থক্য d = mλ; ধ্বংসাত্মক (destructive): d = (m + ½)λ। পথ-পার্থক্য d হলে দশা-পার্থক্য Δφ = 2πd/λ।
+
+LAB: Two sources, one point | Two equal sources are heard at a point whose distances differ by a path difference d. Choose λ and slide d. The graph shows the combined amplitude 2 A₀ abs(cos(π d ÷ λ)) as a function of d: peaks at whole wavelengths and zeros at half wavelengths. | lam:Wavelength λ (m):0.3:1.5:0.1:1 ;; d:Path difference d (m):0:3:0.05:0.5 | d/lam:Path difference in wavelengths:2 ;; 2*abs(cos(pi*d/lam)):Combined amplitude (in units of A₀):2 ;; 4*cos(pi*d/lam)^2:Relative intensity (one source = 1):2 | 2*abs(cos(pi*x/lam)) | 0,3 | 0,2.2
+
+EX: Two loudspeakers
+1. Two speakers play the same note at 343 Hz (λ = 1 m). A listener is 3.0 m from one and 3.5 m from the other. The path difference is 0.5 m = λ/2: **destructive**, near silence.
+2. At 686 Hz (λ = 0.5 m), the same path difference is exactly 1 wavelength: **constructive**, with the intensity four times that of one speaker.
+3. If the phase differs by 60°, A = 2 A₀ cos 30° = **1.73 A₀**.
+/EX
+
+EX: Noise-cancelling headphones
+1. A microphone hears the noise and the speaker plays its mirror image (phase π) to cancel it. A phase error δ of 10° (0.1745 rad) leaves a residual amplitude 2 A₀ sin(δ ÷ 2) = 0.174 A₀.
+2. The residual intensity is 0.174² = **0.030** of the noise intensity, a 97% cut. A tiny phase error ruins cancellation for high frequencies, so these headphones work best for steady low-pitched noise like engines.
+/EX
+
+EX: Light through two slits
+1. Light of λ = 600 nm passes through two slits d = 0.2 mm apart and falls on a screen L = 2 m away. Bright fringes are where d sin θ = m λ. For small angles, y = m λ L ÷ d, so the fringe spacing is Δy = 6 × 10⁻⁷ × 2 ÷ 2 × 10⁻⁴ = **6 mm**.
+2. Measuring Δy is how Young showed in 1801 that light is a wave.
+/EX
+
+### Beats
+Two waves of slightly different frequencies f₁ and f₂ are added. Using sin a + sin b = 2 sin((a + b) ÷ 2) cos((a − b) ÷ 2) (Week 9, Day 2):
+
+EQ: sin(2π f₁ t) + sin(2π f₂ t) = 2 cos(2π ((f₁ − f₂) ÷ 2) t) × sin(2π ((f₁ + f₂) ÷ 2) t)
+
+This is a wave at the **average frequency** whose amplitude swells and fades like a slow cosine. The loudness peaks twice per cycle of that cosine, so the **beat frequency** is
+
+EQ: f_beat = abs(f₁ − f₂)
+
+BN: দুই কাছাকাছি কম্পাঙ্ক f₁, f₂ যোগ করলে 2cos(2π((f₁ − f₂)/2)t) × sin(2π((f₁ + f₂)/2)t) পাই: গড় কম্পাঙ্কের তরঙ্গ, যার বিস্তার ধীরে ফোলে-কমে। স্পন্দ কম্পাঙ্ক = |f₁ − f₂|। পিয়ানো টিউনারের কাজ: ফর্কের সাথে তার মেলাতে স্পন্দ শুনে টান ঠিক করা, স্পন্দ থামলে সুর মিলেছে।
+
+LAB: Beats | Two tones with frequencies f₁ and f₂ (slow here so you can see them). The blue curve is the sum, and the orange envelope 2 abs(cos(π (f₁ − f₂) t)) shows the swelling and fading. The number of swells per second is abs(f₁ − f₂). | f1:Frequency f₁ (Hz):5:15:0.5:10 ;; f2:Frequency f₂ (Hz):5:15:0.5:11 | abs(f1-f2):Beat frequency (Hz):2 ;; (f1+f2)/2:Carrier frequency (Hz):2 | sin(2*pi*f1*x)+sin(2*pi*f2*x) ;; 2*abs(cos(pi*(f1-f2)*x)) | 0,2 | -2.2,2.2
+
+EX: Tuning a piano
+1. A 440 Hz tuning fork and a piano string produce 3 beats per second. The string is at 437 Hz or 443 Hz.
+2. Tightening the string raises its pitch. If the beats **slow down** after tightening, the string was flat (437 Hz) and is approaching 440 Hz.
+3. To raise a string from 437 Hz to 440 Hz, since f ∝ √T, the tension must rise by (440 ÷ 437)² − 1 = **1.4%**.
+/EX
+
+TRAP: **Intensity is proportional to the amplitude squared**, so constructive interference quadruples intensity (not doubles it). Do not confuse the path difference d (a length) with the phase difference (an angle): Δφ = 2π d ÷ λ. And beats need **nearly equal** frequencies: f₁ and f₂ far apart give two separate notes, not a throb.
+
+### Quick self-check
+QUIZ:
+Q: Two equal waves meet with a path difference of 1.5 λ. The result is…; double amplitude; zero; the same as one wave; double the intensity only; 2; Path difference of (m + ½) λ gives destructive interference.
+Q: Two notes of 440 Hz and 444 Hz are played. The beat frequency is…; 2 Hz; 4 Hz; 442 Hz; 884 Hz; 2; abs(f₁ − f₂).
+Q: Two equal sources interfere constructively. The intensity compared with one source is…; 2 times; 4 times; 1 time; 8 times; 2; Amplitude doubles, so intensity quadruples.
+Q: The pitch we hear during beats is…; the difference; the sum; the average; the lower one; 3; The carrier has the average frequency.
+
+### Practice
+LVL: Level 1 | Direct
+P: Notes of 440 Hz and 446 Hz sound together. Find the beat frequency and the heard pitch. => **6 beats per second**, pitch **443 Hz**.
+P: Two sources of λ = 0.5 m have a path difference 1.25 m. Constructive or destructive? => 1.25 ÷ 0.5 = 2.5 wavelengths: **destructive**.
+LVL: Level 2 | Apply
+P: Two equal waves with phase difference 60° meet. Find the amplitude and the intensity ratio compared with one wave. => A = 2 A₀ cos 30° = **1.73 A₀**. Intensity ratio = 3 (since 1.73² = 3).
+P: In a double slit setup with λ = 500 nm, d = 0.25 mm and L = 1.5 m, find the fringe spacing. => 5 × 10⁻⁷ × 1.5 ÷ 2.5 × 10⁻⁴ = **3 mm**.
+P: A piano string produces 4 beats per second with a 262 Hz fork. The beat rate rises when the string is tightened slightly. What was the string frequency? => Tightening raises f. If beats increase, f moved away from 262, so the string was already above: **266 Hz**.
+P: Two speakers 2 m apart play 343 Hz in phase. A listener stands at a point 4 m from one and 5 m from the other. What do they hear? => The path difference is 1 m = 1 λ: **constructive**.
+P: A tuning fork of 512 Hz and one of unknown frequency beat 4 times per second. When wax is added to the unknown fork, the beat rate falls to 2 per second. Find its frequency. => Wax lowers f. The beat rate falls, so the unknown fork moved closer to 512, which means it was above: 516 → 514. The original frequency was **516 Hz**.
+LVL: Level 3 | Real
+P: Two radio towers 600 m apart emit 1 MHz signals (λ = 300 m) in phase. In which directions (angle from the line perpendicular to the baseline) do you get maxima? => d sin θ = m λ gives sin θ = m × 300 ÷ 600 = m ÷ 2. So **θ = 0°, ±30°, ±90°**. Such arrays direct a broadcast along chosen directions.
+LVL: Challenge | Unequal amplitudes
+P: Two waves of amplitudes 1.0 and 0.5 (same frequency) interfere. Find the largest and smallest combined amplitude, and the ratio of the corresponding intensities. => The maximum is 1.0 + 0.5 = **1.5**, the minimum is 1.0 − 0.5 = **0.5**. Intensity ratio = 1.5² ÷ 0.5² = **9** to 1. (Unequal waves never cancel completely, which is why imperfect noise cancelling leaves a residue.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Power series: radius R from the ratio test, interval centred at a with endpoints checked. Differentiate and integrate term by term inside R. Key series: 1 ÷ (1 − x) = Σ xⁿ, ln(1 + x), arctan x, and eˣ = Σ xⁿ ÷ n!.
+- Superposition: displacements add. Equal waves: A = 2A₀ abs(cos(Δφ ÷ 2)). Constructive d = mλ, destructive d = (m + ½) λ, Δφ = 2π d ÷ λ. Beats: f_beat = abs(f₁ − f₂), pitch = average frequency.
+
+BN: আজকের সারকথা: ঘাত ধারা: অনুপাত পরীক্ষায় R, প্রান্ত আলাদা; ভেতরে পদে পদে অন্তরকলন-সমাকলন; 1/(1 − x), ln(1 + x), arctan x, eˣ = Σxⁿ/n!। সুপারপজিশন: A = 2A₀|cos(Δφ/2)|; গঠনমূলক d = mλ, ধ্বংসাত্মক d = (m + ½)λ; স্পন্দ কম্পাঙ্ক |f₁ − f₂|।
+
+EXIT:
+E: What is the radius of convergence of Σ (x − 1)ⁿ ÷ 5ⁿ?; 5; 0.001; The ratio tends to abs(x − 1) ÷ 5, so R = 5.
+E: Two notes at 500 Hz and 508 Hz are played. What is the beat frequency in Hz?; 8; 0.001; abs(500 − 508) = 8.
+E: Two equal sources interfere constructively. By what factor is the intensity larger than from one source?; 4; 0.001; Amplitude doubles and intensity goes with the square.
+
+**Tomorrow:** Taylor and Maclaurin series, and standing waves on a string (the guitar).
+
+CHECK: notes

@@ -1,0 +1,84 @@
+@day Week 13 · Day 6 · Saturday
+# Week 13 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered matrices (products, determinants, inverses, transformations, rank, applications) and thermal physics (temperature, expansion, heat, latent heat, conduction, convection and radiation).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ম্যাট্রিক্স (গুণ, নির্ণায়ক, বিপরীত, রূপান্তর, র‍্যাঙ্ক, প্রয়োগ) এবং তাপের পদার্থবিজ্ঞান (তাপমাত্রা, প্রসারণ, তাপ, সুপ্ত তাপ, পরিবহন, পরিচলন, বিকিরণ)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use σ = 5.67 × 10⁻⁸ W/(m²·K⁴), c_water = 4186 J/(kg·K), L_f = 334 kJ/kg, c_ice = 2090 J/(kg·K) unless told otherwise. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Matrices (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Compute AB for A = [[2, −1], [3, 0]] and B = [[1, 4], [2, −2]]. => (AB)₁₁ = 2 − 2 = 0, (AB)₁₂ = 8 + 2 = 10, (AB)₂₁ = 3, (AB)₂₂ = 12. **[[0, 10], [3, 12]]**.
+P: (1 mark) Find the determinant and the inverse of [[4, 3], [2, 2]]. => det = 8 − 6 = 2. Inverse = (1/2) [[2, −3], [−2, 4]] = **[[1, −1.5], [−1, 2]]**.
+P: (1 mark) Use that inverse to solve 4x + 3y = 10 and 2x + 2y = 6. => (x, y) = (1×10 − 1.5×6, −1×10 + 2×6) = **(1, 2)**. Check: 4 + 6 = 10 ✓, 2 + 4 = 6 ✓.
+P: (1 mark) For which values of k is [[k, 3], [4, k + 1]] singular? => k (k + 1) − 12 = 0, so k² + k − 12 = 0, (k + 4)(k − 3) = 0: **k = 3 or k = −4**.
+P: (1 mark) Find the determinant of the matrix with rows (2, 0, 1), (1, 3, −1), (0, 2, 4). => 2 (12 + 2) − 0 + 1 (2 − 0) = 28 + 2 = **30**.
+P: (1 mark) Find the matrix for "rotate by 90° anticlockwise, then reflect in the x-axis", and the image of (1, 2). => F R = [[1, 0], [0, −1]] [[0, −1], [1, 0]] = **[[0, −1], [−1, 0]]**. Image of (1, 2) = **(−2, −1)**.
+P: (1 mark) Find the rank of the matrix with rows (1, 2, 1), (2, 4, 2), (3, 6, 4). => R₂ − 2R₁ = (0, 0, 0). R₃ − 3R₁ = (0, 0, 1). Two non-zero rows: **rank 2**.
+P: (1 mark) Write (5, 4) as a combination of (1, 2) and (2, 1). => a + 2b = 5 and 2a + b = 4. From the first a = 5 − 2b, so 10 − 4b + b = 4, **b = 2**, **a = 1**. Check: (1 + 4, 2 + 2) = (5, 4) ✓.
+P: (1 mark) Find the inverse of [[1, 2], [2, 3]] by row operations. => (1, 2 | 1, 0), (2, 3 | 0, 1). R₂ − 2R₁: (0, −1 | −2, 1). R₂ × (−1): (0, 1 | 2, −1). R₁ − 2R₂: (1, 0 | −3, 2). Inverse **[[−3, 2], [2, −1]]**.
+P: (1 mark) A path graph has nodes 1, 2, 3 with edges 1–2 and 2–3. Write its adjacency matrix A and compute A². How many walks of length 2 go from node 1 to node 3? => A = [[0, 1, 0], [1, 0, 1], [0, 1, 0]]. A² = **[[1, 0, 1], [0, 2, 0], [1, 0, 1]]**. (A²)₁₃ = **1** walk (1-2-3).
+P: (1 mark) Solve the Leontief model x = C x + d with C = [[0.2, 0.1], [0.3, 0.4]] and d = (40, 30). => I − C = [[0.8, −0.1], [−0.3, 0.6]], det = 0.48 − 0.03 = 0.45. x = (1 ÷ 0.45) (0.6 × 40 + 0.1 × 30, 0.3 × 40 + 0.8 × 30) = (27 ÷ 0.45, 36 ÷ 0.45) = **(60, 80)**. Check: C x = (12 + 8, 18 + 32) = (20, 50), plus d = (60, 80) ✓.
+P: (1 mark) Fit y = a + b x by least squares to (0, 0), (1, 1), (2, 5). => Σ y = 6, Σ x y = 1 + 10 = 11. b = (11 − 6) ÷ 2 = **2.5**, a = (5 × 6 − 3 × 11) ÷ 6 = **−0.5**.
+P: (2 marks) Find the matrix for "scale x by 3, then rotate 90° anticlockwise" (1 mark). State its determinant and the image of (1, 1) (1 mark). => R S = [[0, −1], [1, 0]] [[3, 0], [0, 1]] = **[[0, −1], [3, 0]]**. Its determinant is 0 × 0 − (−1)(3) = **3**. The image of (1, 1) is **(−1, 3)**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Thermal physics (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) Convert 68 °F to degrees Celsius and to kelvin. => (68 − 32) ÷ 1.8 = **20 °C** = **293.15 K**.
+P: (1 mark) A steel bridge is 250 m long. Find the increase in length when the temperature rises by 55 K (α = 12 × 10⁻⁶ per K). => 12 × 10⁻⁶ × 250 × 55 = **0.165 m = 16.5 cm**.
+P: (1 mark) A 2.4 kW kettle heats 1.2 kg of water from 15 °C to 95 °C. Find the time (no losses). => Q = 1.2 × 4186 × 80 = 401,856 J. Time = 401,856 ÷ 2400 = **167 s ≈ 2.8 min**.
+P: (1 mark) Find the energy needed to turn 0.2 kg of ice at −10 °C into water at 30 °C. => 0.2 × 2090 × 10 = 4,180 J; melting 0.2 × 334,000 = 66,800 J; warming 0.2 × 4186 × 30 = 25,116 J. Total **96,096 J ≈ 96.1 kJ**.
+P: (1 mark) A brick wall (k = 0.7 W/(m·K)) is 0.25 m thick and has an area of 20 m². The inside is at 22 °C and the outside at 2 °C. Find the heat loss. Then find it after adding 8 cm of foam (k = 0.033). => Without foam: P = 0.7 × 20 × 20 ÷ 0.25 = **1120 W**. With foam: R = 0.25 ÷ 0.7 + 0.08 ÷ 0.033 = 0.357 + 2.424 = 2.781 m²·K/W, P = 20 × 20 ÷ 2.781 = **144 W**.
+P: (1 mark) A black body of area 0.5 m² at 400 K sits in a room at 300 K. Find the net radiated power. => P = 5.67 × 10⁻⁸ × 0.5 × (400⁴ − 300⁴) = 2.835 × 10⁻⁸ × (2.56 × 10¹⁰ − 8.1 × 10⁹) = 2.835 × 10⁻⁸ × 1.75 × 10¹⁰ = **496 W**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 14. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 13. Tell me, and I will rebalance Week 14. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q5 | Got 22 for the 3 × 3 determinant | Used the signs + + + instead of + − + in the first-row expansion | The middle term has a minus sign: a (ei − fh) − b (di − fg) + c (dh − eg). Check with Sarrus | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: ম্যাট্রিক্স গুণে ক্রম উল্টে ফেলা (AB বনাম BA), ব্যস্তকের সূত্রে নির্ণায়ক দিয়ে ভাগ করতে ভুলে যাওয়া, রূপান্তর জোড়ায় প্রথম ম্যাট্রিক্স ডানে না বসানো, তাপমাত্রা কেলভিনে না নেওয়া (T⁴), এবং সিরিজে পরিবাহিতা যোগ করা (রোধ যোগ করতে হবে)।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | Matrices that square to the identity
+P: Let A = [[a, b], [b, −a]]. Show that A² = (a² + b²) I. Deduce when A² = I, and interpret it geometrically. => Multiply: the (1, 1) entry is a² + b², the (1, 2) entry is a b − b a = 0, the (2, 1) entry is b a − a b = 0 and the (2, 2) entry is b² + a². So **A² = (a² + b²) I**. Therefore A² = I exactly when **a² + b² = 1**, that is a = cos 2θ, b = sin 2θ. Then A is the reflection matrix in the line at angle θ, and det A = −a² − b² = −1. Geometrically, **reflecting twice returns every point to where it started**.
+
+LVL: Challenge | Two rods in series
+P: A copper rod (k = 400 W/(m·K)) and a steel rod (k = 50) each have length 0.5 m and cross-section 2 cm². They are joined end to end. One end is at 100 °C and the other at 0 °C. Find the heat flow and the temperature at the junction. => Thermal resistances R = L ÷ (k A): copper 0.5 ÷ (400 × 2 × 10⁻⁴) = 6.25 K/W, steel 0.5 ÷ (50 × 2 × 10⁻⁴) = 50 K/W. Total 56.25 K/W. Heat flow P = 100 ÷ 56.25 = **1.78 W**. Temperature drop across the copper = 1.78 × 6.25 = 11.1 K, so the junction is at **88.9 °C**. Almost all of the temperature drop occurs in the poor conductor.
+
+### Optional coding idea (not part of the study plan)
+**Matrix playground and heat diffusion:** a page with four sliders for a 2 × 2 matrix. It draws a grid and the unit square before and after the transformation, and shows the determinant live (turning red when it is near zero). A second panel simulates one-dimensional heat conduction in a rod with 50 cells: each step sets T_i ← T_i + r (T_(i−1) − 2T_i + T_(i+1)) with r = 0.2, and you can click to heat or cool a cell and watch the temperature spread, then add a second material with a different k.
+
+### What Week 14 looks like
+**Linear systems and the gas laws.** You solve systems of equations with Gaussian elimination (one solution, none, or infinitely many), then study the ideal gas law, pressure, volume and temperature, and the kinetic theory that explains them with molecules. The row operations from Thursday become the main tool.
+
+BN: আগামী সপ্তাহ: রৈখিক সমীকরণ জোট ও গ্যাসের সূত্র। গাউসীয় অপসারণ দিয়ে সমীকরণ জোট সমাধান করবে (একটা সমাধান, কোনো সমাধান নেই, বা অসীম সমাধান), তারপর আদর্শ গ্যাস সূত্র, চাপ, আয়তন, তাপমাত্রা এবং অণু দিয়ে ব্যাখ্যা করা গতীয় তত্ত্ব পড়বে। বৃহস্পতিবারের সারি-প্রক্রিয়াই হবে প্রধান হাতিয়ার।
+
+**Sunday is a rest day.**
+
+CHECK: notes

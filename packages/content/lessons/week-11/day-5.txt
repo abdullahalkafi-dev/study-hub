@@ -1,0 +1,119 @@
+@day Week 11 · Day 5 · Friday
+# Mock Paper 2: physics, and checking by units
+lead: Today is a full mock paper in physics, under exam conditions, covering Weeks 5 to 10. Before it, you learn the single best habit for catching physics mistakes: dimensional analysis, which means checking that the units of your answer make sense. Many wrong formulas can be caught in ten seconds this way.
+
+BN: আজ সপ্তাহ ৫ থেকে ১০ এর পদার্থবিজ্ঞানের একটা পূর্ণাঙ্গ মক পেপার, পরীক্ষার পরিবেশে। তার আগে শিখবে পদার্থবিজ্ঞানের ভুল ধরার সেরা অভ্যাস: মাত্রা বিশ্লেষণ (dimensional analysis), অর্থাৎ উত্তরের একক ঠিক আছে কি না যাচাই। অনেক ভুল সূত্র দশ সেকেন্ডে ধরা পড়ে।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- **Time: 75 minutes. Marks: 30. Calculator allowed, no notes, no phone.** Use g = 9.8 m/s² and the speed of sound 343 m/s. Use a timer.
+- Write the formula, then the substitution with units, then the answer with units.
+- Marks are awarded for the **method**, so show every step. Keep 3 significant figures.
+- Cover the solutions. Open them only after the timer.
+
+CHECK: recall
+
+@section math | 2 · Checking by units and size | 20 min
+
+### Dimensional analysis
+Every physical quantity is built from a few base dimensions: mass **M**, length **L**, time **T**. An equation can only add or equate quantities of the **same** dimensions, and arguments of sin, cos, exp and ln must be dimensionless.
+
+| Quantity | Dimensions | SI unit |
+| Velocity | L T⁻¹ | m/s |
+| Acceleration | L T⁻² | m/s² |
+| Force | M L T⁻² | N |
+| Energy, work, torque | M L² T⁻² | J, N·m |
+| Power | M L² T⁻³ | W |
+| Pressure, stress | M L⁻¹ T⁻² | Pa |
+| Moment of inertia | M L² | kg·m² |
+| Angular momentum | M L² T⁻¹ | kg·m²/s |
+
+BN: প্রতিটা ভৌত রাশি M (ভর), L (দৈর্ঘ্য), T (সময়) দিয়ে গড়া। সমীকরণের দুই দিকে মাত্রা সমান হতেই হবে, আর sin, cos, exp, ln এর ভেতরের রাশি মাত্রাহীন। উত্তরের একক ভুল হলে সূত্র বা হিসাব ভুল।
+
+EX: Catching a wrong formula
+1. Is T = 2π √(m ÷ k) correct? k has units N/m = kg/s². So m ÷ k has units kg ÷ (kg/s²) = s², and the root is **s** ✓.
+2. Is v = √(T ÷ μ) correct? T (tension) is N = kg·m/s², μ is kg/m. T ÷ μ = (kg·m/s²) ÷ (kg/m) = m²/s², and the root is **m/s** ✓.
+3. A student writes the pendulum period as T = 2π √(g ÷ L). The inside has units (m/s²) ÷ m = 1/s², so the root is 1/s, not seconds ✗. It must be L ÷ g.
+4. Is KE = ½ I ω² an energy? kg·m² × (1/s)² = kg·m²/s² = J ✓.
+5. The damped oscillation e^(−γ t): γ has units 1/s, so γ t is dimensionless ✓. A student who writes e^(−c t) with c in N·s/m has made a unit error.
+/EX
+
+EX: Estimating by powers of ten
+1. How much energy does a 70 kg person use to climb 3 m of stairs? m g h ≈ 70 × 10 × 3 = 2100 J, about **2 kJ**.
+2. A car at 25 m/s has KE ≈ ½ × 1000 × 625 ≈ 3 × 10⁵ J, about the same as lifting the car **30 m**.
+3. The speed of a wave on a guitar string should come out in the **hundreds of m/s**: if you get 0.01 or 10⁶, recheck μ (it is in kg per **metre**).
+/EX
+
+TRAP: A formula that "looks right" can be wrong by a factor of 2, which dimensions do not detect (½ m v² versus m v²). So also check that special cases behave: set a quantity to zero or to infinity and see whether the answer makes physical sense.
+
+### Check yourself
+QUIZ:
+Q: The dimensions of angular momentum are…; M L T⁻²; M L² T⁻¹; M L² T⁻²; M L T⁻¹; 2; I ω has kg·m² times 1/s.
+Q: Which of these could be a time? √(m ÷ k), √(g ÷ L), g × L, k ÷ m; √(m ÷ k); √(g ÷ L); g L; k ÷ m; 1; m ÷ k has units s².
+Q: The argument of sin(ωt) is…; in metres; in seconds; dimensionless; in hertz; 3; Arguments of functions are pure numbers (radians).
+Q: Dimensional analysis can find…; the factor of ½ in KE; errors in the powers or units; the numerical constant; nothing; 2; It checks consistency of dimensions, not pure numbers.
+
+### Practice
+LVL: Level 2 | Apply
+P: Check whether v = √(2 g h) has units of speed. => √((m/s²) × m) = √(m²/s²) = **m/s** ✓.
+P: Check I = M R² ÷ 2 and ω = √(k ÷ m) for units. => kg·m² ✓ for I, and √((kg/s²) ÷ kg) = **1/s** ✓ for ω.
+P: A student finds the power to lift a 50 kg load by 2 m in 10 s as P = 50 × 2 ÷ 10 = 10 W. Which dimension is missing? => The **g**: P = m g h ÷ t = 50 × 9.8 × 2 ÷ 10 = **98 W**.
+P: Use dimensions to guess how the period of a pendulum depends on L, g and m. => T ∝ L^a g^b m^c. Time dimension T¹ = L^a (L T⁻²)^b M^c, so c = 0 (no mass), a + b = 0 and −2b = 1. So b = −1/2 and a = 1/2: **T ∝ √(L ÷ g)**, with the constant (2π) not determined by dimensions.
+
+CHECK: math
+
+@section physics | 3 · Paper 2 (30 marks, 75 minutes) | calculator allowed
+
+### Section A: mechanics and statics (10 marks)
+LVL: Section A | Questions 1 to 5
+P: (2 marks) A 3 kg block slides from rest down 4 m of a 25° incline with μ = 0.15. Find its acceleration and its speed at the bottom. => a = g (sin 25° − μ cos 25°) = 9.8 × (0.4226 − 0.1359) = **2.81 m/s²**. v = √(2 a s) = √(2 × 2.81 × 4) = **4.74 m/s**.
+P: (2 marks) A 2 kg ball moving at 5 m/s collides head-on and elastically with a 3 kg ball at rest. Find both final velocities. => v₁ = ((2 − 3) ÷ 5) × 5 = **−1 m/s**. v₂ = (2 × 2 ÷ 5) × 5 = **4 m/s**. (Momentum: 10 = −2 + 12 ✓.)
+P: (2 marks) A 0.45 kg football is kicked from rest to 25 m/s. The contact lasts 8 ms. Find the impulse and the average force. => J = m Δv = 0.45 × 25 = **11.25 N·s**. F = 11.25 ÷ 0.008 = **1406 N**.
+P: (2 marks) A uniform 5 m ladder of mass 15 kg leans on a smooth wall at a height of 4 m (so its foot is 3 m from the wall). Find the friction force at the floor and the minimum coefficient of friction. => Torque about the foot: N_wall × 4 = 15 × 9.8 × 1.5 (the weight acts 1.5 m horizontally from the foot), so N_wall = **55.1 N**. Friction = N_wall = **55.1 N**. Floor normal = 147 N, so **μ ≥ 0.375**.
+P: (2 marks) A steel wire (3 m, diameter 1.5 mm, E = 200 GPa) carries a 60 kg load. Find the stress and the extension. => F = 588 N, A = π (0.00075)² = 1.767 × 10⁻⁶ m². σ = **333 MPa**. ΔL = σ L ÷ E = 333 × 10⁶ × 3 ÷ 2 × 10¹¹ = **5.0 mm**. (Close to the 400 MPa limit, so a poor design.)
+
+### Section B: rotation and oscillation (12 marks)
+LVL: Section B | Questions 6 to 11
+P: (2 marks) A solid disc (M = 4 kg, R = 0.25 m) is pulled by a 10 N force tangent to its rim for 3 s from rest. Find α, ω and the kinetic energy. => I = ½ × 4 × 0.0625 = 0.125. τ = 10 × 0.25 = 2.5 N·m. α = **20 rad/s²**, ω = **60 rad/s**, KE = ½ × 0.125 × 3600 = **225 J**.
+P: (2 marks) A solid sphere rolls without slipping from rest down a ramp, dropping 0.8 m. Find its speed at the bottom and the fraction of its kinetic energy that is rotational. => v = √(2 × 9.8 × 0.8 ÷ 1.4) = **3.35 m/s**. Fraction = 0.4 ÷ 1.4 = **28.6%**.
+P: (2 marks) A skater spins at 1.5 rad/s with I = 3.2 kg·m² and pulls in her arms to I = 1.0 kg·m². Find the new ω and the work she does. => ω₂ = 3.2 × 1.5 ÷ 1.0 = **4.8 rad/s**. KE₁ = ½ × 3.2 × 2.25 = 3.6 J, KE₂ = ½ × 1.0 × 23.04 = 11.52 J. Work = **7.92 J**.
+P: (2 marks) A 0.8 kg mass on a spring with k = 125 N/m oscillates with an amplitude of 0.06 m. Find the period, the maximum speed and the total energy. => ω = √(125 ÷ 0.8) = 12.5 rad/s. T = 2π ÷ 12.5 = **0.503 s**. v_max = 0.06 × 12.5 = **0.75 m/s**. E = ½ × 125 × 0.0036 = **0.225 J**.
+P: (2 marks) Find the period of a simple pendulum of length 1.2 m, and the length of a pendulum with period 3.0 s. => T = 2π √(1.2 ÷ 9.8) = **2.20 s**. L = g T² ÷ 4π² = 9.8 × 9 ÷ 39.48 = **2.23 m**.
+P: (2 marks) A damped oscillator has m = 2 kg, k = 200 N/m and c = 10 N·s/m. Find γ, the damped angular frequency, and the amplitude fraction left after 2 s. Is it under- or overdamped? => γ = 10 ÷ 4 = **2.5 per second**. ω₀ = 10, so ω_d = √(100 − 6.25) = **9.68 rad/s**. Fraction = e^(−5) = **0.0067**. The critical value is c_c = 2√(200 × 2) = 40, so it is **underdamped**.
+
+### Section C: waves and sound (8 marks)
+LVL: Section C | Questions 12 to 15
+P: (2 marks) A string with L = 0.9 m, μ = 0.003 kg/m and T = 108 N is fixed at both ends. Find the wave speed, f₁ and f₃. => v = √(108 ÷ 0.003) = √36,000 = **190 m/s**. f₁ = 190 ÷ 1.8 = **105 Hz**. f₃ = **316 Hz**.
+P: (2 marks) A 3 W source radiates sound equally in all directions. Find the level at 12 m and at 48 m. => I = 3 ÷ (4π × 144) = 1.66 × 10⁻³ W/m². β = 10 log(1.66 × 10⁹) = **92.2 dB**. At 48 m (4 times farther): 92.2 − 12 = **80.2 dB**.
+P: (2 marks) An ambulance siren of 800 Hz moves at 28 m/s. Find the frequency heard by a stationary observer as it approaches and as it recedes. => 800 × 343 ÷ 315 = **871 Hz**. 800 × 343 ÷ 371 = **740 Hz**.
+P: (2 marks) Light of wavelength 550 nm passes through two slits 0.15 mm apart and falls on a screen 1.8 m away. Find the fringe spacing and the position of the third bright fringe from the centre. => Δy = λ L ÷ d = 5.5 × 10⁻⁷ × 1.8 ÷ 1.5 × 10⁻⁴ = **6.6 mm**. Third bright fringe: 3 × 6.6 = **19.8 mm**.
+
+CHECK: physics
+
+@section notes | 4 · Marking and mistake log | 25 min
+
+NOTES:
+
+### Mark yourself
+- Count your marks out of 30, strictly, with a different pen. Scale: **26 to 30** excellent; **21 to 25** good; **15 to 20** gaps; **under 15** tell me.
+- Classify every lost mark: **K** (concept), **M** (maths slip), **U** (unit or conversion error), **T** (time), **R** (misread). Units will often be the biggest hidden loss in physics.
+- Combine with yesterday's table. Pick the **three** most common errors across both papers, and write a one-line fix for each. Read them aloud before tomorrow's exam.
+
+BN: ৩০ এর মধ্যে নম্বর গোনো। হারানো নম্বরকে K (ধারণা), M (গণিতের ভুল), U (একক ভুল), T (সময়), R (প্রশ্ন ভুল পড়া) এ ভাগ করো। কালকের পরীক্ষার আগে দুই পেপার মিলিয়ে সবচেয়ে বেশি হওয়া তিনটা ভুল বেছে প্রতিটার এক লাইনের প্রতিকার লেখো।
+
+### A final preparation list for tomorrow
+- Reread your formula notes for Weeks 5 to 10 (Days 1 to 3 of this week have the maps).
+- Redo three problems that you lost marks on, from scratch, without looking.
+- Sleep. Tomorrow's exam is long, and rested minds make fewer slips.
+
+### Pendulum accuracy
+LAB: Pendulum period against amplitude | The small-angle formula T₀ = 2π √(L ÷ g) is exact only for tiny swings. The graph shows the true period divided by T₀ as the starting angle grows: 1 + θ²/16 + 11θ⁴/3072. Even at 60° it is only 7% longer. | L:Length L (m):0.2:3:0.1:1.2 ;; th:Starting angle (degrees):5:90:5:30 | 2*pi*sqrt(L/9.8):Small-angle period T₀ (s):3 ;; 2*pi*sqrt(L/9.8)*(1+(th*pi/180)^2/16+11*(th*pi/180)^4/3072):Period at this amplitude (s):3 ;; (th*pi/180)^2/16+11*(th*pi/180)^4/3072:Fractional increase:4 | 1+(x*pi/180)^2/16+11*(x*pi/180)^4/3072 | 0,90 | 0.98,1.2
+
+EXIT:
+E: A force of 12 N acts on a disc of radius 0.5 m (tangent). The disc has I = 1.5 kg·m². What is α in rad/s²?; 4; 0.001; τ = 6 N·m, α = 6 ÷ 1.5 = 4.
+E: A string wave has v = √(T ÷ μ) with T = 64 N and μ = 0.01 kg/m. What is v in m/s?; 80; 0.001; √6400 = 80.
+E: A wheel has I = 0.5 kg·m² and ω = 8 rad/s. What is its angular momentum in kg·m²/s?; 4; 0.001; L = I ω = 0.5 × 8 = 4.
+
+**Tomorrow (Saturday):** the Phase 2 exam.
+
+CHECK: notes

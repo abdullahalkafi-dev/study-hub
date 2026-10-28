@@ -1,0 +1,89 @@
+@day Week 11 · Day 6 · Saturday
+# Phase 2 exam, reflection and what comes next
+lead: This is the Phase 2 exam. It covers all of Weeks 5 to 10: limits and derivatives, integration, series, and the physics of mechanics, rotation, oscillations and waves. It is long and new (none of its questions appeared in the mock papers), so treat it like a real exam: cold, timed, and honest. Afterwards you reflect on the whole phase and look ahead to Phase 3.
+
+BN: এটা পর্ব ২ এর পরীক্ষা। এতে সপ্তাহ ৫ থেকে ১০ সব আছে: সীমা ও অন্তরকলন, সমাকলন, ধারা, এবং যান্ত্রিকবিদ্যা, ঘূর্ণন, দোলন ও তরঙ্গের পদার্থবিজ্ঞান। এটা দীর্ঘ এবং নতুন (মকের কোনো প্রশ্ন আসেনি), তাই বাস্তব পরীক্ষার মতো দাও: ঠান্ডা মাথায়, সময় ধরে, সৎভাবে। তারপর পুরো পর্ব নিয়ে ভাববে এবং পর্ব ৩ এর দিকে তাকাবে।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- **Time: 120 minutes. Marks: 40** (Part A, 28 marks, no calculator, about 80 minutes; Part B, 12 marks, calculator allowed, about 40 minutes).
+- Use g = 9.8 m/s² and the speed of sound 343 m/s. Write the formula, then the substitution, then the answer with units.
+- Do Part A first, then Part B. No notes, no phone, no solutions.
+- If you are stuck for more than 5 minutes, circle the question and move on.
+
+CHECK: recall
+
+@section math | 2 · Part A: mathematics (28 marks, about 80 minutes) | no calculator
+
+LVL: Part A | Questions 1 to 11
+P: (2 marks) Find lim (x → 0) (sin 3x − 3x) ÷ x³. => sin 3x = 3x − 27x³/6 + …, so sin 3x − 3x = −(9/2) x³ + …, and the limit is **−9/2**. (L'Hôpital: three rounds give −27 cos 3x ÷ 6 → −9/2.)
+P: (2 marks) Differentiate f(x) = x^x for x > 0 and find f′(2). => ln f = x ln x, so f′ ÷ f = ln x + 1. **f′ = x^x (ln x + 1)**. f′(2) = 4 (ln 2 + 1) = **6.77**.
+P: (3 marks) Water pours at 3 m³ per minute into an inverted cone of radius 2 m and height 4 m. How fast is the depth rising when the depth is 2 m? => At depth h the water radius is r = h ÷ 2, so V = (1/3) π r² h = π h³ ÷ 12. dV/dt = (π h² ÷ 4) dh/dt. At h = 2: 3 = π dh/dt, so **dh/dt = 3 ÷ π ≈ 0.955 m/min**.
+P: (3 marks) Find the minimum value of f(x) = x² + 16 ÷ x for x > 0, and show that it is a minimum. => f′ = 2x − 16 ÷ x² = 0 gives x³ = 8, **x = 2**. f(2) = 4 + 8 = **12**. f″ = 2 + 32 ÷ x³ = 6 > 0 at x = 2, so it is a **minimum**.
+P: (2 marks) Use Newton's method on f(x) = x² − 3 with x₀ = 2 to find x₂ to three decimal places. => x₁ = 2 − (4 − 3) ÷ 4 = 1.75. x₂ = 1.75 − (3.0625 − 3) ÷ 3.5 = 1.75 − 0.01786 = **1.732**.
+P: (3 marks) Evaluate ∫₀¹ x² eˣ dx. => By parts twice: ∫ x² eˣ dx = eˣ (x² − 2x + 2). From 0 to 1: e (1) − (1)(2) = **e − 2 ≈ 0.718**.
+P: (3 marks) Evaluate ∫₀^(π/2) sin³ x cos² x dx. => sin³ x cos² x = (1 − cos² x) cos² x sin x. With u = cos x (from 1 to 0, du = −sin x dx): ∫₀¹ (u² − u⁴) du = 1/3 − 1/5 = **2/15**.
+P: (3 marks) Evaluate ∫₂⁴ 1 ÷ (x² − 1) dx. => 1 ÷ (x² − 1) = ½ [1 ÷ (x − 1) − 1 ÷ (x + 1)]. Integral = ½ [ln((x − 1) ÷ (x + 1))] from 2 to 4 = ½ [ln(3/5) − ln(1/3)] = ½ ln(9/5) = **0.294**.
+P: (2 marks) Evaluate ∫₀^∞ x e^(−3x) dx. => By parts: [−x e^(−3x) ÷ 3 − e^(−3x) ÷ 9] from 0 to ∞ = 0 − (−1/9) = **1/9**.
+P: (3 marks) Find the radius and the interval of convergence of Σ (2x)ⁿ ÷ √n. => The ratio tends to 2 abs(x), so **R = 1/2**. At x = 1/2: Σ 1 ÷ √n diverges (p = 1/2). At x = −1/2: Σ (−1)ⁿ ÷ √n converges (alternating). Interval **[−1/2, 1/2)**.
+P: (2 marks) Find the Maclaurin series of eˣ cos x up to the term in x³. => (1 + x + x²/2 + x³/6)(1 − x²/2) = 1 + x + (x²/2 − x²/2) + (x³/6 − x³/2) = **1 + x − x³/3**.
+
+CHECK: math
+
+@section physics | 3 · Part B: physics (12 marks, about 40 minutes) | calculator allowed
+
+LVL: Part B | Questions 12 to 17
+P: (2 marks) A 0.5 kg block slides at 3 m/s on a smooth table into a spring of stiffness 200 N/m. Find the maximum compression. => ½ m v² = ½ k x², so x = v √(m ÷ k) = 3 × √(0.0025) = **0.15 m**.
+P: (2 marks) A solid disc rolls without slipping up a 30° incline, starting at 4 m/s at the bottom. How far up the incline does it go? => KE = ½ M v² (1.5) = M g h, so h = 1.5 × 16 ÷ 19.6 = 1.224 m. Distance along the slope = h ÷ sin 30° = **2.45 m**.
+P: (2 marks) A disc (M = 3 kg, R = 0.4 m) is at rest on a frictionless axle. A 0.3 kg lump of clay moving at 6 m/s tangentially hits its rim and sticks. Find the final angular speed. => I_disc = ½ × 3 × 0.16 = 0.24. L = 0.3 × 6 × 0.4 = 0.72. I_after = 0.24 + 0.3 × 0.16 = 0.288. ω = 0.72 ÷ 0.288 = **2.5 rad/s**.
+P: (2 marks) A damped oscillator has m = 0.5 kg, k = 50 N/m and c = 1 N·s/m. Find γ, ω_d, the quality factor Q, and the time for the amplitude to halve. => γ = c ÷ 2m = **1 per second**. ω₀ = 10 so ω_d = √99 = **9.95 rad/s**. Q = ω₀ ÷ (2γ) = **5**. Half-amplitude time = ln 2 ÷ γ = **0.693 s**.
+P: (2 marks) A string (μ = 0.005 kg/m, T = 45 N, L = 0.75 m) is fixed at both ends. Find the wave speed, f₁ and f₂. => v = √(45 ÷ 0.005) = **94.9 m/s**. f₁ = 94.9 ÷ 1.5 = **63.2 Hz**. f₂ = **126.5 Hz**.
+P: (2 marks) A 10 W source radiates sound uniformly. Find the level at 20 m, and the distance at which the level is 70 dB. => I = 10 ÷ (4π × 400) = 1.99 × 10⁻³ W/m². β = 10 log(1.99 × 10⁹) = **93.0 dB**. To fall by 23 dB, the distance grows by 10^(23/20) = 14.1: r = 20 × 14.1 = **283 m**.
+
+CHECK: physics
+
+@section notes | 4 · Score, reflection and Phase 3 | 45 min
+
+### Your score
+Total marks: **40**. Be strict and honest.
+
+| Score | What it means | What to do |
+| 36 to 40 | Outstanding | Phase 3 will feel natural. Try the optional challenges below. |
+| 30 to 35 | Strong | Redo the questions you missed on Sunday evening, then start Week 12. |
+| 24 to 29 | Solid, with gaps | Spend the first two days of Week 12 repairing the topics you missed. Tell me which. |
+| Below 24 | Needs a repair week | Tell me. I will add a repair week using the days that match your errors. |
+
+### Error analysis
+Use the same codes as in the mock papers: **K** (concept), **M** (maths slip), **U** (units), **T** (time), **R** (misread). Count each type and write the top three actions.
+
+| Question | Marks lost | Type | Action |
+| Example: Q6 | 1 | M | Write the by-parts formula before starting |
+
+### Reflection: Phase 2 in your own words
+Write short answers in your notes.
+1. Which three ideas of Phase 2 do you now understand best? Which three are weakest?
+2. Name one place where calculus and physics met in the same problem (for example, SHM or rolling).
+3. What changed in how you study since Week 5?
+4. What is one thing you will do differently in Phase 3?
+
+BN: নিজের ভাষায় লেখো: পর্ব ২ এর কোন তিনটা ধারণা সবচেয়ে ভালো বুঝেছ, কোন তিনটা দুর্বল; ক্যালকুলাস আর পদার্থবিজ্ঞান একই সমস্যায় কোথায় মিলেছে; সপ্তাহ ৫ থেকে পড়ার ধরন কী বদলেছে; পর্ব ৩ এ কী আলাদা করে করবে।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | Calculus and physics together
+P: A hanging chain of length L and mass M lies coiled on a table, and its end is lifted at a constant speed v. Show that the force needed at the end is F = M g x ÷ L + (M ÷ L) v² when a length x is off the table (use F = dp/dt for the moving part). Find F when x = L ÷ 2, M = 2 kg, L = 4 m, v = 3 m/s. => The moving piece of length x has momentum p = (M x ÷ L) v. Newton: F − M g x ÷ L = dp/dt = (M ÷ L) v² (since dx/dt = v). So **F = M g x ÷ L + M v² ÷ L**. For the numbers: F = 2 × 9.8 × 0.5 + 2 × 9 ÷ 4 = 9.8 + 4.5 = **14.3 N**.
+LVL: Challenge | Series and oscillators
+P: Use the Taylor series to show that for small damping the damped frequency satisfies ω_d ≈ ω₀ (1 − γ² ÷ (2 ω₀²)), and find the percentage shift for γ = 1 and ω₀ = 10. => ω_d = ω₀ √(1 − γ² ÷ ω₀²) ≈ ω₀ (1 − γ² ÷ (2 ω₀²)) from (1 + x)^(1/2) ≈ 1 + x/2. The shift is γ² ÷ (2 ω₀²) = 1 ÷ 200 = **0.5%** (exact: √99 ÷ 10 = 0.99499).
+
+### What comes next: Phase 3
+Phase 3 (Weeks 12 to 23) takes you from single-variable calculus to the mathematics of engineering systems and the physics of matter and electricity. It begins next week with **complex numbers** (which you glimpsed in Euler's formula) and the physics of **fluids**. Over the phase you will meet matrices and linear systems, eigenvalues, multivariable calculus, multiple integrals, differential equations, Laplace transforms and Fourier series, paired with thermal physics, gases, entropy, electrostatics, circuits, magnetism, induction and Maxwell's equations.
+
+BN: পর্ব ৩ (সপ্তাহ ১২ থেকে ২৩) তোমাকে এক-চলকের ক্যালকুলাস থেকে প্রকৌশল ব্যবস্থার গণিত এবং পদার্থ ও বিদ্যুতের পদার্থবিজ্ঞানে নিয়ে যাবে। শুরু হবে জটিল সংখ্যা (অয়লার সূত্রে যার আভাস পেয়েছ) ও তরল পদার্থবিজ্ঞান দিয়ে। পরে ম্যাট্রিক্স, আইগেনমান, বহুচলক ক্যালকুলাস, ডিফারেনশিয়াল সমীকরণ, ল্যাপলাস ও ফুরিয়ার, সঙ্গে তাপ, গ্যাস, এনট্রপি, বিদ্যুৎ, চুম্বকত্ব ও ম্যাক্সওয়েলের সমীকরণ।
+
+### Optional coding idea (not part of the study plan)
+**Phase 2 formula book:** a small page with every key formula of Weeks 5 to 10, grouped by topic, searchable, with a "show an example" button that opens a tiny interactive calculator for each formula (derivative rules, series radius, SHM, Doppler). It doubles as your quick-reference sheet for the rest of the course.
+
+**Sunday is a rest day.** Next week: complex numbers and fluids.
+
+CHECK: notes

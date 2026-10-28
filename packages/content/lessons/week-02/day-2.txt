@@ -1,0 +1,245 @@
+@day Week 2 · Day 2 · Tuesday
+# Polynomials, rational functions, transformations, composition and inverses. Then: forces
+lead: Yesterday you met the function machine. Today you learn to build new machines from old ones: shifting, stretching, chaining and reversing them. In physics we start the real subject of mechanics: what a force is and how to draw all the forces on an object.
+
+BN: গতকাল ফাংশন মেশিন চিনেছ। আজ পুরোনো মেশিন থেকে নতুন মেশিন বানানো শিখবে: সরানো, টানা, জোড়া লাগানো আর উল্টানো। পদার্থবিজ্ঞানে আজ থেকে মেকানিক্সের আসল অংশ শুরু: বল (force) কী আর একটা বস্তুর ওপর সব বলের ছবি (free-body diagram) কীভাবে আঁকে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and last week
+P: If f(x) = x² − 2x, find f(3) and f(−2). => f(3) = 3. f(−2) = 4 + 4 = **8**.
+P: Find the discriminant of 2x² − 3x + 5 and say how many real roots it has. => 9 − 40 = −31, so **no real roots**.
+P: A stone is dropped from rest. How far does it fall in 2 s? => ½ × 9.8 × 4 = **19.6 m**.
+P: Solve |2x − 3| ≤ 5. => −5 ≤ 2x − 3 ≤ 5, so **−1 ≤ x ≤ 4**.
+P: Write f(x) = x² + 4x + 7 in the form (x + p)² + q. => (x + 2)² + 3.
+
+CHECK: recall
+
+@section math | 2 · Math: building and reversing functions | 55 min
+
+### Polynomials
+A **polynomial** is a sum of powers of x with whole-number exponents: p(x) = 2x³ − 5x² + x − 7. The highest power is the **degree** (here 3). Degree 1 is a line, degree 2 is a parabola, degree 3 is a cubic.
+
+Two big facts guide you:
+- **Behaviour at the far ends** depends only on the leading term. For 2x³, as x → ∞ the function → +∞ and as x → −∞ it → −∞.
+- A polynomial of degree n has **at most n real roots** and at most n − 1 turning points.
+
+### Roots and factors are the same thing
+KEY: **Factor theorem:** (x − a) is a factor of p(x) exactly when p(a) = 0. **Remainder theorem:** the remainder when p(x) is divided by (x − a) is p(a).
+
+**Why?** Divide p(x) by (x − a): p(x) = (x − a) q(x) + R, where R is a constant. Put x = a: p(a) = 0 · q(a) + R = R. So R = p(a). When R = 0 the division is exact, so (x − a) is a factor.
+
+EX: Factor x³ − 6x² + 11x − 6
+1. Try small whole numbers that divide the constant 6. p(1) = 1 − 6 + 11 − 6 = 0, so (x − 1) is a factor.
+2. Divide by (x − 1) using the shortcut called synthetic division. Write the coefficients 1, −6, 11, −6 and use the root 1: bring down 1. Multiply by 1 and add: −6 + 1 = −5. Multiply by 1 and add: 11 − 5 = 6. Multiply by 1 and add: −6 + 6 = 0 (the remainder).
+3. The quotient is x² − 5x + 6, which factors as (x − 2)(x − 3).
+4. So the polynomial is **(x − 1)(x − 2)(x − 3)**, with roots 1, 2, 3.
+/EX
+
+GRAPH: y = (x − 1)(x − 2)(x − 3) | x | y | 0,-6 0.5,-1.9 1,0 1.5,0.4 2,0 2.5,-0.4 3,0 3.5,1.9 4,6 | A cubic with three roots. It starts low on the left, rises through the roots at 1, 2 and 3, and keeps going up. Between the roots it wiggles around the axis.
+
+EX: Find k
+1. (x − 2) is a factor of x³ + kx² − x − 10. Find k.
+2. By the factor theorem p(2) = 0: 8 + 4k − 2 − 10 = 0, so 4k − 4 = 0, so **k = 1**.
+/EX
+
+BN: ফ্যাক্টর থিওরেম: p(a) = 0 হলে (x − a) একটা উৎপাদক। কারণ p(x) কে (x − a) দিয়ে ভাগ করলে ভাগশেষ হয় p(a)। ভাগশেষ ০ হলে ভাগ নিঃশেষে হয়, তাই উৎপাদক। তাই ঘনঘাত বা উচ্চ ঘাতের সমীকরণে ছোট পূর্ণ সংখ্যা (১, −১, ২, −২…) বসিয়ে মূল খোঁজো।
+
+### Rational functions and asymptotes
+A **rational function** is a fraction of polynomials, like f(x) = (2x + 1) ÷ (x − 3). Two features control the shape:
+
+- **Vertical asymptote:** where the denominator is zero (and the top is not). Here x = 3. The graph shoots to ±∞ near it.
+- **Horizontal asymptote:** what the function approaches for huge |x|. Divide top and bottom by x: (2 + 1/x) ÷ (1 − 3/x). As x grows, 1/x → 0, so f → 2 ÷ 1 = **2**.
+
+EX: Sketch f(x) = (2x + 1) ÷ (x − 3)
+1. Vertical asymptote: x = 3. Horizontal asymptote: y = 2.
+2. Intercepts: y-axis (x = 0): f(0) = −1/3. x-axis (f = 0): 2x + 1 = 0, x = −1/2.
+3. Left of 3 the function is below 2 and heading down to −∞ at x = 3. Right of 3 it comes down from +∞ toward 2.
+/EX
+
+### Transformations: new graphs from old ones
+Start with any graph y = f(x). These rules always work:
+
+| New function | What happens to the graph |
+| f(x) + k | Shift up by k (down if k is negative) |
+| f(x − h) | Shift **right** by h |
+| f(x + h) | Shift **left** by h |
+| −f(x) | Flip upside down (mirror in the x-axis) |
+| f(−x) | Mirror left-right (in the y-axis) |
+| a · f(x) | Stretch vertically by a factor of a |
+| f(bx) | Squash horizontally by a factor of b |
+
+EX: Sketch y = (x − 2)² + 1
+1. Start with y = x², a parabola with vertex at (0, 0).
+2. f(x − 2) shifts it right by 2. The vertex moves to (2, 0).
+3. The + 1 shifts it up by 1. The vertex is **(2, 1)**.
+/EX
+
+TRAP: f(x − 2) moves the graph to the **right**, not the left. Think: the machine needs x = 2 to see what it used to see at x = 0, so every feature moves 2 units further right.
+
+BN: f(x − 2) গ্রাফকে ডানে সরায়, বামে নয়। যুক্তি: আগে x = 0 তে যেটা দেখা যেত, এখন সেটা দেখতে x = 2 লাগে, তাই সব ডানে ২ ঘর সরে। আর f(x) + k সরায় ওপরে। এই নিয়মগুলো যেকোনো গ্রাফের জন্য কাজ করে, ত্রিকোণমিতি আর ক্যালকুলাসেও কাজে লাগবে।
+
+### Composition: chaining machines
+**Composition** feeds the output of one function into another: (f ∘ g)(x) = f(g(x)). Do the inside function first.
+
+EX: Compose f(x) = 2x + 1 and g(x) = x²
+1. f(g(x)) = f(x²) = **2x² + 1**.
+2. g(f(x)) = g(2x + 1) = **(2x + 1)² = 4x² + 4x + 1**.
+3. They are different. The order matters.
+/EX
+
+Real examples of composition: a temperature in °C is turned into °F (one function), and then a thermostat decides if the heater turns on (another function). A physics example: height depends on time h(t), and pressure depends on height P(h), so pressure depends on time as P(h(t)).
+
+### Inverse functions: undoing the machine
+The **inverse** f⁻¹ undoes f: f⁻¹(f(x)) = x. If f sends 3 to 11, then f⁻¹ sends 11 back to 3. The input and output swap roles, so the graph of f⁻¹ is the mirror image of the graph of f in the line y = x.
+
+**To find an inverse:** (1) write y = f(x); (2) swap x and y; (3) solve for y.
+
+EX: The inverse of f(x) = 2x + 3
+1. y = 2x + 3. Swap: x = 2y + 3.
+2. Solve for y: 2y = x − 3, so y = (x − 3) ÷ 2.
+3. f⁻¹(x) = **(x − 3) ÷ 2**. Check: f(5) = 13, and f⁻¹(13) = 10 ÷ 2 = 5 ✓.
+/EX
+
+EX: The inverse of f(x) = (x + 1) ÷ (x − 2)
+1. y = (x + 1) ÷ (x − 2). Swap: x = (y + 1) ÷ (y − 2).
+2. Multiply out: x(y − 2) = y + 1, so xy − 2x = y + 1.
+3. Collect the y terms: xy − y = 2x + 1, so y(x − 1) = 2x + 1.
+4. f⁻¹(x) = **(2x + 1) ÷ (x − 1)**.
+/EX
+
+**One-to-one.** A function has an inverse only if each output comes from a single input. Check with the **horizontal line test**. f(x) = x² fails (both 2 and −2 give 4), so it has no inverse on all real numbers. If we restrict to x ≥ 0, it passes, and the inverse is **√x**.
+
+KEY: Exponents and roots are inverses of each other. Soon, on Thursday, you meet the **inverse of the exponential function**, called the logarithm. Everything you did today is how mathematicians invented it.
+
+BN: ইনভার্স ফাংশন মানে মেশিনটা উল্টো করে চালানো। বের করার নিয়ম: y = f(x) লেখো, x আর y জায়গা বদলাও, তারপর y এর জন্য সমাধান করো। গ্রাফে f আর f⁻¹ পরস্পরের y = x রেখার সাপেক্ষে প্রতিবিম্ব। বৃহস্পতিবার আমরা সূচকীয় ফাংশনের ইনভার্স শিখব, তার নাম লগারিদম।
+
+### Quick self-check
+QUIZ:
+Q: The polynomial p(x) has p(3) = 0. Then…; (x + 3) is a factor; (x − 3) is a factor; 3 is the constant term; p has degree 3; 2; By the factor theorem, p(a) = 0 means (x − a) is a factor.
+Q: The graph of y = f(x + 4) is the graph of f shifted…; 4 right; 4 left; 4 up; 4 down; 2; f(x + h) shifts left by h.
+Q: If f(x) = x + 2 and g(x) = 3x, then f(g(x)) is…; 3x + 2; 3x + 6; 3x² + 6x; x + 6; 1; g first: 3x. Then f: 3x + 2.
+Q: The vertical asymptote of 5/(x + 1) is…; x = 5; x = 0; x = −1; y = 0; 3; The denominator is zero at x = −1.
+Q: The inverse of f(x) = 4x − 8 is…; (x + 8) ÷ 4; (x − 8) ÷ 4; 4x + 8; 1/(4x − 8); 1; y = 4x − 8. Swap: x = 4y − 8. Then y = (x + 8) ÷ 4.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the remainder when x³ + 2x − 5 is divided by (x − 2). => p(2) = 8 + 4 − 5 = **7**.
+P: If f(x) = 3x − 1 and g(x) = x + 4, find f(g(2)). => g(2) = 6. f(6) = **17**.
+P: Find the inverse of f(x) = (x + 5) ÷ 2. => **f⁻¹(x) = 2x − 5**.
+P: Describe how y = −x² + 3 is obtained from y = x². => Flip upside down, then shift up by 3.
+LVL: Level 2 | Combine
+P: Factor x³ − 7x + 6 completely. => p(1) = 0, so (x − 1) is a factor. Synthetic division with coefficients 1, 0, −7, 6: 1; 1; −6; 0. The quotient is x² + x − 6 = (x + 3)(x − 2). So **(x − 1)(x − 2)(x + 3)**.
+P: Find the asymptotes of f(x) = (3x − 2) ÷ (x + 4). => Vertical **x = −4**. Horizontal: 3 ÷ 1, so **y = 3**.
+P: f(x) = x² + 1 and g(x) = 2x − 3. Find f(g(x)) and g(f(x)). => f(g(x)) = (2x − 3)² + 1 = **4x² − 12x + 10**. g(f(x)) = 2(x² + 1) − 3 = **2x² − 1**.
+P: Find the inverse of f(x) = 3/(x − 2) and state its domain. => Swap: x = 3/(y − 2), so y − 2 = 3/x and y = 3/x + 2. **f⁻¹(x) = 3/x + 2**, domain x ≠ 0.
+P: The vertex of y = f(x) is at (1, 4). Where is the vertex of y = 2f(x − 3) − 1? => Shift right 3: x = 4. Stretch by 2: y = 8. Shift down 1: y = 7. **(4, 7)**.
+LVL: Level 3 | Real
+P: A taxi's fare is F = 50 + 20d taka for d km. The distance depends on time as d = 0.5t for t minutes (30 km/h). Write F as a function of t. => F(d(t)) = 50 + 20(0.5t) = **50 + 10t**.
+P: The cubic p(x) = x³ + ax² + bx − 6 has roots 1 and 2. Find a and b and the third root. => p(1) = 1 + a + b − 6 = 0 gives a + b = 5. p(2) = 8 + 4a + 2b − 6 = 0 gives 4a + 2b = −2, so 2a + b = −1. Subtract: a = −6, then b = 11. So p(x) = x³ − 6x² + 11x − 6 = (x − 1)(x − 2)(x − 3), and the third root is **3**.
+LVL: Challenge | Self-inverse
+P: Find all functions of the form f(x) = (ax + b) ÷ (cx − a) and show they are their own inverse. Test with f(x) = (2x + 1) ÷ (x − 2). => For f(x) = (2x + 1) ÷ (x − 2): swap x = (2y + 1) ÷ (y − 2), so xy − 2x = 2y + 1, so y(x − 2) = 2x + 1, so y = (2x + 1) ÷ (x − 2) = **f(x)**. In general, swapping gives y(cx − a) = ... and the same form returns. This is why the graph of such a function is symmetric about the line y = x.
+
+CHECK: math
+
+@section physics | 3 · Physics: what a force is | 35 min
+
+### A force is a push or a pull
+A **force** is an interaction that can change an object's velocity (speed it up, slow it down or turn it) or deform it. Forces are **vectors**: size and direction. The unit is the **newton (N)**. A small apple weighs about 1 N.
+
+### The usual suspects
+| Force | Symbol | Direction | Size |
+| Weight | W or mg | Straight down (towards Earth's centre) | m × 9.8 |
+| Normal | N | Perpendicular to the surface, away from it | Whatever it must be to stop the object sinking in |
+| Tension | T | Along the rope or string, pulling on the object | Same all along a light rope |
+| Friction | f | Along the surface, opposite to sliding (or to the push) | Up to μN (Friday) |
+| Applied force | F | Whatever direction you push | Given |
+| Air resistance (drag) | D | Opposite to motion | Grows with speed |
+| Thrust | T | Along the engine's push | Given |
+
+BN: বলের ধরন: ওজন (weight) সবসময় নিচে, mg। অভিলম্ব বল (normal) তলের লম্বভাবে, তল যেদিকে ঠেলে। টান (tension) দড়ি বরাবর। ঘর্ষণ (friction) তল বরাবর, গতির বিপরীতে। প্রতিটা বলের একটা দিক আছে, তাই এগুলো ভেক্টর। একক নিউটন (N)।
+
+### Free-body diagrams (FBD)
+An FBD is a simple sketch of **one object** with **arrows for every force acting on it**. Nothing else. No forces that the object exerts on others.
+
+**How to draw one:**
+1. Pick one object and draw it as a dot or box.
+2. Ask: is it touching anything? Each contact gives a force (normal, friction, tension).
+3. Ask: is there a long-range force? Gravity always. Draw weight.
+4. Label each arrow with a name and a value if known.
+5. Choose positive directions.
+
+EX: A 5 kg block resting on a table
+1. Weight: W = 5 × 9.8 = **49 N downward**.
+2. The table pushes back: normal force N upward.
+3. The block does not move up or down, so these cancel: **N = 49 N**.
+4. The block is at rest, so the net force is zero.
+/EX
+
+EX: A 5 kg block pushed down by hand
+1. Forces on the block: weight 49 N down, the hand's push 20 N down, the table's normal force N up.
+2. Still no vertical motion, so N = 49 + 20 = **69 N**. The table pushes harder when you press down. The normal force is not always equal to the weight.
+/EX
+
+EX: A 2 kg lamp hanging from a rope
+1. Two forces: weight 19.6 N down and tension T up.
+2. At rest, T = **19.6 N**.
+3. If the lamp is lifted upward and speeding up, T would be larger than 19.6 N (this is Thursday's topic).
+/EX
+
+TRAP: Weight and normal force are **not** a "pair" in the sense of Newton's third law, even though they are equal in the simple table case. They are two different forces on the same object that just happen to balance. You will see the real pairs on Friday.
+
+### Combining forces: the net force
+The **net force** is the vector sum of all forces. On a line, add with signs: choose a positive direction.
+
+EX: On a line
+1. A box is pushed with 15 N east and 9 N west (friction and another push). Take east as positive.
+2. Net force = 15 − 9 = **6 N east**.
+/EX
+
+For perpendicular forces use Pythagoras.
+
+EX: At right angles
+1. A boat is pulled by 30 N east and 40 N north.
+2. Resultant size = √(30² + 40²) = √2500 = **50 N**.
+3. Direction: tan θ = 40 ÷ 30, so θ = 53° north of east.
+/EX
+
+BN: নিট বল (net force) মানে সব বলের ভেক্টর যোগফল। একই রেখায় হলে চিহ্ন দিয়ে যোগ করো। পরস্পর লম্ব হলে পীথাগোরাস: √(30² + 40²) = 50 N। দিক বের করতে tan θ = বিপরীত ÷ সন্নিহিত। ৩-৪-৫ ত্রিভুজ মনে রেখো, এটা বারবার আসে।
+
+### Quick self-check
+QUIZ:
+Q: The weight of a 12 kg object is about…; 12 N; 118 N; 1.2 N; 0.8 N; 2; W = mg = 12 × 9.8 = 117.6 N.
+Q: A 3 kg book rests on a table. The normal force on it is about…; 0 N; 3 N; 29 N; 59 N; 3; N balances the weight: 3 × 9.8 = 29.4 N.
+Q: Which of these is NOT a force on a skydiver in free fall?; weight; air resistance; a force "of motion" pushing him down; all of these are forces; 3; There is no such thing as a force of motion. The forces are weight and drag.
+Q: Forces of 6 N and 8 N act at right angles. The resultant is…; 14 N; 2 N; 10 N; 48 N; 3; √(36 + 64) = 10 N.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the weight of a 70 kg person. => 70 × 9.8 = **686 N**.
+P: Draw the FBD in words for a book sliding along a floor to the right. Name all forces. => Weight (down), normal (up), friction (left, opposing motion). **Three forces**, and there is no force to the right because nothing pushes it now.
+P: Forces of 20 N right and 12 N left act on a block. Find the net force. => **8 N to the right**.
+LVL: Level 2 | Two dimensions
+P: A drone has weight 15 N and its propellers give a lift of 18 N upward and a wind pushes 4 N sideways. Find the net force. => Vertical net: 18 − 15 = 3 N up. Sideways 4 N. Resultant = √(9 + 16) = **5 N**, at 37° above the horizontal.
+P: A 4 kg bag hangs from a spring scale in a lift at rest. What does the scale read? => The scale measures the tension: **39.2 N**.
+LVL: Challenge | Is it balanced?
+P: A 10 kg box is pulled by a rope with 30 N horizontally across a floor, with friction of 30 N. Draw the forces and say whether the box accelerates. What do you predict if the pull rises to 40 N? => At 30 N pull, forces balance: net = 0, so **no acceleration** (the velocity stays constant). At 40 N, the net force is 10 N in the direction of the pull, so the box **speeds up**. We will compute how much on Thursday using F = ma.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Polynomial: factor theorem p(a) = 0 ⟺ (x − a) is a factor. Synthetic division is a quick way to divide.
+- Rational functions: vertical asymptote at denominator zero, horizontal asymptote from the leading terms.
+- Transformations: f(x − h) moves right, f(x) + k moves up, −f flips.
+- Composition: do the inside first. Inverse: swap and solve. The graph reflects in y = x.
+- Forces are vectors in newtons. FBD = one object, all forces on it.
+
+BN: আজকের সারকথা: ফ্যাক্টর থিওরেম, অ্যাসিম্পটোট, গ্রাফ সরানোর নিয়ম, ফাংশন জোড়া লাগানো (ভেতরেরটা আগে), আর ইনভার্স (x, y বদল)। পদার্থবিজ্ঞানে বল একটা ভেক্টর, আর FBD তে একটা বস্তুর ওপর সব বলের তীর আঁকতে হয়।
+
+**Tomorrow:** exponential functions and growth, and Newton's first law.
+
+CHECK: notes

@@ -1,0 +1,173 @@
+@day Week 16 · Day 3 · Wednesday
+# The gradient and the direction of steepest climb. Then: field lines and charge distributions
+lead: Standing on a hillside, which way is steepest? The answer is a vector you can compute: the gradient. It points uphill, its length is the slope, and it is always perpendicular to the contour line through your feet. This one idea powers heat flow, fluid flow, machine learning (gradient descent) and, in a few days, the link between the electric field and the potential. In physics, you learn to draw electric fields as lines, and to find the field of a rod, a ring and a disk of charge by adding up point charges.
+
+BN: পাহাড়ের গায়ে দাঁড়িয়ে কোন দিকটা সবচেয়ে খাড়া? উত্তরটা একটা ভেক্টর যা হিসাব করা যায়: গ্রেডিয়েন্ট। এটা উপরের দিকে নির্দেশ করে, এর দৈর্ঘ্য হলো ঢাল, আর এটা সবসময় সমোন্নতি রেখার সাথে লম্ব। এই একটা ধারণা তাপ প্রবাহ, তরলের প্রবাহ, মেশিন লার্নিং (gradient descent) এবং কয়েক দিন পর বৈদ্যুতিক ক্ষেত্র ও বিভবের সম্পর্কের ভিত্তি। পদার্থবিজ্ঞানে ক্ষেত্রকে রেখা দিয়ে আঁকা শিখবে এবং দণ্ড, বলয় ও চাকতির চার্জের ক্ষেত্র বিন্দু চার্জ যোগ করে বের করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Find f_x and f_y at (1, 2) for f = x² + y². => **2 and 4**.
+P: What is the dot product of (3, 4) and (1, 2)? => 3 + 8 = **11**.
+P: Find the field of a 2 nC charge at 20 cm. => 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.04 = **449.5 N/C**.
+P: What is the length of the vector (3, 4)? => **5**.
+P: The dot product a · b = |a||b| cos θ. For what θ is it largest? => **θ = 0** (parallel vectors).
+
+CHECK: recall
+
+@section math | 2 · Math: the gradient | 55 min
+
+### Definition
+The **gradient** of f(x, y) is the vector of partial derivatives
+
+EQ: ∇f = (f_x, f_y)     (and ∇f = (f_x, f_y, f_z) in three dimensions)
+
+The **directional derivative** of f in the direction of a **unit** vector u is the rate of change when you walk that way:
+
+EQ: D_u f = ∇f · u = |∇f| cos θ     (θ = the angle between ∇f and u)
+
+Three facts follow immediately from the cos θ:
+1. **Steepest ascent** is along ∇f (θ = 0), with rate **|∇f|**.
+2. **Steepest descent** is along −∇f, with rate −|∇f|.
+3. **Zero change** (D_u f = 0) is along the directions perpendicular to ∇f, which are the **contour lines**: ∇f is **perpendicular to the level curves**.
+
+BN: ∇f = (f_x, f_y); একক ভেক্টর u বরাবর দিকগত অবকল D_u f = ∇f · u = |∇f| cos θ। সবচেয়ে খাড়া ওঠা ∇f বরাবর (হার |∇f|), সবচেয়ে খাড়া নামা −∇f বরাবর, আর ∇f এর লম্ব দিকে পরিবর্তন শূন্য, মানে সমোন্নতি রেখা বরাবর। অর্থাৎ ∇f সমোন্নতি রেখার লম্ব।
+
+EX: Gradient numbers
+1. **f = x² + y² at (1, 2):** ∇f = (2x, 2y) = **(2, 4)**, |∇f| = √20 = **4.472**. The steepest direction is (1, 2) ÷ √5: straight away from the origin.
+2. **Walking towards (3, 4):** the unit vector is u = (3, 4) ÷ 5. D_u f = (2 × 3 + 4 × 4) ÷ 5 = 22 ÷ 5 = **4.4**, a bit less than the maximum 4.472.
+3. **No change:** perpendicular to ∇f = (2, 4) is (2, −1) ÷ √5: D_u f = (4 − 4) ÷ √5 = **0** (walking along the circle x² + y² = 5).
+4. **The hill h = 100 − x² − 2y² at (3, 2):** ∇h = (−2x, −4y) = **(−6, −8)**, |∇h| = **10 m per unit**. Uphill is (−0.6, −0.8): towards the top of the hill at the origin. A raindrop runs **downhill** along (6, 8) ÷ 10 with a slope of 10 m per unit. Walking along the contour (8, −6) ÷ 10 keeps your height.
+5. **At 30° from the x-axis**, u = (cos 30°, sin 30°) = (0.866, 0.5): D_u h = −6 × 0.866 − 8 × 0.5 = −5.196 − 4 = **−9.196**.
+/EX
+
+LAB: The gradient of a hill | The hill is h = 100 − x² − 2y². Choose the point (x₀, y₀). The graph shows the rate of change D_u h as you turn the walking direction through 360° (angle measured from the x-axis): a cosine wave whose peak is the steepest slope (the length of ∇h). The numbers give the gradient and the direction of steepest ascent. | x0:x₀:-4:4:0.5:3 ;; y0:y₀:-4:4:0.5:2 | -2*x0:h_x:1 ;; -4*y0:h_y:1 ;; sqrt((2*x0)^2+(4*y0)^2):Steepest slope (length of ∇h):2 ;; atan((-4*y0)/(-2*x0+1e-9))*180/pi:Angle of ∇h (degrees, mod 180):1 | (-2*x0)*cos(x*pi/180)+(-4*y0)*sin(x*pi/180) | 0,360 | -20,20
+
+### The gradient is perpendicular to level curves
+EX: Tangent lines and normals
+1. **The circle x² + y² = 25 at (3, 4):** f = x² + y² has ∇f = (6, 8) there. The tangent line is the set of points with ∇f · (x − 3, y − 4) = 0: 6 (x − 3) + 8 (y − 4) = 0, i.e. **3x + 4y = 25**.
+2. **The ellipse x² + 4y² = 8 at (2, 1):** ∇f = (2x, 8y) = (4, 8). A tangent direction is (−8, 4) (any vector perpendicular to the gradient): (4, 8) · (−8, 4) = −32 + 32 = **0** ✓. The tangent line: 4 (x − 2) + 8 (y − 1) = 0, i.e. **x + 2y = 4**.
+3. **Heat flow:** the heat flows from hot to cold along −∇T. For a plate T = 100 − x² − 2y² at (3, 2), −∇T = (6, 8): heat runs **across the isotherms**, never along them, at a strength of **10 °C per unit**. (Fourier's law: heat current = −κ ∇T.)
+/EX
+
+BN: ∇f ∥ লম্ব সমোন্নতি রেখার। বৃত্ত x² + y² = 25 এর (3, 4) বিন্দুতে ∇f = (6, 8), স্পর্শক 3x + 4y = 25। তাপ প্রবাহ −∇T বরাবর, সমতাপ রেখা বরাবর কখনোই নয়।
+
+### Gradient descent: walking downhill by calculus
+To **minimise** f, take small steps against the gradient: **(x, y) → (x, y) − η ∇f**, where η is the step size (the learning rate). This is how neural networks are trained: f is the error and (x, y) are millions of weights.
+
+EX: Three steps downhill
+f = x² + 4y², starting at (4, 2), with η = 0.1. ∇f = (2x, 8y).
+1. **Step 1:** ∇f = (8, 16). New point: (4 − 0.8, 2 − 1.6) = **(3.2, 0.4)**. f went from 32 to **10.88**.
+2. **Step 2:** ∇f = (6.4, 3.2). New point: (3.2 − 0.64, 0.4 − 0.32) = **(2.56, 0.08)**. f = 6.5536 + 0.0256 = **6.579**.
+3. **Step 3:** ∇f = (5.12, 0.64). New point: (2.56 − 0.512, 0.08 − 0.064) = **(2.048, 0.016)**. f = 4.194 + 0.001 = **4.195**.
+4. **Observation:** y shrinks fast (the surface is steep in y) and x slowly: the gradient does not point straight at the minimum when the valley is long and narrow. With η too large (say 0.3), the y step overshoots (y → 2 − 0.3 × 16 = −2.8) and the method diverges. This is why learning rates matter.
+/EX
+
+TRAP: The gradient is a **vector** with two components, while the directional derivative is a **number**. The direction u must be a **unit vector**: divide (3, 4) by 5 before taking the dot product. And ∇f points in the direction of the **fastest increase** of f, so water runs along −∇h, not +∇h.
+
+### Quick self-check
+QUIZ:
+Q: The gradient of f = x² y at (1, 2) is…; (4, 1); (2, 4); (1, 4); (4, 2); 1; (2xy, x²) = (4, 1).
+Q: The rate of change along a contour line is…; maximum; minimum; zero; negative; 3; Perpendicular to the gradient.
+Q: Gradient descent moves…; along ∇f; against ∇f; perpendicular to ∇f; randomly; 2; Minimising f needs −∇f.
+Q: If |∇f| = 5 the steepest slope is…; 0; 5; 25; √5; 2; |∇f|.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ∇f for f = 3x + 2y. => **(3, 2)** (a plane: constant gradient).
+P: Find ∇f at (1, 2) for f = x y. => (y, x) = **(2, 1)**.
+P: Find the unit vector in the direction of (3, 4). => **(0.6, 0.8)**.
+LVL: Level 2 | Apply
+P: Find D_u f at (1, 2) for f = x y in the direction (1, 1) ÷ √2. => ∇f = (2, 1): (2 + 1) ÷ √2 = **2.12**.
+P: In which direction does f = x² y increase fastest at (1, 1), and at what rate? => ∇f = (2, 1): direction (2, 1) ÷ √5, rate **√5 = 2.236**.
+P: Find the tangent line to x² + y² = 25 at (−3, 4). => ∇f = (−6, 8): −6 (x + 3) + 8 (y − 4) = 0, i.e. **−3x + 4y = 25**.
+P: Find ∇f for f = ln (x² + y²) at (3, 4) and show it is perpendicular to the contour. => ∇f = (2x, 2y) ÷ (x² + y²) = (6, 8) ÷ 25 = **(0.24, 0.32)**. The contour is the circle through (3, 4), whose tangent direction is (−4, 3): (0.24, 0.32) · (−4, 3) = −0.96 + 0.96 = **0** ✓.
+P: The temperature of a plate is T = 80 − 2x² − y² (°C, x, y in cm). Find the direction heat flows at (1, 2) and the temperature gradient. => ∇T = (−4x, −2y) = (−4, −4). Heat flows along −∇T = (4, 4): **towards the upper right**, with |∇T| = **5.66 °C/cm**.
+P: Do two steps of gradient descent on f = x² + y² from (4, 2) with η = 0.25. => ∇f = (2x, 2y). Step 1: (4 − 2, 2 − 1) = **(2, 1)**. Step 2: (2 − 1, 1 − 0.5) = **(1, 0.5)**. f goes 20 → 5 → 1.25: it falls by 4 each step.
+LVL: Level 3 | Real
+P: A mountain has height h = 2000 − 0.001 x² − 0.002 y² (metres, x and y in metres). At (300, 100) find the steepest slope as an angle and the direction of steepest descent. => ∇h = (−0.002 x, −0.004 y) = (−0.6, −0.4). |∇h| = 0.7211, slope angle = tan⁻¹ 0.7211 = **35.8°**. Steepest descent is along (0.6, 0.4) ÷ 0.7211 = **(0.832, 0.555)**, i.e. 33.7° from the x-axis.
+LVL: Challenge | Gradient in three variables
+P: The temperature in a room is T = 20 + 0.5 x + 0.2 y − 0.1 z (°C, in metres). Find ∇T, the temperature change rate towards the unit vector (1, 2, 2) ÷ 3, and the fastest direction. => ∇T = **(0.5, 0.2, −0.1)**, constant. D_u T = (0.5 + 0.4 − 0.2) ÷ 3 = **0.233 °C/m**. Fastest rise: along ∇T, with |∇T| = √(0.25 + 0.04 + 0.01) = **0.548 °C/m**.
+
+CHECK: math
+
+@section physics | 3 · Physics: field lines and continuous charge | 35 min
+
+### Field lines
+We draw the electric field with **field lines**: curves whose tangent at every point is the direction of E. The rules:
+
+1. Lines start on **positive** charges and end on **negative** charges (or go to infinity).
+2. The **density** of lines shows the **strength** of the field (more crowded = stronger).
+3. Lines **never cross** (E has one direction at a point).
+4. Lines meet a conductor's surface at **right angles** (shown on Day 5).
+
+Pictures to remember: a positive point charge: lines radiating outward. Two opposite charges (a dipole): lines leaving + and curving to −. Two equal charges: lines repel and leave a **null point** midway. A uniform field (between two large plates): parallel equally spaced lines.
+
+BN: ক্ষেত্ররেখা: এমন বক্ররেখা যার প্রতিটি বিন্দুতে স্পর্শক E এর দিক। নিয়ম: ধনাত্মক চার্জ থেকে শুরু, ঋণাত্মকে শেষ; রেখার ঘনত্ব = ক্ষেত্রের তীব্রতা; রেখা কখনো কাটাকাটি করে না; পরিবাহীর পৃষ্ঠে লম্বভাবে মেশে। দুই সমান ধনাত্মক চার্জের মাঝে শূন্য ক্ষেত্র বিন্দু (null point)।
+
+### Adding up a continuous distribution
+For charge spread over a line, a ring or a disk, cut it into tiny pieces dq, find the field of each (k dq ÷ r²), and add the **components** (symmetry cancels many of them). Charge densities: λ = charge per length, σ = charge per area.
+
+EX: A charged rod
+A rod of length L = 0.4 m carries Q = 10 nC uniformly (λ = Q ÷ L = 25 nC/m). At a point on its **perpendicular bisector**, a distance y = 0.1 m away:
+1. **Symmetry:** the components along the rod cancel; only the component perpendicular to the rod survives.
+2. **The integral** (adding all pieces) gives **E = k Q ÷ (y √(y² + (L/2)²))**.
+3. **Numbers:** √(0.01 + 0.04) = 0.2236. E = 8.99 × 10⁹ × 10⁻⁸ ÷ (0.1 × 0.2236) = **4020 N/C**, perpendicular to the rod.
+4. **The infinite line:** for L → ∞ with the same λ the formula becomes **E = 2 k λ ÷ y** = 2 × 8.99 × 10⁹ × 2.5 × 10⁻⁸ ÷ 0.1 = **4495 N/C**. The finite rod's value is 89% of this, because its ends are far enough away to matter.
+/EX
+
+EX: A ring and a disk
+1. **Ring (Day 2):** on the axis E = k Q z ÷ (z² + a²)^(3/2). The field is zero at the centre (z = 0, symmetry) and has its **maximum 0.385 k Q ÷ a²** at z = a ÷ √2. For Q = 10 nC and a = 5 cm that maximum is 0.385 × 8.99 × 10⁹ × 10⁻⁸ ÷ 0.0025 = **13,840 N/C**, at z = **3.54 cm**.
+2. **Disk:** radius R, surface density σ. On the axis at distance z: **E = (σ ÷ 2ε₀) [1 − z ÷ √(z² + R²)]**, with σ ÷ 2ε₀ = 5.65 × 10⁴ N/C for σ = 1 μC/m². At R = 10 cm, z = 5 cm: 56,497 × (1 − 0.05 ÷ 0.1118) = 56,497 × 0.5528 = **31,230 N/C**.
+3. **The infinite sheet:** for R → ∞ (or z ≪ R) the bracket → 1 and **E = σ ÷ 2ε₀ = 56,500 N/C**, independent of z: a uniform field, the same on both sides, pointing away from a positive sheet. Two opposite sheets (a parallel-plate capacitor) give E = σ ÷ ε₀ between them and zero outside. We will derive this in two lines with Gauss's law tomorrow.
+4. **Far away:** for z = 1 m the disk's formula gives 56,497 × (1 − 1 ÷ √1.01) = **280.4 N/C**, and a point charge with the disk's Q = σ π R² = 31.4 nC gives 282.4 N/C: from far away the disk looks like a point.
+/EX
+
+LAB: Field of a charged ring on its axis | Choose the charge, the ring radius and the distance z along the axis. The graph shows the field against z: it is zero at the centre, peaks near z = 0.71 a and then falls like a point charge. The numbers give the field at your z, the peak value and where it occurs, and the point-charge approximation. | Q:Charge Q (nC):1:20:1:10 ;; a:Ring radius a (cm):2:10:1:5 ;; z:Distance z (cm):0:30:1:12 | 8.99e9*Q*1e-9*(z/100)/((z/100)^2+(a/100)^2)^1.5:E at z (N/C):1 ;; 0.3849*8.99e9*Q*1e-9/((a/100)^2):Peak field (N/C):0 ;; a/sqrt(2):z of the peak (cm):2 ;; 8.99e9*Q*1e-9/((z/100)^2+1e-12):Point-charge approx. (N/C):1 | 8.99e9*Q*1e-9*(x/100)/((x/100)^2+(a/100)^2)^1.5 | 0,30 | 0,20000
+
+TRAP: Do not add the **magnitudes** of the pieces: add the **components**. On the perpendicular bisector of a rod only the component along y survives. And formulas like 2 k λ ÷ y are for an **infinite** line: a real rod is shorter and its field is smaller (89% in our example).
+
+### Quick self-check
+QUIZ:
+Q: Field lines start on…; negative charges; positive charges; neutral points; conductors; 2; And end on negative charges.
+Q: The field on the axis at the centre of a uniform ring is…; maximum; infinite; zero; kQ/a²; 3; Symmetry: the pieces cancel.
+Q: The field of an infinite charged sheet depends on the distance as…; 1/r; 1/r²; not at all; r; 3; E = σ ÷ 2ε₀.
+Q: The infinite-line field is…; kλ/y²; 2kλ/y; kλ y; λ/y²; 2; E = 2kλ/y.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field of an infinite line with λ = 2 nC/m at y = 0.5 m. => 2 × 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.5 = **71.9 N/C**.
+P: Find the field of an infinite sheet with σ = 2 μC/m². => σ ÷ 2ε₀ = 2 × 10⁻⁶ ÷ 1.77 × 10⁻¹¹ = **1.13 × 10⁵ N/C**.
+P: Find the charge on a ring that has a charge density λ = 5 nC/m and radius 4 cm. => Q = λ × 2π a = 5 × 10⁻⁹ × 0.2513 = **1.26 nC**.
+LVL: Level 2 | Apply
+P: A ring of Q = 4 nC and a = 3 cm. Find the field at z = 4 cm. => z² + a² = 0.0025, ^(3/2) = 1.25 × 10⁻⁴. E = 8.99 × 10⁹ × 4 × 10⁻⁹ × 0.04 ÷ 1.25 × 10⁻⁴ = **11,507 N/C**.
+P: Where on its axis is the ring's field maximum for a = 6 cm, and what is the maximum for Q = 5 nC? => z = a ÷ √2 = **4.24 cm**. E = 0.385 × 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.0036 = **4807 N/C**.
+P: A rod of L = 1 m with Q = 5 nC: find the field at y = 0.2 m on the bisector. => √(0.04 + 0.25) = 0.5385. E = 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ (0.2 × 0.5385) = **417 N/C**. (The infinite-line value, with λ = 5 nC/m: 2 × 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.2 = 449.5 N/C.)
+P: A disk with σ = 3 μC/m² and R = 20 cm. Find E on the axis at z = 20 cm. => σ ÷ 2ε₀ = 1.695 × 10⁵. Bracket = 1 − 0.2 ÷ 0.2828 = 0.2929. **E = 49,650 N/C**.
+P: Two parallel sheets carry +σ and −σ with σ = 1 μC/m². Find the field between and outside. => Between: σ ÷ ε₀ = 10⁻⁶ ÷ 8.85 × 10⁻¹² = **1.13 × 10⁵ N/C**. Outside: **0**.
+P: How far must you be from a disk (σ = 1 μC/m², R = 10 cm) for it to look like a point charge within 1%? => The ratio of the disk's field to a point's is about 1 − 3R² ÷ (4z²) for z ≫ R (z = 1 m gives 0.7% lower). For 1%: 3R² ÷ 4z² = 0.01, z = R √75 = **0.87 m**.
+LVL: Level 3 | Real
+P: The plates of a parallel-plate capacitor have σ = 5 × 10⁻⁷ C/m² and are separated by 2 mm. Find E and the voltage across them. => E = σ ÷ ε₀ = 5 × 10⁻⁷ ÷ 8.85 × 10⁻¹² = **5.65 × 10⁴ V/m**. V = E d = 5.65 × 10⁴ × 0.002 = **113 V**. (This is the camera-flash capacitor of Week 18.)
+LVL: Challenge | The rod from a limit
+P: Show that the rod's perpendicular-bisector field k Q ÷ (y √(y² + L²/4)) becomes a point-charge field for y ≫ L and the infinite-line field for y ≪ L. => For y ≫ L, √(y² + L²/4) → y and E → **k Q ÷ y²**. For y ≪ L, √(y² + L²/4) → L ÷ 2, so E → k Q ÷ (y L ÷ 2) = **2 k (Q ÷ L) ÷ y = 2 k λ ÷ y**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Gradient ∇f = (f_x, f_y). D_u f = ∇f · u = |∇f| cos θ. Steepest ascent along ∇f at rate |∇f|; zero change along contours; ∇f ⟂ level curves. Tangent line ∇f · (r − r₀) = 0. Gradient descent (x, y) → (x, y) − η ∇f. Heat flows along −∇T.
+- Field lines: from + to −, density = strength, never cross. Rod on bisector: kQ ÷ (y √(y² + L²/4)) → 2kλ/y. Ring on axis: kQz ÷ (z² + a²)^(3/2). Disk on axis: (σ ÷ 2ε₀)(1 − z ÷ √(z² + R²)) → σ ÷ 2ε₀ for the infinite sheet.
+
+BN: আজকের সারকথা: ∇f = (f_x, f_y); D_u f = ∇f·u; সবচেয়ে খাড়া ওঠা ∇f বরাবর, হার |∇f|; সমোন্নতি রেখা বরাবর শূন্য; ∇f ⟂ সমোন্নতি রেখা। Gradient descent: (x, y) − η∇f। ক্ষেত্ররেখা + থেকে −, ঘনত্ব = তীব্রতা। অসীম রেখা 2kλ/y, অসীম পাত σ/2ε₀, বলয় ও চাকতির অক্ষে সূত্র।
+
+EXIT:
+E: What is |∇f| at (1, 2) for f = x² + y²?; 4.47; 0.01; √(2² + 4²) = √20.
+E: What is the directional derivative of f = x² + y² at (1, 2) towards (3, 4) ÷ 5?; 4.4; 0.01; (2 × 3 + 4 × 4) ÷ 5.
+E: What is the field (N/C) of an infinite line with λ = 25 nC/m at y = 0.1 m?; 4495; 5; 2 k λ ÷ y.
+
+**Tomorrow:** maxima and minima of functions of two variables (the second derivative test and the link to eigenvalues), then electric dipoles in fields, with torque and energy.
+
+CHECK: notes

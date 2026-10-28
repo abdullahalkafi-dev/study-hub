@@ -1,0 +1,156 @@
+@day Week 16 · Day 5 · Friday
+# Lagrange multipliers: optimising under a constraint. Then: conductors, shielding and sharp points
+lead: Real optimisation always has a catch: the box must have a fixed surface area, the budget is limited, the point must stay on a curve. Lagrange found a beautiful way to handle it: at the best point the gradient of what you optimise lines up with the gradient of the constraint. In physics, you meet conductors: the metal in which charges move freely. That one fact explains why a car is safe in a thunderstorm, why electronics are shielded in metal boxes, and why lightning rods have sharp tips.
+
+BN: বাস্তব অপটিমাইজেশনে সবসময় একটা শর্ত থাকে: বাক্সের পৃষ্ঠতল নির্দিষ্ট, বাজেট সীমিত, বিন্দুকে বক্ররেখার উপরে থাকতে হবে। ল্যাগ্রাঞ্জ চমৎকার উপায় বের করেছেন: সেরা বিন্দুতে যে রাশিটা সর্বোচ্চ বা সর্বনিম্ন করছ তার গ্রেডিয়েন্ট শর্তের গ্রেডিয়েন্টের সাথে এক সারিতে পড়ে। পদার্থবিজ্ঞানে পরিবাহী (যে ধাতুতে চার্জ মুক্তভাবে চলে) পড়বে। এই একটা তথ্যই বোঝায় কেন ঝড়ে গাড়ি নিরাপদ, কেন ইলেকট্রনিক্স ধাতুর বাক্সে ঢাকা থাকে, আর কেন বজ্ররোধক দণ্ডের মাথা সূচালো।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Find ∇f for f = x y. => **(y, x)**.
+P: What is the maximum of f = 5x − x² for one variable? => f′ = 5 − 2x = 0, x = 2.5, f = **6.25**.
+P: Find the field of a 5 nC charge at 5 cm. => 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.0025 = **17,980 N/C**.
+P: What is the maximum value of xᵀ A x on the unit circle for A = [[5, 2], [2, 2]]? => The largest eigenvalue: **6**.
+P: Which direction does ∇f point relative to the contour? => **Perpendicular**.
+
+CHECK: recall
+
+@section math | 2 · Math: Lagrange multipliers | 55 min
+
+### The idea
+Maximise or minimise f (x, y) while staying on the curve g (x, y) = c. Picture the level curves of f and the constraint curve. As you walk along the constraint, f rises and falls. At the best point the constraint curve just **touches** a level curve of f, without crossing it, so the two curves have the same tangent. Their normals, the gradients, are **parallel**:
+
+EQ: ∇f = λ ∇g     together with     g (x, y) = c
+
+These are three equations for the three unknowns x, y, λ. The number λ is the **Lagrange multiplier**.
+
+BN: শর্ত g(x, y) = c এর উপর f সর্বোচ্চ/সর্বনিম্ন করতে: সেরা বিন্দুতে শর্তের বক্ররেখা f এর একটা সমোন্নতি রেখাকে ঠিক স্পর্শ করে, তাই দুটোর গ্রেডিয়েন্ট সমান্তরাল: ∇f = λ∇g এবং g = c। অজানা তিনটি: x, y, λ।
+
+EX: Four constrained problems
+1. **Largest product with a fixed sum.** Maximise f = x y with x + y = 10. ∇f = (y, x) and ∇g = (1, 1): y = λ and x = λ, so x = y, and then x = y = **5**, f = **25**, λ = 5.
+2. **Closest point on a line.** Minimise f = x² + y² (squared distance) subject to x + 2y = 5. (2x, 2y) = λ (1, 2): x = λ ÷ 2 and y = λ. Then λ ÷ 2 + 2λ = 5, λ = 2, so **(x, y) = (1, 2)**, f = **5**, and the distance is √5 = **2.236**. (Check: |5| ÷ √(1 + 4) = √5 ✓.)
+3. **The biggest rectangle in an ellipse.** Maximise the area 4 x y of a rectangle with its corners on x² ÷ 9 + y² ÷ 4 = 1. (y, x) = λ (2x ÷ 9, 2y ÷ 4). From the first, y = 2λ x ÷ 9; from the second x = λ y ÷ 2. Combine: y = (2λ ÷ 9)(λ y ÷ 2) = λ² y ÷ 9, so λ² = 9, **λ = 3**. Then x = 1.5 y, and 2.25 y² ÷ 9 + y² ÷ 4 = 0.5 y² = 1: **y = √2 = 1.414, x = 2.121**. The maximum area is 4 × 2.121 × 1.414 = **12** (the general result is 2 a b = 12 ✓).
+4. **The best box.** Maximise V = x y z for a closed box with surface area 2 (x y + y z + z x) = 600 cm². The equations (y z, x z, x y) = 2λ (y + z, x + z, x + y) force x = y = z, so **x = y = z = 10 cm** and V = **1000 cm³**. The cube is best.
+/EX
+
+LAB: Closest point on a line | Minimise x² + y² subject to x + 2y = c. Choose c. The graph shows f along the line (parametrised by x, with y = (c − x) ÷ 2): its lowest point is the solution, at x = c ÷ 5. The numbers give the best point, the minimum value and the multiplier λ, which equals how fast the minimum grows with c. | c:Constraint value c:1:10:0.5:5 | c/5:Best x:3 ;; 2*c/5:Best y:3 ;; c^2/5:Minimum value f:3 ;; 2*c/5:Multiplier λ:3 | x^2+((c-x)/2)^2 | -2,10 | 0,40
+
+### What λ means
+The multiplier is the **price of the constraint**: if you relax the constraint from c to c + dc, the optimum changes by about **λ dc**.
+
+EX: λ as a shadow price
+1. **Example 1 above** has f* = (c ÷ 2)² = c² ÷ 4 (for sum c). So df*/dc = c ÷ 2 = **5 = λ** at c = 10 ✓.
+2. **Budget:** a shopper maximises U = √(x y) with prices 2 and 4 and a budget of 40: 2x + 4y = 40. ∇U = (0.5 √(y ÷ x), 0.5 √(x ÷ y)) = λ (2, 4). Dividing: y ÷ x = 2 ÷ 4, so **y = x ÷ 2** and 2x + 2x = 40, **x = 10, y = 5**, U = √50 = **7.07**. The multiplier is λ = 0.5 √0.5 ÷ 2 = **0.177**: one extra unit of budget raises the satisfaction by 0.177 units.
+3. **Engineering:** λ tells you how much it is worth to relax a constraint (a larger area, a heavier limit).
+/EX
+
+### Eigenvalues are a Lagrange problem
+Maximise f = xᵀ A x (a quadratic form) on the unit circle g = xᵀ x = 1. ∇f = 2 A x and ∇g = 2 x, so the condition ∇f = λ ∇g reads **A x = λ x**: the multipliers are the **eigenvalues** and the solutions the eigenvectors. The maximum of the form is the largest eigenvalue. This closes the loop with last week: for A = [[5, 2], [2, 2]] the maximum on the circle is **6** and the minimum **1**.
+
+BN: f = xᵀAx কে একক বৃত্তে সর্বোচ্চ করতে ∇f = λ∇g থেকে Ax = λx পাওয়া যায়: গুণক = eigenvalue। সর্বোচ্চ মান = বৃহত্তম eigenvalue। A = [[5, 2], [2, 2]] এর জন্য সর্বোচ্চ 6, সর্বনিম্ন 1।
+
+TRAP: Do not forget the **constraint equation** g = c: the equation ∇f = λ∇g alone has too many solutions. Also check which solution is the **maximum** and which the **minimum** by comparing values of f (there may be several candidate points). And if ∇g = 0 at some point on the constraint, the method can miss it.
+
+### Quick self-check
+QUIZ:
+Q: At the constrained optimum, ∇f is…; zero; parallel to ∇g; perpendicular to ∇g; equal to c; 2; ∇f = λ ∇g.
+Q: For f = x y with x + y = 10 the maximum is…; 10; 25; 50; 100; 2; x = y = 5.
+Q: The multiplier λ measures…; the value of f; the rate of change of the optimum with c; the angle; the distance; 2; The shadow price.
+Q: The multipliers for maximising xᵀ A x on |x| = 1 are the…; entries of A; eigenvalues of A; trace; rank; 2; A x = λ x.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Maximise f = x y with x + y = 20. => x = y = **10**, f = **100**.
+P: Minimise x² + y² with x + y = 4. => (2x, 2y) = λ (1, 1): x = y = **2**, f = **8**.
+P: What is λ in the last problem? => λ = 2x = **4**.
+LVL: Level 2 | Apply
+P: Maximise f = x + y on the circle x² + y² = 8. => (1, 1) = λ (2x, 2y): so x = y (both equal λ ÷ 2), then 2x² = 8, x = y = **2** (max, f = **4**) or x = y = −2 (min, f = −4).
+P: Minimise the distance squared from the origin to the curve x y = 4. => (2x, 2y) = λ (y, x): 2x = λ y and 2y = λ x. Then x² = y², so y = x (with x y = 4): x = y = **2** (or −2), distance² = **8**, distance **2.83**.
+P: Maximise x² y subject to x + y = 6. => (2xy, x²) = λ (1, 1): 2xy = x², so x = 0 or y = x ÷ 2. With y = x ÷ 2: 1.5 x = 6, **x = 4, y = 2**, f = **32**, λ = 16.
+P: A farmer has 100 m of fence for a rectangular pen against a long wall (3 sides fenced). Find the largest area. => 2x + y = 100 (x = depth): area x y: (y, x) = λ (2, 1): y = 2x, so 4x = 100, **x = 25 m, y = 50 m**, area **1250 m²**.
+P: A shopper maximises U = x y with 3x + 6y = 90. Find x, y, U. => (y, x) = λ (3, 6): y = 3λ and x = 6λ so x = 2y and 6y + 6y = 90: **y = 7.5, x = 15**, U = **112.5**.
+P: Find the maximum and minimum of f = x² − x y + y² on the unit circle x² + y² = 1 (use the matrix of the quadratic form). => The form is [x y] [[1, −0.5], [−0.5, 1]] [x y]ᵀ. The eigenvalues are **1.5 and 0.5**: maximum **1.5** at (1, −1) ÷ √2 and minimum **0.5** at (1, 1) ÷ √2. (Check: at (1, 1) ÷ √2: 0.5 + 0.5 − 0.5 = 0.5 ✓.)
+LVL: Level 3 | Real
+P: A cylinder with a closed top and bottom has area 600 cm². Find r and h of the largest-volume cylinder. => V = π r² h with 2π r² + 2π r h = 600. (2π r h, π r²) = λ (4π r + 2π h, 2π r): the second gives π r² = 2π r λ so λ = r ÷ 2, the first then 2π r h = (r ÷ 2)(4π r + 2π h), so 2h = 2r + h and **h = 2r**. From the area: 2π r² + 4π r² = 600, r² = 31.83, **r = 5.64 cm**, **h = 11.28 cm**, V = π × 31.83 × 11.28 = **1128 cm³**.
+LVL: Challenge | Snell's law from optimisation
+P: A runner goes from A to B across a boundary between sand (speed 4 m/s) and road (speed 8 m/s). Minimise the time and show that sin θ₁ ÷ v₁ = sin θ₂ ÷ v₂. => Time = L₁ ÷ v₁ + L₂ ÷ v₂ with the constraint that the horizontal distances add to a fixed D: L₁ sin θ₁ + L₂ sin θ₂ = D. Using ∇t = λ ∇g gives **sin θ₁ ÷ v₁ = sin θ₂ ÷ v₂** (λ cancels). This is exactly Snell's law of refraction for light, which we meet in Week 25: light takes the path of least time (Fermat).
+
+CHECK: math
+
+@section physics | 3 · Physics: conductors in electrostatics | 35 min
+
+### Free charges rearrange until E = 0 inside
+In a conductor the charges move freely. If there were a field inside, they would move; they stop only when the field is gone. In electrostatic equilibrium:
+
+1. **E = 0 inside** the conductor.
+2. Any **excess charge** sits on the **surface**.
+3. The field at the surface is **perpendicular** to the surface and has the size **E = σ ÷ ε₀**.
+4. The whole conductor is at the **same potential**.
+
+BN: পরিবাহীতে চার্জ মুক্ত। ক্ষেত্র থাকলে চার্জ সরবে, তাই সাম্যে: ভিতরে E = 0; অতিরিক্ত চার্জ পৃষ্ঠে; পৃষ্ঠে ক্ষেত্র লম্ব এবং E = σ/ε₀; পুরো পরিবাহী একই বিভবে।
+
+EX: Shielding
+1. **A hollow conductor** (a closed box, a car body, a mesh) has **E = 0 inside the metal**, and if the cavity has no charge, **E = 0 in the cavity**: external fields cannot reach inside (Faraday cage). In a thunderstorm the charges of the lightning strike flow around the **outside** of the car body, so the passengers are safe (do not touch the metal).
+2. **A charge in a cavity:** a +5 nC charge at the centre of a spherical metal shell (inner radius 10 cm, outer radius 12 cm). The shell's inner surface gets −5 nC (σ = −5 × 10⁻⁹ ÷ (4π × 0.01) = **−3.98 × 10⁻⁸ C/m²**) and the outer surface +5 nC (σ = **+2.76 × 10⁻⁸ C/m²**). The field: at r = 5 cm (in the cavity) E = 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.0025 = **17,980 N/C**; inside the metal (r = 11 cm) **E = 0**; outside at r = 20 cm: E = 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.04 = **1124 N/C**, as if the shell were not there.
+3. **Why electronics have metal cases:** a shield keeps out stray fields (and keeps in the interference from the circuit).
+/EX
+
+### Sharp points and the lightning rod
+Two conducting spheres joined by a wire are at the **same potential**: k Q₁ ÷ R₁ = k Q₂ ÷ R₂. So Q₁ ÷ R₁ = Q₂ ÷ R₂, and the **surface charge density** σ = Q ÷ 4π R² is **inversely proportional to R**: σ₁ ÷ σ₂ = R₂ ÷ R₁. The smaller sphere (the sharper surface) carries a much larger σ and therefore a much larger field E = σ ÷ ε₀.
+
+EX: Two joined spheres
+R₁ = 10 cm and R₂ = 1 cm with a total charge of 11 nC.
+1. **The charges split in proportion to the radii:** Q₁ = 10 nC and Q₂ = 1 nC. The common potential is V = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.1 = **899 V**.
+2. **Surface densities:** σ₁ = 10⁻⁸ ÷ (4π × 0.01) = **7.96 × 10⁻⁸ C/m²** and σ₂ = 10⁻⁹ ÷ (4π × 10⁻⁴) = **7.96 × 10⁻⁷ C/m²**, ten times larger.
+3. **Fields at the surfaces:** E₁ = kQ₁ ÷ R₁² = **8990 N/C** and E₂ = kQ₂ ÷ R₂² = **89,900 N/C**, ten times larger.
+4. **Sparks:** air breaks down at 3 × 10⁶ V/m, so a sphere of radius R reaches breakdown at V = E R. For R = 1 cm: **30 kV**; for R = 10 cm: **300 kV**. A sharp point sparks at far lower voltages (**corona discharge**): this is the principle of the lightning rod. The pointed rod leaks charge into the air gently and gives lightning an easy path to ground. It is also why high-voltage equipment has smooth rounded shapes: they avoid sparks.
+/EX
+
+LAB: Joined spheres: where does the charge go? | Two conducting spheres are connected by a wire, so they share one potential. Choose the radii and the total charge. The numbers give the charge on each, the field at the surface of each, and the ratio of the fields. The graph shows the surface field of the second sphere against its own radius R₂: the smaller it is, the higher the field, which is why points spark. | R1:Radius R₁ (cm):5:20:1:10 ;; R2:Radius R₂ (cm):1:10:0.5:1 ;; Q:Total charge (nC):1:50:1:11 | Q*R1/(R1+R2):Charge on sphere 1 (nC):2 ;; Q*R2/(R1+R2):Charge on sphere 2 (nC):2 ;; 8.99e9*Q*1e-9/((R1+R2)/100*(R1/100))/1000:Surface field of sphere 1 (kV/m):2 ;; 8.99e9*Q*1e-9/((R1+R2)/100*(R2/100))/1000:Surface field of sphere 2 (kV/m):2 ;; R1/R2:Field ratio E₂ ÷ E₁:2 | 8.99e9*Q*1e-9/((R1+x)/100*(x/100))/1000 | 1,10 | 0,500
+
+TRAP: The field **just outside** a conductor is σ ÷ ε₀, but the field of an infinite **sheet** (not a conductor) is σ ÷ 2ε₀. The difference is that a conductor's charge sits on **one** side, and the field inside is zero. Do not say "charge lives inside a hollow conductor": it lives on the **surface** (inner surface if there is a charge in the cavity). And a Faraday cage shields electric fields, not static **magnetic** fields.
+
+### Quick self-check
+QUIZ:
+Q: Inside a conductor in equilibrium the field is…; σ ÷ ε₀; zero; kQ ÷ r²; infinite; 2; Charges rearrange until it vanishes.
+Q: The field just outside a conductor's surface is…; zero; σ ÷ ε₀; σ ÷ 2ε₀; kσ; 2; And it is perpendicular to the surface.
+Q: On a conductor, the charge density is highest on…; flat parts; sharp points; the inside; the largest radius; 2; σ ∝ 1 ÷ R.
+Q: A car is safe in a thunderstorm because…; rubber tyres insulate; the metal body shields the inside; lightning avoids cars; it is grounded; 2; Faraday cage.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field at the surface of a conductor with σ = 2 × 10⁻⁶ C/m². => σ ÷ ε₀ = **2.26 × 10⁵ N/C**.
+P: What is the field inside the metal of a closed conducting box placed in an external field? => **Zero**.
+P: Two joined spheres have R₁ = 2 cm and R₂ = 4 cm. Which has the larger σ? => The **smaller** one (σ ∝ 1 ÷ R): σ₁ ÷ σ₂ = **2**.
+LVL: Level 2 | Apply
+P: A spherical conductor of radius 5 cm carries 2 nC. Find the field at the surface and the potential. => E = 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.0025 = **7192 N/C**. V = k Q ÷ R = 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 0.05 = **360 V**.
+P: Find the maximum charge a sphere of radius 2 cm can hold before air breaks down (3 × 10⁶ V/m). And the voltage. => Q = E R² ÷ k = 3 × 10⁶ × 4 × 10⁻⁴ ÷ 8.99 × 10⁹ = **1.33 × 10⁻⁷ C = 133 nC**. V = E R = **60 kV**.
+P: A +4 nC charge is at the centre of a neutral spherical metal shell (inner radius 6 cm, outer 8 cm). Find the charge on each surface, and the field at 10 cm. => Inner: **−4 nC**. Outer: **+4 nC** (the shell is neutral overall). At r = 10 cm: E = 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.01 = **3596 N/C**.
+P: A thundercloud makes a field of 10⁵ V/m at the ground. What σ does it induce on a flat metal roof, and what is the force per unit area? => σ = ε₀ E = 8.85 × 10⁻¹² × 10⁵ = **8.85 × 10⁻⁷ C/m²**. Force per area = ½ σ E = 0.5 × 8.85 × 10⁻⁷ × 10⁵ = **0.044 N/m²** (the electric pressure on a conductor's surface).
+P: Two spheres of 3 cm and 1 cm are joined and carry 8 nC in total. Find each charge and each surface field. => Q₁ = 8 × 3 ÷ 4 = **6 nC**, Q₂ = **2 nC**. E₁ = 8.99 × 10⁹ × 6 × 10⁻⁹ ÷ 9 × 10⁻⁴ = **59,930 N/C**. E₂ = 8.99 × 10⁹ × 2 × 10⁻⁹ ÷ 10⁻⁴ = **179,800 N/C** (three times larger).
+P: What is the spark-limited voltage of a sharp tip of radius 0.1 mm (3 × 10⁶ V/m)? => V = E R = 3 × 10⁶ × 10⁻⁴ = **300 V**. Compare it to a smooth sphere of radius 10 cm: 300 kV.
+LVL: Level 3 | Real
+P: A lightning rod tip of radius 1 mm is at the potential of the ground and the cloud makes a local field of 10⁵ V/m far from it. Assuming the tip field enhancement is the ratio of the building radius 10 m to the tip radius 1 mm, estimate the tip field and compare with breakdown. => Enhancement ≈ 10 ÷ 0.001 = 10⁴. The tip field ≈ 10⁵ × 10⁴ = **10⁹ V/m**, far above the breakdown 3 × 10⁶ V/m: the tip **discharges long before** the cloud's field reaches lightning strength (a crude estimate, but it shows why a sharp tip works).
+LVL: Challenge | Charge on a conducting sphere from its field
+P: A conducting sphere of radius R carries charge Q. Show that the field at its surface is σ ÷ ε₀ with σ = Q ÷ 4π R², and that this equals kQ ÷ R². => σ ÷ ε₀ = Q ÷ (4π ε₀ R²) = (1 ÷ 4π ε₀) Q ÷ R² = **k Q ÷ R²** ✓, the point-charge field at the surface.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Lagrange: ∇f = λ ∇g and g = c. λ = price of the constraint (d f*/dc). Eigenvalues are Lagrange multipliers for xᵀ A x on |x| = 1. Examples: x y with x + y = 10: 25; best rectangle in an ellipse: 2ab; best box is a cube; best can h = 2r.
+- Conductors: E = 0 inside, charge on the surface, E = σ ÷ ε₀ at the surface, perpendicular, one potential. Faraday cage. Joined spheres: Q ∝ R, σ ∝ 1 ÷ R. Spark limit V = E R (3 × 10⁶ V/m). Sharp points and lightning rods.
+
+BN: আজকের সারকথা: ল্যাগ্রাঞ্জ: ∇f = λ∇g ও g = c; λ = শর্তের দাম (df*/dc); eigenvalue = xᵀAx এর গুণক। পরিবাহীতে ভিতরে E = 0, চার্জ পৃষ্ঠে, পৃষ্ঠে E = σ/ε₀ (লম্ব), পুরো পরিবাহী এক বিভবে। ফ্যারাডে খাঁচা। সংযুক্ত গোলকে Q ∝ R, σ ∝ 1/R; স্পার্কের সীমা V = ER। সূচালো মাথা ও বজ্ররোধক।
+
+EXIT:
+E: Maximise x y with x + y = 10. What is the maximum?; 25; 0.01; x = y = 5.
+E: What is the surface field (kV/m) of the 10 cm sphere carrying 10 nC?; 8.99; 0.05; k Q ÷ R² = 8.99 × 10⁹ × 10⁻⁸ ÷ 0.01 = 8990 V/m.
+E: What voltage (kV) makes air break down at the surface of a sphere of radius 1 cm?; 30; 0.1; V = E R = 3 × 10⁶ × 0.01 = 30,000 V.
+
+**Tomorrow:** the Week 16 test.
+
+CHECK: notes

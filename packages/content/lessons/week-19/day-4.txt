@@ -1,0 +1,153 @@
+@day Week 19 · Day 4 · Thursday
+# Forced oscillation and resonance. Then: internal resistance and power transfer
+lead: A force that keeps pushing a spring changes the equation to m x″ + b x′ + k x = F₀ cos ωt, a non-homogeneous equation. You solve it in two steps: the homogeneous part you know, plus one particular solution found by educated guessing (undetermined coefficients). The result is resonance: push at the right frequency and the amplitude grows enormously. In physics, a real battery is not ideal. It has an internal resistance, so the voltage at its terminals falls when it supplies current, and there is a famous rule for getting the most power out of it.
+
+BN: বাইরে থেকে বল দিলে সমীকরণ হয় m x″ + b x′ + k x = F₀ cos ωt। সমাধান দুই ধাপে: জানা সমসত্ত্ব অংশ + একটা বিশেষ সমাধান (অনুমান করে, undetermined coefficients)। ফল: অনুনাদ (resonance), ঠিক ফ্রিকোয়েন্সিতে ঠেললে বিস্তার বিশাল হয়ে যায়। পদার্থবিজ্ঞানে বাস্তব ব্যাটারির অভ্যন্তরীণ রোধ আছে, তাই কারেন্ট দিলে টার্মিনাল ভোল্টেজ কমে; আর সর্বোচ্চ ক্ষমতা পাওয়ার একটা বিখ্যাত নিয়ম আছে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: What is ζ for b = 3000, m = 300 and k = 20,000? => **0.612**.
+P: What is the form of a critically damped solution? => **(C₁ + C₂ t) e^(−ω₀ t)**.
+P: Write Kirchhoff's loop rule. => **ΣΔV = 0** around a closed loop.
+P: Find the current when 12 V drives 3 Ω and 6 Ω in series. => **1.33 A**.
+P: Solve y′ = 3y. => **y = C e^(3x)**.
+
+CHECK: recall
+
+@section math | 2 · Math: non-homogeneous equations and resonance | 55 min
+
+### The method
+**General solution = complementary solution (the homogeneous one, with constants) + one particular solution y_p.**
+Guess y_p with the same form as the right-hand side with unknown coefficients: exponential e^(ax) → A e^(ax); polynomial → polynomial of the same degree; cos or sin → A cos + B sin. **If the guess already solves the homogeneous equation (resonance), multiply it by x.**
+
+BN: সাধারণ সমাধান = সমসত্ত্ব সমাধান (ধ্রুবকসহ) + একটা বিশেষ সমাধান y_p। ডান পাশের মতো আকারে অনুমান করো: e^(ax) → A e^(ax); বহুপদী → একই ঘাতের বহুপদী; cos/sin → A cos + B sin। অনুমান যদি সমসত্ত্ব সমীকরণের সমাধান হয় (অনুনাদ), তাহলে x দিয়ে গুণ করো।
+
+EX: Three guesses
+1. **y″ − 3y′ + 2y = 4e^(3x).** The roots are 1 and 2. Try y_p = A e^(3x): (9 − 9 + 2) A = 4 gives A = 2. **y = C₁ e^x + C₂ e^(2x) + 2 e^(3x)**.
+2. **y″ + y′ − 2y = 6x.** Try y_p = A x + B: A − 2 (A x + B) = 6x. The x terms: −2A = 6, A = −3. The constants: A − 2B = 0, B = −1.5. **y_p = −3x − 1.5**.
+3. **Resonance: y″ + y = cos x.** The guess A cos x + B sin x already solves the homogeneous equation. Try y_p = (x ÷ 2) sin x: y_p′ = ½ sin x + (x ÷ 2) cos x, y_p″ = cos x − (x ÷ 2) sin x, and y_p″ + y_p = **cos x** ✓. The amplitude grows linearly with x without bound.
+4. **Undamped forced:** x″ + 4x = 3 cos 3t. Try A cos 3t: (−9 + 4) A = 3, A = **−0.6**. The response is out of phase with the push when ω is above ω₀.
+/EX
+
+### The forced, damped oscillator
+For m x″ + b x′ + k x = F₀ cos ωt, after the transients (e^(−ζω₀t)) have died out, the **steady state** is x = A cos (ωt − φ) with
+**A (ω) = F₀ ÷ √[(k − m ω²)² + (b ω)²]**, tan φ = b ω ÷ (k − m ω²).
+The amplitude peaks near ω_r = ω₀ √(1 − 2ζ²) and at ω = ω₀ the phase is exactly 90° and A = F₀ ÷ (b ω₀) = (F₀ ÷ k) × Q, where Q = 1 ÷ 2ζ.
+
+BN: স্থির অবস্থায় x = A cos(ωt − φ), A(ω) = F₀/√[(k − mω²)² + (bω)²]। ω = ω₀ তে কাল-দশা ঠিক 90° আর A = F₀/(bω₀) = (F₀/k)·Q, Q = 1/(2ζ)। অবমন্দন কম হলে (Q বড়) শিখর খাড়া ও উঁচু।
+
+EX: The car on a bumpy road
+The same car: m = 300 kg, k = 20,000 N/m, b = 3000 N s/m (ζ = 0.612, ω₀ = 8.165 rad/s), pushed by an amplitude F₀ = 1000 N.
+1. **ω = 0 (a constant push):** A = F₀ ÷ k = **0.050 m**.
+2. **ω = 4 rad/s:** (k − mω²) = 15,200 and bω = 12,000: A = 1000 ÷ 19,368 = **0.0516 m**, phase 38°.
+3. **ω = ω₀ = 8.165:** A = 1000 ÷ (3000 × 8.165) = **0.0408 m**, phase exactly 90°.
+4. **ω = 16 rad/s:** A = **0.0134 m**, phase 140°: a fast shaking is mostly absorbed.
+5. **A lighter damper:** b = 1500 (ζ = 0.306): at ω = ω₀, A = 1000 ÷ (1500 × 8.165) = **0.0816 m**, which is Q = 1.63 times F₀ ÷ k. The amplitude doubles when the damping is halved at resonance.
+6. **The peak for ζ = 0.612:** ω_r = 8.165 × √(1 − 0.75) = **4.08 rad/s**, A = **0.0516 m**, only slightly above the static value 0.05: a strongly damped system hardly resonates.
+7. **Rule of thumb:** a resonance is dangerous when ζ < 0.2 or so (Q above 2.5): buildings, bridges, wine glasses, a washing machine at one spin speed.
+/EX
+
+LAB: Resonance curve | Choose the natural frequency ω₀ and the damping ratio ζ. The graph shows the steady amplitude (as a multiple of the static displacement F₀ ÷ k) against the driving frequency. The numbers give the quality factor Q and the peak height. | w0:Natural frequency ω₀ (rad/s):2:10:0.5:5 ;; z:Damping ratio ζ:0.05:1.2:0.05:0.2 | 1/(2*z):Quality factor Q:2 ;; 1/(2*z*sqrt(1-z^2))*(z<0.7071):Peak amplitude (x static, 0 means no peak):3 ;; w0*sqrt(abs(1-2*z^2)):Peak frequency (rad/s):2 | 1/sqrt((1-(x/w0)^2)^2+(2*z*x/w0)^2) | 0,15 | 0,8
+
+TRAP: The resonance peak is at ω_r = ω₀ √(1 − 2ζ²), a bit below ω₀, and exists only for ζ < 0.707. The **steady state** only lasts after the transient has gone. When the guess duplicates a homogeneous solution you must multiply by x: forgetting this makes the coefficient equation 0 = 1.
+
+### Quick self-check
+QUIZ:
+Q: For y″ − 3y′ + 2y = 4e^(3x) the particular solution is…; e^(3x); 2e^(3x); 4e^(3x); xe^(3x); 2; (9 − 9 + 2) A = 4.
+Q: Resonance for y″ + y = cos x needs the guess…; A cos x; A sin x; Ax sin x; Ax; 3; The simple guess already solves the homogeneous equation.
+Q: At ω = ω₀ the phase of the driven oscillator is…; 0°; 45°; 90°; 180°; 3; tan φ = bω ÷ 0 → 90°.
+Q: Halving the damping at resonance makes the amplitude…; halve; stay the same; double; quadruple; 3; A = F₀ ÷ (b ω₀).
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find y_p for y″ + 4y = 8. => y_p = **2**.
+P: What is the static displacement for F₀ = 1000 N and k = 20,000 N/m? => **0.05 m**.
+P: Find Q for ζ = 0.25. => **2**.
+LVL: Level 2 | Apply
+P: Solve y″ − 3y′ + 2y = 4e^(3x). => **y = C₁ e^x + C₂ e^(2x) + 2 e^(3x)**.
+P: Find y_p for y″ + y′ − 2y = 6x. => **−3x − 1.5**.
+P: Verify y_p = (x ÷ 2) sin x for y″ + y = cos x. => y_p″ + y_p = cos x − (x ÷ 2) sin x + (x ÷ 2) sin x = **cos x** ✓.
+P: Find A for x″ + 4x = 3 cos 3t. => **−0.6**.
+P: A car (m = 300, k = 20,000, b = 3000, F₀ = 1000 N) is driven at ω = 4. Find A. => **0.0516 m**.
+P: Find the steady amplitude at ω = 16 rad/s for the same car. => **0.0134 m**.
+LVL: Level 3 | Real
+P: A washing machine of m = 50 kg stands on springs with k = 80,000 N/m. At what spin frequency (rpm) is resonance (ignore damping)? => ω₀ = √1600 = 40 rad/s = 40 × 60 ÷ 2π = **382 rpm**. Spinning faster than this, the drum passes through resonance on the way: the machine shakes during run-up, then calms down.
+LVL: Challenge | Tacoma Narrows style
+P: A system has Q = 50. A driving force of F₀ pushes at resonance. By what factor does the amplitude exceed the static displacement F₀ ÷ k? => **50 times**: a small push, a huge response: the reason bridges and wings are designed for high damping.
+
+CHECK: math
+
+@section physics | 3 · Physics: internal resistance and maximum power | 35 min
+
+### A real battery
+A real battery is an ideal EMF ε in series with an **internal resistance r**. When it supplies a current I, the **terminal voltage** is **V = ε − I r**. With a load R: I = ε ÷ (R + r), V = ε R ÷ (R + r).
+The power delivered to the load is **P = ε² R ÷ (R + r)²**, which is a maximum when **R = r**, with P_max = ε² ÷ 4r. At that point only **50%** of the energy reaches the load. The efficiency is R ÷ (R + r).
+
+BN: বাস্তব ব্যাটারি = আদর্শ EMF ε এর সাথে শ্রেণিতে অভ্যন্তরীণ রোধ r। কারেন্ট I দিলে টার্মিনাল ভোল্টেজ V = ε − Ir। লোডে ক্ষমতা P = ε²R/(R + r)², সর্বোচ্চ হয় R = r এ, P_max = ε²/4r; তখন দক্ষতা মাত্র 50%।
+
+EX: A battery with ε = 12 V and r = 0.5 Ω
+| Load R (Ω) | Current I (A) | Terminal V (V) | Power in load (W) | Efficiency |
+|---|---|---|---|---|
+| 0.5 | 12.0 | 6.0 | **72** | 50% |
+| 1 | 8.0 | 8.0 | 64 | 67% |
+| 5.5 | 2.0 | 11.0 | 22 | 92% |
+| 10 | 1.14 | 11.43 | 13.1 | 95% |
+
+1. **Maximum power** at R = r = 0.5 Ω: P = 144 ÷ 2 = **72 W** (ε² ÷ 4r = 144 ÷ 2 = 72 ✓).
+2. **Short circuit:** a car battery (12 V, r = 0.02 Ω): I = 12 ÷ 0.02 = **600 A** and the internal power is I² r = 7200 W: a spanner across the terminals welds.
+3. **Why the voltage sags:** a car battery at 12.6 V drops to ≈ 10 V while cranking a 120 A starter: 120 × 0.02 = 2.4 V lost inside.
+4. **A phone battery:** ε = 3.7 V, r = 0.15 Ω: a 1.85 Ω load draws 3.7 ÷ 2 = **1.85 A**, V = 3.7 − 0.28 = **3.42 V**.
+5. **Two uses of the rule:** an audio amplifier is matched to the speaker (R = r) to get the maximum power, but a power station is built for r ≪ R to get a high efficiency.
+6. **Bridge circuit:** equal arms of 100 Ω with one arm 105 Ω and 10 V across: the bridge output is 10 × (100 ÷ 200 − 100 ÷ 205) = **0.122 V**. A strain gauge amplifies a 5% change this way.
+/EX
+
+LAB: Battery with internal resistance | Choose the EMF, the internal resistance and the load. The graph shows the load power against the load resistance. The numbers give the current, the terminal voltage, the power in the load and the efficiency. | e:EMF ε (V):1:24:0.5:12 ;; r:Internal resistance r (Ω):0.1:5:0.1:0.5 ;; R:Load R (Ω):0.1:20:0.1:2 | e/(R+r):Current I (A):3 ;; e*R/(R+r):Terminal voltage V (V):3 ;; e^2*R/(R+r)^2:Power in load (W):2 ;; 100*R/(R+r):Efficiency (%):1 | e^2*x/(x+r)^2 | 0,20 | 0,80
+
+TRAP: Maximum **power** is **not** maximum **efficiency**: matching (R = r) gives only 50%. The terminal voltage equals ε only when no current flows. Do not use ε alone in P = V²/R: use the terminal voltage across the load.
+
+### Quick self-check
+QUIZ:
+Q: A battery with ε = 12 V and r = 0.5 Ω supplies 4 A. The terminal voltage is…; 12 V; 10 V; 8 V; 11.5 V; 2; 12 − 4 × 0.5.
+Q: Maximum load power occurs when…; R = 0; R = r; R = 2r; R → ∞; 2; Matching.
+Q: The efficiency at matched load is…; 100%; 75%; 50%; 25%; 3; R ÷ (R + r) = ½.
+Q: A short circuit current of a 12 V source with r = 0.02 Ω is…; 6 A; 60 A; 600 A; 6000 A; 3; ε ÷ r.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the current of ε = 12 V and r = 0.5 Ω into 5.5 Ω. => **2 A**.
+P: Find the terminal voltage there. => **11 V**.
+P: Find P_max for ε = 12 V and r = 0.5 Ω. => **72 W**.
+LVL: Level 2 | Apply
+P: Find the efficiency at R = 5.5 Ω with r = 0.5 Ω. => **91.7%**.
+P: What load gives maximum power from ε = 9 V, r = 3 Ω? Find P_max. => R = **3 Ω**; P_max = 81 ÷ 12 = **6.75 W**.
+P: A 12 V battery gives 11.4 V at 3 A. Find r. => (12 − 11.4) ÷ 3 = **0.2 Ω**.
+P: Find the phone battery current and terminal voltage for ε = 3.7 V, r = 0.15 Ω, R = 1.85 Ω. => **1.85 A** and **3.42 V**.
+P: A car battery has ε = 12.6 V and r = 0.02 Ω. Find the terminal voltage when cranking at 120 A. => 12.6 − 2.4 = **10.2 V**.
+P: Find the power loss inside the battery at 120 A. => I² r = 14,400 × 0.02 = **288 W**.
+LVL: Level 3 | Real
+P: A 12 V battery of r = 0.5 Ω runs a 20 W lamp designed for 12 V (R = 7.2 Ω). Find the real lamp power. => I = 12 ÷ 7.7 = 1.558 A, P = I² R = **17.5 W** (the lamp dims a bit: 12% drop).
+LVL: Challenge | Matching
+P: A speaker of 8 Ω is driven from a source with r = 2 Ω and ε = 10 V. Find the speaker power and the power it would get if r were 8 Ω. => I = 1 A, P = **8 W**; with r = 8 Ω: I = 0.625 A, P = **3.125 W**. The matched case is the maximum for fixed r only, not when r can change.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- General solution of the non-homogeneous equation = homogeneous + particular. Guess the form of the right-hand side. If it is a homogeneous solution, multiply by x.
+- Forced oscillator: A = F₀ ÷ √[(k − mω²)² + (bω)²]; resonance near ω₀; Q = 1 ÷ 2ζ; phase 90° at ω₀.
+- A battery has V = ε − I r; P_load = ε² R ÷ (R + r)², max at R = r (50% efficiency); short-circuit current ε ÷ r.
+
+BN: আজকের সারকথা: অসমসত্ত্ব সমাধান = সমসত্ত্ব + বিশেষ; ডান পাশের আকারে অনুমান, মিলে গেলে x দিয়ে গুণ। অনুনাদে A = F₀/(bω₀), Q = 1/(2ζ), কালদশা 90°। ব্যাটারিতে V = ε − Ir, সর্বোচ্চ ক্ষমতা R = r এ (দক্ষতা 50%)।
+
+EXIT:
+E: What is the steady amplitude in metres for F₀ = 1000 N, k = 20,000 N/m at ω = 0?; 0.05; 0.0001; F₀ ÷ k.
+E: What is the maximum power (W) from ε = 12 V and r = 0.5 Ω?; 72; 0.1; ε² ÷ 4r.
+E: What is the terminal voltage (V) for 4 A drawn from ε = 12 V and r = 0.5 Ω?; 10; 0.05; ε − I r.
+
+**Tomorrow:** resonance in the real world and the phone charging curve, house wiring and fuses.
+
+CHECK: notes

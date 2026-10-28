@@ -1,0 +1,78 @@
+@day Week 19 · Day 6 · Saturday
+# Week 19 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered second-order differential equations (real, complex and repeated roots, damping, forced oscillation, resonance, Q) and DC circuits (Ohm's law, series and parallel, Kirchhoff's rules, internal resistance, wire heating, phone charging).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: দ্বিতীয় ক্রমের অবকল সমীকরণ (বাস্তব, জটিল ও পুনরাবৃত্ত মূল, অবমন্দন, বলপ্রয়োগ দোলন, অনুনাদ, Q) এবং DC বর্তনী (ওহমের সূত্র, শ্রেণি-সমান্তরাল, কার্শফ, অভ্যন্তরীণ রোধ, তারের উত্তাপ, ফোন চার্জ)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A except for e⁻¹ ≈ 0.368, e⁻² ≈ 0.135, e⁻³ ≈ 0.050. A calculator is allowed for Part B.
+- Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Second-order differential equations (14 marks, about 55 min) | e⁻² ≈ 0.135, e⁻³ ≈ 0.050
+
+LVL: Part A | Questions 1 to 10
+P: (2 marks) Solve y″ + 5y′ + 6y = 0 with y (0) = 1 and y′ (0) = 0, and find y (1). => r² + 5r + 6 = 0 gives r = −2, −3 (1 mark). C₁ + C₂ = 1 and −2C₁ − 3C₂ = 0: C₂ = −2 and C₁ = 3, so y = 3 e^(−2x) − 2 e^(−3x) and **y (1) = 0.406 − 0.100 = 0.306** (1 mark).
+P: (1 mark) Solve y″ + 4y = 0 with y (0) = 0 and y′ (0) = 6, and find y (π ÷ 4). => y = C sin 2x with 2C = 6: **y = 3 sin 2x**, y (π ÷ 4) = **3**.
+P: (1 mark) A mass of 0.5 kg hangs on a spring with k = 200 N/m. Find ω, f and T. => ω = √400 = **20 rad/s**, f = 20 ÷ 2π = **3.18 Hz**, T = **0.314 s**.
+P: (2 marks) Solve y″ + 4y′ + 13y = 0 with y (0) = 2 and y′ (0) = 0. => r = −2 ± 3i (1 mark). y = e^(−2x) (2 cos 3x + C₂ sin 3x) and y′ (0) = −4 + 3C₂ = 0: C₂ = 4 ÷ 3, so **y = e^(−2x) (2 cos 3x + (4 ÷ 3) sin 3x)** (1 mark).
+P: (1 mark) For m = 2 kg, b = 8 N s/m and k = 50 N/m find ζ and the damped frequency. => ω₀ = 5 rad/s; ζ = 8 ÷ (2 × 10) = **0.4**; ω_d = 5 √(1 − 0.16) = **4.58 rad/s**.
+P: (1 mark) What damping b makes m = 2 kg and k = 50 N/m critically damped? => b = 2 √(m k) = 2 √100 = **20 N s/m**.
+P: (2 marks) Solve y″ − y = 6 e^(2x) (general solution). => Homogeneous: r = ±1, so C₁ e^x + C₂ e^(−x) (1 mark). Try A e^(2x): (4 − 1) A = 6, A = 2 (1 mark): **y = C₁ e^x + C₂ e^(−x) + 2 e^(2x)**.
+P: (1 mark) For y″ + 9y = cos 3x find the form of the particular solution and say why. => The simple guess A cos 3x + B sin 3x solves the homogeneous equation (resonance), so use **y_p = (x ÷ 6) sin 3x** (the amplitude grows linearly).
+P: (2 marks) A car with m = 300 kg, k = 20,000 N/m and b = 3000 N s/m is pushed by F₀ = 1500 N at ω = 10 rad/s. Find the steady amplitude. => A = F₀ ÷ √[(k − mω²)² + (bω)²] = 1500 ÷ √[(−10,000)² + (30,000)²] = 1500 ÷ 31,623 = **0.0474 m**.
+P: (1 mark) A swing has ζ = 0.02. Find Q and the fraction of energy lost per cycle. => Q = 1 ÷ 0.04 = **25**; the fraction is 2π ÷ 25 = **25%**.
+
+CHECK: math
+
+@section physics | 3 · Part B: DC circuits (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 11 to 15
+P: (2 marks) In the two-battery circuit (ε₁ = 10 V with R₁ = 1 Ω; ε₂ = 4 V with R₂ = 2 Ω; middle R₃ = 4 Ω) find all the currents. => Loop 1: 10 − I₁ − 4 (I₁ + I₂) = 0 gives 5 I₁ + 4 I₂ = 10. Loop 2: 4 − 2 I₂ − 4 (I₁ + I₂) = 0 gives 4 I₁ + 6 I₂ = 4 (1 mark). Determinant 30 − 16 = 14: **I₁ = 3.14 A**, **I₂ = −1.43 A** (battery 2 is charging) and **I₃ = 1.71 A** (1 mark).
+P: (1 mark) A house wire has a one-way length 15 m of 1.5 mm² copper (ρ = 1.7 × 10⁻⁸ Ω m, loop = 30 m). Find the heat in it at 10 A and the voltage drop. => R = 1.7 × 10⁻⁸ × 30 ÷ 1.5 × 10⁻⁶ = **0.34 Ω**; P = I² R = **34 W**; drop = **3.4 V**.
+P: (1 mark) A battery with ε = 12 V and r = 0.4 Ω drives a 3.6 Ω load. Find I, the terminal voltage, the load power and the efficiency. => I = 12 ÷ 4 = **3 A**; V = 12 − 1.2 = **10.8 V**; P = **32.4 W**; efficiency **90%**.
+P: (1 mark) For ε = 9 V and r = 1.5 Ω, which load gets the most power and what is that power? => R = r = **1.5 Ω**; P_max = 81 ÷ 6 = **13.5 W**.
+P: (1 mark) A charger has I₀ = 2 A in the CV phase with τ = 15 min and a cut-off of 0.2 A. Find the CV time and the charge added. => t = 15 ln 10 = **34.5 min**; charge = (2 − 0.2) × (15 ÷ 60) = **0.45 Ah = 450 mAh**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 20. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 19. Tell me, and I will rebalance. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q4 | Wrote y = e^(2x) (cos 3x + ...) | Took the real part of the root with the wrong sign | The root is −2 ± 3i, so the factor is e^(−2x) | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: জটিল মূলের বাস্তব অংশের চিহ্ন, পুনরাবৃত্ত মূলে t দিয়ে গুণ ভুলে যাওয়া, অনুনাদে অনুমান x দিয়ে না গুণা, ζ আর Q গুলিয়ে ফেলা, কার্শফে লুপের চিহ্ন ভুল, তারের লুপ দৈর্ঘ্য 2L না ধরা, সর্বোচ্চ ক্ষমতা আর সর্বোচ্চ দক্ষতা এক ভাবা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | Does a bigger push at resonance always mean more power?
+P: A driven oscillator with m = 1 kg, k = 100 N/m and b = 2 N s/m is pushed by F₀ = 10 N at its natural frequency. Find the steady amplitude and the average power absorbed by the damper. => ω₀ = 10 rad/s; A = F₀ ÷ (b ω₀) = 10 ÷ 20 = **0.5 m**. The average power is ½ b ω² A² = 0.5 × 2 × 100 × 0.25 = **25 W**, which equals ½ F₀ ω A = 0.5 × 10 × 10 × 0.5 = **25 W** (the power the force puts in). At resonance, the force is in phase with the velocity, so all of its work goes into the damper.
+
+LVL: Challenge | Charging two batteries
+P: A 12 V charger with 0.5 Ω internal resistance charges a 9 V battery with r = 0.5 Ω, and a lamp (R = 2 Ω) is connected in parallel with the battery. Find the charger current, the lamp current and the battery current. => Let V be the common voltage. Charger: I = (12 − V) ÷ 0.5. Lamp: V ÷ 2. Battery (charging): I_b = (V − 9) ÷ 0.5. Junction: (12 − V) ÷ 0.5 = V ÷ 2 + (V − 9) ÷ 0.5, so 24 − 2V = 0.5 V + 2V − 18 and 42 = 4.5 V: **V = 9.33 V**. The charger gives **5.33 A**, the lamp takes **4.67 A** and the battery is charged at **0.67 A** (4.67 + 0.67 = 5.33 ✓).
+
+### Optional coding idea (not part of the study plan)
+**Oscillator and circuit playground:** a page with a spring-mass-damper on the left (sliders for m, b, k and a driving force with a frequency slider) and a Kirchhoff solver on the right (draw a small circuit, type the values and get all the branch currents by solving the linear system). Plot the resonance curve live and mark the point where the slider currently is.
+
+### What Week 20 looks like
+**Laplace transforms and numerical methods for ODEs, and inductors, RLC and AC.** In maths, a trick that turns differential equations into algebra, and better numerical methods than Euler. In physics, coils (inductors), the RLC circuit as an electrical version of the damped spring, and alternating current.
+
+BN: আগামী সপ্তাহ: ল্যাপলাস রূপান্তর ও ODE এর সাংখ্যিক পদ্ধতি; ইনডাক্টর, RLC ও AC। গণিতে এমন একটা কৌশল যা অবকল সমীকরণকে বীজগণিতে নামায়, আর অয়লারের চেয়ে ভালো সাংখ্যিক পদ্ধতি। পদার্থবিজ্ঞানে কয়েল (ইনডাক্টর), RLC যা দোলনের বৈদ্যুতিক রূপ, আর পরিবর্তী প্রবাহ।
+
+**Sunday is a rest day.**

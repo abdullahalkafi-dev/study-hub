@@ -1,0 +1,84 @@
+@day Week 10 · Day 6 · Saturday
+# Week 10 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers sequences and series, convergence tests, power series, Taylor series, and the physics of waves: travelling and standing waves, interference, beats, sound intensity and the Doppler effect.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: অনুক্রম ও ধারা, অভিসারিতা পরীক্ষা, ঘাত ধারা, টেলর ধারা, এবং তরঙ্গের পদার্থবিজ্ঞান: চলমান ও স্থির তরঙ্গ, ব্যতিচার, স্পন্দ, শব্দের তীব্রতা ও ডপলার প্রভাব।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use g = 9.8 m/s² and the speed of sound 343 m/s unless told otherwise. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Series (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find 5 + 10/3 + 20/9 + 40/27 + … => a = 5, r = 2/3: 5 ÷ (1/3) = **15**.
+P: (1 mark) Write 0.636363… as a fraction. => 0.63 ÷ 0.99 = 63/99 = **7/11**.
+P: (1 mark) Decide whether Σ (n² + 1) ÷ (2n³ + n) converges. => Compare with 1 ÷ n: the ratio of terms tends to 1/2, a positive finite number. Since Σ 1 ÷ n diverges, the series **diverges**.
+P: (1 mark) Use the ratio test on Σ 4ⁿ ÷ n!. => aₙ₊₁ ÷ aₙ = 4 ÷ (n + 1) → 0 < 1, so it **converges**.
+P: (1 mark) Classify Σ (−1)ⁿ ÷ √n as absolutely convergent, conditionally convergent or divergent. => It alternates and decreases to 0, so it converges. But Σ 1 ÷ √n diverges (p = 1/2). **Conditionally convergent**.
+P: (1 mark) Find the radius and the interval of convergence of Σ (x − 1)ⁿ ÷ (n 2ⁿ). => The ratio gives abs(x − 1) ÷ 2, so **R = 2**. At x = 3: harmonic, diverges. At x = −1: alternating harmonic, converges. Interval **[−1, 3)**.
+P: (1 mark) Write the first three nonzero terms of the Maclaurin series of cos 2x. => cos u = 1 − u²/2 + u⁴/24, with u = 2x: **1 − 2x² + (2/3) x⁴**.
+P: (1 mark) Use two terms of the sine series to estimate sin 0.2. => 0.2 − 0.008 ÷ 6 = **0.19867**.
+P: (1 mark) Find lim (x → 0) (eˣ − 1 − x − x²/2) ÷ x³. => The numerator is x³/6 + x⁴/24 + …, so the limit is **1/6**.
+P: (1 mark) Use the first three terms of the series for 1 ÷ (1 + x²), integrated, to estimate ∫₀^0.5 1 ÷ (1 + x²) dx and bound the error. => ∫ (1 − x² + x⁴) dx = 0.5 − 0.125 ÷ 3 + 0.03125 ÷ 5 = **0.4646**. The error is at most the next term, 0.5⁷ ÷ 7 = 0.0011 (the true value arctan 0.5 = 0.4636 ✓).
+P: (1 mark) Estimate ln(1.1) using the first three terms of its series, and bound the error. => 0.1 − 0.005 + 0.000333 = **0.095333**. The error is at most 0.1⁴ ÷ 4 = **0.000025**.
+P: (1 mark) Find the Taylor polynomial of degree 2 for √x about x = 9 and estimate √9.3. => f(9) = 3, f′ = 1/6, f″ = −1/108. P(x) = 3 + (x − 9)/6 − (x − 9)²/216. At 9.3: 3 + 0.05 − 0.000417 = **3.04958**.
+P: (2 marks) Starting from 1 ÷ (1 − x) = Σ xⁿ, show that Σ from n = 1 of n ÷ 2ⁿ = 2. => Differentiate: Σ n xⁿ⁻¹ = 1 ÷ (1 − x)². Multiply by x: Σ n xⁿ = x ÷ (1 − x)². At x = 1/2: (1/2) ÷ (1/4) = **2**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Waves (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A wave is y = 0.04 sin(6π x − 120π t) in SI units. Find the wavelength, the frequency and the wave speed. => k = 6π so λ = 2π ÷ 6π = **0.333 m**. ω = 120π so f = **60 Hz**. v = f λ = **20 m/s**.
+P: (1 mark) A string with L = 0.8 m, μ = 0.002 kg/m and T = 50 N is fixed at both ends. Find the wave speed, f₁ and f₃. => v = √(50 ÷ 0.002) = **158 m/s**. f₁ = 158 ÷ 1.6 = **98.8 Hz**. f₃ = **296 Hz**.
+P: (1 mark) Two equal loudspeakers play 686 Hz in phase. A listener is 1.25 m farther from one than from the other. Is the sound loud or quiet there? => λ = 343 ÷ 686 = 0.5 m. The path difference 1.25 m = 2.5 λ: **destructive**, quiet.
+P: (1 mark) A pipe closed at one end is 0.3 m long. Find f₁ and f₃. => f₁ = v ÷ 4L = 343 ÷ 1.2 = **286 Hz**. f₃ = **857 Hz**.
+P: (1 mark) A 5 W point source radiates sound uniformly. Find the sound level at 20 m and at 40 m. => I = 5 ÷ (4π × 400) = 9.95 × 10⁻⁴ W/m². β = 10 log(9.95 × 10⁸) = **90.0 dB**. At 40 m: **84.0 dB** (−6 dB).
+P: (1 mark) A 600 Hz siren moves at 20 m/s. Find the frequency heard by a stationary observer as it approaches and as it recedes. => 600 × 343 ÷ 323 = **637 Hz** approaching, and 600 × 343 ÷ 363 = **567 Hz** receding.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 11. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 10. Tell me, and I will rebalance Week 11. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q6 | Gave the interval (−1, 3) | Did not test the endpoints | The ratio test says nothing at the ends: substitute x = −1 and x = 3 and decide each | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: অভিসারী ধারায় "পদ → 0" কে যথেষ্ট ভাবা, ঘাত ধারার প্রান্ত পরীক্ষা না করা, ডিগ্রি ও রেডিয়ান গুলানো, ডেসিবেল যোগ করা, আর ডপলারে চিহ্ন উল্টানো।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | A telescoping triple
+P: Show that Σ from n = 1 of 1 ÷ (n (n + 1)(n + 2)) = 1/4. => Partial fractions give 1 ÷ (n (n + 1)(n + 2)) = ½ [1 ÷ (n (n + 1)) − 1 ÷ ((n + 1)(n + 2))]. The sum telescopes: S_N = ½ [1/2 − 1 ÷ ((N + 1)(N + 2))] → ½ × ½ = **1/4**.
+
+LVL: Challenge | Tuning by beats
+P: Guitarists tune a string by matching harmonics. The A string has f₁ = 110.0 Hz and the E string above it has f₁ = 164.8 Hz. The third harmonic of the A string is 330.0 Hz and the second harmonic of the E string is 329.6 Hz. How many beats per second do you hear, and by what percentage must the E string's tension change to remove the beats? => Beat frequency = abs(330.0 − 329.6) = **0.4 Hz**, one beat every 2.5 s. To raise f₁ of the E string to 165.0 Hz: (165.0 ÷ 164.8)² − 1 = 1.00243 − 1 = **+0.24%** tension. The slow beat is a very sensitive tuning instrument: a 0.24% tension change is the width of a hair on the tuning peg.
+
+### Optional coding idea (not part of the study plan)
+**Series and wave lab:** a page that plots a Taylor polynomial against the true function (sin, cos, eˣ, ln(1 + x)) with a slider for the number of terms and a live error bar. A second panel sums the first N harmonics of a string (sin(nπx ÷ L) cos(nωt)) with sliders for each harmonic's amplitude, drawing the string shape and playing the resulting tone with the Web Audio API. (This is the doorway to Fourier series in Phase 3.)
+
+### What Week 11 looks like
+**Review and the Phase 2 test.** No new topics. You revisit limits, derivatives, integrals, series, and the matching physics of mechanics, rotation, oscillations and waves, with mixed problems that blend them, a small modelling project and a long Phase 2 exam. The story: put it all together, tracing a single bouncing ball from the derivative of its motion to the sound it makes.
+
+BN: আগামী সপ্তাহ হলো পর্যালোচনা ও পর্ব ২ এর পরীক্ষা। নতুন বিষয় নেই। সীমা, অন্তরকলন, সমাকলন, ধারা, আর যান্ত্রিকবিদ্যা, ঘূর্ণন, দোলন ও তরঙ্গ নিয়ে মিশ্র সমস্যা, একটা ছোট মডেলিং প্রকল্প এবং একটা বড় পরীক্ষা। গল্প: একটা লাফানো বলের গতির অন্তরকলন থেকে তার শব্দ পর্যন্ত সবকিছু একসাথে জোড়া।
+
+**Sunday is a rest day.**
+
+CHECK: notes

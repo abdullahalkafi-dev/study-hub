@@ -1,0 +1,184 @@
+@day Week 14 · Day 3 · Wednesday
+# Linear systems at work: circuits, chemistry and traffic. Then: mixtures of gases
+lead: Today the algebra goes to work. Kirchhoff's laws turn an electric circuit into a linear system, balancing a chemical equation is a hidden homogeneous system, and counting cars at junctions gives a system with a free parameter. In physics, the ideal gas law meets mixtures: air is a blend of gases, and each gas contributes its own partial pressure, which decides how deep you can dive and why Everest is so hard to climb.
+
+BN: আজ বীজগণিত কাজে নামবে। কির্শফের সূত্র বৈদ্যুতিক বর্তনীকে রৈখিক সমীকরণ জোটে বদলে দেয়, রাসায়নিক সমীকরণ সমতা করা আসলে একটা লুকানো সমসত্ব জোট, আর মোড়ে গাড়ি গোনা থেকে একটা মুক্ত পরামিতিসহ জোট পাওয়া যায়। পদার্থবিজ্ঞানে আদর্শ গ্যাস সূত্র মিশ্রণের সাথে মিলবে: বাতাস গ্যাসের মিশ্রণ, প্রতিটি গ্যাস নিজের আংশিক চাপ দেয়, যা ঠিক করে কত গভীরে ডুব দেওয়া যায় আর এভারেস্ট কেন এত কঠিন।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: When does a linear system have no solution? => When the echelon form has a row **(0, 0, 0 | c) with c ≠ 0**, i.e. rank A < rank [A | b].
+P: How many free variables if there are 5 unknowns and the rank is 3? => **2**.
+P: State the ideal gas law. => **P V = n R T**.
+P: What is the molar volume at 0 °C and 1 atm? => About **22.4 L**.
+P: Write the density of an ideal gas in terms of P, M, R and T. => **ρ = P M ÷ (R T)**.
+
+CHECK: recall
+
+@section math | 2 · Math: four applications | 55 min
+
+### 1 · Electric circuits (Kirchhoff)
+Kirchhoff's voltage law says the voltages around a loop add to zero. In **mesh analysis**, give each loop a current (i₁, i₂, …) and write one equation per loop. A resistor shared by two loops carries i₁ − i₂.
+
+EX: A two-loop circuit
+1. Loop 1 has a 12 V battery and R₁ = 2 Ω, loop 2 has R₂ = 3 Ω, and both share R₃ = 4 Ω.
+2. Loop 1: 12 = 2 i₁ + 4 (i₁ − i₂), so **6 i₁ − 4 i₂ = 12**. Loop 2: 0 = 3 i₂ + 4 (i₂ − i₁), so **−4 i₁ + 7 i₂ = 0**.
+3. From the second equation i₂ = 4 i₁ ÷ 7. Then 6 i₁ − 16 i₁ ÷ 7 = 12, so (26 ÷ 7) i₁ = 12 and **i₁ = 42/13 = 3.231 A**, **i₂ = 24/13 = 1.846 A**.
+4. The shared resistor carries i₁ − i₂ = **1.385 A**.
+5. **Energy check:** the battery supplies 12 × 3.231 = 38.77 W. The resistors dissipate 2 × 3.231² + 3 × 1.846² + 4 × 1.385² = 20.88 + 10.22 + 7.67 = **38.77 W** ✓.
+/EX
+
+LAB: Two-loop circuit | The circuit has a battery V in loop 1, resistors R₁ (loop 1), R₂ (loop 2) and R₃ (shared). The numbers solve the two mesh equations (R₁ + R₃) i₁ − R₃ i₂ = V and −R₃ i₁ + (R₂ + R₃) i₂ = 0. | V:Battery V (V):6:24:1:12 ;; R1:R₁ (Ω):1:10:1:2 ;; R2:R₂ (Ω):1:10:1:3 ;; R3:R₃ (Ω):1:10:1:4 | V*(R2+R3)/(R1*R2+R1*R3+R2*R3):Current i₁ (A):3 ;; V*R3/(R1*R2+R1*R3+R2*R3):Current i₂ (A):3 ;; V*(R2+R3-R3)/(R1*R2+R1*R3+R2*R3):Current in R₃ (A):3 ;; V*V*(R2+R3)/(R1*R2+R1*R3+R2*R3):Power from the battery (W):2 | - | 0,1 | 0,1
+
+### 2 · Balancing chemical equations
+Atoms are conserved, so for each element the number on the left equals the number on the right. That gives a **homogeneous** linear system, with a free variable that fixes the overall scale.
+
+EX: Balancing
+1. **Propane burning:** a C₃H₈ + b O₂ → c CO₂ + d H₂O. Carbon: 3a = c. Hydrogen: 8a = 2d. Oxygen: 2b = 2c + d. Three equations, four unknowns, so one free variable. With a = t: c = 3t, d = 4t, 2b = 6t + 4t, b = 5t. The smallest whole numbers (t = 1): **C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O**.
+2. **Aluminium oxide:** a Al + b O₂ → c Al₂O₃. Aluminium: a = 2c. Oxygen: 2b = 3c. Take c = 2: a = 4, b = 3. **4 Al + 3 O₂ → 2 Al₂O₃**.
+3. **Photosynthesis:** a CO₂ + b H₂O → c C₆H₁₂O₆ + d O₂. Carbon: a = 6c. Hydrogen: 2b = 12c. Oxygen: 2a + b = 6c + 2d. With c = 1: a = 6, b = 6, 18 = 6 + 2d, d = 6. **6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂**.
+/EX
+
+### 3 · Traffic flow
+At each junction, the cars arriving equal the cars leaving. Cars cannot vanish, so the system is linear.
+
+EX: A ring road
+1. Four junctions A, B, C, D on a one-way ring, with flows x₁ (A to B), x₂ (B to C), x₃ (C to D), x₄ (D to A) in cars per hour. External cars entering and leaving (per hour): A: 300 in, 100 out. B: 150 in, 250 out. C: 400 in, 200 out. D: 50 in, 350 out. (Totals in and out are both 900.)
+2. A: x₄ + 300 = x₁ + 100, so x₁ − x₄ = 200. B: x₁ + 150 = x₂ + 250, so x₂ = x₁ − 100. C: x₂ + 400 = x₃ + 200, so x₃ = x₂ + 200 = x₁ + 100. D: x₃ + 50 = x₄ + 350, so x₄ = x₃ − 300 = x₁ − 200 (consistent with A).
+3. Rank 3, one free variable t = x₁. Solutions: **(t, t − 100, t + 100, t − 200)**.
+4. Flows cannot be negative, so t ≥ 200. If a counter shows x₄ = 100, then t = 300 and the flows are **(300, 200, 400, 100)**.
+/EX
+
+### 4 · Fitting a curve through points
+A quadratic y = a x² + b x + c through three points gives three linear equations in a, b, c.
+
+EX: Interpolation
+1. Points (0, 1), (1, 0), (2, 3). From x = 0: c = 1. From x = 1: a + b + 1 = 0, so a + b = −1. From x = 2: 4a + 2b + 1 = 3, so 2a + b = 1.
+2. Subtract: a = 2, then b = −3. The parabola is **y = 2x² − 3x + 1**. Check at x = 2: 8 − 6 + 1 = 3 ✓.
+3. In general, **n + 1 points determine a polynomial of degree n**, as the matrix with rows (xᵢⁿ, …, xᵢ, 1) is invertible when the x-values differ.
+/EX
+
+LAB: A parabola through three points | Choose the heights at x = 0, 1 and 2. The graph shows the parabola y = a x² + b x + c that passes through all three. The numbers give its coefficients: c = y₀, a = (y₂ − 2y₁ + y₀) ÷ 2, b = y₁ − y₀ − a. | y0:Height at x = 0:-3:3:0.5:1 ;; y1:Height at x = 1:-3:3:0.5:0 ;; y2:Height at x = 2:-3:3:0.5:3 | (y2-2*y1+y0)/2:a:2 ;; y1-y0-(y2-2*y1+y0)/2:b:2 ;; y0:c:2 | (y2-2*y1+y0)/2*x^2+(y1-y0-(y2-2*y1+y0)/2)*x+y0 | -0.5,2.5 | -4,6
+
+BN: কির্শফ: প্রতিটি লুপে একটা সমীকরণ (মেশ কারেন্ট)। রাসায়নিক সমীকরণে প্রতিটি মৌলের পরমাণু সংখ্যা মিলাতে হয়: সমসত্ব জোট, একটা মুক্ত চলক। ট্রাফিকে প্রতি মোড়ে ঢোকা = বেরোনো। তিন বিন্দু দিয়ে একটা দ্বিঘাত বক্ররেখা যায়: n + 1 বিন্দু থেকে n ঘাতের বহুপদী।
+
+TRAP: In mesh analysis, **keep the current directions consistent**: a negative answer just means the true current runs the opposite way. In chemistry, check the result by counting atoms of **every** element on both sides. In traffic problems, a mathematical solution with a **negative** flow is not physically possible.
+
+### Quick self-check
+QUIZ:
+Q: In mesh analysis, the current in a resistor shared by loops 1 and 2 is…; i₁ + i₂; i₁ − i₂; i₁ × i₂; i₁ ÷ i₂; 2; The two loop currents run in opposite directions through it.
+Q: The balanced equation for burning propane has how many O₂?; 3; 4; 5; 6; 3; C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O.
+Q: A traffic network with one free parameter means…; no solution; exactly one solution; a family of solutions; a negative flow; 3; More counts are needed to fix the flows.
+Q: How many points determine a unique quadratic?; 2; 3; 4; 1; 2; Three coefficients, three equations.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the line y = m x + c through (1, 3) and (2, 5). => m = 2, c = 1: **y = 2x + 1**.
+P: Balance H₂ + O₂ → H₂O. => **2 H₂ + O₂ → 2 H₂O**.
+P: Solve 6 i₁ − 4 i₂ = 12 and −4 i₁ + 7 i₂ = 0 for i₁. => **3.231 A** (= 42/13).
+LVL: Level 2 | Apply
+P: Find i₁, i₂ and the shared current for V = 10 V, R₁ = 1 Ω, R₂ = 2 Ω, R₃ = 3 Ω. => 4 i₁ − 3 i₂ = 10 and −3 i₁ + 5 i₂ = 0. det = 20 − 9 = 11. i₁ = 10 × 5 ÷ 11 = **4.545 A**, i₂ = 10 × 3 ÷ 11 = **2.727 A**, shared = **1.818 A**.
+P: Balance C₂H₆ + O₂ → CO₂ + H₂O. => a = 2: 2 C₂H₆ + 7 O₂ → 4 CO₂ + 6 H₂O. Check: C 4 = 4 ✓, H 12 = 12 ✓, O 14 = 8 + 6 ✓.
+P: Find the parabola through (0, 2), (1, 3), (2, 8). => c = 2, a + b = 1, 4a + 2b = 6 so 2a + b = 3, a = 2, b = −1: **y = 2x² − x + 2**. Check x = 2: 8 − 2 + 2 = 8 ✓.
+P: In the ring-road example, find all flows if the counter on x₄ reads 100. => t − 200 = 100, so t = 300: **(300, 200, 400, 100)**.
+P: Balance Fe + O₂ → Fe₂O₃. => **4 Fe + 3 O₂ → 2 Fe₂O₃**.
+LVL: Level 3 | Real
+P: Two batteries: loop 1 has 10 V, loop 2 has a 4 V battery that opposes loop current i₂. R₁ = 1 Ω, R₂ = 2 Ω, R₃ = 3 Ω shared. Solve for the currents. => 4 i₁ − 3 i₂ = 10 and −3 i₁ + 5 i₂ = −4. det = 11. i₁ = (10 × 5 − (−3)(−4)) ÷ 11 = 38 ÷ 11 = **3.455 A**, i₂ = (4 × (−4) − (−3)(10)) ÷ 11 = 14 ÷ 11 = **1.273 A**. Check: 4 × 3.455 − 3 × 1.273 = 10 ✓.
+LVL: Challenge | A harder reaction
+P: Balance KMnO₄ + HCl → KCl + MnCl₂ + H₂O + Cl₂. => Let a KMnO₄ + b HCl → c KCl + d MnCl₂ + e H₂O + f Cl₂. K: a = c. Mn: a = d. O: 4a = e. H: b = 2e. Cl: b = c + 2d + 2f. With a = 1: c = 1, d = 1, e = 4, b = 8, and 8 = 1 + 2 + 2f gives f = 2.5. Multiply by 2: **2 KMnO₄ + 16 HCl → 2 KCl + 2 MnCl₂ + 8 H₂O + 5 Cl₂**. Check chlorine: 16 = 2 + 4 + 10 ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: gas mixtures | 35 min
+
+### Dalton's law of partial pressures
+In a mixture of ideal gases, each gas fills the whole volume and behaves as if the others were absent. So
+
+EQ: P_total = P₁ + P₂ + …     P_i = x_i P_total     (x_i = mole fraction = n_i ÷ n_total)
+
+| Air component | Fraction by moles |
+| Nitrogen | 78.08% |
+| Oxygen | 20.95% |
+| Argon | 0.93% |
+| Carbon dioxide | 0.04% |
+
+BN: ডাল্টনের সূত্র: মিশ্রণের মোট চাপ = প্রতিটি গ্যাসের আংশিক চাপের যোগফল, P_i = x_i P। বাতাসে অক্সিজেন 20.95%। আমাদের শরীরের জন্য অক্সিজেনের আংশিক চাপই গুরুত্বপূর্ণ, শতকরা হার নয়।
+
+EX: Oxygen at altitude and depth
+1. **Sea level:** P_O₂ = 0.2095 × 101.3 = **21.2 kPa**.
+2. **3000 m** (P = 71 kPa): P_O₂ = 0.2095 × 71 = **14.9 kPa**, 70% of the sea-level value.
+3. **Everest summit** (P = 34 kPa): P_O₂ = 0.2095 × 34 = **7.1 kPa**. It is like breathing 7% oxygen at sea level, which is why climbers use bottled oxygen.
+4. **Scuba diving:** at 40 m the absolute pressure is about 5 atm, so P_O₂ = 0.2095 × 5 = **1.05 atm** and P_N₂ = 0.78 × 5 = **3.9 atm**. Oxygen becomes toxic above about 1.4 atm. For air, the limit is P = 1.4 ÷ 0.2095 = 6.68 atm, a depth of (6.68 − 1) × 10 = **57 m**. With "nitrox 32" (32% O₂), P = 1.4 ÷ 0.32 = 4.375 atm: a maximum depth of **34 m**.
+/EX
+
+LAB: Oxygen at altitude | The air pressure falls with height as P = 101.3 e^(−h ÷ 8440) kPa, and 20.95% of the air is oxygen. The graph shows the oxygen partial pressure against altitude. The numbers also give the "equivalent oxygen" at sea level that would give the same partial pressure. | h:Altitude (m):0:9000:100:3000 | 0.2095*101.325*exp(-h/8440):Oxygen partial pressure (kPa):1 ;; 0.2095*exp(-h/8440)*100:Equivalent oxygen at sea level (%):1 | 0.2095*101.325*exp(-x/8440) | 0,9000 | 0,22
+
+LAB: Oxygen when diving | Choose the oxygen fraction of the breathing gas and the depth. The graph shows the oxygen partial pressure (in atmospheres) against depth, with the safe limit of 1.4 atm as the second line. Air is 21% oxygen, nitrox 32 is 32%. | f:Oxygen fraction (%):21:40:1:32 ;; d:Depth (m):0:60:1:30 | f/100*(1+d/10):Oxygen partial pressure (atm):2 ;; (1-f/100)*(1+d/10):Nitrogen partial pressure (atm):2 ;; 10*(1.4/(f/100)-1):Maximum safe depth (m):1 | f/100*(1+x/10) ;; 1.4 | 0,60 | 0,3
+
+### Humidity
+Water vapour is a gas in the air too. The maximum partial pressure of water vapour at a given temperature is the **saturation vapour pressure**. The **relative humidity** is RH = P_vapour ÷ P_sat.
+
+| Temperature (°C) | P_sat (kPa) |
+| 10 | 1.23 |
+| 15 | 1.71 |
+| 20 | 2.34 |
+| 25 | 3.17 |
+| 30 | 4.25 |
+| 40 | 7.38 |
+
+EX: Dew point and humid air
+1. **Dew point:** at 30 °C with 60% humidity, P_v = 0.6 × 4.25 = 2.55 kPa. The air is saturated when P_sat = 2.55 kPa, i.e. at about **21.4 °C**. Cooling below that, dew forms.
+2. **Humid air is lighter:** at 30 °C and 100% humidity, P_v = 4.25 kPa. The mixture has a density of (97.07 kPa × 0.029 + 4.25 kPa × 0.018) × 1000 ÷ (8.314 × 303.15) = 2891.7 ÷ 2520.4 = **1.147 kg/m³**, compared with 1.166 for dry air: about 1.6% lighter, since water (M = 18) replaces nitrogen and oxygen (M = 29).
+3. **Gas collected over water:** 100 mL of hydrogen at 25 °C with a total pressure of 101.3 kPa includes water vapour of 3.17 kPa, so P_H₂ = **98.1 kPa**, and n = 98,100 × 10⁻⁴ ÷ (8.314 × 298.15) = **3.96 × 10⁻³ mol**.
+/EX
+
+### Mixing and diffusing
+EX: Opening a valve
+1. A 2 L flask with nitrogen at 3 atm is joined to a 3 L flask with helium at 1 atm (same temperature). Final volume 5 L: P_N₂ = 3 × 2 ÷ 5 = **1.2 atm**, P_He = 1 × 3 ÷ 5 = **0.6 atm**, total **1.8 atm**.
+2. **Graham's law:** the rate of effusion (leaking through a tiny hole) is proportional to 1 ÷ √M. Helium escapes **√(28 ÷ 4) = 2.65 times** faster than nitrogen, which is why a helium balloon deflates faster than an air balloon.
+/EX
+
+TRAP: Partial pressure is **mole fraction times the total pressure**, and the total pressure in a gas collected over water includes the vapour. At depth use **absolute** pressure (1 + depth ÷ 10 atm). And relative humidity is a **ratio of pressures at the same temperature**, not a fraction of water in the air by mass.
+
+### Quick self-check
+QUIZ:
+Q: The partial pressure of oxygen in air at 1 atm is about…; 0.21 atm; 0.78 atm; 1 atm; 0.04 atm; 1; It is the mole fraction times the total pressure.
+Q: At 3000 m the oxygen fraction in air is…; lower than at sea level; 20.95% still; higher than at sea level; zero; 2; Only the pressure drops, not the fraction.
+Q: Humid air is…; denser than dry air; lighter than dry air; the same as dry air; non-compressible; 2; Water vapour has a lower molar mass.
+Q: Helium compared with nitrogen effuses…; 2.65 times faster; 2.65 times slower; at the same rate; 7 times faster; 1; The ratio √(28 ÷ 4).
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the oxygen partial pressure in air at 101.3 kPa. => 0.2095 × 101.3 = **21.2 kPa**.
+P: What is the total pressure if N₂ contributes 78 kPa and O₂ 21 kPa? => **99 kPa**.
+LVL: Level 2 | Apply
+P: Find the oxygen partial pressure at 3000 m (71 kPa). => **14.9 kPa**.
+P: A 4 L vessel at 2 atm of CO₂ is joined to a 6 L vessel at 1 atm of N₂ (same T). Find the final total pressure. => P_CO₂ = 2 × 4 ÷ 10 = 0.8 atm, P_N₂ = 1 × 6 ÷ 10 = 0.6 atm. Total **1.4 atm**.
+P: Find the maximum depth for nitrox 36 (36% O₂) with a limit of 1.4 atm. => P = 1.4 ÷ 0.36 = 3.89 atm. Depth = (3.89 − 1) × 10 = **28.9 m**.
+P: The relative humidity at 20 °C is 50%. Find the water-vapour pressure and the dew point (use the table). => P_v = 0.5 × 2.34 = 1.17 kPa. This is just below the P_sat at 10 °C (1.23 kPa), so the dew point is a little under 10 °C, **about 9 °C**.
+P: Hydrogen against oxygen: find the ratio of their effusion rates. => √(32 ÷ 2) = **4**.
+LVL: Level 3 | Real
+P: An airliner flies at 11,000 m, where the outside pressure is 27.5 kPa, and keeps its cabin at 75 kPa. Find the oxygen partial pressure outside and in the cabin. => Outside: 0.2095 × 27.5 = **5.8 kPa** (unsurvivable for long). Cabin: 0.2095 × 75 = **15.7 kPa**, like a mountain town at about 2400 m.
+LVL: Challenge | Humid air is lighter
+P: At 30 °C and 101.325 kPa, compare the densities of dry air and saturated air (P_sat = 4.25 kPa). Explain the difference. => Dry air: 101,325 × 0.029 ÷ (8.314 × 303.15) = **1.166 kg/m³**. Saturated air: the vapour pressure is 4.25 kPa, so the dry-air part is 97.075 kPa. ρ = (97,075 × 0.029 + 4250 × 0.018) ÷ (8.314 × 303.15) = (2815.2 + 76.5) ÷ 2520.4 = **1.147 kg/m³**, about **1.6% lighter**. In the same volume at the same P and T there are the same number of molecules, but some of them are lighter water molecules (18 instead of 29 g/mol).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Applications of linear systems: mesh currents (one equation per loop), chemical balancing (homogeneous system, free scale), traffic flow (conservation at each junction, free parameter), interpolation (n + 1 points fix a degree-n polynomial).
+- Dalton: P_total = ΣP_i, P_i = x_i P. O₂ partial pressure 21.2 kPa at sea level, 7.1 kPa on Everest. Diving limit P_O₂ ≤ 1.4 atm. Humidity RH = P_v ÷ P_sat. Graham: rate ∝ 1 ÷ √M.
+
+BN: আজকের সারকথা: মেশ কারেন্ট, রাসায়নিক সমতা (সমসত্ব জোট), ট্রাফিক (প্রতি মোড়ে সংরক্ষণ), বহুপদী ফিট। ডাল্টন: P_i = x_i P; সমুদ্রপৃষ্ঠে O₂ এর আংশিক চাপ 21.2 kPa, এভারেস্টে 7.1 kPa; ডাইভিংয়ে P_O₂ ≤ 1.4 atm; আর্দ্রতা RH = P_v/P_sat; গ্রাহামের সূত্রে হার ∝ 1/√M।
+
+EXIT:
+E: Solve 6 i₁ − 4 i₂ = 12 and −4 i₁ + 7 i₂ = 0. What is i₁ in amperes?; 3.231; 0.002; i₂ = 4 i₁ ÷ 7, so (26 ÷ 7) i₁ = 12 and i₁ = 3.2308.
+E: How many O₂ molecules appear in the balanced equation C₃H₈ + ? O₂ → 3 CO₂ + 4 H₂O?; 5; 0.001; Oxygen atoms on the right: 6 + 4 = 10, so 5 O₂.
+E: What is the partial pressure of oxygen (kPa) in air at 101.325 kPa?; 21.23; 0.05; 0.2095 × 101.325 = 21.23.
+
+**Tomorrow:** Cramer's rule, conditioning and numerical errors, and the kinetic theory of gases: how molecules make pressure.
+
+CHECK: notes

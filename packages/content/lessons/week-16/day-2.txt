@@ -1,0 +1,180 @@
+@day Week 16 · Day 2 · Tuesday
+# Tangent planes, linear approximation and the chain rule. Then: the electric field
+lead: A smooth surface looks flat when you zoom in close, and the flat piece is the tangent plane. It gives you a way to estimate any function near a known point, and to predict how errors in several measurements add up. The chain rule extends to several variables when everything depends on time. In physics, the idea of a field replaces "action at a distance": a charge changes the space around it, and any other charge feels the field there.
+
+BN: মসৃণ তলে খুব কাছ থেকে তাকালে সেটা সমতল দেখায়, ঐ সমতল টুকরোই স্পর্শতল। এটা দিয়ে জানা বিন্দুর কাছে যেকোনো ফাংশনের মান আন্দাজ করা যায়, আর কয়েকটা মাপের ত্রুটি কীভাবে যোগ হয় তা বোঝা যায়। সবকিছু সময়ের উপর নির্ভর করলে শৃঙ্খল নিয়ম বহুচলকে বাড়ে। পদার্থবিজ্ঞানে ক্ষেত্রের ধারণা "দূর থেকে ক্রিয়া" এর জায়গা নেয়: চার্জ নিজের চারপাশের স্থান বদলে দেয়, অন্য চার্জ সেখানে ক্ষেত্র অনুভব করে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday and before
+P: Find f_x and f_y for f = x² y at (2, 3). => **12 and 4**.
+P: Find the force between two 1 μC charges 10 cm apart. => **0.899 N**.
+P: Write the linear approximation of f(x) near a: f(x) ≈ ? => **f(a) + f′(a)(x − a)**.
+P: What happens to a Coulomb force if the distance doubles? => It becomes **one quarter**.
+P: State the chain rule for y = f(g(t)). => **dy/dt = f′(g) g′(t)**.
+
+CHECK: recall
+
+@section math | 2 · Math: linear approximation and the chain rule | 55 min
+
+### The tangent plane
+One variable: the tangent **line** at a is y = f(a) + f′(a)(x − a). Two variables: the tangent **plane** at (a, b) is
+
+EQ: L(x, y) = f(a, b) + f_x(a, b)(x − a) + f_y(a, b)(y − b)
+
+Near (a, b), f(x, y) ≈ L(x, y). The partial derivatives are the two slopes of the plane.
+
+BN: এক চলকে স্পর্শ রেখা, দুই চলকে স্পর্শতল: L(x, y) = f(a, b) + f_x (x − a) + f_y (y − b)। (a, b) এর কাছে f ≈ L। আংশিক অবকল দুটো হলো সমতলের দুই ঢাল।
+
+EX: Estimating with the tangent plane
+1. **f = x² y near (2, 3):** f = 12, f_x = 12, f_y = 4. So L = 12 + 12 (x − 2) + 4 (y − 3).
+2. **Estimate f (2.1, 2.9):** L = 12 + 12 × 0.1 + 4 × (−0.1) = 12 + 1.2 − 0.4 = **12.8**. The exact value is 2.1² × 2.9 = 4.41 × 2.9 = **12.789**. The error is 0.011, less than 0.1%.
+3. **Estimate √(3.02² + 3.97²)** using f = √(x² + y²) near (3, 4): f = 5, f_x = x ÷ f = 0.6, f_y = y ÷ f = 0.8. L = 5 + 0.6 × 0.02 + 0.8 × (−0.03) = 5 + 0.012 − 0.024 = **4.988**. The exact value is √(9.1204 + 15.7609) = √24.8813 = 4.9881 ✓.
+/EX
+
+LAB: Tangent plane versus the real function | The function is f = x² y at the base point (2, 3). Choose the step (dx, dy) away from the base point. The numbers show the exact value, the tangent-plane estimate and the error. Small steps give tiny errors: the error grows like the square of the step. | dx:Step dx:-0.5:0.5:0.05:0.1 ;; dy:Step dy:-0.5:0.5:0.05:-0.1 | (2+dx)^2*(3+dy):Exact f:3 ;; 12+12*dx+4*dy:Tangent-plane estimate L:3 ;; (2+dx)^2*(3+dy)-(12+12*dx+4*dy):Error (exact − estimate):4 ;; 100*abs((2+dx)^2*(3+dy)-(12+12*dx+4*dy))/((2+dx)^2*(3+dy)):Error (%):3 | - | 0,1 | 0,1
+
+### Differentials and error propagation
+The small change in f is df = f_x dx + f_y dy. It tells you how measurement errors **combine**. For the worst case, add the sizes of the contributions.
+
+EX: Errors in several measurements
+1. **Power in a resistor, P = V² ÷ R,** with V = 12 ± 0.1 V and R = 6 ± 0.1 Ω. P = 144 ÷ 6 = **24 W**. P_V = 2V ÷ R = 4 and P_R = −V² ÷ R² = −144 ÷ 36 = −4. Worst case: |4 × 0.1| + |−4 × 0.1| = **0.8 W**. So P = 24 ± 0.8 W (about 3.3%).
+2. **Period of a pendulum, T = 2π √(L ÷ g),** with L = 1.00 ± 0.01 m and g = 9.8 ± 0.1 m/s². T = 2π √(1 ÷ 9.8) = **2.007 s**. The relative error is dT ÷ T = ½ (dL ÷ L + dg ÷ g) = ½ (0.01 + 0.0102) = **1.0%**, so T = 2.007 ± 0.020 s. A power of ½ halves each relative error.
+3. **Products and quotients:** for z = x y or z = x ÷ y, the relative errors add: dz ÷ z ≈ dx ÷ x ± dy ÷ y.
+/EX
+
+BN: df = f_x dx + f_y dy। ত্রুটির সবচেয়ে খারাপ ক্ষেত্রে অবদানগুলোর মান যোগ করো। P = V²/R: V = 12 ± 0.1, R = 6 ± 0.1 হলে P = 24 ± 0.8 W। দোলক T = 2π√(L/g): L এ 1% ও g এ 1% ত্রুটি হলে T এ প্রায় 1%।
+
+### The chain rule with several variables
+If z = f (x, y) and both x and y depend on t, then
+
+EQ: dz/dt = f_x · dx/dt + f_y · dy/dt
+
+Each path through which t reaches z contributes one product.
+
+EX: Chain rule
+1. **z = x² y with x = t², y = t³.** Directly: z = t⁴ t³ = t⁷, so dz/dt = **7 t⁶**. By the chain rule: f_x = 2xy = 2 t⁵, dx/dt = 2t, f_y = x² = t⁴, dy/dt = 3t². So dz/dt = 2 t⁵ · 2t + t⁴ · 3t² = 4 t⁶ + 3 t⁶ = **7 t⁶** ✓.
+2. **A gas being heated while it expands:** P = n R T ÷ V with T = 300 + 10t (K) and V = 0.025 − 0.0001 t (m³). At t = 0, n = 1: ∂P/∂T = 332.6 Pa/K and ∂P/∂V = −3.99 × 10⁶ Pa/m³ (from Day 1). So dP/dt = 332.6 × 10 + (−3.99 × 10⁶)(−0.0001) = 3326 + 399 = **3725 Pa/s**. Heating raises P, and compressing it raises P as well.
+3. **Implicit differentiation:** a curve F(x, y) = 0 has slope dy/dx = −F_x ÷ F_y. For x² + xy + y² = 7 at (2, 1): F_x = 2x + y = 5 and F_y = x + 2y = 4, so **dy/dx = −5/4**. (Check: 4 + 2 + 1 = 7 ✓ the point is on the curve.)
+/EX
+
+TRAP: The tangent plane is only good **near** the base point: go far and the error grows with the **square** of the distance. In the chain rule do not forget **both** terms: if z depends on t through x and through y, each path adds. In error propagation, if the errors are independent random errors they combine in quadrature (a smaller total), and the "add the sizes" worst case is the safe upper bound.
+
+### Quick self-check
+QUIZ:
+Q: The tangent plane to f at (a, b) has slopes…; f and f; f_x and f_y; 1 and 1; 0 and 0; 2; The partial derivatives.
+Q: For z = x y with x = t and y = t², dz/dt is…; t³; 2t²; 3t²; t²; 3; z = t³.
+Q: For z = x ÷ y the relative errors…; add (worst case); subtract; multiply; vanish; 1; dz/z = dx/x − dy/y, worst case adds the sizes.
+Q: The slope dy/dx of F(x, y) = 0 is…; F_x ÷ F_y; −F_x ÷ F_y; F_y ÷ F_x; −F_y ÷ F_x; 2; From F_x dx + F_y dy = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the tangent plane of f = x y at (2, 3). => f = 6, f_x = y = 3, f_y = x = 2: **L = 6 + 3 (x − 2) + 2 (y − 3)**.
+P: Use it to estimate f (2.1, 2.9). => 6 + 0.3 − 0.2 = **6.1** (exact 6.09).
+P: Find dz/dt for z = x + y² with x = 2t and y = t. => 2 + 2y · 1 = **2 + 2t**.
+LVL: Level 2 | Apply
+P: Estimate 1.98² × 3.01 using f = x² y near (2, 3). => 12 + 12 × (−0.02) + 4 × 0.01 = 12 − 0.24 + 0.04 = **11.80** (exact 3.9204 × 3.01 = 11.8004).
+P: Find the tangent plane of f = ln (x² + y²) at (1, 0). => f = 0, f_x = 2x ÷ (x² + y²) = 2, f_y = 0. **L = 2 (x − 1)**.
+P: The area of a rectangle is x y with x = 4.0 ± 0.1 cm and y = 2.5 ± 0.1 cm. Find A and its worst-case error. => A = **10.0 cm²**. dA = y dx + x dy = 2.5 × 0.1 + 4 × 0.1 = **0.65 cm²**. So A = 10.0 ± 0.65 cm² (6.5%: 2.5% + 4%).
+P: Find dz/dt for z = x² + y² with x = cos t and y = sin t, and explain. => 2x(−sin t) + 2y (cos t) = −2 cos t sin t + 2 sin t cos t = **0**. The point moves on the unit circle where x² + y² = 1 is constant.
+P: Find dy/dx for x³ + y³ = 6xy at (3, 3). => F = x³ + y³ − 6xy: F_x = 3x² − 6y = 27 − 18 = 9 and F_y = 3y² − 6x = 9. **dy/dx = −1** (the folium of Descartes is symmetric about y = x).
+P: A cylinder has r = 5 cm and h = 12 cm. Estimate the change in volume V = π r² h when r grows by 0.1 cm and h shrinks by 0.2 cm. => V_r = 2π r h = 2π × 60 = 376.99 and V_h = π r² = 78.54. dV = 376.99 × 0.1 + 78.54 × (−0.2) = 37.70 − 15.71 = **+21.99 cm³**.
+LVL: Level 3 | Real
+P: A car's kinetic energy is E = ½ m v² with m = 1200 ± 20 kg and v = 25 ± 0.5 m/s. Find E and the relative error. => E = 0.5 × 1200 × 625 = **375,000 J**. Relative error = 20 ÷ 1200 + 2 × 0.5 ÷ 25 = 0.0167 + 0.04 = **5.7%**, so ±21.5 kJ. The speed dominates because it is squared.
+LVL: Challenge | The tangent plane of a sphere
+P: Find the tangent plane of the surface z = √(25 − x² − y²) at (3, 0) and check that it is perpendicular to the radius. => At (3, 0): z = √16 = 4, f_x = −3 ÷ 4 = −0.75 and f_y = 0. So **L = 4 − 0.75 (x − 3)**, i.e. 0.75 x + z = 6.25. Its normal direction is (0.75, 0, 1), proportional to (3, 0, 4), the radius from the origin to the point (3, 0, 4) ✓.
+
+CHECK: math
+
+@section physics | 3 · Physics: the electric field | 35 min
+
+### Definition
+Put a small positive **test charge** q at a point. If the force on it is F, the **electric field** there is
+
+EQ: E = F ÷ q     (unit: N/C = V/m)
+
+The field is a property of the **space** around the source charges. A charge q placed in a field E feels the force **F = q E**. For a point source charge Q the field at distance r is
+
+EQ: E = k Q ÷ r²     (directed away from Q if Q > 0, towards Q if Q < 0)
+
+BN: ছোট ধনাত্মক পরীক্ষা চার্জ q রাখলে বল F হলে, ক্ষেত্র E = F/q (একক N/C = V/m)। ক্ষেত্র উৎসের চারপাশের স্থানের ধর্ম। ক্ষেত্র E এ চার্জ q এর উপর বল F = qE। বিন্দু চার্জ Q এর ক্ষেত্র E = kQ/r²: Q > 0 হলে বাইরের দিকে, Q < 0 হলে ভেতরের দিকে।
+
+EX: Field numbers
+1. **A 1 nC charge at 10 cm:** E = 8.99 × 10⁹ × 10⁻⁹ ÷ 0.01 = **899 N/C**.
+2. **A 2 μC charge at 0.5 m:** E = 8.99 × 10⁹ × 2 × 10⁻⁶ ÷ 0.25 = **71,920 N/C**.
+3. **An electron in a field of 1000 N/C:** F = q E = 1.602 × 10⁻¹⁹ × 1000 = **1.602 × 10⁻¹⁶ N** and a = F ÷ m = 1.602 × 10⁻¹⁶ ÷ 9.109 × 10⁻³¹ = **1.76 × 10¹⁴ m/s²**, about 10¹³ times g. In a cathode-ray tube or an old TV this field steers the beam.
+4. **Air breaks down** when E exceeds about 3 × 10⁶ N/C: a spark.
+/EX
+
+LAB: The field of two charges on a line | A charge q₁ (in nC) sits at x = 0 and q₂ at x = 0.2 m. The graph shows the field E_x along the x-axis (positive means pointing in +x). Choose a probe position. The number shows the field there and the force on a 1 nC charge. Between two equal positive charges the field passes through zero at the midpoint. | q1:q₁ (nC):-5:5:1:2 ;; q2:q₂ (nC):-5:5:1:-3 ;; xp:Probe position x (m):0.25:0.8:0.05:0.4 | 8.99e9*q1*1e-9*xp/abs(xp)^3+8.99e9*q2*1e-9*(xp-0.2)/abs(xp-0.2)^3:Field E_x (N/C):1 ;; 1e-9*(8.99e9*q1*1e-9*xp/abs(xp)^3+8.99e9*q2*1e-9*(xp-0.2)/abs(xp-0.2)^3)*1e9:Force on 1 nC (nN):1 | 8.99e9*q1*1e-9*x/abs(x)^3+8.99e9*q2*1e-9*(x-0.2)/abs(x-0.2)^3 | -0.4,0.8 | -3000,3000
+
+### Adding fields
+Fields obey **superposition**: the total field is the vector sum of the fields of each source.
+
+EX: Two charges
+1. **On the line:** +1 nC at (0, 0) and −1 nC at (0.2, 0). At the midpoint (0.1, 0) each field is 899 N/C and both point towards +x (away from + and towards −). Total **1798 N/C** along +x.
+2. **Off the line:** two +1 nC charges at (±0.1, 0) and the point (0, 0.1). Each is r = √0.02 = 0.1414 m away, so each field has size 8.99 × 10⁹ × 10⁻⁹ ÷ 0.02 = **449.5 N/C**. The x-components cancel (equal and opposite) and the y-components add: 2 × 449.5 × (0.1 ÷ 0.1414) = **636 N/C pointing in +y**.
+3. **The method:** draw each field vector, resolve into components, add the components, rebuild the magnitude and angle. Never add magnitudes unless the vectors are parallel.
+/EX
+
+BN: ক্ষেত্রেও উপরিপাতন: মোট ক্ষেত্র = প্রতিটি উৎসের ক্ষেত্রের ভেক্টর যোগফল। পদ্ধতি: প্রতিটি ক্ষেত্র আঁকো, উপাংশে ভাঙো, উপাংশ যোগ করো, তারপর মান ও কোণ বের করো।
+
+### The electric dipole
+A **dipole** is +q and −q a small distance d apart. Its **dipole moment** is p = q d (pointing from − to +). Far away on the axis the field is
+
+EQ: E ≈ 2 k p ÷ r³     (on the axis)     E ≈ k p ÷ r³     (on the perpendicular bisector, pointing opposite to p)
+
+The field falls as **1 ÷ r³**, faster than a single charge's 1 ÷ r², because the two charges nearly cancel.
+
+EX: Dipoles
+1. **A pair:** q = 1 nC and d = 2 cm give p = 2 × 10⁻¹¹ C m. On the axis at r = 0.3 m, E ≈ 2 × 8.99 × 10⁹ × 2 × 10⁻¹¹ ÷ 0.027 = **13.3 N/C**. The exact value, k q [1 ÷ (r − d/2)² − 1 ÷ (r + d/2)²] = 13.35 N/C, agrees within 0.3%.
+2. **A water molecule** has p = 6.2 × 10⁻³⁰ C m. At r = 1 nm on its axis: E ≈ 2 × 8.99 × 10⁹ × 6.2 × 10⁻³⁰ ÷ 10⁻²⁷ = **1.1 × 10⁸ N/C**. This huge local field is why water dissolves salt: it pulls the ions apart.
+3. **Radiation and antennas** (later in the course) are built from oscillating dipoles.
+/EX
+
+TRAP: E = F ÷ q is the force **per unit positive charge**: for a negative q the force is opposite to E. The field of a charge is **not** affected by the test charge you use (it must be small). And superposition adds **vectors**: the 899 + 899 on the line works only because the arrows point the same way.
+
+### Quick self-check
+QUIZ:
+Q: The unit of the electric field is…; N; N/C; C/N; J; 2; E = F ÷ q.
+Q: The force on a −2 μC charge in a field of 500 N/C (to the east) is…; 1 mN east; 1 mN west; 250 N east; 0; 2; F = q E is opposite to E for a negative charge.
+Q: A dipole's field far away falls as…; 1/r; 1/r²; 1/r³; constant; 3; Two nearly cancelling charges.
+Q: Two equal positive charges: the field at the midpoint is…; double one; zero; half one; infinite; 2; The fields cancel.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field of a +5 nC charge at 30 cm. => 8.99 × 10⁹ × 5 × 10⁻⁹ ÷ 0.09 = **499 N/C**, pointing away.
+P: A 2 nC charge sits in a field of 300 N/C. Find the force. => 2 × 10⁻⁹ × 300 = **6 × 10⁻⁷ N**.
+P: What is the direction of the field at a point 10 cm to the right of a −3 nC charge? => **Towards the charge** (to the left).
+LVL: Level 2 | Apply
+P: Find the acceleration of a proton (m = 1.673 × 10⁻²⁷ kg) in a field of 2000 N/C. => a = 1.602 × 10⁻¹⁹ × 2000 ÷ 1.673 × 10⁻²⁷ = **1.92 × 10¹¹ m/s²**.
+P: Find the field at the midpoint of +4 nC at x = 0 and +1 nC at x = 0.2 m. => From +4: 8.99 × 10⁹ × 4 × 10⁻⁹ ÷ 0.01 = 3596 N/C towards +x. From +1: 899 N/C towards −x. Net **2697 N/C towards +x**.
+P: At which point on the line between them is the field zero for +4 nC at x = 0 and +1 nC at x = 0.3 m? => 4 ÷ x² = 1 ÷ (0.3 − x)²: x = 2 (0.3 − x), **x = 0.2 m**.
+P: A 0.1 g ball with charge +10 nC hangs in balance in a uniform downward-pointing field. What field strength? => It must be an upward force, so the field must point **upward** (positive charge): E = m g ÷ q = 10⁻⁴ × 9.8 ÷ 10⁻⁸ = **9.8 × 10⁴ N/C**.
+P: Find the dipole field on the axis at 0.5 m for p = 3 × 10⁻¹⁰ C m. => 2 × 8.99 × 10⁹ × 3 × 10⁻¹⁰ ÷ 0.125 = **43.2 N/C**.
+P: How long does an electron take to cross 5 cm from rest in a uniform field of 5000 N/C? How fast is it going? => a = 1.602 × 10⁻¹⁹ × 5000 ÷ 9.109 × 10⁻³¹ = 8.79 × 10¹⁴ m/s². t = √(2 × 0.05 ÷ 8.79 × 10¹⁴) = **1.07 × 10⁻⁸ s**. v = a t = **9.4 × 10⁶ m/s**.
+LVL: Level 3 | Real
+P: Lightning can start when the field reaches 3 × 10⁶ N/C. What charge on a conducting sphere of radius 5 cm produces that field at its surface? => Q = E r² ÷ k = 3 × 10⁶ × 0.0025 ÷ 8.99 × 10⁹ = **8.3 × 10⁻⁷ C = 0.83 μC**.
+LVL: Challenge | A charged ring on its axis
+P: A ring of radius a carries charge Q uniformly. Show that on its axis at distance z the field is E = k Q z ÷ (z² + a²)^(3/2), and find the field for Q = 10 nC, a = 5 cm, z = 12 cm. => Each piece dQ has field k dQ ÷ (z² + a²) at an angle with the axis, and the components perpendicular to the axis cancel by symmetry. The axis component of each is k dQ ÷ (z² + a²) × z ÷ √(z² + a²). Adding: **E = k Q z ÷ (z² + a²)^(3/2)**. Numbers: z² + a² = 0.0144 + 0.0025 = 0.0169, so (…)^(3/2) = 0.0169^1.5 = 2.197 × 10⁻³. E = 8.99 × 10⁹ × 10⁻⁸ × 0.12 ÷ 2.197 × 10⁻³ = **4910 N/C**. (For z ≫ a, it becomes k Q ÷ z²: from far away the ring looks like a point.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Tangent plane L = f (a, b) + f_x (x − a) + f_y (y − b); df = f_x dx + f_y dy; errors add (worst case). Chain rule dz/dt = f_x x′ + f_y y′. Implicit slope dy/dx = −F_x ÷ F_y.
+- Electric field E = F ÷ q = k Q ÷ r² (N/C), force F = q E, superposition as vectors. Dipole p = q d: E ≈ 2 k p ÷ r³ on the axis. Ring on axis: k Q z ÷ (z² + a²)^(3/2).
+
+BN: আজকের সারকথা: স্পর্শতল L = f(a, b) + f_x(x − a) + f_y(y − b); df = f_x dx + f_y dy; ত্রুটি যোগ হয়। শৃঙ্খল নিয়ম dz/dt = f_x x′ + f_y y′; অন্তর্নিহিত ঢাল dy/dx = −F_x/F_y। বৈদ্যুতিক ক্ষেত্র E = F/q = kQ/r², F = qE, ভেক্টর যোগ। ডাইপোল: অক্ষে E ≈ 2kp/r³।
+
+EXIT:
+E: Estimate f (2.1, 2.9) for f = x² y using the tangent plane at (2, 3).; 12.8; 0.01; 12 + 1.2 − 0.4.
+E: What is the field (N/C) of a 1 nC charge at 10 cm?; 899; 1; k Q ÷ r² = 8.99 × 10⁹ × 10⁻⁹ ÷ 0.01.
+E: What is the worst-case error (W) of P = V² ÷ R for V = 12 ± 0.1 V and R = 6 ± 0.1 Ω?; 0.8; 0.01; 4 × 0.1 + 4 × 0.1.
+
+**Tomorrow:** the gradient and directional derivatives (the direction of steepest climb), then field lines and charge distributions.
+
+CHECK: notes

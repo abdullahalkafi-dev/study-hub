@@ -1,0 +1,176 @@
+@day Week 8 · Day 5 · Friday
+# Areas between curves, average value and volumes. Then: rolling and rotational energy
+lead: With the fundamental theorem you can now measure far more than a simple area under one curve. You can find the area between two curves, the average value of a changing quantity (which is how engineers get RMS voltage) and even the volume of a solid like a cone or a sphere. In physics, you finish the week with rolling: a ball that rolls has both kinds of kinetic energy, and that decides who wins a race down a ramp.
+
+BN: মৌলিক উপপাদ্য হাতে থাকলে এখন আরও অনেক কিছু মাপা যায়: দুই বক্ররেখার মাঝের ক্ষেত্রফল, পরিবর্তনশীল রাশির গড় মান (প্রকৌশলীরা এভাবে RMS ভোল্টেজ পান), এমনকি শঙ্কু বা গোলকের আয়তন। পদার্থবিজ্ঞানে সপ্তাহ শেষ হবে গড়ানো দিয়ে: যে বল গড়ায় তার দুই ধরনের গতিশক্তিই থাকে, আর সেটাই ঠিক করে ঢালু বেয়ে দৌড়ে কে জিতবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find ∫ x cos(x²) dx. => u = x²: **sin(x²) ÷ 2 + C**.
+P: Evaluate ∫₀¹ 2x (x² + 1) dx. => u from 1 to 2: [u²/2] = **3/2**.
+P: A skater with I = 4 kg·m² at 3 rad/s pulls in to I = 2. Find ω. => **6 rad/s**.
+P: State Kepler's second law in terms of angular momentum. => **L = m v r is constant**, because the Sun's pull gives no torque about the Sun.
+P: Find ∫₀³ x² dx. => **9**.
+
+CHECK: recall
+
+@section math | 2 · Math: more from the integral | 55 min
+
+### Area between two curves
+If f(x) ≥ g(x) on [a, b], the area between them is the integral of the **top minus the bottom**:
+
+EQ: Area = ∫ₐᵇ [f(x) − g(x)] dx
+
+Steps: (1) sketch; (2) find where the curves meet (set f = g) for the limits; (3) decide which is on top; (4) integrate. If they cross in between, split at the crossing point.
+
+EX: Between a parabola and a line
+1. y = x and y = x² meet at x = 0 and x = 1, and x ≥ x² there. Area = ∫₀¹ (x − x²) dx = [x²/2 − x³/3] = 1/2 − 1/3 = **1/6**.
+2. y = 4 − x² and y = x + 2: set equal, x² + x − 2 = 0, so x = −2 and x = 1. At x = 0: 4 on the parabola and 2 on the line, so the parabola is on top. Area = ∫₋₂¹ (2 − x − x²) dx = [2x − x²/2 − x³/3] = (2 − 0.5 − 0.333) − (−4 − 2 + 2.667) = 1.167 + 3.333 = **4.5**.
+3. y = cos x and y = sin x on [0, π/4]: cos is on top. Area = [sin x + cos x] = (√2/2 + √2/2) − (0 + 1) = **√2 − 1 ≈ 0.414**.
+/EX
+
+LAB: Area between y = x and y = a x² | The curves meet at x = 0 and x = 1 ÷ a. Change a and see how the lens-shaped region shrinks. The area is ∫₀^(1/a) (x − a x²) dx = 1 ÷ (6a²). | a:Parabola steepness a:0.5:3:0.1:1 | 1/a:Right meeting point x = 1/a:3 ;; 1/(6*a^2):Area between the curves:4 | x ;; a*x^2 | 0,2 | 0,2
+
+BN: দুই বক্ররেখার মাঝের ক্ষেত্রফল = ∫(উপরের − নিচেরটা) dx। প্রথমে ছেদবিন্দু বের করে সীমা ঠিক করো (f = g), কোনটা উপরে দেখো, সমাকলন করো; মাঝখানে ছেদ করলে ভেঙে নাও। y = x আর y = x² এর মাঝের ক্ষেত্রফল 1/6।
+
+### Average value
+The average of n numbers is their sum ÷ n. For a continuous function the "sum" becomes an integral:
+
+EQ: f_avg = (1 ÷ (b − a)) ∫ₐᵇ f(x) dx
+
+Geometric meaning: the rectangle of width (b − a) and height f_avg has the **same area** as the region under the curve. The mean value theorem for integrals says f actually equals f_avg at some point c in [a, b].
+
+EX: Averages
+1. f(x) = x² on [0, 3]: average = (1/3)(9) = **3**. It equals f at c = √3 ≈ 1.73.
+2. sin x on [0, π]: (1/π)(2) = **2/π ≈ 0.637**.
+3. A car's velocity v(t) = 3t² for 0 ≤ t ≤ 4: distance = 64 m, average velocity = 64 ÷ 4 = **16 m/s**.
+4. sin² x on [0, π]: use sin² x = (1 − cos 2x) ÷ 2. ∫₀^π = [x/2 − sin 2x ÷ 4] = π/2, so the average is **1/2**.
+/EX
+
+**RMS (root mean square).** For an alternating voltage V = V₀ sin ωt, the mean of V² is V₀² × (1/2). The effective, or RMS, value is √(mean of V²) = **V₀ ÷ √2 = 0.707 V₀**. This is why the 170 V peak of household mains is quoted as 120 V.
+
+BN: গড় মান = (1/(b−a))∫f dx; জ্যামিতিক অর্থ: একই ক্ষেত্রফলের আয়তক্ষেত্রের উচ্চতা। sin²x এর গড় 1/2, তাই AC ভোল্টেজের RMS = V₀/√2। ১৭০ ভোল্ট শীর্ষমান মানে কার্যকর মান ১২০ ভোল্ট।
+
+### Volumes of revolution (disc method)
+Spin the region under y = f(x) about the x-axis. A thin slice is a disc of radius f(x) and thickness dx, with volume π f² dx. So:
+
+EQ: V = π ∫ₐᵇ [f(x)]² dx
+
+EX: Cone and sphere
+1. **Cone:** f(x) = (r ÷ h) x for 0 ≤ x ≤ h. V = π (r²/h²) ∫₀ʰ x² dx = π (r²/h²)(h³/3) = **π r² h ÷ 3** ✓.
+2. **Sphere:** f(x) = √(R² − x²) for −R ≤ x ≤ R. V = π ∫ (R² − x²) dx = π [R² x − x³/3] from −R to R = π (2R³ − 2R³/3) = **4π R³ ÷ 3** ✓.
+3. y = √x on [0, 4]: V = π ∫₀⁴ x dx = π × 8 = **25.1**.
+/EX
+
+TRAP: In "top minus bottom", check which curve is on top **on the whole interval** (test one point), not just near one end. If the curves cross, split the integral, or the areas will cancel. Also, V = π ∫ f² dx has the **square inside**: (∫ f dx)² is wrong. And average value divides by (b − a), not by the integral's number of terms.
+
+### Quick self-check
+QUIZ:
+Q: The area between y = x² and y = 2x (where they enclose a region) is…; 4/3; 8/3; 2; 4; 1; They meet at x = 0 and 2, and ∫(2x − x²) = 4 − 8/3.
+Q: The average value of f(x) = 2x on [0, 4] is…; 4; 8; 16; 2; 1; (1/4)[x²] = 16 ÷ 4 = 4.
+Q: The RMS value of a sine wave of peak 10 V is about…; 5 V; 7.07 V; 10 V; 14.1 V; 2; V₀ ÷ √2.
+Q: The volume formula for spinning y = f(x) about the x-axis is…; π ∫ f dx; π ∫ f² dx; 2π ∫ f dx; ∫ f² dx; 2; Each slice is a disc of area π f².
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the area between y = 4 and y = x² from x = −2 to x = 2. => ∫ (4 − x²) dx = [4x − x³ ÷ 3] = 2 × (8 − 8/3) = **32/3 ≈ 10.67**.
+P: Find the average of f(x) = 2x on [0, 4]. => **4**.
+P: Find the volume of a cone with r = 3 and h = 4. => π × 9 × 4 ÷ 3 = **12π ≈ 37.7**.
+LVL: Level 2 | Apply
+P: Find the area enclosed by y = x² and y = 2x. => They meet at x = 0 and 2. ∫₀² (2x − x²) dx = 4 − 8/3 = **4/3**.
+P: Find the total area enclosed between y = x and y = x³ (both regions). => They meet at x = −1, 0, 1. By symmetry, area = 2 ∫₀¹ (x − x³) dx = 2 (1/2 − 1/4) = **1/2**.
+P: Find the average value of eˣ on [0, 1], and the average of x² on [1, 3]. => eˣ: **e − 1 ≈ 1.718**. x²: (1/2)(27 − 1) ÷ 3 = **13/3 ≈ 4.33**.
+P: Find the volume when y = x² for 0 ≤ x ≤ 1 spins about the x-axis. => π ∫₀¹ x⁴ dx = **π/5 ≈ 0.628**.
+P: Find the area between y = x² and y = 8 − x² (the region where the first is below). => Set equal: x² = 4, so x = ±2. ∫₋₂² (8 − 2x²) dx = [8x − 2x³ ÷ 3] = 2 (16 − 16/3) = **64/3 ≈ 21.3**.
+LVL: Level 3 | Real
+P: A day's temperature is T(t) = 15 + 10 sin(π t ÷ 12) °C for 0 ≤ t ≤ 12 hours. Find the average temperature. => (1/12) ∫₀¹² [15 + 10 sin(π t ÷ 12)] dt = 15 + (10/12)(12/π)(2) = 15 + 20/π = **21.4 °C**.
+P: A mains voltage peaks at 325 V. Find its RMS value. => 325 ÷ √2 = **230 V** (the standard in Bangladesh and Europe).
+P: A tank is made by spinning y = 0.5 √x (x in metres, 0 ≤ x ≤ 4) about the x-axis. Find its volume and the number of litres. => V = π ∫₀⁴ 0.25 x dx = π × 0.25 × 8 = 2π = **6.28 m³ = 6283 litres**.
+LVL: Challenge | Area with a crossing
+P: Find the total area enclosed between y = sin x and y = cos x on [0, π]. => They cross at x = π/4. On [0, π/4], cos is on top: ∫ (cos − sin) = [sin + cos] = √2 − 1. On [π/4, π], sin is on top: ∫ (sin − cos) = [−cos − sin] from π/4 to π = (1 − 0) − (−√2) = 1 + √2. Total = (√2 − 1) + (1 + √2) = **2√2 ≈ 2.83**. (A single integral of cos − sin over [0, π] gives −2, which is not an area, because the curves cross.)
+
+CHECK: math
+
+@section physics | 3 · Physics: rolling and rotational energy | 35 min
+
+### A rolling object has two kinds of energy
+A wheel rolling without slipping moves forward at speed v and also spins at ω = v ÷ R. Its kinetic energy is the sum:
+
+EQ: KE = ½ M v² + ½ I ω²     with     ω = v ÷ R,     I = k M R²     so     KE = ½ M v² (1 + k)
+
+Here k is the shape factor: **hoop 1, solid disc ½, solid sphere 2/5, hollow sphere 2/3**. The ratio of rotational to translational KE is just k.
+
+EX: A bowling ball
+1. M = 7 kg, R = 0.11 m, v = 8 m/s. I = (2/5)(7)(0.0121) = 0.0339 kg·m². ω = 72.7 rad/s.
+2. KE(trans) = ½ × 7 × 64 = **224 J**. KE(rot) = ½ × 0.0339 × 5289 = **89.6 J** (= 0.4 × 224 ✓). Total = **313.6 J**.
+/EX
+
+### Rolling down a ramp
+Static friction holds the contact point still (no slipping) and does **no work**, so energy is conserved: M g h = ½ M v² (1 + k). Therefore:
+
+EQ: v = √(2 g h ÷ (1 + k))     and     a = g sin θ ÷ (1 + k)
+
+**The mass and the radius cancel.** Only the shape (k) matters, so a small marble and a big ball of the same shape tie.
+
+EX: A race from h = 1.2 m
+1. Sliding block (no friction, k = 0): v = √23.52 = **4.85 m/s**.
+2. Solid sphere (k = 0.4): v = √(23.52 ÷ 1.4) = **4.10 m/s**.
+3. Solid disc (k = 0.5): v = √(23.52 ÷ 1.5) = **3.96 m/s**.
+4. Hoop (k = 1): v = √(23.52 ÷ 2) = **3.43 m/s**.
+5. Order of finishing: sphere, disc, hoop. The more of the mass is far from the axis (large k), the more energy goes to spinning instead of forward motion.
+/EX
+
+EX: On a 30° ramp
+1. Accelerations: sphere 9.8 × 0.5 ÷ 1.4 = **3.5 m/s²**, disc **3.27 m/s²**, hoop **2.45 m/s²**.
+2. Minimum friction coefficient (solid sphere): friction supplies the torque, f R = I α = k M a, so f = 0.4 M × 3.5 = 1.4 M. The normal force is M g cos 30° = 8.49 M, so **μ ≥ 0.165**. On very slippery ground it slides instead of rolling.
+/EX
+
+LAB: Race down the ramp | Choose the shape factor k (hoop 1, disc 0.5, solid sphere 0.4, a sliding block 0), the drop height and the ramp angle. The graph shows the speed at the bottom for every shape factor from 0 to 1. Notice that mass and radius do not appear at all. | k:Shape factor k:0:1:0.05:0.4 ;; h:Height h (m):0.5:3:0.1:1.2 ;; th:Ramp angle (degrees):10:60:5:30 | sqrt(2*9.8*h/(1+k)):Speed at the bottom (m/s):2 ;; 9.8*sin(th*pi/180)/(1+k):Acceleration down the ramp (m/s²):2 ;; sqrt(2*(h/sin(th*pi/180))/(9.8*sin(th*pi/180)/(1+k))):Time to the bottom (s):2 | sqrt(2*9.8*h/(1+x)) | 0,1 | 0,8
+
+BN: গড়ানো বস্তুর শক্তি দুই ধরনের: ½Mv² + ½Iω², ω = v/R, আর I = kMR², তাই KE = ½Mv²(1 + k)। (k: বলয় 1, ডিস্ক ½, কঠিন গোলক 2/5।) ঢালু বেয়ে v = √(2gh/(1+k)), a = g sinθ/(1+k)। ভর ও ব্যাসার্ধ কেটে যায়, শুধু আকৃতি (k) গুরুত্বপূর্ণ। দৌড়ে জেতে কঠিন গোলক, তারপর ডিস্ক, শেষে বলয়।
+
+TRAP: Static friction on a rolling object does **no work**, so do not subtract friction work from the energy equation, and do not use f = μ N unless the object is slipping. Also, rolling without slipping links v = ω R: use it to eliminate ω. And be careful that I must be about the centre of mass in KE = ½ M v² + ½ I ω².
+
+### Quick self-check
+QUIZ:
+Q: A solid sphere rolls at speed v. The ratio of its rotational to translational KE is…; 1; 0.5; 0.4; 2.5; 3; k = 2/5 for a solid sphere.
+Q: Which shape reaches the bottom of a ramp first?; hoop; solid disc; solid sphere; they tie; 3; The smallest k means the most energy goes into forward motion.
+Q: A larger solid sphere of the same density is released alongside a small one. Which wins?; the larger; the smaller; they tie; depends on the mass; 3; Mass and radius cancel in v = √(2 g h ÷ (1 + k)).
+Q: Friction on a ball rolling without slipping does…; negative work; positive work; no work; always zero force; 3; The contact point is momentarily at rest.
+
+### Practice
+LVL: Level 1 | Direct
+P: A hoop (M = 2 kg, R = 0.3 m) rolls at 3 m/s. Find its total KE. => ½ × 2 × 9 + ½ × (2 × 0.09) × 100 = 9 + 9 = **18 J**.
+P: What angular speed does a wheel of radius 0.1 m have when rolling at 2 m/s? => **20 rad/s**.
+LVL: Level 2 | Apply
+P: A solid disc rolls from rest down a ramp, dropping 2 m. Find its speed at the bottom. => v = √(2 × 9.8 × 2 ÷ 1.5) = √26.13 = **5.11 m/s**.
+P: A solid sphere rolls down a 30° ramp of length 2.4 m from rest. How long does it take? => a = 3.5 m/s². t = √(2 × 2.4 ÷ 3.5) = **1.17 s**.
+P: A solid disc rolls up a ramp starting at 6 m/s. How high does it go? => ½ M v² (1.5) = M g h, so h = 1.5 × 36 ÷ 19.6 = **2.76 m**. (A sliding block would reach only 1.84 m.)
+P: Compare the bottom speeds of a hoop and a disc released from the same height. => v(hoop) ÷ v(disc) = √(1.5 ÷ 2) = **0.866**, so the disc is about 15% faster.
+P: A 0.5 kg solid sphere rolls off a 0.8 m ramp onto a flat floor. What are its speed, total KE and rotational KE? => v = √(2 × 9.8 × 0.8 ÷ 1.4) = **3.35 m/s**. Total KE = M g h = 0.5 × 9.8 × 0.8 = **3.92 J**. Rotational share = 0.4 ÷ 1.4 × 3.92 = **1.12 J**.
+LVL: Level 3 | Real
+P: A cyclist freewheels down a 10 m high hill from rest. The bike and rider have mass 80 kg, and the two wheels (hoops, 0.7 kg each, radius 0.33 m) hold a small part of it. Ignoring drag, find the speed at the bottom, and by how much the wheels' rotation lowers the speed compared with a sliding block. => Each hoop rolls with KE(rot) = ½ M v² (k = 1), so the two wheels together carry ½ × 1.4 × v² of rotational energy. Energy: 80 × 9.8 × 10 = ½ × 80 v² + ½ × 1.4 v² = 40.7 v², so v² = 7840 ÷ 40.7 = 192.6 and **v = 13.9 m/s**. A sliding block gives √196 = 14.0 m/s, so the wheels' rotation costs only about **0.1 m/s** (they are a tiny share of the mass).
+LVL: Challenge | Identify the mystery object
+P: An unknown uniform round object rolls down a 30° ramp with a measured acceleration of 3.5 m/s². Find its shape factor k and say what it is. Then show that a hoop can never beat a frictionless sliding block on the same ramp. => 3.5 = 9.8 × 0.5 ÷ (1 + k), so 1 + k = 1.4 and **k = 0.4: a solid sphere**. For the second part: a hoop has a = g sin θ ÷ 2, while the block has a = g sin θ. So the block always wins by a factor of 2 in acceleration, and in general any k > 0 loses to k = 0.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Area between curves: ∫ (top − bottom) dx, limits from f = g, split at crossings. Average value: f_avg = (1 ÷ (b − a)) ∫ f dx. RMS of a sine = V₀ ÷ √2. Volume of revolution: π ∫ f² dx (cone π r² h ÷ 3, sphere 4π R³ ÷ 3).
+- Rolling: v = ω R, KE = ½ M v² (1 + k). Down a ramp: v = √(2 g h ÷ (1 + k)), a = g sin θ ÷ (1 + k). Order: sphere, disc, hoop. Static friction does no work.
+
+BN: আজকের সারকথা: দুই বক্ররেখার মাঝের ক্ষেত্রফল ∫(উপর − নিচ) dx; গড় মান (1/(b−a))∫f dx; sine এর RMS = V₀/√2; ঘূর্ণন আয়তন π∫f² dx। গড়ানো: v = ωR, KE = ½Mv²(1 + k); ঢালে v = √(2gh/(1+k)), a = g sinθ/(1+k); স্থির ঘর্ষণ কাজ করে না।
+
+EXIT:
+E: Find the area between y = x and y = x² from 0 to 1.; 0.1667; 0.001; ∫ (x − x²) dx = 1/2 − 1/3 = 1/6.
+E: What is the average value of f(x) = 3x² on [0, 2]?; 4; 0.001; (1/2)(8) = 4.
+E: A solid disc rolls down from a height of 1.5 m. What is its bottom speed in m/s? (g = 9.8); 4.43; 0.01; v = √(2 × 9.8 × 1.5 ÷ 1.5) = √19.6 = 4.43.
+
+**Tomorrow (Saturday):** the Week 8 test, mistake log and challenge.
+
+CHECK: notes

@@ -1,0 +1,219 @@
+@day Week 1 · Day 2 · Tuesday
+# Expanding, factoring and equations. Then: acceleration and graphs
+lead: Expanding and factoring are the same move run forwards and backwards. Once you see that, quadratics, calculus and half of physics get easier. In physics we meet acceleration, and the single most useful picture in mechanics: the velocity-time graph.
+
+BN: আজ দুটো জিনিস: (১) বন্ধনী খোলা (expanding) আর উৎপাদকে ভাঙা (factoring), দুটো আসলে একই কাজ, একটা সামনে আরেকটা উল্টো দিকে। (২) পদার্থবিজ্ঞানে ত্বরণ (acceleration) আর গ্রাফ থেকে তথ্য বের করা।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | From yesterday
+P: Simplify 2⁵ · 2⁻² ÷ 2². => 2³ ÷ 2² = **2**.
+P: Evaluate 49^(1/2) + 8^(1/3). => 7 + 2 = **9**.
+P: Simplify √48. => 16 · 3, so **4√3**.
+P: Convert 54 km/h to m/s. => 54 ÷ 3.6 = **15 m/s**.
+P: You walk 100 m north then 40 m south. State your distance and displacement. => Distance **140 m**, displacement **60 m north**.
+
+CHECK: recall
+
+@section math | 2 · Math: expanding, factoring and solving equations | 55 min
+
+### The distributive law: where everything starts
+a(b + c) = ab + ac. The reason is an area. Draw a rectangle with height a and width (b + c). Split it into two rectangles, one with width b and one with width c. The total area is the sum of the two parts: ab + ac.
+
+EQ: a(b + c) = ab + ac
+
+EX: Expand 3x(2x − 5)
+1. Multiply 3x by each term inside the bracket.
+2. 3x · 2x = 6x² and 3x · (−5) = −15x.
+3. Result: **6x² − 15x**.
+/EX
+
+### Two brackets
+To expand (x + 3)(x + 4), multiply every term in the first bracket by every term in the second. That is four products: x·x, x·4, 3·x, 3·4.
+
+EX: Expand (x + 3)(x + 4)
+1. x · x = x².
+2. x · 4 = 4x.
+3. 3 · x = 3x.
+4. 3 · 4 = 12. Add: x² + 4x + 3x + 12 = **x² + 7x + 12**.
+/EX
+
+BN: দুটো বন্ধনী গুণ করার সময় প্রথম বন্ধনীর প্রতিটা পদকে দ্বিতীয় বন্ধনীর প্রতিটা পদ দিয়ে গুণ করো। এখানে মোট ৪টা গুণ হয়। তারপর একই ধরনের পদ (like terms) যোগ করো।
+
+### Three identities to know by heart
+EQ: (a + b)² = a² + 2ab + b²
+EQ: (a − b)² = a² − 2ab + b²
+EQ: (a + b)(a − b) = a² − b²
+
+**Why the first one is true.** Draw a square with side (a + b). Its area is (a + b)². Cut it into four pieces: an a×a square, a b×b square, and two a×b rectangles. The total area is a² + b² + 2ab.
+
+**Why the third one is true.** Expand it: a·a − a·b + b·a − b·b. The two middle terms cancel, leaving a² − b².
+
+TRAP: (a + b)² is NOT a² + b². The middle term 2ab is the one students forget. Check with a = 3, b = 4: (3 + 4)² = 49, while 3² + 4² = 25. The gap is 2 · 3 · 4 = 24.
+
+### Factoring: running expansion backwards
+**Factoring** means writing an expression as a product. Always try the methods in this order:
+
+1. **Common factor.** 6x² − 15x = 3x(2x − 5).
+2. **Difference of squares.** x² − 49 = (x − 7)(x + 7).
+3. **Perfect squares.** x² + 6x + 9 = (x + 3)².
+4. **Trinomial x² + bx + c.** Find two numbers that multiply to c and add to b.
+
+EX: Factor x² + 7x + 12
+1. We need two numbers that multiply to 12 and add to 7.
+2. Pairs of 12: (1, 12) adds to 13, (2, 6) adds to 8, (3, 4) adds to 7 ✓.
+3. So x² + 7x + 12 = **(x + 3)(x + 4)**. You already expanded this above, so you can check it.
+/EX
+
+EX: Factor x² − 2x − 15
+1. Multiply to −15, add to −2. One number is positive and one negative, and the bigger one is negative.
+2. Try (3, −5): 3 · (−5) = −15 and 3 + (−5) = −2 ✓.
+3. Answer: **(x + 3)(x − 5)**.
+/EX
+
+EX: Factor 2x² + 7x + 3
+1. When the front number is not 1, multiply it by the last number: 2 · 3 = 6. Find two numbers that multiply to 6 and add to 7: 1 and 6.
+2. Split the middle term: 2x² + x + 6x + 3.
+3. Group: x(2x + 1) + 3(2x + 1).
+4. Take out the common bracket: **(2x + 1)(x + 3)**. Expand it to check.
+/EX
+
+BN: ফ্যাক্টর করা মানে গুণফলের রূপে লেখা। কোনটা আগে করবে তার ক্রম: (১) সাধারণ উৎপাদক, (২) a²−b² ধরন, (৩) পূর্ণ বর্গ, (৪) x² + bx + c এর জন্য এমন দুটো সংখ্যা খোঁজো যাদের গুণফল c আর যোগফল b। উত্তর ঠিক কি না তা বের করার সহজ উপায়: আবার গুণ করে (expand) দেখো।
+
+### Solving linear equations: the balance idea
+An equation is a balanced scale. Whatever you do to one side you must do to the other. The goal is to get x alone.
+
+EX: Solve 3(2x − 1) = 4x + 9
+1. Expand the left side: 6x − 3 = 4x + 9.
+2. Move the x terms left: 6x − 4x − 3 = 9, so 2x − 3 = 9.
+3. Add 3 to both sides: 2x = 12.
+4. Divide by 2: **x = 6**. Check: left = 3(11) = 33, right = 24 + 9 = 33 ✓.
+/EX
+
+### Equations with fractions
+Multiply every term by the lowest common denominator (LCD) to clear the fractions.
+
+EX: Solve x/2 + x/3 = 10
+1. The LCD of 2 and 3 is 6. Multiply every term by 6: 3x + 2x = 60.
+2. 5x = 60, so **x = 12**. Check: 6 + 4 = 10 ✓.
+/EX
+
+### A preview: the zero-product rule
+If a product is zero, at least one factor is zero. So if (x − 2)(x − 3) = 0, then x − 2 = 0 or x − 3 = 0, giving x = 2 or x = 3. This is why factoring solves quadratic equations. We will use it heavily in Week 2.
+
+KEY: Factor → set each bracket to zero → solve. That is the whole idea behind solving many quadratics.
+
+BN: যদি দুটো জিনিসের গুণফল শূন্য হয়, তাহলে অন্তত একটা শূন্য। তাই (x−2)(x−3) = 0 হলে x = 2 বা x = 3। এই কারণেই ফ্যাক্টর করা দিয়ে দ্বিঘাত সমীকরণ সমাধান করা যায়। এটা আমরা সামনের সপ্তাহে ভালো করে করব।
+
+### Quick self-check
+QUIZ:
+Q: Expand (x + 5)².; x² + 25; x² + 10x + 25; x² + 5x + 25; 2x + 10; 2; (a + b)² = a² + 2ab + b², so x² + 2·5·x + 25.
+Q: Factor x² − 16.; (x − 4)²; (x − 8)(x + 2); (x − 4)(x + 4); Cannot be factored; 3; This is a difference of squares: a² − b² = (a − b)(a + b), with a = x and b = 4.
+Q: Factor x² + 5x + 6.; (x + 2)(x + 3); (x + 1)(x + 6); (x − 2)(x − 3); (x + 5)(x + 1); 1; 2 × 3 = 6 and 2 + 3 = 5.
+Q: Solve 2x + 7 = 3x − 2.; x = 9; x = 5; x = −9; x = 1; 1; Move terms: 7 + 2 = 3x − 2x, so x = 9.
+Q: If (x − 4)(x + 1) = 0, then x equals…; 4 only; −1 only; 4 or −1; 0; 3; Either factor can be zero: x − 4 = 0 gives 4, and x + 1 = 0 gives −1.
+
+### Practice, easy to hard
+LVL: Level 1 | Expand and factor
+P: Expand 4(x − 3) + 2x. => 4x − 12 + 2x = **6x − 12**.
+P: Expand (x + 2)(x + 6). => x² + 8x + 12. So **x² + 8x + 12**.
+P: Factor x² − 25. => **(x − 5)(x + 5)**.
+P: Factor x² + 9x + 20. => 4 × 5 = 20 and 4 + 5 = 9, so **(x + 4)(x + 5)**.
+P: Factor 5x² − 10x. => **5x(x − 2)**.
+LVL: Level 2 | Equations
+P: Solve 5x − 8 = 2x + 7. => 3x = 15, so **x = 5**.
+P: Solve 4(x − 1) = 2(x + 5). => 4x − 4 = 2x + 10, so 2x = 14 and **x = 7**.
+P: Solve (x + 3)/4 = (x − 1)/2. => Multiply by 4: x + 3 = 2(x − 1) = 2x − 2, so **x = 5**. Check: 8/4 = 2 and 4/2 = 2 ✓.
+P: Factor x² − 4x − 21 and use it to solve x² − 4x − 21 = 0. => Numbers that multiply to −21 and add to −4: 3 and −7. So **(x + 3)(x − 7)**, giving **x = −3 or x = 7**.
+P: Expand and simplify (x + 4)² − (x − 4)². => (x² + 8x + 16) − (x² − 8x + 16) = **16x**.
+LVL: Level 3 | Use it
+P: Factor 3x² + 10x + 8. => 3 · 8 = 24 needs two numbers with product 24 and sum 10: 4 and 6. Split: 3x² + 4x + 6x + 8 = x(3x + 4) + 2(3x + 4) = **(3x + 4)(x + 2)**.
+P: A rectangle's length is 3 cm more than its width. Its area is 54 cm². Find the width. => w(w + 3) = 54, so w² + 3w − 54 = 0. Numbers with product −54 and sum 3: 9 and −6. (w + 9)(w − 6) = 0, so **w = 6 cm** (the negative root is impossible for a length).
+P: Use the identity a² − b² = (a − b)(a + b) to compute 101² − 99² without a calculator. => (101 − 99)(101 + 99) = 2 × 200 = **400**.
+LVL: Challenge | Look for the pattern
+P: Compute 51² − 49² and then 1001² − 999² quickly. Then explain the pattern in one sentence. => 51² − 49² = 2 × 100 = 200. 1001² − 999² = 2 × 2000 = 4000. In general (n+1)² − (n−1)² = **4n**, because a² − b² = (a − b)(a + b) = 2 × 2n.
+
+CHECK: math
+
+@section physics | 3 · Physics: acceleration and motion graphs | 35 min
+
+### Acceleration: how fast velocity changes
+Velocity can change because you speed up, slow down or turn. **Acceleration** measures how fast velocity changes. In a straight line:
+
+EQ: a = (v − u) ÷ t     (u = starting velocity, v = final velocity, t = time taken)
+
+The unit is (m/s) ÷ s = **m/s²**. An acceleration of 2 m/s² means "every second, the velocity grows by 2 m/s".
+
+EX: A sprinter
+1. A sprinter goes from rest (u = 0) to 10 m/s in 2.5 s.
+2. a = (10 − 0) ÷ 2.5 = **4 m/s²**.
+3. Meaning: each second her velocity increases by 4 m/s.
+/EX
+
+EX: A braking car
+1. A car slows from 25 m/s to 5 m/s in 4 s.
+2. a = (5 − 25) ÷ 4 = **−5 m/s²**.
+3. The negative sign means the acceleration points opposite to the motion. Slowing down is a negative acceleration when forward is positive.
+/EX
+
+BN: ত্বরণ (acceleration) মানে প্রতি সেকেন্ডে বেগ কতটা বদলায়। a = (v − u) ÷ t। একক m/s²। ঋণাত্মক চিহ্ন মানে গাড়ি ধীর হচ্ছে (যখন সামনের দিক ধনাত্মক ধরেছ)। "ত্বরণ ঋণাত্মক" মানে "গাড়ি পিছনে যাচ্ছে" এমন নয়।
+
+### Position-time graphs (x–t)
+Put time on the horizontal axis and position on the vertical axis. The **slope** (rise ÷ run) of the line is the velocity. A flat line means standing still. A steeper line means faster. A line going down means moving backwards.
+
+GRAPH: A walk: out, rest, back | time (s) | x (m) | 0,0 4,8 8,8 12,0 | The slope on the first segment is 8 ÷ 4 = +2 m/s. The flat part has slope 0, so velocity 0. On the last segment the slope is (0 − 8) ÷ 4 = −2 m/s: coming back.
+
+### Velocity-time graphs (v–t): the most useful picture in mechanics
+Now put velocity on the vertical axis. Two facts to remember forever:
+
+KEY: On a v–t graph, the **slope** is the acceleration, and the **area under the line** is the displacement.
+
+**Why the area is displacement.** For a constant velocity, distance = v × t, which is exactly the area of a rectangle with height v and width t. For a changing velocity, split the time into tiny strips: each strip is a tiny rectangle, and the total area is the total displacement. You will do this properly with integration in Week 8.
+
+GRAPH: A car's journey | time (s) | v (m/s) | 0,0 5,10 10,10 14,0 | The car accelerates for 5 s, cruises for 5 s, then brakes for 4 s.
+
+EX: Read the graph
+1. Acceleration (0 to 5 s): slope = (10 − 0) ÷ 5 = **2 m/s²**.
+2. Cruising (5 to 10 s): slope = 0, so **a = 0**.
+3. Braking (10 to 14 s): slope = (0 − 10) ÷ 4 = **−2.5 m/s²**.
+4. Distance = area. Triangle ½ × 5 × 10 = 25 m. Rectangle 5 × 10 = 50 m. Triangle ½ × 4 × 10 = 20 m. Total = **95 m**.
+/EX
+
+BN: v–t গ্রাফের দুটো নিয়ম মনে রাখো: ঢাল (slope) = ত্বরণ, আর রেখার নিচের ক্ষেত্রফল (area) = সরণ। রেক্ট্যাঙ্গলের ক্ষেত্রফল = উচ্চতা × প্রস্থ = বেগ × সময় = দূরত্ব। এই কারণেই ক্ষেত্রফল সরণ। ত্রিভুজ হলে ½ × ভূমি × উচ্চতা।
+
+### Quick self-check
+QUIZ:
+Q: A bike goes from 2 m/s to 8 m/s in 3 s. Its acceleration is…; 2 m/s²; 6 m/s²; 3 m/s²; 18 m/s²; 1; a = (8 − 2) ÷ 3 = 2 m/s².
+Q: On an x–t graph a horizontal line means…; constant acceleration; constant velocity, not zero; the object is at rest; the object speeds up; 3; Slope is velocity. A flat line has slope 0, so the object is at rest.
+Q: On a v–t graph the area under the line gives…; acceleration; displacement; force; time; 2; Velocity × time = displacement.
+Q: A car with velocity 20 m/s has a = −4 m/s². How long until it stops?; 4 s; 5 s; 80 s; 16 s; 2; Time = change in velocity ÷ a = (0 − 20) ÷ (−4) = 5 s.
+
+### Practice
+LVL: Level 1 | Acceleration
+P: A train speeds up from 10 m/s to 30 m/s in 8 s. Find a. => (30 − 10) ÷ 8 = **2.5 m/s²**.
+P: A ball rolls at 6 m/s and stops after 3 s. Find a. => (0 − 6) ÷ 3 = **−2 m/s²**.
+P: A scooter has a = 1.5 m/s² from rest. What is its velocity after 6 s? => v = a × t = **9 m/s**.
+LVL: Level 2 | Read the graph
+P: A v–t graph goes in a straight line from (0 s, 4 m/s) to (6 s, 16 m/s). Find the acceleration and the distance travelled. => a = (16 − 4) ÷ 6 = **2 m/s²**. Distance = area of a trapezoid = ½ × (4 + 16) × 6 = **60 m**.
+P: On an x–t graph an object moves from 0 m to 30 m in 10 s at constant velocity, rests for 5 s, then returns to 0 m in 15 s. Find the velocity in each part. => Out: 30 ÷ 10 = **+3 m/s**. Rest: **0**. Return: −30 ÷ 15 = **−2 m/s**.
+LVL: Challenge | An elevator
+P: An elevator starts from rest and speeds up uniformly for 4 s to 3 m/s, moves at 3 m/s for 10 s, then slows uniformly to rest in 3 s. Sketch the v–t graph and find the total height travelled. => Areas: ½ × 4 × 3 = 6 m, then 10 × 3 = 30 m, then ½ × 3 × 3 = 4.5 m. Total **40.5 m**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Expanding: multiply every term by every term. (a ± b)² = a² ± 2ab + b². (a + b)(a − b) = a² − b².
+- Factoring order: common factor → difference of squares → x² + bx + c → grouping.
+- Equations: do the same thing to both sides. Clear fractions with the LCD. Check your answer.
+- Zero-product rule: product = 0 means a factor = 0.
+- a = (v − u) ÷ t in m/s². On a v–t graph: slope = acceleration, area = displacement.
+
+BN: আজকের সারকথা: বন্ধনী খোলা আর ভাঙা একই কাজের দুই দিক। তিনটা identity মুখস্থ রাখো। সমীকরণ মানে দাঁড়িপাল্লা, দুই পাশে একই কাজ করো। ত্বরণ = বেগের পরিবর্তন ÷ সময়। v–t গ্রাফে ঢাল = ত্বরণ আর ক্ষেত্রফল = সরণ।
+
+**Tomorrow:** rearranging formulas, word problems into equations, and two equations at once. In physics, the first two equations of motion, built from today's v–t graph.
+
+CHECK: notes

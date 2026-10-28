@@ -1,0 +1,168 @@
+@day Week 14 · Day 4 · Thursday
+# Cramer's rule and ill-conditioned systems. Then: the kinetic theory of gases
+lead: Cramer's rule solves a system with determinants alone and shows exactly where trouble comes from: a small determinant. Some systems are so sensitive that a tiny change in the data throws the answer far away, and a good engineer must recognise them. In physics, you explain pressure and temperature from the motion of molecules: the kinetic theory, which gives the speed of air molecules (about 500 m/s) and why the Earth keeps its nitrogen but lost its hydrogen.
+
+BN: ক্র্যামারের নিয়ম শুধু নির্ণায়ক দিয়ে সমীকরণ জোট সমাধান করে এবং ঠিক দেখায় সমস্যা কোথা থেকে আসে: ছোট নির্ণায়ক। কিছু জোট এত স্পর্শকাতর যে তথ্যে সামান্য বদল হলে উত্তর অনেক দূরে চলে যায়, আর ভালো প্রকৌশলীকে সেটা চিনতে হবে। পদার্থবিজ্ঞানে অণুর গতি থেকে চাপ ও তাপমাত্রা ব্যাখ্যা করবে: গতীয় তত্ত্ব, যা বাতাসের অণুর গতি (প্রায় 500 m/s) দেয় এবং বলে কেন পৃথিবী নাইট্রোজেন ধরে রেখেছে কিন্তু হাইড্রোজেন হারিয়েছে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: What are the three possible numbers of solutions of a linear system? => **None, exactly one, or infinitely many.**
+P: Find det [[2, 1], [1, 3]]. => **5**.
+P: What is the partial pressure of oxygen in air at 1 atm (approximately)? => **0.21 atm ≈ 21 kPa**.
+P: Write the ideal gas law with N and k. => **P V = N k T**.
+P: Which gas effuses faster, helium or nitrogen? => **Helium** (by a factor √7 = 2.65).
+
+CHECK: recall
+
+@section math | 2 · Math: Cramer's rule and conditioning | 55 min
+
+### Cramer's rule
+For a square system A x = b with det A ≠ 0, each unknown is a ratio of determinants:
+
+EQ: x_j = det (A_j) ÷ det (A)     where A_j is A with column j replaced by b
+
+For two unknowns, with A = [[a, b], [c, d]] and right side (e, f): x = (e d − b f) ÷ (a d − b c) and y = (a f − e c) ÷ (a d − b c).
+
+BN: ক্র্যামারের নিয়ম: x_j = det(A_j) / det(A), যেখানে A_j হলো A এর j-তম স্তম্ভের জায়গায় b বসানো ম্যাট্রিক্স। det A = 0 হলে এটা চলে না। ছোট জোটে সুন্দর, কিন্তু বড় জোটে খুব ব্যয়বহুল, তাই কম্পিউটারে গাউসীয় অপসারণই ব্যবহার হয়।
+
+EX: Cramer's rule at work
+1. **2 × 2:** 2x + y = 7 and x + 3y = 11. det A = 6 − 1 = 5. x = (7 × 3 − 1 × 11) ÷ 5 = 10 ÷ 5 = **2**. y = (2 × 11 − 7 × 1) ÷ 5 = 15 ÷ 5 = **3**.
+2. **3 × 3:** x + y + z = 6, 2x − y + z = 6, x + 2y − z = 1. det A = 1 (1 − 2) − 1 (−2 − 1) + 1 (4 + 1) = −1 + 3 + 5 = **7**.
+3. Replace column 1 by b = (6, 6, 1): rows (6, 1, 1), (6, −1, 1), (1, 2, −1). det = 6 (1 − 2) − 1 (−6 − 1) + 1 (12 + 1) = −6 + 7 + 13 = 14. So **x = 14 ÷ 7 = 2**.
+4. Column 2: rows (1, 6, 1), (2, 6, 1), (1, 1, −1). det = 1 (−6 − 1) − 6 (−2 − 1) + 1 (2 − 6) = −7 + 18 − 4 = 7, so **y = 1**. Column 3: rows (1, 1, 6), (2, −1, 6), (1, 2, 1): det = 1 (−1 − 12) − 1 (2 − 6) + 6 (4 + 1) = −13 + 4 + 30 = 21, so **z = 3**.
+5. The solution is **(2, 1, 3)**, matching Monday's elimination.
+/EX
+
+### When a tiny error ruins everything: conditioning
+If det A is **small compared with the entries**, the lines (planes) are nearly parallel, and the crossing point moves a lot when the data change a little. Such a system is **ill-conditioned**.
+
+EX: Nearly parallel lines
+1. x + y = 2 and x + 1.0001 y = 2.0001. Subtract: 0.0001 y = 0.0001, so y = 1 and **x = 1**. Here det = 1.0001 − 1 = 0.0001.
+2. Change the second right-hand side by 0.0001 (a relative change of 0.005%) to 2.0002: 0.0001 y = 0.0002, so **y = 2** and **x = 0**. The answer moved from (1, 1) to (0, 2): the error was amplified **10,000 times**.
+3. The wrong answer (0, 2) nearly satisfies the equations: the second gives 0 + 2.0002 = 2.0002, a **residual** of only 0.0001. A small residual does **not** guarantee a small error in x.
+4. **Condition number** κ = ‖A‖ ‖A⁻¹‖ (here using the largest row sum). A = [[1, 1], [1, 1.0001]] has ‖A‖ = 2.0001. A⁻¹ = 10⁴ [[1.0001, −1], [−1, 1]] has ‖A⁻¹‖ = 20,001. So **κ = 2.0001 × 20,001 ≈ 40,004**. The relative error in the solution can be up to κ times the relative error in the data, so about **log₁₀ 40,004 = 4.6 digits are lost**.
+/EX
+
+LAB: Nearly parallel lines | Line 1 is x + y = 2. Line 2 is x + (1 + ε) y = 2 + ε + δ. With δ = 0 the crossing is (1, 1). Choose the slope difference ε and a small error δ in the data: the crossing moves by δ ÷ ε. The graph shows both lines. Make ε small and watch the same error δ throw the crossing far away. | e:Slope difference ε:0.01:0.5:0.01:0.5 ;; dl:Data error δ:0:0.05:0.005:0.02 | 1-dl/e:x of the crossing:3 ;; 1+dl/e:y of the crossing:3 ;; 1/e:Amplification of the error (1 ÷ ε):1 | 2-x ;; (2+e+dl-x)/(1+e) | -1,3 | 0,4
+
+BN: ছোট det মানে রেখাগুলো প্রায় সমান্তরাল, তাই তথ্যে সামান্য ভুলে ছেদবিন্দু অনেক সরে যায়: এটাই ill-conditioned। কন্ডিশন সংখ্যা κ = ‖A‖‖A⁻¹‖: তথ্যের আপেক্ষিক ভুল κ গুণ বাড়তে পারে, log₁₀ κ সংখ্যক অঙ্ক হারায়। ছোট residual মানে ছোট ভুল নয়।
+
+TRAP: Cramer's rule needs **det A ≠ 0**. Do not use it for large systems: computing n + 1 determinants of size n by expansion costs about n! operations, while elimination costs n³ ÷ 3. And do not trust an answer just because the residual is small: always ask about the **condition number**.
+
+### Quick self-check
+QUIZ:
+Q: In Cramer's rule, x_j equals…; det A ÷ det A_j; det A_j ÷ det A; det A × det A_j; det A_j − det A; 2; A_j has column j replaced by b.
+Q: A system with det A very close to 0 is…; singular; ill-conditioned; easy to solve; inconsistent; 2; The lines are nearly parallel.
+Q: A large condition number means…; the solution is exact; errors in the data are amplified; the matrix is the identity; the solution is zero; 2; Errors in b are amplified.
+Q: det of [[1, 1], [1, 1.01]] is…; 0.01; 1; 2.01; 0; 1; 1.01 − 1.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Solve 3x + 2y = 12, x − y = 1 by Cramer's rule. => det = −3 − 2 = −5. x = (12 × (−1) − 2 × 1) ÷ (−5) = **2.8**, y = (3 × 1 − 12 × 1) ÷ (−5) = **1.8**. Check: 8.4 + 3.6 = 12 ✓, 2.8 − 1.8 = 1 ✓.
+P: Find det [[1, 1], [1, 1.01]]. => **0.01**.
+P: Can Cramer's rule solve x + 2y = 3, 2x + 4y = 6? => det = 0, so **no** (infinitely many solutions).
+LVL: Level 2 | Apply
+P: Solve x + y + z = 3, x − y + 2z = 5, 2x + y − z = 0 by Cramer's rule. => det A = 1 (1 − 2) − 1 (−1 − 4) + 1 (1 + 2) = 7. det A_x (b = (3, 5, 0) in column 1) = 3 (1 − 2) − 1 (−5 − 0) + 1 (5 − 0) = 7, **x = 1**. det A_y = 1 (−5 − 0) − 3 (−1 − 4) + 1 (0 − 10) = 0, **y = 0**. det A_z = 1 (0 − 5) − 1 (0 − 10) + 3 (1 + 2) = 14, **z = 2**.
+P: For x + y = 2, x + 1.01 y = 2.01 the solution is (1, 1). Find the solution when the second right side changes to 2.02. => 0.01 y = 0.02, **y = 2**, **x = 0**. A change of 0.01 in the data moved the answer by 1: amplification **100**.
+P: For [[1, 2], [3, 6.001]], find the determinant and explain the conditioning. => det = 6.001 − 6 = **0.001**. The entries are of size 1 to 6, so the determinant is tiny by comparison and the matrix is **ill-conditioned** (the inverse has entries of size about 6000).
+P: For which k is the system x + k y = 1, k x + y = 2 close to singular? => det = 1 − k². It is close to zero near **k = 1 or k = −1**.
+P: Solve 2x + y = 7, x + 3y = 11 by elimination and by Cramer's rule, and compare. => Both give **(2, 3)**. Cramer needed three determinants of size 2.
+LVL: Level 3 | Real
+P: Two lines of sight measure the position of a ship: x + y = 4 and x + 1.02 y = 4.02 (the true position is (3, 1)). A measurement error changes the second reading to 4.03. Find the computed position and the error. => 0.02 y = 0.03, **y = 1.5**, **x = 2.5**. An error of 0.01 in the data produced an error of **0.5** in the position (50 times larger), because the two directions are nearly the same. (This is the "dilution of precision" in GPS.)
+LVL: Challenge | The condition number and the bound
+P: For A = [[1, 1], [1, 1.0001]], b = (2, 2.0001) and the perturbation Δb = (0, 0.0001), check that the actual relative change in x is within the bound κ × (relative change in b), using the largest-entry norm for vectors and the row-sum norm for matrices. => x = (1, 1), ‖x‖ = 1. The perturbed solution is (0, 2), so Δx = (−1, 1) and ‖Δx‖ = 1. Relative change in x: **1**. Relative change in b: 0.0001 ÷ 2.0001 = 5 × 10⁻⁵. Bound: κ × 5 × 10⁻⁵ = 40,004 × 5 × 10⁻⁵ ≈ **2.0**. Since 1 ≤ 2.0, the bound holds, and it is nearly sharp (within a factor 2).
+
+CHECK: math
+
+@section physics | 3 · Physics: kinetic theory | 35 min
+
+### Pressure from molecular collisions
+Picture N molecules of mass m in a box of volume V. A molecule bouncing off a wall changes its momentum by 2 m v_x. Averaging over all molecules and directions (⟨v_x²⟩ = ⟨v²⟩ ÷ 3):
+
+EQ: P = (1 ÷ 3)(N ÷ V) m ⟨v²⟩
+
+Compare with P V = N k T. The average translational kinetic energy per molecule is therefore
+
+EQ: ½ m ⟨v²⟩ = (3 ÷ 2) k T     v_rms = √(3 k T ÷ m) = √(3 R T ÷ M)
+
+**Temperature is a measure of the average kinetic energy of molecules.** (At 300 K every ideal gas molecule has the same average kinetic energy, 6.2 × 10⁻²¹ J = 0.039 eV.)
+
+BN: গতীয় তত্ত্ব: দেয়ালে অণুর ধাক্কা থেকে চাপ আসে: P = (1/3)(N/V) m⟨v²⟩। PV = NkT এর সাথে মিলিয়ে গড় গতিশক্তি ½m⟨v²⟩ = (3/2)kT। তাপমাত্রা অণুর গড় গতিশক্তির পরিমাপ। v_rms = √(3RT/M): হালকা অণু দ্রুত, ভারী অণু ধীর।
+
+EX: Molecular speeds at 300 K
+1. **Nitrogen** (M = 0.028 kg/mol): v_rms = √(3 × 8.314 × 300 ÷ 0.028) = **517 m/s**.
+2. **Oxygen** (0.032): **484 m/s**. **Helium** (0.004): **1368 m/s**. **Hydrogen** (0.002): **1934 m/s**.
+3. Air molecules move faster than a rifle bullet, but they collide so often that they do not get far: the **mean free path** λ = k T ÷ (√2 π d² P) with d = 3.7 × 10⁻¹⁰ m gives λ = **66 nm**, so each molecule has about 500 ÷ 6.6 × 10⁻⁸ = **7.6 × 10⁹ collisions per second**.
+4. **Checking the formula with air:** N ÷ V = 2.5 × 10²⁵ m⁻³, m = 29 × 1.66 × 10⁻²⁷ = 4.81 × 10⁻²⁶ kg, v_rms² = 2.52 × 10⁵ m²/s². P = (1 ÷ 3) × 2.5 × 10²⁵ × 4.81 × 10⁻²⁶ × 2.52 × 10⁵ = **1.01 × 10⁵ Pa** ✓.
+/EX
+
+LAB: Molecular speed | Choose the temperature and the molar mass of the gas. The number gives the rms speed v = √(3 R T ÷ M) and the mean kinetic energy per molecule. The graph shows the rms speed against temperature for your gas. Try 2 (hydrogen), 4 (helium), 28 (nitrogen), 44 (carbon dioxide). | T:Temperature (K):100:1000:10:300 ;; M:Molar mass (g/mol):2:44:1:28 | sqrt(3*8.314*1000*T/M):rms speed (m/s):0 ;; 0.020715*T:Mean kinetic energy (10⁻²¹ J):3 | sqrt(3*8.314*1000*x/M) | 100,1000 | 0,3600
+
+### Equipartition and internal energy
+Each independent way a molecule can store energy (each **degree of freedom**) holds an average of ½ k T. A monatomic gas (He, Ar) has 3 (translation only). A diatomic gas (N₂, O₂) at room temperature has 5 (3 translations and 2 rotations).
+
+EQ: U = (f ÷ 2) n R T     C_V = (f ÷ 2) R     (3/2 R = 12.47 J/(mol·K), 5/2 R = 20.79 J/(mol·K))
+
+EX: Energy in gases
+1. **One mole of helium** at 300 K: U = 1.5 × 8.314 × 300 = **3741 J**. One mole of nitrogen: U = 2.5 × 8.314 × 300 = **6236 J**.
+2. **Heating at constant volume:** 2 mol of helium from 300 K to 400 K needs Q = 2 × 12.47 × 100 = **2494 J**. For nitrogen: 2 × 20.79 × 100 = **4157 J**: more places to put the energy, so more energy is needed per kelvin.
+3. 3 mol of argon heated by 50 K at constant volume: 3 × 12.47 × 50 = **1871 J**.
+/EX
+
+### The speed distribution and the escape of gases
+Molecules do not all have the same speed. The **Maxwell–Boltzmann distribution** has a most probable speed v_p = √(2 R T ÷ M), a mean speed √(8 R T ÷ (π M)) and an rms speed √(3 R T ÷ M), in the ratio **1 : 1.128 : 1.225**. For nitrogen at 300 K these are 422, 476 and 517 m/s.
+
+EX: Why Earth has no hydrogen
+1. The escape speed from the Earth is **11.2 km/s**. A gas is kept for billions of years only if v_rms is below about **one sixth** of the escape speed (so the fast tail of the distribution is negligible).
+2. In the upper atmosphere (T about 1000 K): hydrogen H₂ has v_rms = √(3 × 8.314 × 1000 ÷ 0.002) = **3531 m/s**, which is 32% of 11.2 km/s: it escapes. Helium: **2497 m/s** (22%): it escapes slowly. Oxygen: **883 m/s** (8%): it stays.
+3. The **Moon** has an escape speed of only 2.4 km/s. At 400 K, nitrogen has v_rms = **597 m/s**, which is 25%: the Moon cannot hold an atmosphere.
+/EX
+
+LAB: Can a planet keep this gas? | Choose the temperature of the upper atmosphere, the molar mass of the gas and the escape speed of the planet. The number shows v_rms divided by the escape speed. If it is below about 0.17 (one sixth), the gas is kept. Earth: 11.2 km/s. Mars: 5.0. Moon: 2.4. | T:Temperature (K):100:1000:10:1000 ;; M:Molar mass (g/mol):2:44:1:2 ;; ve:Escape speed (km/s):2:12:0.2:11.2 | sqrt(3*8.314*1000*T/M)/(ve*1000):v_rms ÷ escape speed:3 ;; sqrt(3*8.314*1000*T/M):rms speed (m/s):0 | - | 0,1 | 0,1
+
+TRAP: Use **kelvin** and **kilograms per mole** (0.028, not 28) in v_rms = √(3 R T ÷ M). The rms speed is not the average speed: they differ by 8.5%. And do not say "all molecules have the same speed": it is a distribution.
+
+### Quick self-check
+QUIZ:
+Q: If the absolute temperature of a gas doubles, the rms speed of its molecules multiplies by…; 2; √2; 4; 1; 2; v ∝ √T.
+Q: At the same temperature, a hydrogen molecule moves on average…; slower than oxygen; faster than oxygen; at the same speed as oxygen; faster only at high T; 2; Lighter molecules have a higher speed.
+Q: The internal energy of 1 mol of monatomic ideal gas at temperature T is…; (1/2) R T; (3/2) R T; (5/2) R T; 3 R T; 2; Three degrees of freedom.
+Q: The average kinetic energy per molecule at 300 K is about…; 6 × 10⁻²¹ J; 6 × 10⁻¹⁹ J; 6 × 10⁻²⁷ J; 0.6 J; 1; (3/2) k T.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the average kinetic energy per molecule at 300 K. => 1.5 × 1.381 × 10⁻²³ × 300 = **6.21 × 10⁻²¹ J**.
+P: Find v_rms for nitrogen at 300 K. => **517 m/s**.
+LVL: Level 2 | Apply
+P: Find v_rms for oxygen at 400 K. => √(3 × 8.314 × 400 ÷ 0.032) = **558 m/s**.
+P: At what temperature does the helium rms speed equal 1000 m/s? => T = v² M ÷ (3 R) = 10⁶ × 0.004 ÷ (3 × 8.314) = **160 K**.
+P: Find the internal energy of 2 mol of nitrogen at 300 K. => 2.5 × 2 × 8.314 × 300 = **12,471 J**.
+P: Find the ratio of the rms speeds of helium and nitrogen at the same temperature. => √(28 ÷ 4) = **2.65**.
+P: Check P = (1/3) ρ ⟨v²⟩ for air at 1.2 kg/m³ and v_rms = 500 m/s. => (1/3) × 1.2 × 250,000 = **100,000 Pa** ✓.
+P: Find the mean free path at 1/1000 atm. => λ ∝ 1 ÷ P, so λ = 66 nm × 1000 = **66 μm**.
+LVL: Level 3 | Real
+P: Why does a helium balloon deflate faster than an air balloon, in terms of speed? => Helium atoms move 2.65 times faster than nitrogen molecules at the same temperature and are much smaller, so they leak through the pores of the rubber far more easily.
+LVL: Challenge | Derive P = (1/3)(N/V) m⟨v²⟩
+P: Derive the pressure from a molecule's bounces in a cubic box of side L, and check that it agrees with P V = N k T. => A molecule with velocity component v_x hits a wall perpendicular to x and bounces back, with momentum change 2 m v_x. It returns to the same wall every 2L ÷ v_x. So the average force from one molecule is 2 m v_x ÷ (2L ÷ v_x) = m v_x² ÷ L. For N molecules, F = N m ⟨v_x²⟩ ÷ L. Since ⟨v_x²⟩ = ⟨v²⟩ ÷ 3, F = N m ⟨v²⟩ ÷ (3L). The pressure is F ÷ L² = **N m ⟨v²⟩ ÷ (3 L³) = (1/3)(N/V) m ⟨v²⟩**. Then P V = (1/3) N m ⟨v²⟩ = (2/3) N (½ m ⟨v²⟩). Comparing with P V = N k T gives **½ m ⟨v²⟩ = (3/2) k T** ✓.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Cramer: x_j = det A_j ÷ det A (det A ≠ 0). Ill-conditioning: det small relative to the entries, nearly parallel lines, κ = ‖A‖ ‖A⁻¹‖ amplifies data errors, small residual does not mean small error.
+- Kinetic theory: P = (1/3)(N/V) m ⟨v²⟩, ½ m ⟨v²⟩ = (3/2) k T, v_rms = √(3RT ÷ M), N₂ at 300 K: 517 m/s. Equipartition U = (f/2) n R T. Planets keep gases with v_rms below about 1/6 of the escape speed.
+
+BN: আজকের সারকথা: ক্র্যামার x_j = det A_j / det A; ছোট det = ill-conditioned, κ = ‖A‖‖A⁻¹‖, ছোট residual মানে ছোট ভুল নয়। গতীয় তত্ত্ব: P = (1/3)(N/V)m⟨v²⟩, গড় গতিশক্তি (3/2)kT, v_rms = √(3RT/M); সমবিভাজন U = (f/2)nRT; v_rms < v_পলায়ন/6 হলে গ্রহ গ্যাস ধরে রাখে।
+
+EXIT:
+E: Solve 3x + 2y = 12 and x − y = 1 by Cramer's rule. What is x?; 2.8; 0.001; det = −5 and x = (12 × (−1) − 2 × 1) ÷ (−5) = 2.8.
+E: What is the rms speed in m/s of nitrogen (M = 0.028 kg/mol) at 300 K?; 517; 2; √(3 × 8.314 × 300 ÷ 0.028) = 516.9.
+E: What is the internal energy in joules of 1 mol of helium at 300 K?; 3741; 3; (3/2) × 8.314 × 300 = 3741.
+
+**Tomorrow:** iterative methods for large systems, and thermodynamic processes: isothermal, adiabatic, work done by a gas and the first law.
+
+CHECK: notes

@@ -1,0 +1,189 @@
+@day Week 9 · Day 4 · Thursday
+# Improper integrals. Then: damped oscillations and shock absorbers
+lead: What is the area under a curve that goes on forever? Sometimes it is finite, which sounds impossible but is true, and sometimes it is infinite. Improper integrals settle which. They give you the energy needed to escape the Earth, the total charge that flows through a decaying current, and the foundations of probability and Laplace transforms. In physics, you add friction to the oscillator: damping, the reason a car does not bounce for ever.
+
+BN: যে বক্ররেখা অনন্ত পর্যন্ত গেছে তার নিচের ক্ষেত্রফল কত? কখনো সসীম (শুনতে অসম্ভব, কিন্তু সত্যি), কখনো অসীম। অপ্রকৃত সমাকলন (improper integral) এটা ঠিক করে। এর সাহায্যে পাওয়া যায় পৃথিবী ছেড়ে পালানোর শক্তি, ক্ষয়িষ্ণু প্রবাহের মোট চার্জ, আর সম্ভাব্যতা ও ল্যাপলাস রূপান্তরের ভিত্তি। পদার্থবিজ্ঞানে দোলকে ঘর্ষণ যোগ হবে: অবমন্দন (damping), যার কারণে গাড়ি চিরকাল লাফায় না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Decompose 1 ÷ (x (x + 1)). => **1/x − 1/(x + 1)**.
+P: Find ∫ 1 ÷ (x² − 1) dx. => **½ ln abs((x − 1) ÷ (x + 1)) + C**.
+P: By what factor does T change if L is multiplied by 9? => **3**.
+P: Find T for a 2.45 m pendulum on Earth (g = 9.8). => 2π √(0.25) = **3.14 s**.
+P: Find ∫ x e^(−x) dx. => **−e^(−x)(x + 1) + C**.
+
+CHECK: recall
+
+@section math | 2 · Math: improper integrals | 55 min
+
+### Two kinds of "improper"
+An integral is **improper** if (1) a limit is infinity, or (2) the function blows up inside the interval. We handle both with a limit:
+
+EQ: ∫ₐ^∞ f(x) dx = lim (t → ∞) ∫ₐᵗ f(x) dx
+
+If the limit is a finite number, the integral **converges** to it. Otherwise it **diverges**.
+
+BN: অপ্রকৃত সমাকলন দুই ধরনের: (১) সীমা অনন্ত, (২) ফাংশন ব্যবধানের ভেতরে অসীম হয়ে যায়। দুটোই লিমিট দিয়ে সামলাই: ∫ₐ^∞ f dx = lim(t → ∞) ∫ₐᵗ f dx। লিমিট সসীম হলে সমাকলন অভিসারী (converges), না হলে অপসারী (diverges)।
+
+EX: Infinite upper limit
+1. ∫₁^∞ 1 ÷ x² dx = lim [−1/x] from 1 to t = lim (1 − 1/t) = **1**. The infinite region has finite area 1.
+2. ∫₁^∞ 1 ÷ x dx = lim [ln x] from 1 to t = lim ln t = **∞**. Diverges, but only barely: 1/x falls too slowly.
+3. ∫₀^∞ e^(−x) dx = lim [−e^(−x)] from 0 to t = **1**.
+4. ∫₀^∞ x e^(−x) dx: by parts, [−e^(−x)(x + 1)] from 0 to ∞ = 0 − (−1) = **1** (since t e^(−t) → 0).
+5. ∫_(−∞)^∞ 1 ÷ (1 + x²) dx = [arctan x] = π/2 − (−π/2) = **π**.
+/EX
+
+EX: The function blows up
+1. ∫₀¹ 1 ÷ √x dx = lim (s → 0⁺) [2√x] from s to 1 = **2**. Converges.
+2. ∫₀¹ 1 ÷ x dx = lim (s → 0⁺) [ln x] from s to 1 = 0 − ln s = **∞**. Diverges.
+3. ∫₀¹ ln x dx = [x ln x − x] from 0 to 1 = −1 − 0 = **−1** (since x ln x → 0 by L'Hôpital).
+/EX
+
+### The p-test
+The family 1 ÷ xᵖ is the yardstick for all comparisons:
+
+EQ: ∫₁^∞ 1 ÷ xᵖ dx = 1 ÷ (p − 1)  if p > 1,  and diverges if p ≤ 1
+
+And ∫₀¹ 1 ÷ xᵖ dx converges (to 1 ÷ (1 − p)) if p < 1 and diverges if p ≥ 1. The boundary is p = 1 in both cases.
+
+LAB: How fast must the tail fall? | The area under 1 ÷ xᵖ from 1 to b. For p > 1 the area levels off at 1 ÷ (p − 1) as b grows. For p < 1 it grows without limit. The second number shows the final total area, or 0 to mean that it diverges. | p:Power p:0.5:2.9:0.3:2 ;; b:Upper limit b:1:100:1:10 | (1-b^(1-p))/(p-1):Area from 1 to b:3 ;; (p>1)*(1/max(p-1,0.001)):Total area to infinity (0 means it diverges):3 | x^(-p) | 1,10 | 0,1
+
+### Comparison and standard results
+- If 0 ≤ f ≤ g and ∫ g converges, then ∫ f converges. If ∫ f diverges, then ∫ g diverges.
+- ∫₀^∞ e^(−x²) dx = √π ÷ 2 (the Gaussian integral, central to statistics).
+- ∫₀^∞ xⁿ e^(−x) dx = n! for whole n (the gamma function): n = 0 gives 1, n = 1 gives 1, n = 2 gives 2.
+
+EX: Comparison in action
+1. ∫₁^∞ 1 ÷ (x² + 1) dx: since 1 ÷ (x² + 1) ≤ 1 ÷ x² and ∫₁^∞ 1 ÷ x² converges, this converges (to π/4 ≈ 0.785).
+2. ∫₂^∞ 1 ÷ (x² − 1) dx = [½ ln((x − 1) ÷ (x + 1))] = 0 − ½ ln(1/3) = **½ ln 3 ≈ 0.549**.
+3. ∫₁^∞ (ln x) ÷ x² dx: by parts, [−(ln x) ÷ x − 1 ÷ x] from 1 to ∞ = 0 − (−1) = **1**.
+/EX
+
+EX: Gabriel's horn (a paradox)
+1. Spin y = 1/x for x ≥ 1 about the x-axis. The volume is π ∫₁^∞ 1 ÷ x² dx = **π**, finite.
+2. The surface area is at least 2π ∫₁^∞ 1 ÷ x dx = ∞, infinite. So the horn could be filled with a finite amount of paint, yet could never be painted on the outside with a finite amount. (A real horn has no thickness, so there is no contradiction.)
+/EX
+
+BN: p-পরীক্ষা: ∫₁^∞ 1/xᵖ dx অভিসারী যদি p > 1 (মান 1/(p−1)), অপসারী যদি p ≤ 1। সীমানা p = 1। ∫₀^∞ xⁿe^(−x) dx = n! (গামা ফাংশন), ∫₀^∞ e^(−x²) dx = √π/2। গ্যাব্রিয়েলের শিঙায় আয়তন সসীম (π) কিন্তু তলের ক্ষেত্রফল অসীম।
+
+TRAP: Do not just plug ∞ into the antiderivative without a limit. And "the function goes to 0" is **not enough** for convergence: 1 ÷ x → 0 yet ∫ 1 ÷ x diverges. Also check for **hidden** problem points inside the interval: ∫₋₁¹ 1 ÷ x² dx is improper at 0, and it diverges (it is not −2).
+
+### Quick self-check
+QUIZ:
+Q: ∫₁^∞ 1 ÷ x³ dx equals…; 1/3; 1/2; 1; diverges; 2; 1 ÷ (p − 1) with p = 3.
+Q: ∫₁^∞ 1 ÷ √x dx…; converges to 2; converges to 1; diverges; equals 0; 3; p = 1/2 is at most 1.
+Q: ∫₀¹ 1 ÷ √x dx equals…; 1; 2; diverges; 1/2; 2; [2√x] from 0 to 1.
+Q: ∫₀^∞ e^(−3x) dx equals…; 3; 1/3; 1; diverges; 2; [−e^(−3x) ÷ 3] from 0 to infinity.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Evaluate ∫₁^∞ x^(−3) dx. => **1/2**.
+P: Evaluate ∫₀^∞ e^(−2x) dx. => **1/2**.
+P: Decide ∫₁^∞ 1 ÷ √x dx. => p = 1/2 ≤ 1, so it **diverges**.
+P: Evaluate ∫₀¹ x^(−1/2) dx. => **2**.
+LVL: Level 2 | Apply
+P: Evaluate ∫₀^∞ x e^(−x) dx. => **1**.
+P: Evaluate ∫₂^∞ 1 ÷ (x² − 1) dx. => **½ ln 3 ≈ 0.549**.
+P: Evaluate ∫_(−∞)^∞ 1 ÷ (1 + x²) dx. => **π**.
+P: Evaluate ∫₀¹ ln x dx. => **−1**.
+P: Evaluate ∫₁^∞ (ln x) ÷ x² dx. => **1**.
+P: For which p does ∫₀¹ x^(−p) dx converge, and what is its value then? => It converges for **p < 1**, with value **1 ÷ (1 − p)**.
+LVL: Level 3 | Real
+P: Work to escape the Earth: the gravitational force is F = G M m ÷ r². The work to take a mass m from the surface (r = R) to infinity is W = ∫_R^∞ G M m ÷ r² dr. Find W and the escape velocity (G M = 3.986 × 10¹⁴ m³/s², R = 6.371 × 10⁶ m). => W = G M m ÷ R. Setting ½ m v² = W gives v = √(2 G M ÷ R) = √(1.251 × 10⁸) = **11.2 km/s**.
+P: Find the escape velocity from the Moon (G M = 4.905 × 10¹² m³/s², R = 1.737 × 10⁶ m). => √(2 × 4.905 × 10¹² ÷ 1.737 × 10⁶) = √(5.65 × 10⁶) = **2.38 km/s**.
+P: A decaying current is i(t) = 3 e^(−t/2) amperes for t ≥ 0. Find the total charge that flows. => Q = ∫₀^∞ 3 e^(−t/2) dt = 3 × 2 = **6 C**.
+LVL: Challenge | The factorial integral
+P: Show by parts that ∫₀^∞ xⁿ e^(−x) dx = n ∫₀^∞ x^(n−1) e^(−x) dx. Use it to find ∫₀^∞ x³ e^(−x) dx. => u = xⁿ, dv = e^(−x) dx: [−xⁿ e^(−x)] from 0 to ∞ is 0, and the rest is n ∫ x^(n−1) e^(−x) dx. Repeating: I₃ = 3 I₂ = 3 × 2 I₁ = 3 × 2 × 1 × I₀ = 6 × 1 = **6**. In general **∫₀^∞ xⁿ e^(−x) dx = n!**, which is how the factorial is extended to non-whole numbers by the gamma function.
+
+CHECK: math
+
+@section physics | 3 · Physics: damped oscillations | 35 min
+
+### Adding friction
+A real oscillator loses energy. A shock absorber, a door closer and the air all produce a force that opposes the velocity: F = −c v (c is the damping coefficient, in N·s/m). Newton's second law becomes:
+
+EQ: m x″ + c x′ + k x = 0
+
+For light damping the solution is a sine wave inside a shrinking exponential:
+
+EQ: x(t) = A e^(−γ t) cos(ω_d t)     with     γ = c ÷ (2m)     ω_d = √(ω₀² − γ²)     ω₀ = √(k ÷ m)
+
+(Try x = e^(rt): then m r² + c r + k = 0, so r = −γ ± i ω_d. We will prove this properly in the differential equations weeks.)
+
+The decay is set by γ: the amplitude drops by a factor e every 1 ÷ γ seconds, and halves every (ln 2) ÷ γ seconds.
+
+**Three regimes**, set by the critical damping coefficient c_c = 2 √(k m):
+- **Underdamped** (c < c_c): oscillates while fading.
+- **Critically damped** (c = c_c): returns to rest fastest without overshooting.
+- **Overdamped** (c > c_c): creeps back slowly.
+
+Engineers describe it by the damping ratio ζ = c ÷ c_c.
+
+BN: ঘর্ষণ থাকলে বল F = −cv, সমীকরণ mx″ + cx′ + kx = 0। হালকা অবমন্দনে সমাধান x = A e^(−γt) cos(ω_d t), γ = c/(2m), ω_d = √(ω₀² − γ²)। γ ঠিক করে ক্ষয়ের হার। তিন অবস্থা: c < c_c = 2√(km) হলে দুলতে দুলতে ক্ষয় (underdamped); c = c_c হলে সবচেয়ে দ্রুত স্থির, দোলে না (critical); c > c_c হলে ধীরে ফেরে (overdamped)। শক-অ্যাবজর্বার ডিজাইন করা হয় critical এর কাছাকাছি।
+
+EX: A quarter of a car
+1. m = 400 kg on a spring with k = 25,000 N/m. ω₀ = √62.5 = **7.91 rad/s**. The critical damping is c_c = 2 √(25,000 × 400) = **6325 N·s/m**.
+2. A shock absorber with c = 3000 N·s/m: ζ = 3000 ÷ 6325 = **0.47**. γ = 3000 ÷ 800 = **3.75 per second**. ω_d = √(62.5 − 14.06) = **6.96 rad/s**, so T_d = 0.903 s.
+3. The half-amplitude time is 0.693 ÷ 3.75 = **0.185 s**. After one full oscillation the amplitude is e^(−3.75 × 0.903) = **3.4%** of the start. The car bounces about once, then settles.
+/EX
+
+LAB: A shock absorber | Choose the mass, the spring, the damping and the starting displacement. The blue curve is x(t) and the orange and grey lines are the envelope ± A e^(−γt). Raise the damping and watch the bouncing die out faster. The damping ratio shows how close you are to the critical value (the sliders keep it below 1). | m:Mass m (kg):0.5:5:0.5:1 ;; k:Stiffness k (N/m):100:1000:50:400 ;; c:Damping c (N·s/m):0.5:14:0.5:2 ;; A:Starting displacement A (m):0.1:0.5:0.05:0.3 | c/(2*m):Decay rate γ (per second):2 ;; sqrt(max(0,k/m-(c/(2*m))^2)):Damped angular frequency ω_d (rad/s):2 ;; c/(2*sqrt(k*m)):Damping ratio ζ:3 ;; 0.6931/(c/(2*m)):Half-amplitude time (s):2 | A*exp(-c/(2*m)*x)*cos(sqrt(max(0,k/m-(c/(2*m))^2))*x) ;; A*exp(-c/(2*m)*x) ;; -A*exp(-c/(2*m)*x) | 0,4 | -0.5,0.5
+
+### Energy and the quality factor
+The energy E = ½ m v² + ½ k x² now falls, and the rate is easy to find by differentiating:
+
+EQ: dE/dt = m v a + k x v = v (m a + k x) = −c v²
+
+It always decreases (never increases). For light damping the energy decays like E₀ e^(−2γt). The **quality factor** Q = ω₀ ÷ (2γ) tells you how many oscillations the system rings for: each cycle loses about 2π ÷ Q of its energy. A bell or a guitar string has Q in the hundreds, and a car suspension has Q of about 1.
+
+EX: Energy decay
+1. m = 1 kg, k = 400 N/m, c = 2 N·s/m, A = 0.1 m. γ = 1, E₀ = ½ × 400 × 0.01 = 2 J. After 1 s the energy is 2 e^(−2) = **0.27 J**.
+2. Q = ω₀ ÷ (2γ) = 20 ÷ 2 = **10**. The exact loss per cycle is 1 − e^(−2γ T_d) = 1 − e^(−0.63) = **47%**. The shortcut 2π ÷ Q would give 63%, so it is only reliable for large Q.
+3. A lightly damped oscillator with c = 0.2 (same m and k): γ = 0.1, Q = 100, and each cycle loses about 2π ÷ 100 = **6%** of its energy.
+/EX
+
+TRAP: Damping slows the oscillation too: ω_d is **smaller** than ω₀. Do not confuse γ = c ÷ (2m) with c ÷ m. The critical value is c_c = 2√(km), not √(km). And in the critically damped case the formula x = A e^(−γt) cos(ω_d t) no longer applies, since there is no oscillation at all.
+
+### Quick self-check
+QUIZ:
+Q: Doubling the damping constant c (underdamped) makes the decay rate γ…; halve; stay the same; double; quadruple; 3; γ = c ÷ (2m).
+Q: The critical damping coefficient for m = 1 and k = 100 is…; 10; 20; 100; 200; 2; c_c = 2 √(k m) = 2 × 10.
+Q: Which regime returns to rest fastest without overshooting?; underdamped; critically damped; overdamped; undamped; 2; This is the definition of critical damping.
+Q: The energy of a damped oscillator…; stays constant; always decreases; sometimes increases; oscillates; 2; dE/dt = −c v² is never positive.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find γ for m = 2 kg and c = 40 N·s/m. => 40 ÷ 4 = **10 per second**.
+P: Find c_c for m = 1 kg and k = 100 N/m. => 2 × 10 = **20 N·s/m**.
+LVL: Level 2 | Apply
+P: An oscillator has ω₀ = 10 rad/s and γ = 3 per second. Find ω_d and the amplitude after one period. => ω_d = √(100 − 9) = **9.54 rad/s**. T_d = 0.659 s. Amplitude factor = e^(−3 × 0.659) = **0.139**.
+P: A 0.5 kg mass on a 200 N/m spring has c = 2 N·s/m. Find ω_d, the amplitude fraction after 5 periods, and the corresponding energy fraction. => γ = 2, ω_d = √(400 − 4) = 19.9 rad/s, T_d = 0.316 s. After 5 periods (1.58 s): e^(−3.16) = **0.043**. Energy fraction = 0.043² = **0.0018**.
+P: A 2 kg mass on an 800 N/m spring: what damping coefficient is critical, and is c = 20 N·s/m under- or overdamped? => c_c = 2 √(800 × 2) = **80 N·s/m**. c = 20 is below, so **underdamped** (ζ = 0.25).
+P: A lightly damped system has Q = 50. Estimate the fraction of energy lost per cycle, and the number of cycles to lose half its energy. => About 2π ÷ 50 = **12.6%** per cycle. Half is lost when e^(−2π n ÷ 50) = 1/2, n = 50 ln 2 ÷ 2π = **5.5 cycles**.
+P: A damped oscillator's amplitude falls from 10 cm to 5 cm in 2.0 s. Find γ and the time to reach 1 cm. => γ = ln 2 ÷ 2.0 = **0.347 per second**. To reach 1 cm: t = ln 10 ÷ 0.347 = **6.64 s**.
+LVL: Level 3 | Real
+P: A quarter-car has m = 400 kg and k = 25,000 N/m. Find the damping that gives ζ = 0.4, and how long the bounce takes to shrink to 5% of its start. => c = 0.4 × 6325 = **2530 N·s/m**. γ = 2530 ÷ 800 = 3.16 per second. t = ln 20 ÷ 3.16 = **0.95 s**. (The damped period is 2π ÷ 7.25 = 0.87 s, so about one bounce.)
+LVL: Challenge | Energy and the exponential
+P: Show that for x = A e^(−γt) cos(ω_d t) the amplitude decays like e^(−γt), but the energy decays like e^(−2γt) when damping is light. For a 1 kg, 400 N/m system with c = 0.4, find the time for the energy to fall to half. => The energy is proportional to (amplitude)², so it carries e^(−2γt) (the oscillating cos² averages out). γ = 0.4 ÷ 2 = 0.2. The energy halves when e^(−0.4 t) = 1/2, so t = ln 2 ÷ 0.4 = **1.73 s**. In the same time the amplitude has fallen to 1 ÷ √2 = 71%.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Improper integral: take a limit. ∫₁^∞ 1 ÷ xᵖ converges to 1 ÷ (p − 1) if p > 1, diverges for p ≤ 1. ∫₀¹ 1 ÷ xᵖ converges for p < 1. ∫₀^∞ xⁿ e^(−x) dx = n!. Escape work = G M m ÷ R.
+- Damped oscillator: m x″ + c x′ + k x = 0, x = A e^(−γt) cos(ω_d t), γ = c ÷ (2m), ω_d = √(ω₀² − γ²). Critical damping c_c = 2√(km). dE/dt = −c v². Q = ω₀ ÷ (2γ).
+
+BN: আজকের সারকথা: অপ্রকৃত সমাকলন লিমিট দিয়ে; p-পরীক্ষা: ∫₁^∞ 1/xᵖ অভিসারী p > 1; ∫₀^∞ xⁿe^(−x) dx = n!; পালানোর কাজ = GMm/R। অবমন্দিত দোলক: x = A e^(−γt) cos(ω_d t), γ = c/(2m), c_c = 2√(km), dE/dt = −cv², Q = ω₀/(2γ)।
+
+EXIT:
+E: Evaluate ∫₁^∞ x^(−2) dx.; 1; 0.001; 1 ÷ (p − 1) = 1.
+E: A damped oscillator has m = 2 kg and c = 8 N·s/m. What is γ per second?; 2; 0.001; γ = c ÷ (2m) = 8 ÷ 4 = 2.
+E: What is the critical damping c_c in N·s/m for m = 4 kg and k = 100 N/m?; 40; 0.001; c_c = 2 √(100 × 4) = 40.
+
+**Tomorrow:** numerical integration, applications, and forced oscillations and resonance.
+
+CHECK: notes

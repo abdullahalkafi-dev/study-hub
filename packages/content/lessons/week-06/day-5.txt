@@ -1,0 +1,204 @@
+@day Week 6 · Day 5 · Friday
+# Logarithmic differentiation and higher derivatives. Then: a mixed momentum and energy workout
+lead: Today you finish the differentiation toolkit. A logarithm turns awkward products, quotients and variable powers into sums, and higher derivatives describe how rates themselves change. In physics you combine momentum, energy and collisions in two-stage problems, the kind that crash investigators and engineers solve.
+
+BN: আজ অন্তরকলনের সরঞ্জাম সম্পূর্ণ করব। লগারিদম জটিল গুণফল, ভাগফল আর চলরাশির ঘাতকে যোগে বদলে দেয়, আর উচ্চতর অন্তরকলজ বলে হারের নিজের হার কেমন বদলাচ্ছে। পদার্থবিজ্ঞানে ভরবেগ, শক্তি আর সংঘর্ষ মিলিয়ে দুই ধাপের সমস্যা সমাধান করব, যা দুর্ঘটনা তদন্তকারী আর প্রকৌশলীরা করেন।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | This week
+P: Find y′ for x² + y² = 169 at (5, 12). => **−5/12**.
+P: Differentiate x ln x. => **ln x + 1**.
+P: Differentiate sin(x²) cos x. => **2x cos(x²) cos x − sin(x²) sin x**.
+P: A 3 kg body moving at 4 m/s hits and sticks to a 1 kg body at rest. What fraction of the kinetic energy is lost? => Common speed 3 m/s. KE before 24 J, after 18 J. Lost **25%** (equal to 1 ÷ 4).
+P: A rocket burns 20 kg/s at 3000 m/s exhaust speed. Find the thrust. => **60,000 N**.
+
+CHECK: recall
+
+@section math | 2 · Math: logarithmic differentiation and higher derivatives | 55 min
+
+### When is logarithmic differentiation useful?
+There are two situations the other rules handle badly: a variable raised to a variable power (like x^x), and a product or quotient of many factors. The logarithm turns powers into products and products into sums, which are easy to differentiate.
+
+**The method.**
+1. Take ln of both sides and simplify with the log laws.
+2. Differentiate both sides with respect to x (implicit differentiation: the left side gives y′ ÷ y).
+3. Multiply by y to isolate y′, then replace y by the original expression.
+
+EX: x to the power x
+1. y = xˣ. Then ln y = x ln x.
+2. y′ ÷ y = ln x + 1 (product rule on the right).
+3. **y′ = xˣ (ln x + 1)**.
+4. It is zero at x = 1/e, so xˣ has its minimum at x = 1/e = 0.368, where the value is (1/e)^(1/e) = 0.692.
+/EX
+
+LAB: The slope of x to the x | Move x₀ along y = xˣ. The numerical slope matches the logarithmic-differentiation formula xˣ (ln x + 1). The slope is zero at the minimum, x = 1/e ≈ 0.368. | x0:Point x₀:0.1:3:0.01:1 | (((x0+0.000001)^(x0+0.000001))-(x0^x0))/0.000001:Numerical slope:3 ;; x0^x0*(log(x0)+1):Formula xˣ(ln x + 1):3 | x^x ;; x0^x0*(log(x0)+1)*(x-x0)+x0^x0 | 0,3 | 0,6
+
+EX: A power with a variable in both places
+1. y = x^(sin x) for x > 0. ln y = sin x ln x.
+2. y′ ÷ y = cos x ln x + sin x ÷ x.
+3. **y′ = x^(sin x) (cos x ln x + sin x ÷ x)**.
+/EX
+
+EX: A big product and quotient
+1. y = (x² + 1)³ (x − 2)⁴ ÷ (x + 5)². ln y = 3 ln(x² + 1) + 4 ln(x − 2) − 2 ln(x + 5).
+2. y′ ÷ y = 6x ÷ (x² + 1) + 4 ÷ (x − 2) − 2 ÷ (x + 5).
+3. Multiply by y. Notice how much simpler this was than three nested product and quotient rules.
+4. This is also a clean way to see the **relative rate of change**, y′ ÷ y. If a measurement is a product of factors, the percentage errors add, as the sum shows.
+/EX
+
+EX: The general power rule
+1. For any real n and x > 0, y = xⁿ. ln y = n ln x, so y′ ÷ y = n ÷ x and **y′ = n xⁿ⁻¹**. This proves the power rule for every real exponent.
+/EX
+
+BN: লগারিদমিক অন্তরকলন: দুই পাশে ln নাও, লগের নিয়ম দিয়ে সরল করো, অন্তরকলন করো (বাম পাশে y′/y), তারপর y দিয়ে গুণ করো। এটা কাজে লাগে যখন ঘাতেও চলরাশি (xˣ) থাকে বা অনেকগুলো উৎপাদকের গুণফল/ভাগফল থাকে। y′/y হলো আপেক্ষিক পরিবর্তনের হার।
+
+### Higher derivatives
+The derivative of f′ is f″ (the **second derivative**), then f‴ (third), and so on. In Leibniz notation, d²y/dx², d³y/dx³.
+
+EX: Position, velocity, acceleration, jerk
+1. s(t) = t³ − 6t² + 9t. Velocity v = 3t² − 12t + 9. Acceleration a = 6t − 12. The **jerk** (rate of change of acceleration) is **6 m/s³**, a constant.
+2. Jerk matters for comfort: lifts and trains are designed to limit it, since sudden changes in acceleration feel like jolts.
+/EX
+
+EX: Patterns
+1. (eᵏˣ)⁽ⁿ⁾ = kⁿ eᵏˣ.
+2. sin x has derivatives cos x, −sin x, −cos x, sin x: repeats every four.
+3. xⁿ differentiated n times gives n! (for example, x⁴ gives 24 after four derivatives), and then 0.
+4. Always check simple cases: for f = x⁴, f‴ = 24x and f⁗ = 24.
+/EX
+
+### Concavity and inflection points
+The second derivative tells you how the graph bends. If f″ > 0, the graph is **concave up** (like a cup); if f″ < 0, **concave down**. A point where the bending changes is an **inflection point**.
+
+EX: Finding inflection
+1. f(x) = x³ − 3x². f′ = 3x² − 6x and f″ = 6x − 6.
+2. f″ = 0 at x = 1, where it changes from negative to positive. The inflection point is **(1, −2)**.
+3. For x < 1 the graph bends down, for x > 1 up. The flat spots (f′ = 0) are at x = 0 (a local maximum, since f″ = −6 < 0) and x = 2 (a local minimum, since f″ = 6 > 0).
+/EX
+
+### Choosing a rule
+| What you see | Rule |
+| A sum or a constant multiple | Differentiate term by term |
+| One function times another | Product rule |
+| One function divided by another | Quotient rule (or write it as a product with a negative power) |
+| A function inside a function | Chain rule |
+| y mixed up with x in an equation | Implicit differentiation |
+| A variable in the exponent, or many factors | Logarithmic differentiation |
+
+Most real expressions need two or three of these in layers. Work from the outside in.
+
+TRAP: In logarithmic differentiation, take ln only where the expression is positive (or use the absolute value). And remember the last step: multiply by the original y, because the left side was y′ ÷ y, not y′.
+
+### Quick self-check
+QUIZ:
+Q: For y = xˣ, the derivative is…; x xˣ⁻¹; xˣ (ln x + 1); xˣ ln x; xˣ; 2; By logarithmic differentiation.
+Q: For y = 2ˣ ln x, the best rule to start is…; the product rule; the quotient rule; implicit; logarithmic; 1; Two functions multiplied.
+Q: If s = t³, the acceleration at t = 2 is…; 6; 12; 3; 8; 2; a = s″ = 6t = 12.
+Q: A function with f″(x) < 0 on an interval is…; concave up; concave down; linear; decreasing; 2; Negative second derivative means the slope is decreasing.
+Q: The fourth derivative of sin x is…; cos x; −sin x; sin x; −cos x; 3; The cycle repeats after four.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find f″ for f(x) = x⁵ − 3x². => f′ = 5x⁴ − 6x, so **f″ = 20x³ − 6**.
+P: Find d²y/dx² for y = e^(3x). => **9e^(3x)**.
+P: Find the inflection point of f(x) = x³. => f″ = 6x = 0 at x = 0, with sign change. **(0, 0)**.
+LVL: Level 2 | Combine
+P: Differentiate y = x^(3x). => ln y = 3x ln x. y′ ÷ y = 3 ln x + 3. **y′ = x^(3x) × 3 (ln x + 1)**.
+P: Differentiate y = √(x + 1) (x − 2)³ ÷ (x² + 4) using logarithmic differentiation. => ln y = ½ ln(x + 1) + 3 ln(x − 2) − ln(x² + 4). y′ ÷ y = 1 ÷ (2 (x + 1)) + 3 ÷ (x − 2) − 2x ÷ (x² + 4). Multiply by y.
+P: The position of a particle is s = 2t³ − 15t² + 36t. Find when it is at rest and the acceleration at those times. => v = 6t² − 30t + 36 = 6 (t − 2)(t − 3), at rest at **t = 2 and 3**. a = 12t − 30: at t = 2, **−6 m/s²**; at t = 3, **+6 m/s²**.
+P: Find the maximum and minimum of f(x) = x³ − 12x on [−3, 3] and classify them. => f′ = 3x² − 12 = 0 at x = ±2. f″ = 6x: at x = −2, −12 < 0 (maximum, value 16). At x = 2, 12 > 0 (minimum, value −16). **Max 16 at x = −2, min −16 at x = 2.**
+P: For which x is f(x) = x e^(−x) concave up? => f′ = e^(−x)(1 − x), f″ = e^(−x)(x − 2). Positive for **x > 2**.
+LVL: Level 3 | Real
+P: A box has sides measured as 10 cm (±1%), 20 cm (±2%) and 5 cm (±0.5%). Use the relative-rate idea to estimate the percentage error in its volume. => V = x y z, so ln V = ln x + ln y + ln z, and small relative errors add: 1 + 2 + 0.5 = **3.5%** (at most).
+LVL: Challenge | The limit of a changing exponent
+P: Using y = (1 + 1/x)^x and logarithmic differentiation, find lim (x → ∞) of ln y and confirm that y → e. => ln y = x ln(1 + 1/x). Let h = 1/x, so ln y = ln(1 + h) ÷ h. As h → 0 this is the slope of ln at 1, which is 1 ÷ 1 = **1**. So y → e¹ = **e** ✓. (This also proves the compound interest limit from Week 5.)
+
+CHECK: math
+
+@section physics | 3 · Physics: a mixed momentum and energy workout | 35 min
+
+### The two-stage strategy
+Many problems have two stages, and each stage has its own law.
+
+| Stage | Law to use | Why |
+| A collision or explosion (very short) | Conserve **momentum** | External forces are negligible over the short time |
+| What happens after (swinging, sliding, compressing) | Conserve or account for **energy** | Forces like gravity and friction act over distance |
+
+Never apply energy conservation across a sticking collision, because kinetic energy is lost.
+
+EX: A ballistic pendulum, symbolically
+1. Bullet m, speed v, embeds in a block M. Stage 1 (momentum): m v = (m + M) V.
+2. Stage 2 (energy): ½ (m + M) V² = (m + M) g h.
+3. So V = m v ÷ (m + M) and h = V² ÷ (2g). The fraction of energy lost in stage 1 is M ÷ (m + M), nearly all of it for a heavy block.
+/EX
+
+LAB: Ballistic pendulum | Set the bullet mass, the bullet speed and the block mass. The block and bullet swing up together after the impact. Notice how little energy survives the collision. | m:Bullet mass (kg):0.005:0.05:0.005:0.01 ;; M:Block mass (kg):0.5:5:0.1:2 ;; v:Bullet speed (m/s):100:600:10:300 | m*v/(m+M):Speed after the collision (m/s):3 ;; (m*v/(m+M))^2/(2*9.8):Swing height (m):3 ;; 100*M/(m+M):Energy lost in the collision (%):1 | - | 0,1 | 0,1
+
+EX: Maximum compression of a spring between colliding blocks
+1. A 2 kg block moving at 3 m/s hits a 3 kg block at rest. A spring (k = 300 N/m) is attached to the front of the second block. What is the maximum compression?
+2. The spring is compressed most when both blocks move at the same velocity: 6 = 5 V, so V = 1.2 m/s.
+3. Energy: ½ × 2 × 9 = 9 J before. After: ½ × 5 × 1.44 = 3.6 J of kinetic energy. The spring holds 9 − 3.6 = 5.4 J.
+4. ½ × 300 × x² = 5.4, so x² = 0.036 and **x = 0.19 m**.
+/EX
+
+EX: A crash investigation
+1. A 1500 kg car hits a stationary 1000 kg car and they lock together and skid 12 m on a road with μ = 0.8 until they stop.
+2. Stage 2 (energy): ½ V² = μ g d, so V = √(2 × 0.8 × 9.8 × 12) = √188.2 = **13.7 m/s**.
+3. Stage 1 (momentum): 1500 u = 2500 × 13.7, so **u = 22.9 m/s** (about 82 km/h). This is how skid marks reveal the speed before the crash.
+4. Energy lost in the crash: ½ × 1500 × 22.9² − ½ × 2500 × 13.7² = 393,000 − 235,000 = **158,000 J**.
+/EX
+
+EX: An explosion on a slope
+1. A 6 kg shell, moving at 10 m/s, splits into 2 kg and 4 kg parts that both move along the original line. The 2 kg part moves at 4 m/s forward. Find the other part's speed.
+2. Momentum: 60 = 2 × 4 + 4 w, so w = **13 m/s** forward.
+3. Energy gained: ½ × 2 × 16 + ½ × 4 × 169 − ½ × 6 × 100 = 16 + 338 − 300 = **54 J**, supplied by the explosive.
+/EX
+
+### The kinetic energy lost in a sticking collision
+For a mass m₁ hitting a stationary mass m₂ and sticking, the fraction of the kinetic energy lost is **m₂ ÷ (m₁ + m₂)**. (Check: the car crash from Tuesday had 1500 ÷ 2500 = 60% ✓.) A heavy target absorbs most of the energy: a bullet loses almost all its energy in a big block.
+
+BN: দুই ধাপের সমস্যায় সংঘর্ষের সময় ভরবেগ সংরক্ষণ করো (বাইরের বল অতি সামান্য), তারপর পরের ধাপে (দোলা, পিছলানো, স্প্রিং সংকোচন) শক্তির হিসাব করো। আটকে যাওয়া সংঘর্ষে শক্তি সংরক্ষিত নয়। স্থির লক্ষ্যে ধাক্কা দিলে হারানো গতিশক্তির ভগ্নাংশ = m₂/(m₁ + m₂)।
+
+TRAP: The most common mistake is conserving kinetic energy through a collision that sticks or deforms. Another is to use the skid distance with the **initial** speed of the first car: the skid happens after the collision, at the common speed.
+
+### Quick self-check
+QUIZ:
+Q: In a ballistic pendulum, momentum is conserved…; during the swing; during the collision; through both stages; never; 2; The collision is short and has negligible external impulse.
+Q: A 2 kg block at 4 m/s sticks to a 6 kg block at rest. What fraction of the energy is lost?; 25%; 50%; 75%; 100%; 3; m₂ ÷ (m₁ + m₂) = 6 ÷ 8.
+Q: A spring between two blocks is most compressed when…; blocks are at rest; blocks have the same velocity; one block stops; the force is zero; 2; Relative velocity is zero at maximum compression.
+Q: Skid marks after a crash give the speed…; before the collision; just after the collision; of the faster vehicle only; of nothing; 2; Friction acts after the collision.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 0.01 kg bullet at 400 m/s embeds in a 1.99 kg block. Find the speed after. => 4 ÷ 2 = **2 m/s**.
+P: How high does the block rise? => 4 ÷ 19.6 = **0.204 m**.
+LVL: Level 2 | Apply
+P: A 0.02 kg bullet at 500 m/s hits a 4 kg block hanging on a string. Find the height of the swing and the fraction of the energy lost. => V = 10 ÷ 4.02 = 2.488 m/s. h = 6.19 ÷ 19.6 = **0.316 m**. Fraction lost = 4 ÷ 4.02 = **99.5%**.
+P: Two ice skaters (60 kg and 40 kg) are at rest, holding a spring compressed with 100 J stored between them. They push apart. Find their speeds. => Equal and opposite momentum: 60 v₁ = 40 v₂. Energy: ½ 60 v₁² + ½ 40 v₂² = 100. v₂ = 1.5 v₁, so 30 v₁² + 20 × 2.25 v₁² = 75 v₁² = 100 and **v₁ = 1.155 m/s, v₂ = 1.732 m/s**.
+P: A 1000 kg car going at 15 m/s rear-ends a stationary 1200 kg car and they lock and slide to a stop with μ = 0.5. How far do they slide (g = 9.8)? => V = 15000 ÷ 2200 = 6.82 m/s. d = V² ÷ (2 μ g) = 46.5 ÷ 9.8 = **4.74 m**.
+P: A 5 kg block slides 2 m down a smooth ramp from 1 m high, then hits a 5 kg block at rest on a flat smooth floor and sticks. Find the speed after. => Speed at the bottom: √(2 × 9.8 × 1) = 4.43 m/s. Then 4.43 ÷ 2 = **2.21 m/s**.
+LVL: Challenge | Two-dimensional crash investigation
+P: A 1500 kg car going east at 20 m/s and a 1000 kg car going north at 25 m/s collide at an intersection and lock together. They then skid on a road with μ = 0.6. Find their direction and how far they skid. => px = 30,000 and py = 25,000. Total mass 2500. V = √(30,000² + 25,000²) ÷ 2500 = 39,051 ÷ 2500 = 15.6 m/s at tan⁻¹(25/30) = **39.8° north of east**. d = V² ÷ (2 μ g) = 244 ÷ 11.76 = **20.7 m**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Logarithmic differentiation: ln both sides, differentiate, multiply by y. Works for xˣ and long products. Higher derivatives: acceleration, jerk, concavity, inflection.
+- Choose the rule by structure: sum, product, quotient, chain, implicit, logarithmic.
+- Two-stage problems: momentum for the collision, energy for the aftermath. Fraction of KE lost when sticking to a stationary mass: m₂/(m₁ + m₂).
+
+BN: আজকের সারকথা: লগারিদমিক অন্তরকলন: ln নাও, অন্তরকলন করো, y দিয়ে গুণ করো। উচ্চতর অন্তরকলজ: ত্বরণ, ঝাঁকুনি (jerk), বক্রতা, নতিবিন্দু। দুই ধাপের সমস্যা: সংঘর্ষে ভরবেগ, তারপর শক্তি। আটকে গেলে হারানো শক্তির ভগ্নাংশ m₂/(m₁ + m₂)।
+
+EXIT:
+E: Find f″(2) for f(x) = x³ − 3x².; 6; 0.001; f″ = 6x − 6 = 6.
+E: A 0.02 kg bullet at 300 m/s embeds in a 1.98 kg block. What is the speed after, in m/s?; 3; 0.001; 6 ÷ 2 = 3.
+E: What fraction (as a decimal) of KE is lost when a 1 kg body sticks to a 3 kg body at rest?; 0.75; 0.001; 3 ÷ 4 = 0.75.
+
+**Tomorrow (Saturday):** the Week 6 test, mistake log and challenge.
+
+CHECK: notes

@@ -1,0 +1,175 @@
+@day Week 7 · Day 2 · Tuesday
+# Harder optimisation, including the lifeguard problem. Then: static equilibrium
+lead: Yesterday's problems had a neat shape. Today the setups get richer: a lifeguard racing to a swimmer, a wire cut to enclose the least area, a best speed for a trip. You will also see how a single idea, minimum time, produces Snell's law of light. In physics, you use two conditions, zero net force and zero net torque, to find the forces in ladders, beams and cables.
+
+BN: গতকালের সমস্যাগুলোর আকার সহজ ছিল। আজ আরও জটিল: সাঁতারুর কাছে ছুটে যাওয়া লাইফগার্ড, তার কেটে সবচেয়ে কম ক্ষেত্রফল ঘেরা, ভ্রমণের সেরা গতি। আরও দেখবে সবচেয়ে কম সময়ের একটাই ধারণা থেকে আলোর স্নেলের সূত্র আসে। পদার্থবিজ্ঞানে দুটি শর্ত, মোট বল শূন্য ও মোট টর্ক শূন্য, দিয়ে মই, বিম আর তারের বল বের করবে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Find the critical point of f(x) = x² − 10x + 3 and say what it is. => f′ = 2x − 10 = 0, x = 5. f″ = 2 > 0, a **minimum**.
+P: Maximise the product of two positive numbers with sum 12. => **36** (6 and 6).
+P: A 30 N force acts at 90° and 0.5 m from a pivot. Find the torque. => **15 N·m**.
+P: A 40 kg child sits 1.5 m from a seesaw pivot. How far must a 60 kg adult sit? => **1.0 m**.
+P: f′ = 3 (x − 1)(x − 4). Which critical point is a local maximum? => f′ > 0 before 1, < 0 between, > 0 after 4: **x = 1** is the local max, x = 4 the local min.
+
+CHECK: recall
+
+@section math | 2 · Math: harder optimisation | 55 min
+
+### Minimum time: the lifeguard problem
+A lifeguard on the beach sees a swimmer in trouble. The lifeguard runs faster than they swim, so the straight line is not the quickest path. Is it better to run a bit farther along the sand and swim less?
+
+EX: Setting up
+1. The lifeguard is at A. The point C on the shore nearest to the swimmer is 100 m away along the beach, and the swimmer is 50 m out from C. The lifeguard runs at 5 m/s and swims at 2 m/s.
+2. The lifeguard runs along the beach to a point P that is x metres before C, then swims straight to the swimmer.
+3. Run distance: 100 − x. Swim distance: √(x² + 2500). Total time T(x) = (100 − x) ÷ 5 + √(x² + 2500) ÷ 2.
+/EX
+
+EX: Solving
+1. T′(x) = −1/5 + x ÷ (2 √(x² + 2500)) = 0, so x ÷ √(x² + 2500) = 2/5.
+2. Square: x² ÷ (x² + 2500) = 4/25, so 25x² = 4x² + 10,000, 21x² = 10,000, and **x = 21.8 m**.
+3. T = 78.2 ÷ 5 + √(476 + 2500) ÷ 2 = 15.6 + 27.3 = **42.9 s**.
+4. Compare: swimming straight from A takes √12,500 ÷ 2 = 55.9 s. Running all the way to C and then swimming takes 20 + 25 = 45 s. The best mix is better than both.
+/EX
+
+LAB: Where to enter the water | Slide the entry point x (distance before C). The curve shows the total time T(x). The slope is zero at the best entry point, about 21.8 m. | x0:Entry point x (m):0:100:1:50 ;; vr:Running speed (m/s):3:8:0.5:5 ;; vs:Swimming speed (m/s):1:3:0.25:2 | (100-x0)/vr+sqrt(x0^2+2500)/vs:Total time T (s):1 ;; -1/vr+x0/(vs*sqrt(x0^2+2500)):Slope dT/dx:3 ;; x0/sqrt(x0^2+2500):sin of the swim angle:3 | (100-x)/vr+sqrt(x^2+2500)/vs ;; (-1/vr+x0/(vs*sqrt(x0^2+2500)))*(x-x0)+(100-x0)/vr+sqrt(x0^2+2500)/vs | 0,100 | 30,70
+
+**A hidden law.** At the best point, T′ = 0 says (sin of the swim angle) ÷ v_swim = 1 ÷ v_run. With the angle measured from the line perpendicular to the shore, this is **sin θ₁ ÷ v₁ = sin θ₂ ÷ v₂**, which is **Snell's law of refraction** for light going between two media. Light, like the lifeguard, takes the path of least time (Fermat's principle). You can derive it in the challenge below.
+
+BN: লাইফগার্ড সবচেয়ে সোজা পথে যায় না: বালিতে বেশি দৌড়ে পানিতে কম সাঁতার দিলে সময় কমে। মোট সময় T(x) কে অন্তরকলন করে শূন্য ধরলে সেরা প্রবেশবিন্দু পাই। ঠিক এই হিসাব থেকেই স্নেলের সূত্র আসে: আলো সবচেয়ে কম সময়ের পথ নেয় (ফার্মার নীতি)।
+
+### More problems with shapes
+EX: Largest rectangle in a semicircle
+1. A rectangle sits inside a semicircle of radius R with its base on the diameter. Maximise its area.
+2. Let the half-width be x. Height √(R² − x²). Area A = 2x √(R² − x²).
+3. A′ = 2√(R² − x²) − 2x² ÷ √(R² − x²) = 0, so R² − x² = x² and **x = R/√2**.
+4. Height = R/√2 as well, area = **R²**. For R = 5 the best area is 25.
+/EX
+
+EX: Cutting a wire
+1. A 40 m wire is cut into two pieces. One bends into a square and the other into a circle. Find where to cut so that the total area is smallest, and where it is largest.
+2. Let the square use x metres: side x/4, area x²/16. The circle uses 40 − x: radius (40 − x) ÷ 2π, area (40 − x)² ÷ (4π).
+3. A′ = x/8 − (40 − x) ÷ (2π) = 0. Then x (1/8 + 1/(2π)) = 40 ÷ (2π), so x (0.2842) = 6.366 and **x = 22.4 m** (square), 17.6 m (circle). Minimum area: 31.4 + 24.6 = **56.0 m²**.
+4. Compare the endpoints: all circle (x = 0) gives 1600 ÷ (4π) = 127.3 m², all square gives 100 m². The **maximum is at the endpoint**: use the whole wire for the circle, 127.3 m².
+/EX
+
+EX: Revenue and profit
+1. A company sells x units at price p = 100 − 0.5x. Revenue R = x (100 − 0.5x) = 100x − 0.5x². R′ = 100 − x = 0 gives **x = 100**, price 50, revenue **5000**.
+2. If the cost is C(x) = 1000 + 20x + 0.01x², the profit is maximised where **marginal revenue equals marginal cost**: R′ = C′, so 100 − x = 20 + 0.02x, giving **x = 78.4**. This is a general rule in economics: stop producing when the extra revenue from one more item equals its extra cost.
+/EX
+
+EX: The best speed for a trip
+1. A lorry's cost per kilometre is C(v) = 400 ÷ v + 0.0005 v² (driver's time plus fuel, with v in km/h).
+2. C′ = −400 ÷ v² + 0.001 v = 0, so v³ = 400,000 and **v = 73.7 km/h**.
+3. C = 5.43 + 2.72 = **8.15 per km**. Slower costs more driver time, faster costs more fuel.
+/EX
+
+TRAP: Always check that the point you found is a minimum (or maximum), and compare with the endpoints, as the wire problem shows. When you square an equation (like in the lifeguard problem), check that the answer fits the original (here x > 0). And when the problem asks for the maximum **and** the minimum, they can be at different places.
+
+### Quick self-check
+QUIZ:
+Q: The largest rectangle in a semicircle of radius R has area…; R²; 2R²; R²/2; πR²/2; 1; With x = R/√2 the area is R².
+Q: At maximum profit, marginal revenue equals…; zero; marginal cost; total cost; price; 2; R′ = C′.
+Q: In the lifeguard problem, if the swimming speed gets closer to the running speed, the best path becomes…; a straight line; all running; all swimming; unchanged; 1; With equal speeds the shortest path is the quickest.
+Q: Snell's law follows from the principle that light takes the path of…; least distance; least time; greatest speed; least energy; 2; Fermat's principle.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: A rectangle has perimeter 60 m. Find the maximum area. => Square with side 15: **225 m²**.
+P: Find the maximum of P(x) = −x² + 14x − 20. => x = 7, P = **29**.
+P: Two positive numbers have product 36. Minimise their sum. => x + 36/x, derivative 1 − 36/x² = 0, x = 6, sum **12**.
+LVL: Level 2 | Apply
+P: A box with a square base and no top must hold 32 m³. Minimise the material. => Base side x, height h = 32 ÷ x². Area S = x² + 4xh = x² + 128 ÷ x. S′ = 2x − 128 ÷ x² = 0, so x³ = 64 and **x = 4 m, h = 2 m**, S = 16 + 32 = **48 m²**.
+P: Find the dimensions of the right circular cylinder of largest volume that fits in a sphere of radius 6 cm. => Half the height x, radius r = √(36 − x²). V = π (36 − x²) 2x = 2π (36x − x³). V′ = 0 gives x² = 12, x = 3.46. **Height 6.93 cm, radius 4.90 cm**, V = 2π × 3.46 × 24 = **522 cm³**.
+P: A lifeguard runs at 6 m/s along the shore and swims at 1.5 m/s. Using the rule from the lifeguard problem, at what angle to the line perpendicular to the shore should the swim path leave the shore? => At the best point sin θ ÷ v_swim = 1 ÷ v_run, so sin θ = 1.5 ÷ 6 = 0.25 and **θ = 14.5°**. The slower the swimming, the more the lifeguard runs first.
+P: The strength of a rectangular beam cut from a round log of diameter d is proportional to w h² (w = width, h = height). Find the ratio h ÷ w for the strongest beam. => h² = d² − w². S = w (d² − w²) = d² w − w³. S′ = d² − 3w² = 0, so w = d/√3 and h = d √(2/3). **h ÷ w = √2 = 1.41**.
+LVL: Level 3 | Real
+P: A farmer needs a rectangular field of 5000 m² beside a straight river (no fence on the river side). What dimensions need the least fencing, and how long is it? => Let x be the side perpendicular to the river and y = 5000 ÷ x. Fence F = 2x + 5000 ÷ x. F′ = 2 − 5000 ÷ x² = 0, so x = 50 m and y = 100 m. F = **200 m**.
+LVL: Challenge | Derive Snell's law
+P: A ray goes from point A (height a above a flat boundary) to point B (depth b below it), horizontal distance d apart. Speeds are v₁ above and v₂ below. It crosses the boundary at horizontal distance x from the foot below A. Show that minimum time gives sin θ₁ ÷ v₁ = sin θ₂ ÷ v₂. => T = √(a² + x²) ÷ v₁ + √(b² + (d − x)²) ÷ v₂. T′ = x ÷ (v₁ √(a² + x²)) − (d − x) ÷ (v₂ √(b² + (d − x)²)) = 0. In the first triangle, x ÷ √(a² + x²) = sin θ₁ (the angle from the vertical). In the second, (d − x) ÷ √(b² + (d − x)²) = sin θ₂. So **sin θ₁ ÷ v₁ = sin θ₂ ÷ v₂** ∎. Since refractive index n = c ÷ v, this is n₁ sin θ₁ = n₂ sin θ₂.
+
+CHECK: math
+
+@section physics | 3 · Physics: static equilibrium | 35 min
+
+### The two conditions
+A body at rest (or moving at constant velocity without rotating) is in **equilibrium**. Two things must hold:
+
+EQ: Σ F = 0 (no net force)     Σ τ = 0 (no net torque, about any point)
+
+For a problem in a plane, this gives three equations: ΣFₓ = 0, ΣF_y = 0 and Στ = 0. They can find up to three unknown forces.
+
+**Strategy.**
+1. Draw the free-body diagram of the body: all forces at their points of action (weight at the centre of mass).
+2. Choose axes for the forces.
+3. Choose a **pivot** where one or more unknown forces act, so their torques vanish.
+4. Write the three equations and solve.
+
+EX: Two cables
+1. A 100 N sign hangs from two cables, one at 30° above the horizontal to the left and one at 60° above the horizontal to the right.
+2. Horizontal: T₁ cos 30° = T₂ cos 60°, so T₂ = √3 T₁.
+3. Vertical: T₁ sin 30° + T₂ sin 60° = 100, so 0.5 T₁ + 1.5 T₁ = 100.
+4. **T₁ = 50 N, T₂ = 86.6 N**.
+/EX
+
+EX: A ladder against a smooth wall
+1. A 5 m uniform ladder (20 kg) rests with its foot 3 m from a smooth wall, so it reaches 4 m up the wall. The wall has no friction. Find the forces.
+2. Forces: weight W = 196 N at the middle (1.5 m from the wall horizontally). The wall's push N_w is horizontal. The floor gives a normal force N_f (up) and friction f (toward the wall).
+3. Torque about the foot: N_w × 4 = W × 1.5, so N_w = 196 × 1.5 ÷ 4 = **73.5 N**.
+4. Horizontal: f = N_w = **73.5 N**. Vertical: N_f = W = **196 N**.
+5. The foot is about to slip when f = μ N_f. So the ladder is safe if μ ≥ 73.5 ÷ 196 = **0.375**.
+/EX
+
+LAB: Is the ladder safe? | A 5 m uniform ladder leans against a smooth wall. Move the foot away from the wall and see how much friction μ the floor must supply. The graph shows the minimum μ against the foot distance. | x0:Foot distance x (m):0.5:4.8:0.1:3 | sqrt(25-x0^2):Height reached (m):2 ;; atan(sqrt(25-x0^2)/x0)*180/pi:Angle with the floor (degrees):1 ;; x0/(2*sqrt(25-x0^2)):Minimum friction coefficient μ:3 | x/(2*sqrt(25-x^2)) | 0,4.8 | 0,3
+
+EX: A beam held by a cable
+1. A uniform 2 m beam (10 kg) is hinged to a wall and held horizontal by a cable making 30° with the beam, attached at the beam's outer end. A 30 kg sign hangs at the outer end. Find the tension and the hinge forces (g = 9.8).
+2. Torque about the hinge: the vertical part of the tension is T sin 30°. T sin 30° × 2 = 10g × 1 + 30g × 2 = 70g, so T = 70g = **686 N**.
+3. Horizontal hinge force: H = T cos 30° = **594 N** (toward the wall's side opposite the cable pull).
+4. Vertical: T sin 30° + V = 40g, so V = 392 − 343 = **49 N** upward.
+/EX
+
+BN: স্থিতিশীল ভারসাম্যের দুই শর্ত: মোট বল শূন্য (ΣF = 0) আর মোট টর্ক শূন্য (Στ = 0, যেকোনো বিন্দুর সাপেক্ষে)। ধাপ: মুক্ত বস্তু চিত্র আঁকো, ওজন ভরকেন্দ্রে দাও, এমন একটা কেন্দ্র বেছে নাও যেখানে অজানা বল কাজ করে (তার টর্ক শূন্য), তিনটি সমীকরণ লিখে সমাধান করো। মই যত শুয়ে যায়, ঘর্ষণ তত বেশি লাগে।
+
+TRAP: The weight of a uniform body acts at its **centre**, not at an end. Do not forget the friction and the normal force at the floor. Also, the torque equation must use the same pivot for every force, and the lever arm is the perpendicular distance, not the length along the beam.
+
+### Quick self-check
+QUIZ:
+Q: For a body in equilibrium, the net torque about any point is…; the weight; zero; the net force; maximum; 2; Στ = 0 about every point.
+Q: A uniform ladder leans on a smooth wall. The horizontal force at the wall equals…; the weight; the friction at the floor; the normal force at the floor; zero; 2; Horizontal forces must cancel.
+Q: A ladder at a steeper angle needs…; more friction; less friction; the same friction; no friction; 2; μ_min = x ÷ (2y), which falls as x falls.
+Q: A 100 N sign hangs from two equal cables, each at 30° above the horizontal. The tension in each is…; 50 N; 100 N; 86.6 N; 200 N; 2; 2T sin 30° = 100.
+
+### Practice
+LVL: Level 1 | Direct
+P: A 50 N weight hangs from two equal cables, each at 45° above the horizontal. Find the tension in each. => 2T sin 45° = 50, so **T = 35.4 N**.
+P: A 10 N weight hangs from a single vertical cable. Find the tension. => **10 N**.
+LVL: Level 2 | Apply
+P: A 4 m uniform plank (20 kg) is supported at both ends. A 40 kg person stands 1 m from the left end. Find both support forces (g = 9.8). => Torque about the right end: N_L × 4 = 20g × 2 + 40g × 3 = 160g, so N_L = 40g = **392 N**. N_R = 60g − 40g = **196 N**.
+P: A uniform sign (15 kg, 1.2 m long) is attached to a wall by a hinge at one end and held horizontal by a vertical wire at the other end. Find the tension. => T × 1.2 = 15g × 0.6, so T = 7.5g = **73.5 N**.
+P: A 5 m ladder (uniform, 15 kg) rests against a smooth wall with its foot 1.5 m away. What minimum μ is needed? => Height = √(25 − 2.25) = 4.77. μ ≥ x ÷ (2y) = 1.5 ÷ 9.54 = **0.157**.
+P: A traffic light (8 kg) hangs from the middle of a cable stretched between two poles 20 m apart. The cable sags 0.5 m. Find the tension. => Each half makes an angle with sin φ = 0.5 ÷ 10.01 = 0.0499. 2T sin φ = 8g = 78.4, so **T = 786 N**: a tiny sag means a very large tension.
+LVL: Challenge | The painter's ladder
+P: A 12 kg painter stands on a 5 m ladder (uniform, 15 kg) at 4 m along its length. The foot is 3 m from a smooth wall (the top 4 m up). Find the friction needed at the floor and the minimum μ. => Torque about the foot: N_w × 4 = 15g × 1.5 + 12g × (4 × 3/5 = 2.4) = g (22.5 + 28.8) = 51.3g. N_w = 12.825g = 125.7 N. Friction = N_w = **125.7 N**. N_f = 27g = 264.6 N. μ ≥ 125.7 ÷ 264.6 = **0.475**. A painter higher on the ladder needs more friction.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Optimisation: draw, objective, constraint, one variable, derivative, check ends. Min-time problems give Snell's law. Marginal revenue = marginal cost at maximum profit.
+- Equilibrium: ΣF = 0 and Στ = 0. Choose a pivot that removes unknown forces. Ladder: friction needed μ_min = x ÷ (2y) for a uniform ladder on a smooth wall.
+
+BN: আজকের সারকথা: সেরা মান খোঁজার ধাপ: উদ্দেশ্য, শর্ত, এক চলক, অন্তরকলজ, প্রান্ত যাচাই। সবচেয়ে কম সময় থেকে স্নেলের সূত্র। ভারসাম্যে ΣF = 0, Στ = 0; এমন কেন্দ্র বাছো যেখানে অজানা বল কাজ করে; মইয়ের জন্য ন্যূনতম ঘর্ষণ μ = x/(2y)।
+
+EXIT:
+E: A rectangle has perimeter 40 m. What is its largest area in m²?; 100; 0.001; A square with side 10.
+E: A 60 N sign hangs from two equal cables, each at 30° above the horizontal. What is each tension in newtons?; 60; 0.001; 2T sin 30° = 60, so T = 60.
+E: A 4 m uniform plank of 10 kg is held by supports at both ends. How many newtons does each support carry? (g = 9.8); 49; 0.001; Each carries half of 98.
+
+**Tomorrow:** related rates revisited, curve sketching, and when objects tip over.
+
+CHECK: notes

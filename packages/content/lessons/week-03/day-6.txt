@@ -1,0 +1,82 @@
+@day Week 3 · Day 6 · Saturday
+# Week 3 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week the test covers trigonometry (unit circle, identities, equations, compound angles, triangle rules, inverse trig) and the physics of vectors, projectiles and slopes.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ত্রিকোণমিতি, ভেক্টর বিশ্লেষণ, প্রক্ষেপ গতি আর ঢালু তল।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Questions 1 to 7 and 10 to 13. A calculator is allowed for Questions 8 and 9, and for the physics part.
+- Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen.
+- Do not look at your notes. The point is to find what is truly stuck in your memory.
+
+CHECK: recall
+
+@section math | 2 · Part A: Trigonometry (14 marks, about 55 min) | calculator only where stated
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Convert 150° to radians. => 150 × π ÷ 180 = **5π/6**.
+P: (1 mark) Find the exact value of sin 120° × cos 330°. => sin 120° = √3/2 and cos 330° = √3/2. The product is **3/4**.
+P: (1 mark) Solve 2 cos x = −1 for 0 ≤ x ≤ 2π. => cos x = −1/2, which has reference angle π/3, in quadrants II and III. **x = 2π/3, 4π/3**.
+P: (1 mark) Simplify sin x ÷ (1 + cos x) + (1 + cos x) ÷ sin x. => Common denominator: (sin²x + (1 + cos x)²) ÷ (sin x (1 + cos x)) = (sin²x + 1 + 2 cos x + cos²x) ÷ (…) = (2 + 2 cos x) ÷ (sin x (1 + cos x)) = **2 ÷ sin x**.
+P: (1 mark) If cos A = −5/13 and A is in quadrant II, find sin 2A. => sin A = 12/13 (positive in quadrant II). sin 2A = 2 × (12/13) × (−5/13) = **−120/169**.
+P: (1 mark) Solve 2 sin²x − sin x − 1 = 0 for 0 ≤ x ≤ 2π. => Factor: (2 sin x + 1)(sin x − 1) = 0. sin x = 1 gives π/2. sin x = −1/2 gives 7π/6 and 11π/6. **x = π/2, 7π/6, 11π/6**.
+P: (1 mark) Write 3 sin x + 4 cos x as R sin(x + α) with α acute, and state its maximum value. => R = √(9 + 16) = 5. R cos α = 3, R sin α = 4, so tan α = 4/3 and α = 53.1°. **5 sin(x + 53.1°)**, with maximum value **5**.
+P: (1 mark, calculator) Two sides of a triangle are 7 and 9 with an angle of 50° between them. Find the third side. => c² = 49 + 81 − 2 × 7 × 9 × cos 50° = 130 − 126 × 0.6428 = 130 − 80.99 = 49.01. **c = 7.00**.
+P: (1 mark, calculator) In a triangle A = 35°, B = 75° and a = 10. Find b. => b = 10 × sin 75° ÷ sin 35° = 10 × 0.9659 ÷ 0.5736 = **16.8**.
+P: (1 mark) Find the area of a triangle with sides 8 and 10 and an included angle of 30°. => ½ × 8 × 10 × sin 30° = 40 × 0.5 = **20**.
+P: (1 mark) Find sin(cos⁻¹(5/13)). => Triangle with adjacent 5, hypotenuse 13, so opposite 12. **12/13**.
+P: (1 mark) State the amplitude and period of y = 3 sin 2x. => Amplitude **3**, period 2π ÷ 2 = **π**.
+P: (2 marks) Solve cos 2x = 1/2 for 0 ≤ x ≤ π. => 2x lies in 0 to 2π. cos θ = 1/2 gives θ = π/3 and 5π/3. So 2x = π/3 or 5π/3, giving **x = π/6, 5π/6**.
+
+CHECK: math
+
+@section physics | 3 · Part B: Vectors, projectiles and slopes (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A 50 N force acts at 37° above the horizontal. Find its horizontal and vertical components. => 50 cos 37° = **39.9 N**, 50 sin 37° = **30.1 N**.
+P: (1 mark) A boat steers straight across a river at 4 m/s relative to the water. The current is 3 m/s. Find its speed relative to the ground and the angle its path makes with the straight-across direction. => √(16 + 9) = **5 m/s**. Angle = tan⁻¹(3/4) = **36.9°** downstream.
+P: (1 mark) A ball is thrown horizontally at 15 m/s from a cliff 20 m high (g = 9.8). Find the time in the air and the horizontal distance. => t = √(2 × 20 ÷ 9.8) = **2.02 s**. Distance = 15 × 2.02 = **30.3 m**.
+P: (1 mark) A projectile is launched from the ground at 30 m/s at 30° above the horizontal (g = 9.8). Find its time of flight and range. => T = 2 × 30 × sin 30° ÷ 9.8 = **3.06 s**. R = 30² × sin 60° ÷ 9.8 = 779.4 ÷ 9.8 = **79.5 m**.
+P: (1 mark) Find the acceleration of a block on a frictionless 40° slope. => g sin 40° = 9.8 × 0.6428 = **6.30 m/s²**.
+P: (1 mark) A block slides down a 30° slope with μ_k = 0.25. Find its acceleration. => a = g (sin 30° − 0.25 cos 30°) = 9.8 × (0.5 − 0.2165) = **2.78 m/s²**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 4. Try the challenge. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 3. Tell me, and I will rebalance Week 4. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q6 | Kept only sin x = 1 | Forgot the second factor | Each factor gives its own solutions, so list them all | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি: কী করেছিলাম, কেন ভুল, সঠিক ধারণা, কবে আবার করব। ত্রিকোণমিতির সমীকরণে সবচেয়ে সাধারণ ভুল: কিছু সমাধান বাদ পড়া (যেমন দ্বিতীয় চতুর্ভাগ ভুলে যাওয়া) আর রেডিয়ান ও ডিগ্রি গুলিয়ে ফেলা।
+
+NOTES:
+
+### Challenge of the week
+LVL: Challenge | Two angles, one range
+P: A projectile launched at speed u from the ground has range R = u² sin 2θ ÷ g. Show that angles θ and 90° − θ give the same range. Then, for u = 20 m/s (g = 9.8), find both angles that give a range of 30 m. => For the angle 90° − θ: sin(2(90° − θ)) = sin(180° − 2θ) = sin 2θ, so the range is identical. ∎ For R = 30: sin 2θ = 30 × 9.8 ÷ 400 = 0.735, so 2θ = 47.3° or 132.7°, giving **θ = 23.6° or 66.4°**. The two angles add up to 90°, as the proof says. The low angle gives a flat, fast shot, and the high angle gives a lob that stays in the air longer.
+
+### Optional coding idea (not part of the study plan)
+**Projectile playground:** draw the path of a projectile from sliders for speed, angle and gravity. Show the range and maximum height as live numbers. Add a second ghost path at 90° − θ to see the equal-range pairs, and let the user switch air drag on to watch the curve lose its symmetry.
+
+### What Week 4 looks like
+Coordinate geometry and conics (lines, circles, parabolas, ellipses, hyperbolas), vectors with dot and cross products, and sequences and series. Physics: friction in depth, circular motion, gravitation and orbits. You can now describe direction with angles, and next week you will describe shapes and curved motion.
+
+BN: আগামী সপ্তাহে স্থানাঙ্ক জ্যামিতি ও কনিক (বৃত্ত, অধিবৃত্ত, উপবৃত্ত, পরাবৃত্ত), ভেক্টরের ডট ও ক্রস গুণফল, আর ধারা ও অনুক্রম। পদার্থবিজ্ঞানে ঘর্ষণ, বৃত্তাকার গতি, মহাকর্ষ ও কক্ষপথ।
+
+**Sunday is a rest day.**
+
+CHECK: notes

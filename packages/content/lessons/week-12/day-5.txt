@@ -1,0 +1,189 @@
+@day Week 12 · Day 5 · Friday
+# Complex numbers in geometry, rotations and fractals. Then: surface tension and capillarity
+lead: Today complex numbers become a language for geometry: rotating points, describing circles and lines, and even generating the Mandelbrot set, a fractal born from a one-line rule. In physics, you study the thin skin on the surface of liquids: surface tension, which shapes droplets and bubbles, lets insects walk on water, and pulls water up to the top of tall trees.
+
+BN: আজ জটিল সংখ্যা জ্যামিতির ভাষা হবে: বিন্দু ঘোরানো, বৃত্ত ও রেখার বর্ণনা, এমনকি এক লাইনের নিয়ম থেকে ম্যান্ডেলব্রট ফ্র্যাক্টাল। পদার্থবিজ্ঞানে তরলের পৃষ্ঠের পাতলা আবরণ, অর্থাৎ পৃষ্ঠটান পড়বে: যা ফোঁটা ও বুদবুদের আকার ঠিক করে, পোকাকে পানির ওপর হাঁটতে দেয় এবং গাছের মাথায় পানি তোলে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Evaluate e^(iπ/2). => **i**.
+P: State Poiseuille's law. => **Q = π r⁴ ΔP ÷ (8 η L)**.
+P: What Reynolds number separates laminar and turbulent pipe flow? => About **2000** (laminar below, turbulent above 4000).
+P: Find ln(−1). => **iπ**.
+P: What is the sum of the roots of z² − 6z + 25? => **6**.
+
+CHECK: recall
+
+@section math | 2 · Math: geometry with complex numbers | 55 min
+
+### Points, distances and rotations
+Treat a point (x, y) as the number z = x + i y. Then:
+
+1. The distance between z₁ and z₂ is **abs(z₁ − z₂)**.
+2. Rotating z about the origin by an angle α (anticlockwise) is **multiplying by e^(iα)**.
+3. Rotating z about a centre c by α: **z′ = c + e^(iα)(z − c)** (shift to the origin, rotate, shift back).
+4. Scaling by k about c: z′ = c + k (z − c).
+
+BN: বিন্দু (x, y) = z = x + iy। দূরত্ব = |z₁ − z₂|। মূলবিন্দুর চারদিকে α কোণে ঘোরানো = e^(iα) দিয়ে গুণ। কেন্দ্র c এর চারদিকে ঘোরাতে হলে: z′ = c + e^(iα)(z − c), অর্থাৎ আগে মূলবিন্দুতে সরাও, ঘোরাও, আবার ফেরাও।
+
+EX: Rotations
+1. Rotate 2 + i about the origin by 90°: multiply by i: i (2 + i) = −1 + 2 i, the point **(−1, 2)**.
+2. Rotate 2 + i about c = 1 by 90°: z − c = 1 + i; times i gives −1 + i; add back c: **0 + i**, the point (0, 1). Check: the distance from c is √2 before and after ✓.
+3. **Equilateral triangle:** on the segment from a = 0 to b = 2, the third vertex is a + e^(i 60°)(b − a) = 2 (0.5 + 0.866 i) = **1 + 1.732 i**. All three sides have length 2 ✓.
+4. **Robot arm:** two links of 1 m and 0.5 m. The first at 30°, the second at 45° relative to it (so 75° absolute). The tip is at 1 e^(i 30°) + 0.5 e^(i 75°) = (0.866 + 0.5 i) + 0.5 (0.2588 + 0.9659 i) = **0.995 + 0.983 i**, which is 1.40 m from the base.
+/EX
+
+LAB: Rotation by multiplication | Choose a point and an angle. Multiplying by e^(iα) rotates it about the origin; the distance from the origin does not change. | px:Point x:-4:4:0.5:3 ;; py:Point y:-4:4:0.5:1 ;; a:Angle α (degrees):0:360:15:90 | px*cos(a*pi/180)-py*sin(a*pi/180):New x:3 ;; px*sin(a*pi/180)+py*cos(a*pi/180):New y:3 ;; sqrt(px^2+py^2):Distance from origin:3 | - | 0,1 | 0,1
+
+### Describing curves
+EX: Loci
+1. **abs(z − c) = r** is a circle of centre c and radius r. For example abs(z − 2 i) = 3 is the circle with centre (0, 2) and radius 3.
+2. **abs(z − a) = abs(z − b)** is the perpendicular bisector of the segment from a to b. For abs(z − 1) = abs(z + 1): the points equally far from 1 and −1 form the line **Re z = 0** (the imaginary axis).
+3. **abs(z − 1) + abs(z + 1) = 4:** the sum of the distances to two points is constant, an ellipse with a = 2, c = 1, b = √(4 − 1) = **√3**.
+4. **arg(z) = π/4** is the half-line y = x with x > 0.
+/EX
+
+EX: Roots of unity make regular polygons
+1. The five fifth roots of 1 are the vertices of a regular pentagon inscribed in the unit circle.
+2. The distance from 1 to the k-th root is 2 sin(180° k ÷ 5). The four distances are 2 sin 36°, 2 sin 72°, 2 sin 108°, 2 sin 144°, so their product is 16 sin²36° sin²72° = 16 × 0.3455 × 0.9045 = **5.000**.
+3. This is a special case of **Π (1 − ωᵏ) = n** (the product of the n − 1 chords from one vertex of a regular n-gon is n).
+/EX
+
+### Fractals: the Mandelbrot set
+Pick a complex number c. Start with z₀ = 0 and repeat **z_(n+1) = z_n² + c**. If the sequence stays bounded, c belongs to the **Mandelbrot set**. A useful fact: if abs(z_n) ever exceeds **2**, the sequence escapes to infinity.
+
+EX: Iterating by hand
+1. **c = 1:** 0, 1, 2, 5, 26, … escapes. Not in the set.
+2. **c = −1:** 0, −1, 0, −1, … cycles. In the set.
+3. **c = i:** z₁ = i, z₂ = i² + i = −1 + i, z₃ = (−1 + i)² + i = −2i + i = −i, z₄ = (−i)² + i = −1 + i, then it repeats z₃ = −i. A cycle of two points: **in the set**.
+4. **c = 0.5:** 0, 0.5, 0.75, 1.0625, 1.629, 3.15 > 2: escapes. In fact c = 0.25 is the rightmost real point of the set.
+5. **c = −2:** 0, −2, 2, 2, 2, … stays bounded: in the set (the leftmost real point).
+/EX
+
+LAB: Three steps of the Mandelbrot iteration | Choose c = a + b i. The numbers show the size of the first three iterates. Look for choices where the numbers grow quickly (outside the set) or stay small (inside). Try c = 1 first, then c = −1, then c = 0.25. | a:Real part of c:-2:1:0.05:0.25 ;; b:Imaginary part of c:-1:1:0.05:0 | sqrt(a^2+b^2):abs(z₁):3 ;; sqrt((a*a-b*b+a)^2+(2*a*b+b)^2):abs(z₂):3 ;; sqrt(((a*a-b*b+a)^2-(2*a*b+b)^2+a)^2+(2*(a*a-b*b+a)*(2*a*b+b)+b)^2):abs(z₃):3 | - | 0,1 | 0,1
+
+BN: ম্যান্ডেলব্রট: z₀ = 0, z_(n+1) = z_n² + c। ক্রমটা সীমিত থাকলে c সেটের ভেতরে। |z| কখনো 2 ছাড়ালে সেটা অসীমে চলে যায়। c = 1: 0, 1, 2, 5, 26 (বাইরে); c = −1: 0, −1, 0, −1 (ভেতরে); c = i একটা দুই বিন্দুর চক্র (ভেতরে)।
+
+TRAP: Rotating about a centre is **not** just multiplying by e^(iα): first subtract the centre, rotate, then add it back. And a locus equation like abs(z − 1) = abs(z + 1) describes a **line**, not a circle: always square both sides and compare with a known shape.
+
+### Quick self-check
+QUIZ:
+Q: Multiplying z by i rotates it…; 90° clockwise; 90° anticlockwise; 180°; 45°; 2; i = e^(iπ/2).
+Q: abs(z − 2) = abs(z + 2) describes…; a circle; the imaginary axis; the real axis; an ellipse; 2; The perpendicular bisector of −2 and 2.
+Q: For c = 1 the Mandelbrot iterates 0, 1, 2, 5, … are…; bounded; unbounded; periodic; zero; 2; They escape.
+Q: The sum of the five fifth roots of 1 is…; 5; 1; 0; −1; 3; The roots of unity sum to 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Rotate 1 + 0 i by 90° about the origin. => **i** (the point (0, 1)).
+P: Find the distance between 1 + 2i and 4 + 6i. => abs(3 + 4i) = **5**.
+P: What curve is abs(z) = 3? => A circle of radius **3** about the origin.
+LVL: Level 2 | Apply
+P: Rotate 3 + i about 1 + i by 90° anticlockwise. => z − c = 2, times i = 2i, plus c: **1 + 3i**.
+P: Find the third vertex of an equilateral triangle on the points 0 and 4 (above the real axis). => 4 e^(i 60°) = **2 + 3.464 i**.
+P: Iterate z² + c from 0 for c = −0.5 + 0.5 i, giving z₁ and z₂. => z₁ = −0.5 + 0.5i. z₂ = z₁² + c. First (−0.5 + 0.5i)² = 0.25 − 0.5i + 0.25 i² = −0.5 i. So z₂ = −0.5 i + (−0.5 + 0.5 i) = **−0.5**.
+P: Describe abs(z − 1 − i) ≤ 2. => The closed disc of radius 2 centred at **(1, 1)**.
+P: Show that if abs(z) = 1 then z̄ = 1 ÷ z. => z z̄ = abs(z)² = 1, so **z̄ = 1 ÷ z** ✓.
+LVL: Level 3 | Real
+P: A game character at (3, 1) is rotated 90° about the centre (1, 1) of a sprite. Find the new position. => z − c = 2, times i = 2i, plus c: **(1, 3)**.
+P: A 2-link arm has links of length 2 m and 1 m. The first is at 0° and the second at 90° relative. Find the tip position and the distance from the base. => 2 + 1 × i: **(2, 1)**, distance √5 = **2.236 m**.
+LVL: Challenge | Pentagon product
+P: Show that the product of the chords from the vertex 1 to the other four fifth roots of unity equals 5. Use the polynomial z⁵ − 1 = (z − 1)(z⁴ + z³ + z² + z + 1). => The roots of z⁴ + z³ + z² + z + 1 are the four other fifth roots ω₁…ω₄, so z⁴ + z³ + z² + z + 1 = Π (z − ωₖ). Put z = 1: the left side is **5**, and the right side is Π (1 − ωₖ), whose modulus is the product of the chords. So the product of chords is **5** ✓ (matches 16 sin²36° sin²72° = 5).
+
+CHECK: math
+
+@section physics | 3 · Physics: surface tension and capillarity | 35 min
+
+### The skin of a liquid
+Molecules inside a liquid are pulled equally in all directions. Molecules at the surface have neighbours only on one side, so they are pulled inward: the surface acts like a stretched skin that tries to be as small as possible. The **surface tension** γ is the force per unit length along the surface (N/m), or equivalently the energy per unit area (J/m²).
+
+| Liquid | γ (N/m) |
+| Water (20 °C) | 0.072 |
+| Soap solution | 0.025 |
+| Ethanol | 0.022 |
+| Mercury | 0.485 |
+
+BN: তরলের পৃষ্ঠের অণুগুলোকে ভেতরের দিকে টানা হয়, তাই পৃষ্ঠ একটা টানটান পর্দার মতো ছোট হতে চায়। পৃষ্ঠটান γ = প্রতি একক দৈর্ঘ্যে বল (N/m) = প্রতি একক ক্ষেত্রফলে শক্তি (J/m²)। পানির γ = 0.072 N/m।
+
+EX: Forces and energies
+1. A soap film on a U-shaped wire of width 5 cm, with a sliding bar: the film has **two** surfaces, so the force on the bar is F = 2 γ L = 2 × 0.025 × 0.05 = **2.5 × 10⁻³ N**.
+2. **Water strider:** mass 10 mg, weight 9.8 × 10⁻⁵ N. Six legs with a total contact length of 6 cm can provide at most γ L = 0.072 × 0.06 = **4.3 × 10⁻³ N**, about 44 times its weight.
+3. **Energy:** stretching the surface by an area ΔA costs γ ΔA.
+/EX
+
+### Pressure inside drops and bubbles
+The surface tension squeezes a drop. Equating the force pulling a hemisphere's rim (2π R γ) with the pressure force (ΔP π R²) gives, for a drop with one surface:
+
+EQ: ΔP = 2 γ ÷ R     and for a soap bubble (two surfaces)     ΔP = 4 γ ÷ R
+
+Smaller drops and bubbles have **higher** pressure inside.
+
+EX: Pressures
+1. A water droplet with R = 1 mm: ΔP = 2 × 0.072 ÷ 0.001 = **144 Pa**.
+2. A soap bubble with R = 1 cm, γ = 0.025: ΔP = 4 × 0.025 ÷ 0.01 = **10 Pa**. With R = 0.5 cm it is **20 Pa**.
+3. If a small and a large bubble are connected by a tube, the small bubble has the higher pressure and **empties into the larger one**. The same effect makes large drops grow at the cost of small ones in fog.
+4. **Lungs:** the alveoli would collapse if the water lining the surface had γ = 0.072. A natural soap-like substance (surfactant) lowers γ so that small alveoli do not empty into large ones.
+/EX
+
+LAB: Pressure in a drop or bubble | Choose the radius (in mm) and the surface tension (in mN/m, where water is 72 and soap solution about 25). The numbers show the pressure excess inside a droplet and inside a soap bubble. | R:Radius R (mm):0.1:10:0.1:1 ;; g:Surface tension γ (mN/m):20:72:1:72 | 2*g/R:Droplet excess pressure 2γ/R (Pa):1 ;; 4*g/R:Bubble excess pressure 4γ/R (Pa):1 | - | 0,1 | 0,1
+
+### Capillary rise
+Where a liquid meets a solid wall the surface bends at a **contact angle** θ. In a thin tube, the surface tension pulls the liquid up if θ < 90° (it "wets" the wall) or pushes it down if θ > 90°. Balance the weight of the column ρ g π r² h with the vertical pull 2π r γ cos θ:
+
+EQ: h = 2 γ cos θ ÷ (ρ g r)
+
+EX: Rise and depression
+1. **Water in glass** (θ ≈ 0), r = 0.5 mm: h = 2 × 0.072 ÷ (1000 × 9.8 × 0.0005) = 0.144 ÷ 4.9 = **2.94 cm**. For r = 0.1 mm the rise is **14.7 cm**.
+2. **Mercury in glass** (θ = 140°, cos θ = −0.766), r = 0.5 mm: h = 2 × 0.485 × (−0.766) ÷ (13,600 × 9.8 × 0.0005) = −0.7430 ÷ 66.64 = **−1.12 cm**: the mercury is **depressed**.
+3. **Tall trees.** In a xylem tube of radius 10 μm, capillarity alone gives h = 0.144 ÷ (1000 × 9.8 × 10⁻⁵) = **1.47 m**, far less than the 100 m of a redwood. Trees also use evaporation at the leaves (transpiration), which creates a negative pressure that pulls the water column up.
+4. **Towels and paper** absorb water because their tiny pores make the capillary rise large.
+/EX
+
+LAB: Capillary rise | Choose the contact angle. The graph shows the rise (cm) of water against the tube radius, from 0.1 to 2 mm. Thinner tubes lift water higher (h ∝ 1 ÷ r). The number gives the rise for your chosen radius. | r:Tube radius (mm):0.1:2:0.05:0.5 ;; t:Contact angle θ (degrees):0:60:5:0 | 1.4694*cos(t*pi/180)/r:Rise h (cm):2 | 1.4694*cos(t*pi/180)/x | 0.1,2 | 0,16
+
+TRAP: The soap film has **two** surfaces (so use 2 γ L and 4 γ ÷ R), but a water droplet has one (2 γ ÷ R). Also, capillary rise uses the **radius** of the tube, not the diameter, and it needs the contact angle: with θ above 90° the liquid is pushed down.
+
+### Quick self-check
+QUIZ:
+Q: The unit of surface tension is…; N; N/m; N/m²; J; 2; Force per unit length (equivalently J/m²).
+Q: If the radius of a bubble halves, the excess pressure…; halves; doubles; quadruples; stays the same; 2; ΔP ∝ 1 ÷ R.
+Q: Water rises in a tube to a height 3 cm. In a tube with half the radius it rises to…; 1.5 cm; 6 cm; 12 cm; 3 cm; 2; h ∝ 1 ÷ r.
+Q: Mercury in a glass tube is…; raised; depressed; unchanged; ejected; 2; Its contact angle exceeds 90°.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the excess pressure in a water droplet of radius 0.5 mm. => 2 × 0.072 ÷ 0.0005 = **288 Pa**.
+P: Find the capillary rise of water in a tube of radius 0.25 mm (θ = 0). => **5.88 cm**.
+LVL: Level 2 | Apply
+P: A soap bubble of radius 2 cm has γ = 0.025 N/m. Find the excess pressure. => 4 × 0.025 ÷ 0.02 = **5 Pa**.
+P: A film of soap solution on a frame 8 cm wide pulls on the sliding bar. Find the force. => 2 × 0.025 × 0.08 = **4 × 10⁻³ N**.
+P: What tube radius lifts water by exactly 10 cm? => r = 2γ ÷ (ρ g h) = 0.144 ÷ (1000 × 9.8 × 0.1) = **1.47 × 10⁻⁴ m = 0.147 mm**.
+P: Find the surface energy of a spherical water drop of radius 1 mm. => Area 4π (10⁻³)² = 1.257 × 10⁻⁵ m². Energy = 0.072 × 1.257 × 10⁻⁵ = **9.05 × 10⁻⁷ J**.
+P: Two soap bubbles, radii 1 cm and 2 cm, are connected by a tube. Which way does air flow, and what is the pressure difference? => ΔP₁ = 4 × 0.025 ÷ 0.01 = 10 Pa, ΔP₂ = 5 Pa. Air flows from the **small to the large** bubble, with a difference of **5 Pa**.
+LVL: Level 3 | Real
+P: Why does a clean glass tube dipped in water have a raised meniscus while a wax-coated tube does not? => Clean glass is wetted (θ ≈ 0), so the surface curves up. Wax is not wetted (θ above 90°), so the surface is flat or curves down and there is **no rise** (or a depression).
+P: A drop of water of radius 1 mm hangs from a tap. Find the maximum weight (mass) that the surface tension at a neck of radius 2 mm can support before falling. => Force = γ × circumference = 0.072 × 2π × 0.002 = 9.05 × 10⁻⁴ N, so the mass is 9.05 × 10⁻⁴ ÷ 9.8 = **9.2 × 10⁻⁵ kg = 0.092 g**.
+LVL: Challenge | Splitting a drop
+P: A water drop of radius 1 mm is split into 1000 equal droplets. Find the radius of each, the increase in surface area, and the energy needed. => Volume is conserved: 1000 r³ = (1 mm)³, so r = **0.1 mm**. Area before: 4π (10⁻³)² = 1.257 × 10⁻⁵ m². Area after: 1000 × 4π (10⁻⁴)² = 1.257 × 10⁻⁴ m². Increase: **1.131 × 10⁻⁴ m²**. Energy: 0.072 × 1.131 × 10⁻⁴ = **8.14 × 10⁻⁶ J**. (This is why spraying a liquid takes work.)
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Geometry with complex numbers: distance abs(z₁ − z₂), rotation about the origin × e^(iα), about c: c + e^(iα)(z − c). Loci: abs(z − c) = r (circle), abs(z − a) = abs(z − b) (bisector), sums of distances (ellipse). Roots of unity form regular polygons. Mandelbrot: z → z² + c, escapes if abs(z) > 2.
+- Surface tension γ (N/m = J/m²). Drop ΔP = 2γ ÷ R, soap bubble ΔP = 4γ ÷ R. Capillary rise h = 2γ cos θ ÷ (ρ g r). Surface energy γ ΔA.
+
+BN: আজকের সারকথা: ঘূর্ণন z → c + e^(iα)(z − c); |z − c| = r বৃত্ত; একক এর মূলগুলো সুষম বহুভুজ; ম্যান্ডেলব্রট z → z² + c। পৃষ্ঠটান: ফোঁটায় ΔP = 2γ/R, সাবানের বুদবুদে 4γ/R, কৈশিক উত্থান h = 2γ cos θ/(ρ g r), পৃষ্ঠশক্তি = γ ΔA।
+
+EXIT:
+E: What is the real part of i (1 + i)?; -1; 0.001; i + i² = −1 + i, so the real part is −1.
+E: What is the modulus of z₁ = (1 + i)² + i?; 3; 0.001; (1 + i)² = 2i, plus i gives 3i, with modulus 3.
+E: By what height in cm does water rise in a tube of radius 0.25 mm?; 5.88; 0.05; 1.4694 ÷ 0.25 = 5.878.
+
+**Tomorrow:** the Week 12 test, a mistake log, and a preview of Week 13: matrices and thermal physics.
+
+CHECK: notes

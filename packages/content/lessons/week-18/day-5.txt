@@ -1,0 +1,158 @@
+@day Week 18 · Day 5 · Friday
+# Equilibria, stability and harvesting. Then: RC charging and capacitors in everyday devices
+lead: You do not always need the full solution. For an equation y′ = f (y) you can read the whole long-term story from the sign of f: where the system settles, where it is balanced on a knife edge, and what happens when a parameter crosses a critical value. This is how ecologists find that a fishery can collapse suddenly. In physics, you charge and discharge a capacitor through a resistor: the RC time constant, which sets the speed of every digital circuit, touch screen, camera flash and memory chip in your devices.
+
+BN: সবসময় পুরো সমাধান লাগে না। y′ = f(y) সমীকরণে f এর চিহ্ন দেখেই দীর্ঘমেয়াদি গল্প পড়া যায়: ব্যবস্থা কোথায় থিতু হয়, কোথায় ছুরির ধারে ভারসাম্যে থাকে, আর কোনো প্যারামিটার সংকট মান পার হলে কী হয়। এভাবেই পরিবেশবিদরা দেখেন মাছের ভাণ্ডার হঠাৎ ধসে যেতে পারে। পদার্থবিজ্ঞানে রোধের মধ্য দিয়ে ধারক চার্জ ও ডিসচার্জ করবে: RC সময় ধ্রুবক, যা তোমার ডিভাইসের প্রতিটি ডিজিটাল সার্কিট, টাচ স্ক্রিন, ক্যামেরা ফ্ল্যাশ ও মেমরি চিপের গতি ঠিক করে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Solve y′ + y = 1 with y (0) = 0. => **y = 1 − e^(−x)**.
+P: State the logistic equation and its equilibria. => **dP/dt = r P (1 − P ÷ K)**; equilibria **P = 0 and P = K**.
+P: What is the energy lost when a capacitor is charged from a battery? => **Half** of the battery's energy, ½ C V².
+P: What is the time constant of a linear first-order system? => The time for **63%** of the change.
+P: Find the sign of f′ (y) = 2y at y = 2 and at y = −2. => **Positive** at 2 and **negative** at −2.
+
+CHECK: recall
+
+@section math | 2 · Math: equilibria and stability | 55 min
+
+### Autonomous equations
+An **autonomous** equation has no x (or t) on the right: **y′ = f (y)**. The long-term behaviour comes from a **phase line**:
+
+1. **Equilibria:** the constant solutions y* where f (y*) = 0.
+2. **Direction:** between equilibria, y increases where f > 0 and decreases where f < 0.
+3. **Stability:** an equilibrium is **stable** if f′ (y*) < 0 (nearby solutions move towards it) and **unstable** if f′ (y*) > 0 (they move away).
+
+BN: স্বয়ংক্রিয় সমীকরণ y′ = f(y): সাম্যাবস্থা f(y*) = 0; f > 0 হলে y বাড়ে, f < 0 হলে কমে। f′(y*) < 0 হলে স্থিতিশীল (কাছের সমাধান ঐদিকে আসে), f′(y*) > 0 হলে অস্থিতিশীল (দূরে সরে যায়)।
+
+EX: Phase lines
+1. **y′ = y (2 − y).** Equilibria 0 and 2. f′ (y) = 2 − 2y: f′ (0) = 2 > 0, **unstable**; f′ (2) = −2 < 0, **stable**. Start at 0.1: it grows to 2. Start at 3: it falls to 2. Start at −0.1: it falls away to −∞.
+2. **y′ = y² − 4.** Equilibria ±2. f′ = 2y: at y = 2, 4 > 0, **unstable**; at y = −2, −4 < 0, **stable**. A solution starting above 2 blows up in finite time; between −2 and 2 it slides down to −2.
+3. **y′ = −y³.** The only equilibrium is 0 and f′ (0) = 0 (the test is silent), but the sign of f says: stable. Solving: dy ÷ y³ = −dt gives y² = 1 ÷ (2t + 1) with y (0) = 1. At t = 4: **y = 1/3**. The decay is **algebraic** (≈ t^(−1/2)), much slower than exponential.
+4. **No uniqueness sometimes:** y′ = √y with y (0) = 0 has the solutions y = 0 and y = t²/4 (check: y′ = t/2 = √y ✓). The function √y is not smooth at 0, and a nice (Lipschitz) f is needed for a unique solution.
+/EX
+
+### Harvesting a population
+Fish are caught at a constant rate H: dP/dt = r P (1 − P ÷ K) − H. Set the right side to zero: r P − r P² ÷ K = H, i.e. P² − K P + (K H ÷ r) = 0:
+
+EQ: P* = [K ± √(K² − 4 K H ÷ r)] ÷ 2     (real only if H ≤ r K ÷ 4)
+
+EX: A fishery
+r = 0.5 per year, K = 1000 tonnes of fish, H = 100 tonnes/year.
+1. **Equilibria:** P* = [1000 ± √(10⁶ − 8 × 10⁵)] ÷ 2 = (1000 ± 447.2) ÷ 2 = **723.6** and **276.4**.
+2. **Stability:** the upper one is **stable** (f falls through zero going up) and the lower one is **unstable**. If the stock starts above 276.4 it recovers towards 723.6; if it starts below 276.4 it **collapses to zero**, because the catch exceeds the growth.
+3. **The maximum sustainable harvest** is H = r K ÷ 4 = **125 tonnes/year**, at P = K/2 = 500. At H = 125 the two equilibria merge at 500 (a "half-stable" point: a fish stock at 500 is balanced on a knife edge).
+4. **At H = 150** there is **no equilibrium**: dP/dt < 0 for every P, and the stock goes extinct, in finite time. The fishery **collapses suddenly** when H crosses 125: a change of 25% in the catch turns a healthy stock into an extinct one. (This kind of change at a critical parameter value is called a **bifurcation**; the collapse of the Atlantic cod around 1992 is a real example of overfishing.)
+/EX
+
+LAB: A harvested population | The model is P′ = r P (1 − P ÷ K) − H. Choose r, K and the harvest H. The graph shows the growth rate f (P) against P: the equilibria are where the curve crosses zero (the stable one where it crosses downwards). The numbers give the maximum sustainable harvest r K ÷ 4, and the upper (stable) and lower (unstable) equilibria. If H is above the maximum, the two values are shown equal and there is no real equilibrium. | r:Growth rate r:0.2:1:0.1:0.5 ;; K:Carrying capacity K:500:2000:100:1000 ;; H:Harvest H (per year):0:200:5:100 | r*K/4:Maximum sustainable harvest:1 ;; (K+sqrt(((K^2-4*K*H/r)+abs(K^2-4*K*H/r))/2))/2:Upper equilibrium (stable):1 ;; (K-sqrt(((K^2-4*K*H/r)+abs(K^2-4*K*H/r))/2))/2:Lower equilibrium (unstable):1 | r*x*(1-x/K)-H ;; 0 | 0,2000 | -100,200
+
+TRAP: The stability test f′ (y*) < 0 fails when f′ (y*) = 0: then look at the **sign of f** on both sides. An equilibrium is stable only if **nearby** solutions approach it, not if the solution happens to stay there. And in the harvest model, **stable equilibria can disappear** when a parameter changes: a population that looks stable for years can crash after a small increase in the catch.
+
+### Quick self-check
+QUIZ:
+Q: An equilibrium y* of y′ = f (y) is stable if…; f′ (y*) > 0; f′ (y*) < 0; f (y*) > 0; y* > 0; 2; Nearby solutions approach it.
+Q: The equilibria of y′ = y (2 − y) are…; 0 and 1; 0 and 2; 1 and 2; 2 only; 2; f = 0.
+Q: The maximum sustainable harvest of the logistic model is…; r K; r K ÷ 2; r K ÷ 4; K ÷ 4; 3; At P = K/2.
+Q: With H above the maximum, the population…; stabilises; goes extinct; oscillates; grows; 2; No equilibrium exists.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the equilibria of y′ = y (2 − y) and classify them. => **0 (unstable)** and **2 (stable)**.
+P: Find the equilibria of y′ = y² − 4. => **y = 2 and y = −2**.
+P: Is y = 0 stable for y′ = −y? => f′ (0) = −1 < 0: **yes**.
+LVL: Level 2 | Apply
+P: Classify the equilibria of y′ = y² − 4. => **−2 stable**, **+2 unstable**.
+P: Solve y′ = −y³ with y (0) = 1 and find y (4). => y² = 1 ÷ (2t + 1): y (4) = **1/3**.
+P: For P′ = 0.5 P (1 − P ÷ 1000) − 100 find the equilibria and what happens from P₀ = 300 and from P₀ = 250. => **723.6** (stable) and **276.4** (unstable). From 300 (above 276.4) the stock grows to **723.6**; from 250 it **collapses to 0**.
+P: Find the maximum sustainable harvest for r = 0.4 and K = 5000 and the stock size at which it is taken. => H = r K ÷ 4 = **500 tonnes/yr** at P = **2500**.
+P: For the same fishery, what happens at H = 600? => No equilibrium: the stock **collapses** to extinction.
+P: Classify the equilibria of y′ = sin y near y = 0 and y = π. => f′ = cos y: f′ (0) = 1 > 0 **unstable**; f′ (π) = −1 < 0 **stable**.
+LVL: Level 3 | Real
+P: A lake's fish have r = 0.6 per year and K = 20,000. A fishing fleet takes H = 2800 per year. Find the equilibria and decide whether the fishery is safe. Also find the maximum yield. => Max yield r K ÷ 4 = **3000**. Equilibria: P² − 20000 P + 20000 × 2800 ÷ 0.6 = P² − 20000 P + 9.33 × 10⁷ = 0: √(4 × 10⁸ − 3.733 × 10⁸) = √(2.667 × 10⁷) = 5164, so P* = (20000 ± 5164) ÷ 2 = **12,582** (stable) and **7418** (unstable). It is only **safe** if the stock stays above 7418 and H stays below 3000: it is dangerously close to the limit (93% of the maximum).
+LVL: Challenge | Non-uniqueness
+P: Show that y′ = √y, y (0) = 0 has the solutions y = 0 and y = t²/4, and explain why this does not happen for y′ = y. => Check y = t²/4: y′ = t/2 and √y = t/2 ✓ (for t ≥ 0); y = 0 also works. For y′ = y the function f = y has a bounded slope, so two solutions cannot separate (the Lipschitz condition). For √y the slope tends to infinity at 0, which allows the solution to "leave" zero at any time.
+
+CHECK: math
+
+@section physics | 3 · Physics: RC circuits in practice | 35 min
+
+### Charging and discharging
+A capacitor C is charged through a resistor R from a battery V₀ (the equation from Day 3: R dq/dt + q ÷ C = V₀):
+
+EQ: V_C (t) = V₀ (1 − e^(−t/RC))     I (t) = (V₀ ÷ R) e^(−t/RC)     τ = R C
+
+Discharging from V₀ through R: V_C = V₀ e^(−t/RC). After **τ** the charging capacitor is at **63.2%**, after **2.3τ** 90%, after **3τ** 95%, after **5τ** 99.3%.
+
+BN: ব্যাটারি V₀ থেকে R এর মধ্য দিয়ে C চার্জ: V_C = V₀(1 − e^(−t/RC)), I = (V₀/R)e^(−t/RC), τ = RC। τ পরে 63.2%, 2.3τ এ 90%, 3τ এ 95%, 5τ এ 99.3%। ডিসচার্জে V_C = V₀e^(−t/RC)।
+
+EX: RC numbers
+1. **R = 10 kΩ and C = 100 μF:** τ = 10⁴ × 10⁻⁴ = **1 s**. With V₀ = 12 V, at t = 2 s: V_C = 12 (1 − e⁻²) = **10.4 V**.
+2. **Time to reach 90%:** t = τ ln 10 = **2.30 s**. To reach half: t = τ ln 2 = **0.693 s**.
+3. **Current:** I (0) = 12 ÷ 10⁴ = **1.2 mA**; at t = 1 s: 1.2 × e⁻¹ = **0.44 mA**. The current starts at its maximum and decays to zero.
+4. **Discharge** from 12 V: at t = 3 s V = 12 e⁻³ = **0.60 V**.
+5. **Energy:** whatever R is, the heat in the resistor while charging is ½ C V₀² (Day 3).
+6. **A low-pass filter:** the same RC circuit passes slow signals and blocks fast ones. Its cutoff frequency is f_c = 1 ÷ (2π R C). For R = 1.6 kΩ and C = 100 nF: **995 Hz** (the topic of Week 20).
+7. **A switch debouncer:** a mechanical switch bounces for about 1 ms. With R = 10 kΩ and C = 0.1 μF (τ = 1 ms) the voltage rises smoothly instead of flickering.
+/EX
+
+LAB: Charging an RC circuit | Choose R, C, the battery voltage and a time. The graph shows the capacitor voltage rising to V₀. The numbers give the time constant, the voltage and the current at your chosen time, and the percentage charged. | R:Resistance R (kΩ):1:100:1:10 ;; C:Capacitance C (μF):10:1000:10:100 ;; V0:Battery V₀ (V):1:24:1:12 ;; t:Time t (s):0:10:0.1:2 | R*C/1000:Time constant RC (s):2 ;; V0*(1-exp(-t*1000/(R*C))):Capacitor voltage (V):2 ;; V0/R*exp(-t*1000/(R*C)):Current (mA):3 ;; 100*(1-exp(-t*1000/(R*C))):Percent charged:1 | V0*(1-exp(-x*1000/(R*C))) | 0,10 | 0,24
+
+### Capacitors in the devices around you
+EX: Capacitance at work
+1. **DRAM memory:** each bit is a tiny capacitor of about 25 fF (25 × 10⁻¹⁵ F) charged to 1 V. The charge is Q = 25 fC, only **156,000 electrons**, and the energy 12.5 fJ. Leakage of about 40 fA drains 10% of the charge in 0.1 × 25 fC ÷ 40 fA = **62 ms**, so every cell must be **refreshed** about every 64 ms: this is why the memory is called "dynamic".
+2. **Touch screens:** the screen has a grid of electrodes with a small mutual capacitance (about 1 pF). A finger takes some of the field and reduces it by around 10%. The controller measures the RC time constant of each node: with R = 1 MΩ, τ = 1 μs, and a 10% change is 0.1 μs, easily timed by a 100 MHz clock (10 ns). The place where τ changes is where you touch.
+3. **A capacitive keyboard or sensor:** a pressed key moves a plate from 4 mm to 2 mm: for A = 0.5 cm² the capacitance goes from **0.11 pF** to **0.22 pF**, doubling. A condenser microphone works the same way: sound pressure moves one plate by a tiny distance, which changes C and so the voltage.
+4. **A power supply:** a large capacitor smooths the rectified voltage (the "ripple"): it holds the load while the input dips. The ripple falls with C: ΔV ≈ I ÷ (f C) (Week 20).
+5. **The flash and the defibrillator** (Day 3): a slow charge through a resistor or a circuit with τ of seconds, then a very fast discharge through a small resistance.
+/EX
+
+LAB: A DRAM cell | Choose the capacitance of a memory cell, its voltage and the leakage current. The numbers give the stored charge (femtocoulombs), the number of electrons, the energy and the time for the cell to lose 10% of its charge. | C:Capacitance (fF):10:50:1:25 ;; V:Voltage (V):0.5:1.5:0.1:1 ;; I:Leakage current (fA):5:100:5:40 | C*V:Charge (fC):1 ;; C*1e-15*V/1.602e-19:Number of electrons:0 ;; 0.5*C*V^2:Energy (fJ):1 ;; 0.1*C*V/I*1000:Time to lose 10% (ms):0 | - | 0,1 | 0,1
+
+TRAP: The time constant is **R C**, not 1 ÷ (R C) and not R + C. The capacitor does not charge **linearly**: it covers 63% of the remaining gap in each τ, and it takes about 5τ to be "fully" charged. Check **units**: kΩ × μF = ms (10³ × 10⁻⁶ = 10⁻³ s). And the current in the circuit is largest at the start, when the capacitor is empty and acts like a wire; it acts like an open circuit when full.
+
+### Quick self-check
+QUIZ:
+Q: The time constant of R = 10 kΩ and C = 100 μF is…; 1 ms; 1 s; 10 s; 0.1 s; 2; R C = 10⁴ × 10⁻⁴.
+Q: After one time constant the charging capacitor is at…; 50%; 63%; 86%; 95%; 2; 1 − e⁻¹.
+Q: The current in a charging RC circuit is largest…; at the end; at the start; at τ; never; 2; The empty capacitor acts as a wire.
+Q: DRAM needs refreshing because…; the capacitors leak charge; the bits are too many; of heat; of noise only; 1; Leakage drains the 156,000 electrons.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the time constant for R = 10 kΩ and C = 100 μF. => **1 s**.
+P: What fraction is charged after one τ? => **63.2%**.
+P: What is the initial current for V₀ = 12 V and R = 10 kΩ? => **1.2 mA**.
+LVL: Level 2 | Apply
+P: Find V_C at t = 2 s (V₀ = 12 V, τ = 1 s) and the time to 90%. => **10.4 V** and **2.30 s**.
+P: Find the voltage across a discharging capacitor at t = 3 s (V₀ = 12 V, τ = 1 s). => **0.60 V**.
+P: Find the cutoff frequency of an RC filter with R = 1.6 kΩ and C = 100 nF. => 1 ÷ (2π × 1600 × 10⁻⁷) = **995 Hz**.
+P: How many electrons does a 25 fF DRAM cell hold at 1 V and what is its energy? => **1.56 × 10⁵** electrons; **12.5 fJ**.
+P: A 1 μF capacitor must charge to 99% of 5 V in 10 ms. Find the largest R. => 99% needs t = τ ln 100 = 4.6τ, so τ = 10 ms ÷ 4.6 = 2.17 ms and R = τ ÷ C = **2.17 kΩ**.
+P: A capacitor of 470 μF is discharged through 100 Ω from 12 V. Find the time to fall to 1 V and the initial current. => τ = 0.047 s; t = τ ln 12 = **0.117 s**; I (0) = **120 mA**.
+LVL: Level 3 | Real
+P: Model the charging of a flash capacitor as an RC circuit with an effective time constant τ = 20 ms. Find the time to reach 95% of the final voltage. => t = 3τ = **60 ms**. (A real flash needs seconds, because its converter can supply only a few watts: the limit is the **power**, not the RC constant.)
+LVL: Challenge | RC charging from the integrating factor
+P: Solve R dq/dt + q ÷ C = V₀ with q (0) = 0 using the integrating factor, and verify that the heat ∫ I² R dt is ½ C V₀². => dq/dt + q ÷ (R C) = V₀ ÷ R. μ = e^(t/RC), so (μ q)′ = (V₀ ÷ R) e^(t/RC) and q = C V₀ + A e^(−t/RC); q (0) = 0 gives A = −C V₀: **q = C V₀ (1 − e^(−t/RC))**. Then I = (V₀ ÷ R) e^(−t/RC) and ∫₀^∞ I² R dt = (V₀² ÷ R)(R C ÷ 2) = **½ C V₀²**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- y′ = f (y): equilibria f = 0; stable if f′ < 0, unstable if f′ > 0 (check the sign of f if f′ = 0). Logistic with harvest: equilibria [K ± √(K² − 4KH/r)] ÷ 2, maximum sustainable yield r K ÷ 4, collapse beyond it. Uniqueness can fail for non-smooth f (√y).
+- RC: V_C = V₀ (1 − e^(−t/RC)), I = (V₀ ÷ R) e^(−t/RC), τ = R C (63% after τ, 99.3% after 5τ). Heat ½ C V₀². Cutoff 1 ÷ 2π R C. DRAM cell 25 fF, 156,000 electrons, refreshed every 64 ms. Touch screens measure τ.
+
+BN: আজকের সারকথা: y′ = f(y): সাম্যাবস্থা f = 0; f′ < 0 হলে স্থিতিশীল, f′ > 0 হলে অস্থিতিশীল। ফসল তোলা লজিস্টিক: সর্বোচ্চ টেকসই ফসল rK/4, তার বেশি হলে ধস। RC: V_C = V₀(1 − e^(−t/RC)), τ = RC (τ পরে 63%, 5τ এ 99.3%)। তাপ ½CV₀²; কাটঅফ 1/(2πRC)। DRAM সেলে 156,000 ইলেকট্রন, প্রতি 64 ms এ রিফ্রেশ। টাচ স্ক্রিন τ মাপে।
+
+EXIT:
+E: What is the maximum sustainable harvest for r = 0.5 and K = 1000?; 125; 0.5; r K ÷ 4.
+E: What is the time constant (s) of R = 10 kΩ and C = 100 μF?; 1; 0.01; R C.
+E: What is the capacitor voltage (V) at t = 2 s in an RC circuit with V₀ = 12 V and τ = 1 s?; 10.38; 0.02; 12 (1 − e⁻²).
+
+**Tomorrow:** the Week 18 test.
+
+CHECK: notes

@@ -1,0 +1,140 @@
+@day Week 11 · Day 3 · Wednesday
+# Review 3: series and waves, and a modelling project
+lead: Today you review sequences, series and Taylor expansions (Week 10) together with waves and sound, and then you put everything into one extended project: the bouncing ball. You will use derivatives for its motion, geometric series for its total time, a logarithm for the fading sound, and a first-order approximation to check your work. Real engineering problems look like this: several tools in one chain.
+
+BN: আজ অনুক্রম, ধারা ও টেলর (সপ্তাহ ১০) এবং তরঙ্গ ও শব্দ পর্যালোচনা, তারপর সব মিলিয়ে একটা বড় প্রকল্প: লাফানো বল। এর গতির জন্য অন্তরকলন, মোট সময়ের জন্য গুণোত্তর ধারা, মিলিয়ে যাওয়া শব্দের জন্য লগারিদম, আর হিসাব মেলাতে প্রথম ক্রম আসন্নকরণ ব্যবহার করবে। বাস্তব প্রকৌশল সমস্যা এমনই: একটা শিকলে কয়েকটা হাতিয়ার।
+
+@section recall | 1 · Warm-up: retrieve without notes | 15 min · no calculator
+
+LVL: Recall | Write each answer before you check
+P: State the sum of a geometric series and when it works. => **a ÷ (1 − r)**, for abs(r) < 1.
+P: List the Maclaurin series of eˣ, sin x and cos x (first three terms). => **1 + x + x²/2**, **x − x³/6 + x⁵/120**, **1 − x²/2 + x⁴/24**.
+P: What does the ratio test conclude when L = 1? => **Nothing**: the test is inconclusive.
+P: Write v for a string wave and f₁ for a fixed string. => **v = √(T ÷ μ)** and **f₁ = v ÷ (2L)**.
+P: What is the beat frequency of 440 Hz and 443 Hz? => **3 Hz**.
+P: By how many dB does the level fall when the distance doubles? => **6 dB**.
+P: Write the Doppler formula for a moving source. => **f′ = f v ÷ (v − vₛ)** (approaching).
+
+CHECK: recall
+
+@section math | 2 · Math review: series | 45 min
+
+### The map of Week 10
+| Idea | Key results |
+| Geometric series | Σ a rⁿ = a ÷ (1 − r), abs(r) < 1 |
+| Tests | divergence, p-series, comparison, ratio, integral, alternating (error ≤ first omitted term) |
+| Power series | radius from the ratio test, check endpoints, differentiate and integrate term by term |
+| Taylor | f(x) = Σ f⁽ⁿ⁾(a)(x − a)ⁿ ÷ n!, remainder ≤ M abs(x − a)ⁿ⁺¹ ÷ (n + 1)! |
+| Uses | approximations, limits, exact sums, solving y″ = −y |
+
+BN: গুণোত্তর ধারা a/(1 − r); পরীক্ষা: ডাইভার্জেন্স, p, তুলনা, অনুপাত, ইন্টিগ্রাল, পর্যায়ক্রমিক; ঘাত ধারায় ব্যাসার্ধ ও প্রান্ত; টেলর: f⁽ⁿ⁾(a)(x − a)ⁿ/n! যোগ; ব্যবহার: আসন্ন মান, লিমিট, সঠিক যোগফল।
+
+EX: Mixed series problems
+1. Classify: Σ (2/3)ⁿ converges to 3 (from n = 0). Σ 1 ÷ √n diverges. Σ n ÷ (n² + 4) diverges (compare with 1 ÷ n). Σ (−1)ⁿ ÷ n converges conditionally. Σ 3ⁿ ÷ n! converges (ratio 3 ÷ (n + 1) → 0). Σ n² ÷ 2ⁿ converges (ratio → 1/2).
+2. Interval: Σ xⁿ ÷ (n 3ⁿ) has R = 3, diverges at x = 3, converges at x = −3: **[−3, 3)**.
+3. cos 0.3 ≈ 1 − 0.045 + 0.0003375 = **0.95534** (true 0.955336).
+4. e^(−0.1) ≈ 1 − 0.1 + 0.005 − 0.000167 + 0.000004 = **0.904837**.
+5. tan x = x + x³/3 + 2x⁵/15 + …, so lim (x → 0) (x − tan x) ÷ x³ = **−1/3**.
+6. Σ from n = 1 of n ÷ 3ⁿ = x ÷ (1 − x)² at x = 1/3 = (1/3) ÷ (4/9) = **3/4**.
+/EX
+
+TRAP: A series test comes **before** a calculation: never sum a divergent series, and never apply a convergent-series formula outside its radius. "The terms go to 0" is necessary but not sufficient. For the ratio test, remember that L = 1 tells you nothing, and endpoints need separate tests.
+
+### Check yourself
+QUIZ:
+Q: Σ 1 ÷ n²…; diverges; converges; equals 1; is alternating; 2; p = 2 > 1.
+Q: The Maclaurin series of sin x contains…; even powers only; odd powers only; all powers; no powers; 2; sin is an odd function.
+Q: The radius of convergence of Σ n! xⁿ is…; ∞; 1; 0; e; 3; The ratio (n + 1) abs(x) tends to infinity unless x = 0.
+Q: To estimate the error of an alternating series after N terms, use…; the first omitted term; the last included term; the sum; the ratio; 1; The first omitted term bounds the error.
+
+### Mixed practice (series)
+LVL: Level 2 | Apply
+P: Find the sum 8 − 4 + 2 − 1 + … => a = 8, r = −1/2: 8 ÷ 1.5 = **16/3**.
+P: Test Σ (5ⁿ ÷ n!) and Σ (n ÷ 2ⁿ) for convergence. => Ratios 5 ÷ (n + 1) → 0 and (n + 1) ÷ (2n) → 1/2. Both **converge**.
+P: Find the interval of convergence of Σ (x − 2)ⁿ ÷ n². => R = 1, and at both x = 1 and x = 3 it converges (p = 2). Interval **[1, 3]**.
+P: Use the first three terms of the series for ln(1 + x) to estimate ln(1.2) and bound the error. => 0.2 − 0.02 + 0.00267 = **0.18267**. Error ≤ 0.2⁴ ÷ 4 = 0.0004.
+P: Find lim (x → 0) (sin x − x cos x) ÷ x³. => sin x − x cos x = (x − x³/6) − (x − x³/2) + … = x³/3 + …, so **1/3**.
+P: Express 0.151515… as a fraction. => 0.15 ÷ 0.99 = **5/33**.
+LVL: Level 3 | Real
+P: A drug (50 mg) is taken every 12 hours, and 40% of the drug in the body remains after 12 hours. Find the amount just after a dose in the long run. => 50 ÷ (1 − 0.4) = **83.3 mg**.
+LVL: Challenge | Series versus exact
+P: Find the sum Σ from n = 1 of 1 ÷ (n (n + 2)) by telescoping. => 1 ÷ (n (n + 2)) = ½ [1/n − 1/(n + 2)]. The partial sum is ½ (1 + 1/2 − 1/(N + 1) − 1/(N + 2)) → **3/4**.
+
+CHECK: math
+
+@section physics | 3 · Physics review: waves and sound | 45 min
+
+### The map of Week 10
+| Idea | Key results |
+| Wave | y = A sin(kx − ωt), k = 2π ÷ λ, ω = 2π f, v = f λ |
+| String | v = √(T ÷ μ), P = ½ μ ω² A² v, standing: fₙ = n v ÷ (2L) |
+| Pipes | open fₙ = n v ÷ (2L), closed fₙ = n v ÷ (4L) with n odd |
+| Interference | constructive d = m λ, destructive d = (m + ½) λ, beats f₁ − f₂ |
+| Sound | I = P ÷ (4π r²), β = 10 log₁₀(I ÷ I₀), −6 dB per doubling of distance |
+| Doppler | f′ = f (v + vₒ) ÷ (v − vₛ), Mach: sin θ = v ÷ vₛ |
+
+BN: তরঙ্গ y = A sin(kx − ωt), v = fλ; তার v = √(T/μ), fₙ = nv/(2L); পাইপ খোলা nv/(2L), এক মুখ বন্ধ nv/(4L) (n বিজোড়); ব্যতিচার d = mλ বা (m + ½)λ; শব্দ I = P/(4πr²), β = 10 log(I/I₀); ডপলার f′ = f(v + vₒ)/(v − vₛ)।
+
+EX: Mixed wave problems
+1. y = 0.05 sin(20x − 600t): k = 20 so λ = **0.314 m**, ω = 600 so f = **95.5 Hz**, v = 600 ÷ 20 = **30 m/s**.
+2. A string with μ = 0.004 kg/m, T = 100 N, L = 1.0 m: v = √25,000 = **158 m/s**, f₁ = **79.1 Hz**.
+3. An open pipe 0.4 m long: f₁ = 343 ÷ 0.8 = **429 Hz**. Closed at one end: f₁ = 343 ÷ 1.6 = **214 Hz**, with the next resonance at 643 Hz.
+4. The open pipe (429 Hz) and a 430 Hz fork beat at **1 Hz**.
+5. Two 85 dB machines together: 85 + 3 = **88 dB**. To lower an 85 dB source to 65 dB, move 20 dB = a factor of 10 in distance.
+6. A train horn of 500 Hz approaches at 30 m/s: 500 × 343 ÷ 313 = **548 Hz**.
+/EX
+
+### Check yourself
+QUIZ:
+Q: A wave with f = 100 Hz and λ = 3.4 m has a speed of…; 29 m/s; 340 m/s; 0.034 m/s; 3400 m/s; 2; v = f λ.
+Q: A closed pipe supports…; all harmonics; odd harmonics only; even only; none; 2; Closed at one end, open at the other.
+Q: Two 70 dB sources together give…; 140 dB; 73 dB; 70 dB; 80 dB; 2; Doubling the intensity adds 3 dB.
+Q: An approaching siren sounds…; lower; higher; unchanged; silent; 2; The waves are compressed.
+
+### Mixed practice (waves)
+LVL: Level 2 | Apply
+P: A guitar string of length 0.64 m vibrates in its second harmonic at 440 Hz. Find the wave speed and the fundamental. => f₂ = 440, so f₁ = **220 Hz**, v = 2 L f₁ = 2 × 0.64 × 220 = **282 m/s**.
+P: A source of 4 W radiates uniformly. Find the level at 5 m and at 50 m. => I = 4 ÷ (4π × 25) = 0.01273 W/m², β = 10 log(1.273 × 10¹⁰) = **101 dB**. At 50 m: 101 − 20 = **81 dB**.
+P: A bat flies at 8 m/s toward a wall emitting 40 kHz. What frequency returns to the bat? => The wall receives 40 × 343 ÷ 335 = 40.96 kHz, and the bat hears 40.96 × 351 ÷ 343 = **41.9 kHz**.
+P: A rope has f = 2 Hz and λ = 3 m. How long does a pulse take to travel 24 m? => v = 6 m/s, t = **4 s**.
+P: Two speakers emit 1700 Hz in phase, 3 m apart. A listener is on the perpendicular bisector. They move to one side until they find the first quiet spot. What is the path difference there? => λ = 343 ÷ 1700 = 0.2 m, so the first quiet spot has a path difference of **0.1 m**.
+LVL: Level 3 | Real
+P: A pipe organ needs a note of 65.4 Hz (low C) from an open pipe. Find its length, and the length of a closed pipe for the same note. => Open: 343 ÷ (2 × 65.4) = **2.62 m**. Closed: 343 ÷ (4 × 65.4) = **1.31 m**.
+LVL: Challenge | The three-hundred-year-old clock
+P: A pendulum clock is accurate at g = 9.80 m/s². At the equator g = 9.78. Find how many seconds it loses per day, and use the first-order expansion (1 + x)^(1/2) ≈ 1 + x/2 to check. => T ∝ 1 ÷ √g, so the ratio of periods is √(9.80 ÷ 9.78) = (1 + 0.00204)^(1/2) ≈ 1 + 0.00102 (first order). Loss = 86,400 × 0.00102 = **88 s per day**.
+
+CHECK: physics
+
+@section notes | 4 · Project: the bouncing ball from start to finish | 25 min
+
+### Project brief
+A tennis ball (mass 0.057 kg) is dropped from 2.0 m onto a hard floor. Each impact returns a fraction **e = 0.75** of the impact speed. You will describe its motion, its total time, and the fading sound of the bounces. Work through the steps on paper before reading the answers.
+
+NOTES:
+
+### Step by step
+LVL: Project | Steps 1 to 7
+P: **Step 1 (derivatives).** Write h(t) for the first fall, find the velocity v(t) and the impact speed, and the fall time t₀. => h = 2.0 − 4.9 t², v = −9.8 t. Landing at h = 0: t₀ = √(2 ÷ 4.9) = **0.639 s**, and the impact speed is 9.8 × 0.639 = **6.26 m/s** (equal to √(2 g h) ✓).
+P: **Step 2 (geometric sequences).** Find the rebound speeds, heights and flight times for the first three bounces. => Speeds: 4.70, 3.52, 2.64 m/s (multiply by 0.75). Heights: v² ÷ 2g gives **1.125 m, 0.633 m, 0.356 m** (multiply by 0.5625 = e²). Flight times: 2v ÷ g = **0.959 s, 0.719 s, 0.539 s** (multiply by 0.75).
+P: **Step 3 (series).** Find the total distance travelled and the total time. => Distance = 2.0 × (1 + e²) ÷ (1 − e²) = 2.0 × 1.5625 ÷ 0.4375 = **7.14 m**. Time = t₀ (1 + e) ÷ (1 − e) = 0.639 × 1.75 ÷ 0.25 = **4.47 s**. (Infinitely many bounces in a finite time.)
+P: **Step 4 (momentum and impulse).** Find the impulse on the ball at the first impact, and the average force if the contact lasts 5 ms. => Δp = m (v_in + v_out) = 0.057 × (6.26 + 4.70) = **0.625 N·s**. F = 0.625 ÷ 0.005 = **125 N**, about 220 times the ball's weight (0.56 N).
+P: **Step 5 (energy).** Find the energy lost at the first impact and the percentage lost at every impact. => KE before = ½ × 0.057 × 6.26² = 1.117 J. After: 0.628 J. Lost: **0.489 J, 43.75%** each time (1 − e²).
+P: **Step 6 (sound level).** Assume the loudness of the impact scales with the impact energy, and the first impact is 70 dB. By how much does the level change per impact, and when does the sound drop below a 30 dB background? => The impact energy falls by e² = 0.5625 per bounce: 10 log(0.5625) = **−2.5 dB per impact**. We need 40 dB of drop: 40 ÷ 2.5 = 16 more impacts, so the **17th impact** is the last one above the background. It occurs at t = t₀ + 2 t₀ e (1 − e¹⁶) ÷ (1 − e) = 0.639 + 0.958 × 0.990 ÷ 0.25 = **4.43 s**, nearly the whole 4.47 s of bouncing.
+P: **Step 7 (check with an approximation).** For a nearly elastic ball with e = 1 − δ, show that the energy fraction kept per bounce is about 1 − 2δ, and compare with the exact value for e = 0.95. => e² = 1 − 2δ + δ², so the first-order estimate is 1 − 2δ. For δ = 0.05: estimate 0.900, exact 0.9025: the error is **0.28%**, as expected from the neglected δ² term.
+
+### Reflection prompts
+- Which tool was the most useful for each step? (Calculus, series, momentum, energy, logarithms.)
+- Write one sentence on which step you would find hardest to do from scratch, and then redo that step on paper tomorrow morning.
+
+BN: প্রকল্পে সাতটা ধাপ: (১) অন্তরকলন: h(t), বেগ, পতনের সময় 0.639 s, আঘাতের বেগ 6.26 m/s; (২) গুণোত্তর অনুক্রম: ফেরার উচ্চতা e² গুণ করে কমে; (৩) ধারা: মোট দূরত্ব 7.14 m, মোট সময় 4.47 s; (৪) ঘাত: 0.625 N·s, গড় বল 125 N; (৫) শক্তি: প্রতি আঘাতে 43.75% ক্ষয়; (৬) শব্দ: প্রতি আঘাতে −2.5 dB, 17 তম আঘাতের পর শোনা যায় না; (৭) প্রথম-ক্রম আসন্নকরণ দিয়ে যাচাই।
+
+LAB: The fading sound of the bounces | Each impact has a fraction e² of the energy of the previous one, so its level falls by 20 log₁₀(e) decibels per bounce (for e = 0.75 that is −2.5 dB). The graph shows the level against the bounce number. The numbers tell you how many impacts are above the background noise. | e:Bounce factor e:0.3:0.95:0.05:0.75 ;; L0:First impact level (dB):50:100:5:70 ;; Lb:Background noise (dB):20:50:5:30 | 20*log(e)/log(10):Change per impact (dB):2 ;; 1+(L0-Lb)/(-20*log(e)/log(10)):Impacts above the background:1 | L0+20*log(e)/log(10)*(x-1) | 1,30 | 0,100
+
+EXIT:
+E: A ball is dropped from 4 m and bounces with e = 0.5. What is the total distance travelled in metres?; 6.67; 0.02; 4 × (1 + 0.25) ÷ (1 − 0.25) = 6.67.
+E: How many dB does the level drop for each impact when e = 0.5?; 6.02; 0.02; 20 log₁₀(0.5) = −6.02, so a drop of 6.02.
+E: Find Σ (1/4)ⁿ from n = 0.; 1.3333; 0.001; 1 ÷ (1 − 1/4) = 4/3.
+
+**Tomorrow:** a full mock paper in mathematics (Paper 1).
+
+CHECK: notes

@@ -1,0 +1,84 @@
+@day Week 7 · Day 6 · Saturday
+# Week 7 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covers the applications of derivatives (optimisation, curve sketching, related rates, linear approximation, Newton's method, the mean value theorem, L'Hôpital's rule) and torque, equilibrium, rotation, trusses, stress and strain.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: অন্তরকলনের প্রয়োগ (সর্বোচ্চ-সর্বনিম্ন, বক্ররেখা আঁকা, সম্পর্কিত হার, রৈখিক আসন্নকরণ, নিউটনের পদ্ধতি, লোপিতালের নিয়ম) এবং টর্ক, ভারসাম্য, ঘূর্ণন, ট্রাস ও পীড়ন-বিকৃতি।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A. A calculator is allowed for Part B.
+- Use g = 9.8 m/s². Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Applications of derivatives (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 13
+P: (1 mark) Find and classify the critical points of f(x) = x³ − 12x. => f′ = 3x² − 12 = 0 gives x = ±2. f″ = 6x. At x = 2, f″ = 12 > 0: **local minimum, f = −16**. At x = −2, f″ = −12 < 0: **local maximum, f = 16**.
+P: (1 mark) A farmer has 100 m of fence and uses a straight river as the fourth side of a rectangular field. Find the largest area. => With width x, length 100 − 2x, A = x(100 − 2x). A′ = 100 − 4x = 0 gives x = 25, so **A = 25 × 50 = 1250 m²**.
+P: (1 mark) Estimate √16.4 by linear approximation at 16. => f′(16) = 1/(2 × 4) = 1/8. √16.4 ≈ 4 + 0.4 ÷ 8 = **4.05**.
+P: (1 mark) Do one step of Newton's method for f(x) = x² − 7 starting at x₀ = 3. => x₁ = 3 − (9 − 7) ÷ 6 = 3 − 1/3 = **8/3 ≈ 2.667**.
+P: (1 mark) A 5 m ladder slides down a wall. Its foot moves away at 0.5 m/s. How fast is the top moving down when the foot is 3 m from the wall? => x² + y² = 25, so x x′ + y y′ = 0. At x = 3, y = 4, so y′ = −(3 ÷ 4)(0.5) = **−0.375 m/s** (down at 0.375 m/s).
+P: (1 mark) Find lim (x → 0) (e^(3x) − 1) ÷ x. => L'Hôpital: 3e^(3x) ÷ 1 → **3**.
+P: (1 mark) Find lim (x → 0) (1 − cos 2x) ÷ x². => 0 ÷ 0: 2 sin 2x ÷ 2x → 0 ÷ 0: 4 cos 2x ÷ 2 → **2**.
+P: (1 mark) Find lim (x → ∞) x² e^(−x). => x² ÷ eˣ → 2x ÷ eˣ → 2 ÷ eˣ → **0**.
+P: (1 mark) Find lim (x → 0) (tan x − x) ÷ x³. => 0 ÷ 0: (sec² x − 1) ÷ 3x² = tan² x ÷ 3x² = (1/3)(tan x ÷ x)² → **1/3**.
+P: (1 mark) Find the value c given by the mean value theorem for f(x) = x³ − x on [0, 2]. => Chord slope = (6 − 0) ÷ 2 = 3. 3c² − 1 = 3, so c² = 4/3 and **c = 2/√3 ≈ 1.155**.
+P: (1 mark) Find the inflection point of f(x) = x³ − 6x² + 9x. => f″ = 6x − 12 = 0 at x = 2, and f″ changes sign there. f(2) = 8 − 24 + 18 = 2. The point is **(2, 2)**.
+P: (1 mark) Find all asymptotes of f(x) = (2x + 1) ÷ (x − 3). => The denominator vanishes at x = 3 (numerator 7 ≠ 0): vertical asymptote **x = 3**. As x → ±∞, f → 2: horizontal asymptote **y = 2**.
+P: (2 marks) An open-top box with a square base must hold 32 m³. Find the dimensions that use the least material, and the least surface area. => Base side x, height h = 32 ÷ x². A = x² + 4xh = x² + 128 ÷ x. A′ = 2x − 128 ÷ x² = 0 gives x³ = 64, **x = 4 m, h = 2 m**. **A = 16 + 32 = 48 m²**. (A″ = 2 + 256 ÷ x³ > 0, so it is a minimum.)
+
+CHECK: math
+
+@section physics | 3 · Part B: Torque, equilibrium and materials (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 14 to 19
+P: (1 mark) A 30 kg child sits 2 m from the pivot of a seesaw. Where must a 20 kg child sit on the other side to balance? => 30 × 2 = 20 × d, so **d = 3 m**.
+P: (1 mark) A uniform 6 m beam of mass 40 kg rests on supports at its two ends. A 60 kg person stands 2 m from the left end. Find both support forces. => Torques about the left end: R × 6 = 40 × 9.8 × 3 + 60 × 9.8 × 2 = 1176 + 1176 = 2352, so **right support = 392 N**. Total weight is 980 N, so **left support = 588 N**.
+P: (1 mark) A wheel at rest accelerates at 3 rad/s². Find ω and the angle turned after 4 s. => ω = 3 × 4 = **12 rad/s**. θ = ½ × 3 × 16 = **24 rad**.
+P: (1 mark) A force of 50 N acts tangentially at the rim of a disc of radius 0.4 m and moment of inertia 0.5 kg·m². Find the angular acceleration. => τ = 50 × 0.4 = 20 N·m. α = τ ÷ I = 20 ÷ 0.5 = **40 rad/s²**.
+P: (1 mark) A steel wire (E = 200 GPa) of length 2 m and cross-section 2 × 10⁻⁶ m² carries a load of 400 N. Find the stress and the extension. => σ = 400 ÷ 2 × 10⁻⁶ = **200 MPa**. ΔL = σ L ÷ E = 200 × 10⁶ × 2 ÷ 200 × 10⁹ = **2 mm**.
+P: (1 mark) A uniform box 0.4 m wide and 1.0 m tall, mass 30 kg, stands on a rough floor (no slipping). A horizontal push is applied at the very top. What push just tips it? => Tipping about the lower edge: F × 1.0 = m g × 0.2. F = 30 × 9.8 × 0.2 = **58.8 N**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 8. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 7. Tell me, and I will rebalance Week 8. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q13 | Minimised the volume | Used the constraint as the function | Write the quantity to minimise (area), eliminate with the constraint | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: সীমা বা ফাংশনের ভুল চলক বেছে নেওয়া, সম্পর্কিত হারে আগে অন্তরকলন না করে মান বসানো, লোপিতাল প্রয়োগের আগে 0/0 ফর্ম না যাচাই করা, আর টর্কে ভুল দূরত্ব (লম্ব দূরত্ব) নেওয়া।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The shortest ladder over a fence
+P: A fence 2 m high stands 1 m in front of a tall wall. Find the shortest ladder that reaches from the ground, over the fence, to the wall. => With θ the angle of the ladder with the ground, L(θ) = 2 ÷ sin θ + 1 ÷ cos θ. L′ = −2 cos θ ÷ sin² θ + sin θ ÷ cos² θ = 0 gives tan³ θ = 2, so tan θ = 2^(1/3) = 1.260. Then sin θ = 0.783 and cos θ = 0.622, and L = 2 ÷ 0.783 + 1 ÷ 0.622 = **4.16 m**. (Closed form: L = (2^(2/3) + 1)^(3/2).)
+
+LVL: Challenge | A limit with an exponent
+P: Find lim (x → 0) (sin x ÷ x)^(1/x²). => Let y be the expression. ln y = ln(sin x ÷ x) ÷ x². For small x, sin x ÷ x ≈ 1 − x²/6, and ln(1 − x²/6) ≈ −x²/6, so ln y → **−1/6** and y → **e^(−1/6) ≈ 0.846**. (L'Hôpital twice on ln(sin x ÷ x) ÷ x² gives the same result.)
+
+### Optional coding idea (not part of the study plan)
+**Optimiser and truss visualiser:** a page where the user types a function, picks an interval, and the page finds its maximum and minimum using derivatives (numerical, then by Newton's method on f′), drawing the tangent at each step. In a second panel, draw a roof truss, let the user drag the apex up and down, and show the rafter force and chord tension updating live.
+
+### What Week 8 looks like
+**Integration, part 1:** the antiderivative, area under a curve, the fundamental theorem of calculus. Physics: **rotational dynamics, moment of inertia and angular momentum**. The story: a spinning ice skater pulls in their arms and speeds up. You will use the integral to find a moment of inertia and conservation of angular momentum to explain the spin.
+
+BN: আগামী সপ্তাহে সমাকলন (integration) পর্ব ১: প্রতিঅন্তরকলজ, বক্ররেখার নিচের ক্ষেত্রফল, ক্যালকুলাসের মৌলিক উপপাদ্য। পদার্থবিজ্ঞানে ঘূর্ণন গতিবিদ্যা, জড়তার ভ্রামক ও কৌণিক ভরবেগ। গল্প: স্কেটার হাত গুটালে কেন দ্রুত ঘোরে।
+
+**Sunday is a rest day.**
+
+CHECK: notes
