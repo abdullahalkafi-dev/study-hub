@@ -114,6 +114,8 @@ KEY: Exponents and roots are inverses of each other. Soon, on Thursday, you meet
 
 BN: ইনভার্স ফাংশন মানে মেশিনটা উল্টো করে চালানো। বের করার নিয়ম: y = f(x) লেখো, x আর y জায়গা বদলাও, তারপর y এর জন্য সমাধান করো। গ্রাফে f আর f⁻¹ পরস্পরের y = x রেখার সাপেক্ষে প্রতিবিম্ব। বৃহস্পতিবার আমরা সূচকীয় ফাংশনের ইনভার্স শিখব, তার নাম লগারিদম।
 
+LAB: Move and stretch y = x² | The orange curve is plain y = x². The teal curve is a(x − h)² + k. The number a stretches or flips it, h slides it sideways, k slides it up or down. | a:Stretch a:-3:3:0.5:1 ;; h:Shift right h:-5:5:1:2 ;; k:Shift up k:-6:6:1:1 | h:Vertex x:0 ;; k:Vertex y:0 | a*(x-h)^2+k ;; x^2 | -8,8 | -10,20
+
 ### Quick self-check
 QUIZ:
 Q: The polynomial p(x) has p(3) = 0. Then…; (x + 3) is a factor; (x − 3) is a factor; 3 is the constant term; p has degree 3; 2; By the factor theorem, p(a) = 0 means (x − a) is a factor.
@@ -206,6 +208,8 @@ EX: At right angles
 /EX
 
 BN: নিট বল (net force) মানে সব বলের ভেক্টর যোগফল। একই রেখায় হলে চিহ্ন দিয়ে যোগ করো। পরস্পর লম্ব হলে পীথাগোরাস: √(30² + 40²) = 50 N। দিক বের করতে tan θ = বিপরীত ÷ সন্নিহিত। ৩-৪-৫ ত্রিভুজ মনে রেখো, এটা বারবার আসে।
+
+LAB: Net force and acceleration | Two horizontal forces act on a block. The net force is the difference. Newton's second law then gives the acceleration. | m:Mass (kg):1:20:1:5 ;; f1:Push to the right (N):0:50:1:20 ;; f2:Push to the left (N):0:50:1:8 | f1-f2:Net force to the right (N):1 ;; (f1-f2)/m:Acceleration (m/s²):2 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

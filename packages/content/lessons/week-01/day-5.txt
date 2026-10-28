@@ -100,6 +100,8 @@ EX: Divide (6 × 10⁵) ÷ (2 × 10⁻³)
 
 KEY: Before trusting any calculation, ask "roughly how big should the answer be?" The order of magnitude (the power of ten) is often all you need to know a number is wrong.
 
+LAB: Direct and inverse variation | y = kx grows with x (direct). y = k/x shrinks as x grows (inverse). Change k and compare the two curves. | k:k:1:10:1:4 | k*2:Direct y at x = 2:1 ;; k/2:Inverse y at x = 2:2 ;; k*8:Direct y at x = 8:1 ;; k/8:Inverse y at x = 8:2 | k*x ;; k/x | 0.1,10 | 0,40
+
 ### Quick self-check
 QUIZ:
 Q: Simplify (x² − 4) ÷ (x − 2).; x − 2; x + 2; x² − 2; 2; 2; x² − 4 = (x − 2)(x + 2), so the (x − 2) cancels.
@@ -156,6 +158,8 @@ GRAPH: A chases B | time (s) | x (m) | 0,0 5,25 10,100 15,225 20,400 25,625 ;; 0
 BN: দুটো বস্তু যখন মিলিত হয়, তখন একই সময়ে একই জায়গায় থাকে। প্রত্যেকের অবস্থান (x) সময়ের সাপেক্ষে লিখে সমান করো। এখানে সোমবার থেকে শেখা সব কাজে লাগল: সূত্র, একটা দ্বিঘাত সমীকরণ, ফ্যাক্টর করা। t = 0 হলো শুরুর মুহূর্ত, t = 20 হলো ধরে ফেলার মুহূর্ত।
 
 KEY: Strategy for any kinematics problem: draw it → list knowns with signs → decide stages → pick the equation that fits the unknown → solve → check with a second route or an estimate.
+
+LAB: Stopping distance simulator | Set the speed, your reaction time and how hard the brakes work. You travel at constant speed while reacting, then slow down at a steady rate. | v:Speed (km/h):10:140:5:72 ;; tr:Reaction time (s):0.3:2.5:0.1:1 ;; a:Braking deceleration (m/s²):2:10:0.5:6 | v/3.6*tr:Thinking distance (m):1 ;; (v/3.6)^2/(2*a):Braking distance (m):1 ;; v/3.6*tr+(v/3.6)^2/(2*a):Total stopping distance (m):1 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

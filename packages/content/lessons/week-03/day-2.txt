@@ -120,6 +120,8 @@ BN: A হলো বিস্তার (amplitude), B ঢেউকে চেপ�
 ### First trig equations
 Solve sin x = 1/2 for 0 ≤ x ≤ 2π. Sine is positive in quadrants I and II, and the reference angle is π/6. So **x = π/6 or x = 5π/6**. Because the wave repeats, **all** solutions are x = π/6 + 2πn or x = 5π/6 + 2πn, where n is any whole number. We will practise this fully tomorrow.
 
+LAB: Sine wave designer | y = A sin(Bx − C) + D. A is the height of the wave, B squeezes it, C slides it and D lifts it. The orange curve is plain sin x for comparison. | a:Amplitude A:0.5:3:0.5:2 ;; b:Frequency B:0.5:3:0.5:1 ;; c:Phase C:-3:3:0.5:0 ;; d:Lift D:-2:2:0.5:0 | 2*pi/b:Period:3 ;; c/b:Shift to the right:3 | a*sin(b*x-c)+d ;; sin(x) | -2*pi,2*pi | -5,5
+
 ### Quick self-check
 QUIZ:
 Q: What is cos 120°?; 1/2; −1/2; √3/2; −√3/2; 2; 120° is in quadrant II with reference angle 60°. cos is negative there, so cos 120° = −cos 60° = −1/2.
@@ -195,6 +197,8 @@ EX: Rain on a runner
 /EX
 
 BN: নদীতে নৌকা: সোজা ওপারে মুখ করলে নৌকা স্রোতে ভেসে যায়। পার হওয়ার সময় শুধু ওপারমুখী বেগ নির্ধারণ করে (200 ÷ 4 = 50 s), আর ভেসে যাওয়ার দূরত্ব = স্রোত × সময়। ঠিক বিপরীত বিন্দুতে পৌঁছাতে চাইলে স্রোতের উল্টো দিকে কিছুটা কোণ করে চালাতে হয়। লম্ব উপাদান একে অপরকে প্রভাবিত করে না, এই কথাটা প্রক্ষেপ গতিতেও (projectile) আসবে।
+
+LAB: Swimming across a river | You swim straight across at speed s while the river carries you downstream at speed w. The two speeds are at right angles, so they combine like the sides of a right triangle. | s:Swimming speed (m/s):0.5:3:0.1:1.5 ;; w:River speed (m/s):0:3:0.1:2 ;; wd:River width (m):10:200:10:60 | sqrt(s^2+w^2):Speed over the ground (m/s):2 ;; wd/s:Time to cross (s):1 ;; w*wd/s:Distance swept downstream (m):1 ;; atan(w/s)*180/pi:Angle off straight (degrees):1 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

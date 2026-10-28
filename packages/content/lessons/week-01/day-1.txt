@@ -126,6 +126,8 @@ TRAP: √(a + b) is NOT √a + √b. Try √(9 + 16) = √25 = 5, but √9 + √
 
 BN: √(a + b) কখনোই √a + √b নয়। √(9+16) = 5, কিন্তু √9 + √16 = 7। রুট শুধু গুণ আর ভাগে ভাঙে, যোগে নয়। একই ভুল (a+b)² এ-ও হয়।
 
+LAB: Exponent rules explorer | Pick a base and two exponents. The first two numbers are a^m and a^n. Multiply them and compare with a^(m+n): they match, because exponents just count copies. | a:Base a:2:5:1:2 ;; m:Exponent m:0:8:1:3 ;; n:Exponent n:0:8:1:4 | pow(a,m):a^m:0 ;; pow(a,n):a^n:0 ;; pow(a,m)*pow(a,n):a^m times a^n:0 ;; pow(a,m+n):a^(m+n):0 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: What is 2⁴ · 2³?; 2⁷; 2¹²; 4⁷; 2¹; 1; Same base, so add the exponents: 4 + 3 = 7.
@@ -209,6 +211,8 @@ EX: A round trip
 /EX
 
 BN: দূরত্ব (distance) হলো মোট কতটা পথ হাঁটলে। সরণ (displacement) হলো শুরু আর শেষ বিন্দুর সোজা দূরত্ব, দিকসহ। বাড়ি থেকে দোকান গিয়ে ফিরে এলে দূরত্ব ৬০০ m কিন্তু সরণ ০। তাই গড় বেগ ০, অথচ গড় দ্রুতি ১.৫ m/s।
+
+LAB: Speed unit converter | Slide the speed in km/h and see it in m/s. Divide by 3.6 to go from km/h to m/s, multiply by 3.6 to go back. | v:Speed in km/h:0:150:1:72 | v/3.6:Speed in m/s:2 ;; v/3.6*60:Metres per minute:0 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

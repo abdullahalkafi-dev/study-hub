@@ -197,6 +197,8 @@ EX: Pumping water up
 
 TRAP: Power and energy are different. A 100 W bulb used for one hour is 0.1 kWh. "kW" is power, "kWh" is energy. Also, P = F v uses the force **along** the velocity and holds at each instant.
 
+LAB: Power and efficiency of a pump | A pump lifts water of mass m a height h in time t. Useful power is the energy gained divided by the time. Efficiency compares it with the electrical power used. | m:Water mass (kg):100:5000:100:2000 ;; h:Lift height (m):1:50:1:15 ;; t:Time (s):10:600:10:300 ;; pin:Electrical power used (W):100:3000:50:800 | m*9.8*h:Energy gained by the water (J):0 ;; m*9.8*h/t:Useful power (W):1 ;; m*9.8*h/t/pin*100:Efficiency (percent):1 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: A 500 W motor runs for 10 s. The energy it uses is…; 50 J; 500 J; 5000 J; 5 J; 3; E = P t = 5000 J.

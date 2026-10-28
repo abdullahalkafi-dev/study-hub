@@ -2,6 +2,10 @@
 
 No secrets in this file. Variable names only.
 
+## Status
+
+Live since 2026-10-29. HTTPS certificate from Let's Encrypt (renews automatically). Atlas allows the VPS IP.
+
 ## Facts
 
 | What | Value |
@@ -28,7 +32,7 @@ Created by hand on the server. Variable names:
 `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`,
 `PUBLIC_URL=https://study.joura.info`, `WEB_PORT=3010`.
 
-The API refuses to start in production without `LEARNER_EMAIL`, `LEARNER_PASSWORD` and `JWT_SECRET`. To see the site login, read those two lines on the server (`grep LEARNER /opt/study-hub/.env`) and change the password there if you like, then `docker compose up -d`.
+The API refuses to start in production without `LEARNER_EMAIL`, `LEARNER_PASSWORD` and `JWT_SECRET`. Login email is `abdullah@study.joura.info`. The password was generated on the server. To see it, read those two lines on the server (`grep LEARNER /opt/study-hub/.env`) and change the password there if you like, then `docker compose up -d`.
 
 ## Update the site (normal routine)
 
@@ -91,6 +95,9 @@ certbot --nginx -d study.joura.info
 Certbot renews automatically. Check with `certbot certificates`.
 
 ## Gotchas
+
+- A too-broad `.gitignore` line (`uploads/`) once hid `apps/api/src/modules/uploads` from git, so the first server build failed with "Cannot find module upload.service.ts". Ignore rules for root folders must start with `/` (for example `/uploads/`). After editing `.gitignore`, check with `git status --ignored`.
+- The server also hosts other projects. Their nginx sites and `tarik-*` containers must not be touched. Check `docker ps` and `ls /etc/nginx/sites-enabled` before changing anything.
 
 - **Atlas Network Access** must allow the VPS IP `72.60.26.180`. If `/api/health` shows `"db": false` or the api container keeps restarting with a connection error, add the IP in Atlas (Security, Network Access).
 - **`COOKIE_SECURE=true`** only works over HTTPS. If you test over plain http the login will not stick.

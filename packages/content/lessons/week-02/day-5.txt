@@ -129,6 +129,8 @@ If y = y₀ · aˣ, then log y = log y₀ + x · log a. This is a straight line 
 
 BN: যদি y = y₀ · aˣ হয়, তাহলে log y = log y₀ + x · log a, যা x আর log y এর মধ্যে একটা সরলরেখা। তাই ডেটা সূচকীয়ভাবে বাড়ছে কি না যাচাই করতে log y এর গ্রাফ আঁকা হয়: সরল রেখা এলে হ্যাঁ। ঢালটা দেয় log a।
 
+LAB: Log laws check | Pick a, b and a power n. The log of a product equals the sum of the logs, and the log of a power brings the power down in front. Both sides agree. | a:a:1:50:1:8 ;; b:b:1:50:1:5 ;; n:Power n:1:6:1:3 | log10(a*b):log of a times b:4 ;; log10(a)+log10(b):log a plus log b:4 ;; log10(pow(a,n)):log of a to the n:4 ;; n*log10(a):n times log a:4 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: log₂(12) + log₂(4/3) equals…; 4; 16; 5; log₂(16/3); 1; log₂(12 · 4/3) = log₂(16) = 4.
@@ -205,6 +207,8 @@ EX: Pushing a crate
 /EX
 
 BN: স্থির ঘর্ষণ (static) বস্তুকে নড়তে দেয় না, এর সর্বোচ্চ মান μ_s × N। গতিশীল ঘর্ষণ (kinetic) f = μ_k × N, যা স্থির ঘর্ষণের সর্বোচ্চ মানের চেয়ে সাধারণত কম। তাই ঠেলে শুরু করা কঠিন, একবার চললে সহজ। N হলো অভিলম্ব বল, ওজন নয় (যদিও সমতলে সমান হতে পারে)।
+
+LAB: Friction on a flat floor | Pull a box with force F. Friction can push back up to a limit equal to the coefficient times the normal force. Below the limit the box stays still. Above it the box accelerates. | m:Mass (kg):1:50:1:10 ;; mu:Friction coefficient:0.1:1:0.05:0.4 ;; f:Pulling force (N):0:300:5:60 | mu*m*9.8:Maximum friction (N):1 ;; (f>mu*m*9.8)*(f-mu*m*9.8)/m:Acceleration (m/s²):2 ;; f<=mu*m*9.8:Stays still (1 means yes):0 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

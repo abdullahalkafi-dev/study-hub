@@ -105,6 +105,8 @@ KEY: Factor → set each bracket to zero → solve. That is the whole idea behin
 
 BN: যদি দুটো জিনিসের গুণফল শূন্য হয়, তাহলে অন্তত একটা শূন্য। তাই (x−2)(x−3) = 0 হলে x = 2 বা x = 3। এই কারণেই ফ্যাক্টর করা দিয়ে দ্বিঘাত সমীকরণ সমাধান করা যায়। এটা আমরা সামনের সপ্তাহে ভালো করে করব।
 
+LAB: Expand and factor (x + p)(x + q) | Choose p and q. The graph is x² + (p + q)x + pq. It crosses zero where x = −p and x = −q, which are the two numbers you find when you factor. | p:p:-6:6:1:2 ;; q:q:-6:6:1:3 | p+q:Middle coefficient p + q:0 ;; p*q:Constant term pq:0 ;; -p:First root:0 ;; -q:Second root:0 | x^2+(p+q)*x+p*q | -10,10 | -30,60
+
 ### Quick self-check
 QUIZ:
 Q: Expand (x + 5)².; x² + 25; x² + 10x + 25; x² + 5x + 25; 2x + 10; 2; (a + b)² = a² + 2ab + b², so x² + 2·5·x + 25.
@@ -180,6 +182,8 @@ EX: Read the graph
 /EX
 
 BN: v–t গ্রাফের দুটো নিয়ম মনে রাখো: ঢাল (slope) = ত্বরণ, আর রেখার নিচের ক্ষেত্রফল (area) = সরণ। রেক্ট্যাঙ্গলের ক্ষেত্রফল = উচ্চতা × প্রস্থ = বেগ × সময় = দূরত্ব। এই কারণেই ক্ষেত্রফল সরণ। ত্রিভুজ হলে ½ × ভূমি × উচ্চতা।
+
+LAB: Position on a straight line | Start at x0 and move at constant velocity v. The line shows position against time. Its slope is the velocity. | x0:Start position (m):-20:20:1:0 ;; v:Velocity (m/s):-5:10:0.5:2 ;; t:Time (s):0:10:0.5:4 | x0+v*t:Position at time t (m):1 ;; v*t:Displacement (m):1 | x0+v*x | 0,10 | -80,130
 
 ### Quick self-check
 QUIZ:

@@ -115,6 +115,8 @@ EX: Solve 2 sin²x − sin x − 1 = 0 for 0 ≤ x < 2π
 
 TRAP: Never divide both sides by sin x or cos x. You lose the solutions where that function is zero. Factor instead. For example, with sin x cos x = sin x: move everything left: sin x (cos x − 1) = 0, giving sin x = 0 or cos x = 1.
 
+LAB: Check a trig identity | For any angle, sin² + cos² = 1. Move the angle and see it stay exactly 1. The other pair checks that 1 + tan² equals sec². | d:Angle (degrees):0:80:5:35 | sin(d*pi/180)^2+cos(d*pi/180)^2:sin squared plus cos squared:6 ;; 1+tan(d*pi/180)^2:1 plus tan squared:5 ;; 1/cos(d*pi/180)^2:sec squared:5 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: sec x equals…; sin x; 1/sin x; 1/cos x; 1/tan x; 3; sec is the reciprocal of cos.
@@ -184,6 +186,8 @@ EX: A rolling ball leaves a table
 /EX
 
 BN: ছোঁড়া বস্তুর পথ একটা অধিবৃত্ত (parabola)। উচ্চতা h থেকে অনুভূমিকভাবে u বেগে ছুঁড়লে পড়তে সময় লাগে t = √(2h/g), আর দূরত্ব = u × t। প্লেন থেকে ত্রাণ ফেললে সেটা প্লেনের সামনে এগিয়ে যেতে যেতে নিচে পড়ে, তাই লক্ষ্যের আগেই ছাড়তে হয়। সময় একই, তাই সময়ই দুই দিকের সেতু।
+
+LAB: Horizontal launch | A ball leaves a table or cliff edge of height h with a horizontal speed u. Horizontal motion is steady and vertical motion is free fall. The curve is its path. | u:Launch speed (m/s):1:30:1:12 ;; h:Height h (m):5:80:5:45 | sqrt(2*h/9.8):Time in the air (s):2 ;; u*sqrt(2*h/9.8):Horizontal range (m):1 ;; 9.8*sqrt(2*h/9.8):Landing vertical speed (m/s):1 | h-4.9*(x/u)^2 | 0,120 | 0,80
 
 ### Quick self-check
 QUIZ:

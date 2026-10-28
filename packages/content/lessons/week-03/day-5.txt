@@ -124,6 +124,8 @@ EX: Composite: sin(cos⁻¹(3/5))
 
 BN: sin x একটা ইনভার্স ফাংশন পেতে তার ডোমেইন সীমিত করতে হয়, যেমন x² কে x ≥ 0 এ সীমিত করে বর্গমূল পাই। sin⁻¹ এর আউটপুট −π/2 থেকে π/2 এর মধ্যে, cos⁻¹ এর 0 থেকে π, tan⁻¹ এর −π/2 থেকে π/2 এর মধ্যে। তাই sin⁻¹(sin(5π/6)) = π/6, 5π/6 নয়। ক্যালকুলেটর তোমাকে সবসময় এই সীমার মধ্যের কোণই দেবে।
 
+LAB: Solve a triangle with the sine rule | Give two angles and one side. The sine rule finds the other sides: side a over sin A equals side b over sin B. | aa:Angle A (degrees):20:90:5:40 ;; bb:Angle B (degrees):20:80:5:65 ;; s:Side a:1:20:1:10 | 180-aa-bb:Angle C (degrees):0 ;; s*sin(bb*pi/180)/sin(aa*pi/180):Side b:3 ;; s*sin((180-aa-bb)*pi/180)/sin(aa*pi/180):Side c:3 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: Which rule do you use with two sides and the included angle?; sine rule; cosine rule; Pythagoras only; none; 2; Two sides and the included angle need the cosine rule.
@@ -196,6 +198,8 @@ EX: Pushing up a slope at constant speed
 /EX
 
 TRAP: The normal force is **not** mg on a slope. It is mg cos θ. Also the angle in "mg sin θ" is the angle of the **slope**, so double-check which angle you are given.
+
+LAB: Sliding on a slope | A block of mass m sits on a slope at angle θ. Gravity splits into a part along the slope and a part pressing into it. Friction may hold it in place. | m:Mass (kg):1:20:1:5 ;; th:Slope angle (degrees):0:60:1:30 ;; mu:Friction coefficient:0:1:0.05:0.2 | m*9.8*sin(th*pi/180):Pull down the slope (N):1 ;; m*9.8*cos(th*pi/180):Normal force (N):1 ;; max(0,9.8*sin(th*pi/180)-mu*9.8*cos(th*pi/180)):Acceleration down the slope (m/s²):2 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

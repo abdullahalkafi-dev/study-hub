@@ -90,6 +90,8 @@ EX: A second derivative
 
 TRAP: The formulas d/dx(sin x) = cos x hold **only in radians**. In degrees there is an extra factor of π/180. Also, do not confuse eˣ (variable exponent) with xⁿ (variable base): the power rule does **not** apply to eˣ, which does **not** give x eˣ⁻¹.
 
+LAB: The slope of sin x | The slope of y = sin x at any point is cos x. Move the point and compare the tangent line (orange) with the curve (teal). | x0:Point x0:-6:6:0.25:1 | cos(x0):Slope = cos x0:3 ;; sin(x0):Height = sin x0:3 | sin(x) ;; sin(x0)+cos(x0)*(x-x0) | -6,6 | -2,2
+
 ### Quick self-check
 QUIZ:
 Q: d/dx (cos x) equals…; sin x; −sin x; −cos x; cos x; 2; The derivative of cosine is minus sine.
@@ -168,6 +170,8 @@ EX: Ramp, rough floor, spring
 /EX
 
 TRAP: A zero force does not always mean the object is at rest: it only means the slope of U is zero. Also, "stable" and "unstable" are about **small displacements**: a marble at the top of a hill is in equilibrium, but any nudge sends it away.
+
+LAB: Force from potential energy | Force is the negative slope of potential energy: F = −dU/dx. Here U = ½kx², a spring. The curve is U against stretch. | k:Spring constant k (N/m):10:500:10:100 ;; x0:Stretch x (m):-0.5:0.5:0.05:0.2 | 0.5*k*x0^2:Potential energy U (J):2 ;; -k*x0:Force F = −kx (N):1 | 0.5*k*x^2 | -0.6,0.6 | 0,100
 
 ### Quick self-check
 QUIZ:

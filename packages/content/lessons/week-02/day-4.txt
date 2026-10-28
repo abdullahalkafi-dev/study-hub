@@ -147,6 +147,8 @@ BN: লগ শুধু আজকের টপিক নয়। ক্যা�
 ### Mistakes to avoid
 TRAP: Five common ones. (1) Thinking log₂(8) = 8 ÷ 2 = 4. Log is not division, it is a question about exponents. (2) Forgetting the base: log₂ and log₁₀ are different questions. (3) Taking the log of zero or a negative number. (4) Writing log(a) ÷ log(b) as log(a ÷ b). They are not the same: with a = 100 and b = 10, the first gives 2 ÷ 1 = 2, the second gives log(10) = 1. (5) Mixing up which number is the answer. In log_b(y) = x, the answer x is the exponent.
 
+LAB: The logarithm as an undo button | Log base b of x asks: what power of b gives x? The teal curve is that log. The orange curve is b to the power x, and the grey line is y = x. The log and the exponential mirror each other across it. | b:Base b:2:10:1:2 ;; v:The number x:1:1000:1:64 | log(v)/log(b):Log base b of x:3 ;; pow(b,log(v)/log(b)):b to that power (back to x):1 | log(x)/log(b) ;; pow(b,x) ;; x | 0.05,8 | -3,8
+
 ### Quick self-check
 QUIZ:
 Q: What is log₂(32)?; 4; 5; 16; 6; 2; 2⁵ = 32, so the exponent is 5.
@@ -227,6 +229,8 @@ EX: Why you feel heavy in a lift
 TRAP: Three places where students lose marks. (1) **Mass vs weight.** Mass is in kg and never changes. Weight is a force in N. (2) **Using one force instead of the net force.** Add all forces with signs first. (3) **"Moving means a force is acting."** No. Constant velocity means net force zero. A force is needed to *change* velocity, not to keep it.
 
 BN: তিনটা সাধারণ ভুল: (১) ভর আর ওজন গুলিয়ে ফেলা। (২) সব বল যোগ না করে একটা বল দিয়ে হিসাব করা। (৩) ভাবা যে গতি থাকলেই বল আছে। আসলে গতি **বদলাতে** বল লাগে, একই গতিতে চলতে নয়।
+
+LAB: F = ma | Push a mass m with force F. The acceleration is a = F/m. The line shows the speed building up from rest. | f:Force F (N):0:100:5:30 ;; m:Mass m (kg):1:30:1:6 | f/m:Acceleration (m/s²):2 ;; f/m*5:Speed after 5 s (m/s):1 ;; 0.5*f/m*25:Distance in 5 s (m):1 | f/m*x | 0,10 | 0,60
 
 ### Quick self-check
 QUIZ:

@@ -103,6 +103,8 @@ BN: দ্বিঘাত অসমতায় আগে মূল দুটো
 ### A first physical use
 A ball thrown straight up from the ground has height h = 20t − 5t² metres after t seconds. When is it back on the ground? Set h = 0: 20t − 5t² = 0, so 5t(4 − t) = 0, giving **t = 0 (the throw) or t = 4 s (the landing)**. You will see this again in Week 2 as free fall.
 
+LAB: Absolute value as distance | Absolute value of x minus a is the distance from x to a. The graph is a V with its point at a. The horizontal line is the distance r, and where they meet are the solutions. | a:Centre a:-5:5:1:1 ;; r:Distance r:0:6:0.5:3 | a-r:Left solution a − r:1 ;; a+r:Right solution a + r:1 | abs(x-a) ;; r+0*x | -10,10 | -1,12
+
 ### Quick self-check
 QUIZ:
 Q: Solve −3x > 12.; x > −4; x < −4; x > 4; x < 4; 2; Divide by −3 and flip the sign: x < −4.
@@ -186,6 +188,8 @@ Take a = −6 m/s² (a good road) and a reaction time of 1 s.
 Double the speed and the thinking distance doubles, but the **braking distance quadruples**, because u is squared. That is why a small speed increase is dangerous.
 
 BN: গতি দ্বিগুণ হলে থামার দূরত্ব চার গুণ হয়, কারণ ব্রেকিং দূরত্ব u² এর সমানুপাতিক। ৫৪ km/h এ থামতে ৩৪ m, ১০৮ km/h এ থামতে ১০৫ m! শুধু সূত্র নয়, এটা জীবন বাঁচানোর হিসাব।
+
+LAB: SUVAT explorer | Choose the start speed u, acceleration a and time t. The SUVAT results appear. Check that v squared equals u squared plus 2as. | u:u (m/s):0:30:1:10 ;; a:a (m/s²):-5:5:0.5:2 ;; t:t (s):0:10:0.5:5 | u+a*t:v = u + at (m/s):2 ;; u*t+0.5*a*t^2:s = ut + ½at² (m):2 ;; (u+a*t)^2:v squared:1 ;; u^2+2*a*(u*t+0.5*a*t^2):u squared plus 2as:1 | u*x+0.5*a*x^2 | 0,10 | -200,600
 
 ### Quick self-check
 QUIZ:

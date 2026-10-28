@@ -109,6 +109,8 @@ EX: A small proof
 
 TRAP: The IVT needs **continuity** on the whole interval. For f(x) = 1 ÷ x, f(−1) = −1 and f(1) = 1, but there is no root in between, because f is not continuous at 0. Also, the IVT says a root **exists**; it does not say it is unique or tell you where it is.
 
+LAB: A jump discontinuity | The function is x + 1 to the left of a, and x + 1 + j from a onward. It is continuous at a only if the jump j is zero. Watch the graph tear apart as j grows. | a:Break point a:-3:3:1:0 ;; j:Jump j:-3:3:0.5:2 | j:Size of the jump:1 | (x<a)*(x+1)+(x>=a)*(x+1+j) | -5,5 | -6,8
+
 ### Quick self-check
 QUIZ:
 Q: f(x) = (x² − 4) ÷ (x − 2) at x = 2 has…; a removable discontinuity; a jump; an infinite discontinuity; no problem; 1; The limit is 4, but f(2) is undefined: a hole.
@@ -201,6 +203,8 @@ EX: Energy to reach orbit
 /EX
 
 TRAP: Energy conservation applies **only** when no non-conservative force does work. When friction is present, mechanical energy is lost to heat (the total energy is still conserved, but not the mechanical part). Also, never mix the zero level: choose one height as zero and stay with it.
+
+LAB: Energy conservation on a drop | Drop a ball from height h. Gravitational potential energy turns into kinetic energy and the total stays the same. Set the current height above the start and the numbers show n/a. | m:Mass (kg):0.1:10:0.1:2 ;; h:Start height (m):1:100:1:20 ;; y:Current height (m):0:100:1:5 | m*9.8*y:Potential energy now (J):1 ;; m*9.8*(h-y):Kinetic energy now (J):1 ;; sqrt(2*9.8*(h-y)):Speed now (m/s):2 ;; m*9.8*h:Total energy (J):1 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

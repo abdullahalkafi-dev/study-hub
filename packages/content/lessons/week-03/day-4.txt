@@ -115,6 +115,8 @@ FUNC: Two waves become one | x (rad) | y | 3*sin(x) ;; 4*cos(x) ;; 3*sin(x)+4*co
 
 BN: যেকোনো a sin x + b cos x কে একটামাত্র ঢেউ R sin(x + α) হিসেবে লেখা যায়, যেখানে R = √(a² + b²) আর tan α = b/a। তাই 3 sin x + 4 cos x এর সর্বোচ্চ মান 5। বিদ্যুৎ সার্কিটে আর ঢেউয়ের মিলনে (superposition) এই কৌশল প্রতিদিন লাগে।
 
+LAB: Compound angle check | sin(A + B) equals sin A cos B + cos A sin B, and cos(A + B) equals cos A cos B − sin A sin B. Choose A and B and compare the pairs. | a:Angle A (degrees):0:90:5:30 ;; b:Angle B (degrees):0:90:5:45 | sin((a+b)*pi/180):sin of A plus B:5 ;; sin(a*pi/180)*cos(b*pi/180)+cos(a*pi/180)*sin(b*pi/180):sinA cosB plus cosA sinB:5 ;; cos((a+b)*pi/180):cos of A plus B:5 ;; cos(a*pi/180)*cos(b*pi/180)-sin(a*pi/180)*sin(b*pi/180):cosA cosB minus sinA sinB:5 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: sin(A + B) equals…; sin A + sin B; sin A cos B + cos A sin B; cos A cos B − sin A sin B; sin A sin B; 2; This is the compound-angle formula proved above.
@@ -192,6 +194,8 @@ EX: Launch from a height
 TRAP: The formulas for T, H and R assume the landing height equals the launch height and no air resistance. In real life air drag shortens the range, and in sports the best angle is below 45° (for a long jump or a shot put thrown from above the ground).
 
 BN: সূত্র T = 2u sinθ/g, H = u² sin²θ/(2g), R = u² sin2θ/g। সর্বোচ্চ দূরত্ব পেতে θ = 45°, আর যে দুটো কোণের যোগফল 90° (৩০° আর ৬০°) তাদের পাল্লা সমান। ৬০° তে বল অনেক উঁচুতে ওঠে কিন্তু একই দূরত্বে পড়ে। ভূমি থেকে আলাদা উচ্চতা থেকে ছুঁড়লে R এর সূত্র খাটে না, তখন উল্লম্ব সমীকরণ থেকে সময় বের করে আবার শুরু করতে হয়।
+
+LAB: Projectile at an angle | Launch at speed v and angle θ from the ground. The curve is the path. Try 45 degrees for the longest range on flat ground. | v:Launch speed (m/s):5:40:1:20 ;; th:Angle (degrees):10:80:1:45 | v^2*sin(2*th*pi/180)/9.8:Range (m):1 ;; (v*sin(th*pi/180))^2/(2*9.8):Maximum height (m):1 ;; 2*v*sin(th*pi/180)/9.8:Time of flight (s):2 | x*tan(th*pi/180)-9.8*x^2/(2*(v*cos(th*pi/180))^2) | 0,170 | 0,80
 
 ### Quick self-check
 QUIZ:

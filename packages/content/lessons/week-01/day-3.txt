@@ -110,6 +110,8 @@ EX: A word system
 5. A pen costs **10 taka** and a notebook **20 taka**. Check the second: 20 + 60 = 80 ✓.
 /EX
 
+LAB: Two lines crossing | Each line is y = m x + c. The crossing point solves both equations at once. If the slopes are equal the lines never cross, and the numbers show n/a. | m1:Slope of line 1:-3:3:0.5:2 ;; c1:Intercept of line 1:-5:5:1:-2 ;; m2:Slope of line 2:-3:3:0.5:-1 ;; c2:Intercept of line 2:-5:5:1:7 | (c2-c1)/(m1-m2):x where they cross:2 ;; m1*(c2-c1)/(m1-m2)+c1:y where they cross:2 | m1*x+c1 ;; m2*x+c2 | -6,6 | -15,15
+
 ### Quick self-check
 QUIZ:
 Q: Make x the subject of y = 3x − 5.; x = (y + 5)/3; x = 3y + 5; x = (y − 5)/3; x = y/3 − 5; 1; Add 5 to both sides: y + 5 = 3x, then divide by 3.
@@ -184,6 +186,8 @@ EX: A braking car
 /EX
 
 KEY: Always check your answer with a second route. If s from one equation matches s from average velocity, you can trust it.
+
+LAB: Velocity against time | Start at speed u with constant acceleration a. The line is v = u + a t. The area under it up to time t is the distance travelled. | u:Starting speed u (m/s):0:30:1:5 ;; a:Acceleration a (m/s²):-5:5:0.5:2 ;; t:Time t (s):0:10:0.5:6 | u+a*t:Speed at time t (m/s):1 ;; (u+u+a*t)/2*t:Distance as area under the line (m):1 ;; u*t+0.5*a*t^2:Distance from s = ut + ½at² (m):1 | u+a*x | 0,10 | -50,80
 
 ### Quick self-check
 QUIZ:

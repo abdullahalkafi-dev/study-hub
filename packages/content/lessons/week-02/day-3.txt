@@ -115,6 +115,8 @@ TRAP: Matching bases only works if both sides are **pure powers of the same base
 ### Transformations again
 Yesterday's rules apply: y = 2^(x − 3) is 2ˣ shifted right by 3. y = 2ˣ + 1 shifts up by 1, and its asymptote moves to y = 1.
 
+LAB: Exponential growth | An amount P grows by r percent each period. After t periods it is P (1 + r/100) to the power t. The curve climbs faster and faster. | p:Start amount P:100:1000:100:500 ;; r:Growth per period (%):1:30:1:8 ;; t:Periods t:0:30:1:10 | p*pow(1+r/100,t):Amount after t periods:1 ;; 70/r:Doubling time by the rule of 70:1 | p*pow(1+r/100,x) | 0,30 | 0,4000
+
 ### Quick self-check
 QUIZ:
 Q: Which function is exponential?; y = x³; y = 3x; y = 3ˣ; y = 3/x; 3; Only y = 3ˣ has the variable in the exponent.
@@ -184,6 +186,8 @@ EX: Three forces in equilibrium
 /EX
 
 TRAP: "An object moving at constant speed has no forces acting on it." Wrong. It can have **many forces whose sum is zero**. The correct statement is that the **net** force is zero. A car cruising at 80 km/h still has engine force and air drag, balanced.
+
+LAB: Motion with and without a net force | A cart moves at speed u. With zero net force the speed never changes. Add a force and the speed changes steadily. | u:Starting speed (m/s):0:20:1:10 ;; fnet:Net force (N):-10:10:1:0 ;; m:Mass (kg):1:10:1:2 | fnet/m:Acceleration (m/s²):2 ;; u+fnet/m*5:Speed after 5 s (m/s):1 | u+fnet/m*x | 0,10 | -40,60
 
 ### Quick self-check
 QUIZ:

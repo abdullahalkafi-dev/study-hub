@@ -95,6 +95,8 @@ EX: Moving the centre
 2. As with function transformations, replacing x by x − h shifts the picture right by h.
 /EX
 
+LAB: A circle in coordinates | A circle has centre (h, k) and radius r. The two curves are its top and bottom halves. The picture is stretched a little because the graph is wider than tall. | h:Centre x h:-4:4:1:1 ;; k:Centre y k:-4:4:1:0 ;; r:Radius r:1:6:0.5:3 | pi*r^2:Area:2 ;; 2*pi*r:Circumference:2 | k+sqrt(r^2-(x-h)^2) ;; k-sqrt(r^2-(x-h)^2) | -10,10 | -10,10
+
 ### Quick self-check
 QUIZ:
 Q: The focus of y² = 8x is…; (8, 0); (4, 0); (2, 0); (0, 2); 3; 4a = 8, so a = 2 and the focus is (2, 0).
@@ -166,6 +168,8 @@ EX: The Moon
 /EX
 
 TRAP: Do not call the "centrifugal force" a real force in an inertial frame. When you feel pushed outward in a turning car, it is your inertia: your body wants to continue straight, while the car turns. Also remember that v in the formula is the **speed**, in m/s, and ω must be in rad/s.
+
+LAB: Uniform circular motion | An object goes round a circle of radius r at speed v. It always accelerates toward the centre. | v:Speed v (m/s):1:40:1:15 ;; r:Radius r (m):1:100:1:30 ;; m:Mass m (kg):1:2000:1:1000 | v^2/r:Centripetal acceleration (m/s²):2 ;; m*v^2/r:Centripetal force (N):0 ;; 2*pi*r/v:Time for one lap (s):2 ;; v^2/(r*9.8):Acceleration in units of g:2 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

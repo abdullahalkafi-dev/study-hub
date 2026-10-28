@@ -107,6 +107,8 @@ EX: Latitude
 
 BN: এক রেডিয়ান হলো সেই কোণ, যার চাপের দৈর্ঘ্য ব্যাসার্ধের সমান। পুরো বৃত্ত 2π রেডিয়ান, অর্থাৎ π রেডিয়ান = 180°। রেডিয়ানে লিখলে চাপের দৈর্ঘ্য s = rθ আর সেক্টরের ক্ষেত্রফল ½r²θ খুব পরিষ্কার সূত্র হয়ে যায়। ক্যালকুলাসেও আমরা শুধু রেডিয়ান ব্যবহার করব।
 
+LAB: Degrees, radians and the three ratios | Set an angle in degrees. See it in radians and see sin, cos and tan. The graph shows sin (teal) and cos (orange) against the angle in degrees. Near 90 degrees tan blows up. | d:Angle (degrees):0:360:5:30 | d*pi/180:Angle in radians:4 ;; sin(d*pi/180):sin:4 ;; cos(d*pi/180):cos:4 ;; tan(d*pi/180):tan:3 | sin(x*pi/180) ;; cos(x*pi/180) | 0,360 | -1.5,1.5
+
 ### Quick self-check
 QUIZ:
 Q: In a right triangle the opposite side is 5 and the hypotenuse is 13. What is sin θ?; 5/12; 5/13; 12/13; 13/5; 2; sin θ = opposite ÷ hypotenuse = 5/13.
@@ -172,6 +174,8 @@ EX: Pulling a suitcase
 2. Horizontal component: 40 cos 25° = 36.25 N. Vertical component: 40 sin 25° = 16.9 N upward.
 3. The vertical part lifts a little of the weight, so the normal force is N = mg − 16.9 = 196 − 16.9 = **179.1 N**, less than the weight. This is why pulling at an angle can reduce friction.
 /EX
+
+LAB: Resolving a vector into components | A force F points at an angle above the horizontal. Its horizontal part is F cos θ and its vertical part is F sin θ. Put them back together and you recover F. | f:Force F (N):1:100:1:50 ;; th:Angle (degrees):0:90:1:37 | f*cos(th*pi/180):Horizontal part (N):2 ;; f*sin(th*pi/180):Vertical part (N):2 ;; sqrt((f*cos(th*pi/180))^2+(f*sin(th*pi/180))^2):Back to the size of F (N):2 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:

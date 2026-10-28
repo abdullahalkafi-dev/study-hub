@@ -91,6 +91,8 @@ EX: A tricky difference
 
 TRAP: Do not cancel terms across a sum. For (x + 3) ÷ (x + 5), you cannot cancel "x". Cancel only common **factors**. And do not write "0 ÷ 0 = 1": it is an indeterminate form, which means the answer could be anything and must be worked out.
 
+LAB: Limit laws check | If f tends to one number and g tends to another near some point, then the limit of f + g, f times g and f over g follow from them. Dividing by a zero limit is not allowed, so the last number shows n/a. | lf:Limit of f:-5:5:0.5:3 ;; lg:Limit of g:-5:5:0.5:2 | lf+lg:Limit of f + g:2 ;; lf*lg:Limit of f times g:2 ;; lf/lg:Limit of f over g:2 | - | 0,1 | 0,1
+
 ### Quick self-check
 QUIZ:
 Q: lim (x → 5) (x² − 25) ÷ (x − 5) equals…; 0; 5; 10; does not exist; 3; (x + 5) → 10.
@@ -176,6 +178,8 @@ EX: Piecewise force
 /EX
 
 TRAP: Do not forget **friction's negative work**, and do not count the normal force or a centripetal force as doing work. Also, "m g h" uses the **vertical** drop, not the distance along the slope.
+
+LAB: The work-energy theorem | The net work on an object equals its change in kinetic energy: W = ½mv² − ½mu². | m:Mass (kg):1:2000:1:1000 ;; u:Start speed (m/s):0:30:1:10 ;; v:End speed (m/s):0:40:1:20 | 0.5*m*u^2:Start kinetic energy (J):0 ;; 0.5*m*v^2:End kinetic energy (J):0 ;; 0.5*m*(v^2-u^2):Net work needed (J):0 | - | 0,1 | 0,1
 
 ### Quick self-check
 QUIZ:
