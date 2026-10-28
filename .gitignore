@@ -20,9 +20,9 @@ packages/content/data/
 local/
 
 # uploads and storage data
-uploads/
-minio-data/
-data/
+/uploads/
+/minio-data/
+/data/
 
 # logs and test output
 *.log
