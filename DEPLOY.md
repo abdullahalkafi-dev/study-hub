@@ -32,7 +32,7 @@ Created by hand on the server. Variable names:
 `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`,
 `PUBLIC_URL=https://study.joura.info`, `WEB_PORT=3010`.
 
-The API refuses to start in production without `LEARNER_EMAIL`, `LEARNER_PASSWORD` and `JWT_SECRET`. Login email is `abdullah@study.joura.info`. The password was generated on the server. To see it, read those two lines on the server (`grep LEARNER /opt/study-hub/.env`) and change the password there if you like, then `docker compose up -d`.
+The API refuses to start in production without `LEARNER_EMAIL`, `LEARNER_PASSWORD` and `JWT_SECRET`. The site login comes from `LEARNER_EMAIL` and `LEARNER_PASSWORD` in `/opt/study-hub/.env` (and the same two names in your local `.env`). To change the login, edit those two lines on the server, then run `docker compose up -d --force-recreate api`; the account is created or updated when the API starts. Old accounts are not deleted automatically.
 
 ## Update the site (normal routine)
 
