@@ -8,7 +8,7 @@ silo-study/
   apps/api            Node + Express + Mongoose (TypeScript), one folder per module:
                       auth, weeks, progress, notes, uploads, audit
   packages/content    lesson parser + build script
-    lessons/week-NN/day-N.txt   the lessons (Weeks 1-19), written in the lesson markup
+    lessons/week-NN/day-N.txt   the lessons (Weeks 1-23), written in the lesson markup
   deploy/Caddyfile    optional HTTPS reverse proxy config
   docker-compose.yml  web + api + minio (+ caddy with --profile proxy)
   docker-compose.dev.yml  local-only extras (never loaded automatically)
@@ -66,7 +66,7 @@ GitHub Actions: `ci.yml` builds everything on every push. `deploy.yml` can updat
 
 ## Adding or changing lessons
 
-Put each week's files in `packages/content/lessons/week-NN/day-1.txt` to `day-6.txt`, then `npm run seed`. The number of included weeks is `CONTENT_MAX_WEEK` (default 19).
+Put each week's files in `packages/content/lessons/week-NN/day-1.txt` to `day-6.txt`, then `npm run seed`. The number of included weeks is `CONTENT_MAX_WEEK` (default 23).
 
 ## API (all under `/api`, JSON)
 

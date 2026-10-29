@@ -1,5 +1,5 @@
 // Parses ../lessons/week-NN/day-N.txt into data/weeks.json.
-// CONTENT_MAX_WEEK limits how many weeks are included (default 19; weeks 20-34 come later).
+// CONTENT_MAX_WEEK limits how many weeks are included (default 23; weeks 24-34 come later).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,7 +7,7 @@ import { parseDay, warnings } from "../src/parser.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const srcRoot = path.resolve(here, "../lessons");
-const max = parseInt(process.env.CONTENT_MAX_WEEK || "19", 10);
+const max = parseInt(process.env.CONTENT_MAX_WEEK || "23", 10);
 const weeks = {};
 
 for (const d of fs.readdirSync(srcRoot, { withFileTypes: true })) {

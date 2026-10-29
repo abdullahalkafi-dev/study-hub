@@ -1,0 +1,101 @@
+@day Week 23 · Day 5 · Friday
+# Mock Paper 2: physics, and the wind-turbine case study
+lead: Today is the second full paper: physics for Weeks 12 to 22 (fluids, heat and thermodynamics, electric fields, capacitors, circuits, magnetism, induction and the grid). It is 30 marks in 75 minutes and a calculator is allowed. After the marking, the second case study of the week follows: a wind turbine from wind to the socket, which uses fluids, circular motion, generators, transformers and losses together.
+
+BN: আজ দ্বিতীয় পূর্ণ পেপার: সপ্তাহ ১২ থেকে ২২ এর পদার্থবিজ্ঞান (তরল, তাপ ও তাপগতিবিদ্যা, তড়িৎ ক্ষেত্র, ধারক, বর্তনী, চুম্বকত্ব, আবেশ ও গ্রিড)। ৩০ নম্বর, ৭৫ মিনিট, ক্যালকুলেটর চলবে। নম্বর দেওয়ার পরে সপ্তাহের দ্বিতীয় কেস স্টাডি: বাতাস থেকে সকেট পর্যন্ত একটি বায়ু টারবাইন।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- A quiet desk, a timer for **75 minutes**, paper, pen and a **calculator**. No notes, phone away.
+- Use g = 9.81 m/s², k = 8.99 × 10⁹ N m²/C², ε₀ = 8.854 × 10⁻¹² F/m, R = 8.314 J/(mol K), q = 1.602 × 10⁻¹⁹ C and the electron mass 9.109 × 10⁻³¹ kg.
+- Show full working with units. Give answers to 3 significant figures.
+- In the last 5 minutes check units, powers of ten and that your numbers are sensible.
+
+CHECK: recall
+
+@section math | 2 · Checking by units and size | 20 min
+
+Before the paper, remember how to catch your own errors in 20 seconds:
+
+BN: পেপারের আগে ২০ সেকেন্ডে নিজের ভুল ধরার উপায় মনে করো।
+
+1. **Units.** Does the answer have the right unit? A pressure in N, or a time in V, is wrong immediately.
+2. **Size.** A 100 W amplifier gives a few amperes, not 3000 A. A 1 nF capacitor holds nanocoulombs. A power station line current is hundreds of amperes, not millions.
+3. **Limits.** What happens as one quantity goes to 0 or ∞? The efficiency must stay between 0 and Carnot; a fraction submerged must be between 0 and 1.
+4. **Second route.** Find the same number a different way (energy or momentum, series or parallel).
+
+EX: Three quick sanity checks
+1. A proton radius in a 0.4 T field comes out as 5 km. Wrong: the cyclotron radius at 2 × 10⁶ m/s is of order centimetres.
+2. A 12 V battery gives 2000 A through a 4 Ω resistor? I = V ÷ R = 3 A. A slip in the power of ten.
+3. A Carnot engine between 300 K and 600 K claims 70% efficiency. The limit is 50%.
+/EX
+
+CHECK: math
+
+@section physics | 3 · Paper 2 (30 marks, 75 minutes) | calculator allowed
+
+LVL: Paper 2 | Questions 1 to 10
+P: **Q1 (3 marks).** Water flows at 2 m/s in a pipe of diameter 10 cm, which narrows to a diameter of 5 cm. Find the speed in the narrow section, the pressure drop and the flow rate in litres per second (ρ = 1000 kg/m³). => The area falls by 4, so v₂ = **8 m/s** (1 mark). ΔP = ½ ρ (v₂² − v₁²) = 0.5 × 1000 × (64 − 4) = **30,000 Pa** (1 mark). Q = A₁ v₁ = π (0.05)² × 2 = 0.01571 m³/s = **15.7 L/s** (1 mark).
+P: **Q2 (3 marks).** A 0.30 kg aluminium block (c = 900 J/(kg K)) at 200 °C is dropped into 1.00 kg of water at 20 °C (c = 4186 J/(kg K)). Find the final temperature. => Heat lost = heat gained: 0.3 × 900 × (200 − T) = 1 × 4186 × (T − 20) (1 mark). 54,000 − 270 T = 4186 T − 83,720 (1 mark). T = 137,720 ÷ 4456 = **30.9 °C** (1 mark).
+P: **Q3 (3 marks).** 0.50 mol of an ideal gas at 300 K expands isothermally from 5.0 L to 15.0 L. Find the work done by the gas, the heat absorbed and the entropy change of the gas. => W = n R T ln (V₂ ÷ V₁) = 0.5 × 8.314 × 300 × ln 3 = **1370 J** (1 mark). ΔU = 0, so Q = **1370 J** (1 mark). ΔS = Q ÷ T = 1370 ÷ 300 = **4.57 J/K** (1 mark).
+P: **Q4 (3 marks).** A heat engine operates between 600 K and 300 K. It takes 2000 J from the hot source in each cycle and has an efficiency of 30%. Find the work, the Carnot limit and the entropy created per cycle. => W = 0.30 × 2000 = **600 J** (1 mark). Carnot limit = 1 − 300 ÷ 600 = **50%** (1 mark). Heat rejected = 1400 J, so ΔS_total = 1400 ÷ 300 − 2000 ÷ 600 = 4.667 − 3.333 = **+1.33 J/K** (1 mark): positive, as the second law demands for a real engine.
+P: **Q5 (3 marks).** A charge of +4 μC is at x = 0 and a charge of −1 μC is at x = 0.6 m. Find the point on the x-axis where the electric field is zero. => Between the charges both fields point the same way, so the zero lies outside, beyond the smaller charge (x > 0.6) (1 mark). Let the distance beyond the −1 μC charge be d: 4 ÷ (0.6 + d)² = 1 ÷ d² (1 mark). Then 2d = 0.6 + d, so d = 0.6 m: **x = 1.2 m** (1 mark).
+P: **Q6 (3 marks).** Parallel plates of area 0.020 m² are 0.50 mm apart with a dielectric of κ = 3 and are charged to 200 V. Find the capacitance, the charge and the stored energy. => C = κ ε₀ A ÷ d = 3 × 8.854 × 10⁻¹² × 0.02 ÷ 0.0005 = **1.06 nF** (1 mark). Q = C V = **212 nC** (1 mark). U = ½ C V² = **21.2 μJ** (1 mark).
+P: **Q7 (3 marks).** A series RLC circuit has R = 10 Ω, L = 50 mH and C = 20 μF. Find the resonant angular frequency, the resonant frequency and the quality factor. => ω₀ = 1 ÷ √(L C) = 1 ÷ √(10⁻⁶) = **1000 rad/s** (1 mark). f₀ = 1000 ÷ 2π = **159 Hz** (1 mark). Q = ω₀ L ÷ R = 1000 × 0.05 ÷ 10 = **5** (1 mark).
+P: **Q8 (3 marks).** An electron moves at 3.0 × 10⁶ m/s perpendicular to a magnetic field of 2.0 mT. Find the radius of its path and its period. => r = m v ÷ (q B) = 9.109 × 10⁻³¹ × 3 × 10⁶ ÷ (1.602 × 10⁻¹⁹ × 2 × 10⁻³) = **8.53 mm** (2 marks). T = 2π m ÷ (q B) = **17.9 ns** (1 mark). (The period does not depend on the speed.)
+P: **Q9 (3 marks).** A generator coil has 500 turns of area 0.040 m² in a field of 0.50 T and turns at 3000 rpm. Find the peak EMF, the RMS EMF and the frequency (2 poles). => ω = 3000 × 2π ÷ 60 = 314.2 rad/s. ε_peak = N B A ω = 500 × 0.5 × 0.04 × 314.2 = **3142 V** (1 mark). RMS = 3142 ÷ √2 = **2221 V** (1 mark). f = **50 Hz** (1 mark).
+P: **Q10 (3 marks).** A wind farm sends 6.0 MW through a line of total resistance 5.0 Ω at 33 kV. Find the line current and the power lost. Then find the loss if the line voltage were only 11 kV, and the ratio of the two losses. => I = 6 × 10⁶ ÷ 33,000 = **182 A** and the loss is I² R = 182² × 5 = **165 kW** (2.75%) (1 mark for the current, 1 mark for the loss). At 11 kV: I = 545 A and the loss is **1.49 MW** (24.8%), which is **9 times** larger, since (33 ÷ 11)² = 9 (1 mark).
+
+CHECK: physics
+
+@section notes | 4 · Marking, mistake log and the wind-turbine case study | 25 min
+
+### Marking
+Total marks: **30** (3 marks for each of the 10 questions).
+
+| Score | What it means | What to do |
+| 27 to 30 | Excellent | You are ready for tomorrow's Phase 3 exam. |
+| 22 to 26 | Good | Redo every wrong question tonight (20 minutes). |
+| 16 to 21 | Some gaps | Find the matching day in Weeks 12 to 22. Redo its Level 2 problems before Saturday. |
+| Below 16 | Needs a second pass | Spend the morning on the days that match your errors. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q3 | Used 5 and 15 in m³ | Forgot the ratio is unit-free | Only V₂ ÷ V₁ matters in ln | Saturday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। সাধারণ ভুল: তাপমাত্রা কেলভিনে না নেওয়া, বার্নুলিতে বেগের বর্গ ভুলে যাওয়া, সমান্তরাল ও শ্রেণি ধারক গুলিয়ে ফেলা, Q = CV তে ভোল্টেজের একক ভুল, ট্রান্সমিশনে P = VI ও I²R গুলিয়ে ফেলা।
+
+NOTES:
+
+### The wind turbine, from wind to socket
+A turbine has blades of length R = 40 m and sits in a wind of 12 m/s.
+
+1. **Wind power (Week 12):** the air of density 1.225 kg/m³ passing through the swept area A = π R² = 5027 m² carries P = ½ ρ A v³ = 0.5 × 1.225 × 5027 × 12³ = **5.32 MW**. Because of v³, a wind 10% faster gives 33% more power; half the speed gives **one eighth**.
+2. **Betz limit:** no turbine can take more than 59.3% of this (the air must keep moving), so at most **3.15 MW**. A real turbine, with C_p = 0.45, delivers **2.39 MW** to the shaft.
+3. **Rotor (Phase 2):** at 15 rpm the angular speed is 1.571 rad/s and the blade tip moves at ω R = **62.8 m/s**, a tip-speed ratio of 62.8 ÷ 12 = **5.2**.
+4. **Gearbox and generator (Week 22):** a 2-pole generator needs 3000 rpm for 50 Hz: gear ratio 3000 ÷ 15 = **200 : 1**. Direct-drive turbines avoid the gearbox by using a generator with many poles, f = p n ÷ 120: at 15 rpm, 50 Hz needs p = 400 poles.
+5. **Output:** the generator gives 690 V three-phase. Current for 2.39 MW at power factor 0.95: I = 2.39 × 10⁶ ÷ (√3 × 690 × 0.95) = **2100 A**, which is why a transformer sits at the tower base.
+6. **Step-up:** 690 V → 33 kV, turns ratio 33,000 ÷ 690 = **47.8**. The current falls to 2.39 × 10⁶ ÷ (√3 × 33,000 × 0.95) = **44 A**.
+7. **To the grid:** 60 turbines in a farm give 143 MW. Then 33 kV → 400 kV at the substation (Day 3 of Week 22) so that the long line loses only a small percentage.
+8. **Capacity factor:** the wind is not always 12 m/s. Averaged over a year, a good site gives about 35% of the rated power, so 143 MW of turbines supply on average about 50 MW, enough for roughly 50,000 homes at 1 kW each.
+
+BN: বায়ু টারবাইন: ধাপ ১ বাতাসের ক্ষমতা P = ½ρAv³ = 5.32 MW (v³ এর কারণে গতি অর্ধেক হলে ক্ষমতা আট ভাগের এক ভাগ); ধাপ ২ বেৎস সীমা 59.3%; ধাপ ৩ প্রান্তের গতি ωR; ধাপ ৪ গিয়ারবক্স 200:1 অথবা বহু-মেরু জেনারেটর; ধাপ ৫-৬ 690 V → 33 kV, কারেন্ট 2100 A থেকে 44 A; ধাপ ৭-৮ ট্রান্সমিশন ও ক্যাপাসিটি ফ্যাক্টর।
+
+LAB: Power from the wind | Choose the blade length, the efficiency C p, the wind speed and the tip-speed ratio. The numbers give the swept area, the power in the wind, the shaft power and the rotor speed. The graph shows the shaft power in megawatts against the wind speed: note the cube. | R:Blade length (m):20:70:1:40 ;; Cp:Efficiency C p:0.2:0.59:0.01:0.45 ;; v:Wind speed (m per s):3:25:1:12 ;; lam:Tip-speed ratio:4:9:0.1:5.2 | pi*R^2:Swept area (m squared):0 ;; 0.5*1.225*pi*R^2*v^3/1000000:Power in the wind (MW):2 ;; 0.5*1.225*pi*R^2*v^3*Cp/1000000:Shaft power (MW):2 ;; lam*v/R*60/(2*pi):Rotor speed (rpm):1 | 0.5*1.225*pi*R^2*Cp*x^3/1000000 | 0,25 | 0,10
+
+### Recap
+- Fluids: A v = const, ΔP = ½ ρ (v₂² − v₁²). Heat: Q = m c ΔT, W = n R T ln (V₂ ÷ V₁), ΔS = Q ÷ T, e ≤ Carnot.
+- E field and capacitors: zero-field points, C = κ ε₀ A ÷ d, U = ½ C V². RLC: ω₀ = 1 ÷ √(LC), Q = ω₀ L ÷ R. Magnetism: r = m v ÷ (q B). Generators: N B A ω. Grid: I² R falls as 1 ÷ V². Wind: P = ½ ρ A v³.
+
+BN: আজকের সারকথা: তরল Av ধ্রুব ও ΔP; তাপ Q = mcΔT, W = nRT ln(V₂/V₁), ΔS = Q/T; ধারক ও RLC; চুম্বকীয় বৃত্ত r = mv/(qB); জেনারেটর NBAω; লাইনের ক্ষতি I²R ∝ 1/V²; বায়ু ক্ষমতা ½ρAv³।
+
+EXIT:
+E: What is the power in MW in a 12 m/s wind through a 40 m rotor (air density 1.225)? Give 2 decimals.; 5.32; 0.02; ½ ρ A v³.
+E: What is the 33 kV line current in A for 6 MW?; 182; 1; P ÷ V.
+E: What is the factor by which the power falls if the wind speed halves?; 8; 0.1; v³.
+
+**Tomorrow:** the Phase 3 exam, then the reflection and Phase 4.
+
+CHECK: notes

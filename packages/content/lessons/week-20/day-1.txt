@@ -1,0 +1,185 @@
+@day Week 20 · Day 1 · Monday
+# The Laplace transform: calculus turned into algebra. Then: inductors
+lead: Last week you solved differential equations by guessing solutions. The Laplace transform is a different, more powerful idea: transform the whole equation into algebra, solve it there, and transform back. It handles starting conditions automatically and works for the sudden switches and pulses that engineers meet every day. In physics, you meet the third basic circuit component: the inductor, a coil that resists changes in current, the electrical version of mass. The story of the week is radio tuning, which is an RLC circuit tuned to resonance.
+
+BN: গত সপ্তাহে তুমি অনুমান করে অবকল সমীকরণ সমাধান করেছ। ল্যাপলাস রূপান্তর আরেকটা শক্তিশালী ধারণা: পুরো সমীকরণকে বীজগণিতে বদলাও, সেখানে সমাধান করো, তারপর ফিরিয়ে আনো। শুরুর শর্ত নিজেই বসে যায়, আর হঠাৎ সুইচ বা পালসও সামলানো যায়। পদার্থবিজ্ঞানে তৃতীয় বর্তনী উপাদান: ইনডাক্টর, যে কয়েল কারেন্টের পরিবর্তনে বাধা দেয়, অর্থাৎ বৈদ্যুতিক ভর। সপ্তাহের গল্প রেডিও টিউনিং, যা অনুনাদে বসানো RLC বর্তনী।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: Solve y′ + 3y = 0. => **y = C e^(−3x)**.
+P: Write the partial fractions of 1 ÷ (s (s + 2)). => **(1 ÷ 2) (1 ÷ s − 1 ÷ (s + 2))**.
+P: What is ∫₀^∞ e^(−2t) dt? => **1/2**.
+P: State Euler's formula. => **e^(iθ) = cos θ + i sin θ**.
+P: What is the energy stored in a capacitor? => **U = ½ C V²**.
+
+CHECK: recall
+
+@section math | 2 · Math: the Laplace transform | 55 min
+
+### The definition and why it works
+For a function f (t) defined for t ≥ 0, the **Laplace transform** is
+
+EQ: F (s) = ∫₀^∞ e^(−s t) f (t) dt, written L{f} = F.
+
+The factor e^(−s t) with s > 0 kills the growth of f, so the integral converges for most functions you meet. The point is what happens to derivatives. Integrate by parts:
+
+EQ: L{y′} = ∫₀^∞ e^(−s t) y′ dt = [e^(−s t) y]₀^∞ + s ∫₀^∞ e^(−s t) y dt = **s Y (s) − y (0)**
+
+So **a derivative becomes multiplication by s**, and the starting value appears on its own. Applying the rule twice gives **L{y″} = s² Y − s y (0) − y′ (0)**.
+
+BN: L{f} = F(s) = ∫₀^∞ e^(−st) f(t) dt। মূল জাদু: অবকলন → s দিয়ে গুণ। অংশায়ন সমাকলে L{y′} = sY − y(0) আর L{y″} = s²Y − s·y(0) − y′(0)। শুরুর শর্ত আপনা-আপনি চলে আসে।
+
+### Building the table
+- **Constant:** L{1} = ∫ e^(−s t) dt = **1 ÷ s**.
+- **Exponential:** L{e^(a t)} = ∫₀^∞ e^(−(s − a) t) dt = **1 ÷ (s − a)** (for s > a).
+- **Power:** L{t} = **1 ÷ s²** (by parts), L{t²} = 2 ÷ s³, and in general **L{tⁿ} = n! ÷ s^(n+1)**.
+- **Sine and cosine** (with the trick from Week 12): L{e^(iωt)} = 1 ÷ (s − iω) = (s + iω) ÷ (s² + ω²). Its real part is the transform of cos ωt and its imaginary part is the transform of sin ωt:
+  - **L{cos ωt} = s ÷ (s² + ω²)**
+  - **L{sin ωt} = ω ÷ (s² + ω²)**
+- **Linearity:** L{a f + b g} = a F + b G.
+- **Shift:** L{e^(a t) f (t)} = F (s − a), so L{t e^(−2t)} = 1 ÷ (s + 2)².
+
+| f (t) | F (s) |
+|---|---|
+| 1 | 1 ÷ s |
+| tⁿ | n! ÷ s^(n+1) |
+| e^(at) | 1 ÷ (s − a) |
+| sin ωt | ω ÷ (s² + ω²) |
+| cos ωt | s ÷ (s² + ω²) |
+| e^(at) sin ωt | ω ÷ ((s − a)² + ω²) |
+
+BN: সারণি: 1 → 1/s; tⁿ → n!/s^(n+1); e^(at) → 1/(s − a); sin ωt → ω/(s² + ω²); cos ωt → s/(s² + ω²)। রৈখিকতা: L{af + bg} = aF + bG। স্থানান্তর: e^(at) গুণ করলে s এর জায়গায় (s − a)।
+
+EX: Solving a first-order equation
+Solve y′ + 3y = 6 with y (0) = 1.
+1. **Transform:** (s Y − 1) + 3 Y = 6 ÷ s.
+2. **Solve for Y:** (s + 3) Y = 6 ÷ s + 1 = (s + 6) ÷ s, so Y = (s + 6) ÷ (s (s + 3)).
+3. **Partial fractions:** Y = A ÷ s + B ÷ (s + 3). A = (0 + 6) ÷ 3 = **2** and B = (−3 + 6) ÷ (−3) = **−1**.
+4. **Invert:** y = **2 − e^(−3t)**.
+5. **Check:** y (0) = 2 − 1 = 1 ✓. y′ = 3 e^(−3t), and y′ + 3y = 3 e^(−3t) + 6 − 3 e^(−3t) = **6** ✓. The long-run value is 2 = 6 ÷ 3 and the time constant is 1 ÷ 3.
+/EX
+
+EX: Practice with the table
+1. **L{3 sin 2t − e^(−t)}** = 3 × 2 ÷ (s² + 4) − 1 ÷ (s + 1) = **6 ÷ (s² + 4) − 1 ÷ (s + 1)**.
+2. **L{t e^(−2t)}** = **1 ÷ (s + 2)²** (the shift rule applied to L{t} = 1 ÷ s²).
+3. **L{t³}** = 3! ÷ s⁴ = **6 ÷ s⁴**.
+4. **Invert 5 ÷ (s² + 25):** that is sin 5t with ω = 5, so the answer is **sin 5t**.
+5. **Invert 4 ÷ (s − 3):** **4 e^(3t)**.
+6. **Invert (2s + 1) ÷ (s² + 9):** 2 s ÷ (s² + 9) + 1 ÷ (s² + 9) = **2 cos 3t + (1 ÷ 3) sin 3t**.
+7. **Invert 1 ÷ (s (s + 2)):** partial fractions (1 ÷ 2)(1 ÷ s − 1 ÷ (s + 2)) gives **(1 − e^(−2t)) ÷ 2**.
+/EX
+
+LAB: Solve y prime + k y = F with the Laplace result | Choose the rate k, the forcing F and the starting value y0. The Laplace method gives y = F over k + (y0 - F over k) e^(-kt). The numbers are the long-run value, the size of the transient and the time constant. | k:Rate k:0.5:6:0.5:3 ;; F:Forcing F:0:12:1:6 ;; y0:Start y0:-4:8:1:1 | F/k:Long-run value F over k:3 ;; y0-F/k:Transient amplitude:3 ;; 1/k:Time constant:3 | F/k+(y0-F/k)*exp(-k*x) | 0,4 | -4,8
+
+LAB: Transforms of sine and cosine | Choose the frequency w. The two curves are the transforms w over (s squared + w squared) and s over (s squared + w squared), plotted against s. The numbers read them at the chosen s. | w:Frequency w:1:5:0.5:2 ;; s0:Read at s:0.5:6:0.5:2 | w/(s0^2+w^2):Transform of sin at s:4 ;; s0/(s0^2+w^2):Transform of cos at s:4 | w/(x^2+w^2) ;; x/(x^2+w^2) | 0,6 | 0,1
+
+TRAP: Do not forget the starting value: L{y′} is s Y − y (0), not just s Y. After transforming, partial fractions must be complete before you invert: Y = (s + 6) ÷ (s (s + 3)) cannot be inverted term by term until it is split. And L{e^(at) f} shifts s to s − a. It does not multiply F by anything.
+
+### Quick self-check
+QUIZ:
+Q: L{y′} equals…; s Y; s Y − y (0); Y ÷ s; s Y + y (0); 2; Integration by parts.
+Q: L{e^(−3t)} equals…; 1 ÷ (s − 3); 1 ÷ (s + 3); 3 ÷ s; s ÷ (s + 3); 2; 1 ÷ (s − a) with a = −3.
+Q: L{sin 2t} equals…; 2 ÷ (s² + 4); s ÷ (s² + 4); 1 ÷ (s² + 4); 2 ÷ (s² − 4); 1; ω ÷ (s² + ω²).
+Q: The inverse transform of 6 ÷ s⁴ is…; t³; t⁴; 6t³; e^(−t); 1; 3! ÷ s⁴ gives t³.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find L{5}. => **5 ÷ s**.
+P: Find L{e^(2t)}. => **1 ÷ (s − 2)**.
+P: Find L{cos 4t}. => **s ÷ (s² + 16)**.
+P: Find L{t²}. => **2 ÷ s³**.
+LVL: Level 2 | Apply
+P: Find L{3 sin 2t − e^(−t)}. => **6 ÷ (s² + 4) − 1 ÷ (s + 1)**.
+P: Find L{t e^(−2t)}. => **1 ÷ (s + 2)²**.
+P: Invert (2s + 1) ÷ (s² + 9). => **2 cos 3t + (1 ÷ 3) sin 3t**.
+P: Solve y′ + 3y = 6 with y (0) = 1. => **y = 2 − e^(−3t)**.
+P: Solve y′ − 2y = 0 with y (0) = 5. => (s − 2) Y = 5 gives Y = 5 ÷ (s − 2) and **y = 5 e^(2t)**.
+P: Invert 4 ÷ (s + 2)². => **4 t e^(−2t)**.
+LVL: Level 3 | Real
+P: A tank concentration obeys y′ + 0.5 y = 3 with y (0) = 0. Find y (t) and the long-run value. => (s + 0.5) Y = 3 ÷ s, Y = 3 ÷ (s (s + 0.5)) = 6 (1 ÷ s − 1 ÷ (s + 0.5)). So **y = 6 (1 − e^(−0.5t))**, long-run **6**, time constant 2.
+LVL: Challenge | The second-derivative rule at work
+P: Solve y″ + y = 0 with y (0) = 0 and y′ (0) = 1 using the Laplace transform. => s² Y − 0 − 1 + Y = 0, so Y = 1 ÷ (s² + 1) and **y = sin t**. No guessing and the starting conditions went in on their own.
+
+CHECK: math
+
+@section physics | 3 · Physics: the inductor | 35 min
+
+### A coil that resists change
+Wind a wire into a coil. A current makes a magnetic field through the coil (Week 21 gives the details). If the current changes, the field changes, and the changing field induces a voltage that **opposes the change** (Lenz's law). The size of this voltage is proportional to how fast the current changes:
+
+EQ: V = L dI/dt
+
+The constant **L** is the **inductance**, measured in **henries**: 1 H = 1 V s ÷ A. An inductor does nothing against a steady current (dI/dt = 0, so V = 0: it acts like a plain wire), but it fights any sudden change: this is the electrical version of mass, which does nothing to a steady speed but fights any change of velocity.
+
+The energy stored in its magnetic field is **U = ½ L I²**, the electrical twin of ½ m v².
+For a long coil (a solenoid) of N turns, cross-section A and length ℓ: **L = μ₀ N² A ÷ ℓ**, where μ₀ = 4π × 10⁻⁷ H/m. With an iron core, multiply by the relative permeability μ_r.
+
+BN: কয়েলে কারেন্ট বদলালে চৌম্বক ক্ষেত্র বদলায় আর তা পরিবর্তনের বিরুদ্ধে ভোল্টেজ আনে: V = L dI/dt। L = আবেশাঙ্ক (হেনরি, 1 H = 1 V·s/A)। স্থির কারেন্টে সাধারণ তার, কিন্তু আকস্মিক বদলে বাধা: এটা বৈদ্যুতিক ভর। শক্তি U = ½LI²; সলিনয়েডে L = μ₀N²A/ℓ।
+
+EX: A solenoid
+N = 500 turns, A = 4 cm² = 4 × 10⁻⁴ m², ℓ = 0.20 m.
+1. **Inductance:** L = 4π × 10⁻⁷ × 500² × 4 × 10⁻⁴ ÷ 0.20 = **6.28 × 10⁻⁴ H = 0.628 mH**.
+2. **Voltage when the current changes at 1000 A/s:** V = 6.28 × 10⁻⁴ × 1000 = **0.628 V**.
+3. **Energy at 2 A:** U = ½ × 6.28 × 10⁻⁴ × 4 = **1.26 mJ**.
+4. **With an iron core** (μ_r = 1000): L = **0.628 H** and the energy at 2 A is **1.26 J**.
+5. **N matters most:** L ∝ N². Doubling the turns quadruples L.
+6. **Combining:** two inductors of 0.2 H and 0.3 H far apart add in series (**0.5 H**) and combine in parallel as 1 ÷ L = 1 ÷ 0.2 + 1 ÷ 0.3, so **0.12 H**.
+/EX
+
+EX: Why switches spark
+An electromagnet has L = 2 H and carries 1 A.
+1. **Stored energy:** ½ × 2 × 1² = **1 J**.
+2. **Switch it off in 1 ms:** dI/dt = 1 ÷ 0.001 = 1000 A/s, so V = 2 × 1000 = **2000 V**.
+3. This large voltage appears across the switch, so a **spark** jumps across the gap, which is how a car's ignition coil makes the 20,000 V it needs. In an electronic circuit the same effect destroys transistors, so a **flyback diode** is placed across the coil to give the current a safe path.
+4. **Compare a capacitor:** C stores energy in an electric field (U = ½ C V²) and resists changes of **voltage**. L stores energy in a magnetic field (U = ½ L I²) and resists changes of **current**.
+/EX
+
+LAB: Solenoid inductance | Choose the number of turns, the cross-section, the length and the core. The numbers give the inductance in millihenries, the induced voltage for a current change of 1000 amps per second, and the stored energy at 2 amps. The graph shows L against the number of turns. | N:Turns N:100:2000:50:500 ;; A:Area (cm squared):1:20:1:4 ;; len:Length (cm):5:50:1:20 ;; mur:Core permeability (1 = air):1:1000:1:1 | 0.0000004*pi*mur*N^2*(A*0.0001)/(len/100)*1000:Inductance (mH):3 ;; 0.0000004*pi*mur*N^2*(A*0.0001)/(len/100)*1000:Voltage at 1000 A per s (V):3 ;; 0.5*0.0000004*pi*mur*N^2*(A*0.0001)/(len/100)*4*1000:Energy at 2 A (mJ):3 | 0.0000004*pi*mur*x^2*(A*0.0001)/(len/100)*1000 | 100,2000 | 0,1000
+
+TRAP: An inductor opposes **changes** in current, not the current itself. Steady current through an ideal inductor causes no voltage. And L is proportional to N², not N. The induced voltage opposes the change: if the current is rising the voltage opposes the rise, if it is falling the voltage tries to keep it going.
+
+### Quick self-check
+QUIZ:
+Q: The voltage across an inductor with a steady current is…; large; zero; proportional to I; equal to the EMF; 2; V = L dI/dt = 0.
+Q: The unit of inductance is…; farad; ohm; henry; tesla; 3; 1 H = 1 V s ÷ A.
+Q: Doubling the number of turns multiplies L by…; 2; 4; 8; 1; 2; L ∝ N².
+Q: The energy stored in an inductor is…; L I; ½ L I²; L I²; ½ L² I; 2; The twin of ½ m v².
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find V for L = 0.5 H and dI/dt = 20 A/s. => **10 V**.
+P: Find the energy for L = 0.5 H and I = 4 A. => **4 J**.
+P: Find L in series for 0.2 H and 0.3 H. => **0.5 H**.
+LVL: Level 2 | Apply
+P: Find L for N = 500, A = 4 cm² and ℓ = 0.20 m (air). => **0.628 mH**.
+P: Find the induced voltage if its current changes at 1000 A/s. => **0.628 V**.
+P: Find L with an iron core of μ_r = 1000. => **0.628 H**.
+P: Find the energy at 2 A with the iron core. => **1.26 J**.
+P: Find the parallel inductance of 0.2 H and 0.3 H. => **0.12 H**.
+P: A coil of 5 mH has its current rise from 0 to 3 A in 2 ms. Find the average voltage. => 5 × 10⁻³ × 3 ÷ 2 × 10⁻³ = **7.5 V**.
+LVL: Level 3 | Real
+P: A relay coil of L = 2 H carries 1 A and is switched off in 1 ms. Find the voltage and energy released. => V = **2000 V** and U = **1 J**: a spark, or a flyback diode.
+LVL: Challenge | Same energy
+P: A capacitor of 100 μF at 100 V and an inductor of 1 H store the same energy. Find the current of the inductor. => U = ½ × 10⁻⁴ × 10⁴ = 0.5 J. ½ × 1 × I² = 0.5 gives **I = 1 A**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Laplace: F (s) = ∫ e^(−st) f dt. Derivative to multiplication: L{y′} = sY − y (0), L{y″} = s²Y − s y (0) − y′ (0). Table: 1 ÷ s, n! ÷ s^(n+1), 1 ÷ (s − a), ω ÷ (s² + ω²), s ÷ (s² + ω²). Method: transform, solve for Y, split in partial fractions, invert.
+- Inductor: V = L dI/dt, U = ½ L I², L = μ₀ N² A ÷ ℓ. It resists changes in current: electrical inertia. Switching off a coil gives a big voltage (sparks).
+
+BN: আজকের সারকথা: L{y′} = sY − y(0); সারণি মনে রাখো; ট্রান্সফর্ম → সমাধান → আংশিক ভগ্নাংশ → উল্টো রূপান্তর। ইনডাক্টর: V = L dI/dt, U = ½LI², L = μ₀N²A/ℓ; কারেন্টের পরিবর্তনে বাধা, অর্থাৎ বৈদ্যুতিক ভর।
+
+EXIT:
+E: What is the long-run value of y for y′ + 3y = 6?; 2; 0.01; F ÷ k.
+E: What is the inductance in mH for N = 500, A = 4 cm² and ℓ = 20 cm in air? Give 2 decimals.; 0.63; 0.01; μ₀ N² A ÷ ℓ.
+E: What is the energy in joules stored by 0.5 H carrying 4 A?; 4; 0.1; ½ L I².
+
+**Tomorrow:** solving more equations with the Laplace transform (partial fractions), and the RL circuit.
+
+CHECK: notes

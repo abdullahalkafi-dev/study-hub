@@ -1,0 +1,155 @@
+@day Week 20 · Day 3 · Wednesday
+# Transfer functions, impulses and the step response. Then: LC and RLC oscillations
+lead: A system is a machine: you push, it responds. The Laplace transform gives the machine a single formula, the transfer function, whose poles tell you everything about its behaviour before you solve anything. Two standard pushes, the sudden switch-on (step) and the sudden hit (impulse), give you the system's personality. In physics, you connect an inductor to a capacitor and get an electrical oscillator, the circuit behind every clock, radio and wireless charger, with exactly the same mathematics as the spring from Week 19.
+
+BN: একটা সিস্টেম একটা যন্ত্র: ধাক্কা দিলে সাড়া দেয়। ল্যাপলাস রূপান্তর তাকে একটাই সূত্র দেয়: ট্রান্সফার ফাংশন, যার মেরুগুলো সমাধানের আগেই আচরণ বলে দেয়। দুটো আদর্শ ধাক্কা: হঠাৎ চালু (ধাপ) আর হঠাৎ আঘাত (ইমপালস)। পদার্থবিজ্ঞানে ইনডাক্টর + ক্যাপাসিটর = বৈদ্যুতিক দোলক, ঘড়ি, রেডিও আর ওয়্যারলেস চার্জারের ভিত্তি; গণিত ঠিক Week 19 এর স্প্রিং।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Invert 1 ÷ ((s + 1)² + 4). => **½ e^(−t) sin 2t**.
+P: What is the time constant of an RL circuit? => **L ÷ R**.
+P: What is the damped frequency of a spring? => **ω_d = ω₀ √(1 − ζ²)**.
+P: What is ω₀ of a spring? => **√(k ÷ m)**.
+P: What is the energy in an inductor? => **½ L I²**.
+
+CHECK: recall
+
+@section math | 2 · Math: the transfer function | 55 min
+
+### One formula for the machine
+For m y″ + b y′ + k y = f (t) with zero starting values, the transform gives (m s² + b s + k) Y = F, so
+
+EQ: Y (s) = H (s) F (s), with H (s) = 1 ÷ (m s² + b s + k)
+
+**H (s)** is the **transfer function**: output over input. The roots of the denominator are the **poles**. Everything about stability and oscillation sits in the poles. The input f only chooses which of the system's behaviours you see.
+
+- **Impulse response.** A sudden hit δ (t) has L{δ} = 1, so Y = H and the response is **h (t) = L⁻¹{H}**.
+- **Step response.** Switching on a constant: F = 1 ÷ s, so Y = H ÷ s.
+- **Any input.** The answer is the **convolution** y = h ∗ f = ∫₀ᵗ h (τ) f (t − τ) dτ, and L{h ∗ f} = H F. (The input is a chain of tiny hits, and each one rings the system.)
+- **Final value:** if the system is stable, y (∞) = lim as s → 0 of s Y (s). **Initial value:** y (0⁺) = lim as s → ∞ of s Y (s).
+
+BN: Y(s) = H(s)·F(s), H = 1/(ms² + bs + k) (ট্রান্সফার ফাংশন); হরের মূল = মেরু। ইমপালসে L{δ} = 1, তাই Y = H, সাড়া h(t) = L⁻¹{H}। ধাপে Y = H/s। যেকোনো ইনপুটে কনভোলিউশন y = h∗f, আর L{h∗f} = HF। চূড়ান্ত মান: s→0 এ sY।
+
+EX: Impulse and step of one system
+Take y″ + 2y′ + 5y with zero start: H = 1 ÷ (s² + 2s + 5) = 1 ÷ ((s + 1)² + 4), poles at −1 ± 2i.
+1. **Impulse response:** h (t) = **½ e^(−t) sin 2t**. A damped sine, starting at 0 and ringing.
+2. **Step response (input 5 u (t), the target is y = 1):** Y = 5 ÷ (s (s² + 2s + 5)) = 1 ÷ s − (s + 2) ÷ (s² + 2s + 5), which gives **y = 1 − e^(−t) (cos 2t + ½ sin 2t)**.
+3. **Overshoot:** y′ = (5 ÷ 2) e^(−t) sin 2t = 0 at 2t = π, so the first peak is at **t = π ÷ 2 = 1.571** and y = 1 − e^(−π/2) cos π = **1.208**: an overshoot of **20.8%**. The formula e^(−π ζ ÷ √(1 − ζ²)) with ζ = 2 ÷ (2√5) = 0.447 gives e^(−π/2) = 0.208 ✓.
+4. **Final value check:** s Y at s → 0 is 5 ÷ 5 = 1 ✓.
+5. **Convolution check:** with h = e^(−t) and a unit step input, y = ∫₀ᵗ e^(−τ) dτ = **1 − e^(−t)**, which is the same as the step response of y′ + y = 1.
+6. **A stability test:** y″ + 4y′ + 13y: poles at −2 ± 3i, so h (t) = ⅓ e^(−2t) sin 3t: decays, rings 3 radians per second.
+/EX
+
+LAB: Step response of a second-order system | Choose the natural frequency and the damping ratio. The graph is the response to a sudden switch-on of a constant target 1. The numbers give the overshoot, the time of the first peak and the settling time. | w0:Natural frequency w0 (rad per s):1:10:0.5:5 ;; z:Damping ratio z:0.1:0.9:0.05:0.4 | 100*exp(-pi*z/sqrt(1-z^2)):Overshoot (percent):1 ;; pi/(w0*sqrt(1-z^2)):Time of the first peak (s):3 ;; 4/(z*w0):Settling time (s):2 | 1-exp(-z*w0*x)*(cos(w0*sqrt(1-z^2)*x)+z/sqrt(1-z^2)*sin(w0*sqrt(1-z^2)*x)) | 0,6 | 0,1.6
+
+LAB: Where the pole sits | A pole at s = sigma plus or minus i omega gives the motion e to the sigma t times cos omega t. Slide the real part below zero for decay, above zero for growth. | sig:Real part sigma:-2:0.5:0.1:-0.5 ;; om:Imaginary part omega:0:6:0.5:3 | (sig<0)*1:Stable (1 = yes):0 ;; om/(2*pi):Oscillations per second:3 | exp(sig*x)*cos(om*x) | 0,8 | -3,3
+
+TRAP: The transfer function assumes **zero starting values**. If there are initial conditions, they add terms to the numerator. Poles in the right half-plane (positive real part) mean growth: the final value theorem only works when the system is stable. And a step response is not the impulse response: the step response is the integral of the impulse response.
+
+### Quick self-check
+QUIZ:
+Q: The Laplace transform of the impulse δ (t) is…; 1 ÷ s; 1; s; 0; 2; Y = H for an impulse.
+Q: The poles of 1 ÷ (s² + 2s + 5) are…; −1 ± 2i; 1 ± 2i; −2 ± i; −1, −5; 1; (s + 1)² + 4 = 0.
+Q: The overshoot of the step response for z = 0.447 is about…; 0%; 8%; 21%; 45%; 3; e^(−π z ÷ √(1 − z²)).
+Q: Poles in the right half-plane mean…; decay; growth; a constant; nothing; 2; e^(σt) with σ > 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Write H for y″ + 4y′ + 13y = f. => **1 ÷ (s² + 4s + 13)**.
+P: Find the poles of that H. => **−2 ± 3i**.
+P: Find the impulse response. => **⅓ e^(−2t) sin 3t**.
+LVL: Level 2 | Apply
+P: Find the step response of y″ + 2y′ + 5y = 5 u (t). => **y = 1 − e^(−t)(cos 2t + ½ sin 2t)**.
+P: Find the time and the size of the first peak. => **t = π ÷ 2 = 1.571** and **y = 1.208**.
+P: Find the overshoot using ζ = 0.447. => **20.8%**.
+P: Use the final value theorem for Y = 5 ÷ (s (s² + 2s + 5)). => s Y → 5 ÷ 5 = **1**.
+P: Find ζ and the overshoot for ω₀ = 5 and ζ = 0.4. => **25.4%** (e^(−π × 0.4 ÷ √0.84)).
+P: Convolve h = e^(−t) with f = 1. => **1 − e^(−t)**.
+LVL: Level 3 | Real
+P: A car suspension has m = 300 kg, b = 3000 and k = 20,000. Find H (s) and the poles. => H = 1 ÷ (300 s² + 3000 s + 20000). Poles: s = (−3000 ± √(9 × 10⁶ − 24 × 10⁶)) ÷ 600 = **−5 ± 6.45i**. The decay rate 5 and the frequency 6.45 match Week 19.
+LVL: Challenge | Marginal stability
+P: Where are the poles of y″ + 4y = f, and what happens when you push at exactly ω = 2? => Poles at **±2i** (undamped). Pushing with sin 2t gives Y = 2 ÷ (s² + 4)², so **y = (sin 2t − 2t cos 2t) ÷ 8**: the amplitude grows linearly, which is resonance.
+
+CHECK: math
+
+@section physics | 3 · Physics: LC and RLC oscillations | 35 min
+
+### An electrical spring
+Charge a capacitor C to Q₀ and connect it across an inductor L. The loop rule gives L dI/dt + q ÷ C = 0 with I = dq/dt, which is **L q″ + q ÷ C = 0**, the mass-spring equation with ω₀² = 1 ÷ (L C):
+
+EQ: q = Q₀ cos ω₀ t, ω₀ = 1 ÷ √(L C), f₀ = 1 ÷ (2π √(L C))
+
+| Mechanics | Electric circuit |
+|---|---|
+| mass m | inductance L |
+| spring constant k | 1 ÷ C |
+| position x | charge q |
+| velocity v | current I |
+| friction b | resistance R |
+| ½ m v² and ½ k x² | ½ L I² and q² ÷ 2C |
+
+The energy sloshes between the capacitor (electric field) and the inductor (magnetic field). Add a resistor and you get the damped version L q″ + R q′ + q ÷ C = 0, with **decay rate α = R ÷ (2L)**, damped frequency ω_d = √(ω₀² − α²), **Q = ω₀ L ÷ R** and critical damping at **R = 2√(L ÷ C)**.
+
+BN: চার্জিত ক্যাপাসিটরকে ইনডাক্টরে যুক্ত করলে Lq″ + q/C = 0: স্প্রিংয়ের সমীকরণ, ω₀ = 1/√(LC)। শক্তি ক্যাপাসিটর (বৈদ্যুতিক ক্ষেত্র) আর ইনডাক্টর (চৌম্বক ক্ষেত্র) এর মধ্যে ঘুরে। রোধ যোগ করলে অবমন্দন: α = R/2L, Q = ω₀L/R, সংকট R = 2√(L/C)। মিল: m↔L, k↔1/C, x↔q, v↔I, b↔R।
+
+EX: A radio-sized LC circuit
+L = 10 mH, C = 100 nF, charged to 5 V.
+1. **Frequency:** ω₀ = 1 ÷ √(10⁻² × 10⁻⁷) = **31,623 rad/s**, f₀ = **5.03 kHz**, period **199 μs**.
+2. **Charge and current:** Q₀ = C V₀ = 0.5 μC, and the peak current is I_max = Q₀ ω₀ = **15.8 mA**.
+3. **Energy:** ½ C V₀² = **1.25 μJ**, and when all of it is in the coil, ½ L I_max² = 0.5 × 0.01 × (0.0158)² = **1.25 μJ** ✓.
+4. **Add R = 20 Ω:** α = 20 ÷ 0.02 = **1000 s⁻¹**, ω_d = **31,607 rad/s**, Q = 31623 × 0.01 ÷ 20 = **15.8**. The amplitude halves in ln 2 ÷ 1000 = **0.69 ms**, which is 3.5 cycles.
+5. **Critical resistance:** R = 2√(0.01 ÷ 10⁻⁷) = 2 × 316.2 = **632 Ω**. Above it the circuit does not oscillate.
+6. **Where you meet it:** a wireless phone charger and a radio both use L and C tuned to a chosen f₀, and a quartz clock uses a crystal that behaves like a very high Q version.
+/EX
+
+LAB: RLC ringing | Choose the inductor, the capacitor and the resistor. The graph shows the capacitor charge, as a fraction of its start value, against time in milliseconds. The numbers give the frequency, the quality factor and the decay rate. | L:Inductance (mH):1:50:1:10 ;; C:Capacitance (nF):10:500:10:100 ;; R:Resistance (ohm):1:80:1:20 | 1/sqrt(L*0.001*C*0.000000001)/(2*pi)/1000:Frequency f0 (kHz):3 ;; (1/sqrt(L*0.001*C*0.000000001))*L*0.001/R:Quality factor Q:1 ;; R/(2*L*0.001):Decay rate (per second):0 | exp(-R/(2*L*0.001)*x*0.001)*(cos(sqrt(1/(L*0.001*C*0.000000001)-(R/(2*L*0.001))^2)*x*0.001)+(R/(2*L*0.001))/sqrt(1/(L*0.001*C*0.000000001)-(R/(2*L*0.001))^2)*sin(sqrt(1/(L*0.001*C*0.000000001)-(R/(2*L*0.001))^2)*x*0.001)) | 0,2 | -1.1,1.1
+
+LAB: Energy sloshing in an LC circuit | The capacitor energy and the coil energy trade places while their sum stays constant. Choose the inductor, the capacitor and the starting voltage. The graph shows the two energies in microjoules against time in microseconds. | L:Inductance (mH):1:50:1:10 ;; C:Capacitance (nF):10:500:10:100 ;; V0:Starting voltage (V):1:20:1:5 | 0.5*C*0.000000001*V0^2*1000000:Total energy (microjoules):3 ;; V0*sqrt(C*0.000000001/(L*0.001))*1000:Peak current (mA):2 ;; 1/sqrt(L*0.001*C*0.000000001)/(2*pi)/1000:Frequency (kHz):3 | 0.5*C*0.000000001*V0^2*1000000*cos(x*0.000001/sqrt(L*0.001*C*0.000000001))^2 ;; 0.5*C*0.000000001*V0^2*1000000*sin(x*0.000001/sqrt(L*0.001*C*0.000000001))^2 | 0,400 | 0,14
+
+TRAP: ω₀ = 1 ÷ √(L C): a bigger L or C slows the oscillation. Units are the common slip: mH and nF must be converted to H and F (10 mH is 0.01 H, 100 nF is 10⁻⁷ F). The critical resistance 2√(L ÷ C) does **not** use ω₀. And in the RLC circuit the resistor, not the inductor, is the source of the damping: only R turns energy into heat.
+
+### Quick self-check
+QUIZ:
+Q: The frequency of an LC circuit is…; 2π√(LC); 1 ÷ √(LC); 1 ÷ (2π√(LC)); √(L ÷ C); 3; f = ω₀ ÷ 2π.
+Q: Increasing C by a factor 4 changes ω₀ by…; ×4; ×2; ÷2; ÷4; 3; ω₀ ∝ 1 ÷ √C.
+Q: The electrical analogue of the mass is…; the capacitor; the resistor; the inductor; the battery; 3; L ↔ m.
+Q: The decay rate of the RLC charge is…; R ÷ L; R ÷ 2L; 2R ÷ L; 1 ÷ RC; 2; α = R ÷ 2L.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ω₀ for L = 10 mH and C = 100 nF. => **31,623 rad/s**.
+P: Find f₀. => **5.03 kHz**.
+P: Find the period. => **199 μs**.
+LVL: Level 2 | Apply
+P: Find the peak current if the capacitor starts at 5 V. => **15.8 mA**.
+P: Find the energy. => **1.25 μJ**.
+P: Find α and Q if R = 20 Ω. => **1000 s⁻¹** and **15.8**.
+P: Find the critical resistance. => **632 Ω**.
+P: How long for the amplitude to halve with R = 20 Ω? => **0.69 ms**.
+P: Find the capacitance for a 1 MHz resonance with L = 25 μH. => C = 1 ÷ (ω₀² L) = 1 ÷ ((6.283 × 10⁶)² × 25 × 10⁻⁶) = **1.01 nF**.
+LVL: Level 3 | Real
+P: An AM radio tunes from 540 kHz to 1600 kHz with a fixed coil. By what factor must C change? => f ∝ 1 ÷ √C so C ∝ 1 ÷ f². The ratio is (1600 ÷ 540)² = **8.78**: the tuning capacitor must change by about a factor 9.
+LVL: Challenge | The energy bookkeeping
+P: In the LC circuit (L = 10 mH, C = 100 nF, 5 V) find the voltage across the capacitor at the moment when the energy is shared equally. => Each part is 0.625 μJ: ½ C V² = 0.625 × 10⁻⁶ gives V² = 12.5, so **V = 3.54 V** (the amplitude ÷ √2).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Transfer function H = 1 ÷ (m s² + b s + k): poles decide the behaviour. Impulse response h = L⁻¹{H}; step response from H ÷ s; any input by convolution. Left half-plane poles mean stability. Overshoot e^(−πζ ÷ √(1 − ζ²)).
+- LC: ω₀ = 1 ÷ √(LC), energy sloshes. RLC: α = R ÷ 2L, Q = ω₀ L ÷ R, critical R = 2√(L ÷ C). Mapping: L ↔ m, 1 ÷ C ↔ k, R ↔ b, q ↔ x, I ↔ v.
+
+BN: আজকের সারকথা: H = 1/(ms² + bs + k); মেরু আচরণ ঠিক করে; ইমপালস = L⁻¹{H}, ধাপ = H/s, যেকোনো ইনপুট = কনভোলিউশন। LC: ω₀ = 1/√(LC); RLC: α = R/2L, Q = ω₀L/R, সংকট R = 2√(L/C)। মিল: L↔m, 1/C↔k, R↔b।
+
+EXIT:
+E: What is f₀ in kHz for L = 10 mH and C = 100 nF? Give 2 decimals.; 5.03; 0.01; 1 ÷ (2π √(LC)).
+E: What is the overshoot in percent for ζ = 0.447? Give the nearest whole number.; 21; 1; e^(−πζ ÷ √(1 − ζ²)).
+E: What is Q for R = 20 Ω with L = 10 mH, C = 100 nF? Give 1 decimal.; 15.8; 0.1; ω₀ L ÷ R.
+
+**Tomorrow:** numerical methods (Euler, improved Euler, Runge-Kutta) and the start of AC circuits.
+
+CHECK: notes

@@ -1,0 +1,78 @@
+@day Week 20 · Day 6 · Saturday
+# Week 20 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered the Laplace transform, second-order systems and poles, numerical methods (Euler, Heun, RK4), frequency response, and inductors, RL, LC, RLC and AC circuits.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ল্যাপলাস রূপান্তর, দ্বিতীয় ক্রমের সিস্টেম ও মেরু, সাংখ্যিক পদ্ধতি (Euler, Heun, RK4), কম্পাঙ্ক সাড়া, এবং ইনডাক্টর, RL, LC, RLC ও AC বর্তনী।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A (use e^(−1.81) ≈ 0.163 where needed). A calculator is allowed for Part B.
+- Use μ₀ = 4π × 10⁻⁷ H/m. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Laplace, numerics and frequency response (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 10
+P: (1 mark) Find L{3t² − 2 e^(−t) + sin 4t}. => **6 ÷ s³ − 2 ÷ (s + 1) + 4 ÷ (s² + 16)**.
+P: (1 mark) Invert (3s + 2) ÷ (s² + 4). => 3s ÷ (s² + 4) + 2 ÷ (s² + 4): **3 cos 2t + sin 2t**.
+P: (2 marks) Solve y′ − y = 2 with y (0) = 3. => (s − 1) Y = 3 + 2 ÷ s, so Y = (3s + 2) ÷ (s (s − 1)) (1 mark). Partial fractions: A = 2 ÷ (−1) = −2 and B = 5 ÷ 1 = 5, so **y = 5 e^t − 2** (1 mark). Check: y (0) = 3 ✓.
+P: (2 marks) Solve y″ + 4y′ + 3y = 0 with y (0) = 0 and y′ (0) = 2. => (s² + 4s + 3) Y = 2 (1 mark), so Y = 2 ÷ ((s + 1)(s + 3)) = 1 ÷ (s + 1) − 1 ÷ (s + 3) and **y = e^(−t) − e^(−3t)** (1 mark). Check: y′ (0) = −1 + 3 = 2 ✓.
+P: (1 mark) Find the poles of 1 ÷ (s² + 2s + 10) and describe the motion. => (s + 1)² + 9 = 0 gives **s = −1 ± 3i**: a decaying oscillation with frequency 3 rad/s and decay rate 1.
+P: (2 marks) Invert e^(−3s) ÷ (s + 2). => The shift rule: **e^(−2 (t − 3)) u (t − 3)** (1 mark for e^(−2t), 1 mark for the delay by 3): zero until t = 3.
+P: (1 mark) A second-order system has ζ = 0.5. Find the overshoot of its step response (use e^(−1.81) ≈ 0.163). => e^(−π × 0.5 ÷ √0.75) = e^(−1.81) ≈ 0.163, so **about 16%**.
+P: (2 marks) Do two steps of h = 0.5 for y′ = −2y with y (0) = 1 by Euler's method and by the Heun method, and give the error of each against e⁻² ≈ 0.135. => Euler factor 1 − 1 = 0, so **y = 0** and the error is **0.135** (1 mark). Heun factor 1 − 1 + 0.5 = 0.5 per step, so **y = 0.25** and the error is **0.115** (1 mark).
+P: (1 mark) The error of RK4 is proportional to h⁴. By what factor does it fall when h is halved? => 2⁴ = **16**.
+P: (1 mark) An RC filter has R = 1 kΩ and C = 1 μF. Find f_c and the gain at ten times f_c. => f_c = 1 ÷ (2π × 10⁻³) ≈ **159 Hz**; the gain at 1590 Hz is 1 ÷ √(1 + 100) ≈ **0.0995** (−20 dB).
+
+CHECK: math
+
+@section physics | 3 · Part B: inductors and AC circuits (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 11 to 15
+P: (1 mark) A solenoid has N = 1000, A = 2 cm² and ℓ = 0.10 m with an air core. Find L and the energy at 3 A. => L = 4π × 10⁻⁷ × 10⁶ × 2 × 10⁻⁴ ÷ 0.10 = **2.51 mH**; U = ½ × 2.51 × 10⁻³ × 9 = **11.3 mJ**.
+P: (1 mark) An RL circuit has ε = 24 V, R = 6 Ω and L = 0.9 H. Find τ, the final current, the current at t = τ and the time to reach 90%. => τ = **0.15 s**; I∞ = **4 A**; I (τ) = 4 (1 − e⁻¹) = **2.53 A**; t = 0.15 ln 10 = **0.345 s**.
+P: (1 mark) An LC circuit has L = 2 mH and C = 50 μF. Find ω₀ and f₀. => ω₀ = 1 ÷ √(10⁻⁷) = **3162 rad/s**, f₀ = **503 Hz**.
+P: (1 mark) A 1150 W heater is connected to 230 V RMS. Find its resistance, the RMS current and the peak current. => R = 230² ÷ 1150 = **46 Ω**; I = **5 A**; I_peak = 5 √2 = **7.07 A**.
+P: (2 marks) A series RLC circuit has R = 20 Ω, L = 0.2 H and C = 20 μF on 100 V RMS. Find f₀ and the current at resonance, then Q and the voltage across the capacitor at resonance. => ω₀ = 1 ÷ √(0.2 × 2 × 10⁻⁵) = 500 rad/s, so **f₀ = 79.6 Hz**, and I = 100 ÷ 20 = **5 A** (1 mark). Q = ω₀ L ÷ R = **5** and V_C = Q V = **500 V** (1 mark).
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 21. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 20. Tell me, and I will rebalance Week 21. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q3 | Wrote L{y′} = sY | Forgot the starting value | L{y′} = sY − y (0) | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: L{y′} এ −y(0) ভুলে যাওয়া, আংশিক ভগ্নাংশ শেষ না করে উল্টানো, e^(−as) দেরির নিয়ম ভুলে যাওয়া, ω₀ এ mH ও nF কে H ও F না করা, RMS আর পিক গুলিয়ে ফেলা, Z কে R + X যোগ করা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The first peak of a hit
+P: A system y″ + 2y′ + 10y = δ (t) is hit once. Find the impulse response, the time of its first maximum, and its value. => H = 1 ÷ ((s + 1)² + 9), so **h = ⅓ e^(−t) sin 3t**. Setting h′ = 0 gives tan 3t = 3, so **t = atan 3 ÷ 3 = 0.416 s** and **h = ⅓ e^(−0.416) sin (1.249) = 0.209**. The response is zero at the moment of the hit, rises to 0.209, then rings down.
+
+LVL: Challenge | Real and reactive power at resonance
+P: In the RLC circuit of Question 15 (R = 20 Ω, X = 100 Ω each for L and C at resonance, V = 100 V) find the real power and the reactive power in the coil. Compare them. => At resonance I = 5 A, so P = I² R = **500 W** (also V²/R). The coil has I² X_L = 25 × 100 = **2500 var**. The ratio 2500 ÷ 500 = **5 = Q**: the quality factor is the ratio of the stored (sloshing) energy to the energy lost, which is why a high-Q circuit can ring for a long time on little power.
+
+### Optional coding idea (not part of the study plan)
+**ODE playground:** a page where you type y″ + b y′ + k y = f (t), choose Euler, Heun or RK4, and a step size. It draws the numerical solution next to the exact one from the Laplace method and plots the error against h on a log-log scale (you should see the lines with slopes 1, 2 and 4). Add a tab for the RLC circuit with an AC source, with a frequency slider and a plot of the amplitude and phase against frequency, and a button that sweeps from 0 to 2 f₀.
+
+### What Week 21 looks like
+**Fourier series and magnetic fields.** In maths, any repeating signal (a square wave, a sawtooth, a musical note) can be built from sines and cosines: the Fourier series. In physics, magnetic fields: the force on a moving charge, on a wire, and the torque on a loop, which is how an **electric motor** turns electricity into rotation.
+
+BN: আগামী সপ্তাহ: ফুরিয়ে ধারা ও চৌম্বক ক্ষেত্র। গণিতে যেকোনো পুনরাবৃত্ত সংকেত (বর্গ তরঙ্গ, করাত তরঙ্গ, সুর) সাইন-কোসাইনের যোগফল। পদার্থবিজ্ঞানে চৌম্বক ক্ষেত্র: চলমান চার্জে বল, তারে বল, আর লুপে টর্ক, যার দ্বারা বৈদ্যুতিক মোটর ঘোরে।
+
+**Sunday is a rest day.**

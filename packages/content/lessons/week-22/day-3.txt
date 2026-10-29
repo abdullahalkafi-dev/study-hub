@@ -1,0 +1,174 @@
+@day Week 22 · Day 3 · Wednesday
+# Convolution, sampling and the discrete Fourier transform. Then: transformers and the power grid
+lead: Two ideas turn the Fourier transform into the engine of modern technology. The first is the convolution theorem: what a system does to a signal in time (a messy integral) becomes a plain multiplication in frequency. The second is sampling: a computer only sees a signal at separate instants, so we need to know when no information is lost (Nyquist) and what goes wrong when we are careless (aliasing). The physics half is the transformer, the device that lets a power station send 100 MW across a country with small losses.
+
+BN: দুটি ধারণা ফুরিয়ে রূপান্তরকে আধুনিক প্রযুক্তির ইঞ্জিন বানিয়েছে। প্রথমটি কনভোলিউশন উপপাদ্য: সময়ে জটিল ইন্টিগ্রাল, কম্পাঙ্কে সাধারণ গুণ। দ্বিতীয়টি স্যাম্পলিং: কম্পিউটার সংকেত দেখে আলাদা আলাদা মুহূর্তে, তাই জানতে হবে কখন কিছু হারায় না (Nyquist) আর অসাবধান হলে কী ভুল হয় (aliasing)। পদার্থবিজ্ঞানে ট্রান্সফর্মার: যে যন্ত্রের কারণে ১০০ MW বিদ্যুৎ কম ক্ষতিতে সারা দেশে পাঠানো যায়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: What does a time delay t₀ do to the Fourier transform? => Multiplies it by **e^(−iωt₀)** (phase only).
+P: What is the AM bandwidth for audio up to 5 kHz? => **10 kHz**.
+P: Give the motional EMF of a rod. => **ε = B ℓ v**.
+P: Give the peak EMF of a rotating coil. => **N B A ω**.
+P: What is the transfer function of y′ + a y = x? => **1 ÷ (a + iω)**.
+
+CHECK: recall
+
+@section math | 2 · Math: convolution and sampling | 55 min
+
+### Convolution
+For a linear, time-invariant system the output is the **convolution** of the input with the impulse response h:
+
+EQ: y (t) = (h * x)(t) = ∫ h (τ) x (t − τ) dτ
+
+Read it as: every instant of the input sends out its own copy of h, delayed and scaled, and the output is the sum of all those copies. It is the same idea as the Laplace "impulse response" of Week 20.
+
+**Convolution theorem:** the Fourier transform of h * x is the product **H (ω) X (ω)**. Hard integral in time, one multiplication in frequency. This is why filters are designed in the frequency picture.
+
+BN: রৈখিক সিস্টেমে আউটপুট y = h * x = ∫ h(τ) x(t − τ) dτ: ইনপুটের প্রতিটি মুহূর্ত h এর একটি দেরি করা, স্কেল করা কপি পাঠায়, সব কপি যোগ হয়। উপপাদ্য: (h * x) এর ফুরিয়ে রূপান্তর = H(ω) X(ω)। সময়ে কঠিন ইন্টিগ্রাল, কম্পাঙ্কে একটি গুণ।
+
+EX: Convolution in action
+1. **Two equal pulses.** Convolving a rectangular pulse of width 1 ms with itself gives a **triangle** of base 2 ms and peak height 1 ms (the area of the overlap is greatest when they coincide). Its spectrum is the square of the pulse spectrum: the first zero stays at **1 kHz** but the side lobes fall much faster (sinc²). Smoothing in time means the high frequencies are cut.
+2. **An RC filter.** h (t) = (1 ÷ RC) e^(−t/RC). For a step input, y (t) = 1 − e^(−t/RC). With RC = 1 ms, after 1 ms y = **0.632**, after 3 ms y = **0.950**.
+3. **An echo.** The signal plus a copy delayed by T = 1 ms at 50% strength is y = x (t) + 0.5 x (t − T). Its transfer function is H = 1 + 0.5 e^(−iωT), with the gain |H| = √(1.25 + cos 2π f T). The gain is **1.5** (+3.5 dB) at f = 0, 1, 2 … kHz and **0.5** (−6.0 dB) at 0.5, 1.5, 2.5 … kHz: a **comb** with spacing 1 ÷ T = 1 kHz. This is the colour that a hard reflecting wall adds to a voice.
+/EX
+
+LAB: Echo and the comb filter | An echo with strength a and delay T is added to a sound. The graph shows the gain against frequency in kHz. The peaks and notches repeat every 1 over T. | a:Echo strength a:0.1:1:0.05:0.5 ;; T:Delay T (ms):0.2:3:0.1:1 | 1+a:Largest gain:2 ;; abs(1-a):Smallest gain:2 ;; 1/T:Comb spacing (kHz):2 | sqrt(1+a^2+2*a*cos(2*pi*x*T)) | 0,5 | 0,2
+
+### Sampling
+A computer measures x (t) at the instants t = n ÷ f_s, where f_s is the **sampling frequency**. In frequency terms, sampling makes **copies of the spectrum at every multiple of f_s**. If the signal contains frequencies up to f_max, the copies do not overlap provided
+
+EQ: f_s > 2 f_max   (the Nyquist condition)
+
+then the original can be rebuilt exactly. If not, the copies overlap and a tone at f appears at a wrong, lower frequency, the **alias**. For f between f_s ÷ 2 and f_s the alias is **f_s − f**.
+
+BN: নমুনা নেওয়ার মানে কম্পাঙ্ক বর্ণালী f_s এর প্রতিটি গুণিতকে কপি হয়। কপি না মিললে f_s > 2 f_max (Nyquist) এবং মূল সংকেত পুরো ফিরে পাওয়া যায়। না হলে f কম্পাঙ্ক ভুল নিচু কম্পাঙ্কে দেখায়: alias = f_s − f (f_s/2 < f < f_s হলে)।
+
+EX: Sampling and aliasing
+1. **CD audio:** hearing reaches 20 kHz, so f_s > 40 kHz. The CD uses **44.1 kHz** (a small margin so the anti-alias filter is not impossibly sharp).
+2. **A tone of 30 kHz** sampled at 44.1 kHz appears at 44.1 − 30 = **14.1 kHz**, a perfectly audible tone that was never in the room. That is why a recorder always puts a low-pass filter (anti-alias) before the sampler. Ultrasound at 25 kHz would likewise appear at **19.1 kHz**.
+3. **7 kHz sampled at 10 kHz:** since 7 > 5, the alias is 10 − 7 = **3 kHz**.
+4. **The wagon-wheel effect:** a film runs at 24 frames per second. A wheel with 8 spokes (spacing 45°) turns at 3 rev/s, so each frame it turns 45° exactly: the spokes look **frozen**. At 3.1 rev/s the wheel turns 46.5° per frame, which looks like only **1.5° forward** per frame, 36° per second: it seems to creep forward at 0.1 rev/s. At 2.9 rev/s it seems to creep **backwards**.
+/EX
+
+LAB: Aliasing | Choose the sampling frequency and the tone in kHz. If the tone is above half the sampling frequency, the samples look exactly like a lower tone, drawn as the second curve (in milliseconds). The aliased flag is 1 when information is lost. | fs:Sampling frequency (kHz):14:48:1:44 ;; f:Tone (kHz):1:20:0.5:15 | fs/2:Nyquist frequency (kHz):1 ;; f-fs*(f>fs/2):Apparent frequency (kHz, sign shows direction):1 ;; 1*(f>fs/2):Aliased flag (1 yes 0 no):0 | sin(2*pi*f*x) ;; sin(2*pi*(f-fs*(f>fs/2))*x) | 0,1 | -1.2,1.2
+
+### The discrete Fourier transform (DFT)
+For N samples x₀ … x_(N−1), the DFT is
+
+EQ: X_k = Σ x_n e^(−2π i k n ÷ N),  k = 0 … N − 1
+
+Bin k corresponds to the frequency **k f_s ÷ N**, so the spacing between bins is f_s ÷ N and a window of N samples lasts N ÷ f_s. To see finer detail in frequency you need to record **longer**. Examples:
+- A single pulse (x₀ = 1, the rest 0) has X_k = 1 for all k: a flat spectrum.
+- N = 8, x_n = cos (2π n ÷ 8): the energy is in bins 1 and 7, with **X₁ = X₇ = N ÷ 2 = 4**, all other bins 0.
+- N = 1024 at f_s = 44.1 kHz: bin spacing **43.07 Hz**, window **23.2 ms**.
+
+If the tone is not exactly on a bin, it leaks into the neighbours: the leakage curve is |sin (π δ) ÷ (π δ)| where δ is the distance in bins. The cure is a smooth window (tomorrow).
+
+BN: DFT: X_k = Σ x_n e^(−2πikn/N)। বিন k এর কম্পাঙ্ক k f_s / N, বিনের দূরত্ব f_s/N, উইন্ডো N/f_s সময়ের। সূক্ষ্ম বিস্তারিত দেখতে হলে বেশি সময় রেকর্ড করতে হবে। সুর যদি বিনে না পড়ে তাহলে পাশের বিনে ছড়িয়ে যায় (leakage)।
+
+LAB: DFT resolution | Choose the number of samples and the sampling frequency. The numbers give the bin spacing and the recording time. The graph shows how a tone off the bin centre leaks into its neighbours, against the distance from the tone in Hz. | N:Samples N:64:4096:64:1024 ;; fs:Sampling frequency (kHz):8:48:0.1:44.1 | 1000*fs/N:Bin spacing (Hz):2 ;; N/fs:Recording time (ms):1 ;; fs*1000/2:Highest frequency (Hz):0 | abs(sin(pi*x*N/(fs*1000))/(pi*x*N/(fs*1000))) | 0.01,200 | 0,1.1
+
+TRAP: Nyquist needs f_s **greater than** twice the highest frequency (not equal). Aliasing cannot be repaired after sampling: filter **before**. Bin spacing depends on f_s ÷ N: raising f_s alone makes the resolution worse. The convolution theorem is for the **whole** product: |H X| = |H| |X| but phases add.
+
+### Quick self-check
+QUIZ:
+Q: The Fourier transform of a convolution h * x is…; H + X; H X; H ÷ X; H − X; 2; Convolution becomes multiplication.
+Q: The minimum sampling frequency to rebuild a signal up to 20 kHz is above…; 10 kHz; 20 kHz; 40 kHz; 80 kHz; 3; f_s > 2 f_max.
+Q: A 7 kHz tone sampled at 10 kHz appears at…; 7 kHz; 3 kHz; 17 kHz; 5 kHz; 2; f_s − f.
+Q: The bin spacing of an N-point DFT at f_s is…; f_s × N; f_s ÷ N; N ÷ f_s; 2 f_s; 2; Δf = f_s ÷ N.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the bin spacing for N = 1024 and f_s = 44.1 kHz. => **43.07 Hz**.
+P: Find the alias of 7 kHz at f_s = 10 kHz. => **3 kHz**.
+P: Find the RC step response after 1 ms with RC = 1 ms. => **0.632**.
+LVL: Level 2 | Apply
+P: Find the alias of 30 kHz at 44.1 kHz. => **14.1 kHz**.
+P: Find the comb spacing for an echo delay of 2 ms. => **500 Hz**.
+P: Find the largest and smallest gain for echo strength 0.5. => **1.5** and **0.5**.
+P: Find the gain at the notches in dB. => 20 log 0.5 = **−6.0 dB**.
+P: Find X₁ for N = 8, x_n = cos (2π n ÷ 8). => **4**.
+P: Find the recording time of 1024 samples at 44.1 kHz. => **23.2 ms**.
+LVL: Level 3 | Real
+P: A vibration sensor samples at 2 kHz. A machine part vibrates at 1.3 kHz. What frequency does the analysis show, and what should be changed? => The apparent frequency is 2 − 1.3 = **0.7 kHz**, a false value. Either sample above 2.6 kHz or add an anti-alias filter that removes everything above 1 kHz before sampling.
+LVL: Challenge | The wagon wheel
+P: The 8-spoke wheel turns at 3.1 rev/s, filmed at 24 frames per second. Find the apparent rotation in rev/s. => 3.1 ÷ 24 rev = 46.5° per frame, minus 45° gives 1.5° per frame, which is 36° per second = **0.1 rev/s forward**.
+
+CHECK: math
+
+@section physics | 3 · Physics: transformers and the grid | 35 min
+
+### The ideal transformer
+Two coils on one iron core. A changing current in the primary makes a changing flux Φ in the core, and the same flux links the secondary. Per turn the EMF is dΦ/dt in both, so
+
+EQ: V_s ÷ V_p = N_s ÷ N_p   and, for no loss,   V_p I_p = V_s I_s
+
+Raise the voltage and the current falls by the same factor. Only alternating current works, since only a changing flux gives an EMF. For two coils not tightly coupled, the **mutual inductance** M describes it: ε_s = −M dI_p/dt, with M = k √(L₁ L₂) and 0 ≤ k ≤ 1 (k is the coupling).
+
+**Eddy currents:** the changing flux also drives circles of current inside the iron itself, which heat it. The core is built of thin insulated **laminations**; the loss is proportional to the thickness squared, so halving the thickness cuts it to **1/4**; 0.5 mm instead of 2 mm gives **1/16**.
+
+BN: আদর্শ ট্রান্সফর্মার: V_s/V_p = N_s/N_p আর ক্ষতিহীন হলে V_p I_p = V_s I_s। ভোল্টেজ বাড়ালে কারেন্ট একই অনুপাতে কমে। শুধু AC চলে। পারস্পরিক ইন্ডাকট্যান্স M = k√(L₁L₂)। লোহার মধ্যে এডি কারেন্ট তাপ তৈরি করে, তাই কোর পাতলা পাত (lamination) দিয়ে তৈরি: ক্ষতি পুরুত্বের বর্গের সমানুপাতিক।
+
+EX: Transformers and the grid
+1. **A phone-charger style step-down:** 230 V to 12 V with 1150 turns on the primary: N_s = 1150 × 12 ÷ 230 = **60 turns**.
+2. **Currents:** a 24 W load draws I_s = 24 ÷ 12 = **2 A**, so the ideal primary current is 24 ÷ 230 = **0.104 A**. With 95% efficiency the input is 25.26 W and I_p = **0.110 A**.
+3. **Mutual inductance:** L₁ = 0.2 H, L₂ = 0.05 H, k = 0.9: M = 0.9 √0.01 = **0.09 H**. If the primary current changes at 100 A/s, the secondary EMF is **9 V**.
+4. **The reason for high-voltage transmission.** The power station sends P = 100 MW through a line of total resistance R = 10 Ω. The loss is I² R with I = P ÷ V:
+   - at **11 kV**: I = 9091 A, loss **826 MW**, more than we send. Impossible.
+   - at **132 kV**: I = 758 A, loss **5.74 MW** (5.7%).
+   - at **400 kV**: I = 250 A, loss **0.625 MW** (0.6%).
+   Raising V by a factor 36 (11 to 400 kV) cuts the loss by 36² = **1300 times**. A step-up transformer with N_s ÷ N_p = 36.4 does this at the power station, and step-down transformers bring it back to 230 V at the home.
+/EX
+
+LAB: A transformer | Choose the primary voltage, the turns and the load. The graph shows the output voltage against the number of secondary turns. The numbers give the secondary and primary currents and the power for an ideal transformer. | Vp:Primary voltage (V):12:400:1:230 ;; Np:Primary turns:100:2000:50:1150 ;; Ns:Secondary turns:10:2000:10:60 ;; R:Load (ohm):1:100:1:6 | Vp*Ns/Np:Secondary voltage (V):2 ;; Vp*Ns/Np/R:Secondary current (A):2 ;; Vp*Ns/Np/R*Ns/Np:Primary current (A):3 ;; (Vp*Ns/Np)^2/R:Power (W):1 | Vp*x/Np | 0,2000 | 0,800
+
+LAB: Why the grid uses high voltage | Choose the power sent, the line voltage and the line resistance. The graph shows the percentage lost in the line against the line voltage in kV. Notice how quickly the loss falls as the voltage rises. | P:Power sent (MW):10:500:10:100 ;; V:Line voltage (kV):20:800:10:400 ;; R:Line resistance (ohm):1:50:1:10 | P*1000/V:Line current (A):0 ;; (P*1000/V)^2*R/1000000:Loss (MW):3 ;; 100*(P*1000/V)^2*R/1000000/P:Loss (percent):2 | 100*(P*1000/x)^2*R/1000000/P | 20,800 | 0,50
+
+TRAP: A transformer does not make energy: raising voltage lowers current. The ratio applies to voltage and turns, but currents go the **opposite** way. A battery (DC) does not work in a transformer. The loss is I² R, not V² ÷ R, and the V in P = V I is the line voltage, not the small voltage drop along the wire.
+
+### Quick self-check
+QUIZ:
+Q: A transformer has 100 turns on the primary and 500 on the secondary. With 20 V in, the output is…; 4 V; 100 V; 500 V; 20 V; 2; V_s = 20 × 500 ÷ 100.
+Q: In an ideal step-up transformer the secondary current is…; larger than the primary; smaller than the primary; equal; zero; 2; Power is conserved.
+Q: Laminated cores reduce…; hysteresis only; eddy-current heating; the voltage; the turns; 2; Thin sheets limit eddy loops.
+Q: Doubling the transmission voltage for the same power makes the line loss…; double; half; one quarter; the same; 3; Loss ∝ 1 ÷ V².
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find N_s for 230 V to 12 V with N_p = 1150. => **60 turns**.
+P: Find the primary current for a 24 W ideal load at 230 V. => **0.104 A**.
+P: Find M for k = 0.9, L₁ = 0.2 H, L₂ = 0.05 H. => **0.09 H**.
+LVL: Level 2 | Apply
+P: Find the secondary EMF when dI/dt = 100 A/s with M = 0.09 H. => **9 V**.
+P: Find the line current for 100 MW at 400 kV. => **250 A**.
+P: Find the line loss for R = 10 Ω. => **0.625 MW**.
+P: Find the factor by which the loss falls from 11 kV to 400 kV. => (400 ÷ 11)² = **1300**.
+P: Find the loss ratio for lamination thickness 0.5 mm against 2 mm. => **1/16**.
+P: Find the primary current at 95% efficiency for a 24 W load at 230 V. => **0.110 A**.
+LVL: Level 3 | Real
+P: A factory 20 km from the substation draws 2 MW. The cable has 0.05 Ω per km (both wires together, 2 MW through 1 Ω in total). Compare the line loss at 6.6 kV and at 33 kV. => I = 2 × 10⁶ ÷ 6600 = 303 A, loss = 303² × 1 = **92 kW** (4.6%). At 33 kV: I = 60.6 A, loss = **3.7 kW** (0.18%). Five times the voltage gives 25 times less loss.
+LVL: Challenge | The transformer in reverse
+P: A step-down transformer 33 kV to 230 V delivers 2 MW. Find the turns ratio and the secondary current. => Ratio N_p ÷ N_s = 33000 ÷ 230 = **143.5**. The secondary current is 2 × 10⁶ ÷ 230 = **8696 A**, which is why the secondary winding is made of thick copper bars while the primary uses thin wire (60.6 A).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Convolution y = h * x becomes Y = H X. Sampling needs f_s > 2 f_max, otherwise the alias f_s − f appears. DFT bin spacing f_s ÷ N, recording time N ÷ f_s.
+- Transformer: V_s ÷ V_p = N_s ÷ N_p, V I conserved, laminated core for eddy currents. Line loss I² R falls as 1 ÷ V²: high voltage transmission.
+
+BN: আজকের সারকথা: কনভোলিউশন y = h * x ↔ Y = HX। নমুনা f_s > 2 f_max, নইলে alias = f_s − f। DFT বিনের দূরত্ব f_s/N, সময় N/f_s। ট্রান্সফর্মার V_s/V_p = N_s/N_p, VI সংরক্ষিত। লাইন ক্ষতি I²R ∝ 1/V², তাই উচ্চ ভোল্টেজ।
+
+EXIT:
+E: What is the alias frequency in kHz of a 7 kHz tone sampled at 10 kHz?; 3; 0.1; 10 − 7.
+E: What is the line loss in MW for 100 MW at 400 kV and 10 ohm? Give 3 decimals.; 0.625; 0.001; I = 250 A, I² R.
+E: How many secondary turns are needed for 230 V to 12 V with 1150 primary turns?; 60; 0.5; 1150 × 12 ÷ 230.
+
+**Tomorrow:** the fast Fourier transform and windows, and Maxwell's equations with the displacement current.
+
+CHECK: notes

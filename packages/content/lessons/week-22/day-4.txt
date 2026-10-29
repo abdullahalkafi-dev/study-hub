@@ -1,0 +1,164 @@
+@day Week 22 · Day 4 · Thursday
+# The fast Fourier transform and windows. Then: Maxwell's equations and the displacement current
+lead: The DFT of Day 3 takes N × N multiplications, too slow for real signals. The fast Fourier transform (FFT) computes exactly the same numbers with about N log₂ N operations, which for a million points is a speed-up of fifty thousand times. It is one of the most important algorithms ever found. But a real recording has a start and an end, and cutting it abruptly smears every tone: the cure is a window. In physics, we finally write all of electricity and magnetism in four equations, and discover that Ampère's law from Week 21 was incomplete: a changing electric field acts like a current.
+
+BN: Day 3 এর DFT তে N × N গুণ লাগে, বাস্তব সংকেতের জন্য ধীর। FFT একই উত্তর পায় প্রায় N log₂ N ধাপে: দশ লাখ বিন্দুতে পঞ্চাশ হাজার গুণ দ্রুত। কিন্তু বাস্তব রেকর্ডিং হঠাৎ শুরু আর শেষ হয়, তাই প্রতিটি সুর ছড়িয়ে যায়: সমাধান window। পদার্থবিজ্ঞানে বিদ্যুৎ-চুম্বকত্ব চারটি সমীকরণে লিখব, আর দেখব Week 21 এর Ampère সূত্র অসম্পূর্ণ ছিল: পরিবর্তনশীল তড়িৎ ক্ষেত্র কারেন্টের মতো কাজ করে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: State the Nyquist condition. => **f_s > 2 f_max**.
+P: What is the bin spacing of an N-point DFT? => **f_s ÷ N**.
+P: What is the voltage ratio of an ideal transformer? => **N_s ÷ N_p**.
+P: Why does the grid use high voltage? => The line loss **I² R** falls as **1 ÷ V²** for the same power.
+P: What does Ampère's law say? => **∮ B · dl = μ₀ I** for a current through the loop.
+
+CHECK: recall
+
+@section math | 2 · Math: the FFT and windows | 55 min
+
+### Why the DFT can be made fast
+The DFT sum X_k = Σ x_n e^(−2π i k n ÷ N) has N terms for each of N values of k: **N² operations**. The FFT notices that a DFT of size N can be built from **two DFTs of size N ÷ 2** (the even-numbered samples and the odd-numbered ones) plus N ÷ 2 "butterfly" combinations:
+
+EQ: X_k = E_k + e^(−2π i k ÷ N) O_k,   X_(k+N/2) = E_k − e^(−2π i k ÷ N) O_k
+
+Repeat the splitting log₂ N times (N a power of two): the cost is **(N ÷ 2) log₂ N** complex multiplications, in total about N log₂ N operations. The result is the same, only faster.
+
+BN: DFT তে প্রতিটি k এর জন্য N পদ: মোট N² ধাপ। FFT লক্ষ করে N আকারের DFT কে ভাঙা যায় দুটি N/2 আকারের DFT তে (জোড় নমুনা E, বিজোড় O) এবং বাটারফ্লাই যোগে: X_k = E_k + e^(−2πik/N) O_k, X_(k+N/2) = E_k − e^(−2πik/N) O_k। log₂N বার ভাঙলে খরচ প্রায় N log₂ N।
+
+EX: How much faster?
+1. **N = 1024:** N² = 1,048,576 against N log₂ N = 10,240: the FFT is **102 times** faster.
+2. **N = 2²⁰ ≈ 10⁶** (a 24 s recording at 44.1 kHz): N² = 1.1 × 10¹² operations, which at 10⁹ operations per second takes **1100 s ≈ 18 minutes**. The FFT needs 2.1 × 10⁷ operations: **21 ms**. The speed-up is N ÷ log₂ N = **52,400 times**. Without the FFT, no phone could analyse a voice in real time.
+3. **A tiny example (N = 4):** x = (1, 2, 3, 4). Even samples (1, 3) have the DFT (4, −2), odd samples (2, 4) have (6, −2). Then X₀ = 4 + 6 = **10**, X₂ = 4 − 6 = **−2**. For k = 1: the factor e^(−iπ/2) = −i, so X₁ = −2 + (−i)(−2) = **−2 + 2i**, X₃ = −2 − 2i. Check: X₀ is the sum of the samples, 10 ✓.
+/EX
+
+LAB: FFT against DFT | Choose the size N = 2 to the power m. The numbers compare the work of the plain DFT (N squared) with the FFT (N times log2 N) at one billion operations per second. The graph shows the speed-up against m. | m:Exponent m (N is 2 to the m):6:20:1:10 | 2^m:Samples N:0 ;; 2^m/m:Speed-up factor:1 ;; 4^m/1000000:DFT time (ms):3 ;; 2^m*m/1000000:FFT time (ms):3 | 2^x/x | 1,20 | 0,60000
+
+### Windows: why a tone smears
+A real record is cut out of a longer signal, which is the same as multiplying it by a rectangular window. By the convolution theorem (Day 3), the spectrum of the cut piece is the true spectrum **convolved** with the window's spectrum. The rectangular window has a sinc spectrum: a narrow main lobe, but side lobes only **13 dB** below the peak, so a strong tone hides a weak neighbour. A smooth window such as Hann, w_n = 0.5 (1 − cos 2π n ÷ N), trades a wider main lobe for much lower side lobes:
+
+| Window | Main lobe half-width | Highest side lobe |
+| Rectangular | 1 bin | −13 dB |
+| Hann | 2 bins | −31 dB |
+| Hamming | 2 bins | −43 dB |
+
+A smooth window loses amplitude (for Hann the average gain is 0.5, so we divide to correct), but we gain the ability to see weak tones. **Zero-padding** (adding zeros) makes the plot smoother but does **not** improve the resolution. Only a longer record does.
+
+BN: রেকর্ড কাটা মানে আয়তাকার উইন্ডো দিয়ে গুণ; কনভোলিউশন উপপাদ্য অনুযায়ী বর্ণালী উইন্ডোর sinc বর্ণালীর সাথে মেশে। আয়তাকারের পাশের শিখর মাত্র −13 dB, তাই জোরালো সুর দুর্বল প্রতিবেশীকে ঢেকে দেয়। Hann (−31 dB) আর Hamming (−43 dB) প্রধান শিখর চওড়া করে কিন্তু পাশের শিখর অনেক কমায়। শূন্য যোগ করলে ছবি মসৃণ হয়, রেজোলিউশন বাড়ে না; তার জন্য লম্বা রেকর্ড দরকার।
+
+EX: Resolving two tones
+1. Two tones at 1000 Hz and 1100 Hz, f_s = 44.1 kHz. With a rectangular window the bin spacing must be below the 100 Hz separation, so N ≥ 44100 ÷ 100 = **441** samples (10 ms). The Hann window has a main lobe half-width of 2 bins, so for the same separation we want a bin spacing of 50 Hz: N ≥ **882** samples (20 ms).
+2. A 0 dB tone and one 40 dB weaker (amplitude 1%) 5 bins away: the rectangular window leaves a side lobe about −25 dB at 5 bins, which **hides** the weak tone. Hann there is below −50 dB, so the weak tone is visible.
+3. Amplitude correction: a tone of true amplitude 1 under a Hann window gives a peak 0.5 × N ÷ 2 instead of N ÷ 2. Divide by 0.5 to recover the amplitude.
+/EX
+
+LAB: Window leakage | The graph shows the spectrum of one tone in dB against the distance from the tone in bins, for a rectangular window (first curve) and for a cosine window you choose (second curve). With a equal 0.5 you get the Hann window, with a equal 0.54 the Hamming window, and with a equal 1 the rectangular window. | a:Window shape a:0.5:1:0.01:0.5 | a:Average gain of the window:2 ;; 20*log(0.5/a)/log(10):Amplitude correction needed (dB):1 | 20*log(abs(sin(pi*x)/(pi*x)))/log(10) ;; 20*log(abs(a*sin(pi*x)/(pi*x)+(1-a)/2*(sin(pi*(x-1))/(pi*(x-1))+sin(pi*(x+1))/(pi*(x+1))))/a)/log(10) | 0.02,6 | -80,5
+
+TRAP: The FFT gives exactly the DFT. It is faster, not more accurate and not finer in resolution. Windows trade **resolution for dynamic range**: you cannot have both. Zero-padding is interpolation, not new information. The split in the FFT needs N to be a power of two (or other factorable numbers).
+
+### Quick self-check
+QUIZ:
+Q: The cost of the FFT of N points is about…; N; N log₂ N; N²; N³; 2; Divide and conquer.
+Q: The speed-up of the FFT over the DFT for N = 1024 is about…; 10; 100; 1000; 10000; 2; N ÷ log₂ N = 102.
+Q: Compared with the rectangular window, the Hann window has…; narrower main lobe; lower side lobes; the same side lobes; no main lobe; 2; −31 dB against −13 dB.
+Q: Zero-padding a record improves…; the resolution; the smoothness of the plot only; the amplitude; nothing at all; 2; It interpolates only.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find N log₂ N for N = 1024. => **10,240**.
+P: Find the DFT of (1, 3). => **(4, −2)**.
+P: Find the Hann amplitude correction factor. => Divide by **0.5**, which is +6 dB.
+LVL: Level 2 | Apply
+P: Find the speed-up for N = 2²⁰. => **52,400**.
+P: Find the time of the plain DFT for N = 2²⁰ at 10⁹ operations per second. => **1100 s**.
+P: Find N for the bin spacing of 100 Hz at 44.1 kHz. => **441**.
+P: Find X₀ for (1, 2, 3, 4). => **10**.
+P: Find X₂ for (1, 2, 3, 4). => **−2**.
+P: Find the minimum N for resolving 1000 and 1100 Hz with the Hann window. => **882**.
+LVL: Level 3 | Real
+P: A music app analyses 4096-sample frames at 48 kHz. Find the bin spacing and the frame duration, and say whether two notes a semitone apart near 220 Hz (about 13 Hz apart) can be told apart with a Hann window. => Bin spacing 48000 ÷ 4096 = **11.7 Hz**, duration **85 ms**. The Hann main lobe is ±2 bins = ±23 Hz wide, wider than the 13 Hz separation, so the two notes **cannot** be separated. Longer frames (16384 samples, 2.9 Hz bins) solve it.
+LVL: Challenge | A hand FFT
+P: Compute the 4-point DFT of (1, 0, −1, 0). => Even samples (1, −1) give (0, 2), odd samples (0, 0) give (0, 0). So X = **(0, 2, 0, 2)**. This is cos (2π n ÷ 4) with N ÷ 2 = 2 in bins 1 and 3. ✓
+
+CHECK: math
+
+@section physics | 3 · Physics: Maxwell's equations part 1 | 35 min
+
+### Four equations
+Everything in classical electricity, magnetism and light follows from four laws, here in the integral form.
+
+1. **Gauss (electric):** ∮ E · dA = Q ÷ ε₀. Electric field lines start on charges. For a point charge, E = Q ÷ (4π ε₀ r²). For 1 nC at 3 cm: E = 8.99 × 10⁹ × 10⁻⁹ ÷ (0.03)² = **9990 V/m**.
+2. **Gauss (magnetic):** ∮ B · dA = 0. There are no magnetic charges: field lines never start or end.
+3. **Faraday:** ∮ E · dl = −dΦ_B/dt. A changing magnetic flux makes an electric field (Weeks 21 and 22).
+4. **Ampère-Maxwell:** ∮ B · dl = μ₀ (I + ε₀ dΦ_E/dt).
+
+BN: চারটি সূত্র: (১) গাউস (তড়িৎ) ∮E·dA = Q/ε₀, (২) গাউস (চুম্বক) ∮B·dA = 0, (৩) ফ্যারাডে ∮E·dl = −dΦ_B/dt, (৪) অ্যাম্পিয়ার-ম্যাক্সওয়েল ∮B·dl = μ₀(I + ε₀ dΦ_E/dt)। শেষ পদটি ম্যাক্সওয়েলের আবিষ্কার: পরিবর্তনশীল তড়িৎ ক্ষেত্র কারেন্টের মতো চৌম্বক ক্ষেত্র তৈরি করে।
+
+### The displacement current
+Ampère's law μ₀ I has a flaw. Charge a capacitor with a current I. Take a loop around the wire: the surface that is a flat disc cut by the wire gives μ₀ I. Take the same loop but a surface shaped like a bag that passes **between the plates**: no wire passes through it, so I = 0. The same loop gives two answers. Maxwell repaired it: between the plates the electric flux changes, and
+
+EQ: I_d = ε₀ dΦ_E/dt
+
+For a plate area A, E = Q ÷ (ε₀ A), so ε₀ A dE/dt = dQ/dt = I. The displacement current is **equal to the conduction current**, and both answers agree. And now the surprise: a changing E makes a B, a changing B makes an E (Faraday), so the two fields can sustain each other in empty space: a **wave**, with speed
+
+EQ: c = 1 ÷ √(μ₀ ε₀) = 3.00 × 10⁸ m/s
+
+Maxwell computed this number, saw it equal the measured speed of light, and concluded that light is an electromagnetic wave. Tomorrow we finish the story.
+
+BN: অ্যাম্পিয়ারের সূত্রে একটি ত্রুটি: ক্যাপাসিটর চার্জ করার সময় একই লুপের জন্য তারের মধ্য দিয়ে তল নিলে μ₀I, প্লেটের মাঝ দিয়ে তল নিলে 0। ম্যাক্সওয়েলের সংশোধন: I_d = ε₀ dΦ_E/dt, যা ঠিক I এর সমান। তারপর চমক: পরিবর্তনশীল E থেকে B, পরিবর্তনশীল B থেকে E, ফলে শূন্যস্থানে তরঙ্গ, গতি c = 1/√(μ₀ε₀) = 3 × 10⁸ m/s। আলো একটি তড়িৎ-চৌম্বক তরঙ্গ।
+
+EX: Charging a capacitor
+1. Circular plates of radius R = 5 cm (A = 7.85 × 10⁻³ m²) charged by I = 2 A. The field changes at dE/dt = I ÷ (ε₀ A) = 2 ÷ (8.854 × 10⁻¹² × 7.85 × 10⁻³) = **2.88 × 10¹³ V/(m s)**. A huge rate.
+2. **Magnetic field between the plates.** For a loop of radius r < R, the displacement current is I (r² ÷ R²), so B = μ₀ I r ÷ (2π R²). At r = 3 cm: B = 2 × 10⁻⁷ × 2 × 0.03 ÷ 0.0025 = **4.8 μT**. At the edge, r = R: **8.0 μT**.
+3. **Outside** (r > R): the same as for a wire, B = μ₀ I ÷ (2π r). At r = 10 cm: **4.0 μT**. The two formulas agree at r = R (8.0 μT).
+4. **The speed of light:** with μ₀ = 4π × 10⁻⁷ and ε₀ = 8.854 × 10⁻¹², c = 1 ÷ √(1.2566 × 10⁻⁶ × 8.854 × 10⁻¹²) = **2.998 × 10⁸ m/s** ✓.
+/EX
+
+LAB: Field inside a charging capacitor | Choose the current and the plate radius. The graph shows the magnetic field in microtesla against the distance from the axis in cm: it rises linearly inside the plates (from the displacement current) and falls like a wire outside. | I:Current (A):0.5:10:0.5:2 ;; R:Plate radius (cm):2:10:0.5:5 | 20*I/R:Peak field at the plate edge (microtesla):2 ;; I/(8.854*(10^(0-12))*pi*(R/100)^2)/1e13:Rate of change of E (10 to the 13 V per m per s):2 | (x<R)*20*I*x/R^2+(x>R)*20*I/x | 0.1,20 | 0,20
+
+TRAP: The displacement current is **not** a flow of charge: it is a changing electric flux. It makes a magnetic field like a current, but it does not heat a wire. Faraday and Ampère-Maxwell look alike but the sign differs: Faraday has −, Ampère-Maxwell has +. The total magnetic flux through any closed surface is always 0.
+
+### Quick self-check
+QUIZ:
+Q: Maxwell's addition to Ampère's law is a term involving…; dB/dt; dΦ_E/dt; charge; mass; 2; I_d = ε₀ dΦ_E/dt.
+Q: In a charging parallel-plate capacitor, the displacement current between the plates equals…; zero; the conduction current I; 2 I; I ÷ 2; 2; ε₀ A dE/dt = I.
+Q: Gauss's law for magnetism says that…; B has no divergence; B is zero; monopoles are common; E is zero; 1; ∮ B · dA = 0.
+Q: The speed 1 ÷ √(μ₀ ε₀) is…; 340 m/s; 3 × 10⁸ m/s; 3 × 10⁶ m/s; 1; 2; The speed of light.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the field of 1 nC at 3 cm. => **9990 V/m**.
+P: Find ε₀ A dE/dt for I = 2 A. => **2 A**.
+P: Find c from μ₀ and ε₀. => **3.00 × 10⁸ m/s**.
+LVL: Level 2 | Apply
+P: Find dE/dt for R = 5 cm and I = 2 A. => **2.88 × 10¹³ V/(m s)**.
+P: Find B at r = 3 cm between the plates. => **4.8 μT**.
+P: Find B at the plate edge. => **8.0 μT**.
+P: Find B at r = 10 cm outside. => **4.0 μT**.
+P: Find B at r = 2.5 cm (half the radius). => **4.0 μT**.
+P: Find the time for the voltage across a 1 μF capacitor to rise 1 kV at I = 2 A. => C dV = I dt, so t = 1 × 10⁻⁶ × 1000 ÷ 2 = **0.5 ms**.
+LVL: Level 3 | Real
+P: A 10 nF parallel-plate sensor with plate area 1 cm² is driven by a 1 MHz current of peak 10 mA. Find the peak rate of change of E in the gap. => dE/dt = I ÷ (ε₀ A) = 0.01 ÷ (8.854 × 10⁻¹² × 10⁻⁴) = **1.13 × 10¹³ V/(m s)**. Such time-varying fields are the basis of touchscreens and radio transmitters.
+LVL: Challenge | Light is a wave
+P: Estimate the value of c if μ₀ were 10% larger and ε₀ unchanged. => c ∝ 1 ÷ √μ₀, so c falls by a factor 1 ÷ √1.1 = 0.953 and becomes **2.86 × 10⁸ m/s**. The speed of light is fixed by the two constants of electricity and magnetism.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- FFT: N log₂ N instead of N², speed-up N ÷ log₂ N. Windows trade resolution for lower side lobes: Hann −31 dB, Hamming −43 dB, rectangular −13 dB. Zero-padding does not improve the resolution.
+- Maxwell: Gauss (E), Gauss (B), Faraday, Ampère with the displacement current I_d = ε₀ dΦ_E/dt. These give waves at c = 1 ÷ √(μ₀ ε₀).
+
+BN: আজকের সারকথা: FFT এর খরচ N log₂ N, N² নয়। উইন্ডো রেজোলিউশনের বদলে নিচু পাশের শিখর দেয়: Hann −31, Hamming −43, আয়তাকার −13 dB। ম্যাক্সওয়েলের চার সূত্র, বিস্থাপন কারেন্ট I_d = ε₀ dΦ_E/dt, তরঙ্গের গতি c = 1/√(μ₀ε₀)।
+
+EXIT:
+E: What is the FFT speed-up factor for N = 1024? Give a whole number.; 102; 1; N ÷ log₂ N.
+E: What is the magnetic field in microtesla at the plate edge for I = 2 A and R = 5 cm?; 8; 0.1; μ₀ I ÷ (2π R).
+E: What is the DFT X₀ of (1, 2, 3, 4)?; 10; 0.1; The sum of the samples.
+
+**Tomorrow:** spectrograms and compression, and Maxwell's equations part 2 with the power-station story.
+
+CHECK: notes

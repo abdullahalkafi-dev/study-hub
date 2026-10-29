@@ -1,0 +1,150 @@
+@day Week 22 · Day 2 · Tuesday
+# Properties of the Fourier transform and radio modulation. Then: motional EMF and generators
+lead: The Fourier transform comes with a small toolbox of rules: delaying a signal only tilts its phase, squeezing it in time stretches it in frequency, and differentiating multiplies by iω. The most useful rule of all is modulation, which explains how a radio sends music through the air at a frequency a million times higher than the music. In physics, you move a conductor through a magnetic field and get a voltage, the motional EMF. Spin a coil and the voltage alternates: that is the generator, the heart of the power station.
+
+BN: ফুরিয়ে রূপান্তরের কিছু নিয়ম আছে: সংকেত দেরি করালে শুধু দশা হেলে যায়, সময়ে সংকুচিত করলে কম্পাঙ্কে প্রসারিত হয়, আর অবকলন মানে iω গুণ। সবচেয়ে কাজের নিয়ম মডুলেশন: রেডিও কীভাবে গানকে গানের চেয়ে দশ লাখ গুণ উঁচু কম্পাঙ্কে বাতাসে পাঠায়। পদার্থবিজ্ঞানে চৌম্বক ক্ষেত্রের মধ্য দিয়ে পরিবাহী সরালে ভোল্টেজ, গতিজ EMF। কয়েল ঘোরালে ভোল্টেজ পর্যায়ক্রমিক: এটাই জেনারেটর, বিদ্যুৎকেন্দ্রের হৃৎপিণ্ড।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: Write the Fourier transform of e^(−at) for t > 0. => **1 ÷ (a + iω)**.
+P: What is the first zero of the spectrum of a pulse of duration τ? => **f = 1 ÷ τ**.
+P: State Faraday's law. => **ε = −N dΦ/dt**.
+P: What does Lenz's law say? => The induced current **opposes the change** in flux.
+P: What is cos θ in terms of e^(iθ)? => **(e^(iθ) + e^(−iθ)) ÷ 2**.
+
+CHECK: recall
+
+@section math | 2 · Math: the rules of the Fourier transform | 55 min
+
+### The toolbox
+Let f (t) ↔ F (ω). Then:
+- **Linearity:** a f + b g ↔ a F + b G.
+- **Time shift:** f (t − t₀) ↔ **e^(−iωt₀) F (ω)**. The size |F| does not change, only the phase (a delay is a tilt).
+- **Scaling:** f (a t) ↔ (1 ÷ |a|) F (ω ÷ a). Compress by 2 in time, stretch by 2 in frequency.
+- **Differentiation:** f′ (t) ↔ **i ω F (ω)**. Calculus becomes multiplication (like Laplace).
+- **Modulation:** f (t) cos ω₀ t ↔ **½ [F (ω − ω₀) + F (ω + ω₀)]**. Multiplying by a cosine moves the spectrum to ±ω₀. (From cos ω₀t = (e^(iω₀t) + e^(−iω₀t)) ÷ 2 and the shift rule in frequency.)
+- **Parseval:** ∫ |f|² dt = (1 ÷ 2π) ∫ |F|² dω. The energy is the same in either picture.
+
+BN: নিয়ম: রৈখিকতা; সময় স্থানান্তর f(t − t₀) ↔ e^(−iωt₀)F (দেরি = দশার ঢাল); স্কেলিং f(at) ↔ F(ω/a)/|a|; অবকলন f′ ↔ iωF; মডুলেশন f(t) cos ω₀t ↔ ½[F(ω − ω₀) + F(ω + ω₀)]; পার্সেভাল ∫|f|² dt = (1/2π)∫|F|² dω।
+
+EX: Using the rules
+1. **Delay.** A pulse delayed by 2 ms: |F| unchanged; the phase at 100 Hz (ω = 628.3 rad/s) is −ω × 0.002 = **−1.257 rad = −72°**. A delay of the same time means a larger phase for higher frequencies.
+2. **Scaling.** Compress a 2 ms pulse to 1 ms (a = 2): its first spectral zero moves from 500 Hz to **1000 Hz**.
+3. **Differentiation.** If f has the spectrum F, then f′ has iω F: the high frequencies are multiplied by a larger number. **Differentiating amplifies noise**, because noise is rich in high frequencies. This is why numerical derivatives of measured data are noisy.
+4. **An ODE in one line.** Solve y′ + a y = x (t): the transform gives (a + iω) Y = X, so **Y = X ÷ (a + iω)** and H (iω) = 1 ÷ (a + iω) is the system's frequency response. With a = 1000 and an input cos (2000 t): |H| = 1 ÷ √(1000² + 2000²) = **4.47 × 10⁻⁴**, with a phase of −atan 2 = **−63.4°**.
+5. **Parseval.** For f = e^(−at), t > 0: ∫₀^∞ e^(−2at) dt = **1 ÷ 2a**, and (1 ÷ 2π) ∫ dω ÷ (a² + ω²) = (1 ÷ 2π)(π ÷ a) = **1 ÷ 2a** ✓. The fraction of the energy below ω₀ is **(2 ÷ π) atan (ω₀ ÷ a)**: 50% below ω = a, 79.5% below 3a and 93.7% below 10a.
+/EX
+
+### Modulation: how AM radio works
+A message m (t) (music with frequencies up to 5 kHz) is multiplied by a carrier of frequency f_c = 1 MHz: s (t) = m (t) cos 2π f_c t. By the modulation rule the spectrum of m is **copied** to f_c and −f_c: the radio signal occupies **995 kHz to 1005 kHz**, a width of **10 kHz**, twice the message bandwidth. That is the reason AM stations are spaced 9 or 10 kHz apart: from 531 to 1602 kHz there is room for (1602 − 531) ÷ 10 = **107 channels**. The receiver's tuned circuit (Week 20, with Q ≈ 100 so that Δf = f_c ÷ Q = 10 kHz) selects one band, and a diode with an RC filter removes the carrier and recovers m (t). The tall carrier frequency is needed because an antenna must be about a quarter of a wavelength long: at 1 MHz λ = 300 m. At 5 kHz it would be 15 km.
+
+LAB: The AM spectrum | Choose the carrier frequency and the highest audio frequency. The graph shows the spectrum of the radio signal around the carrier: the audio spectrum is copied up and down (sidebands). The numbers give the band edges and how many stations fit in the AM band. | fc:Carrier (kHz):540:1600:10:1000 ;; fa:Highest audio (kHz):2:10:0.5:5 | fc-fa:Lower edge (kHz):1 ;; fc+fa:Upper edge (kHz):1 ;; (1602-531)/(2*fa):Stations that fit between 531 and 1602 kHz:0 | (abs(x)<fa)*(1-abs(x)/fa) | -12,12 | 0,1.2
+
+LAB: Energy in a band | For a decaying pulse e^(-at), the fraction of its energy below a chosen frequency is (2 over pi) atan(w over a). The graph shows this fraction against w. Choose the decay rate a and the frequency w0. | a:Decay rate a (per s):100:5000:100:1000 ;; w0:Frequency w0 (rad per s):50:20000:50:1000 | 100*2/pi*atan(w0/a):Energy below w0 (percent):1 ;; a:Half-power frequency (rad per s):0 ;; 100*(1-2/pi*atan(w0/a)):Energy above w0 (percent):1 | 2/pi*atan(x/a) | 0,20000 | 0,1.1
+
+TRAP: A time delay changes only the **phase**, so the energy at each frequency is the same. Compressing in time stretches in frequency: do not mix the direction. Modulation gives **two** copies (at +f_c and −f_c), each with half the height, and the width doubles. Differentiating multiplies by iω, so low frequencies are suppressed and high ones emphasised.
+
+### Quick self-check
+QUIZ:
+Q: Delaying a signal by t₀ multiplies its transform by…; t₀; e^(−iωt₀); 1 ÷ t₀; iω; 2; Shift rule.
+Q: Compressing a signal in time by 2 makes its spectrum…; twice as wide; half as wide; the same; zero; 1; Scaling rule.
+Q: Differentiation in time corresponds to multiplication by…; 1 ÷ iω; iω; ω²; e^(iω); 2; f′ ↔ iω F.
+Q: An AM signal with 5 kHz audio on a 1 MHz carrier occupies…; 5 kHz; 10 kHz; 1 MHz; 2 MHz; 2; Both sidebands.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the phase at 100 Hz of a 2 ms delay. => **−72°**.
+P: Find the AM bandwidth for 5 kHz audio. => **10 kHz**.
+P: Find the multiplication factor for the derivative at ω = 500. => **iω = 500 i**.
+LVL: Level 2 | Apply
+P: Find the transfer function of y′ + 1000 y = x (t). => **1 ÷ (1000 + iω)**.
+P: Find the gain and phase at ω = 2000. => **4.47 × 10⁻⁴** and **−63.4°**.
+P: Find the energy fraction of e^(−at) below ω = a. => **50%**.
+P: Find the energy fraction below 3a. => **79.5%**.
+P: Find the 1/e time of a pulse e^(−1000 t) and the wavelength of a 1 MHz carrier. => **1 ms** and **300 m**.
+P: How many 10 kHz channels fit in 531 to 1602 kHz? => **107**.
+LVL: Level 3 | Real
+P: A sampled sensor signal has noise at 5 kHz with amplitude 1 mV (tiny) and a wanted signal at 5 Hz with amplitude 1 V. If the data are differentiated numerically, find the amplitudes of the two parts of the derivative. => The factor is ω: for the signal ω = 31.4, giving **31.4 V/s**; for the noise ω = 31,416, giving **31.4 V/s**: the noise is now as large as the signal, so differentiating noisy data without smoothing is dangerous.
+LVL: Challenge | A modulated pulse
+P: A 1 ms rectangular pulse (a = 0.5 ms) multiplies a 100 kHz carrier. Find the centre of the spectrum and the distance between the first zeros of the main lobe. => The spectrum is centred on **100 kHz**. The first zeros of the pulse spectrum are at ±1 ÷ 1 ms = ±1 kHz, so the main lobe runs from **99 kHz to 101 kHz**, a width of 2 kHz.
+
+CHECK: math
+
+@section physics | 3 · Physics: motional EMF and the generator | 35 min
+
+### A moving conductor
+Slide a conducting rod of length ℓ at speed v across a magnetic field B (all three at right angles). The charges in the rod feel q v B along the rod, so charge builds up at the ends until the electric force balances it: q E = q v B. The EMF is
+
+EQ: ε = B ℓ v
+
+(The same from Faraday: the rod and rails make a loop whose area grows at ℓ v per second, so dΦ/dt = B ℓ v.) If the rod is part of a circuit of resistance R, a current I = ε ÷ R flows, and then the field exerts a **braking force** F = B I ℓ = B² ℓ² v ÷ R on the rod (Lenz again). The power you put in, F v, equals the electric power I² R: energy is conserved.
+
+### The generator
+Rotate a coil of N turns and area A at angular speed ω in a field B. The flux is Φ = N B A cos ωt, so
+
+EQ: ε = N B A ω sin ωt, ε_peak = N B A ω
+
+This is an alternating EMF at the frequency f = ω ÷ 2π of the rotation (for a two-pole machine). It is the motor of Week 21 run in reverse: the back EMF k ω of the motor is the generator EMF.
+
+BN: রড ℓ বেগ v তে B এর আড়াআড়ি: ε = Bℓv। কারেন্ট I = ε/R, ব্রেকিং বল F = BIℓ = B²ℓ²v/R; Fv = I²R (শক্তি সংরক্ষণ)। জেনারেটর: ε = NBAω sin ωt; মোটরের ব্যাক EMF-ই জেনারেটরের EMF।
+
+EX: Rods, wings and generators
+1. **A rod on rails:** ℓ = 0.5 m, v = 4 m/s and B = 0.3 T: ε = **0.6 V**. With R = 0.2 Ω, I = **3 A** and the braking force is B I ℓ = 0.3 × 3 × 0.5 = **0.45 N**. The pushing power is 0.45 × 4 = **1.8 W**, which equals I² R = 9 × 0.2 = **1.8 W** ✓.
+2. **A free-falling rod on the rails** (mass 0.05 kg) reaches a terminal speed when m g = B² ℓ² v ÷ R: v_t = 0.05 × 9.81 × 0.2 ÷ (0.09 × 0.25) = **4.36 m/s**. The gravitational energy becomes electric energy and then heat.
+3. **An aircraft wing:** wingspan 36 m at 250 m/s (900 km/h) through the vertical field of the Earth (40 μT): ε = 40 × 10⁻⁶ × 36 × 250 = **0.36 V** between the wingtips. Too small to matter, and no current flows because there is no circuit.
+4. **A small generator:** N = 100 turns, A = 0.01 m² (10 cm square), B = 0.4 T at 3000 rpm (ω = 314.2 rad/s): ε_peak = 100 × 0.4 × 0.01 × 314.2 = **125.7 V**, RMS **88.9 V**, at **50 Hz**.
+5. **Frequency and poles:** for a machine with p poles, f = p n ÷ 120 (n in rpm). A fast steam turbine with 2 poles must turn at 3000 rpm for 50 Hz. A slow hydroelectric turbine at 150 rpm needs **40 poles** (50 × 120 ÷ 150).
+6. **The mechanical side:** the power station burns fuel or uses falling water to push the turbine. The torque needed to turn the generator is exactly the torque of the magnetic braking force of Lenz's law: the more current you draw, the harder the turbine has to be pushed.
+/EX
+
+LAB: A coil generator | Choose the turns, the area, the field and the speed in rpm. The graph shows the output voltage over 40 milliseconds. The numbers give the peak and RMS voltage and the frequency (two poles). | N:Turns N:10:500:10:100 ;; A:Area (cm squared):20:500:10:100 ;; B:Field B (T):0.1:1:0.05:0.4 ;; n:Speed (rpm):600:6000:100:3000 | N*B*A*0.0001*n*2*pi/60:Peak EMF (V):1 ;; N*B*A*0.0001*n*2*pi/60/sqrt(2):RMS EMF (V):1 ;; n/60:Frequency (Hz):1 | N*B*A*0.0001*n*2*pi/60*sin(n*2*pi/60*x*0.001) | 0,40 | -600,600
+
+LAB: A rod on rails | Choose the field, the rod length, the speed and the circuit resistance. The numbers give the EMF, the current, the braking force and the power. The graph shows the braking force against the speed; a falling rod stops accelerating where it equals its weight. | B:Field B (T):0.1:1:0.05:0.3 ;; l:Rod length (m):0.1:1:0.05:0.5 ;; v:Speed (m per s):0.5:10:0.5:4 ;; R:Resistance (ohm):0.05:2:0.05:0.2 ;; m:Rod mass (kg):0.01:0.2:0.01:0.05 | B*l*v:EMF (V):3 ;; B*l*v/R:Current (A):2 ;; B^2*l^2*v/R:Braking force (N):3 ;; B^2*l^2*v^2/R:Power (W):3 ;; m*9.81*R/(B^2*l^2):Terminal speed if it falls (m per s):2 | B^2*l^2*x/R | 0,10 | 0,2
+
+TRAP: The motional EMF needs the rod to **cut field lines**: motion parallel to B, or along the length of the rod, gives zero. The braking force is proportional to v, so a rod on rails reaches a terminal speed. Peak and RMS are different: the peak is N B A ω, the RMS is that divided by √2. In f = p n ÷ 120 the "p" is the number of **poles**, not pole pairs (a pair gives f = pairs × n ÷ 60).
+
+### Quick self-check
+QUIZ:
+Q: The EMF of a rod of length ℓ moving at v across B is…; B ℓ ÷ v; B ℓ v; B v ÷ ℓ; ℓ v; 2; ε = B ℓ v.
+Q: The braking force on the rod in the circuit is proportional to…; v; v²; 1 ÷ v; constant; 1; F = B² ℓ² v ÷ R.
+Q: The peak EMF of a rotating coil is…; N B A; N B A ω; N B A ω²; N B ω; 2; ε = N B A ω sin ωt.
+Q: A 50 Hz generator with 2 poles turns at…; 1500 rpm; 3000 rpm; 5000 rpm; 150 rpm; 2; f = 2 × n ÷ 120.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find ε for ℓ = 0.5 m, v = 4 m/s and B = 0.3 T. => **0.6 V**.
+P: Find the current for R = 0.2 Ω. => **3 A**.
+P: Find ω for 3000 rpm. => **314.2 rad/s**.
+LVL: Level 2 | Apply
+P: Find the braking force on the rod. => **0.45 N**.
+P: Show that the mechanical power equals the electric power. => F v = 0.45 × 4 = 1.8 W; I² R = 9 × 0.2 = **1.8 W**.
+P: Find the peak EMF of N = 100, A = 0.01 m², B = 0.4 T at 3000 rpm. => **125.7 V**.
+P: Find its RMS value. => **88.9 V**.
+P: Find the number of poles for 50 Hz at 150 rpm. => **40 poles**.
+P: Find the terminal speed of the 0.05 kg rod. => **4.36 m/s**.
+LVL: Level 3 | Real
+P: A hydro generator turns at 150 rpm with 40 poles and delivers 100 MW at 50 Hz. Find the torque on the shaft in meganewton-metres. (Ignore losses.) => ω = 150 × 2π ÷ 60 = 15.71 rad/s, so τ = P ÷ ω = 100 × 10⁶ ÷ 15.71 = **6.37 × 10⁶ N m = 6.4 MN m**. Slow turbines need huge torque.
+LVL: Challenge | The generator as a motor
+P: A motor with N B A = k = 0.02 V s/rad (Week 21) is spun as a generator at 500 rad/s and connected to a 5 Ω load. Find the EMF, the current, the electrical power and the torque the driver must supply. => ε = 0.02 × 500 = **10 V**. With its own resistance 1 Ω: I = 10 ÷ 6 = **1.67 A**. Power in the load = 1.67² × 5 = **13.9 W**. The torque is k I = 0.02 × 1.67 = **0.033 N m**, and the shaft power is 0.033 × 500 = **16.7 W** (the rest is 2.8 W of heat in the coil).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fourier rules: shift e^(−iωt₀), scaling 1 ÷ |a|, derivative iω, modulation ½ [F (ω − ω₀) + F (ω + ω₀)], Parseval. AM radio shifts the audio spectrum to the carrier: bandwidth 2 f_audio. System with y′ + a y = x has H = 1 ÷ (a + iω).
+- Motional EMF ε = B ℓ v; the braking force B² ℓ² v ÷ R; F v = I² R. Generator ε = N B A ω sin ωt; f = p n ÷ 120.
+
+BN: আজকের সারকথা: ফুরিয়ে নিয়ম: দেরি = e^(−iωt₀), অবকলন = iω, মডুলেশন = বর্ণালী ক্যারিয়ারে কপি; AM প্রস্থ = 2 × অডিও। গতিজ EMF ε = Bℓv, ব্রেকিং বল B²ℓ²v/R, Fv = I²R। জেনারেটর ε = NBAω sin ωt; f = pn/120।
+
+EXIT:
+E: What is the phase in degrees of a 2 ms delay at 100 Hz?; -72; 1; −ω t₀.
+E: What is the RMS voltage of a coil generator with a peak of 125.7 V? Give 1 decimal.; 88.9; 0.1; Peak ÷ √2.
+E: What is the braking force in N on the rod (B = 0.3 T, ℓ = 0.5 m, I = 3 A)? Give 2 decimals.; 0.45; 0.01; B I ℓ.
+
+**Tomorrow:** convolution, sampling and the discrete Fourier transform, and transformers.
+
+CHECK: notes

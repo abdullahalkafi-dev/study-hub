@@ -1,0 +1,74 @@
+@day Week 23 · Day 4 · Thursday
+# Mock Paper 1: mathematics
+lead: Today is a full exam paper under real conditions, covering the mathematics of Weeks 12 to 22: complex numbers, matrices, several variables, differential equations, Laplace, numerical methods and Fourier. It is 30 marks in 75 minutes with no calculator. The answers and the mark scheme are below the questions, so keep them closed until the timer ends.
+
+BN: আজ বাস্তব পরীক্ষার মতো পুরো একটি পেপার: সপ্তাহ ১২ থেকে ২২ এর গণিত (জটিল সংখ্যা, ম্যাট্রিক্স, বহুচলক, অবকল সমীকরণ, ল্যাপলাস, সংখ্যাগত পদ্ধতি, ফুরিয়ে)। ৩০ নম্বর, ৭৫ মিনিট, ক্যালকুলেটর ছাড়া। উত্তর ও নম্বর-স্কিম প্রশ্নের নিচেই আছে, টাইমার শেষ না হওয়া পর্যন্ত খুলবে না।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- A quiet desk, a timer for **75 minutes**, paper and pen, **no calculator**, no notes, phone away.
+- Spend about 2.5 minutes per mark. If you are stuck for more than 4 minutes, move on and come back.
+- Show every step. Method marks are given even when the final number is wrong.
+- In the last 5 minutes check units, signs and that you answered what was asked.
+
+CHECK: recall
+
+@section math | 2 · Paper 1 (30 marks, 75 minutes) | no calculator
+
+LVL: Paper 1 | Questions 1 to 12
+P: **Q1 (2 marks).** Write (2 + 3i) ÷ (1 − i) in the form a + bi and find its modulus. => Multiply by the conjugate: (2 + 3i)(1 + i) ÷ 2 = (2 + 2i + 3i + 3i²) ÷ 2 = (−1 + 5i) ÷ 2 = **−0.5 + 2.5i** (1 mark). The modulus is √(0.25 + 6.25) = **√6.5 ≈ 2.55** (1 mark).
+P: **Q2 (3 marks).** The matrix A = [[3, 1], [0, 2]]. Find its eigenvalues and eigenvectors, and the top-right entry of A⁵. => Triangular, so **λ = 3 and λ = 2** (1 mark). For λ = 3: v = **(1, 0)**. For λ = 2: x + y = 0, so v = **(1, −1)** (1 mark). A⁵ = [[3⁵, 3⁵ − 2⁵], [0, 2⁵]], top-right entry **243 − 32 = 211** (1 mark).
+P: **Q3 (2 marks).** The system x + 2y = 3 and 2x + k y = 6. For which k is the solution not unique, and what is the solution set then? => The determinant k − 4 is zero for **k = 4** (1 mark). Then the second equation is twice the first: **infinitely many solutions**, the line x = 3 − 2y (1 mark).
+P: **Q4 (3 marks).** Find and classify the critical point of f (x, y) = x² + x y + y² − 3x. => f_x = 2x + y − 3 = 0 and f_y = x + 2y = 0 give x = −2y, so −4y + y = 3, **y = −1, x = 2** (1 mark). f_xx = 2, f_yy = 2, f_xy = 1: determinant 4 − 1 = 3 > 0 and f_xx > 0, so it is a **minimum** (1 mark). Its value is 4 − 2 + 1 − 6 = **−3** (1 mark).
+P: **Q5 (3 marks).** Use polar coordinates to evaluate the integral of y over the quarter disc x² + y² ≤ 4 with x, y ≥ 0. => ∬ y dA = ∫₀^{π/2} ∫₀² (r sin θ) r dr dθ (1 mark for the setup with r dr dθ). = (∫₀² r² dr)(∫₀^{π/2} sin θ dθ) = (8/3)(1) (1 mark) = **8/3** (1 mark).
+P: **Q6 (2 marks).** F = (x y, y z, z x). Find div F at (1, 2, 3), and decide whether F is conservative. => div F = y + z + x = **6** (1 mark). The x-component of the curl is ∂F_z/∂y − ∂F_y/∂z = 0 − y = −y ≠ 0, so F is **not conservative** (1 mark).
+P: **Q7 (3 marks).** Solve y′ + (2 ÷ x) y = 6x with y (1) = 2, for x > 0. => The integrating factor is e^(∫ 2/x dx) = x² (1 mark). Then (x² y)′ = 6x³, so x² y = 1.5 x⁴ + C (1 mark). From y (1) = 2: 2 = 1.5 + C, C = 0.5, so **y = 1.5 x² + 0.5 ÷ x²** (1 mark).
+P: **Q8 (3 marks).** Solve y″ + 4y′ + 13y = 0 with y (0) = 1 and y′ (0) = 0. Describe the motion. => Roots r = −2 ± 3i (1 mark). y = e^(−2t) (A cos 3t + B sin 3t); y (0) = 1 gives A = 1 (1 mark). y′ (0) = −2A + 3B = 0 gives B = 2/3: **y = e^(−2t) (cos 3t + (2/3) sin 3t)** (1 mark). It is **underdamped**: oscillation with angular frequency 3 and an envelope decaying as e^(−2t).
+P: **Q9 (3 marks).** Use Laplace transforms to solve y′ − y = e^(2t) with y (0) = 0. => (s − 1) Y = 1 ÷ (s − 2) (1 mark). Y = 1 ÷ ((s − 1)(s − 2)) = 1 ÷ (s − 2) − 1 ÷ (s − 1) (1 mark). So **y = e^(2t) − e^t** (1 mark). Check: y (0) = 0 ✓.
+P: **Q10 (2 marks).** Use Euler's method with h = 0.5 for y′ = y − x, y (0) = 1, to estimate y (1). => y₁ = 1 + 0.5 × (1 − 0) = **1.5** (1 mark). y₂ = 1.5 + 0.5 × (1.5 − 0.5) = **2.0** (1 mark). (The true value is y = x + 1, so 2.0 is exact.)
+P: **Q11 (3 marks).** The function f (x) = x on (−π, π) has the series Σ bₙ sin nx with bₙ = 2 (−1)^(n+1) ÷ n. Write b₁, b₂, b₃ and use x = π ÷ 2 to find a series for π ÷ 4. => **b₁ = 2, b₂ = −1, b₃ = 2/3** (1 mark). At x = π ÷ 2: sin (π/2) = 1, sin π = 0, sin (3π/2) = −1, so π ÷ 2 = 2 − 2/3 + 2/5 − … (1 mark). Dividing by 2: **π ÷ 4 = 1 − 1/3 + 1/5 − 1/7 + …** (1 mark).
+P: **Q12 (1 mark).** A 6 kHz tone is sampled at 8 kHz. What frequency appears? => 6 > 4, so the alias is 8 − 6 = **2 kHz** (1 mark).
+
+CHECK: math
+
+@section physics | 3 · Marking and exam technique | 25 min
+
+### Marking
+Total marks: **30** (Q1 2, Q2 3, Q3 2, Q4 3, Q5 3, Q6 2, Q7 3, Q8 3, Q9 3, Q10 2, Q11 3, Q12 1).
+
+| Score | What it means | What to do |
+| 27 to 30 | Excellent | Tomorrow is the physics paper. Keep going. |
+| 22 to 26 | Good | Redo every wrong question tonight (20 minutes). |
+| 16 to 21 | Some gaps | Find the matching day in Weeks 12 to 22. Redo its Level 2 problems before Saturday. |
+| Below 16 | Needs a second pass | Spend tomorrow's math recall on the topics you missed. |
+
+BN: ২৭-৩০ চমৎকার; ২২-২৬ ভালো, ভুলগুলো আজ রাতে আবার করো; ১৬-২১ ফাঁক আছে, সংশ্লিষ্ট দিনের Level 2 অনুশীলন আবার করো; ১৬ এর নিচে দ্বিতীয়বার পড়া দরকার।
+
+### Technique: where marks are lost
+1. **Method marks.** In Q4 and Q7, a correct method with an arithmetic slip still scores two out of three.
+2. **Forgetting the Jacobian** in polar coordinates (Q5): r dr dθ, not dr dθ.
+3. **Integrating factor sign and form** (Q7): e^(∫ P dx), and remember the constant before using the initial value.
+4. **Initial conditions** (Q8, Q9): apply them to both y and y′ where needed.
+5. **Check:** put the result back into the equation. Q9: y′ − y = 2e^(2t) − e^t − e^(2t) + e^t = e^(2t) ✓.
+
+TRAP: In Q2 a triangular matrix has its eigenvalues on the diagonal. In Q3 a zero determinant means "not unique", and you must still decide whether there are none or infinitely many solutions (here the right-hand sides are consistent, so infinitely many).
+
+@section notes | 4 · Recap and mistake log | 20 min
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q5 | Integrated r² dr only | Forgot the Jacobian r | dA = r dr dθ in polar coordinates | Friday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। পোলার সমাকলনে r ভুলে যাওয়া, সমাকলন গুণকে x² এর জায়গায় x লেখা, প্রাথমিক শর্ত y′ এ না দেওয়া, ম্যাট্রিক্সের A⁵ এ গুণ করে ভুল।
+
+NOTES:
+
+### Recap
+- Mock Paper 1 checked complex numbers, matrices, optimisation, polar integrals, ODEs of both orders, Laplace, Euler, Fourier series and aliasing.
+- Tomorrow: Mock Paper 2, physics (fluids, heat, electric and magnetic fields, circuits, induction), with the wind-turbine case study.
+
+BN: আজ জটিল সংখ্যা, ম্যাট্রিক্স, সর্বোচ্চ-সর্বনিম্ন, পোলার সমাকলন, দুই ক্রমের ODE, ল্যাপলাস, অয়লার, ফুরিয়ে ধারা ও aliasing যাচাই হলো। কাল পেপার ২ (পদার্থবিজ্ঞান) এবং বায়ু টারবাইন কেস স্টাডি।
+
+CHECK: notes

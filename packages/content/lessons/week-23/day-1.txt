@@ -1,0 +1,137 @@
+@day Week 23 · Day 1 · Monday
+# Review 1: complex numbers, matrices, fluids and thermodynamics
+lead: This is review week for Phase 3. There are no new topics: you rebuild the skills of Weeks 12 to 22 into one connected toolkit and test whether they work together. Today covers complex numbers, matrices and eigenvalues, then fluids, heat and the laws of thermodynamics. The thread running through the week has two parts: a loudspeaker (oscillations, circuits, Fourier) and a wind turbine feeding the grid (fluids, generators, transformers).
+
+BN: এই সপ্তাহ পর্ব ৩ এর পর্যালোচনা। নতুন কোনো বিষয় নেই: সপ্তাহ ১২ থেকে ২২ এর দক্ষতাগুলো একটা সংযুক্ত সরঞ্জামে জোড়া লাগাবে। আজ জটিল সংখ্যা, ম্যাট্রিক্স ও আইগেনমান, তারপর তরল, তাপ ও তাপগতিবিদ্যার সূত্র। পুরো সপ্তাহের সূতা দুটি: একটি লাউডস্পিকার (দোলন, বর্তনী, ফুরিয়ে) এবং গ্রিডে বিদ্যুৎ দেওয়া একটি বায়ু টারবাইন (তরল, জেনারেটর, ট্রান্সফর্মার)।
+
+@section recall | 1 · Warm-up: retrieve without notes | 15 min · no calculator
+
+LVL: Recall | Write each answer before you check
+P: Write Euler's formula and e^(iπ). => **e^(iθ) = cos θ + i sin θ**, and **e^(iπ) = −1**.
+P: What is |3 + 4i|? => **5**.
+P: What is the determinant of [[2, 1], [1, 3]]? => 2 × 3 − 1 × 1 = **5**.
+P: How do you find eigenvalues? => Solve **det (A − λ I) = 0**.
+P: State Bernoulli's equation. => **P + ½ ρ v² + ρ g h = constant** along a streamline.
+P: State the first law of thermodynamics. => **ΔU = Q − W**.
+P: What is the Carnot efficiency? => **1 − T_c ÷ T_h** (temperatures in kelvin).
+
+CHECK: recall
+
+@section math | 2 · Math review: complex numbers and matrices | 45 min
+
+### The map of Weeks 12 to 15
+| Idea | Key results |
+| Complex numbers | z = a + bi = r e^(iθ). Multiply: r's multiply, angles add. De Moivre: zⁿ = rⁿ e^(inθ). Roots: n of them, spaced 360° ÷ n |
+| Matrices | Product row × column. det and inverse. Rank. Gaussian elimination |
+| Eigen | A v = λ v. det (A − λ I) = 0. Diagonalisation A = P D P⁻¹, so Aⁿ = P Dⁿ P⁻¹ |
+| Applications | Impedance Z = R + i (ωL − 1 ÷ ωC), networks, Fibonacci, vibrations, principal axes |
+
+BN: জটিল সংখ্যা z = r e^(iθ): গুণে r গুণ, কোণ যোগ। ডি-মোভার zⁿ = rⁿ e^(inθ), n-তম মূল n টি। ম্যাট্রিক্স: গুণফল, নির্ণায়ক, বিপরীত, গাউসীয় অপসারণ। আইগেনমান: det(A − λI) = 0, A = PDP⁻¹, Aⁿ = PDⁿP⁻¹।
+
+EX: Complex numbers
+1. (3 + 4i)(1 − 2i) = 3 − 6i + 4i − 8i² = **11 − 2i**. And (3 + 4i) ÷ (1 − 2i) = (3 + 4i)(1 + 2i) ÷ 5 = (−5 + 10i) ÷ 5 = **−1 + 2i**.
+2. (1 + i)⁸: r = √2, θ = 45°, so r⁸ = 16 and the angle is 360°. The answer is **16**.
+3. Roots of z³ = 8: **2** and 2 e^(±2πi/3) = **−1 ± i √3**, spaced 120° on a circle of radius 2.
+4. **Impedance:** a series circuit with R = 20 Ω, L = 0.1 H and C = 100 μF at 50 Hz: X_L = 31.4 Ω, X_C = 31.8 Ω, so Z = 20 − 0.42 i Ω and |Z| = **20.004 Ω**. The circuit is almost at resonance (f₀ = 50.3 Hz), so only the resistor limits the current.
+/EX
+
+EX: Matrices
+1. A = [[4, 1], [2, 3]]: det A = **10**, A⁻¹ = (1 ÷ 10) [[3, −1], [−2, 4]].
+2. Eigenvalues: λ² − 7λ + 10 = 0, so **λ = 5 and λ = 2**. For λ = 5: (4 − 5) x + y = 0, so v = **(1, 1)**. For λ = 2: 2x + y = 0, so v = **(1, −2)**. Checks: trace 7 = 5 + 2 ✓, det 10 = 5 × 2 ✓.
+3. A⁵ = P D⁵ P⁻¹ = [[2094, 1031], [2062, 1063]]. The big eigenvalue wins: for large n, Aⁿ ≈ 5ⁿ × (a rank-1 matrix).
+4. **A linear system:** x + y + z = 6, 2x − y + z = 3, x + 2y − z = 2. Eliminate: add the first and third equations, 2x + 3y = 8; add the second and third, 3x + y = 5. Then x = 1, y = 2, z = 3. The determinant is 7, not zero, so the solution is unique.
+5. **Fibonacci:** [[1, 1], [1, 0]]¹⁰ = [[89, 55], [55, 34]], so F₁₀ = **55** and F₁₁ = 89. The eigenvalues (1 ± √5) ÷ 2 give the golden ratio 1.618 as the growth rate.
+/EX
+
+TRAP: In complex division multiply by the conjugate of the **denominator**. For roots, give all n of them. Matrix multiplication is not commutative. An eigenvector is never the zero vector, and the eigenvalues of Aⁿ are λⁿ.
+
+### Check yourself
+QUIZ:
+Q: The 5th roots of unity are spaced by…; 36°; 72°; 90°; 120°; 2; 360° ÷ 5.
+Q: If det A = 0 then A…; has no eigenvalues; has an eigenvalue 0; is symmetric; is the identity; 2; det = product of the eigenvalues.
+Q: The eigenvalues of A² are…; λ; 2λ; λ²; √λ; 3; A² v = λ² v.
+Q: |z₁ z₂| equals…; |z₁| + |z₂|; |z₁| |z₂|; |z₁| − |z₂|; |z₁| ÷ |z₂|; 2; Magnitudes multiply.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find (2 + i)². => 4 + 4i + i² = **3 + 4i**.
+P: Find det [[3, 2], [1, 4]]. => **10**.
+P: Find the eigenvalues of [[2, 0], [0, 7]]. => **2 and 7**.
+LVL: Level 2 | Apply
+P: Write −1 + i in polar form. => r = √2, θ = 135°, so **√2 e^(i 3π/4)**.
+P: Solve x + 2y = 5, 3x − y = 1. => y = 2, **x = 1**.
+P: Find the eigenvalues of [[2, 1], [1, 2]]. => λ = **3 and 1**.
+P: Find (1 + i)⁴. => r⁴ = 4, angle 180°: **−4**.
+LVL: Level 3 | Real
+P: A population has two age groups with the transition matrix [[0.5, 1.5], [0.5, 0]] (the first row is the births). Find the long-term growth factor per step. => λ² − 0.5 λ − 0.75 = 0, so λ = (0.5 + √(0.25 + 3)) ÷ 2 = (0.5 + 1.803) ÷ 2 = **1.15**: the population grows 15% per step.
+
+CHECK: math
+
+@section physics | 3 · Physics review: fluids, heat and thermodynamics | 45 min
+
+### The map of Weeks 12 to 15
+| Idea | Key results |
+| Fluids at rest | P = P₀ + ρ g h. Buoyancy F = ρ_fluid V g. A floating body displaces its weight |
+| Fluids in motion | A v = constant. Bernoulli. Viscosity and Reynolds number |
+| Heat | Q = m c ΔT, Q = m L. Conduction Q/t = k A ΔT ÷ L |
+| Gases | P V = n R T. Kinetic theory. First law ΔU = Q − W |
+| Entropy | ΔS = Q ÷ T. Carnot e = 1 − T_c ÷ T_h. No engine beats Carnot |
+
+BN: স্থির তরল P = P₀ + ρgh, প্লবতা ρVg। গতিশীল তরলে Av ধ্রুব ও বার্নুলি। তাপ Q = mcΔT, Q = mL, পরিবহন kAΔT/L। গ্যাস PV = nRT, প্রথম সূত্র ΔU = Q − W। এনট্রপি ΔS = Q/T, কার্নো e = 1 − T_c/T_h।
+
+EX: Fluids and heat
+1. **Flotation:** a block of density 920 kg/m³ floats in water. The submerged fraction is 920 ÷ 1000 = **92%**: this is why an iceberg shows only 8% above the water.
+2. **Venturi:** a pipe narrows from 20 cm² to 5 cm². At 1.5 m/s in the wide part, v₂ = 1.5 × 4 = **6 m/s** and the pressure drops by ½ ρ (v₂² − v₁²) = 0.5 × 1000 × (36 − 2.25) = **16,875 Pa**.
+3. **Torricelli:** water leaving a hole 1.8 m below the surface has v = √(2 g h) = **5.94 m/s**.
+4. **Calorimetry:** 200 g of tea at 90 °C and 50 g of cold milk at 20 °C reach (200 × 90 + 50 × 20) ÷ 250 = **76 °C**.
+5. **Latent heat:** 0.1 kg of ice at 0 °C is dropped into 0.5 kg of water at 30 °C. The water can give up 0.5 × 4186 × 30 = 62,790 J to reach 0 °C; melting the ice needs 0.1 × 334,000 = 33,400 J. The rest, 29,390 J, warms all 0.6 kg: ΔT = 29,390 ÷ (0.6 × 4186) = 11.7 K, so the final temperature is **11.7 °C**.
+6. **Ideal gas:** one mole at 300 K and 1 atm occupies V = n R T ÷ P = **24.6 L**. Two moles expanding isothermally from 10 L to 20 L at 300 K do W = n R T ln 2 = 2 × 8.314 × 300 × 0.693 = **3458 J** and absorb the same heat (ΔU = 0).
+7. **Engine:** between 500 K and 300 K the Carnot limit is **40%**. For 1000 J taken from the hot source the cold sink gets at least 600 J. Entropy: the source loses 1000 ÷ 500 = 2 J/K and the sink gains 600 ÷ 300 = 2 J/K. The total is **0**: reversible. Any real engine dumps more heat and creates entropy.
+/EX
+
+LAB: Mixing hot and cold | Choose the hot water and the cold water. The graph shows the final temperature against the mass of the cold water added. Heat gained by the cold equals heat lost by the hot (the same liquid). | m1:Hot mass (g):50:500:10:200 ;; T1:Hot temperature (C):50:100:1:90 ;; T2:Cold temperature (C):0:40:1:20 ;; m2:Cold mass (g):10:500:10:50 | (m1*T1+m2*T2)/(m1+m2):Final temperature (C):1 ;; m1*4.186*(T1-(m1*T1+m2*T2)/(m1+m2)):Heat moved (J):0 | (m1*T1+x*T2)/(m1+x) | 0,500 | 0,100
+
+LAB: The narrowing pipe | Choose the wide area, the narrow area and the speed in the wide part. The numbers give the speed in the narrow part and the pressure drop. The graph shows the pressure drop against the speed in the wide part. | A1:Wide area (cm squared):5:50:1:20 ;; A2:Narrow area (cm squared):1:20:1:5 ;; v1:Speed in the wide part (m per s):0.1:5:0.1:1.5 | v1*A1/A2:Speed in the narrow part (m per s):2 ;; 0.5*1000*((v1*A1/A2)^2-v1^2):Pressure drop (Pa):0 | 0.5*1000*((A1/A2)^2-1)*x^2 | 0,5 | 0,40000
+
+TRAP: Use **kelvin** for gas laws and Carnot, but a difference in °C equals a difference in K. In Bernoulli the heights and speeds refer to the same streamline. In calorimetry check whether all the ice melts before you assume the final temperature is above 0 °C. Heat and work are paths, not stored quantities.
+
+### Check yourself
+QUIZ:
+Q: A pipe narrows to a quarter of its area. The speed becomes…; the same; double; four times; sixteen times; 3; A v = constant.
+Q: In an isothermal expansion of an ideal gas…; ΔU = 0; Q = 0; W = 0; P is constant; 1; U depends on T only.
+Q: The Carnot efficiency between 400 K and 300 K is…; 25%; 75%; 33%; 100%; 1; 1 − 300 ÷ 400.
+Q: Which law forbids a perfect engine that turns all heat into work?; Zeroth; First; Second; Third; 3; Entropy cannot decrease.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the pressure 10 m under water (gauge). => ρ g h = 1000 × 9.81 × 10 = **98.1 kPa**.
+P: Find the heat to warm 2 kg of water by 10 K. => 2 × 4186 × 10 = **83.7 kJ**.
+P: Find the Carnot efficiency for 600 K and 300 K. => **50%**.
+LVL: Level 2 | Apply
+P: Find the final temperature of 100 g of water at 80 °C mixed with 300 g at 20 °C. => (100 × 80 + 300 × 20) ÷ 400 = **35 °C**.
+P: A window of 1 m², thickness 5 mm, k = 1.0 W/(m K), has 20 K across it. Find the heat flow. => 1.0 × 1 × 20 ÷ 0.005 = **4000 W**.
+P: Find the volume of 2 mol at 300 K and 2 atm. => V = n R T ÷ P = 2 × 8.314 × 300 ÷ 202,650 = **24.6 L**.
+P: Find the entropy change of 2 kg of ice melting at 0 °C. => Q = 668,000 J; ΔS = 668,000 ÷ 273 = **2447 J/K**.
+LVL: Level 3 | Real
+P: A power station's steam is at 823 K and the river at 288 K. Find the Carnot limit, and the heat rejected to the river when the plant makes 1000 MW of electricity at 38% efficiency. => The limit is 1 − 288 ÷ 823 = **65%**. At 38% the heat input is 2632 MW, so the river gets **1632 MW**: this is a big heater for the river.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Complex numbers multiply by (r, θ); matrices act through eigenvalues; Aⁿ = P Dⁿ P⁻¹.
+- Fluids: A v = const, Bernoulli, buoyancy. Heat: Q = m c ΔT, Q = m L. First law ΔU = Q − W. Second law: e ≤ 1 − T_c ÷ T_h, ΔS ≥ 0.
+
+BN: আজকের সারকথা: জটিল সংখ্যা (r, θ) ধরে গুণ হয়; ম্যাট্রিক্স আইগেনমান দিয়ে বোঝা যায়, Aⁿ = PDⁿP⁻¹। তরল: Av ধ্রুব, বার্নুলি, প্লবতা। তাপ: Q = mcΔT, Q = mL; ΔU = Q − W; e ≤ 1 − T_c/T_h, ΔS ≥ 0।
+
+EXIT:
+E: What is the pressure drop in Pa for a flow of 1.5 m/s in a 20 to 5 cm² narrowing?; 16875; 20; 0.5 ρ (v₂² − v₁²).
+E: What is the final temperature in °C of 200 g at 90 °C mixed with 50 g at 20 °C?; 76; 0.5; Weighted average.
+E: What is the larger eigenvalue of [[4, 1], [2, 3]]?; 5; 0.01; λ² − 7λ + 10 = 0.
+
+**Tomorrow:** multivariable calculus, vector calculus and electrostatics.
+
+CHECK: notes

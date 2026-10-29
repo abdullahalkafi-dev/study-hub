@@ -1,0 +1,174 @@
+@day Week 21 · Day 2 · Tuesday
+# Symmetry, convergence and the Gibbs overshoot. Then: particle machines
+lead: Fourier series come in two flavours: smooth waves, whose harmonics fade quickly, and waves with jumps, whose harmonics fade slowly and leave a stubborn overshoot called the Gibbs phenomenon. You also meet Parseval's identity, which says how a wave's energy is shared among its harmonics. In physics, you put the circular path of a charged particle to work in four machines: the velocity selector, the mass spectrometer, the cyclotron and the Hall sensor.
+
+BN: ফুরিয়ে ধারা দুই রকম: মসৃণ তরঙ্গের হারমোনিক দ্রুত ক্ষীণ হয়; লাফওয়ালা তরঙ্গের ধীরে ক্ষীণ হয় এবং গিবস ঘটনা নামে একগুঁয়ে ওভারশুট থেকে যায়। পার্সেভাল সমীকরণ বলে শক্তি হারমোনিকে কীভাবে ভাগ হয়। পদার্থবিজ্ঞানে চার্জিত কণার বৃত্তপথ চারটা যন্ত্রে কাজে লাগে: বেগ নির্বাচক, ভর বর্ণালীমাপক, সাইক্লোট্রন ও হল সেন্সর।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Find the Fourier series of the square wave of height 1. => **(4 ÷ π)(sin x + sin 3x ÷ 3 + sin 5x ÷ 5 + …)**.
+P: What kind of function has only sine terms? => An **odd** function.
+P: Find the radius of a charge q, mass m, speed v in a field B. => **r = m v ÷ (q B)**.
+P: Does the magnetic force do work? => **No**: it is perpendicular to v.
+P: What is the sum 1 + 1/9 + 1/25 + …? => **π² ÷ 8**.
+
+CHECK: recall
+
+@section math | 2 · Math: symmetry, smoothness and energy | 55 min
+
+### The triangle wave
+Take f (x) = |x| on (−π, π), repeated. It is **even**, so all bₙ = 0 and aₙ = (2 ÷ π) ∫₀^π x cos nx dx. By parts: ∫₀^π x cos nx dx = [x sin nx ÷ n]₀^π − ∫₀^π sin nx ÷ n dx = (cos nπ − 1) ÷ n². So **aₙ = (2 ÷ π)(cos nπ − 1) ÷ n² = −4 ÷ (π n²) for odd n** and 0 for even n. Also a₀ ÷ 2 = π ÷ 2 (the average height). Therefore
+
+EQ: |x| = π ÷ 2 − (4 ÷ π) (cos x + cos 3x ÷ 9 + cos 5x ÷ 25 + …)
+
+**Checks:** at x = 0 the left side is 0, and the right side is π ÷ 2 − (4 ÷ π)(1 + ⅑ + 1 ÷ 25 + …) = π ÷ 2 − (4 ÷ π)(π² ÷ 8) = **0** ✓. At x = π: π ÷ 2 + (4 ÷ π)(π² ÷ 8) = **π** ✓.
+
+### Smooth waves converge fast
+| Wave | Harmonics fall like | Why |
+|---|---|---|
+| Square wave (jumps) | 1 ÷ n | the wave jumps |
+| Triangle wave (corners, no jumps) | 1 ÷ n² | continuous, only the slope jumps |
+| A smooth wave with continuous slope | 1 ÷ n³ or faster | every extra smoothness speeds it up |
+
+Three terms of the triangle series at x = 0 give 0.105 (target 0), six terms give 0.053. The square wave's three terms at x = π ÷ 2 give 1.103 (target 1).
+
+BN: |x| এর ধারা = π/2 − (4/π)(cos x + cos 3x/9 + cos 5x/25 + …); জোড় ফাংশন তাই শুধু cos। মসৃণতা বাড়লে হারমোনিক দ্রুত কমে: লাফ → 1/n, কোণ → 1/n², আরও মসৃণ → 1/n³।
+
+### The Gibbs overshoot
+Near a jump, however many terms you add, the partial sum **overshoots the jump** by about **9% of the jump's height**. For a square wave from −1 to +1 (jump 2), the partial sum's maximum is:
+
+| Terms | 1 | 2 | 3 | 4 | 8 | 50 |
+|---|---|---|---|---|---|---|
+| Maximum | 1.273 | 1.200 | 1.188 | 1.184 | 1.180 | 1.179 |
+
+The limit is **1.179**: an overshoot of 0.179, which is 8.95% of the jump 2. More terms squeeze the overshoot closer to the jump (its width falls as 1 ÷ n) but never lower it. This is real: the ringing near an edge in a JPEG image or in a poorly filtered audio square wave is the Gibbs effect.
+
+### Energy and Parseval's identity
+Since the harmonics are orthogonal, their energies add. For a wave of period 2π:
+
+EQ: (1 ÷ π) ∫ f² dx = a₀² ÷ 2 + Σ (aₙ² + bₙ²)
+
+For the square wave of height 1: the left side is (1 ÷ π) × 2π = **2**, and the right side is Σ over odd n of 16 ÷ (π² n²) = (16 ÷ π²)(π² ÷ 8) = **2** ✓. The share of the energy in the first harmonic is (16 ÷ π²) ÷ 2 = **81.1%**, in the first two (n = 1, 3) **90.1%**, in the first three **93.3%**, in the first five **96.0%** and in the first twelve **98.3%**. So a good recording of the square wave needs only a few harmonics for most of its energy, even though many are needed for its sharp corners.
+
+BN: পার্সেভাল: (1/π)∫f² dx = a₀²/2 + Σ(aₙ² + bₙ²)। বর্গ তরঙ্গে প্রথম হারমোনিকে 81%, প্রথম দুটোতে 90%, তিনটাতে 93%। গিবস: লাফের কাছে যতই পদ যোগ করো, প্রায় 9% ওভারশুট থেকে যায় (সীমা 1.179), শুধু সরু হয়।
+
+### A different period
+For period 2L, replace x by πx ÷ L: f = a₀ ÷ 2 + Σ (aₙ cos (nπx ÷ L) + bₙ sin (nπx ÷ L)) with the coefficients (1 ÷ L) ∫ from −L to L. Example: a 50 Hz square wave of amplitude 1 has period 0.02 s, and its components are at **50 Hz (1.273), 150 Hz (0.424), 250 Hz (0.255), …**
+
+EX: How many harmonics does an 8 V square wave need?
+A square wave of amplitude 8 V at 1 kHz (jump 16 V).
+1. **Harmonics:** amplitudes (4 ÷ π) × 8 ÷ n = 10.19 V at 1 kHz, 3.40 V at 3 kHz, 2.04 V at 5 kHz, 1.46 V at 7 kHz.
+2. **Energy:** the first three components (1, 3, 5 kHz) carry 93.3% of the energy.
+3. **Gibbs:** with an amplifier cut off at 9 kHz (5 harmonics), the top overshoots to about 8 × 1.18 = **9.4 V** for a moment on each edge.
+4. **Bandwidth rule:** an amplifier for square waves needs a bandwidth of at least 10 to 20 times the wave's frequency, which is why a good oscilloscope specification says so.
+/EX
+
+LAB: The Gibbs overshoot | Choose how many odd harmonics to add (1 to 12). The graph zooms in on the jump at x = 0 so that you can watch the overshoot stay near 1.18 as the sum sharpens. The numbers give the share of the wave's energy in the harmonics you added. | n:Number of harmonics:1:12:1:5 | 100*8/pi^2*((n>0)*1+(n>1)/9+(n>2)/25+(n>3)/49+(n>4)/81+(n>5)/121+(n>6)/169+(n>7)/225+(n>8)/289+(n>9)/361+(n>10)/441+(n>11)/529):Energy share (percent):2 ;; 2*n-1:Highest harmonic:0 ;; 4/(pi*(2*n-1)):Amplitude of the last harmonic:3 | 4/pi*((n>0)*sin(x)+(n>1)*sin(3*x)/3+(n>2)*sin(5*x)/5+(n>3)*sin(7*x)/7+(n>4)*sin(9*x)/9+(n>5)*sin(11*x)/11+(n>6)*sin(13*x)/13+(n>7)*sin(15*x)/15+(n>8)*sin(17*x)/17+(n>9)*sin(19*x)/19+(n>10)*sin(21*x)/21+(n>11)*sin(23*x)/23) ;; 1.179 ;; 1 | -0.4,1.6 | -0.3,1.5
+
+LAB: The triangle wave converges fast | Choose how many odd harmonics to add (1 to 6). The graph shows the sum against the target triangle wave. Compare with the square wave: the triangle needs far fewer terms. | k:Number of harmonics:1:6:1:2 | 3.14159/2-4/pi*((k>0)*1+(k>1)/9+(k>2)/25+(k>3)/49+(k>4)/81+(k>5)/121):Sum at x = 0 (target 0):4 ;; 3.14159/2+4/pi*((k>0)*1+(k>1)/9+(k>2)/25+(k>3)/49+(k>4)/81+(k>5)/121):Sum at x = pi (target 3.1416):4 | 3.14159/2-4/pi*((k>0)*cos(x)+(k>1)*cos(3*x)/9+(k>2)*cos(5*x)/25+(k>3)*cos(7*x)/49+(k>4)*cos(9*x)/81+(k>5)*cos(11*x)/121) ;; abs(x) | -3.14,3.14 | -0.2,3.6
+
+TRAP: The Gibbs overshoot is **not** an error that vanishes with more terms: it stays near 9% of the jump. But the area of the overshoot shrinks, so the series still converges in the energy sense. For Parseval use the **squares** of the coefficients (aₙ² + bₙ²), not their sum. And check the symmetry first: a function that is even about x = 0 has no sines, but a function that is odd about x = 0 has no cosines and no constant.
+
+### Quick self-check
+QUIZ:
+Q: The triangle wave |x| has harmonics falling like…; 1 ÷ n; 1 ÷ n²; 1 ÷ n³; e^(−n); 2; Only the slope jumps.
+Q: The Gibbs overshoot of a square wave from −1 to 1 tends to…; 1.0; 1.09; 1.179; 1.5; 3; About 9% of the jump.
+Q: By Parseval the first harmonic of the square wave carries…; 50% of the energy; 81% of the energy; 100%; 25%; 2; (16 ÷ π²) ÷ 2.
+Q: A function even about x = 0 has…; only sines; only cosines (and a constant); both; none; 2; b_n = 0.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find a₁ for the triangle wave |x|. => **−4 ÷ π = −1.273**.
+P: Find a₂ for the triangle wave. => **0**.
+P: Find the constant term a₀ ÷ 2 of |x|. => **π ÷ 2**.
+LVL: Level 2 | Apply
+P: Find a₃ for the triangle wave. => −4 ÷ (9π) = **−0.1415**.
+P: Show that the triangle series gives 0 at x = 0. => **π ÷ 2 − (4 ÷ π)(π² ÷ 8) = 0**.
+P: Find the energy share of the first two harmonics of a square wave. => **90.1%**.
+P: Find the three lowest components (frequency and amplitude) of a 1 kHz square wave of amplitude 8 V. => **1 kHz 10.19 V, 3 kHz 3.40 V, 5 kHz 2.04 V**.
+P: Estimate the top of the overshoot for an 8 V square wave after the 9 kHz cut-off. => about **9.4 V**.
+P: State Parseval for the triangle wave and check the first term. => (1 ÷ π) ∫ x² dx over (−π, π) = 2π² ÷ 3 = 6.58. The series gives a₀²/2 = π²/2 = 4.93 plus the first harmonic 16 ÷ π² = 1.62, a total of **6.55**, and the rest fills the last 0.02.
+LVL: Level 3 | Real
+P: A musical note has harmonics with amplitudes 1, 0.5, 0.33, 0.25 (all of the same sign, a sawtooth). Find the share of the energy of the fundamental. => Powers 1, 0.25, 0.111, 0.0625 sum to 1.424, so the fundamental is **70.2%**.
+LVL: Challenge | Sum of the squares from Parseval
+P: Use Parseval for f (x) = x on (−π, π) (bₙ = 2 (−1)^(n+1) ÷ n) to find Σ 1 ÷ n². => (1 ÷ π) ∫ x² dx = 2π² ÷ 3 = Σ 4 ÷ n². So Σ 1 ÷ n² = **π² ÷ 6**: the Basel problem, answered in one line.
+
+CHECK: math
+
+@section physics | 3 · Physics: velocity selector, mass spectrometer, cyclotron, Hall sensor | 35 min
+
+### Four machines from one equation
+**Velocity selector.** A beam passes between crossed electric and magnetic fields, E and B at right angles. Only particles with q E = q v B go straight: **v = E ÷ B**, independent of charge and mass.
+
+**Mass spectrometer.** Ions of charge q and mass m are accelerated through a voltage V (q V = ½ m v²), then bent in a field B: r = m v ÷ (q B). So **r = (1 ÷ B) √(2 m V ÷ q)**: for the same q and V, **r ∝ √m**. Landing positions sort the ions by mass.
+
+**Cyclotron.** Charges go round in two D-shaped hollow electrodes; the voltage between them flips at the frequency **f = q B ÷ (2π m)**, so the particle is pushed forward at every crossing. The radius grows, the final speed is **v = q B R ÷ m** at the outer radius R.
+
+**Hall sensor.** A current I flows along a thin strip of thickness t. A field B across the strip pushes the charge carriers sideways, building up a voltage **V_H = I B ÷ (n q t)**, where n is the density of carriers. It measures magnetic fields, and tells you whether the carriers are positive or negative.
+
+BN: বেগ নির্বাচক: qE = qvB, v = E/B। ভর বর্ণালীমাপক: V দিয়ে ত্বরণ, তারপর B তে বাঁক: r = (1/B)√(2mV/q), r ∝ √m। সাইক্লোট্রন: f = qB/(2πm), শেষ বেগ v = qBR/m। হল সেন্সর: V_H = IB/(nqt), পাতলা পাতে কারেন্ট আর আড়াআড়ি B থেকে পাশে ভোল্টেজ।
+
+EX: Sorting carbon isotopes
+Singly charged ions ¹²C⁺ and ¹⁴C⁺ are accelerated through 2000 V and enter B = 0.5 T.
+1. **Speed of ¹²C⁺:** v = √(2 × 1.602 × 10⁻¹⁹ × 2000 ÷ (12 × 1.6605 × 10⁻²⁷)) = **1.79 × 10⁵ m/s**. For ¹⁴C⁺ it is **1.66 × 10⁵ m/s**.
+2. **Radii:** r = m v ÷ (q B): **4.46 cm** for ¹²C⁺ and **4.82 cm** for ¹⁴C⁺. The ratio is √(14 ÷ 12) = **1.080** ✓.
+3. **Separation:** the two spots are **3.6 mm** apart. A mass spectrometer in an archaeology lab counts ¹⁴C atoms in a sample this way, which gives the age of ancient wood or bone.
+/EX
+
+EX: A velocity selector, a cyclotron and a Hall strip
+1. **Velocity selector:** E = 5 × 10⁴ V/m and B = 0.1 T: v = **5 × 10⁵ m/s**. Faster particles feel more magnetic force and bend one way, slower ones the other way.
+2. **Cyclotron for protons in 1.5 T:** f = 1.602 × 10⁻¹⁹ × 1.5 ÷ (2π × 1.673 × 10⁻²⁷) = **22.9 MHz**. With a dee radius R = 0.5 m the final speed is v = q B R ÷ m = **7.2 × 10⁷ m/s** (0.24 c), the kinetic energy is about **26.9 MeV** (relativistically 26.5 MeV, as γ = 1.03). With 50 kV between the dees, each turn adds 100 keV, so about **269 turns** are needed. The frequency stays fixed because the period does not depend on the speed, until the mass increase at high speed (relativity, Week 31) spoils the match.
+3. **Hall strip:** copper (n = 8.5 × 10²⁸ m⁻³), t = 0.1 mm, I = 10 A and B = 1 T: V_H = 10 × 1 ÷ (8.5 × 10²⁸ × 1.602 × 10⁻¹⁹ × 10⁻⁴) = **7.3 μV**: tiny, since a metal has a huge n. A semiconductor with n = 10²² m⁻³ and I = 1 mA gives V_H = **6.2 mV**: this is why Hall sensors are made of semiconductors. They sit in phones (compass), in cars (wheel speed, crankshaft position) and in current clamps.
+/EX
+
+LAB: A mass spectrometer | Choose the accelerating voltage, the field, and the ion mass in atomic mass units (charge one e). The graph shows where ions of each mass land: the radius grows as the square root of the mass. The numbers give the speed and the radius for the chosen mass. | V:Voltage (V):500:5000:100:2000 ;; B:Field B (T):0.1:1:0.05:0.5 ;; m:Ion mass (u):1:60:1:12 | 13891*sqrt(V/m):Speed (m per s):0 ;; 0.014398*sqrt(m*V)/B:Radius (cm):2 ;; 0.014398*(sqrt(14*V)-sqrt(12*V))/B*10:Gap between mass 12 and mass 14 (mm):2 | 0.014398*sqrt(x*V)/B | 1,60 | 0,40
+
+LAB: A Hall sensor | Choose the current, the field, the carrier density in units of 10 to the 22 per cubic metre and the strip thickness. The graph shows the Hall voltage against the field. | I:Current (mA):0.1:5:0.1:1 ;; B:Field B (T):0.1:2:0.1:0.5 ;; n:Carriers (10 to the 22 per m cubed):0.1:100:0.1:1 ;; t:Thickness (micrometre):10:500:10:100 | 624.2*I*B/(n*t):Hall voltage (mV):3 ;; 624.2*I/(n*t):Sensitivity (mV per T):3 | 624.2*I*x/(n*t) | 0,2 | 0,30
+
+TRAP: A velocity selector selects speed only: charge and mass cancel. In a mass spectrometer r ∝ √m, not m, because the speed also depends on m. The cyclotron frequency does not depend on the radius or the speed, only on q B ÷ m. And the Hall voltage is larger when n is smaller, so use a semiconductor for a sensor.
+
+### Quick self-check
+QUIZ:
+Q: A velocity selector passes particles with speed…; E × B; E ÷ B; B ÷ E; q E; 2; q E = q v B.
+Q: For the same V and B, an ion four times heavier has a radius…; 4 times larger; 2 times larger; 16 times larger; the same; 2; r ∝ √m.
+Q: The cyclotron frequency of a proton depends on…; the radius; the speed; B only (for a fixed particle); the voltage; 3; f = q B ÷ (2π m).
+Q: A small Hall voltage means…; large n; small n; a large current; a large field; 1; V_H ∝ 1 ÷ n.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find v for E = 5 × 10⁴ V/m and B = 0.1 T. => **5 × 10⁵ m/s**.
+P: Find f for a proton in 1.5 T. => **22.9 MHz**.
+P: Find the radius ratio for masses 12 and 14. => √(14 ÷ 12) = **1.080**.
+LVL: Level 2 | Apply
+P: Find the speed of ¹²C⁺ after 2000 V. => **1.79 × 10⁵ m/s**.
+P: Find the radius of ¹²C⁺ in 0.5 T. => **4.46 cm**.
+P: Find the spot separation of ¹²C⁺ and ¹⁴C⁺. => **3.6 mm**.
+P: Find the final proton speed for a dee radius of 0.5 m in 1.5 T. => **7.2 × 10⁷ m/s**.
+P: Find the number of turns with 50 kV between the dees for 26.9 MeV. => 26.9 MeV ÷ 0.1 MeV = **269**.
+P: Find V_H for copper (n = 8.5 × 10²⁸) with t = 0.1 mm, I = 10 A and B = 1 T. => **7.3 μV**.
+LVL: Level 3 | Real
+P: A Hall sensor in a car's wheel has a semiconductor strip (n = 10²² m⁻³, t = 100 μm) carrying I = 1 mA. A gear tooth changes the field at the sensor from 0.05 T to 0.5 T. Find the change in V_H. => V_H = 624.2 I B ÷ (n t) mV with I = 1 mA, n = 1 (in 10²² m⁻³) and t = 100 μm: **0.31 mV at 0.05 T and 3.12 mV at 0.5 T**, a change of **2.8 mV**, which the electronics reads as a pulse.
+LVL: Challenge | Isotope separation
+P: Uranium ions ²³⁵U⁺ and ²³⁸U⁺ are accelerated through 20 kV and bent in B = 0.5 T. Find the two radii and the separation. => r = 0.014398 √(m V) ÷ B cm: for 235: √(235 × 20000) = 2168 so r = 0.014398 × 2168 ÷ 0.5 = **62.4 cm**. For 238: √(238 × 20000) = 2181.7 so r = **62.8 cm**. The separation is **0.4 cm**, tiny, so isotope separation by this method is slow, which is why enrichment is hard.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- |x| = π ÷ 2 − (4 ÷ π) Σ cos ((2k − 1) x) ÷ (2k − 1)². Even gives cosines. Smoothness sets the fall of harmonics (1 ÷ n, 1 ÷ n², …). Gibbs: 9% overshoot stays (1.179 for a ±1 square wave). Parseval: (1 ÷ π) ∫ f² = a₀²/2 + Σ (aₙ² + bₙ²); the first harmonic carries 81% of a square wave's energy.
+- Velocity selector v = E ÷ B. Mass spectrometer r = (1 ÷ B) √(2 m V ÷ q), r ∝ √m. Cyclotron f = q B ÷ (2π m), v = q B R ÷ m. Hall voltage V_H = I B ÷ (n q t).
+
+BN: আজকের সারকথা: |x| এর cos ধারা; মসৃণতা হারমোনিকের হ্রাস ঠিক করে; গিবস 9% ওভারশুট থেকে যায়; পার্সেভালে বর্গ যোগ হয়। যন্ত্র: v = E/B; r ∝ √m; f = qB/(2πm); V_H = IB/(nqt)।
+
+EXIT:
+E: What is the speed in 10⁵ m/s of a selected particle for E = 5 × 10⁴ V/m and B = 0.1 T?; 5; 0.1; E ÷ B.
+E: What is the radius in cm of ¹²C⁺ accelerated by 2000 V in 0.5 T? Give 2 decimals.; 4.46; 0.01; (1 ÷ B) √(2 m V ÷ q).
+E: What percent of a square wave's energy is in its first harmonic? Give the nearest whole number.; 81; 1; (16 ÷ π²) ÷ 2.
+
+**Tomorrow:** more Fourier (complex form, spectrum, filtering) and the force on a current-carrying wire, and the field of a wire (Biot-Savart).
+
+CHECK: notes

@@ -1,0 +1,155 @@
+@day Week 22 · Day 1 · Monday
+# The Fourier transform: spectra for signals that do not repeat. Then: Faraday's law of induction
+lead: A Fourier series needs a wave that repeats. A single click, a radar pulse, a spoken word or one flash of light does not repeat, yet it still has a spectrum. The Fourier transform is what you get when you let the period of a Fourier series grow to infinity. It leads to one of the deepest rules in science: the shorter a signal in time, the wider its spread in frequency. In physics, the magnetic field now works the other way round. A changing magnetic field creates an electric field, which is Faraday's law, and it is how every generator, transformer and induction cooker works. The story of this week is the power station.
+
+BN: ফুরিয়ে ধারার জন্য পুনরাবৃত্ত তরঙ্গ লাগে। একটা ক্লিক, রাডার পালস, একটা কথা বা এক ঝলক আলো পুনরাবৃত্ত নয়, তবু তার বর্ণালী আছে। ফুরিয়ে রূপান্তর হলো ফুরিয়ে ধারার পর্যায়কাল অসীমে নিলে যা পাওয়া যায়। এর ফল বিজ্ঞানের গভীর নিয়ম: সংকেত সময়ে যত ছোট, কম্পাঙ্কে তত চওড়া। পদার্থবিজ্ঞানে এবার উল্টো দিক: বদলানো চৌম্বক ক্ষেত্র বৈদ্যুতিক ক্ষেত্র বানায়, এটাই ফ্যারাডের সূত্র; জেনারেটর, ট্রান্সফর্মার ও ইনডাকশন কুকার এভাবেই চলে। এই সপ্তাহের গল্প বিদ্যুৎকেন্দ্র।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: Write the complex Fourier coefficient cₙ of a function of period 2π. => **cₙ = (1 ÷ 2π) ∫ f e^(−inx) dx**.
+P: For the pulse train of duty d, what is cₙ? => **sin (n π d) ÷ (n π)**.
+P: What is the gain of an RC low-pass at its cut-off frequency? => **0.707**.
+P: What is the magnetic force on a charge q at speed v in a field B? => **q v B sin θ**.
+P: What is the voltage across an inductor? => **L dI/dt**.
+
+CHECK: recall
+
+@section math | 2 · Math: the Fourier transform | 55 min
+
+### From a series to an integral
+Write the complex series for a function with period 2L. The frequencies are ωₙ = nπ ÷ L, spaced by Δω = π ÷ L, and cₙ = (1 ÷ 2L) ∫ f e^(−iωₙx) dx. Define F (ω) = ∫ f (t) e^(−iωt) dt over all t. Then cₙ = F (ωₙ) ÷ 2L and
+
+f = Σ cₙ e^(iωₙ t) = Σ F (ωₙ) e^(iωₙ t) Δω ÷ 2π.
+
+Let L → ∞: the spacing Δω → 0 and the sum becomes an integral. The result is the **Fourier transform pair**
+
+EQ: F (ω) = ∫ f (t) e^(−iωt) dt, f (t) = (1 ÷ 2π) ∫ F (ω) e^(iωt) dω (both over all values)
+
+|F (ω)| tells how much of each frequency the signal contains. Compare with the Laplace transform of Week 20: for a signal that starts at t = 0, putting s = iω in the Laplace transform gives the Fourier transform.
+
+BN: ফুরিয়ে রূপান্তর: F(ω) = ∫ f(t)e^(−iωt) dt, f(t) = (1/2π)∫ F(ω)e^(iωt) dω। পর্যায়কাল অসীম হলে কম্পাঙ্কের ফাঁক শূন্য হয় আর যোগফল সমাকলন হয়ে যায়। |F(ω)| = প্রতিটা কম্পাঙ্ক কতটা। ল্যাপলাসে s = iω বসালে (যে সংকেত t = 0 তে শুরু) ফুরিয়ে রূপান্তর পাওয়া যায়।
+
+### Three pairs to know
+- **A rectangular pulse** f = 1 for |t| < a and 0 elsewhere: F (ω) = ∫₋ₐᵃ e^(−iωt) dt = **2 sin (aω) ÷ ω** = 2a × sinc (aω), where sinc (x) = sin x ÷ x. At ω = 0 it equals the area 2a. It first reaches zero at **ω = π ÷ a**, which is a frequency **f = 1 ÷ (2a) = 1 ÷ (the pulse duration)**.
+- **A decaying exponential** f = e^(−at) for t > 0: F (ω) = **1 ÷ (a + iω)**, so |F| = 1 ÷ √(a² + ω²): the same shape as the RC low-pass filter's response. The −3 dB point is at ω = a.
+- **A Gaussian** f = e^(−t²÷2σ²): F (ω) = σ √(2π) e^(−σ²ω²÷2): **a Gaussian again**. A narrow Gaussian in time (small σ) is a wide Gaussian in frequency (width 1 ÷ σ).
+- Also: **δ (t) ↔ 1** (a sharp click contains every frequency equally) and **1 ↔ 2π δ (ω)** (a constant has only zero frequency).
+
+EX: Pulses and bandwidth
+1. **A 2 ms rectangular pulse** (a = 1 ms): F (0) = 2a = **2 × 10⁻³** (the area). The first zero is at ω = π ÷ a = **3142 rad/s**, which is **500 Hz** = 1 ÷ 2 ms. So most of the energy lies below 500 Hz.
+2. **A radar pulse of 1 μs duration:** the first zero is at 1 ÷ 1 μs = **1 MHz**, so a radar receiver needs a bandwidth of about 1 MHz. A shorter pulse gives better range resolution (c × duration ÷ 2 = 150 m for 1 μs), but needs more bandwidth. This is the trade-off in all radar design.
+3. **Series and transform agree.** For a pulse train of period T the series coefficient is cₙ = (1 ÷ T) F (n ω₀). With T = 8a (duty 0.25): cₙ = (1 ÷ 8a) × 2 sin (n ω₀ a) ÷ (n ω₀) = sin (n π ÷ 4) ÷ (n π) ✓ Day 3 of last week.
+4. **The exponential pulse** with a = 1000 s⁻¹: |F| = 1 ÷ √(1000² + ω²). At ω = 1000 it is 7.07 × 10⁻⁴ (down to 0.707 of F (0) = 10⁻³). The frequency is 1000 ÷ 2π = **159 Hz**, the same as an RC filter with R C = 1 ms (Week 20): the impulse response of an RC low-pass is exactly this exponential.
+5. **Gaussian:** a pulse of width σ = 1 ms has spectral width 1 ÷ σ = 1000 rad/s. Halve σ and the spectral width doubles.
+/EX
+
+### The duration–bandwidth rule
+For any signal, if its spread in time is Δt and its spread in angular frequency is Δω (both measured as standard deviations of the energy), then **Δt × Δω ≥ ½**, with equality only for the Gaussian. A short pulse **must** be wide in frequency, and a pure note **must** last a while. This is the same mathematics as Heisenberg's uncertainty principle in quantum mechanics (Week 29): a particle localised in position has a spread of wavelengths, which means a spread of momentum.
+
+LAB: Pulse and its spectrum | Choose the half-width of a rectangular pulse in milliseconds. The graph shows its spectrum, 2 sin(a w) over w, against angular frequency in radians per millisecond. A narrower pulse spreads out. The numbers give the first zero and the pulse bandwidth. | a:Half-width a (ms):0.2:5:0.1:1 | 2*a:Spectrum at zero frequency (area):2 ;; 1000/(2*a):First zero (Hz):0 ;; pi/a:First zero (rad per ms):3 | 2*sin(a*x)/x | 0.01,10 | -1.2,5
+
+LAB: Time against frequency spread | A Gaussian pulse in time (blue) and its spectrum (orange). Choose the width sigma in milliseconds. Making the pulse narrower makes the spectrum wider, and the product of the two widths stays fixed. | s:Width sigma (ms):0.3:3:0.1:1 | s:Time width sigma (ms):2 ;; 1/s:Spectrum width (rad per ms):2 ;; 2.355*s:Full width at half height in time (ms):2 | exp(0-x^2/(2*s^2)) ;; exp(0-s^2*x^2/2) | -6,6 | 0,1.1
+
+TRAP: The transform has e^(−iωt) in the forward direction and the factor 1 ÷ 2π in the **inverse** one (other books move the 2π around, so always check the convention). sinc (x) = sin x ÷ x equals 1 at x = 0, not 0 ÷ 0. The first zero of a pulse's spectrum is at f = 1 ÷ (pulse duration), not 1 ÷ a (a is the half-width). A signal cannot be short in both time and frequency.
+
+### Quick self-check
+QUIZ:
+Q: The Fourier transform of a very short click contains…; one frequency; every frequency about equally; no frequency; only low frequencies; 2; δ ↔ 1.
+Q: The first zero of the spectrum of a 2 ms rectangular pulse is at…; 250 Hz; 500 Hz; 1 kHz; 2 kHz; 2; 1 ÷ duration.
+Q: A Gaussian pulse has a spectrum that is…; a pulse; a Gaussian; a sine; zero; 2; Gaussian ↔ Gaussian.
+Q: Halving the duration of a pulse makes its bandwidth…; halve; stay the same; double; vanish; 3; Duration × bandwidth is fixed.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find F (0) for a rectangular pulse of height 1 and half-width 1 ms. => The area: **2 × 10⁻³**.
+P: Find the first zero (Hz) of a 2 ms pulse. => **500 Hz**.
+P: Find the −3 dB frequency of e^(−1000 t). => **159 Hz**.
+LVL: Level 2 | Apply
+P: Find the first zero of the spectrum of a 1 μs pulse. => **1 MHz**.
+P: Find the range resolution of a 1 μs radar pulse. => c t ÷ 2 = 3 × 10⁸ × 10⁻⁶ ÷ 2 = **150 m**.
+P: Find F (ω) for f (t) = e^(−3t), t > 0, and |F| at ω = 4. => F = 1 ÷ (3 + 4i), |F| = **1/5 = 0.2**.
+P: Find the Fourier transform of 3 e^(−2t) (t > 0). => **3 ÷ (2 + iω)**.
+P: How does the spectral width change if σ of a Gaussian pulse is doubled? => **Halves** (width 1 ÷ σ).
+P: Find F (ω) for a rectangular pulse of half-width a = 2 at ω = π ÷ 4. => 2 sin (2 × π ÷ 4) ÷ (π ÷ 4) = 2 × 1 ÷ 0.785 = **2.55**.
+LVL: Level 3 | Real
+P: An audio engineer records a drum click of duration 0.2 ms. Estimate its bandwidth and compare it with the human hearing range of 20 kHz. => The first spectral zero for a pulse of duration 0.2 ms is at 1 ÷ 0.2 ms = **5 kHz**, and the pulse has significant content up to a few times that. So a click is a broadband sound, and it is heard as a sharp "tick", with most of its energy within the hearing range.
+LVL: Challenge | The area under the spectrum
+P: Show that ∫ F (ω) dω = 2π f (0). => From the inverse formula at t = 0: f (0) = (1 ÷ 2π) ∫ F (ω) dω. **So the area under the spectrum is 2π times the value of the signal at t = 0**: for the rectangular pulse, ∫ 2 sin (aω) ÷ ω dω = 2π, since f (0) = 1.
+
+CHECK: math
+
+@section physics | 3 · Physics: Faraday's law of induction | 35 min
+
+### A changing field makes an electric field
+The **magnetic flux** through a loop is the field passing through its area:
+
+EQ: Φ = ∫ **B** · d**A** = B A cos θ (a uniform field), measured in **webers** (1 Wb = 1 T m²)
+
+**Faraday's law:** the EMF induced in a loop (or coil of N turns) is
+
+EQ: ε = −N dΦ/dt
+
+The minus sign is **Lenz's law**: the induced current flows in the direction that **opposes the change** in flux. Any change in flux creates an EMF: a changing B, a changing area, or a changing angle. The induced electric field is not conservative: ∮ **E** · d**l** = −dΦ/dt (Maxwell's third equation, see Day 4).
+
+BN: চৌম্বক ফ্লাক্স Φ = BA cos θ (ওয়েবার, 1 Wb = 1 T m²)। ফ্যারাডের সূত্র: ε = −N dΦ/dt। ঋণাত্মক চিহ্ন = লেঞ্জের সূত্র: আবিষ্ট কারেন্ট পরিবর্তনের বিরোধিতা করে। B, ক্ষেত্রফল বা কোণ যেকোনোটা বদলালেই EMF।
+
+EX: Induced EMF
+1. **A coil in a changing field:** N = 200 turns, each of area 0.02 m². B rises from 0 to 0.5 T in 0.1 s. The flux change per turn is 0.02 × 0.5 = 0.01 Wb. ε = 200 × 0.01 ÷ 0.1 = **20 V** (a single turn would give 0.1 V).
+2. **A fast switch-off:** N = 500 turns of radius 2 cm (A = 1.257 × 10⁻³ m²), B falls from 0.8 T to 0 in 20 ms: ε = 500 × 1.257 × 10⁻³ × 0.8 ÷ 0.02 = **25.1 V**.
+3. **Flux through the Earth's field:** a 0.5 m² loop in 50 μT perpendicular to the loop: Φ = **25 μWb**.
+4. **Direction (Lenz):** push the north pole of a bar magnet towards a coil. The flux through the coil increases, so the coil makes a current whose own field **points against** the magnet, repelling it. Pull the magnet away and the coil attracts it. You always **work against** the induced current, and that work becomes the electrical energy.
+5. **A magnet in an aluminium tube:** the falling magnet induces circular currents in the tube; their field opposes its fall, so it drops slowly: a free demonstration of Lenz's law and of braking by eddy currents (used in trains and roller-coaster brakes).
+6. **An induction cooker:** a coil under the glass carries 25 kHz current, creating B (t) = B₀ sin ωt with B₀ = 20 mT. A pan acts as a loop with area A = 0.0314 m² (radius 10 cm). The peak EMF around the pan is ω B₀ A = 2π × 25,000 × 0.02 × 0.0314 = **98.7 V**, which drives large currents round the (low-resistance) pan: the pan itself heats and the glass stays cool.
+/EX
+
+LAB: Average EMF of a coil | Choose the turns, the area and the change of field in the time given. The graph shows the EMF against the time of the change: faster changes give larger EMF. | N:Turns N:1:500:1:200 ;; A:Area (cm squared):10:500:10:200 ;; dB:Change of field (T):0.1:2:0.1:0.5 ;; dt:Time of the change (ms):10:500:10:100 | N*A*0.0001*dB/(dt*0.001):Average EMF (V):2 ;; A*0.0001*dB:Flux change per turn (Wb):4 | N*A*0.0001*dB/(x*0.001) | 10,500 | 0,600
+
+LAB: Alternating field | A field B0 sin(wt) through a coil gives an EMF of N A B0 w cos(wt). Choose the turns, area, peak field and frequency. The graph shows the EMF over 40 milliseconds. | N:Turns N:10:500:10:100 ;; A:Area (cm squared):10:200:10:50 ;; B0:Peak field (mT):1:100:1:20 ;; f:Frequency (Hz):10:200:5:50 | N*A*0.0001*B0*0.001*2*pi*f:Peak EMF (V):2 ;; N*A*0.0001*B0*0.001*2*pi*f/sqrt(2):RMS EMF (V):2 | N*A*0.0001*B0*0.001*2*pi*f*cos(2*pi*f*x*0.001) | 0,40 | -150,150
+
+TRAP: An EMF needs a **change** of flux: a steady field through a steady loop gives zero. The EMF is proportional to the **rate** of change, so a slow change gives a small EMF. For N turns, multiply by N. The minus sign does not mean the EMF is negative in size: it tells the direction (opposing the change). Lenz's law is conservation of energy: if the induced current helped the change, you would create energy from nothing.
+
+### Quick self-check
+QUIZ:
+Q: The unit of magnetic flux is…; tesla; weber; henry; volt; 2; 1 Wb = 1 T m².
+Q: A steady magnetic field through a stationary loop induces…; a large EMF; a small EMF; no EMF; infinite EMF; 3; dΦ/dt = 0.
+Q: A coil of 200 turns sees the flux change by 0.01 Wb in 0.1 s. The EMF is…; 0.1 V; 2 V; 20 V; 200 V; 3; N ΔΦ ÷ Δt.
+Q: Lenz's law says the induced current…; helps the change; opposes the change; is zero; is constant; 2; Conservation of energy.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find Φ for B = 0.5 T through 0.02 m² (perpendicular). => **0.01 Wb**.
+P: Find the EMF of one turn when it changes in 0.1 s. => **0.1 V**.
+P: Find the EMF of 200 turns. => **20 V**.
+LVL: Level 2 | Apply
+P: Find the flux through a coil of 0.04 m² at 60° to a 0.3 T field. => B A cos 60° = 0.3 × 0.04 × 0.5 = **0.006 Wb**.
+P: Find the EMF of 500 turns (A = 1.257 × 10⁻³ m²) as B falls from 0.8 T to 0 in 20 ms. => **25.1 V**.
+P: Find the peak EMF of 100 turns of 50 cm² in B₀ = 20 mT at 50 Hz. => N A B₀ ω = 100 × 0.005 × 0.02 × 314.2 = **3.14 V**.
+P: Find its RMS value. => **2.22 V**.
+P: Find the EMF peak for the pan of the cooker. => **98.7 V**.
+P: A circular loop of radius 5 cm sits in a field that grows at 0.2 T/s. Find the EMF. => A = π × 0.0025 = 7.85 × 10⁻³ m², so ε = 7.85 × 10⁻³ × 0.2 = **1.57 mV**.
+LVL: Level 3 | Real
+P: A bicycle dynamo is a coil of 300 turns, each of area 4 cm², turning in a 0.2 T field at 1500 rpm. Find the peak EMF. (Peak = N B A ω, from the next day.) => ω = 1500 × 2π ÷ 60 = 157.1 rad/s, so ε₀ = 300 × 0.2 × 4 × 10⁻⁴ × 157.1 = **3.77 V peak** (2.7 V RMS).
+LVL: Challenge | Direction by Lenz
+P: A square loop lies in the page and a magnetic field points into the page and is getting weaker. In which direction does the induced current flow? => The flux into the page decreases, so the induced field must also point **into the page** to oppose the decrease. A field into the page is made by a **clockwise** current (right-hand rule).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fourier transform: F (ω) = ∫ f (t) e^(−iωt) dt and f (t) = (1 ÷ 2π) ∫ F e^(iωt) dω. Rectangular pulse: F = 2 sin (aω) ÷ ω, first zero at f = 1 ÷ duration. Exponential: 1 ÷ (a + iω). Gaussian ↔ Gaussian. δ ↔ 1. Short in time means wide in frequency: Δt Δω ≥ ½.
+- Φ = B A cos θ (Wb). Faraday: ε = −N dΦ/dt; Lenz: the current opposes the change. Peak EMF in B₀ sin ωt: N A B₀ ω.
+
+BN: আজকের সারকথা: ফুরিয়ে রূপান্তর F(ω) = ∫ f e^(−iωt) dt; আয়তাকার পালসের F = 2 sin(aω)/ω; প্রথম শূন্য f = 1/সময়কাল; সময়ে ছোট = কম্পাঙ্কে চওড়া। Φ = BA cos θ; ফ্যারাডে ε = −N dΦ/dt; লেঞ্জ: পরিবর্তনের বিরোধিতা।
+
+EXIT:
+E: What is the first zero in Hz of the spectrum of a 2 ms pulse?; 500; 1; 1 ÷ duration.
+E: What is the EMF in volts of 200 turns of 0.02 m² when B rises 0.5 T in 0.1 s?; 20; 0.1; N A ΔB ÷ Δt.
+E: What is the peak EMF in volts of 100 turns of 50 cm² in B₀ = 20 mT at 50 Hz? Give 2 decimals.; 3.14; 0.01; N A B₀ ω.
+
+**Tomorrow:** properties of the Fourier transform (shift, scaling, derivative), and motional EMF and generators.
+
+CHECK: notes

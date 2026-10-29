@@ -1,0 +1,174 @@
+@day Week 20 · Day 5 · Friday
+# Frequency response and numerical modelling. Then: series RLC on AC, resonance and tuning a radio
+lead: This is the day the week's story comes together. A radio picks one station out of thousands because a circuit made of a coil, a capacitor and a resistor responds sharply to one frequency and ignores the others. In maths, the tool that describes this is the frequency response: put s = iω into the transfer function and read off the gain. You also see numerical methods at work on a real problem, a ball moving through air, which has no formula answer, and discover that the best throwing angle is not 45°.
+
+BN: আজ সপ্তাহের গল্প মেলে। রেডিও হাজারটা স্টেশন থেকে একটাকে বেছে নেয় কারণ কয়েল, ক্যাপাসিটর ও রোধের একটা বর্তনী এক কম্পাঙ্কে তীব্রভাবে সাড়া দেয়, বাকিগুলোতে নয়। গণিতে এর বর্ণনা কম্পাঙ্ক সাড়া: ট্রান্সফার ফাংশনে s = iω বসিয়ে গেইন পড়ো। আর বাতাসে বলের গতি, যার সূত্র নেই, সংখ্যায় সমাধান করে দেখবে সেরা কোণ 45° নয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: What is the impedance of R in series with X? => **√(R² + X²)**.
+P: Write X_L and X_C. => **X_L = ωL** and **X_C = 1 ÷ (ωC)**.
+P: Find the resonant frequency of an LC circuit. => **f₀ = 1 ÷ (2π √(LC))**.
+P: How many slopes does RK4 use per step? => **4**.
+P: What is the overshoot formula? => **e^(−πζ ÷ √(1 − ζ²))**.
+
+CHECK: recall
+
+@section math | 2 · Math: frequency response and a numerical experiment | 50 min
+
+### From the transfer function to the frequency response
+Push a stable system with a sine of frequency ω: after the start-up has died away, the output is also a sine of the same frequency. Its size and delay are given by **H (iω)**: the **gain** is |H (iω)| and the **phase shift** is the angle of H (iω). Gain is often written in **decibels: 20 log₁₀ |H|**; a drop of 3 dB means the amplitude fell to 1 ÷ √2 = 0.707.
+
+**First example: the RC low-pass filter** (the resistor then the capacitor): H (s) = 1 ÷ (1 + R C s). Put s = iω:
+
+EQ: |H (iω)| = 1 ÷ √(1 + (ω R C)²), phase = −atan (ω R C)
+
+The **cut-off frequency** is where ω R C = 1: **f_c = 1 ÷ (2π R C)**. There the gain is 0.707 (−3 dB) and the phase is −45°. Well below f_c the gain is 1 (the signal passes), well above it the gain falls as 1 ÷ f (−20 dB per decade).
+
+BN: স্থির অবস্থায় সাইনের উত্তর একই কম্পাঙ্কের সাইন; আকার = |H(iω)| (গেইন), দেরি = H(iω) এর কোণ। dB = 20 log₁₀|H|; −3 dB মানে 0.707। RC লো-পাস: |H| = 1/√(1 + (ωRC)²), কাটঅফ f_c = 1/(2πRC), সেখানে গেইন 0.707 ও দশা −45°।
+
+EX: A low-pass filter
+R = 1.6 kΩ and C = 0.1 μF.
+1. **Cut-off:** f_c = 1 ÷ (2π × 1600 × 10⁻⁷) = **995 Hz**.
+2. **Gain at 100 Hz:** 1 ÷ √(1 + 0.1²) = **0.995** (−0.04 dB): passes almost unchanged.
+3. **At 1 kHz:** **0.705** (−3.03 dB): half the power gone. The phase is about −45°.
+4. **At 10 kHz:** 1 ÷ √(1 + 10.05²) = **0.099** (−20.1 dB): a tenfold drop for a tenfold frequency, which is the −20 dB per decade rule.
+5. **Why it works:** the capacitor lets fast changes through to ground (its reactance is small at high f) and blocks slow ones, so the output across it keeps the slow part. Audio equipment uses this to remove hiss, and your phone's touchscreen uses it to remove noise.
+/EX
+
+### A numerical experiment: a baseball with air drag
+A ball of mass 0.145 kg, radius 3.66 cm, leaves the bat at 40 m/s at 45°. Air drag is F = k v² against the velocity with k = ½ ρ C_d A = 0.5 × 1.2 × 0.4 × 4.2 × 10⁻³ = **0.00101 kg/m**. The equations x′ = v_x, y′ = v_y, v_x′ = −(k ÷ m) |v| v_x and v_y′ = −g − (k ÷ m) |v| v_y have no formula solution, so you step them with RK4 (four slopes for all four unknowns each step).
+
+EX: What the numbers say
+1. **Without air** the range is v² sin 2θ ÷ g = **163.1 m** and the flight time is 5.77 s.
+2. **With drag**, RK4 with h = 0.001 s gives a range of only **91.42 m**, a time of **4.83 s** and a maximum height of **28.87 m**. Air takes away 44% of the range.
+3. **Euler check:** with h = 0.1 s the Euler range is 92.26 m (error 0.84 m), with h = 0.01 it is 91.51 m and with h = 0.001 it is 91.43 m: the error shrinks in proportion to h. The RK4 value with h = 0.1 is already 91.415 m, within 0.007 m of the best answer.
+4. **The best angle is not 45°.** Ranges with RK4: 35° gives **90.85 m**, 40° gives **92.24 m**, 45° gives **91.42 m**, 50° gives **88.48 m**. The best is near **40°** because the fast rising phase loses a lot to drag, so a flatter throw wins.
+5. **Terminal velocity** for a falling object under the same law: m g = k v², so v_t = √(m g ÷ k). For a skydiver (m = 80 kg, k = 0.25) v_t = **56 m/s** (202 km/h) and the speed v (t) = v_t tanh (g t ÷ v_t), which is 39.5 m/s after 5 s and 52.7 m/s after 10 s.
+/EX
+
+LAB: RC low-pass filter | Choose the resistor and the capacitor. The graph shows the gain against frequency. The numbers give the cut-off frequency and the gain at 1 kilohertz in decibels. | R:Resistance (kilohm):0.1:10:0.1:1.6 ;; C:Capacitance (microfarad):0.01:1:0.01:0.1 | 159.155/(R*C):Cut-off frequency (Hz):1 ;; 1/sqrt(1+(1000/(159.155/(R*C)))^2):Gain at 1000 Hz:3 ;; 20*log(1/sqrt(1+(1000/(159.155/(R*C)))^2))/log(10):Gain at 1000 Hz (dB):2 | 1/sqrt(1+(x*2*pi*R*1000*C*0.000001)^2) | 0,5000 | 0,1.1
+
+LAB: Falling with air drag | Quadratic drag gives a terminal speed. Choose the mass and the drag constant. The graph shows the speed against time for a fall from rest. | m:Mass (kg):1:120:1:80 ;; k:Drag constant k (kg per m):0.05:1:0.05:0.25 | sqrt(m*9.81/k):Terminal speed (m per s):1 ;; sqrt(m*9.81/k)*(exp(2*9.81*5/sqrt(m*9.81/k))-1)/(exp(2*9.81*5/sqrt(m*9.81/k))+1):Speed after 5 s (m per s):1 ;; sqrt(m*9.81/k)*3.6:Terminal speed (km per h):0 | sqrt(m*9.81/k)*(exp(2*9.81*x/sqrt(m*9.81/k))-1)/(exp(2*9.81*x/sqrt(m*9.81/k))+1) | 0,30 | 0,100
+
+TRAP: The gain is |H (iω)|, not H (s) at a real s. A −3 dB point means 0.707 of the **amplitude**, which is half the **power**. A numerical method does not give "the" answer: always repeat with a smaller step and see that the result stops changing (here h = 0.1, 0.01 and 0.001 agree to 1%). And a model with drag has a different best angle: do not use v² sin 2θ ÷ g when air matters.
+
+### Quick self-check
+QUIZ:
+Q: The cut-off frequency of an RC filter is…; 1 ÷ RC; 1 ÷ (2π RC); 2π RC; RC; 2; ω R C = 1.
+Q: A gain of 0.707 corresponds to…; 0 dB; −3 dB; −20 dB; +3 dB; 2; 20 log₁₀ 0.707.
+Q: A ball thrown with air drag has its best range at an angle…; above 45°; exactly 45°; below 45°; 90°; 3; The rising phase loses more speed.
+Q: Terminal speed is reached when…; v = 0; drag equals weight; g = 0; k = 0; 2; m g = k v².
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find f_c for R = 1.6 kΩ and C = 0.1 μF. => **995 Hz**.
+P: Find the gain at f_c. => **0.707**.
+P: Convert a gain of 0.1 to decibels. => **−20 dB**.
+LVL: Level 2 | Apply
+P: Find the gain at 100 Hz for that filter. => **0.995**.
+P: Find the gain at 10 kHz. => **0.099**.
+P: Find the phase at f_c. => **−45°**.
+P: Find k for a ball with ρ = 1.2, C_d = 0.4 and A = 4.2 × 10⁻³ m². => ½ × 1.2 × 0.4 × 0.0042 = **0.00101**.
+P: Find the terminal speed for m = 80 and k = 0.25. => **56 m/s**.
+P: Find the vacuum range at 40 m/s and 45°. => **163.1 m**.
+LVL: Level 3 | Real
+P: A sensor signal has a wanted slow part below 10 Hz and noise at 1 kHz. Choose R and C for f_c = 100 Hz (take C = 1 μF) and find the noise gain. => R = 1 ÷ (2π × 100 × 10⁻⁶) = **1.59 kΩ**; noise gain = 1 ÷ √(1 + 10²) = **0.0995**, which is −20 dB.
+LVL: Challenge | The phase of a filter
+P: Show that the phase of H = 1 ÷ (1 + iωRC) is −atan (ωRC). => H = (1 − iωRC) ÷ (1 + (ωRC)²), so tan φ = −ωRC. **φ = −atan (ωRC)**: it is 0 at low frequency and approaches −90° at high frequency.
+
+CHECK: math
+
+@section physics | 3 · Physics: series RLC on AC, resonance and tuning a radio | 40 min
+
+### The series RLC circuit
+A source of RMS voltage V and frequency f drives R, L and C in series. All three carry the same current, and the impedance is
+
+EQ: Z = √(R² + (X_L − X_C)²), I = V ÷ Z, tan φ = (X_L − X_C) ÷ R
+
+At the **resonant frequency f₀ = 1 ÷ (2π √(LC))**, X_L = X_C. The two reactances cancel, Z = R is the smallest possible value, the current is the largest, **I = V ÷ R**, and the phase is zero. Away from f₀ the current drops. The sharpness is measured by
+
+**Q = ω₀ L ÷ R = 1 ÷ (ω₀ R C)**, and the bandwidth (the width between the half-power points) is **Δf = f₀ ÷ Q**.
+
+The relative current at the frequency f is I ÷ I_max = 1 ÷ √(1 + Q² (f ÷ f₀ − f₀ ÷ f)²). At resonance the voltages across L and C are each **Q times the source voltage**, and they cancel each other.
+
+BN: শ্রেণি RLC: Z = √(R² + (X_L − X_C)²), I = V/Z। অনুনাদে f₀ = 1/(2π√(LC)), X_L = X_C, Z = R (সর্বনিম্ন), I = V/R (সর্বোচ্চ), দশা 0। Q = ω₀L/R, ব্যান্ডউইডথ Δf = f₀/Q। অনুনাদে L ও C এ ভোল্টেজ = Q × উৎস, কিন্তু একে অপরকে কাটে।
+
+EX: A circuit tuned near the mains
+R = 10 Ω, L = 0.1 H, C = 100 μF on 230 V.
+1. **Resonance:** ω₀ = 1 ÷ √(0.1 × 10⁻⁴) = **316.2 rad/s**, f₀ = **50.3 Hz**. Q = 316.2 × 0.1 ÷ 10 = **3.16** and Δf = 50.3 ÷ 3.16 = **15.9 Hz**.
+2. **At resonance:** I = 230 ÷ 10 = **23 A**. The voltage across the coil (and also the capacitor) is Q × 230 = **727 V**: bigger than the supply! This is real, and it is why high-voltage lab equipment is dangerous.
+3. **At exactly 50 Hz:** X_L = 31.4 Ω, X_C = 31.8 Ω, Z = √(10² + 0.4²) = **10.01 Ω**, I = 22.98 A. The circuit is almost at resonance.
+4. **At 100 Hz:** X_L = 62.8, X_C = 15.9, Z = √(100 + 46.9²) = 47.9 Ω, I = **4.8 A**: far off resonance the current drops to a fifth.
+/EX
+
+EX: Tuning an AM radio
+A coil of L = 25 μH and a variable capacitor.
+1. **To tune to 1 MHz:** C = 1 ÷ (ω₀² L) = **1.013 nF** (1013 pF).
+2. **Selectivity:** a neighbouring station is 10 kHz away (1.01 MHz). The relative current there is 1 ÷ √(1 + Q² (1.01 − 1 ÷ 1.01)²), so for **Q = 100 the neighbour gets through at 0.449** (45% of the wanted amplitude) and for **Q = 300 at 0.165** (17%).
+3. **The trade-off:** a higher Q rejects the neighbour better but its bandwidth Δf = f₀ ÷ Q (3.3 kHz at Q = 300) is narrower than the music (up to about 5 kHz), so the treble is lost. A radio designer picks Q to balance them.
+4. **Typical R:** Q = 100 needs R = ω₀ L ÷ Q = 157 ÷ 100 = **1.57 Ω**: this resistance is only the coil's wire and losses.
+/EX
+
+### Real power and the power factor
+In an AC circuit with phase angle φ between voltage and current: **P = V I cos φ**, where **cos φ is the power factor**. The apparent power is S = V I (volt-amperes). Only P (watts) does work; the rest sloshes back and forth.
+
+EX: A motor
+A motor behaves like R = 30 Ω in series with X_L = 40 Ω on 230 V, 50 Hz.
+1. **Z = 50 Ω, I = 4.6 A, φ = 53.1°, cos φ = 0.6.** S = 1058 VA and **P = 230 × 4.6 × 0.6 = 635 W**.
+2. **The wires carry 4.6 A** although only 2.76 A (I cos φ) does useful work.
+3. **Correction:** a capacitor in parallel supplies the reactive current I sin φ = 3.68 A. Its size is C = 3.68 ÷ (2π × 50 × 230) = **51 μF**. Now the line current is only **2.76 A**, the real power is unchanged (635 W) and the heat loss in the supply wires falls by (4.6 ÷ 2.76)² = **2.8 times**. Factories pay for a good power factor, and this is why.
+/EX
+
+LAB: Tuning a radio | Choose the coil, the capacitor and the resistance. The graph shows the current against frequency measured in units of the resonant frequency, so you can see the peak get narrower as the quality factor grows. The numbers give the tuned frequency, Q, the bandwidth and the response of a station 10 kHz away. | L:Inductance (microhenry):10:100:1:25 ;; C:Capacitance (pF):100:2000:1:1013 ;; R:Resistance (ohm):0.5:30:0.1:1.6 | 1/(2*pi*sqrt(L*0.000001*C*0.000000000001))/1000:Tuned frequency (kHz):1 ;; 1000*sqrt(L/C)/R:Quality factor Q:1 ;; (1/(2*pi*sqrt(L*0.000001*C*0.000000000001))/1000)/(1000*sqrt(L/C)/R):Bandwidth (kHz):2 ;; 1/sqrt(1+(1000*sqrt(L/C)/R)^2*((1+10/(1/(2*pi*sqrt(L*0.000001*C*0.000000000001))/1000))-1/(1+10/(1/(2*pi*sqrt(L*0.000001*C*0.000000000001))/1000)))^2):Station 10 kHz above (fraction of the peak):3 | 1/sqrt(1+(1000*sqrt(L/C)/R)^2*(x-1/x)^2) | 0.9,1.1 | 0,1.1
+
+LAB: Power factor correction | A motor is R in series with X_L on 230 volts, 50 hertz. The graph shows the current in the supply wires against the size of a capacitor placed in parallel. It dips to a minimum at the best capacitor. | R:Resistance (ohm):5:60:1:30 ;; X:Reactance X_L (ohm):5:60:1:40 | 230/sqrt(R^2+X^2):Motor current (A):2 ;; R/sqrt(R^2+X^2):Power factor:2 ;; X/((R^2+X^2)*314.159)*1000000:Capacitor for correction (microfarad):1 ;; 230*R/(R^2+X^2):Line current after correction (A):2 | sqrt((230*R/(R^2+X^2))^2+(230*X/(R^2+X^2)-314.159*230*x*0.000001)^2) | 0,150 | 0,12
+
+TRAP: At resonance the **source** current is largest, but the voltages across L and C can be far larger than the supply. The bandwidth is Δf = f₀ ÷ Q: high Q means narrow and selective. A power factor of 0.6 does not mean 40% waste of energy, it means the current is bigger than it needs to be; the real power is P = V I cos φ. And correct a power factor with a **parallel** capacitor: a series one would change the circuit.
+
+### Quick self-check
+QUIZ:
+Q: At resonance the impedance of a series RLC circuit equals…; R; X_L; X_C; 0; 1; X_L = X_C.
+Q: The bandwidth is…; f₀ Q; f₀ ÷ Q; Q ÷ f₀; 2π f₀; 2; Δf = f₀ ÷ Q.
+Q: The real power in an AC circuit is…; V I; V I cos φ; V I sin φ; I² X; 2; Power factor.
+Q: A higher Q gives…; wider tuning; narrower tuning; no tuning; a lower f₀; 2; Δf = f₀ ÷ Q.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find f₀ for L = 0.1 H and C = 100 μF. => **50.3 Hz**.
+P: Find the current at resonance for R = 10 Ω on 230 V. => **23 A**.
+P: Find the power factor for R = 30 Ω and Z = 50 Ω. => **0.6**.
+LVL: Level 2 | Apply
+P: Find Q and the bandwidth. => **3.16** and **15.9 Hz**.
+P: Find the voltage across the coil at resonance. => **727 V**.
+P: Find the current at 100 Hz. => **4.8 A**.
+P: Find the C that tunes L = 25 μH to 1 MHz. => **1.013 nF**.
+P: Find R for Q = 100 with L = 25 μH at 1 MHz. => **1.57 Ω**.
+P: Find the real power of the motor (R = 30 Ω, X_L = 40 Ω) on 230 V. => **635 W**.
+P: Find the capacitor that corrects the power factor. => **51 μF**.
+LVL: Level 3 | Real
+P: A factory draws 100 kW at a power factor of 0.7 on 400 V (single-phase for simplicity). Find the current and the current at power factor 1. => I = P ÷ (V cos φ) = 100,000 ÷ (400 × 0.7) = **357 A**, and with pf = 1: **250 A**. The wire loss falls by (357 ÷ 250)² = **2.04 times**.
+LVL: Challenge | Half power points
+P: Show that the current falls to 1 ÷ √2 of the peak when Q (f ÷ f₀ − f₀ ÷ f) = ±1. => I ÷ I_max = 1 ÷ √(1 + (Q (f ÷ f₀ − f₀ ÷ f))²) = 1 ÷ √2 when the bracket squared equals 1, which gives the two half power frequencies. Their difference is **f₀ ÷ Q**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Frequency response: gain |H (iω)|, phase = angle. RC low-pass: f_c = 1 ÷ (2π R C), −3 dB there, −20 dB per decade above. A drag-ball by RK4: the range falls from 163 m to 91 m and the best angle is near 40°.
+- Series RLC: Z = √(R² + (X_L − X_C)²), resonance f₀ = 1 ÷ (2π √(LC)), I = V ÷ R, Q = ω₀ L ÷ R, Δf = f₀ ÷ Q, L and C voltages equal Q V. Radio: tune C, high Q rejects neighbours. P = V I cos φ; fix power factor with a parallel capacitor.
+
+BN: আজকের সারকথা: কম্পাঙ্ক সাড়া |H(iω)|; RC লো-পাস f_c = 1/(2πRC), −3 dB। বাতাসসহ বলের সেরা কোণ ≈ 40°। শ্রেণি RLC: অনুনাদে Z = R, I = V/R, Q = ω₀L/R, Δf = f₀/Q; L, C তে Q × V। রেডিও: C বদলে টিউন; উচ্চ Q প্রতিবেশী স্টেশন দমন করে। P = VI cos φ; পাওয়ার ফ্যাক্টর সংশোধন সমান্তরাল ক্যাপাসিটরে।
+
+EXIT:
+E: What is the cut-off frequency in Hz of R = 1.6 kΩ and C = 0.1 μF? Give the nearest whole number.; 995; 1; 1 ÷ (2π R C).
+E: What is Q for R = 10 Ω, L = 0.1 H and C = 100 μF? Give 2 decimals.; 3.16; 0.01; ω₀ L ÷ R.
+E: What is the real power in watts of R = 30 Ω in series with X_L = 40 Ω on 230 V? Give the nearest whole number.; 635; 1; V I cos φ.
+
+**Tomorrow:** the Week 20 test, and a look ahead at Fourier series and magnetic fields.
+
+CHECK: notes

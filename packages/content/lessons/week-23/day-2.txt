@@ -1,0 +1,134 @@
+@day Week 23 · Day 2 · Tuesday
+# Review 2: multivariable and vector calculus, and electrostatics
+lead: Today you review the calculus of several variables (partial derivatives, the gradient, optimisation, multiple integrals, line integrals, divergence and curl) and the physics that uses it all: Coulomb's law, the electric field, Gauss's law, potential, capacitors and why lightning rods work. The connection is deep: the field is the gradient of the potential, and Gauss's law is the divergence theorem in disguise.
+
+BN: আজ বহুচলক ক্যালকুলাস (আংশিক অন্তরক, গ্র্যাডিয়েন্ট, সর্বোচ্চ-সর্বনিম্ন, বহু-সমাকলন, রেখা-সমাকলন, ডাইভারজেন্স ও কার্ল) এবং তার ব্যবহার: কুলম্বের সূত্র, তড়িৎ ক্ষেত্র, গাউসের সূত্র, বিভব, ধারক ও বজ্রনিরোধক দণ্ড। সংযোগটা গভীর: ক্ষেত্র হলো বিভবের গ্র্যাডিয়েন্ট, আর গাউসের সূত্র হলো ডাইভারজেন্স উপপাদ্যের ছদ্মবেশ।
+
+@section recall | 1 · Warm-up: retrieve without notes | 15 min · no calculator
+
+LVL: Recall | Write each answer before you check
+P: What does the gradient ∇f point towards? => The direction of **steepest increase**, with length equal to that rate.
+P: What is the test for a minimum with two variables? => f_x = f_y = 0 and **f_xx f_yy − f_xy² > 0** with f_xx > 0.
+P: State Coulomb's law. => **F = k q₁ q₂ ÷ r²** with k = 8.99 × 10⁹ N m²/C².
+P: State Gauss's law. => **∮ E · dA = Q_enclosed ÷ ε₀**.
+P: How are E and V related? => **E = −∇V**.
+P: What is the capacitance of parallel plates? => **C = ε₀ κ A ÷ d**.
+
+CHECK: recall
+
+@section math | 2 · Math review: several variables | 45 min
+
+### The map of Weeks 16 and 17
+| Idea | Key results |
+| Partial derivatives | f_x, f_y. Chain rule. Tangent plane. Linear approximation |
+| Gradient | ∇f. Directional derivative D_u f = ∇f · u. Maximum rate |∇f| |
+| Optimisation | Critical points by ∇f = 0. Classify with the Hessian. Lagrange: ∇f = λ ∇g |
+| Integration | Double and triple integrals, polar, cylindrical, spherical |
+| Vector calculus | Line integrals, conservative fields, div F, curl F, Green, Gauss, Stokes |
+
+BN: আংশিক অন্তরক, চেইন নিয়ম, স্পর্শতল। গ্র্যাডিয়েন্ট ∇f, দিকীয় অন্তরক ∇f · u। সর্বোচ্চ-সর্বনিম্ন: ∇f = 0 ও হেসিয়ান; লাগ্রাঞ্জ ∇f = λ∇g। দ্বিমাত্রিক ও ত্রিমাত্রিক সমাকলন (পোলার, নলাকার, গোলীয়)। রেখা-সমাকলন, ডাইভারজেন্স, কার্ল, গ্রিন-গাউস-স্টোকস।
+
+EX: Calculus of several variables
+1. **Gradient:** f = x² y + y³, so f_x = 2xy and f_y = x² + 3y². At (1, 2): ∇f = **(4, 13)**. The steepest rate is |∇f| = **13.6**. The rate in the direction (3, 4) ÷ 5 is (12 + 52) ÷ 5 = **12.8**.
+2. **Classify:** f = x³ − 3x + y². ∇f = (3x² − 3, 2y) = 0 at (1, 0) and (−1, 0). The Hessian determinant is f_xx f_yy = 6x × 2 = 12x. At (1, 0): 12 > 0 and f_xx = 6 > 0: **minimum**. At (−1, 0): −12 < 0: **saddle**.
+3. **Lagrange:** maximise x y with x + 2y = 10. ∇(xy) = (y, x) = λ (1, 2): y = λ and x = 2λ. Then 4λ = 10, λ = 2.5, so **x = 5, y = 2.5** and the maximum is **12.5**.
+4. **Double integral:** ∫₀² ∫₀³ x y² dy dx = (∫₀² x dx)(∫₀³ y² dy) = 2 × 9 = **18**.
+5. **Polar:** the integral of x² + y² over a disc of radius 2 is ∫₀^{2π} ∫₀² r² · r dr dθ = 2π × 4 = **8π = 25.1**.
+6. **Spherical:** the volume of a ball of radius 3 is ∫ r² sin φ dr dφ dθ = (27 ÷ 3) × 2 × 2π = **36π = 113.1**.
+7. **Line integral:** F = (y, x) = ∇(xy) is conservative, so from (0, 0) to (2, 3) the integral is 2 × 3 − 0 = **6** on any path.
+8. **Div and curl:** F = (x², y², z²) has div F = 2 (x + y + z) = **12** at (1, 2, 3). F = (−y, x, 0) has curl = **(0, 0, 2)**. For the unit circle, ∮ F · dl = 2π = ∬ curl · dA = 2 × π ✓ (Green).
+9. **Divergence theorem:** F = (x, y, z) has div = 3; the flux out of a ball of radius 2 is 3 × (4/3) π 2³ = **100.5**.
+/EX
+
+TRAP: A critical point is only a candidate: check the Hessian. The determinant test is silent when it is zero. For Lagrange, remember to check the boundary or the second derivative to know whether you found the max or the min. In curvilinear coordinates the **Jacobian** (r, r² sin φ) must be included. A field with curl ≠ 0 is not conservative.
+
+### Check yourself
+QUIZ:
+Q: The directional derivative of f in the direction of the unit vector u is…; ∇f × u; ∇f · u; |∇f|²; ∇ × f; 2; Dot product.
+Q: At a saddle point the Hessian determinant is…; positive; zero; negative; infinite; 3; f_xx f_yy − f_xy² < 0.
+Q: In polar coordinates dA equals…; dr dθ; r dr dθ; r² dr dθ; r dθ; 2; The Jacobian r.
+Q: A conservative field has…; zero divergence; zero curl; zero magnitude; constant magnitude; 2; F = ∇φ implies curl F = 0.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find f_x and f_y for f = x² y³. => **2x y³** and **3x² y²**.
+P: Find ∇f for f = x + y² at (1, 3). => **(1, 6)**.
+P: Evaluate ∫₀¹ ∫₀² x y dy dx. => (1/2)(2) = **1**.
+LVL: Level 2 | Apply
+P: Find the maximum of x y with x + y = 8. => x = y = 4, so **16**.
+P: Find the area of a circle of radius 5 by a double integral. => ∫₀^{2π}∫₀⁵ r dr dθ = 2π × 12.5 = **25π = 78.5**.
+P: Find the divergence of (x y, y z, z x) at (1, 1, 1). => y + z + x = **3**.
+P: Find the temperature rise rate for a hiker moving along (0.6, 0.8) where ∇T = (2, 1) K/km. => 1.2 + 0.8 = **2.0 K/km**.
+LVL: Level 3 | Real
+P: A metal plate has temperature T = 100 − x² − 2y² (°C, metres). From (1, 1), in which direction should a bug move to cool fastest, and how fast does the temperature then fall? => ∇T = (−2x, −4y) = (−2, −4); the fastest cooling is **along ∇T = (−2, −4)** at a rate |∇T| = √20 = **4.47 °C per metre**.
+
+CHECK: math
+
+@section physics | 3 · Physics review: electrostatics and capacitors | 45 min
+
+### The map of Weeks 16 to 18
+| Idea | Key results |
+| Charge and force | Coulomb. Superposition. F = q E |
+| Field | Point charge E = k Q ÷ r². Plane σ ÷ 2ε₀. Conductor σ ÷ ε₀. Inside a conductor E = 0 |
+| Gauss | ∮ E · dA = Q ÷ ε₀: spheres, lines, planes |
+| Potential | V = k Q ÷ r, E = −dV/dx, U = q V |
+| Capacitors | C = Q ÷ V, C = ε₀ κ A ÷ d, U = ½ C V², series 1 ÷ C, parallel C |
+
+BN: কুলম্ব F = kq₁q₂/r², ক্ষেত্র E = kQ/r², সমতল σ/2ε₀, পরিবাহীর পৃষ্ঠে σ/ε₀, ভেতরে E = 0। গাউস ∮E·dA = Q/ε₀। বিভব V = kQ/r, E = −dV/dx। ধারক C = Q/V = ε₀κA/d, শক্তি ½CV²।
+
+EX: Electrostatics
+1. **Coulomb:** charges of 2 μC and 3 μC, 0.3 m apart: F = 8.99 × 10⁹ × 6 × 10⁻¹² ÷ 0.09 = **0.599 N**.
+2. **Plane of charge:** σ = 1 μC/m²: E = σ ÷ 2ε₀ = **56.5 kV/m**.
+3. **Potential:** a 1 nC charge at 10 cm gives V = 8.99 × 10⁹ × 10⁻⁹ ÷ 0.1 = **89.9 V**.
+4. **Parallel plates:** A = 0.01 m², d = 1 mm: C = ε₀ A ÷ d = **88.5 pF**. At 100 V: Q = 8.85 nC and U = ½ C V² = **0.44 μJ**. A dielectric with κ = 4 makes C four times larger at the same voltage.
+5. **Combinations:** 2 μF and 3 μF in series give 1 ÷ (1/2 + 1/3) = **1.2 μF**; in parallel **5 μF**.
+6. **Camera flash:** 120 μF at 300 V stores ½ × 120 × 10⁻⁶ × 300² = **5.4 J**; released in 1 ms that is **5.4 kW**.
+7. **Lightning rod:** two conducting spheres of radius 10 cm and 1 cm joined by a wire have the same V. Since E at the surface is V ÷ r, the small one has a field **10 times** larger. The sharp tip ionises the air first and leaks charge away quietly.
+/EX
+
+LAB: Two charges on a line | Charge q1 sits at 0 and q2 at 1 m. Choose both charges in microcoulomb. The graph shows the potential in kV along the line between them. The numbers give the potential and the field at the midpoint. | q1:First charge (microcoulomb):0.1:5:0.1:2 ;; q2:Second charge (microcoulomb):0.1:5:0.1:1 | 17.98*(q1+q2):Potential at the midpoint (kV):1 ;; 35.96*(q1-q2):Field at the midpoint (kV per m):1 | 8.99*(q1/x+q2/(1-x)) | 0.02,0.98 | 0,300
+
+LAB: A capacitor | Choose the plate area, the gap, the dielectric constant and the voltage. The numbers give the capacitance, the charge and the stored energy. The graph shows the energy against the voltage. | A:Plate area (cm squared):10:500:10:100 ;; d:Gap (mm):0.1:5:0.1:1 ;; k:Dielectric constant:1:10:0.5:4 ;; V:Voltage (V):10:300:10:100 | 0.8854*k*A/d:Capacitance (pF):1 ;; 0.8854*k*A/d*V/1000:Charge (nC):2 ;; 0.5*0.8854*k*A/d*V^2/1000000:Energy (microjoule):3 | 0.5*0.8854*k*A/d*x^2/1000000 | 0,300 | 0,20
+
+TRAP: A field is a **vector**: add components, not magnitudes. In series capacitors carry the same **charge**, in parallel the same **voltage**. The field inside a conductor is zero, but the field just outside is σ ÷ ε₀ (twice that of an isolated plane). Energy stored is ½ C V², not C V². Potential is a scalar and is zero only by choice of reference.
+
+### Check yourself
+QUIZ:
+Q: Doubling the distance between two charges makes the force…; double; half; one quarter; four times; 3; Inverse square.
+Q: A capacitor of 5 μF at 20 V holds…; 100 μC; 0.5 mC; 25 μC; 2 mC; 1; Q = C V.
+Q: Inserting a dielectric (κ = 3) at fixed plate geometry multiplies C by…; 1/3; 1; 3; 9; 3; C = ε₀ κ A ÷ d.
+Q: The field of an infinite charged plane…; falls as 1 ÷ r; falls as 1 ÷ r²; is uniform; is zero; 3; σ ÷ 2ε₀ on each side.
+
+### Practice
+LVL: Level 1 | Direct
+P: Find the force between 1 μC and 1 μC at 10 cm. => **0.899 N**.
+P: Find the charge on 10 μF at 12 V. => **120 μC**.
+P: Find the energy in 100 μF at 10 V. => ½ × 100 × 10⁻⁶ × 100 = **5 mJ**.
+LVL: Level 2 | Apply
+P: Find the field of a 1 nC point charge at 3 cm. => **9990 V/m**.
+P: Find the series and parallel capacitance of 4 μF and 12 μF. => Series **3 μF**, parallel **16 μF**.
+P: Find the voltage across each of two series capacitors, 2 μF and 3 μF, on 100 V. => Q = 1.2 μF × 100 V = 120 μC; V₁ = 60 V and **V₂ = 40 V**.
+P: Find the capacitance of plates of 0.02 m² separated by 0.5 mm. => 8.854 × 10⁻¹² × 0.02 ÷ 0.0005 = **354 pF**.
+LVL: Level 3 | Real
+P: A thundercloud and the ground form a capacitor of 5 nF charged to 100 MV. Find the energy released by one flash and how long a 100 W bulb would be lit by it. => U = ½ C V² = 0.5 × 5 × 10⁻⁹ × 10¹⁶ = **2.5 × 10⁷ J** (25 MJ), which would keep a 100 W bulb lit for 2.5 × 10⁵ s ≈ **2.9 days**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Gradient is the steepest ascent; classify critical points by the Hessian; Lagrange for constraints; integrals need the Jacobian; div, curl and the big theorems.
+- Coulomb, Gauss, E = −∇V, C = ε₀ κ A ÷ d, U = ½ C V². Sharp points concentrate the field.
+
+BN: আজকের সারকথা: গ্র্যাডিয়েন্ট দ্রুততম বৃদ্ধির দিক; হেসিয়ান দিয়ে বিন্দু শ্রেণিবদ্ধ; সীমাবদ্ধতায় লাগ্রাঞ্জ; সমাকলনে জ্যাকোবিয়ান; ডাইভারজেন্স-কার্ল ও বড় উপপাদ্য। কুলম্ব, গাউস, E = −∇V, C = ε₀κA/d, U = ½CV²। সূচালো বিন্দুতে ক্ষেত্র কেন্দ্রীভূত হয়।
+
+EXIT:
+E: What is the value of the maximum of x y with x + 2y = 10?; 12.5; 0.1; x = 5, y = 2.5.
+E: What is the energy in joules stored in 120 μF at 300 V?; 5.4; 0.1; ½ C V².
+E: What is the capacitance in μF of 2 μF and 3 μF in series? Give 1 decimal.; 1.2; 0.1; Reciprocals add.
+
+**Tomorrow:** differential equations, Laplace and Fourier, circuits, magnetism and induction, with the loudspeaker project.
+
+CHECK: notes

@@ -1,0 +1,88 @@
+@day Week 23 · Day 6 · Saturday
+# Phase 3 exam, reflection and what comes next
+lead: This is the Phase 3 exam. It covers all of Weeks 12 to 22: complex numbers, matrices, several variables, differential equations, Laplace and Fourier on the maths side; fluids, heat, electricity, circuits, magnetism and induction on the physics side. It is long and new (none of its questions appeared in the mock papers), so treat it like a real exam: cold, timed and honest. Afterwards you reflect on the whole phase and look ahead to Phase 4.
+
+BN: এটা পর্ব ৩ এর পরীক্ষা। এতে সপ্তাহ ১২ থেকে ২২ সব আছে: গণিতে জটিল সংখ্যা, ম্যাট্রিক্স, বহুচলক, অবকল সমীকরণ, ল্যাপলাস ও ফুরিয়ে; পদার্থবিজ্ঞানে তরল, তাপ, বিদ্যুৎ, বর্তনী, চুম্বকত্ব ও আবেশ। এটা দীর্ঘ এবং নতুন (মকের কোনো প্রশ্ন আসেনি), তাই বাস্তব পরীক্ষার মতো দাও: ঠান্ডা মাথায়, সময় ধরে, সৎভাবে। তারপর পুরো পর্ব নিয়ে ভাববে এবং পর্ব ৪ এর দিকে তাকাবে।
+
+@section recall | 1 · Exam conditions | 10 min
+
+- **Time: 120 minutes. Marks: 40** (Part A, 28 marks, no calculator, about 80 minutes; Part B, 12 marks, calculator allowed, about 40 minutes).
+- Use g = 9.81 m/s², μ₀ = 4π × 10⁻⁷ T m/A and R = 8.314 J/(mol K). Write the formula, then the substitution, then the answer with units.
+- Do Part A first, then Part B. No notes, no phone, no solutions.
+- If you are stuck for more than 5 minutes, circle the question and move on.
+
+CHECK: recall
+
+@section math | 2 · Part A: mathematics (28 marks, about 80 minutes) | no calculator
+
+LVL: Part A | Questions 1 to 11
+P: **Q1 (2 marks).** Write 1 + i√3 in polar form and find (1 + i√3)⁶. => r = 2, θ = 60°: **2 e^(iπ/3)** (1 mark). The sixth power is 2⁶ e^(i2π) = **64** (1 mark).
+P: **Q2 (3 marks).** Find the eigenvalues and eigenvectors of B = [[1, 2], [2, 1]], and the top-left entry of B⁴. => det (B − λ I) = (1 − λ)² − 4 = 0, so **λ = 3 and λ = −1** (1 mark). Eigenvectors **(1, 1)** and **(1, −1)** (1 mark). B⁴ has top-left entry (3⁴ + (−1)⁴) ÷ 2 = **41** (1 mark).
+P: **Q3 (3 marks).** Solve 2x + y − z = 1, x − y + 2z = 5 and 3x + 2y + z = 10. => From the first, z = 2x + y − 1. In the second: 5x + y = 7. In the third: 5x + 3y = 11 (1 mark). Subtract: 2y = 4, **y = 2**, then **x = 1** (1 mark), and **z = 3** (1 mark). Check in the third: 3 + 4 + 3 = 10 ✓.
+P: **Q4 (3 marks).** f (x, y) = x e^y. Find ∇f at (2, 0), the rate of change in the direction (3, 4) ÷ 5, and the greatest possible rate. => ∇f = (e^y, x e^y) = **(1, 2)** at (2, 0) (1 mark). Directional derivative: (3 + 8) ÷ 5 = **2.2** (1 mark). Greatest rate |∇f| = **√5 ≈ 2.24** (1 mark).
+P: **Q5 (3 marks).** Find the maximum of x y on the circle x² + y² = 8. => ∇(xy) = (y, x) = λ (2x, 2y) (1 mark). Then y = 2λx and x = 2λy give x² = y² (1 mark). On the circle x = y = ±2, so the **maximum is 4** (at (2, 2) and (−2, −2)); the minimum is −4 (1 mark).
+P: **Q6 (3 marks).** Evaluate ∭ z dV over the upper half of the ball x² + y² + z² ≤ 4 (z ≥ 0). => Spherical: z = r cos φ, dV = r² sin φ dr dφ dθ (1 mark). ∫₀² r³ dr = 4, ∫₀^{π/2} cos φ sin φ dφ = 1/2, ∫₀^{2π} dθ = 2π (1 mark). The result is 4 × 1/2 × 2π = **4π** (1 mark).
+P: **Q7 (3 marks).** A tank of 100 L holds pure water. Brine of 0.5 kg/L flows in at 3 L/min and the well-mixed liquid flows out at 3 L/min. Write the equation for the salt S (kg), solve it, and give the final amount and the time constant. => dS/dt = 1.5 − 0.03 S (1 mark). S = 50 (1 − e^(−0.03 t)) (1 mark). It tends to **50 kg** (0.5 kg/L × 100 L) with a time constant of **1 ÷ 0.03 = 33.3 min** (1 mark).
+P: **Q8 (3 marks).** Solve y″ + y = cos t. Say what happens to the amplitude for large t and why. => The complementary solution is **A cos t + B sin t** (1 mark). A particular solution is **y = (t ÷ 2) sin t** (check: y″ + y = cos t) (1 mark). The amplitude **grows linearly with t**: the driving frequency equals the natural frequency, which is resonance (1 mark).
+P: **Q9 (2 marks).** Find the inverse Laplace transform of Y (s) = (3s + 5) ÷ ((s + 1)(s + 2)). => Partial fractions: A ÷ (s + 1) + B ÷ (s + 2) with A = (−3 + 5) ÷ 1 = 2 and B = (−6 + 5) ÷ (−1) = 1 (1 mark). So **y = 2 e^(−t) + e^(−2t)** (1 mark). Check: y (0) = 3, and Y → 3 ÷ s for large s ✓.
+P: **Q10 (2 marks).** f (x) = x on (−π, π) has bₙ = 2 (−1)^(n+1) ÷ n. Use Parseval to find Σ 1 ÷ n². => (1 ÷ π) ∫ x² dx = 2π² ÷ 3 (1 mark). This equals Σ bₙ² = 4 Σ 1 ÷ n², so **Σ 1 ÷ n² = π² ÷ 6** (1 mark).
+P: **Q11 (1 mark).** A recording of N = 1000 samples is taken at 8 kHz. Find the bin spacing of its DFT. => f_s ÷ N = 8000 ÷ 1000 = **8 Hz**.
+
+CHECK: math
+
+@section physics | 3 · Part B: physics (12 marks, about 40 minutes) | calculator allowed
+
+LVL: Part B | Questions 12 to 15
+P: **Q12 (3 marks).** A refrigerator keeps its inside at 255 K in a room at 300 K. Assuming the best possible (Carnot) performance, find the coefficient of performance, the electric power needed to remove 500 W of heat and the heat given to the room. => COP = T_c ÷ (T_h − T_c) = 255 ÷ 45 = **5.67** (1 mark). Power = 500 ÷ 5.67 = **88.2 W** (1 mark). Heat to the room = 500 + 88.2 = **588 W** (1 mark).
+P: **Q13 (3 marks).** A 220 μF capacitor is charged from a 12 V supply through 10 kΩ. Find the time constant, the voltage after 3.0 s and the time to reach 9.0 V. => τ = R C = **2.2 s** (1 mark). V = 12 (1 − e^(−3 ÷ 2.2)) = **8.93 V** (1 mark). 9 V is 75%: t = τ ln 4 = **3.05 s** (1 mark).
+P: **Q14 (3 marks).** A solenoid has 600 turns on a length of 0.30 m and carries 4.0 A. Find B inside, the force on a 5.0 cm straight wire carrying 3.0 A perpendicular to the field inside it, and the energy density of the field. => n = 2000 per m: B = μ₀ n I = **10.05 mT** (1 mark). F = B I L = 0.01005 × 3 × 0.05 = **1.51 mN** (1 mark). u = B² ÷ (2 μ₀) = **40.2 J/m³** (1 mark).
+P: **Q15 (3 marks).** A rod of length 0.80 m slides at 2.5 m/s along rails in a field of 0.35 T. The circuit has a resistance of 1.4 Ω. Find the EMF, the current and the force needed to keep the speed constant, and the power supplied. => ε = B ℓ v = 0.35 × 0.8 × 2.5 = **0.70 V** and I = 0.70 ÷ 1.4 = **0.50 A** (1 mark). F = B I ℓ = 0.35 × 0.5 × 0.8 = **0.14 N** (1 mark). P = F v = **0.35 W** = I² R ✓ (1 mark).
+
+CHECK: physics
+
+@section notes | 4 · Score, reflection and Phase 4 | 45 min
+
+### Your score
+Total marks: **40**. Be strict and honest.
+
+| Score | What it means | What to do |
+| 36 to 40 | Outstanding | Phase 4 will feel natural. Try the optional challenges below. |
+| 30 to 35 | Strong | Redo the questions you missed on Sunday evening, then start Week 24. |
+| 24 to 29 | Solid, with gaps | Spend the first two days of Week 24 repairing the topics you missed. Tell me which. |
+| Below 24 | Needs a repair week | Tell me. I will add a repair week using the days that match your errors. |
+
+### Error analysis
+Use the same codes as in the mock papers: **K** (concept), **M** (maths slip), **U** (units), **T** (time), **R** (misread). Count each type and write the top three actions.
+
+| Question | Marks lost | Type | Action |
+| Example: Q6 | 1 | M | Write the Jacobian before starting |
+
+### Reflection: Phase 3 in your own words
+Write short answers in your notes.
+1. Which three ideas of Phase 3 do you now understand best? Which three are weakest?
+2. Name one place where matrices, differential equations or Fourier met real physics (the loudspeaker, a circuit, a power station).
+3. What was the hardest week and what made it hard?
+4. What is one thing you will do differently in Phase 4?
+
+BN: নিজের ভাষায় লেখো: পর্ব ৩ এর কোন তিনটা ধারণা সবচেয়ে ভালো বুঝেছ, কোন তিনটা দুর্বল; ম্যাট্রিক্স, অবকল সমীকরণ বা ফুরিয়ে বাস্তব পদার্থবিজ্ঞানে কোথায় মিলেছে (লাউডস্পিকার, বর্তনী, বিদ্যুৎকেন্দ্র); সবচেয়ে কঠিন সপ্তাহ কোনটা ও কেন; পর্ব ৪ এ কী আলাদা করে করবে।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The eigenvalue of a vibrating system
+P: Two equal masses m joined to walls and to each other by three identical springs k obey m x₁″ = −2k x₁ + k x₂ and m x₂″ = k x₁ − 2k x₂. Find the two normal-mode frequencies. => Try x = v cos ωt: the matrix [[2, −1], [−1, 2]] k ÷ m has eigenvalues 1 and 3 times k ÷ m (eigenvectors (1, 1) and (1, −1)). So **ω₁ = √(k ÷ m)** (both move together) and **ω₂ = √(3k ÷ m)** (they move in opposition), a ratio of 1.73.
+
+LVL: Challenge | A Fourier integral from Maxwell's world
+P: A rectangular current pulse of height I₀ and duration τ flows in an antenna. Show that the first zero of the radiated spectrum is at f = 1 ÷ τ, and find the bandwidth needed for 1 ns pulses (ultra-wideband radar). => The spectrum is I₀ τ sinc (π f τ), whose first zero is at **f = 1 ÷ τ**. For τ = 1 ns the zero is at **1 GHz**, so the system needs a bandwidth of about 1 GHz: duration and bandwidth are inversely related.
+
+### What comes next: Phase 4
+Phase 4 (Weeks 24 to 31) turns to chance and to the modern physics of light, relativity and the atom. It begins next week with **counting and probability** and with **electromagnetic waves, light and polarisation**: the story is why sunglasses work. Over the phase you will meet random variables and statistics, Bayes and Markov chains, logic and proof, graphs and number theory, optimisation, optics, interference, special relativity, quantum mechanics and semiconductors. You already have the tools: Maxwell's waves from Week 22 are the start of optics, and Fourier is the heart of quantum mechanics.
+
+BN: পর্ব ৪ (সপ্তাহ ২৪ থেকে ৩১) সম্ভাবনা এবং আলো, আপেক্ষিকতা ও পরমাণুর আধুনিক পদার্থবিজ্ঞানের দিকে যায়। শুরু হবে গণনা ও সম্ভাবনা এবং তড়িৎ-চৌম্বক তরঙ্গ, আলো ও সমবর্তন দিয়ে; গল্প: সানগ্লাস কেন কাজ করে। পরে দৈব চলক ও পরিসংখ্যান, বেইস ও মার্কভ শৃঙ্খল, যুক্তি ও প্রমাণ, গ্রাফ ও সংখ্যাতত্ত্ব, অপ্টিমাইজেশন, আলোকবিদ্যা, ব্যতিচার, বিশেষ আপেক্ষিকতা, কোয়ান্টাম বলবিদ্যা ও অর্ধপরিবাহী। তোমার হাতে সরঞ্জাম তৈরি আছে: সপ্তাহ ২২ এর ম্যাক্সওয়েল তরঙ্গ আলোকবিদ্যার শুরু, আর ফুরিয়ে কোয়ান্টাম বলবিদ্যার হৃৎপিণ্ড।
+
+### Optional coding idea (not part of the study plan)
+**Phase 3 formula book:** extend your Phase 2 formula page with every key result of Weeks 12 to 22 (complex numbers, matrix tricks, gradient and integrals, ODE types, Laplace pairs, Fourier pairs, circuit and field formulas). Add a small calculator for each (an eigenvalue solver for 2 × 2 matrices, an RLC response plotter, a Fourier-series builder). It becomes your reference for the rest of the course.
+
+**Sunday is a rest day.** Next week: probability and light.
+
+CHECK: notes

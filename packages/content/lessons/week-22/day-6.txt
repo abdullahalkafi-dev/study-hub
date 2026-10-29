@@ -1,0 +1,80 @@
+@day Week 22 · Day 6 · Saturday
+# Week 22 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered the Fourier transform (pairs, properties, modulation), convolution, sampling and aliasing, the DFT and FFT, windows, spectrograms, and the physics of induction: Faraday's law, motional EMF, generators, transformers, Maxwell's equations, electromagnetic waves and the power station.
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ফুরিয়ে রূপান্তর (জোড়া, নিয়ম, মডুলেশন), কনভোলিউশন, স্যাম্পলিং ও aliasing, DFT ও FFT, window, spectrogram এবং ফ্যারাডের সূত্র, গতিজ EMF, জেনারেটর, ট্রান্সফর্মার, ম্যাক্সওয়েলের সমীকরণ, তড়িৎ-চৌম্বক তরঙ্গ ও বিদ্যুৎকেন্দ্র।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A (use atan 10 ≈ 1.471 where needed). A calculator is allowed for Part B.
+- Use μ₀ = 4π × 10⁻⁷ T m/A, ε₀ = 8.854 × 10⁻¹² F/m and c = 3.00 × 10⁸ m/s. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: transforms, sampling and the FFT (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 11
+P: (1 mark) The transform of e^(−3t) for t > 0 is 1 ÷ (3 + iω). Find its size and phase at ω = 4. => |F| = 1 ÷ √(9 + 16) = **0.2** and the phase is **−atan (4 ÷ 3) = −53.1°**.
+P: (1 mark) A rectangular pulse lasts 0.5 ms. Where is the first zero of its spectrum? => At f = 1 ÷ τ = **2 kHz**.
+P: (1 mark) A signal is delayed by 5 ms. Find the phase change at 40 Hz (in degrees). => −2π × 40 × 0.005 = −1.257 rad = **−72°**; the size does not change.
+P: (1 mark) Audio up to 4.5 kHz modulates a carrier of 810 kHz (AM). Find the band occupied and the bandwidth. => **805.5 to 814.5 kHz**, a bandwidth of **9 kHz**.
+P: (2 marks) A system obeys y′ + 200 y = x (t). Find its transfer function and the gain and phase at ω = 150 rad/s. => H = **1 ÷ (200 + iω)** (1 mark). |H| = 1 ÷ √(200² + 150²) = 1 ÷ 250 = **0.004** and the phase is **−atan (0.75) = −36.9°** (1 mark).
+P: (1 mark) For the pulse e^(−at), what fraction of the energy lies below ω = 10 a? (Use atan 10 ≈ 1.471.) => (2 ÷ π) × 1.471 = **0.937 (93.7%)**.
+P: (1 mark) A rectangular pulse of height 1 and width 2 ms is convolved with itself. Find the shape, base and peak height of the result. => A **triangle** with base **4 ms** and peak **2 ms** (in units of height² × time).
+P: (2 marks) A sound plus its echo, y = x (t) + 0.6 x (t − 0.5 ms). Find the largest and smallest gain, the spacing of the notches and the frequency of the first notch. => Gain between **1.6** and **0.4** (1 mark). The comb spacing is 1 ÷ T = **2 kHz** and the first notch (cos = −1) is at **1 kHz** (1 mark).
+P: (1 mark) A 13 kHz tone is sampled at 20 kHz. What frequency appears, and what is the smallest sampling rate for a signal limited to 8 kHz? => The tone is above 10 kHz, so it appears at 20 − 13 = **7 kHz**; the sampling rate must be **above 16 kHz**.
+P: (2 marks) A 2048-point DFT is taken at 48 kHz. Find the bin spacing and the record length. => Spacing 48000 ÷ 2048 = **23.4 Hz** (1 mark); length 2048 ÷ 48 kHz = **42.7 ms** (1 mark).
+P: (1 mark) Find the speed-up of the FFT over the DFT for N = 4096. => N ÷ log₂ N = 4096 ÷ 12 = **341**.
+
+CHECK: math
+
+@section physics | 3 · Part B: induction, Maxwell and the grid (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 12 to 17
+P: (1 mark) A rod of length 0.6 m moves at 5 m/s across a 0.5 T field in a circuit of 3 Ω. Find the EMF, the current and the braking force. => ε = 0.5 × 0.6 × 5 = **1.5 V**; I = **0.5 A**; F = B I ℓ = 0.5 × 0.5 × 0.6 = **0.15 N** (power 0.75 W = I² R ✓).
+P: (1 mark) A generator has 200 turns of area 0.02 m² in a 0.3 T field and turns at 3000 rpm. Find the peak EMF, the RMS value and the frequency (2 poles). => ω = 314.2 rad/s; ε_peak = 200 × 0.3 × 0.02 × 314.2 = **377 V**; RMS = **266.6 V**; f = **50 Hz**.
+P: (1 mark) A transformer steps 11 kV up to 400 kV with 500 turns on the primary. Find the secondary turns and, for 50 MW, both currents. => N_s = 500 × 400 ÷ 11 = **18,182 turns**; I_s = 50 × 10⁶ ÷ 400,000 = **125 A**; I_p = 50 × 10⁶ ÷ 11,000 = **4545 A**.
+P: (1 mark) The 400 kV line (single-phase equivalent) has R = 8 Ω. Find the loss and its percentage. => **125² × 8 = 125 kW**, which is **0.25%** of 50 MW.
+P: (1 mark) A capacitor with circular plates of radius 4 cm is charged by 1.5 A. Find B inside at r = 2 cm and outside at r = 8 cm. => Inside B = μ₀ I r ÷ (2π R²) = 2 × 10⁻⁷ × 1.5 × 0.02 ÷ 0.0016 = **3.75 μT**. Outside B = μ₀ I ÷ (2π r) = 2 × 10⁻⁷ × 1.5 ÷ 0.08 = **3.75 μT** (a coincidence of these numbers, the formulas are different).
+P: (1 mark) Sunlight of 800 W/m² falls on a surface. Find E₀ and B₀, and the wavelength of a 98 MHz FM radio wave. => E₀ = √(2 × 800 ÷ (8.854 × 10⁻¹² × 3 × 10⁸)) = **776 V/m**; B₀ = **2.59 μT**; λ = 3 × 10⁸ ÷ 98 × 10⁶ = **3.06 m**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 23. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 22. Tell me, and I will rebalance Week 23. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q8 | Gave the largest gain as 1 | Forgot that the echo adds to the original | Gain runs between 1 − a and 1 + a | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: সময় দেরি করালে আকার বদলায় ভেবে ফেলা (শুধু দশা বদলায়), Nyquist এ "সমান" ধরা (হতে হবে বড়), alias হিসাবে f_s − f ভুলে যাওয়া, ট্রান্সফর্মারে কারেন্টের অনুপাত উল্টো দেওয়া, রড-রেল সূত্রে ব্রেকিং বলের দিক, এবং ধারকের ভেতরে ও বাইরে ভিন্ন সূত্র মেশানো।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | An integral from Parseval
+P: The pulse f (t) = 1 for |t| < 1 has the transform F (ω) = 2 sin ω ÷ ω. Use Parseval to find the integral of (sin ω ÷ ω)² over all ω. => ∫ f² dt = 2. Parseval: 2 = (1 ÷ 2π) ∫ 4 sin² ω ÷ ω² dω, so ∫ sin² ω ÷ ω² dω = **π**. No amount of ordinary calculus will give this easily.
+
+LVL: Challenge | Why a falling grid frequency is dangerous for a transformer
+P: A transformer with 1150 primary turns and core area 10 cm² runs on 230 V RMS at 50 Hz. Find the peak core flux density, and the value if the frequency falls to 40 Hz at the same voltage. => V_peak = 325.3 V; Φ_peak = V_peak ÷ (2π f N) = 325.3 ÷ (2π × 50 × 1150) = 9.0 × 10⁻⁴ Wb, so B_peak = Φ ÷ A = **0.90 T**. At 40 Hz, B scales as 1 ÷ f: **1.125 T**. Silicon steel saturates at about 1.7 to 2 T, and designers keep the normal value well below it, because near saturation the magnetising current rises sharply and the transformer overheats. A grid operator disconnects loads long before this happens.
+
+### Optional coding idea (not part of the study plan)
+**Spectrogram lab:** a page that records from the microphone (Web Audio), runs a windowed FFT every 20 ms and draws a scrolling spectrogram on a canvas, with sliders for the window length and the window type. Add a tab where you drag a tone above Nyquist and hear the alias, and a tab with a three-phase animation of the generator (three coils rotating, three sine waves drawn, with the sum staying at zero).
+
+### What Week 23 looks like
+**Review and the Phase 3 test.** A week of mixed review across Weeks 12 to 22: complex numbers, matrices and eigenvalues, multivariable calculus, differential equations, Laplace and Fourier on the maths side; fluids, heat and thermodynamics, electrostatics, circuits, magnetism and induction on the physics side. Daily spaced-practice sets, two full case studies (a loudspeaker and a wind turbine feeding the grid), and the Phase 3 test on Saturday. Phase 4 (probability, optics, relativity and quantum physics) starts in Week 24.
+
+BN: আগামী সপ্তাহ: রিভিউ ও Phase 3 টেস্ট। Week 12 থেকে 22 পর্যন্ত মিশ্র পুনরালোচনা: জটিল সংখ্যা, ম্যাট্রিক্স ও আইগেনমান, বহুচলক ক্যালকুলাস, অবকল সমীকরণ, ল্যাপলাস ও ফুরিয়ে; তরল, তাপ ও তাপগতিবিদ্যা, স্থির তড়িৎ, বর্তনী, চুম্বকত্ব ও আবেশ। প্রতিদিন বিরতি দিয়ে অনুশীলন, দুটি পূর্ণ কেস স্টাডি (লাউডস্পিকার ও গ্রিডে যুক্ত বায়ু টারবাইন), আর শনিবার Phase 3 টেস্ট। Phase 4 শুরু হবে Week 24 এ।
+
+**Sunday is a rest day.**

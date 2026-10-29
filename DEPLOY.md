@@ -45,6 +45,15 @@ git pull
 docker compose up -d --build
 ```
 
+## Install new weeks (when a lesson zip arrives)
+
+1. Unzip it into a scratch folder (`local/incoming-wNN/`, git-ignored). It holds `content/week-NN/day-N.txt` and `preview/`. Only the `week-NN` folders are needed.
+2. Copy each `week-NN` folder to `packages/content/lessons/week-NN`.
+3. Raise the default in `packages/content/scripts/build.mjs` (`CONTENT_MAX_WEEK`, currently 23) if the new weeks are above it.
+4. `npm run content:build` (watch for parser warnings), then `npm run seed` (idempotent, never touches progress or notes). Check a lab day in the browser.
+5. Secret scan, `git add -A && git commit && git push`, then on the server `cd /opt/study-hub && git pull && docker compose up -d --build` (the API container re-seeds on start).
+6. Move the zip into `local/content-zips/` so the repo root stays clean.
+
 ## Logs and status
 
 ```bash

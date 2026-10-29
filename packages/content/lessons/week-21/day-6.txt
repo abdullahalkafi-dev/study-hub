@@ -1,0 +1,79 @@
+@day Week 21 · Day 6 · Saturday
+# Week 21 test, mistake log and challenge
+lead: Same routine as before: cold test, honest marking, mistake log. This week covered Fourier series (sine and cosine and complex forms, symmetry, Gibbs, Parseval, spectra, filtering, rectifiers, heat and strings) and magnetic fields (force on charges and wires, Biot-Savart, Ampère's law, solenoids, torque and the DC motor).
+
+BN: আজ সপ্তাহের পরীক্ষা। নিয়ম আগের মতোই: ৯০ মিনিট, নোট না দেখে, সৎভাবে নিজে নম্বর দাও, ভুলগুলো লগ বইতে লেখো। এই সপ্তাহের বিষয়: ফুরিয়ে ধারা (সাইন-কোসাইন ও জটিল রূপ, প্রতিসাম্য, গিবস, পার্সেভাল, বর্ণালী, ফিল্টার, রেকটিফায়ার, তাপ ও তার) এবং চৌম্বক ক্ষেত্র (চার্জ ও তারে বল, বায়ো-সাভার্ট, অ্যাম্পিয়ার, সলিনয়েড, টর্ক ও DC মোটর)।
+
+@section recall | 1 · How to take this test | 5 min
+
+- Set a timer for **90 minutes**. No calculator for Part A (use sin 36° ≈ 0.588 and π² ≈ 9.87 where needed). A calculator is allowed for Part B.
+- Use μ₀ = 4π × 10⁻⁷ T m/A, e = 1.602 × 10⁻¹⁹ C and m_p = 1.673 × 10⁻²⁷ kg. Write full working on paper. Do not open any solution until the timer ends.
+- Mark yourself with a different colour pen. Do not look at your notes.
+
+CHECK: recall
+
+@section math | 2 · Part A: Fourier series and applications (14 marks, about 55 min) | no calculator
+
+LVL: Part A | Questions 1 to 10
+P: (1 mark) Find b₁ and b₃ for the square wave that equals 3 on (0, π) and −3 on (−π, 0). => For height 1, bₙ = 4 ÷ (nπ). Times 3: **b₁ = 12 ÷ π = 3.82** and **b₃ = 4 ÷ π = 1.27**.
+P: (3 marks) Find the Fourier series of f (x) = x² on (−π, π), and use x = π to find Σ 1 ÷ n². => f is even, so bₙ = 0 and a₀ ÷ 2 = (1 ÷ π) ∫₀^π x² dx = **π² ÷ 3** (1 mark). aₙ = (2 ÷ π) ∫₀^π x² cos nx dx; by parts twice ∫₀^π x² cos nx dx = 2π (−1)^n ÷ n², so **aₙ = 4 (−1)^n ÷ n²** (1 mark). Hence x² = π² ÷ 3 + 4 Σ (−1)^n cos nx ÷ n². At x = π: π² = π² ÷ 3 + 4 Σ 1 ÷ n², so **Σ 1 ÷ n² = π² ÷ 6** (1 mark).
+P: (1 mark) Find the complex coefficients c₂ and c₋₂ of sin 2x. => sin 2x = (e^(2ix) − e^(−2ix)) ÷ 2i, so **c₂ = 1 ÷ 2i = −i ÷ 2** and **c₋₂ = i ÷ 2**.
+P: (1 mark) The unit square wave has (1 ÷ π) ∫ f² dx = 2. Find the share of the energy in the first harmonic. => b₁² = 16 ÷ π², so the share is (16 ÷ π²) ÷ 2 = 8 ÷ π² ≈ **0.81 (81%)**.
+P: (1 mark) What value do the partial sums of the square wave from −1 to 1 overshoot to near the jump as the number of terms grows? => About **1.18** (the Gibbs overshoot: about 9% of the jump height 2, so 1 + 0.179).
+P: (2 marks) A pulse train of height 1 has duty 0.2, so cₙ = sin (0.2 nπ) ÷ (nπ). Find c₀ and c₁ (use sin 36° ≈ 0.588) and name the first missing harmonic. => **c₀ = 0.2** and **c₁ = 0.588 ÷ π ≈ 0.187** (1 mark). The first missing harmonic is where 0.2 n is a whole number: **n = 5** (1 mark).
+P: (1 mark) A square wave of frequency f_c passes through an RC low-pass with cut-off f_c. Find the gain applied to its 3rd harmonic. => 1 ÷ √(1 + 3²) = **1 ÷ √10 ≈ 0.316**.
+P: (2 marks) A full-wave rectifier makes |10 sin ωt| (peak 10 V). Find the DC value and the amplitude of the first ripple harmonic (at twice the mains frequency) before smoothing. => DC = 2 × 10 ÷ π ≈ **6.37 V** (1 mark). The ripple is 4 × 10 ÷ (3π) ≈ **4.24 V** (1 mark).
+P: (1 mark) In the heat equation for a rod with cold ends, by what factor does mode 3 decay faster than mode 1? => The exponent is n² α t, so **9 times** faster.
+P: (1 mark) A string has c = 400 m/s and L = 0.5 m and is plucked at its middle. Find f₁ and say which harmonics are absent. => f₁ = c ÷ 2L = **400 Hz**; the **even** harmonics are absent.
+
+CHECK: math
+
+@section physics | 3 · Part B: magnetic fields and motors (6 marks, about 35 min) | calculator allowed
+
+LVL: Part B | Questions 11 to 16
+P: (1 mark) A proton moves at 2 × 10⁶ m/s perpendicular to a 0.4 T field. Find the force and the radius of its path. => F = 1.602 × 10⁻¹⁹ × 2 × 10⁶ × 0.4 = **1.28 × 10⁻¹³ N**; r = m v ÷ (q B) = 1.673 × 10⁻²⁷ × 2 × 10⁶ ÷ (1.602 × 10⁻¹⁹ × 0.4) = **5.22 cm**.
+P: (1 mark) A velocity selector has E = 2 × 10⁵ V/m and B = 0.5 T. Find the speed it passes. => v = E ÷ B = **4 × 10⁵ m/s**.
+P: (1 mark) A 0.8 m wire carries 15 A in a 0.25 T field. Find the force when the wire is perpendicular to the field and when it makes 30° with it. => F = B I L = **3.0 N**, and at 30° **1.5 N**.
+P: (1 mark) Find the field 8 cm from a wire carrying 40 A, and the force per metre between two parallel wires of 20 A each, 5 cm apart. => B = 2 × 10⁻⁷ × 40 ÷ 0.08 = **100 μT**. F ÷ L = 2 × 10⁻⁷ × 20 × 20 ÷ 0.05 = **1.6 mN/m** (attraction, same direction).
+P: (1 mark) A solenoid has 800 turns on 0.4 m and carries 2.5 A. Find B inside and the energy density. => n = 2000 per m; B = 4π × 10⁻⁷ × 2000 × 2.5 = **6.28 mT**; u = B² ÷ 2μ₀ = **15.7 J/m³**.
+P: (1 mark) A DC motor has V = 24 V, R = 2 Ω and k = 0.05 V s/rad. Find the stall current and the no-load speed in rpm, and the torque at 300 rad/s. => Stall I = **12 A**; ω₀ = 24 ÷ 0.05 = 480 rad/s = **4584 rpm**; at 300 rad/s the back EMF is 15 V, I = 4.5 A and τ = k I = **0.225 N m**.
+
+CHECK: physics
+
+@section notes | 4 · Score, mistake log and challenge | 30 min
+
+### Your score
+Total marks: **20** (14 for Part A, 6 for Part B).
+
+| Score | What it means | What to do |
+| 18 to 20 | Excellent | Go straight into Week 22. Try the challenges. |
+| 14 to 17 | Good | Redo the wrong questions on Sunday evening (10 minutes). |
+| 10 to 13 | Some gaps | Re-read the day sections matching your errors. Redo their Level 2 problems before Monday. |
+| Below 10 | Needs a second pass | Spend Monday's recall time on Week 21. Tell me, and I will rebalance Week 22. |
+
+### Mistake log
+For **every** wrong or skipped question, write one row in your notes.
+
+| Question | What I did | Why it was wrong | The correct idea | Redo on |
+| Q2 | Used 1 ÷ 2π in aₙ | Mixed up the real and the complex formulas | aₙ uses 1 ÷ π, cₙ uses 1 ÷ 2π | Monday |
+
+BN: প্রতিটা ভুল প্রশ্নের জন্য একটা সারি। এই সপ্তাহের সাধারণ ভুল: aₙ এ 1/π আর cₙ এ 1/2π গুলিয়ে ফেলা, বিজোড় ফাংশনে cos রাখা, সূচকের n² ভুলে যাওয়া, চৌম্বক বলের দিক ও কোণ (sin θ) ভুল, μ₀nI এ n কে মোট পাক ধরা, মোটরের শুরুর কারেন্টকে চলন্ত কারেন্ট ভাবা।
+
+NOTES:
+
+### Challenges of the week
+LVL: Challenge | The sum of fourth powers from Parseval
+P: Apply Parseval to f (x) = x² on (−π, π) (a₀ ÷ 2 = π² ÷ 3, aₙ = 4 (−1)^n ÷ n²) to find Σ 1 ÷ n⁴. => (1 ÷ π) ∫ x⁴ dx over (−π, π) = 2π⁴ ÷ 5. Parseval: a₀² ÷ 2 + Σ aₙ² = 2π⁴ ÷ 9 + 16 Σ 1 ÷ n⁴. So 16 Σ 1 ÷ n⁴ = 2π⁴ (1 ÷ 5 − 1 ÷ 9) = 2π⁴ × 4 ÷ 45, and **Σ 1 ÷ n⁴ = π⁴ ÷ 90**. A sum nobody could do by hand before Fourier.
+
+LVL: Challenge | Measure an unknown field with a Hall probe
+P: A semiconductor probe (n = 10²² m⁻³, thickness 0.1 mm) carries 2 mA and shows a Hall voltage of 4.0 mV. Find the field. => V_H = I B ÷ (n q t), so B = V_H n q t ÷ I = 4 × 10⁻³ × 10²² × 1.602 × 10⁻¹⁹ × 10⁻⁴ ÷ (2 × 10⁻³) = **0.32 T**, about the field of a fridge magnet array or a small loudspeaker magnet.
+
+### Optional coding idea (not part of the study plan)
+**Fourier lab:** a page where you draw a periodic wave with the mouse (or choose square, sawtooth or triangle), and it computes the coefficients by numerical integration and redraws the wave from the first N harmonics with a slider, with a bar chart of the spectrum and the Gibbs overshoot marked. Add a tab that plays the wave through the sound card (Web Audio) so you can hear the timbre change as you add harmonics, and a tab with a charged-particle simulator (RK4) in a magnetic field, where the path is a circle, a helix or a drift in crossed E and B.
+
+### What Week 22 looks like
+**The Fourier transform, and electromagnetic induction.** In maths, Fourier series for waves that do not repeat: the Fourier transform, the idea that a short signal has a wide spectrum, and a first look at sampling. In physics, Faraday's law and Lenz's law (a changing magnetic field makes an electric field), generators and transformers, and Maxwell's four equations in overview. The story is the power station, from spinning turbine to the socket in your wall.
+
+BN: আগামী সপ্তাহ: ফুরিয়ে রূপান্তর ও তড়িৎচুম্বকীয় আবেশ। গণিতে পুনরাবৃত্ত নয় এমন সংকেতের জন্য ফুরিয়ে রূপান্তর: ছোট সংকেতের বর্ণালী চওড়া, আর স্যাম্পলিং এর প্রথম ধারণা। পদার্থবিজ্ঞানে ফ্যারাডে ও লেঞ্জের সূত্র (বদলানো চৌম্বক ক্ষেত্র বৈদ্যুতিক ক্ষেত্র বানায়), জেনারেটর, ট্রান্সফর্মার ও ম্যাক্সওয়েলের চার সমীকরণের সারসংক্ষেপ। গল্প বিদ্যুৎকেন্দ্র: ঘূর্ণায়মান টারবাইন থেকে তোমার দেয়ালের সকেট।
+
+**Sunday is a rest day.**

@@ -1,0 +1,159 @@
+@day Week 20 · Day 2 · Tuesday
+# Solving differential equations with Laplace, partial fractions and switches. Then: the RL circuit
+lead: Yesterday you built the table. Today you use it as a machine: any linear equation with constant coefficients becomes algebra, partial fractions split the answer into table entries, and the switch-on of a source (a step) is handled by a shift rule. In physics, you combine an inductor with a resistor and meet the RL circuit, the mirror of last week's RC circuit, where the current cannot jump.
+
+BN: গতকাল তুমি সারণি বানিয়েছ। আজ সেটা যন্ত্রের মতো ব্যবহার করবে: রৈখিক সমীকরণ → বীজগণিত, আংশিক ভগ্নাংশ → সারণির পদ, আর সুইচ অন (ধাপ ফাংশন) → স্থানান্তর নিয়ম। পদার্থবিজ্ঞানে ইনডাক্টর + রোধ = RL বর্তনী, গত সপ্তাহের RC বর্তনীর আয়না, যেখানে কারেন্ট লাফ দিতে পারে না।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: What is L{y′}? => **s Y − y (0)**.
+P: Find L{e^(−3t)}. => **1 ÷ (s + 3)**.
+P: Invert ω ÷ (s² + ω²). => **sin ωt**.
+P: What is the voltage across an inductor? => **V = L dI/dt**.
+P: What is the energy of an inductor? => **½ L I²**.
+
+CHECK: recall
+
+@section math | 2 · Math: Laplace for second-order equations and switches | 55 min
+
+### The recipe
+1. Transform every term (use L{y′} = sY − y (0), L{y″} = s²Y − s y (0) − y′ (0)).
+2. Solve the algebra for Y (s).
+3. Split Y into **partial fractions** that match the table.
+4. Invert term by term.
+
+BN: ধাপ: ১) প্রতিটা পদ ট্রান্সফর্ম; ২) Y এর জন্য বীজগণিত; ৩) আংশিক ভগ্নাংশে ভাঙো; ৪) সারণি থেকে উল্টো রূপান্তর।
+
+EX: Real roots with a constant push
+Solve y″ + 3y′ + 2y = 6 with y (0) = 0 and y′ (0) = 0.
+1. **Transform:** s² Y + 3 s Y + 2 Y = 6 ÷ s, so Y = 6 ÷ (s (s + 1)(s + 2)).
+2. **Partial fractions:** Y = A ÷ s + B ÷ (s + 1) + C ÷ (s + 2).
+   - Cover-up at s = 0: A = 6 ÷ (1 × 2) = **3**.
+   - At s = −1: B = 6 ÷ ((−1)(1)) = **−6**.
+   - At s = −2: C = 6 ÷ ((−2)(−1)) = **3**.
+3. **Invert:** y = **3 − 6 e^(−t) + 3 e^(−2t)**.
+4. **Check:** y (0) = 3 − 6 + 3 = 0 ✓. y′ = 6 e^(−t) − 6 e^(−2t), and y′ (0) = 0 ✓. The e^(−t) terms in y″ + 3y′ + 2y: −6 + 18 − 12 = 0 ✓. The e^(−2t) terms: 12 − 18 + 6 = 0 ✓. The constant: 2 × 3 = 6 ✓.
+5. **Read it:** y (1) = 3 − 6 e⁻¹ + 3 e⁻² = **1.199** and the long-run value is 3 = 6 ÷ 2.
+/EX
+
+EX: Complex roots and a repeated root
+1. **y″ + 2y′ + 5y = 0, y (0) = 1, y′ (0) = 0.** Transform: s² Y − s + 2 (s Y − 1) + 5 Y = 0, so Y = (s + 2) ÷ (s² + 2s + 5). Complete the square: s² + 2s + 5 = (s + 1)² + 4. Then Y = ((s + 1) + 1) ÷ ((s + 1)² + 4) = (s + 1) ÷ ((s + 1)² + 4) + (1 ÷ 2) × 2 ÷ ((s + 1)² + 4). Invert (shift s → s + 1): **y = e^(−t) (cos 2t + ½ sin 2t)**. This is the same as Week 19, found without guessing. At t = 1: y = 0.0142.
+2. **Repeated root:** Y = 1 ÷ (s + 2)² gives **t e^(−2t)**: the t factor comes from the double pole.
+3. **A rule for poles:** the poles of Y (the roots of the denominator) decide the behaviour. A pole at −a gives e^(−at) (decay), a pole at −a ± ib gives a decaying oscillation, a pole at +a gives growth. All poles in the left half-plane means the system settles.
+/EX
+
+### Switching on at a time: the step function
+The **unit step** u (t − a) is 0 before t = a and 1 after. Switching a source on at time a is a step. **Time shift rule:** L{u (t − a) f (t − a)} = **e^(−a s) F (s)**: delaying by a multiplies by e^(−as).
+
+EX: Switch on at t = 2
+Solve y′ + y = u (t − 2) with y (0) = 0.
+1. **Transform:** (s + 1) Y = e^(−2s) ÷ s, so Y = e^(−2s) ÷ (s (s + 1)) = e^(−2s) (1 ÷ s − 1 ÷ (s + 1)).
+2. **Invert** the bracket to get 1 − e^(−t) and shift it by 2: **y = u (t − 2) (1 − e^(−(t − 2)))**.
+3. **Meaning:** nothing happens until t = 2, then y rises towards 1 with time constant 1. At t = 3: y = 1 − e⁻¹ = **0.632**.
+/EX
+
+BN: ধাপ ফাংশন u(t − a): a সময়ের আগে 0, পরে 1। সময় স্থানান্তর: L{u(t − a)f(t − a)} = e^(−as)F(s)। মেরু (pole) বাম অর্ধতলে হলে সিস্টেম স্থির হয়; জটিল মেরু = দোলনসহ ক্ষয়; দ্বিগুণ মেরু = t গুণক।
+
+LAB: Two decaying exponentials | The inverse transform of 1 over ((s + a)(s + b)) is (e to the minus at minus e to the minus bt) over (b minus a). It rises, peaks and decays. Choose the two poles. The numbers give the time and the height of the peak. | a:First pole a:1:4:0.5:2 ;; b:Second pole b:5:9:0.5:6 | log(b/a)/(b-a):Time of the peak:3 ;; (exp(-a*log(b/a)/(b-a))-exp(-b*log(b/a)/(b-a)))/(b-a):Height of the peak:3 | (exp(-a*x)-exp(-b*x))/(b-a) | 0,3 | 0,0.4
+
+TRAP: Do not forget to move the starting values to the right-hand side: L{y″} has the extra terms −s y (0) − y′ (0). In partial fractions the numerator must be one degree lower than the denominator. And completing the square: s² + 2s + 5 is (s + 1)² + 4, so the shift is s → s + 1 and the frequency is 2. Do not invert (s + 2) ÷ (s² + 2s + 5) by looking for a single table entry.
+
+### Quick self-check
+QUIZ:
+Q: In y″ + 3y′ + 2y = 6 the poles of Y are at…; 0, 1, 2; 0, −1, −2; 1, 2; −3, −2; 2; s (s + 1)(s + 2) = 0.
+Q: Y = 1 ÷ (s + 2)² inverts to…; e^(−2t); t e^(−2t); t² e^(−2t); sin 2t; 2; Double pole.
+Q: The time shift rule multiplies F (s) by…; e^(as); e^(−as); a s; 1 ÷ a; 2; Delay by a.
+Q: A pole at −1 ± 2i gives…; pure growth; decaying oscillation; pure decay; a constant; 2; e^(−t) times a sine or cosine.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Invert 1 ÷ (s + 5). => **e^(−5t)**.
+P: Invert 3 ÷ s. => **3**.
+P: Give the poles of 1 ÷ ((s + 1)(s + 4)). => **−1 and −4**.
+LVL: Level 2 | Apply
+P: Solve y″ + 3y′ + 2y = 6 with y (0) = 0 and y′ (0) = 0. => **y = 3 − 6 e^(−t) + 3 e^(−2t)**.
+P: Find y (1) for that solution. => **1.199**.
+P: Solve y″ + 2y′ + 5y = 0 with y (0) = 1 and y′ (0) = 0. => **y = e^(−t) (cos 2t + ½ sin 2t)**.
+P: Invert 1 ÷ (s² + 2s + 5). => 1 ÷ ((s + 1)² + 4) = ½ × 2 ÷ ((s + 1)² + 4), so **½ e^(−t) sin 2t**.
+P: Solve y′ + y = u (t − 2) with y (0) = 0 and find y (3). => **y (3) = 1 − e⁻¹ = 0.632**.
+P: Solve y″ + 4y = 0 with y (0) = 2 and y′ (0) = 0. => s² Y − 2 s + 4 Y = 0, Y = 2 s ÷ (s² + 4), so **y = 2 cos 2t**.
+LVL: Level 3 | Real
+P: A spring with m = 1, b = 4 and k = 4 is pulled to 1 and released from rest. Find y (t). => y″ + 4y′ + 4y = 0, y (0) = 1, y′ (0) = 0: Y = (s + 4) ÷ (s + 2)² = 1 ÷ (s + 2) + 2 ÷ (s + 2)², so **y = (1 + 2t) e^(−2t)**, the critically damped answer of Week 19.
+LVL: Challenge | The pole picture
+P: For which values of b is y″ + b y′ + 4y = 0 stable (all poles with negative real part) and when does it oscillate? => The roots are (−b ± √(b² − 16)) ÷ 2. For **b > 0** the real part is negative: stable. It oscillates when b² < 16, so for **0 < b < 4**; b = 4 is critical; b < 0 is unstable.
+
+CHECK: math
+
+@section physics | 3 · Physics: the RL circuit | 35 min
+
+### The current cannot jump
+Close a switch connecting a battery ε, a resistor R and an inductor L in series. Kirchhoff's loop rule gives ε − I R − L dI/dt = 0. With the Laplace transform and I (0) = 0: (L s + R) I = ε ÷ s, so
+
+EQ: I (s) = ε ÷ (s (L s + R)) = (ε ÷ R) (1 ÷ s − 1 ÷ (s + R ÷ L))
+
+and therefore **I (t) = (ε ÷ R) (1 − e^(−t ÷ τ)), τ = L ÷ R**. The current rises from 0 to ε ÷ R, with time constant **τ = L ÷ R** (compare τ = R C). The voltage across the inductor is V_L = ε e^(−t ÷ τ): it is the full ε at the start (the inductor blocks the current completely at t = 0) and decays to zero (a steady current needs no voltage).
+
+When the source is removed and the coil is shorted through R: **I = I₀ e^(−t ÷ τ)**.
+
+BN: সুইচ বন্ধ করলে ε − IR − L dI/dt = 0। সমাধান I(t) = (ε/R)(1 − e^(−t/τ)), τ = L/R। শুরুতে ইনডাক্টরে পুরো ε (কারেন্ট শূন্য), পরে শূন্য। সুইচ খুলে শর্ট করলে I = I₀e^(−t/τ)। তুলনা: RC তে V লাফ দেয় না, RL এ I লাফ দেয় না।
+
+EX: An RL circuit
+ε = 12 V, R = 4 Ω and L = 0.2 H.
+1. **Time constant:** τ = 0.2 ÷ 4 = **0.05 s**. **Final current:** 12 ÷ 4 = **3 A**.
+2. **At t = τ:** I = 3 (1 − e⁻¹) = **1.90 A** (63% of the final value). V_L = 12 e⁻¹ = **4.41 V**.
+3. **Time to reach 90%:** t = τ ln 10 = **0.115 s**.
+4. **Half the final current:** t = τ ln 2 = **0.0347 s**.
+5. **After 5τ** (0.25 s): I = 3 (1 − e⁻⁵) = **2.98 A**, so the circuit is effectively steady.
+6. **Energy in the coil** at the end: ½ × 0.2 × 3² = **0.9 J**. The resistor then dissipates 3² × 4 = **36 W**, equal to the battery power 12 × 3 = 36 W.
+7. **A voltage spike:** the coil carries 3 A and the switch is opened so that the current must flow through a 100 Ω resistor placed across the coil. At that moment the current is still 3 A, so the voltage is 3 × 100 = **300 V**, from a 12 V supply. It decays with τ = 0.2 ÷ 104 = **1.9 ms**.
+/EX
+
+LAB: RL circuit switch-on | Choose the battery, the resistor and the inductor. The graph shows the current rising to its final value. The numbers give the time constant, the final current, the current after one time constant and the time to reach 90 percent. | e:Battery (V):1:24:1:12 ;; R:Resistance (ohm):2:20:1:4 ;; L:Inductance (H):0.05:1:0.05:0.2 | L/R:Time constant (s):4 ;; e/R:Final current (A):3 ;; e/R*(1-exp(-1)):Current at one time constant (A):3 ;; L/R*log(10):Time to 90 percent (s):3 | e/R*(1-exp(-R*x/L)) | 0,1 | 0,12
+
+TRAP: The inductor current is continuous, but the voltage across the inductor can jump (at switch-on it jumps to ε). In the RC circuit it was the opposite: the capacitor voltage is continuous and the current jumps. τ = L ÷ R, so a bigger inductance makes the current slower, and a bigger resistance makes it faster. Opening a switch through an inductor is dangerous because the voltage can reach L dI/dt.
+
+### Quick self-check
+QUIZ:
+Q: The time constant of an RL circuit is…; R L; L ÷ R; R ÷ L; 1 ÷ (R L); 2; L ÷ R.
+Q: At the instant a switch closes, the current in the RL circuit is…; ε ÷ R; ε ÷ 2R; 0; infinite; 3; The inductor opposes the change.
+Q: After a long time the voltage across the inductor is…; ε; ε ÷ 2; 0; infinite; 3; dI/dt = 0.
+Q: With ε = 12 V and R = 4 Ω the final current is…; 3 A; 48 A; 0.33 A; 8 A; 1; ε ÷ R.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find τ for L = 0.2 H and R = 4 Ω. => **0.05 s**.
+P: Find the final current for ε = 12 V and R = 4 Ω. => **3 A**.
+P: Find the voltage across the inductor at t = 0. => **12 V**.
+LVL: Level 2 | Apply
+P: Find I at t = τ for the circuit above. => **1.90 A**.
+P: Find V_L at t = τ. => **4.41 V**.
+P: Find the time to reach 90% of the final current. => **0.115 s**.
+P: Find the energy stored at the end. => **0.9 J**.
+P: Find τ and the final current for ε = 12 V, R = 10 Ω and L = 0.5 H. => τ = **0.05 s**; I = **1.2 A**.
+P: Find the current in that circuit at t = 0.1 s. => 1.2 (1 − e⁻²) = **1.04 A**.
+LVL: Level 3 | Real
+P: A relay coil carries 3 A (L = 0.2 H) and the current is forced through a 100 Ω resistor. Find the initial voltage and the time constant. => **300 V** and **1.9 ms**: this is why a flyback diode is fitted.
+LVL: Challenge | Delaying a lamp
+P: A lamp needs 2 A (of its 3 A final) to light. With ε = 12 V, R = 4 Ω and L = 0.2 H, when does it light? => 3 (1 − e^(−t ÷ 0.05)) = 2 gives e^(−t ÷ 0.05) = 1 ÷ 3, so **t = 0.05 ln 3 = 0.055 s**.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Laplace method: transform, solve, partial fractions, invert. Poles decide the behaviour: left half-plane means decay, complex poles mean oscillation, double pole means t e^(−at). Step on at a: multiply by e^(−as).
+- RL circuit: I = (ε ÷ R)(1 − e^(−t ÷ τ)), τ = L ÷ R. The current is continuous, V_L jumps. Switch-off through a resistor R′ gives a spike I₀ R′.
+
+BN: আজকের সারকথা: ট্রান্সফর্ম → বীজগণিত → আংশিক ভগ্নাংশ → উল্টো। মেরু ঠিক করে আচরণ। সুইচ অন a সময়ে → e^(−as)। RL: I = (ε/R)(1 − e^(−t/τ)), τ = L/R। কারেন্ট অবিচ্ছিন্ন, ইনডাক্টর ভোল্টেজ লাফ দেয়।
+
+EXIT:
+E: What is y (1) for y″ + 3y′ + 2y = 6 with zero start? Give 2 decimals.; 1.2; 0.01; 3 − 6 e⁻¹ + 3 e⁻².
+E: What is the RL time constant in milliseconds for L = 0.2 H and R = 4 Ω?; 50; 0.5; L ÷ R.
+E: What is the current in amperes at t = τ for ε = 12 V and R = 4 Ω? Give 2 decimals.; 1.9; 0.02; 3 (1 − e⁻¹).
+
+**Tomorrow:** more on second-order equations (poles, transfer functions) and LC and RLC oscillations.
+
+CHECK: notes

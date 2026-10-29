@@ -1,0 +1,159 @@
+@day Week 20 · Day 4 · Thursday
+# Numerical methods: Euler, improved Euler and Runge-Kutta. Then: alternating current
+lead: Most real differential equations have no formula. A computer steps through time with small steps, and the question is how much accuracy each step buys. Euler's method is the idea, improved Euler is a cleverer step, and Runge-Kutta (RK4) is the workhorse of science and engineering. In physics, you meet alternating current: the mains in your wall is a sine wave, and resistors, inductors and capacitors respond to it with different strengths and different timing.
+
+BN: বেশিরভাগ বাস্তব অবকল সমীকরণের সূত্র নেই। কম্পিউটার ছোট ছোট ধাপে এগোয়; প্রশ্ন হলো প্রতি ধাপে কতটা নির্ভুলতা মেলে। অয়লার হলো মূল ধারণা, উন্নত অয়লার চালাক ধাপ, আর রুঙ্গে-কুট্টা (RK4) বিজ্ঞান-প্রকৌশলের প্রধান ঘোড়া। পদার্থবিজ্ঞানে পরিবর্তী প্রবাহ (AC): দেয়ালের মেইন একটা সাইন তরঙ্গ, আর রোধ, ইনডাক্টর ও ক্যাপাসিটর তাতে ভিন্ন শক্তি ও ভিন্ন সময়ে সাড়া দেয়।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: State Euler's method. => **y_(n+1) = y_n + h f (x_n, y_n)**.
+P: Solve y′ = −2y with y (0) = 1. => **y = e^(−2x)**.
+P: Write the Taylor series of e^z to order 4. => **1 + z + z²/2 + z³/6 + z⁴/24**.
+P: What is the pole of 1 ÷ (s + 2)? => **s = −2**.
+P: Find the time constant of an RL circuit with L = 0.2 H, R = 4 Ω. => **0.05 s**.
+
+CHECK: recall
+
+@section math | 2 · Math: three ways to step | 55 min
+
+### The test problem
+Take y′ = −2y with y (0) = 1. The exact answer at t = 1 is e⁻² = **0.135335**. A numerical method with step h = 1 ÷ N takes N steps, and each step multiplies y by a fixed factor.
+
+- **Euler** follows the slope at the start of the step: factor **1 + z** with z = −2h. Cheap, error ∝ h (first order).
+- **Improved Euler (Heun)** averages the slope at the start and the predicted slope at the end: factor **1 + z + z²/2**. Error ∝ h² (second order).
+- **Runge-Kutta 4 (RK4)** uses four slopes per step: k₁ at the start, k₂ and k₃ at the midpoint, k₄ at the end, and y_(n+1) = y_n + (h ÷ 6)(k₁ + 2k₂ + 2k₃ + k₄). Its factor matches the Taylor series up to **z⁴ ÷ 24**, so the error ∝ h⁴ (fourth order).
+
+BN: Euler: ধাপের শুরুর ঢাল; ফ্যাক্টর 1 + z (ত্রুটি ∝ h)। Heun: শুরু ও শেষের ঢালের গড়; ফ্যাক্টর 1 + z + z²/2 (ত্রুটি ∝ h²)। RK4: চারটা ঢাল k₁, k₂, k₃, k₄; y_(n+1) = y_n + (h/6)(k₁ + 2k₂ + 2k₃ + k₄), ত্রুটি ∝ h⁴।
+
+EX: Error against the step size
+| Steps N | Euler | Heun | RK4 |
+|---|---|---|---|
+| 4 | 0.0625 (error 0.0728) | 0.1526 (error 0.0173) | 0.13555 (error 0.00021) |
+| 8 | 0.1001 (error 0.0352) | 0.13878 (error 0.0034) | 0.135346 (error 0.000011) |
+| 16 | 0.1181 (error 0.0173) | 0.13611 (error 0.00078) | 0.1353359 (error 0.0000006) |
+1. **Halving h:** the Euler error halves (ratio about 2), the Heun error falls by about 4 to 5, and the RK4 error falls by about 16 to 20.
+2. **Cost versus accuracy:** RK4 costs four slope evaluations per step, but with 4 steps it is already about 80 times more accurate than Euler with 16 steps. For a given accuracy, RK4 is much cheaper.
+/EX
+
+EX: A direct step by hand
+Solve y′ = x + y with y (0) = 1 up to x = 0.2 (the exact answer is 2 eˣ − x − 1 = **1.242806**).
+1. **Euler, h = 0.1:** y₁ = 1 + 0.1 × 1 = 1.1; y₂ = 1.1 + 0.1 × (0.1 + 1.1) = **1.22**. The error is 0.0228.
+2. **Heun, h = 0.1:** step 1: k₁ = 1, the predictor is 1.1, k₂ = f (0.1, 1.1) = 1.2, y₁ = 1 + 0.05 × (1 + 1.2) = **1.11**. Step 2: k₁ = 1.21, the predictor is 1.231, k₂ = f (0.2, 1.231) = 1.431, y₂ = 1.11 + 0.05 × (1.21 + 1.431) = **1.24205**. The error is 0.0008.
+3. **RK4, one step h = 0.2:** k₁ = 1, k₂ = f (0.1, 1.1) = 1.2, k₃ = f (0.1, 1.12) = 1.22, k₄ = f (0.2, 1.244) = 1.444. y = 1 + (0.2 ÷ 6)(1 + 2.4 + 2.44 + 1.444) = **1.2428**. The error is 6 × 10⁻⁶ with a single step.
+/EX
+
+EX: Why Euler fails for oscillators
+Take x′ = v, v′ = −x (the exact motion is a circle with constant amplitude 1).
+1. **Euler's step** multiplies the amplitude by √(1 + h²) each time: for h = 0.1 over one period (63 steps) the amplitude grows to (1.01)^(31.4) = **1.37**, and the energy grows by **87%**. The planet spirals outward.
+2. **RK4's step** multiplies the amplitude by about (1 − h⁶ ÷ 72)^(1/2) per step, so over a period the amplitude is **0.9999996**: practically no drift.
+3. **Lesson:** for long simulations of oscillation or orbits, never use plain Euler. This is why physics engines and space missions use RK4 or special energy-preserving methods.
+/EX
+
+LAB: Euler, Heun and RK4 against the exact value | For y prime = -2y with y(0) = 1, take N equal steps to reach t = 1. The numbers give the three results and the Euler and RK4 errors. The graph shows the three results for different N. | N:Number of steps N:3:30:1:8 | (1-2/N)^N:Euler estimate:5 ;; (1-2/N+2/N^2)^N:Heun estimate:5 ;; (1-2/N+2/N^2-4/(3*N^3)+2/(3*N^4))^N:RK4 estimate:6 ;; abs((1-2/N)^N-exp(-2)):Euler error:5 ;; abs((1-2/N+2/N^2-4/(3*N^3)+2/(3*N^4))^N-exp(-2)):RK4 error:7 | (1-2/x)^x ;; (1-2/x+2/x^2)^x ;; (1-2/x+2/x^2-4/(3*x^3)+2/(3*x^4))^x | 3,30 | 0,0.3
+
+LAB: Euler on an oscillator | Choose the step size. Euler pushes the amplitude up a little each step, so a planet or a spring drifts outward. The graph shows the amplitude against the number of periods. RK4 hardly changes it. | h:Step size h:0.01:0.3:0.01:0.1 | (1+h^2)^(pi/h):Euler amplitude after one period:4 ;; (1+h^2)^(2*pi/h):Euler energy after one period:3 ;; (1-h^6/72+h^8/576)^(pi/h):RK4 amplitude after one period:7 | (1+h^2)^(pi*x/h) ;; (1-h^6/72+h^8/576)^(pi*x/h) | 0,5 | 0,6
+
+TRAP: A smaller step does not mean an exact answer, only a smaller error, and the error of Euler is only first order. Too large a step can make the method unstable (for y′ = −2y, Euler with h > 1 oscillates and grows). Do not take the four slopes of RK4 from the start of the step: k₂ and k₃ use the midpoint and k₄ the end. Also Euler's error accumulates: halving the step doubles the work and halves the error, nothing more.
+
+### Quick self-check
+QUIZ:
+Q: The error of Euler's method is proportional to…; h; h²; h⁴; 1 ÷ h; 1; First order.
+Q: RK4 evaluates the slope how many times per step?; 1; 2; 4; 8; 3; k₁ to k₄.
+Q: Halving the step of RK4 reduces the error by about…; 2; 4; 16; 100; 3; Fourth order: 2⁴ = 16.
+Q: Over one period Euler's method on an oscillator makes the amplitude…; shrink; stay the same; grow; vanish; 3; Factor √(1 + h²) per step.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Do one Euler step for y′ = x + y, y (0) = 1, h = 0.1. => **y₁ = 1.1**.
+P: Find the Euler factor for y′ = −2y with h = 0.25. => 1 − 0.5 = **0.5**.
+P: Find the Heun factor for the same case. => 1 − 0.5 + 0.125 = **0.625**.
+LVL: Level 2 | Apply
+P: Do two Euler steps for y′ = x + y with h = 0.1 and compare with 1.242806. => **1.22** with error **0.0228**.
+P: Do two Heun steps for the same problem. => **1.24205** with error **0.0008**.
+P: Do one RK4 step with h = 0.2 for the same problem. => **1.2428**.
+P: Find Euler with N = 4 for y′ = −2y at t = 1. => 0.5⁴ = **0.0625**, error **0.0728**.
+P: Find the RK4 factor for N = 4 (h = 0.25, z = −0.5). => 1 − 0.5 + 0.125 − 0.020833 + 0.002604 = **0.60677** and then **0.13555** after 4 steps.
+P: By what factor does the Euler energy grow in one period of an oscillator at h = 0.1? => **1.87**.
+LVL: Level 3 | Real
+P: A cooling cup follows T′ = −0.1 (T − 20) with T (0) = 90 and step h = 2 minutes. Take one Euler step and compare with the exact T (2) = 20 + 70 e^(−0.2). => T₁ = 90 + 2 × (−7) = **76**; exact **77.3**. The error is 1.3 °C.
+LVL: Challenge | Stability limit
+P: For y′ = −λ y, Euler's factor is 1 − λ h. For which h does the numerical solution decay? => |1 − λ h| < 1, so **0 < h < 2 ÷ λ**. For λ = 2 you need h < 1. At h = 1.2 the factor is −1.4, so the numbers flip sign and grow although the true solution decays.
+
+CHECK: math
+
+@section physics | 3 · Physics: alternating current | 35 min
+
+### The mains
+A generator in a power station produces **v (t) = V_p sin ωt** with ω = 2π f. The mains frequency is **50 Hz** in Bangladesh and Europe, 60 Hz in America. The meaningful number is not the peak but the **RMS** (root mean square), the constant voltage that would heat a resistor equally: since the average of sin² is ½,
+
+EQ: V_rms = V_p ÷ √2, I_rms = I_p ÷ √2, P_avg = V_rms² ÷ R
+
+So the "230 V" of your wall is an RMS value: the peak is 230 √2 = **325 V**.
+
+For a resistor, current and voltage are in phase. The inductor and capacitor respond with a **reactance** (opposition measured in ohms):
+- **Inductor:** X_L = ω L. The current **lags** the voltage by 90° (the inductor opposes change; higher frequency means more opposition).
+- **Capacitor:** X_C = 1 ÷ (ω C). The current **leads** the voltage by 90° (high frequency means an easy passage).
+In complex notation (Week 12): Z_R = R, Z_L = i ω L, Z_C = 1 ÷ (i ω C), and I = V ÷ Z for each.
+
+BN: v = V_p sin ωt, ω = 2πf; বাংলাদেশে 50 Hz। RMS: V_rms = V_p/√2, তাই 230 V এর পিক 325 V; P_avg = V_rms²/R। রোধে কারেন্ট ও ভোল্টেজ একই দশায়। ইনডাক্টর: X_L = ωL, কারেন্ট 90° পিছিয়ে; ক্যাপাসিটর: X_C = 1/(ωC), কারেন্ট 90° এগিয়ে। জটিল সংখ্যায় Z_L = iωL, Z_C = 1/(iωC)।
+
+EX: The wall socket
+1. **Peak voltage:** 230 × √2 = **325 V**. The period is 1 ÷ 50 = **20 ms**.
+2. **A resistive heater of 50 Ω:** I_rms = 230 ÷ 50 = **4.6 A**, I_peak = **6.5 A**, P = 230² ÷ 50 = **1058 W**.
+3. **A coil of 0.1 H at 50 Hz:** X_L = 2π × 50 × 0.1 = **31.4 Ω**. At 1 kHz: 628 Ω. A choke passes slow signals and blocks fast ones.
+4. **A capacitor of 100 μF at 50 Hz:** X_C = 1 ÷ (314.16 × 10⁻⁴) = **31.8 Ω**. At 1 kHz: 1.6 Ω.
+5. **Resistor and inductor in series:** R = 30 Ω and X_L = 40 Ω. The total opposition is the impedance |Z| = √(30² + 40²) = **50 Ω**, the current is 230 ÷ 50 = **4.6 A**, and the current lags the voltage by atan (40 ÷ 30) = **53.1°**.
+6. **R = 100 Ω with L = 0.2 H at 50 Hz:** X_L = 62.8 Ω, |Z| = 118.1 Ω, I = **1.95 A** and the lag is **32.1°**.
+/EX
+
+LAB: A sine wave and its RMS | Choose the peak voltage and the frequency. The graph shows the voltage over 40 milliseconds. The numbers give the RMS value, the period and the peak to peak voltage. | Vp:Peak voltage (V):10:400:5:325 ;; f:Frequency (Hz):10:200:5:50 | Vp/sqrt(2):RMS voltage (V):1 ;; 1000/f:Period (ms):2 ;; 2*Vp:Peak to peak (V):0 | Vp*sin(2*pi*f*x/1000) | 0,40 | -400,400
+
+LAB: Reactance against frequency | Choose an inductor and a capacitor. The blue curve is the inductor reactance, which rises with frequency, and the orange curve is the capacitor reactance, which falls. They cross at the resonant frequency. | L:Inductance (mH):10:500:10:100 ;; C:Capacitance (uF):10:500:10:100 | 2*pi*50*L*0.001:Inductor reactance at 50 Hz (ohm):2 ;; 1/(2*pi*50*C*0.000001):Capacitor reactance at 50 Hz (ohm):2 ;; 1/(2*pi*sqrt(L*0.001*C*0.000001)):Frequency where they are equal (Hz):1 | 2*pi*x*L*0.001 ;; 1/(2*pi*x*C*0.000001) | 5,500 | 0,200
+
+TRAP: Mains "230 V" is an RMS value, so the peak is 325 V. The average of a sine is zero: the power uses the RMS, never the plain average. Impedances do **not** add arithmetically: R = 30 and X_L = 40 give 50, not 70, because the phases differ by 90°. "ELI the ICE man": voltage E leads current I in an inductor L (ELI), and current leads voltage in a capacitor C (ICE).
+
+### Quick self-check
+QUIZ:
+Q: The peak voltage of a 230 V RMS supply is…; 163 V; 230 V; 325 V; 460 V; 3; 230 × √2.
+Q: The reactance of an inductor…; falls with frequency; rises with frequency; is constant; is zero; 2; X_L = ωL.
+Q: In a capacitor the current…; lags by 90°; leads by 90°; is in phase; is zero; 2; ICE.
+Q: R = 30 Ω in series with X_L = 40 Ω gives an impedance of…; 70 Ω; 50 Ω; 10 Ω; 1200 Ω; 2; √(30² + 40²).
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the RMS of a 325 V peak sine. => **230 V**.
+P: Find the period of a 50 Hz supply. => **20 ms**.
+P: Find X_L for L = 0.1 H at 50 Hz. => **31.4 Ω**.
+LVL: Level 2 | Apply
+P: Find the current and power of a 50 Ω heater on 230 V. => **4.6 A** and **1058 W**.
+P: Find X_C for 100 μF at 50 Hz. => **31.8 Ω**.
+P: Find |Z| and the phase for R = 30 Ω and X_L = 40 Ω. => **50 Ω** and **53.1°**.
+P: Find the current in the circuit above on 230 V. => **4.6 A**.
+P: Find X_L and X_C at 1 kHz for 0.1 H and 100 μF. => **628 Ω** and **1.59 Ω**.
+P: Find |Z|, I and the lag for R = 100 Ω and L = 0.2 H on 230 V, 50 Hz. => **118.1 Ω**, **1.95 A**, **32.1°**.
+LVL: Level 3 | Real
+P: A 60 W lamp is designed for 230 V RMS. Find its resistance, RMS current and peak power. => R = 230² ÷ 60 = **882 Ω**, I = **0.26 A**, and the peak power is 2 × 60 = **120 W** (the power oscillates between 0 and 120 W, 100 times per second).
+LVL: Challenge | Why average power is half the peak
+P: Show that the average of sin² over a period is ½. => sin² x = (1 − cos 2x) ÷ 2, and the average of cos 2x is 0, so the average is **½**. So the average power is ½ V_p² ÷ R, which equals V_rms² ÷ R.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Euler: first order, factor 1 + z. Heun: second order, 1 + z + z²/2. RK4: fourth order, (h ÷ 6)(k₁ + 2k₂ + 2k₃ + k₄). Halving h: ratio 2, 4, 16. Euler gains energy in oscillators; use RK4.
+- AC: v = V_p sin ωt, V_rms = V_p ÷ √2, P = V_rms² ÷ R. X_L = ωL (current lags 90°), X_C = 1 ÷ ωC (current leads 90°). R and X combine as √(R² + X²) because of the 90° phase.
+
+BN: আজকের সারকথা: Euler প্রথম ক্রম, Heun দ্বিতীয়, RK4 চতুর্থ; h অর্ধেক করলে ত্রুটি 2, 4, 16 গুণ কমে। দোলকে Euler শক্তি বাড়ায়। AC: V_rms = V_p/√2; X_L = ωL, X_C = 1/ωC; R ও X মিলে √(R² + X²)।
+
+EXIT:
+E: What is the Euler estimate of y (1) for y′ = −2y with N = 4 steps?; 0.0625; 0.001; (1 − 0.5)⁴.
+E: What is the peak voltage (V) of 230 V RMS? Give the nearest whole number.; 325; 1; 230 × √2.
+E: What is the impedance (ohm) for R = 30 Ω and X_L = 40 Ω?; 50; 0.1; √(R² + X²).
+
+**Tomorrow:** series RLC circuits on AC, resonance, Q and bandwidth: how a radio tunes to one station.
+
+CHECK: notes

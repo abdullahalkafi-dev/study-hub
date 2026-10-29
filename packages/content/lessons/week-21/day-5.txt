@@ -1,0 +1,170 @@
+@day Week 21 · Day 5 · Friday
+# Fourier series for heat and strings. Then: the electric motor
+lead: The first use of Fourier series was not signals but heat. Fourier wanted to know how an iron bar cools, and found that any starting temperature profile is a sum of simple sine shapes, and each shape fades away at its own speed, the higher ones much faster. The same idea explains a plucked guitar string: a sum of standing waves. In physics, you put the magnetic force on a current loop to work: a torque, which spins the coil of a motor. Today's story is the electric motor, from the torque on one turn of wire to the speed and power of a real DC motor.
+
+BN: ফুরিয়ে ধারা প্রথম ব্যবহার হয় সংকেতে নয়, তাপে। লোহার দণ্ড কীভাবে ঠান্ডা হয়? যেকোনো প্রাথমিক তাপমাত্রা প্রোফাইল সরল সাইন আকৃতির যোগফল, আর প্রতিটা আকৃতি নিজের গতিতে ক্ষীণ হয়, উঁচু গুলো অনেক দ্রুত। একই ধারণায় গিটারের টানা তার = দাঁড়ানো তরঙ্গের যোগফল। পদার্থবিজ্ঞানে কারেন্ট লুপে চৌম্বক বল থেকে টর্ক, যা মোটরের কয়েল ঘোরায়। আজকের গল্প বৈদ্যুতিক মোটর: এক পাকের টর্ক থেকে বাস্তব DC মোটরের গতি ও ক্ষমতা।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Write the Fourier sine series of a function on (0, π). => **f = Σ bₙ sin nx with bₙ = (2 ÷ π) ∫₀^π f sin nx dx**.
+P: What is the force on a wire of length L carrying I in a field B? => **F = B I L sin θ**.
+P: What is the torque of a force F at a perpendicular distance d from the axis? => **τ = F d**.
+P: What are the standing-wave frequencies of a string fixed at both ends? => **fₙ = n v ÷ (2L)**.
+P: What is the efficiency of a machine? => **useful power out ÷ power in**.
+
+CHECK: recall
+
+@section math | 2 · Math: heat in a rod and a plucked string | 50 min
+
+### Heat flow
+A thin rod of length π has its ends held at temperature 0 (the ambient level) and starts with the temperature profile u (x, 0) = f (x). The temperature u (x, t) obeys the **heat equation** ∂u/∂t = α ∂²u/∂x² (α is the thermal diffusivity). Try u = X (x) T (t): then T′ ÷ (α T) = X″ ÷ X, which is a constant −n². The solutions that vanish at both ends are X = sin nx and T = e^(−α n² t). Add them all up:
+
+EQ: u (x, t) = Σ bₙ e^(−α n² t) sin nx, where bₙ are the sine-series coefficients of f
+
+**Mode n decays n² times faster than mode 1.** So any bumpy start becomes smooth very quickly, and after a while only the lowest mode, a single half sine, remains.
+
+EX: A rod heated evenly
+f = 1 on (0, π) (a square wave). bₙ = 4 ÷ (nπ) for odd n. Let τ = α t.
+1. **At the centre** (x = π ÷ 2): u = (4 ÷ π)(e^(−τ) − e^(−9τ) ÷ 3 + e^(−25τ) ÷ 5 − …).
+2. **τ = 0.5:** (4 ÷ π)(0.6065 − 0.0037 + 0) = **0.768**.
+3. **τ = 1:** (4 ÷ π)(0.3679 − 0.0000) = **0.468**. After this the whole rod is a half sine: the third mode is e^(−8τ) = 0.03% of the first.
+4. **Time for the centre to fall to 0.5:** (4 ÷ π) e^(−τ) = 0.5 gives τ = ln (8 ÷ π) = **0.935**.
+5. **In real units**, for a rod of length L the slowest decay time is τ₁ = L² ÷ (α π²). For a 0.5 m copper rod (α = 1.11 × 10⁻⁴ m²/s): **228 s**, which is 3.8 minutes. For iron (α = 2.3 × 10⁻⁵): **1101 s**, which is 18 minutes. Mode 3 lasts 9 times less: 25 s and 122 s.
+6. **Why it matters:** no sharp temperature step survives. Heat smooths every detail quickly, and the smaller the detail (the higher n), the faster it goes (as n²).
+/EX
+
+### A plucked guitar string
+A string of length L fixed at both ends obeys the wave equation y_tt = c² y_xx, with c = √(T ÷ μ). Its motion is a sum of standing waves:
+
+EQ: y (x, t) = Σ bₙ sin (n π x ÷ L) cos (n π c t ÷ L), with fₙ = n c ÷ (2L)
+
+If it is plucked at the fraction p of its length to a height h (a triangle), the amplitudes are **bₙ = 2 h sin (n π p) ÷ (n² π² p (1 − p))**. Plucking at the middle (p = ½) gives bₙ = 8 h ÷ (π² n²) for n = 1, 3, 5 with alternating sign, and all even modes **missing**. The harmonics fall as 1 ÷ n² (the shape has a corner, but no jump). A pluck at p = 1/5 kills the 5th harmonic, 10th, …
+
+BN: তাপ সমীকরণ u_t = αu_xx; বিচ্ছিন্ন করে u = Σ bₙ e^(−αn²t) sin nx; n-তম মোড n² গুণ দ্রুত ক্ষীণ হয়। দৈর্ঘ্য L হলে τ₁ = L²/(απ²)। গিটার: y = Σ bₙ sin(nπx/L) cos(nπct/L), fₙ = nc/(2L); p অংশে টানলে bₙ = 2h sin(nπp)/(n²π²p(1−p)); মাঝখানে টানলে জোড় হারমোনিক নেই।
+
+EX: The top string of a guitar
+L = 0.65 m, μ = 0.4 g/m and T = 73.5 N, plucked 3 mm at the middle.
+1. **Speed:** c = √(73.5 ÷ 0.0004) = **428.7 m/s**. The fundamental is f₁ = 428.7 ÷ 1.3 = **329.7 Hz** (the note E4). Harmonics at 659, 989, 1319 Hz.
+2. **Amplitudes** (middle pluck): b₁ = 8 × 3 ÷ π² = **2.43 mm**, b₃ = **−0.270 mm**, b₅ = **+0.097 mm**, and b₂ = b₄ = 0.
+3. **A pluck at one-fifth of the length** (near the bridge) gives b₁ = 2.23 mm, b₂ = 0.90 mm, b₃ = 0.40 mm, b₄ = 0.14 mm and b₅ = 0. More high harmonics, so the sound is sharper and brighter. This is why guitarists pluck near the bridge for a bright sound and over the soundhole (the middle) for a soft, round one.
+4. **Energy of the first harmonic** = b₁² ÷ Σ bₙ²: for the middle pluck about **98.6%**, so it sounds nearly pure.
+/EX
+
+LAB: Cooling of a rod | Choose the dimensionless time tau = alpha t. The graph shows the temperature profile along the rod from the three slowest modes. The numbers give the centre temperature and the slowest decay. | tau:Time tau (alpha t):0.05:2:0.05:0.5 | 4/pi*(exp(-tau)-exp(-9*tau)/3+exp(-25*tau)/5):Temperature at the centre:3 ;; exp(-tau):Strength of the first mode:3 ;; exp(-9*tau)/exp(-tau):Third mode compared with the first:5 | 4/pi*(exp(-tau)*sin(x)+exp(-9*tau)*sin(3*x)/3+exp(-25*tau)*sin(5*x)/5) | 0,3.1416 | 0,1.3
+
+LAB: Pluck a string | Choose where the string is plucked (as a fraction of its length) and how far. The graph is the sum of the first eight standing waves, which rebuilds the plucked triangle. The numbers give the first three harmonic amplitudes. | p:Pluck position p:0.1:0.9:0.05:0.5 ;; h:Pluck height h (mm):1:10:1:3 | 2*h*sin(pi*p)/(pi^2*p*(1-p)):First harmonic (mm):3 ;; 2*h*sin(2*pi*p)/(4*pi^2*p*(1-p)):Second harmonic (mm):3 ;; 2*h*sin(3*pi*p)/(9*pi^2*p*(1-p)):Third harmonic (mm):3 | 2*h/(pi^2*p*(1-p))*(sin(pi*p)*sin(pi*x)+sin(2*pi*p)*sin(2*pi*x)/4+sin(3*pi*p)*sin(3*pi*x)/9+sin(4*pi*p)*sin(4*pi*x)/16+sin(5*pi*p)*sin(5*pi*x)/25+sin(6*pi*p)*sin(6*pi*x)/36+sin(7*pi*p)*sin(7*pi*x)/49+sin(8*pi*p)*sin(8*pi*x)/64) | 0,1 | -0.5,10.5
+
+TRAP: In the heat equation, the exponent is **n² α t**, not n α t. Each mode keeps its own shape and only its size changes. The boundary condition decides the shape of the modes: fixed ends mean sines. A guitar string's amplitude formula has n² in the denominator, so the harmonics fall quickly, but a string plucked at p has the harmonics with n p a whole number **missing**.
+
+### Quick self-check
+QUIZ:
+Q: In the heat equation the mode n decays like…; e^(−αnt); e^(−αn²t); e^(−αt ÷ n); 1 ÷ n; 2; ∂²/∂x² of sin nx = −n² sin nx.
+Q: A rod's smallest detail (highest n) disappears…; first; last; at the same time; never; 1; n² faster.
+Q: A string plucked in the middle has which harmonics missing?; the odd ones; the even ones; none; the first; 2; sin (nπ ÷ 2) = 0 for even n.
+Q: The fundamental of a string with c = 428.7 m/s and L = 0.65 m is…; 165 Hz; 330 Hz; 660 Hz; 428.7 Hz; 2; c ÷ 2L.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find b₁ of a 3 mm middle pluck. => **2.43 mm**.
+P: Find the centre temperature at τ = 0.5 (three modes). => **0.768**.
+P: Find f₁ for c = 428.7 m/s and L = 0.65 m. => **329.7 Hz**.
+LVL: Level 2 | Apply
+P: Find b₃ of the 3 mm middle pluck. => **−0.270 mm**.
+P: Find the share of the first harmonic of the middle pluck (use b₁, b₃, b₅ only). => 2.43² ÷ (2.43² + 0.27² + 0.097²) = **98.6%**: the later harmonics add almost nothing.
+P: Find the slowest time constant for a 0.5 m iron rod. => **1101 s**.
+P: Find the time for the 3rd mode to fade to 1 ÷ e. => 1101 ÷ 9 = **122 s**.
+P: Find b₂ for a pluck at p = 0.2 with h = 3 mm. => **0.90 mm**.
+P: Which harmonic is missing for p = 0.2? => The **5th**, since sin (5π × 0.2) = sin π = 0.
+LVL: Level 3 | Real
+P: A 1 m copper rod at the same starting temperature profile (square) has its ends held cold. Estimate the time for the centre to fall to half its starting temperature. (α = 1.11 × 10⁻⁴ m²/s.) => The slowest mode of a rod of length L decays as e^(−α π² t ÷ L²). The centre falls to 0.5 when (4 ÷ π) e^(−α π² t ÷ L²) = 0.5, so α π² t ÷ L² = 0.935 and t = 0.935 × L² ÷ (α π²) = 0.935 × 1 ÷ (1.11 × 10⁻⁴ × 9.87) = **853 s ≈ 14 minutes**.
+LVL: Challenge | Missing harmonics
+P: At what pluck positions p is the 3rd harmonic missing? => sin (3π p) = 0, so p = 1/3 and p = 2/3: **a pluck at one-third of the length** has no third harmonic.
+
+CHECK: math
+
+@section physics | 3 · Physics: torque on a loop and the DC motor | 40 min
+
+### Torque on a current loop
+A rectangular loop with N turns, area A and current I sits in a field B. The two long sides feel opposite forces F = N I a B (a = the length of the side), which make a torque. The loop has a **magnetic moment** μ = N I A (pointing along its normal) and the torque is
+
+EQ: τ = N I A B sin θ, **τ** = **μ** × **B**
+
+where θ is the angle between the normal and B. The torque is **maximum (N I A B)** when the loop's plane is parallel to B (θ = 90°) and **zero** when it is perpendicular (θ = 0): the loop turns until its moment lines up with B (like a compass needle).
+
+### The DC motor
+A **commutator** (a split ring with brushes) reverses the current in the coil every half turn, so the torque keeps pushing in the same direction, and the coil keeps turning. For N turns of angular speed ω, the coil cuts field lines and generates a **back EMF** ε_b = k ω that **opposes** the supply (Lenz's law), where k (V s/rad) is the motor constant. The same k links torque and current: **τ = k I**. With a supply V and coil resistance R:
+
+EQ: I = (V − k ω) ÷ R, τ = k I, P_out = τ ω = ε_b I, P_in = V I, efficiency η = ε_b ÷ V = ω ÷ ω₀
+
+where ω₀ = V ÷ k is the no-load speed. As the motor speeds up, the back EMF grows, the current falls, and the torque falls: it settles where the torque equals the load.
+
+BN: লুপে টর্ক τ = NIAB sin θ (চৌম্বক ভ্রামক μ = NIA)। কমিউটেটর প্রতি অর্ধ-পাকে কারেন্ট উল্টায়, তাই টর্ক একই দিকে। ঘূর্ণনে ব্যাক EMF ε_b = kω যা উৎসের বিরুদ্ধে; I = (V − kω)/R, τ = kI, P_out = ε_b I, দক্ষতা η = ω/ω₀, ω₀ = V/k।
+
+EX: Torque on a coil
+N = 100 turns, 4 cm × 5 cm (A = 2 × 10⁻³ m²), I = 2 A and B = 0.3 T.
+1. **Magnetic moment:** μ = 100 × 2 × 2 × 10⁻³ = **0.4 A m²**.
+2. **Maximum torque:** 0.4 × 0.3 = **0.12 N m**.
+3. **Average over a half turn** (the commutator keeps the torque positive): (2 ÷ π) × 0.12 = **0.0764 N m**, since the average of |sin θ| is 2 ÷ π.
+4. **Power at 3000 rpm:** ω = 314 rad/s, so P = τ ω = 0.0764 × 314 = **24 W** if the torque were constant. Real motors use many coils at different angles, so the torque is smooth.
+/EX
+
+EX: A small 12 V DC motor
+V = 12 V, R = 1 Ω and k = 0.02 V s/rad.
+1. **Stall** (ω = 0, no back EMF): I = 12 ÷ 1 = **12 A** and τ = k I = **0.24 N m**. The heat is I² R = **144 W**: a jammed motor burns out in seconds, which is why motors have fuses and why a motor takes a big current at the instant it starts.
+2. **No-load speed:** ω₀ = 12 ÷ 0.02 = **600 rad/s = 5730 rpm**, with no current and no torque in theory.
+3. **At ω = 400 rad/s:** ε_b = 8 V, **I = 4 A**, τ = **0.08 N m**, P_out = 8 × 4 = **32 W**, P_in = 48 W, efficiency **66.7%** = 400 ÷ 600.
+4. **Maximum power at half the no-load speed** (ω = 300): ε_b = 6 V, I = 6 A, τ = 0.12 N m, **P_out = 36 W** = V² ÷ (4R). But the efficiency is only **50%**. Real motors run at a higher speed to be more efficient.
+5. **Real numbers:** an electric car motor of 100 kW at 3000 rpm produces τ = 100,000 ÷ 314 = **318 N m**.
+/EX
+
+LAB: Torque on a loop | Choose the turns, the current, the area and the field. The graph shows the torque against the angle between the loop's normal and the field. The numbers give the magnetic moment, the maximum torque and the torque averaged over a half turn. | N:Turns N:10:500:10:100 ;; I:Current (A):0.5:10:0.5:2 ;; A:Area (cm squared):5:100:5:20 ;; B:Field B (T):0.05:1:0.05:0.3 | N*I*A*0.0001:Magnetic moment (A m squared):3 ;; N*I*A*0.0001*B:Maximum torque (N m):4 ;; 2/pi*N*I*A*0.0001*B:Average torque with a commutator (N m):4 | N*I*A*0.0001*B*sin(x*pi/180) | 0,180 | 0,0.7
+
+LAB: A DC motor | Choose the supply voltage, the coil resistance and the motor constant. The graph shows the mechanical output power against the shaft speed: it rises, peaks at half the no-load speed and falls to zero. The numbers give the stall current, stall torque, no-load speed and peak power. | V:Supply (V):3:24:1:12 ;; R:Coil resistance (ohm):0.5:5:0.1:1 ;; k:Motor constant (V s per rad):0.02:0.1:0.01:0.02 | V/R:Stall current (A):1 ;; k*V/R:Stall torque (N m):3 ;; V/k*60/(2*pi):No-load speed (rpm):0 ;; V^2/(4*R):Peak mechanical power (W):1 | x*k*(V-k*x)/R | 0,1200 | 0,300
+
+TRAP: The torque on a loop is zero when its plane is **perpendicular** to the field (θ = 0), maximum when parallel. A motor does not draw V ÷ R when running: the back EMF reduces the current, so V ÷ R is only the **starting** (stall) current. Maximum power is at half the no-load speed, but efficiency there is only 50%. The commutator does not change the magnitude of the average torque by itself: it keeps the sign.
+
+### Quick self-check
+QUIZ:
+Q: The maximum torque on a loop is…; N I A; N I A B; B I; N A B; 2; sin θ = 1.
+Q: The back EMF of a motor is proportional to…; the current; the speed; the torque; the resistance; 2; ε_b = k ω.
+Q: At stall the current is…; zero; V ÷ R; V ÷ k; k ω; 2; No back EMF.
+Q: The efficiency of the ideal motor model is…; V ÷ ε_b; ε_b ÷ V; 100%; 50%; 2; ω ÷ ω₀.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find μ for N = 100, I = 2 A and A = 2 × 10⁻³ m². => **0.4 A m²**.
+P: Find the maximum torque in a 0.3 T field. => **0.12 N m**.
+P: Find the stall current for V = 12 V, R = 1 Ω. => **12 A**.
+LVL: Level 2 | Apply
+P: Find the no-load speed for k = 0.02 V s/rad. => **600 rad/s = 5730 rpm**.
+P: Find I, τ and P_out at 400 rad/s. => **4 A, 0.08 N m, 32 W**.
+P: Find the efficiency at 400 rad/s. => **66.7%**.
+P: Find the peak power and the speed where it occurs. => **36 W** at **300 rad/s**.
+P: Find the torque of a 100 kW motor at 3000 rpm. => **318 N m**.
+P: Find the heat in a stalled motor. => **144 W**.
+LVL: Level 3 | Real
+P: A toy motor on a 3 V battery has R = 5 Ω and k = 0.003 V s/rad. Find the stall current, the no-load speed in rpm, and the current at 80% of the no-load speed. => Stall I = 3 ÷ 5 = **0.6 A**. ω₀ = 3 ÷ 0.003 = 1000 rad/s = **9550 rpm**. At 80% (800 rad/s) ε_b = 2.4 V so I = 0.6 ÷ 5 = **0.12 A**, which is 20% of the stall current.
+LVL: Challenge | Regenerative braking
+P: An electric car motor is run backwards as a generator at ω = 400 rad/s with the same motor constant (k = 0.02) connected to a battery of 6 V and coil resistance 1 Ω. Find the current into the battery and the mechanical power taken. => ε = 0.02 × 400 = 8 V, which is above the 6 V battery. I = (8 − 6) ÷ 1 = **2 A** flows **into** the battery. The mechanical power taken is ε I = 16 W, and the battery receives 6 × 2 = 12 W, with 4 W lost in R. **Regenerative braking**: the motor slows the car and recharges the battery.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Heat: u = Σ bₙ e^(−α n² t) sin nx. Mode n fades n² times faster than mode 1. String: y = Σ bₙ sin (nπx ÷ L) cos (nπct ÷ L); plucked at p: bₙ = 2h sin (nπp) ÷ (n² π² p (1 − p)).
+- Loop: μ = N I A, τ = N I A B sin θ. DC motor: I = (V − kω) ÷ R, τ = k I, ε_b = k ω, ω₀ = V ÷ k, η = ω ÷ ω₀, peak power V² ÷ 4R at ω₀ ÷ 2, stall current V ÷ R.
+
+BN: আজকের সারকথা: তাপ: u = Σbₙe^(−αn²t) sin nx, n-তম মোড n² গুণ দ্রুত ক্ষীণ। তার: bₙ = 2h sin(nπp)/(n²π²p(1−p))। লুপ: τ = NIAB sin θ। DC মোটর: I = (V − kω)/R, τ = kI, ω₀ = V/k, η = ω/ω₀, সর্বোচ্চ ক্ষমতা ω₀/2 তে।
+
+EXIT:
+E: What is b₁ in mm for a 3 mm middle pluck? Give 2 decimals.; 2.43; 0.01; 8h ÷ π².
+E: What is the stall torque in N m for V = 12 V, R = 1 Ω and k = 0.02?; 0.24; 0.01; k V ÷ R.
+E: What is the efficiency in percent of that motor at 400 rad/s? Give 1 decimal.; 66.7; 0.1; ω ÷ ω₀.
+
+**Tomorrow:** the Week 21 test, and a look ahead at the Fourier transform and electromagnetic induction.
+
+CHECK: notes

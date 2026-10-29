@@ -1,0 +1,167 @@
+@day Week 21 · Day 4 · Thursday
+# Fourier series at work: sound, rectifiers and driven springs. Then: Ampère's law, solenoids and toroids
+lead: Fourier series are not only a formula, they are the way engineers think about signals. A musical note is a list of harmonics, a power supply is a rectifier whose ripple you can predict from its series, and a spring pushed by a square wave resonates with the harmonic that matches its own frequency. In physics, Ampère's law does for currents what Gauss's law did for charges: it gives the magnetic field of a symmetric current in a single line, and it explains the solenoid, the toroid and the heart of an electromagnet.
+
+BN: ফুরিয়ে ধারা শুধু সূত্র নয়, প্রকৌশলীর সংকেত ভাবার ভাষা। সুর হলো হারমোনিকের তালিকা, পাওয়ার সাপ্লাই হলো রেকটিফায়ার যার রিপল ধারা থেকে বলা যায়, আর বর্গ তরঙ্গে ঠেলা স্প্রিং সেই হারমোনিকের সাথে অনুনাদ করে যা তার নিজের কম্পাঙ্কের সমান। পদার্থবিজ্ঞানে অ্যাম্পিয়ারের সূত্র কারেন্টের জন্য তাই করে যা গাউসের সূত্র চার্জের জন্য করেছিল: প্রতিসম কারেন্টের চৌম্বক ক্ষেত্র এক লাইনে। সলিনয়েড, টরয়েড ও ইলেকট্রোম্যাগনেট এখান থেকেই।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: What is the DC (average) value of a full-wave rectified sine of peak V_p? => **2 V_p ÷ π = 0.637 V_p**.
+P: Write the field of a long wire. => **B = μ₀ I ÷ (2π r)**.
+P: What is the RC filter gain at f ≫ f_c? => It falls as **f_c ÷ f**.
+P: State Gauss's law for the electric field. => **∮ E · dA = Q ÷ ε₀**.
+P: State Parseval's identity in words. => The **energy of a wave is the sum of the energies of its harmonics**.
+
+CHECK: recall
+
+@section math | 2 · Math: three applications of Fourier series | 55 min
+
+### 1. Sound: a note is a list of harmonics
+A musical instrument playing A at 440 Hz produces components at 440, 880, 1320, 1760, 2200 Hz, …, which are the multiples n f₀. The **recipe of amplitudes** is the **timbre**:
+- **Flute:** almost a pure fundamental.
+- **Clarinet:** mostly odd harmonics (like a square wave, with a closed tube at one end).
+- **Violin:** all harmonics, falling slowly (like a sawtooth), so it sounds bright.
+Octaves are factors of 2 (880 Hz is the octave above 440 Hz) and the third harmonic is a "perfect fifth" above the octave. A single sine sounds pure and dull. The ear splits sound into its harmonics (the cochlea is a mechanical Fourier analyser).
+
+### 2. The full-wave rectifier
+A diode bridge turns v = V_p sin ωt into |V_p sin ωt|, a wave of period π. Its Fourier series is
+
+EQ: |sin x| = 2 ÷ π − (4 ÷ π) (cos 2x ÷ 3 + cos 4x ÷ 15 + cos 6x ÷ 35 + …) = 2 ÷ π − (4 ÷ π) Σ cos (2kx) ÷ (4k² − 1)
+
+(check at x = 0: Σ 1 ÷ (4k² − 1) telescopes to ½, so the right side is 2 ÷ π − 2 ÷ π = 0 ✓).
+- **DC part:** 2 V_p ÷ π = 0.637 V_p. This is what you want.
+- **Ripple:** the largest harmonic is at **twice the mains frequency (100 Hz)** with amplitude 4 V_p ÷ (3π) = **0.424 V_p**, which is 67% of the DC value. A smoothing circuit (a capacitor) is an RC low-pass that kills the harmonics.
+
+EX: A 12 V power supply
+Peak V_p = 12 V, a smoothing capacitor C = 1000 μF and a load R = 100 Ω.
+1. **DC:** 2 × 12 ÷ π = **7.64 V**.
+2. **Unsmoothed ripple:** 4 × 12 ÷ (3π) = **5.09 V** at 100 Hz (67% of the DC).
+3. **The smoothing filter:** f_c = 1 ÷ (2π × 100 × 10⁻³) = **1.59 Hz**. At 100 Hz the gain is 1 ÷ √(1 + (100 ÷ 1.59)²) = **0.0159**.
+4. **Smoothed ripple:** 5.09 × 0.0159 = **0.081 V**, which is **1.06%** of the DC output. The next harmonic (200 Hz, amplitude 4 V_p ÷ (15π) = 1.02 V) is cut much harder, to 0.0081 V: a tenth of the first one.
+5. **Why a bigger C:** doubling C halves the ripple. This is how a 12 V supply for a router stays steady.
+/EX
+
+### 3. A spring driven by a square wave
+Take m x″ + b x′ + k x = F (t) with a square wave F of amplitude 1 and angular frequency ω. Each harmonic n of the force (amplitude 4 ÷ (nπ), frequency nω) drives its own steady response, with the amplitude from Week 19:
+
+EQ: Aₙ = (4 ÷ (nπ)) ÷ √((k − m n² ω²)² + (b n ω)²)
+
+EX: Resonance with the third harmonic
+m = 1, k = 900 (so ω₀ = 30 rad/s), b = 2, and the drive is ω = 10 rad/s.
+1. **n = 1** (10 rad/s): A₁ = 1.273 ÷ √(800² + 20²) = **0.00159**.
+2. **n = 3** (30 rad/s, exactly ω₀!): A₃ = 0.424 ÷ √(0² + 60²) = **0.00707**. The third harmonic is only a third as strong as the first, yet its response is **4.4 times larger**, because it hits resonance.
+3. **n = 5** (50 rad/s): A₅ = 0.2546 ÷ √(1600² + 100²) = **0.000159**.
+4. **The lesson:** a spring pushed by a non-sinusoidal force at one-third of its natural frequency vibrates mostly at its natural frequency. A bridge, a floor or a washing machine can resonate with a harmonic of the footsteps or the drum, even if the main drive frequency is far from resonance. This is why engineers check harmonics.
+/EX
+
+BN: ১) সুর = হারমোনিকের তালিকা, বিস্তারের রেসিপি = টিম্বার। ২) ফুল-ওয়েভ রেকটিফায়ার: |sin x| = 2/π − (4/π)Σ cos(2kx)/(4k² − 1); DC = 2V_p/π, রিপল 100 Hz এ 0.424 V_p; ক্যাপাসিটর = RC লো-পাস। ৩) বর্গ তরঙ্গে ঠেলা স্প্রিং: n-তম হারমোনিক আলাদা সাড়া দেয়, Aₙ = (4/nπ)/√((k − mn²ω²)² + (bnω)²); ω₀ এর সমান হারমোনিক অনুনাদ করে।
+
+LAB: Smoothing a rectified supply | Choose the peak voltage, the load and the smoothing capacitor. The graph shows the output over one mains cycle (using the DC part and the first two ripple harmonics). The numbers give the DC value and the ripple. | Vp:Peak voltage (V):5:30:1:12 ;; R:Load (ohm):20:500:10:100 ;; C:Capacitor (microfarad):100:10000:100:1000 | 2*Vp/pi:DC output (V):2 ;; 4*Vp/(3*pi)/sqrt(1+(2*pi*100*R*C*0.000001)^2):Ripple amplitude at 100 Hz (V):3 ;; 100*(4/(3*pi))/sqrt(1+(2*pi*100*R*C*0.000001)^2)/(2/pi):Ripple (percent of the DC value):2 | 2*Vp/pi-4*Vp/(3*pi)/sqrt(1+(314.159*R*C*0.000001*2)^2)*cos(2*x-atan(314.159*R*C*0.000001*2))-4*Vp/(15*pi)/sqrt(1+(314.159*R*C*0.000001*4)^2)*cos(4*x-atan(314.159*R*C*0.000001*4)) | 0,6.28 | 0,30
+
+LAB: Which harmonic resonates | A spring with natural frequency omega 0 equals the square root of k is pushed by a square wave. The three curves show the response caused by harmonics 1, 3 and 5 against the drive frequency. Each has its own resonance peak. | k:Spring constant k:100:2500:100:900 ;; b:Damping b:0.5:10:0.5:2 | sqrt(k):Natural frequency (rad per s):2 ;; sqrt(k)/3:Drive frequency that excites the 3rd harmonic:2 ;; sqrt(k)/5:Drive frequency that excites the 5th harmonic:2 | (4/pi)/sqrt((k-x^2)^2+(b*x)^2) ;; (4/(3*pi))/sqrt((k-9*x^2)^2+(3*b*x)^2) ;; (4/(5*pi))/sqrt((k-25*x^2)^2+(5*b*x)^2) | 3,40 | 0,0.05
+
+TRAP: In the rectifier the ripple frequency is **twice** the mains frequency (100 Hz for 50 Hz mains), because both half-cycles are positive. The ripple fraction depends on the **product R C**: a bigger load resistance (smaller current) also means less ripple. In the driven spring, the response of the nth harmonic uses the frequency **n ω**, not ω. And do not confuse the resonance of the force at ω = ω₀ with the one at ω = ω₀ ÷ 3.
+
+### Quick self-check
+QUIZ:
+Q: The ripple frequency of a full-wave rectifier on 50 Hz mains is…; 25 Hz; 50 Hz; 100 Hz; 200 Hz; 3; |sin| has period π.
+Q: The DC value of |V_p sin ωt| is…; V_p ÷ 2; 2 V_p ÷ π; V_p ÷ √2; V_p; 2; The average of |sin|.
+Q: A square-wave force at ω = ω₀ ÷ 3 excites mostly…; the fundamental; the 3rd harmonic; the 5th harmonic; nothing; 2; 3 ω = ω₀.
+Q: A clarinet sounds hollow because it has mostly…; even harmonics; odd harmonics; no harmonics; subharmonics; 2; Closed tube at one end.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the DC value of a rectified 12 V peak sine. => **7.64 V**.
+P: Find the frequency of the third harmonic of A 440 Hz. => **1320 Hz**.
+P: Find the ripple frequency for 60 Hz mains. => **120 Hz**.
+LVL: Level 2 | Apply
+P: Find the unsmoothed ripple amplitude at 100 Hz for V_p = 12 V. => **5.09 V**.
+P: Find the cut-off frequency of R = 100 Ω with C = 1000 μF. => **1.59 Hz**.
+P: Find the gain at 100 Hz. => **0.0159**.
+P: Find the smoothed ripple and its percentage of the DC value. => **0.081 V** and **1.06%**.
+P: Find A₃ for the spring (m = 1, k = 900, b = 2) driven at 10 rad/s. => **0.00707**.
+P: Find the ratio A₃ ÷ A₁. => **4.4**.
+LVL: Level 3 | Real
+P: A washing machine drum on springs has ω₀ = 40 rad/s. Its unbalanced load makes a force with the 1st and 2nd harmonics of the spin speed. At what spin speed (rpm) does the second harmonic hit resonance? => 2 ω = 40, so ω = 20 rad/s = 20 × 60 ÷ 2π = **191 rpm**. The machine also resonates for ω = 40 rad/s (382 rpm) from the first harmonic: it passes both on the run-up.
+LVL: Challenge | Design the capacitor
+P: A radio needs a 12 V supply with a ripple below 0.5% of the DC level from a 100 Ω load. Find the smallest C. (Use the first ripple harmonic only: ripple fraction = 0.667 ÷ √(1 + (2π × 100 R C)²) when a rectified wave is used.) => 0.667 ÷ √(1 + u²) = 0.005 means √(1 + u²) = 133.4, so u ≈ 133.4 and C = 133.4 ÷ (2π × 100 × 100) = **2.1 mF (2100 μF)**.
+
+CHECK: math
+
+@section physics | 3 · Physics: Ampère's law, solenoids and toroids | 35 min
+
+### The law
+For any closed loop, the line integral of **B** around it equals μ₀ times the current passing through it:
+
+EQ: ∮ **B** · d**l** = μ₀ I_enc
+
+For symmetric currents, choose the loop where B is constant along it. It is the magnetic twin of Gauss's law.
+
+- **Long straight wire:** a circle of radius r: B (2π r) = μ₀ I, so **B = μ₀ I ÷ (2π r)**, which agrees with Biot-Savart.
+- **Inside a thick wire** of radius a with uniform current: I_enc = I r² ÷ a², so **B = μ₀ I r ÷ (2π a²)**: it rises linearly from the axis up to the surface, then falls as 1 ÷ r outside.
+- **Solenoid** (n turns per metre, long): a rectangle that goes inside and comes back outside (where B ≈ 0): B L = μ₀ n L I, so **B = μ₀ n I** inside, uniform. Zero outside.
+- **Toroid** (N turns on a ring): a circle of radius r inside the ring: B (2π r) = μ₀ N I, so **B = μ₀ N I ÷ (2π r)**. The field is trapped inside the ring.
+- **Energy:** a magnetic field stores an energy per volume **u = B² ÷ (2 μ₀)**. With a magnetic core (iron), μ₀ is replaced by μ = μ_r μ₀ and the field is μ_r times larger.
+
+BN: ∮B·dl = μ₀I_enc (গাউসের সূত্রের চৌম্বক যমজ)। সোজা তার: B = μ₀I/(2πr)। মোটা তারের ভেতরে B = μ₀Ir/(2πa²)। সলিনয়েড: B = μ₀nI (ভেতরে সমান, বাইরে ≈ 0)। টরয়েড: B = μ₀NI/(2πr)। শক্তি ঘনত্ব B²/(2μ₀)। লোহার কোরে B μ_r গুণ।
+
+EX: Solenoids and toroids
+1. **A solenoid:** N = 400 turns on ℓ = 20 cm (n = 2000 per metre) with I = 1.5 A: B = 4π × 10⁻⁷ × 2000 × 1.5 = **3.77 mT**, which is about 75 times Earth's field.
+2. **With an iron core** (μ_r = 1000): the field would be 3.77 T in theory. In practice iron **saturates** at about 1.5 to 2 T, so a real electromagnet reaches about 2 T. That is why a scrapyard magnet can lift cars.
+3. **Energy density:** B²/(2μ₀) = (3.77 × 10⁻³)² ÷ (2.513 × 10⁻⁶) = **5.65 J/m³**. In an MRI (B = 3 T) it is 3 ÷ 2μ₀: **3.58 × 10⁶ J/m³**, so a bore of 0.3 m³ stores about 1 MJ.
+4. **A toroid:** N = 500 turns, I = 2 A, mean radius 10 cm: B = 4π × 10⁻⁷ × 500 × 2 ÷ (2π × 0.1) = **2.0 mT** inside, and zero outside. Transformers and chokes use toroids to keep the field inside.
+5. **Inductance check:** for the solenoid, B = μ₀ n I and the flux through N turns of area A is N B A, so L = N B A ÷ I = μ₀ n N A = μ₀ N² A ÷ ℓ: **Week 20's formula**.
+6. **A coaxial cable:** the inner conductor carries I and the outer sheath carries −I. A loop outside both has I_enc = 0, so B = 0 outside: no field leaks out, and no outside field gets in. That is why coax is used for antennas and cable TV.
+/EX
+
+LAB: Field inside a solenoid | Choose the turns, the length, the current and the core. The graph shows the field against current, and the numbers give the field and the energy density. | N:Turns N:50:2000:50:400 ;; len:Length (cm):5:100:1:20 ;; I:Current (A):0.1:5:0.1:1.5 ;; mur:Core (1 = air):1:500:1:1 | 0.12566*mur*N*I/len:Field B (millitesla):3 ;; 0.39789*(0.12566*mur*N*I/len)^2:Energy density (joule per m cubed):2 ;; 0.12566*mur*N/len:Field per ampere (millitesla):3 | 0.12566*mur*N*x/len | 0,5 | 0,40
+
+LAB: Field in and around a thick wire | Choose the current and the radius of the wire. Inside, the field grows in proportion to the distance from the axis. Outside, it falls as one over the distance. The peak sits at the surface. | I:Current (A):10:500:10:100 ;; a:Wire radius (mm):1:5:0.5:3 | 0.2*I/a:Field at the surface (millitesla):3 ;; 0.2*I/10:Field at 10 mm from the axis (millitesla):3 | 0.2*I*((x<a)*x/a^2+(x>a)/x) | 0.05,10 | 0,10
+
+TRAP: Ampère's law needs a **symmetric** loop where B is constant along the path. The enclosed current is the current **through the loop**, not all the current in the system. The solenoid formula B = μ₀ n I uses n, the turns per **metre** (N ÷ ℓ), not N. And the field outside an ideal solenoid is zero, but the field outside a bar magnet is not: a short coil is not a long solenoid.
+
+### Quick self-check
+QUIZ:
+Q: The field inside a long solenoid is…; μ₀ N I; μ₀ n I; μ₀ I ÷ (2π r); zero; 2; n = N ÷ ℓ.
+Q: The field outside an ideal coaxial cable is…; μ₀ I ÷ 2π r; μ₀ I ÷ r; zero; infinite; 3; I_enc = 0.
+Q: The energy density of a field is…; B ÷ μ₀; B² ÷ 2μ₀; μ₀ B²; B² μ₀ ÷ 2; 2; u = B² ÷ 2μ₀.
+Q: Inside a thick wire the field…; is zero; rises linearly with r; falls as 1 ÷ r; is constant; 2; I_enc ∝ r².
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find n for N = 400 on 20 cm. => **2000 per metre**.
+P: Find B inside it at 1.5 A. => **3.77 mT**.
+P: Find B inside a toroid with N = 500, I = 2 A at r = 10 cm. => **2.0 mT**.
+LVL: Level 2 | Apply
+P: Find the energy density for B = 3.77 mT. => **5.65 J/m³**.
+P: Find the energy density for B = 3 T. => **3.58 × 10⁶ J/m³**.
+P: Find the field at the surface of a wire of radius 3 mm carrying 100 A. => 2 × 10⁻⁷ × 100 ÷ 0.003 = **6.7 mT**.
+P: Find the field inside that wire at r = 1.5 mm. => **3.3 mT** (half the surface value).
+P: How many turns per metre give 0.1 T in air at 10 A? => n = 0.1 ÷ (4π × 10⁻⁷ × 10) = **7960 per metre**.
+P: How many ampere-turns give 1 T in a 1 mm air gap? => N I = B ℓ ÷ μ₀ = 1 × 10⁻³ ÷ (4π × 10⁻⁷) = **796 A turns**.
+LVL: Level 3 | Real
+P: An MRI magnet of 1.5 T uses a solenoid of length 1.5 m. Estimate the ampere-turns and, for a superconducting wire carrying 500 A, the number of turns. => n I = B ÷ μ₀ = 1.5 ÷ (4π × 10⁻⁷) = 1.19 × 10⁶ A/m, so N I = 1.19 × 10⁶ × 1.5 = **1.79 × 10⁶ A turns**, and N = 1.79 × 10⁶ ÷ 500 = **3600 turns**. Only a superconductor can carry this without heating.
+LVL: Challenge | The field between a loop and a straight wire
+P: A very long wire carries I = 50 A. Use Ampère's law to find the line integral of B around a circle of radius 2 cm and then around one of radius 5 cm, and compare. => Both equal μ₀ I = 4π × 10⁻⁷ × 50 = **6.28 × 10⁻⁵ T m**: the loop integral does not depend on the radius (B falls as 1 ÷ r, the circumference grows as r).
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Sound: a note is a harmonic list; timbre is the recipe. Rectifier: |sin x| = 2 ÷ π − (4 ÷ π) Σ cos (2kx) ÷ (4k² − 1); DC 2V_p ÷ π, ripple at 2f, smoothed by RC. A driven spring responds to each harmonic separately and resonates with the one at ω₀.
+- Ampère: ∮ B · dl = μ₀ I_enc. Wire μ₀ I ÷ 2π r; thick wire inside μ₀ I r ÷ 2π a²; solenoid μ₀ n I; toroid μ₀ N I ÷ 2π r; energy density B² ÷ 2μ₀.
+
+BN: আজকের সারকথা: সুর = হারমোনিক, রেকটিফায়ার DC = 2V_p/π ও রিপল 2f এ, RC দিয়ে মসৃণ; স্প্রিং প্রতিটা হারমোনিকে আলাদা সাড়া দেয়। অ্যাম্পিয়ার: ∮B·dl = μ₀I_enc; সলিনয়েড B = μ₀nI, টরয়েড B = μ₀NI/(2πr), শক্তি ঘনত্ব B²/(2μ₀)।
+
+EXIT:
+E: What is the DC value in volts of a rectified 12 V peak sine? Give 2 decimals.; 7.64; 0.01; 2 V_p ÷ π.
+E: What is the field in mT inside a 400-turn, 20 cm long solenoid at 1.5 A? Give 2 decimals.; 3.77; 0.01; μ₀ n I.
+E: What is the energy density in J/m³ of a 3.77 mT field? Give 2 decimals.; 5.65; 0.01; B² ÷ 2μ₀.
+
+**Tomorrow:** the electric motor: torque on a current loop, the DC motor, back EMF; and Fourier series for heat flow and a vibrating string.
+
+CHECK: notes

@@ -1,0 +1,163 @@
+@day Week 21 · Day 3 · Wednesday
+# The complex Fourier series, spectra and filtering. Then: magnetic forces on wires and the field of a current
+lead: The sine and cosine form of Fourier series is easier to read once you rewrite it with complex exponentials, and that form leads straight to the idea of a spectrum: a bar chart of how much of each frequency a signal contains. Pass a wave through a filter and each bar gets multiplied by the filter's gain. In physics, the magnetic force on a single charge becomes the force on a whole wire, and Biot-Savart's law lets you find the field that a current itself makes. Together these two ideas are what make a loudspeaker, a motor and an electromagnet work.
+
+BN: সাইন-কোসাইন রূপ জটিল সূচকে লিখলে সহজ পড়া যায়, আর তা থেকে বর্ণালী (spectrum) ধারণা আসে: সংকেতে কোন কম্পাঙ্ক কতটা, তার বার চার্ট। ফিল্টারে দিলে প্রতিটা বার ফিল্টারের গেইন দিয়ে গুণ হয়। পদার্থবিজ্ঞানে একক চার্জের চৌম্বক বল পুরো তারে বল হয়ে যায়, আর বায়ো-সাভার্ট সূত্র কারেন্ট নিজে যে ক্ষেত্র বানায় তা বের করে। লাউডস্পিকার, মোটর ও ইলেকট্রোম্যাগনেট এভাবেই কাজ করে।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier days
+P: Write cos θ in terms of e^(iθ). => **(e^(iθ) + e^(−iθ)) ÷ 2**.
+P: What is the gain of an RC filter at its cut-off frequency? => **1 ÷ √2 = 0.707**.
+P: What share of a square wave's energy is in its first harmonic? => **81%**.
+P: Write the force on a charge in a magnetic field. => **F = q v × B**.
+P: What is μ₀? => **4π × 10⁻⁷ T m/A**.
+
+CHECK: recall
+
+@section math | 2 · Math: the complex Fourier series and spectra | 55 min
+
+### One formula instead of two
+Replace cos nx and sin nx by (e^(inx) ± e^(−inx)) ÷ 2 (and ÷ 2i). The series becomes
+
+EQ: f (x) = Σ cₙ e^(inx) for n from −∞ to ∞, cₙ = (1 ÷ 2π) ∫ f (x) e^(−inx) dx (from −π to π)
+
+The two forms are linked: for n > 0, **cₙ = (aₙ − i bₙ) ÷ 2**, **c₋ₙ** is its complex conjugate, and c₀ = a₀ ÷ 2. The size |cₙ| is the **spectrum**: a bar at each frequency n. The phase of cₙ tells where the wave starts.
+
+BN: f(x) = Σ cₙ e^(inx), cₙ = (1/2π)∫ f e^(−inx) dx। সম্পর্ক: n > 0 এ cₙ = (aₙ − ibₙ)/2, c₋ₙ হলো তার অনুবন্ধী। |cₙ| হলো বর্ণালী: প্রতিটা কম্পাঙ্কে একটা বার।
+
+EX: Spectra of three waves
+1. **A pure cosine cos 3x:** c₃ = c₋₃ = ½ and everything else is 0: one pair of bars at ±3.
+2. **The square wave:** bₙ = 4 ÷ (nπ) for odd n, so **cₙ = −2i ÷ (nπ)**, and |c₁| = 0.637, |c₃| = 0.212, |c₅| = 0.127. The bars fall like 1 ÷ n.
+3. **A pulse train** (f = 1 for |x| < a, 0 for the rest of the period): c₀ = a ÷ π and cₙ = sin (n a) ÷ (n π).
+   - For a = π ÷ 2 (**50% duty**): c₀ = 0.5, c₁ = 1 ÷ π = **0.318**, c₂ = 0, c₃ = −1 ÷ (3π) = **−0.106**.
+   - For a = π ÷ 4 (**25% duty**): c₀ = 0.25, c₁ = **0.225**, c₂ = **0.159**, c₃ = **0.075**, c₄ = 0, c₅ = **−0.045**. A narrow pulse has a wide spectrum: shorter in time means wider in frequency. This is the idea of the Fourier transform in Week 22.
+/EX
+
+### Filtering a wave harmonic by harmonic
+A linear filter treats each harmonic separately: harmonic n of a wave with fundamental frequency f₀ gets multiplied by the filter's gain at the frequency n f₀ and shifted in phase. For the RC low-pass filter with cut-off f_c = f₀: |H| = 1 ÷ √(1 + n²), phase = −atan n.
+
+EX: A square wave through an RC filter
+A 1 kHz square wave of amplitude 1 passes through an RC low-pass with f_c = 1 kHz.
+| Harmonic | Input amplitude | Gain | Output amplitude | Phase |
+|---|---|---|---|---|
+| 1 kHz | 1.273 | 0.707 | **0.900** | −45° |
+| 3 kHz | 0.424 | 0.316 | **0.134** | −71.6° |
+| 5 kHz | 0.255 | 0.196 | **0.050** | −78.7° |
+| 7 kHz | 0.182 | 0.141 | **0.026** | −81.9° |
+1. **The shape:** the sharp corners come from the high harmonics, which are cut hard, so the output is a rounded wave, close to a sine delayed by 45°.
+2. **Distortion:** the **total harmonic distortion** is √(sum of squares of the higher harmonics) ÷ the fundamental. For the input: √(π² ÷ 8 − 1) = **48.3%**. For the output: **16.4%**: the filter makes the wave much cleaner.
+3. **This is how a "tone" or "bass" knob works**, and how a class-D audio amplifier turns its fast square pulses into smooth music.
+/EX
+
+LAB: Spectrum of a pulse train | Choose the duty (the fraction of the period in which the pulse is on). The graph is the envelope sin(n pi d) over (n pi) of the harmonic amplitudes, and the numbers read the first harmonics. Narrow pulses spread over many harmonics. | d:Duty d:0.1:0.9:0.05:0.25 | d:Average value c0:3 ;; sin(pi*d)/pi:Harmonic c1:3 ;; sin(2*pi*d)/(2*pi):Harmonic c2:3 ;; sin(3*pi*d)/(3*pi):Harmonic c3:3 | sin(x*pi*d)/(x*pi) | 0.2,12 | -0.35,0.35
+
+LAB: Filtering a square wave | Choose the ratio of the wave's frequency to the filter's cut-off frequency. The graph shows the filtered square wave built from its first five odd harmonics (the blue curve is the unfiltered target). The numbers give the fundamental amplitude and the distortion after filtering. | r:Frequency over cut-off:0.1:10:0.1:1 | 4/pi/sqrt(1+r^2):Fundamental amplitude after the filter:3 ;; 100*sqrt((1/(3*sqrt(1+9*r^2)))^2+(1/(5*sqrt(1+25*r^2)))^2+(1/(7*sqrt(1+49*r^2)))^2+(1/(9*sqrt(1+81*r^2)))^2)/(1/sqrt(1+r^2)):Distortion (percent, up to 9th harmonic):1 ;; atan(r)*180/pi:Phase of the fundamental (degrees):1 | sin(x)/abs(sin(x)) ;; 4/pi*(sin(x-atan(r))/sqrt(1+r^2)+sin(3*x-atan(3*r))/(3*sqrt(1+9*r^2))+sin(5*x-atan(5*r))/(5*sqrt(1+25*r^2))+sin(7*x-atan(7*r))/(7*sqrt(1+49*r^2))+sin(9*x-atan(9*r))/(9*sqrt(1+81*r^2))) | -6.28,6.28 | -1.6,1.6
+
+TRAP: cₙ has a factor 1 ÷ 2π, not 1 ÷ π, and the exponent is **−inx**. The spectrum |cₙ| splits each real harmonic into two bars (at n and −n), each half the size. Filtering multiplies each harmonic by the gain at **its own** frequency n f₀, not at f₀. A filter that cuts the high harmonics also delays the wave (phase) as well as rounding it.
+
+### Quick self-check
+QUIZ:
+Q: For f = cos 3x the coefficient c₃ equals…; 1; ½; 0; 3; 2; cos 3x = (e^(3ix) + e^(−3ix)) ÷ 2.
+Q: The relation between cₙ and the real coefficients is…; cₙ = aₙ + bₙ; cₙ = (aₙ − i bₙ) ÷ 2; cₙ = aₙ bₙ; cₙ = 2aₙ; 2; Complex conjugate for −n.
+Q: A narrower pulse has a spectrum that is…; narrower; wider; unchanged; zero; 2; Short in time, wide in frequency.
+Q: An RC filter on a square wave mainly removes…; the fundamental; the low harmonics; the high harmonics; the constant; 3; Gain 1 ÷ √(1 + n²) falls with n.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find |c₁| for the square wave of height 1. => **2 ÷ π = 0.637**.
+P: Find c₀ for a pulse train of 25% duty and height 1. => **0.25**.
+P: Find the gain of the RC filter at 3 f_c. => 1 ÷ √10 = **0.316**.
+LVL: Level 2 | Apply
+P: Find |c₃| for the square wave. => **0.212**.
+P: Find c₁ for the 50% duty pulse train. => **0.318**.
+P: Find c₃ for the 25% duty pulse train. => **0.075**.
+P: Find the output amplitudes of harmonics 1 and 3 of the filtered square wave (f_c = f₀). => **0.900** and **0.134**.
+P: Find the phase delay of the fundamental in that case. => **−45°**.
+P: Find the distortion of the unfiltered square wave. => **48.3%**.
+LVL: Level 3 | Real
+P: A 50 Hz square wave of 12 V amplitude passes through a filter with a cut-off of 50 Hz. Find the fundamental amplitude out. => 4 ÷ π × 12 × 0.707 = **10.8 V**, with a −45° shift (2.5 ms delay). The third harmonic (150 Hz) falls to 4 ÷ (3π) × 12 × 0.316 = **1.61 V**.
+LVL: Challenge | The shape of the spectrum
+P: For the pulse train with duty d, show that cₙ = 0 whenever n d is a whole number. For d = 0.25 which harmonics are missing? => cₙ = sin (n π d) ÷ (n π) = 0 when n d is an integer. For d = 0.25: **n = 4, 8, 12, …** are missing.
+
+CHECK: math
+
+@section physics | 3 · Physics: wires in magnetic fields and the field of a current | 35 min
+
+### The force on a wire
+A wire of length L carrying a current I through a field B feels the sum of the forces on its moving charges:
+
+EQ: **F** = I **L** × **B**, with magnitude F = B I L sin θ
+
+(L points along the current.) This is the force that turns the cone of a loudspeaker and the coil of a motor.
+
+### The field of a current
+A current makes a magnetic field. For a long straight wire, at distance r:
+
+EQ: B = μ₀ I ÷ (2π r), with the field lines in circles around the wire
+
+(right-hand rule: thumb along the current, fingers curl along **B**). The general rule is the **Biot-Savart law**: each small piece I d**l** contributes dB = (μ₀ ÷ 4π) I d**l** × r̂ ÷ r². For a **circular loop** of radius R, all the pieces are at distance R and perpendicular to r̂, so at the centre B = (μ₀ ÷ 4π) I (2πR) ÷ R² = **μ₀ I ÷ (2R)**. Along the axis at distance z: B = μ₀ I R² ÷ (2 (R² + z²)^(3/2)). A coil of N turns has N times these values.
+
+Two parallel wires attract each other if their currents are in the **same** direction and repel if they are opposed: wire 1 makes a field B₁ = μ₀ I₁ ÷ (2π d) at wire 2, which acts on wire 2 with the force per length **F ÷ L = μ₀ I₁ I₂ ÷ (2π d)**.
+
+BN: তারে বল: F = I L × B, মান BIL sin θ। লম্বা সোজা তারের ক্ষেত্র: B = μ₀I/(2πr)। বায়ো-সাভার্ট: dB = (μ₀/4π) I dl × r̂/r²। বৃত্তাকার লুপের কেন্দ্রে B = μ₀I/(2R); অক্ষ বরাবর B = μ₀IR²/(2(R² + z²)^(3/2))। সমান্তরাল তার: একই দিকে আকর্ষণ, উল্টো দিকে বিকর্ষণ; F/L = μ₀I₁I₂/(2πd)।
+
+EX: Numbers for wires and coils
+1. **A wire in a field:** 2 m of wire carries 10 A across a 0.5 T field: F = 0.5 × 10 × 2 = **10 N**.
+2. **A loudspeaker coil:** 50 turns of radius 1.5 cm have a wire length L = 50 × 2π × 0.015 = **4.71 m** in a radial field of 1 T. With I = 1 A the force is **4.71 N**, which moves the cone. Change the sign of the current and the cone moves the other way, so an audio signal makes the cone vibrate.
+3. **A hovering wire:** a horizontal wire of mass 0.05 kg per metre in a horizontal field of 0.5 T floats when B I = λ g, so I = 0.05 × 9.81 ÷ 0.5 = **0.98 A**.
+4. **Field of a long wire:** 100 A at 5 cm gives B = 2 × 10⁻⁷ × 100 ÷ 0.05 = **0.4 mT**, which is 8 times Earth's field. At 1 m it is 20 μT.
+5. **A flat coil:** R = 5 cm, I = 2 A and N = 100 turns: **B (centre) = 4π × 10⁻⁷ × 100 × 2 ÷ (2 × 0.05) = 2.51 mT**. On the axis, 5 cm from the centre, the field is 2.51 × 2^(−3/2) = **0.89 mT**.
+6. **Two cables:** two parallel wires of 10 A each, 10 cm apart, attract with F ÷ L = 2 × 10⁻⁷ × 10 × 10 ÷ 0.1 = **2 × 10⁻⁴ N/m**. This effect defines the ampere: 1 A in each of two wires 1 m apart gives 2 × 10⁻⁷ N per metre.
+/EX
+
+LAB: Field and force between two wires | Choose the two currents and the distance between the wires. The graph shows the field of wire 1 against distance. The numbers give the field at wire 2 and the force on each metre of wire 2. | I1:Current in wire 1 (A):1:200:1:10 ;; I2:Current in wire 2 (A):1:200:1:10 ;; d:Distance (cm):1:50:1:10 | 20*I1/d:Field at wire 2 (microtesla):2 ;; 0.02*I1*I2/d:Force per metre (millinewton per m):3 | 20*I1/x | 1,50 | 0,400
+
+LAB: Field on the axis of a coil | Choose the radius, the current and the number of turns. The graph shows the field along the axis as you move away from the centre of the coil. | R:Radius R (cm):1:20:1:5 ;; I:Current (A):0.5:10:0.5:2 ;; N:Turns:1:200:1:100 | 0.06283*N*I/R:Field at the centre (millitesla):2 ;; 0.06283*N*I*R^2/(R^2+R^2)^1.5:Field at distance R along the axis (millitesla):3 | 0.06283*N*I*R^2/(R^2+x^2)^1.5 | 0,30 | 0,15
+
+TRAP: Currents in the **same** direction attract (opposite to charges, which repel when alike). In F = B I L sin θ the angle is between the wire and the field, and the force is zero if the wire is parallel to B. The field of a long wire falls as 1 ÷ r, not 1 ÷ r². And μ₀ = 4π × 10⁻⁷, so μ₀ ÷ 2π = 2 × 10⁻⁷, a useful shortcut.
+
+### Quick self-check
+QUIZ:
+Q: The force on a wire parallel to the field is…; B I L; zero; B I L ÷ 2; I L; 2; sin 0° = 0.
+Q: The field of a long straight wire falls with distance as…; 1 ÷ r²; 1 ÷ r; r; constant; 2; B = μ₀ I ÷ (2π r).
+Q: Two parallel wires with currents in the same direction…; repel; attract; do nothing; spin; 2; Field of one acts on the other.
+Q: The field at the centre of a loop of radius R is…; μ₀ I ÷ R; μ₀ I ÷ 2R; 2 μ₀ I R; μ₀ I R; 2; Biot-Savart.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the force on 2 m of wire with 10 A in a 0.5 T field. => **10 N**.
+P: Find B at 5 cm from 100 A. => **0.4 mT**.
+P: Find the force between two wires of 10 A at 10 cm per metre. => **2 × 10⁻⁴ N/m**.
+LVL: Level 2 | Apply
+P: Find the wire length of a 50-turn coil of radius 1.5 cm. => **4.71 m**.
+P: Find the force on it for 1 A in a 1 T field. => **4.71 N**.
+P: Find the centre field of R = 5 cm, I = 2 A and N = 100. => **2.51 mT**.
+P: Find the field 5 cm from the centre on the axis. => **0.89 mT**.
+P: Find the current to levitate a wire of 0.05 kg per metre in 0.5 T. => **0.98 A**.
+P: Find the field of a 100 A wire at 1 m. => **20 μT**.
+LVL: Level 3 | Real
+P: A power line carries 500 A. Find the field on the ground directly below at a height of 10 m and compare it with the Earth's 50 μT. => B = 2 × 10⁻⁷ × 500 ÷ 10 = **10 μT**, which is 20% of the Earth's field. It is also alternating at 50 Hz, so it is an alternating field of 10 μT peak (RMS 7 μT) on top of the steady one.
+LVL: Challenge | Where the fields cancel
+P: Two parallel wires 10 cm apart carry 4 A and 1 A in the same direction. Where between them is the total field zero? => 2 × 10⁻⁷ × 4 ÷ x = 2 × 10⁻⁷ × 1 ÷ (0.1 − x), so 4 (0.1 − x) = x, which gives **x = 0.08 m = 8 cm** from the 4 A wire.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Complex series: f = Σ cₙ e^(inx), cₙ = (1 ÷ 2π) ∫ f e^(−inx) dx; cₙ = (aₙ − i bₙ) ÷ 2. Spectrum |cₙ|. Pulse train: cₙ = sin (n π d) ÷ (n π): narrow in time means wide in frequency. A filter multiplies harmonic n by its gain at n f₀ and shifts its phase.
+- F = I L × B; long wire B = μ₀ I ÷ (2π r); loop centre B = μ₀ I ÷ 2R; axis B = μ₀ I R² ÷ (2 (R² + z²)^(3/2)); parallel wires F ÷ L = μ₀ I₁ I₂ ÷ (2π d), same direction attract.
+
+BN: আজকের সারকথা: জটিল ধারা cₙ = (1/2π)∫ f e^(−inx) dx; বর্ণালী |cₙ|; সরু পালস = চওড়া বর্ণালী; ফিল্টার প্রতিটা হারমোনিককে তার নিজের গেইনে গুণ করে। F = I L × B; তারের ক্ষেত্র μ₀I/(2πr); লুপের কেন্দ্রে μ₀I/(2R); সমান্তরাল তারে একই দিকে আকর্ষণ।
+
+EXIT:
+E: What is |c₁| of the unit square wave? Give 3 decimals.; 0.637; 0.001; 2 ÷ π.
+E: What is the field in mT at 5 cm from a 100 A wire?; 0.4; 0.01; μ₀ I ÷ (2π r).
+E: What is the force in N on 2 m of wire with 10 A in a 0.5 T field at 90°?; 10; 0.1; B I L.
+
+**Tomorrow:** Fourier series in the real world (sound, rectifiers), and Ampère's law: the field of a solenoid and a toroid.
+
+CHECK: notes

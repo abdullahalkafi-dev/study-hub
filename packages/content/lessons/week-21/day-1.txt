@@ -1,0 +1,157 @@
+@day Week 21 · Day 1 · Monday
+# Fourier series: building any wave from sines. Then: the magnetic force
+lead: A violin and a flute can play the same note and still sound different. The difference is the recipe of sines they add together. Fourier's great discovery is that any repeating wave, however jagged, is a sum of sines and cosines whose frequencies are whole multiples of a base frequency. In physics, you meet the magnetic field through its effect: a force on a moving charge that always acts sideways, so it bends the path of the charge and never speeds it up. That bending is the beginning of the electric motor, the story of this week.
+
+BN: বেহালা আর বাঁশি একই সুর বাজালেও আলাদা শোনায়; পার্থক্য সাইন যোগ করার রেসিপিতে। ফুরিয়ের বড় আবিষ্কার: যেকোনো পুনরাবৃত্ত তরঙ্গ, যতই এবড়োখেবড়ো, সাইন-কোসাইনের যোগফল, যাদের কম্পাঙ্ক মূল কম্পাঙ্কের পূর্ণসংখ্যা গুণিতক। পদার্থবিজ্ঞানে চৌম্বক ক্ষেত্রকে চিনবে তার বলের মাধ্যমে: চলমান চার্জে সবসময় পাশে ঠেলে, তাই পথ বাঁকায়, গতি বাড়ায় না। এই বাঁকানোই বৈদ্যুতিক মোটরের সূচনা, এই সপ্তাহের গল্প।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Earlier weeks
+P: What is ∫₀^π sin x dx? => **2**.
+P: Write sin A sin B as a sum. => **½ (cos (A − B) − cos (A + B))**.
+P: What is the sum 1 − 1/3 + 1/5 − 1/7 + … ? => **π/4**.
+P: What is the centripetal force of a mass m on a circle of radius r at speed v? => **m v² ÷ r**.
+P: What is the electric force on a charge q in a field E? => **F = q E**.
+
+CHECK: recall
+
+@section math | 2 · Math: the Fourier series | 55 min
+
+### The building blocks
+A function with period 2π can be written as
+
+EQ: f (x) = a₀ ÷ 2 + Σ (aₙ cos nx + bₙ sin nx), n = 1, 2, 3, …
+
+The terms cos nx and sin nx are the **harmonics**: n = 1 is the fundamental, n = 2 the second harmonic, and so on. The coefficients come from a remarkable property called **orthogonality**. Over one period −π to π:
+
+- ∫ sin mx sin nx dx = **π** if m = n and **0** if m ≠ n (use sin A sin B = ½ (cos (A − B) − cos (A + B)), and the integral of cos kx over a full period is 0 for k ≥ 1).
+- ∫ cos mx cos nx dx = **π** if m = n ≥ 1 and **0** if m ≠ n.
+- ∫ sin mx cos nx dx = **0** always.
+
+To pick out bₙ, multiply the whole series by sin nx and integrate: every term vanishes except bₙ π. Therefore
+
+EQ: aₙ = (1 ÷ π) ∫ f (x) cos nx dx, bₙ = (1 ÷ π) ∫ f (x) sin nx dx, a₀ = (1 ÷ π) ∫ f (x) dx (all from −π to π)
+
+BN: f(x) = a₀/2 + Σ(aₙ cos nx + bₙ sin nx)। লম্বতা (orthogonality): ∫ sin mx sin nx dx = π (m = n), 0 (m ≠ n); cos একইভাবে; sin·cos সবসময় 0। পুরো ধারাকে sin nx দিয়ে গুণ করে সমাকলন করলে শুধু bₙ বাঁচে: aₙ = (1/π)∫ f cos nx dx, bₙ = (1/π)∫ f sin nx dx।
+
+EX: The square wave
+f (x) = 1 for 0 < x < π and −1 for −π < x < 0, repeated.
+1. f is **odd**, so all aₙ = 0 (the integrand f cos nx is odd).
+2. **bₙ** = (1 ÷ π) ∫ f sin nx dx = (2 ÷ π) ∫₀^π sin nx dx = (2 ÷ nπ)(1 − cos nπ). For odd n this is **4 ÷ (nπ)** and for even n it is **0**.
+3. **Result:** f (x) = (4 ÷ π) (sin x + sin 3x ÷ 3 + sin 5x ÷ 5 + …). Only odd harmonics, with amplitudes falling as 1 ÷ n.
+4. **A surprise:** put x = π ÷ 2, where f = 1: 1 = (4 ÷ π)(1 − 1 ÷ 3 + 1 ÷ 5 − …), so 1 − 1 ÷ 3 + 1 ÷ 5 − … = **π ÷ 4**, the Leibniz series from Week 10.
+5. **Partial sums at x = π ÷ 2:** one term 1.273; two terms 0.849; three terms 1.103; four terms 0.922; eight terms 0.960; fifty terms 0.994. They close in on 1, bouncing alternately above and below.
+/EX
+
+EX: The sawtooth f (x) = x on (−π, π)
+1. f is odd, so aₙ = 0 and bₙ = (2 ÷ π) ∫₀^π x sin nx dx. By parts: ∫₀^π x sin nx dx = [−x cos nx ÷ n]₀^π + ∫ cos nx ÷ n dx = −π cos nπ ÷ n + 0 = (−1)^(n+1) π ÷ n. So **bₙ = 2 (−1)^(n+1) ÷ n**.
+2. **Result:** x = 2 (sin x − sin 2x ÷ 2 + sin 3x ÷ 3 − …) on (−π, π). All harmonics appear, with amplitudes 2 ÷ n.
+3. **Check at x = π ÷ 2:** π ÷ 2 = 2 (1 − 0 − 1 ÷ 3 + 0 + 1 ÷ 5 − …) = 2 × π ÷ 4 ✓.
+4. **Computer check:** a numerical integration gives b₁ = 2.000, b₂ = −1.000, b₃ = 0.667, b₄ = −0.500, as the formula says.
+/EX
+
+LAB: Building a square wave | Choose how many odd harmonics to add (1 to 8). The orange curve is the sum and the blue curve is the target square wave. The numbers read the sum at x = pi over 2, where the target is 1. | n:Number of harmonics:1:8:1:3 | 4/pi*((n>0)*1-(n>1)/3+(n>2)/5-(n>3)/7+(n>4)/9-(n>5)/11+(n>6)/13-(n>7)/15):Sum at x = pi over 2 (target 1):4 ;; 2*n-1:Highest harmonic included:0 ;; 4/(pi*(2*n-1)):Amplitude of the last term:3 | sin(x)/abs(sin(x)) ;; 4/pi*((n>0)*sin(x)+(n>1)*sin(3*x)/3+(n>2)*sin(5*x)/5+(n>3)*sin(7*x)/7+(n>4)*sin(9*x)/9+(n>5)*sin(11*x)/11+(n>6)*sin(13*x)/13+(n>7)*sin(15*x)/15) | -6.28,6.28 | -1.6,1.6
+
+TRAP: The formulas integrate over one full period and divide by π, not by 2π (only a₀ ÷ 2 has the half). Do not forget that **odd functions give only sines** and **even functions give only cosines**, which halves your work. The Fourier series is equal to f at points where f is smooth, but at a jump it gives the **middle value** (here 0), not either side. And n is the whole-number multiple of the base frequency, so n = 3 means three times the frequency, not three terms.
+
+### Quick self-check
+QUIZ:
+Q: The Fourier series of an odd function contains only…; cosines; sines; constants; nothing; 2; Odd integrand times cos is odd.
+Q: ∫ from −π to π of sin 2x sin 3x dx equals…; π; 0; 2π; 1; 2; Orthogonality.
+Q: The square wave has harmonics…; all n; even n only; odd n only; none; 3; bₙ = 4 ÷ (nπ) for odd n.
+Q: At a jump the Fourier series gives…; the left value; the right value; the middle value; infinity; 3; The average of the two sides.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find b₁ for the square wave. => **4 ÷ π = 1.273**.
+P: Find b₃ for the square wave. => **4 ÷ (3π) = 0.424**.
+P: Find b₂ for the square wave. => **0**.
+LVL: Level 2 | Apply
+P: Find b₁, b₂ and b₃ for f (x) = x on (−π, π). => **2, −1, 2/3**.
+P: Show the square wave series gives π ÷ 4 at x = π ÷ 2. => 1 = (4 ÷ π)(1 − ⅓ + ⅕ − …), so the bracket is **π ÷ 4**.
+P: Find the sum of the first three terms of the square wave series at x = π ÷ 2. => (4 ÷ π)(1 − ⅓ + ⅕) = **1.103**.
+P: Find the series of f (x) = 3 on (0, π) and −3 on (−π, 0). => 3 times the square wave: **(12 ÷ π)(sin x + sin 3x ÷ 3 + …)**.
+P: Find a₀ for a square wave shifted up by 1 (values 2 and 0). => The average is 1 so a₀ ÷ 2 = **1**, and the series is **1 + (4 ÷ π)(sin x + sin 3x ÷ 3 + …)**.
+P: What fraction of the amplitude of the first harmonic is the 5th harmonic of the square wave? => (1 ÷ 5) = **20%**.
+LVL: Level 3 | Real
+P: A 440 Hz square wave from a synthesiser has an amplitude of 1. List the frequencies and the amplitudes of its first three components. => **440 Hz (1.273), 1320 Hz (0.424), 2200 Hz (0.255)**. This is why a square wave sounds buzzy: strong odd harmonics.
+LVL: Challenge | Triangle from the integral of a square
+P: Integrate the square wave series term by term to find a series for |x| on (−π, π) up to a constant. How fast do its harmonics fall? => The integral of (4 ÷ π) sin nx is −(4 ÷ π) cos nx ÷ n, so |x| = π ÷ 2 − (4 ÷ π)(cos x + cos 3x ÷ 9 + cos 5x ÷ 25 + …). The harmonics fall as **1 ÷ n²**, faster than the square wave's 1 ÷ n, because a triangle has no jumps: a smoother wave has weaker high harmonics.
+
+CHECK: math
+
+@section physics | 3 · Physics: the magnetic force | 35 min
+
+### A force that acts sideways
+A charge q moving with velocity **v** through a magnetic field **B** feels the magnetic force
+
+EQ: **F** = q **v** × **B**, with magnitude F = q v B sin θ
+
+where θ is the angle between **v** and **B**. The unit of B is the **tesla** (T): 1 T = 1 N ÷ (A m). For comparison: the Earth's field is about 50 μT, a fridge magnet 5 mT, a loudspeaker magnet 1 T, an MRI scanner 1.5 to 3 T.
+
+The force is **perpendicular to both v and B** (right-hand rule: fingers along v, curl towards B, thumb along F for a positive charge; reverse for a negative charge). Therefore the force does **no work** (F · v = 0): it changes the **direction** of the velocity, never the speed. For v perpendicular to B, the charge moves on a **circle**: q v B = m v² ÷ r, so
+
+EQ: r = m v ÷ (q B), T = 2π m ÷ (q B), f = q B ÷ (2π m)
+
+The period does not depend on the speed: a faster charge goes on a bigger circle in the same time.
+
+BN: F = q v × B, মান qvB sin θ; একক টেসলা (T)। বল v ও B দুটোরই লম্ব (ডান হাতের নিয়ম), তাই কাজ শূন্য: গতির দিক বদলায়, দ্রুততা নয়। v ⟂ B হলে বৃত্তাকার পথ: r = mv/(qB), T = 2πm/(qB): পর্যায়কাল বেগের উপর নির্ভর করে না।
+
+EX: A proton and an electron
+1. **Proton, v = 10⁶ m/s, B = 0.5 T (perpendicular):** F = 1.602 × 10⁻¹⁹ × 10⁶ × 0.5 = **8.01 × 10⁻¹⁴ N**. That is a tiny force, but the acceleration is 8.01 × 10⁻¹⁴ ÷ 1.673 × 10⁻²⁷ = **4.8 × 10¹³ m/s²**.
+2. **Radius:** r = 1.673 × 10⁻²⁷ × 10⁶ ÷ (1.602 × 10⁻¹⁹ × 0.5) = **0.0209 m = 2.09 cm**.
+3. **Period:** T = 2π × 1.673 × 10⁻²⁷ ÷ (1.602 × 10⁻¹⁹ × 0.5) = **131 ns**, so f = **7.62 MHz**. At half the speed the radius halves and the period stays 131 ns.
+4. **Electron, v = 10⁷ m/s, B = 1 mT:** r = 9.109 × 10⁻³¹ × 10⁷ ÷ (1.602 × 10⁻¹⁹ × 10⁻³) = **5.69 cm**, with a frequency of **28 GHz**. The electron is 1836 times lighter, so its circle is smaller and its frequency is higher.
+5. **Work:** the magnetic force does zero work, so the kinetic energy stays the same on the whole circle.
+6. **The full force:** in a region with both E and B the force is **F = q (E + v × B)**, the Lorentz force. The electric part changes the speed and the magnetic part bends the path.
+7. **At an angle:** if v makes an angle θ with B, only the part v sin θ across the field goes round; the part v cos θ along B is unaffected. The result is a **helix**, the path of auroral particles that spiral along the Earth's field lines to the poles.
+/EX
+
+LAB: A charged particle in a magnetic field | Choose the field, the speed and the particle: A is the mass in proton masses and Z the charge in units of e. The numbers give the radius, the period, the frequency and the force. | B:Field B (T):0.05:2:0.05:0.5 ;; vM:Speed (million m per s):0.1:10:0.1:1 ;; A:Mass number A:1:20:1:1 ;; Z:Charge number Z:1:5:1:1 | 1.04398*A*vM/(Z*B):Radius (cm):2 ;; 65.593*A/(Z*B):Period (ns):1 ;; 1000/(65.593*A/(Z*B)):Frequency (MHz):2 ;; 16.02*Z*vM*B:Force (units of 10 to the minus 14 N):2 | 1.04398*A*x/(Z*B) | 0,10 | 0,40
+
+TRAP: The magnetic force depends on the **velocity**: a charge at rest feels none. It is always **perpendicular** to v, so it never speeds the charge up. The period 2π m ÷ (q B) does not contain v, but the radius does. And the sign matters: a negative charge curves the opposite way to a positive charge with the same velocity.
+
+### Quick self-check
+QUIZ:
+Q: The magnetic force on a charge moving along the field is…; q v B; q v B ÷ 2; zero; q B; 3; sin 0° = 0.
+Q: Doubling the speed of a charge in a magnetic field multiplies the radius by…; 1; 2; 4; ½; 2; r = m v ÷ (q B).
+Q: The period of the circular motion depends on…; v; r; q, m and B only; E; 3; T = 2π m ÷ (q B).
+Q: The work done by the magnetic force is…; positive; negative; zero; q v B; 3; F ⟂ v.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the force on a proton at 10⁶ m/s across a 0.5 T field. => **8.01 × 10⁻¹⁴ N**.
+P: Find the radius of its path. => **2.09 cm**.
+P: Find the period. => **131 ns**.
+LVL: Level 2 | Apply
+P: Find the frequency of the proton's circle. => **7.62 MHz**.
+P: Find the radius of an electron at 10⁷ m/s in 1 mT. => **5.69 cm**.
+P: Find the radius of an alpha particle (A = 4, Z = 2) at 10⁶ m/s in 0.5 T. => 1.044 × 4 ÷ 2 ÷ 0.5 = **4.18 cm**.
+P: Find the speed of a proton whose radius is 10 cm in 1 T. => v = q B r ÷ m = 1.602 × 10⁻¹⁹ × 1 × 0.1 ÷ 1.673 × 10⁻²⁷ = **9.58 × 10⁶ m/s**.
+P: Find the kinetic energy of that proton in MeV. => ½ m v² = 0.5 × 1.673 × 10⁻²⁷ × (9.58 × 10⁶)² = 7.68 × 10⁻¹⁴ J = **0.479 MeV**.
+P: A charge moves at 30° to a field. Find the ratio of the force to the maximum force. => sin 30° = **0.5**.
+LVL: Level 3 | Real
+P: The Earth's field is about 50 μT. Find the radius of the circle of a 1 MeV proton (v ≈ 1.38 × 10⁷ m/s) moving across it. => r = 1.673 × 10⁻²⁷ × 1.38 × 10⁷ ÷ (1.602 × 10⁻¹⁹ × 5 × 10⁻⁵) = **2.88 km**. The field is weak but the particle is trapped on a path a few kilometres wide, and this is what the polar aurorae are.
+LVL: Challenge | Same energy, different charges
+P: A proton and an alpha particle have the same kinetic energy in the same field. Compare their radii. => r = m v ÷ (q B) = √(2 m K) ÷ (q B). The alpha has m = 4 m_p and q = 2e, so r_α ÷ r_p = √4 ÷ 2 = **1**: the same radius.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Fourier series: f = a₀ ÷ 2 + Σ (aₙ cos nx + bₙ sin nx); aₙ = (1 ÷ π) ∫ f cos nx dx; bₙ = (1 ÷ π) ∫ f sin nx dx. Orthogonality kills the cross terms. Odd functions give sines only. Square wave: (4 ÷ π) Σ sin ((2k − 1) x) ÷ (2k − 1). Sawtooth: 2 Σ (−1)^(n+1) sin nx ÷ n.
+- Magnetic force F = q v × B (magnitude q v B sin θ), perpendicular to v, does no work. Circle r = m v ÷ (q B), T = 2π m ÷ (q B), independent of v. Lorentz force F = q (E + v × B). Helix if v has a component along B.
+
+BN: আজকের সারকথা: ফুরিয়ে ধারা, লম্বতা দিয়ে aₙ, bₙ; বিজোড় ফাংশনে শুধু sin। বর্গ তরঙ্গ = (4/π)Σ sin((2k−1)x)/(2k−1)। চৌম্বক বল F = qv × B, v এর লম্ব, কাজ শূন্য; বৃত্ত r = mv/(qB), T = 2πm/(qB)। লরেন্টজ বল F = q(E + v × B)।
+
+EXIT:
+E: What is b₁ for the square wave of height 1? Give 3 decimals.; 1.273; 0.001; 4 ÷ π.
+E: What is the radius in cm of a proton at 10⁶ m/s in a 0.5 T field? Give 2 decimals.; 2.09; 0.01; m v ÷ (q B).
+E: What is the period in ns of that proton? Give the nearest whole number.; 131; 1; 2π m ÷ (q B).
+
+**Tomorrow:** more series (symmetry, convergence, the Gibbs overshoot) and particle machines: cyclotron, mass spectrometer, velocity selector.
+
+CHECK: notes

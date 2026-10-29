@@ -1,0 +1,170 @@
+@day Week 22 · Day 5 · Friday
+# Spectrograms and compression. Then: electromagnetic waves and the power station
+lead: Music changes with time, so a single Fourier transform of a whole song is useless: it says which notes occur but not when. The answer is the spectrogram, a picture made of many short windowed FFTs, and it is the first step of speech recognition, music identification and MP3 compression. In physics, Maxwell's equations produce a wave, and we learn its properties: speed, ratio of E to B, energy and spectrum. Then we follow the whole chain from the coal in a power station to the socket in your wall, using every idea of this week.
+
+BN: গান সময়ের সাথে বদলায়, তাই পুরো গানের একটি ফুরিয়ে রূপান্তর শুধু বলে কোন সুর আছে, কখন আছে বলে না। সমাধান spectrogram: অনেক ছোট window এর FFT দিয়ে আঁকা ছবি। এটাই speech recognition, গান শনাক্তকরণ ও MP3 compression এর প্রথম ধাপ। পদার্থবিজ্ঞানে ম্যাক্সওয়েলের সমীকরণ থেকে তরঙ্গ পাই, এর বৈশিষ্ট্য দেখি, তারপর কয়লা থেকে ঘরের সকেট পর্যন্ত পুরো শৃঙ্খল অনুসরণ করি।
+
+@section recall | 1 · Warm-up recall | 10 min · no calculator
+
+LVL: Recall | Yesterday
+P: How many operations does the FFT need for N points? => About **N log₂ N**.
+P: Which window gives the lowest side lobes of the three we met? => **Hamming (−43 dB)**.
+P: What is the displacement current? => **I_d = ε₀ dΦ_E/dt**.
+P: What is the speed of light in terms of μ₀ and ε₀? => **1 ÷ √(μ₀ ε₀)**.
+P: How is the loss in a transmission line given? => **I² R**.
+
+CHECK: recall
+
+@section math | 2 · Math: spectrograms and compression | 55 min
+
+### The time-frequency picture
+Cut the signal into short frames of length T, multiply each by a window (Hann), take the FFT, and place the magnitudes side by side: time along one axis, frequency along the other, brightness for the strength. This is the **short-time Fourier transform** and its picture is the spectrogram.
+
+There is an unavoidable trade-off. A frame of length T has a bin spacing of about Δf = 1 ÷ T:
+
+EQ: Δt × Δf ≈ 1
+
+A short window locates events in time but blurs the pitch. A long window gives sharp pitch but blurs when it happened. (This is the same duration-bandwidth rule as Day 1, and it is also the Heisenberg uncertainty principle of quantum mechanics.)
+
+BN: সংকেতকে ছোট ফ্রেমে (দৈর্ঘ্য T) কেটে প্রতিটিকে window দিয়ে গুণ করে FFT করি, তারপর পাশাপাশি সাজাই: একদিকে সময়, অন্যদিকে কম্পাঙ্ক, উজ্জ্বলতা শক্তি। অনিবার্য ভারসাম্য: Δt × Δf ≈ 1। ছোট window সময় ঠিক বলে কিন্তু সুর ঝাপসা, বড় window উল্টো।
+
+EX: Reading a spectrogram
+1. **Frame of 1024 samples at 44.1 kHz:** T = 23.2 ms and Δf = **43 Hz**. One second of sound gives about **43 frames**.
+2. **A chirp** (a bird, or a sliding siren) sweeping from 1 kHz to 3 kHz in 1 s moves at 2000 Hz/s. During a frame of 23 ms it moves 46 Hz, about one bin. The best window length for a chirp of rate r is T = 1 ÷ √r = 1 ÷ √2000 = **22 ms**, which is why the standard 1024-sample frame suits speech and birdsong.
+3. **A word spoken:** vowels last 100 ms and have pitch lines at 100–250 Hz; consonants like "s" are broadband noise above 4 kHz lasting 50 ms. A window of 20 to 30 ms captures both.
+4. **Mains hum:** a faint horizontal line at 50 Hz (and its multiples 100, 150 Hz) in a recording means electrical interference from the mains. A notch filter removes it.
+/EX
+
+LAB: Time against frequency | Choose the window length in milliseconds. The graph shows the frequency resolution against the window length: a short window gives a coarse pitch, a long window a coarse time. The product stays near 1. | T:Window length (ms):5:200:5:25 | T:Time resolution (ms):0 ;; 1000/T:Pitch resolution (Hz):1 ;; 44.1*T:Samples in the frame at 44.1 kHz:0 | 1000/x | 5,200 | 0,250
+
+### Compression
+Many signals have a spectrum whose energy is concentrated in a few coefficients. Keep these, throw the rest away, and the file shrinks while the signal barely changes. For the decaying pulse e^(−at) of Day 2, the energy below ω₀ is (2 ÷ π) atan (ω₀ ÷ a):
+- 90% of the energy lies below **6.3 a**, 99% below **63.7 a**, 99.9% below **637 a**.
+
+MP3 and AAC go further: a model of hearing (**masking**) says a weak tone near a loud one cannot be heard, so it is not stored, and the bits are given first to the frequency bands where the ear is most sensitive.
+
+BN: অনেক সংকেতের শক্তি কয়েকটি সহগে কেন্দ্রীভূত; সেগুলো রাখি, বাকি ফেলে দিই, ফাইল ছোট হয় অথচ সংকেত প্রায় একই থাকে। e^(−at) এর জন্য ৯০% শক্তি 6.3a এর নিচে, ৯৯% 63.7a এর নিচে। MP3 কানের মাস্কিং মডেলও ব্যবহার করে: জোরালো সুরের পাশে দুর্বল সুর শোনা যায় না, তাই রাখা হয় না।
+
+EX: How much can we save?
+1. **A pure pulse e^(−at)** with a = 1000 rad/s: 99% of the energy is below ω = **63,700 rad/s** (10.1 kHz). If we sample at 44.1 kHz (Nyquist 22.05 kHz), we keep about **46%** of the coefficients: a ratio of about 2.2 : 1.
+2. **CD audio:** 44,100 × 16 bits × 2 channels = **1411 kbit/s**. MP3 at 128 kbit/s is a ratio of **11 : 1**.
+3. **Speech for a phone:** only 300 to 3400 Hz is kept, sampled at 8 kHz with 8 bits: **64 kbit/s**, a ratio of 22 : 1 against CD audio.
+4. **A picture:** JPEG applies the same idea to 8 × 8 blocks of pixels (a two-dimensional cosine transform) and drops the weak high-frequency coefficients.
+/EX
+
+LAB: How much of the signal do you keep | A pulse e to the minus a t has its energy spread over frequency. Choose the decay rate, the sampling frequency and the percentage of energy you want to keep. The numbers give the bandwidth needed and the saving. The graph shows the energy kept against the cut-off frequency. | a:Decay rate a (per s):200:5000:100:1000 ;; fs:Sampling frequency (kHz):8:48:1:44 ;; p:Energy kept (percent):80:99.9:0.1:99 | a*tan(p/100*pi/2):Cut-off (rad per s):0 ;; a*tan(p/100*pi/2)/(2*pi*1000):Cut-off (kHz):2 ;; (fs/2)/(a*tan(p/100*pi/2)/(2*pi*1000)):Compression ratio against Nyquist:1 | 100*2/pi*atan(x/a) | 0,50000 | 0,105
+
+TRAP: A spectrogram cannot be sharp in both directions. A longer window is not "better": it blurs fast events. Compression that throws data away (lossy) cannot be undone, and each re-compression adds new errors. A high compression ratio does not mean high quality: it depends on how much of the discarded part the listener could hear.
+
+### Quick self-check
+QUIZ:
+Q: A frame of 25 ms has a frequency resolution of about…; 4 Hz; 40 Hz; 400 Hz; 25 Hz; 2; 1 ÷ 0.025 = 40 Hz.
+Q: To follow a rapidly changing pitch one should use…; a longer window; a shorter window; no window; a bigger f_s; 2; Shorter frames follow faster changes at a loss of pitch accuracy.
+Q: The CD data rate is about…; 64 kbit/s; 128 kbit/s; 1411 kbit/s; 10 Mbit/s; 3; 44,100 × 16 × 2.
+Q: The mains hum on a spectrogram shows as…; a vertical line; a horizontal line at 50 Hz; a diagonal line; nothing; 2; A steady tone.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the frequency resolution of a 25 ms frame. => **40 Hz**.
+P: Find the number of frames per second for 1024 samples at 44.1 kHz. => **43**.
+P: Find the CD bit rate. => **1411 kbit/s**.
+LVL: Level 2 | Apply
+P: Find the best window length for a chirp of 2000 Hz/s. => **22 ms**.
+P: Find the compression ratio from 1411 to 128 kbit/s. => **11 : 1**.
+P: Find the frequency below which 90% of the energy of e^(−at) lies for a = 1000. => **6300 rad/s**.
+P: Find the cut-off for 99% with a = 1000. => **63,700 rad/s**.
+P: Find the phone speech rate with 8 kHz and 8 bits. => **64 kbit/s**.
+P: Find the ratio of the CD rate to the phone rate. => **22 : 1**.
+LVL: Level 3 | Real
+P: A track at 44.1 kHz has a note that rises from 440 to 880 Hz in 0.5 s. Find the chirp rate and the best window. => The rate is 440 ÷ 0.5 = **880 Hz/s**, so T = 1 ÷ √880 = **34 ms** (about 1500 samples).
+LVL: Challenge | Shazam idea
+P: A music identifier stores for each song a list of the strongest peaks of the spectrogram, as pairs (frequency bin, time frame). A 3-minute song at 43 frames per second has 7740 frames. If 5 peaks are stored per frame and each costs 4 bytes, how big is the fingerprint, and how does it compare with a 3-minute MP3 at 128 kbit/s (2.88 MB)? => 7740 × 5 × 4 = 154.8 kB, only **5%** of the MP3. Small and robust, since the peaks survive noise.
+
+CHECK: math
+
+@section physics | 3 · Physics: electromagnetic waves and the power station | 35 min
+
+### The wave
+Combining Faraday and Ampère-Maxwell in empty space gives a wave equation for E and B moving at c. For a plane wave moving along x,
+
+EQ: E = E₀ sin (kx − ωt),   B = B₀ sin (kx − ωt),   E₀ = c B₀,   c = f λ
+
+E and B are at right angles to each other and to the direction of travel, in phase, and carry energy at the rate **S = E B ÷ μ₀** (the Poynting vector). The average intensity is
+
+EQ: I = ½ ε₀ c E₀²
+
+BN: ফ্যারাডে ও অ্যাম্পিয়ার-ম্যাক্সওয়েল মিলিয়ে শূন্যে তরঙ্গ সমীকরণ। E ও B পরস্পর ও চলার দিকের সাথে লম্ব, একই দশায়, E₀ = cB₀, c = fλ। শক্তির প্রবাহ S = EB/μ₀ (Poynting), গড় তীব্রতা I = ½ε₀cE₀²।
+
+EX: Waves around us
+1. **Sunlight at the ground:** I ≈ 1000 W/m². E₀ = √(2 I ÷ (ε₀ c)) = **868 V/m** and B₀ = E₀ ÷ c = **2.9 μT**.
+2. **A 1 W phone transmitter at 10 m** spread over a sphere: I = 1 ÷ (4π × 100) = **0.80 mW/m²**; E₀ = **0.77 V/m** and B₀ = **2.6 nT**. Tiny, yet an antenna can detect it.
+3. **Wavelengths** λ = c ÷ f: mains 50 Hz → **6000 km**; FM radio 100 MHz → **3.0 m** (a quarter-wave antenna of 75 cm); Wi-Fi 2.4 GHz → **12.5 cm**; visible light 700 nm (red) → f = **4.3 × 10¹⁴ Hz**, 400 nm (violet) → **7.5 × 10¹⁴ Hz**.
+4. **The spectrum** is only one family: radio, microwave, infrared, visible, ultraviolet, X-rays, gamma rays. They differ in frequency, nothing else.
+/EX
+
+LAB: A plane electromagnetic wave | Choose the intensity and the frequency. The numbers give the electric and magnetic amplitudes and the wavelength. The graph shows the electric amplitude against the intensity. | I:Intensity (W per m squared):1:2000:1:1000 ;; f:Frequency (MHz):1:3000:1:100 | sqrt(2*I/(8.854*(10^(0-12))*2.998e8)):Electric amplitude (V per m):1 ;; sqrt(2*I/(8.854*(10^(0-12))*2.998e8))/2.998e8*1e6:Magnetic amplitude (microtesla):4 ;; 299.8/f:Wavelength (m):3 | sqrt(2*x/(8.854*(10^(0-12))*2.998e8)) | 0,2000 | 0,1300
+
+### The power station
+Now follow the energy:
+1. **Fuel to heat.** Burning coal at 24 MJ/kg heats steam to 550 °C. A real plant turns about 38% of the heat into electricity (the Carnot limit between 823 K and 300 K would be 63.5%, from the thermal weeks). For **1000 MW** of electricity: heat 1000 ÷ 0.38 = **2630 MW**, so the coal is 2630 × 10⁶ ÷ 24 × 10⁶ = **110 kg/s ≈ 395 tonnes per hour**.
+2. **Turbine to generator.** The steam turns the turbine at 3000 rpm, driving a 2-pole generator (Day 2): f = 50 Hz.
+3. **Three phases.** Three coils 120° apart give voltages V sin ωt, V sin (ωt − 120°), V sin (ωt − 240°). Their sum is **zero** at every instant, so a balanced load needs no return wire and the total power is perfectly **constant**, not pulsing, which is why big motors run smoothly. The line-to-line voltage is √3 × phase voltage: 230 V × 1.732 = **398 V ≈ 400 V**. The three-phase power is P = √3 V_L I_L cos φ.
+4. **Step-up** to 400 kV (Day 3). At 25 kV with power factor 0.9 the current for 1000 MW would be 1000 × 10⁶ ÷ (√3 × 25,000 × 0.9) = **25,660 A**; at 400 kV it is **1604 A** per phase.
+5. **Home.** Step-down transformers: 400 kV → 33 kV → 11 kV → 400 V three-phase → 230 V single-phase to each house.
+
+BN: শক্তির পথ: কয়লা (24 MJ/kg) → বাষ্প 550 °C → টারবাইন 3000 rpm → জেনারেটর 50 Hz। তিন ফেজ: তিনটি কয়েল 120° ব্যবধানে, যোগফল সর্বদা শূন্য, মোট ক্ষমতা ধ্রুব। লাইন ভোল্টেজ = √3 × ফেজ ভোল্টেজ = 400 V। ক্ষমতা P = √3 V_L I_L cos φ। 400 kV এ ট্রান্সমিশন, তারপর ধাপে ধাপে নামিয়ে 230 V।
+
+EX: A balanced three-phase load
+1. A factory machine draws 10 A in each phase of a 230 V per phase supply with power factor 0.8: P = 3 × 230 × 10 × 0.8 = **5.52 kW**. Check with the line formula: √3 × 398 × 10 × 0.8 = **5.52 kW** ✓.
+2. At the power factor 0.8 the current needed for the same power is 25% larger than at 1.0 (Week 20, power-factor correction).
+3. **The frequency tells the grid's health.** All generators are locked to the same 50 Hz: if demand exceeds supply, the turbines slow down and the frequency sags. A drop to 49.5 Hz is a signal to bring more power in, or to shed load.
+/EX
+
+LAB: Three phases | Choose the frequency, the phase voltage (RMS), the phase current and the power factor. The graph shows the three phase voltages (period 20 ms at 50 Hz) and their sum, which is zero. The numbers give the line voltage and the total power. | f:Frequency (Hz):45:65:1:50 ;; V:Phase voltage (V RMS):100:400:5:230 ;; I:Phase current (A):1:50:1:10 ;; pf:Power factor:0.5:1:0.05:0.8 | sqrt(3)*V:Line voltage (V):0 ;; V*sqrt(2):Peak phase voltage (V):0 ;; 3*V*I*pf/1000:Total power (kW):2 | V*sqrt(2)*sin(2*pi*f*x*0.001) ;; V*sqrt(2)*sin(2*pi*f*x*0.001-2*pi/3) ;; V*sqrt(2)*sin(2*pi*f*x*0.001-4*pi/3) ;; V*sqrt(2)*(sin(2*pi*f*x*0.001)+sin(2*pi*f*x*0.001-2*pi/3)+sin(2*pi*f*x*0.001-4*pi/3)) | 0,40 | -450,450
+
+TRAP: E and B in a wave are **in phase** (unlike current and voltage in an inductor). The intensity uses the amplitude E₀ with the factor ½ (for the average of sin²). Line voltage and phase voltage differ by √3 for a star connection, not 3. Do not confuse the generator's 2-pole speed with the number of phases: three phases mean three separate coils.
+
+### Quick self-check
+QUIZ:
+Q: In an electromagnetic wave in vacuum E₀ ÷ B₀ equals…; 1; c; c²; 1 ÷ c; 2; E₀ = c B₀.
+Q: The wavelength of a 100 MHz FM wave is about…; 30 cm; 3 m; 30 m; 300 m; 2; λ = c ÷ f.
+Q: The sum of three balanced phase voltages is…; maximum; zero; constant but not zero; sin 3ωt; 2; Sines at 120° cancel.
+Q: A 230 V per phase supply has a line voltage of…; 230 V; 325 V; 398 V; 690 V; 3; √3 × 230.
+
+### Practice, easy to hard
+LVL: Level 1 | Direct
+P: Find the wavelength of 2.4 GHz. => **12.5 cm**.
+P: Find B₀ for E₀ = 868 V/m. => **2.9 μT**.
+P: Find the line voltage for a phase voltage of 230 V. => **398 V**.
+LVL: Level 2 | Apply
+P: Find the intensity for E₀ = 868 V/m. => **1000 W/m²**.
+P: Find the three-phase power for 10 A, 230 V per phase, pf 0.8. => **5.52 kW**.
+P: Find the coal rate for 1000 MW at 38% efficiency. => **110 kg/s**.
+P: Find the current per phase for 1000 MW at 400 kV and pf 0.9. => **1604 A**.
+P: Find the frequency of red light at 700 nm. => **4.3 × 10¹⁴ Hz**.
+P: Find the Carnot efficiency between 550 °C and 27 °C. => 1 − 300 ÷ 823 = **63.5%**.
+LVL: Level 3 | Real
+P: A solar panel of 1.6 m² faces the sun (1000 W/m²) with an efficiency of 20%. Find the electrical power and the amplitude E₀ of the light hitting it. => The power is 1000 × 1.6 × 0.20 = **320 W**; E₀ = **868 V/m**.
+LVL: Challenge | The whole chain
+P: A town uses 50 MW at 0.9 power factor, fed through a 132 kV three-phase line with 4 Ω per wire. Find the line current and the total line loss. => I = 50 × 10⁶ ÷ (√3 × 132,000 × 0.9) = **243 A**. Loss = 3 I² R = 3 × 243² × 4 = **0.71 MW**, 1.4% of the power sent.
+
+CHECK: physics
+
+@section notes | 4 · Notes, recap and tomorrow | 10 min
+
+NOTES:
+
+### Recap
+- Spectrogram = FFT of windowed frames. Δt × Δf ≈ 1. Compression keeps the largest coefficients (CD 1411 kbit/s, MP3 128 kbit/s).
+- EM wave: E₀ = c B₀, c = f λ, I = ½ ε₀ c E₀². Power station: heat → turbine 3000 rpm → generator 50 Hz → three phases (sum zero, V_L = √3 V) → step-up 400 kV → step-down → 230 V.
+
+BN: আজকের সারকথা: spectrogram = window করা ফ্রেমের FFT, Δt × Δf ≈ 1। কম্প্রেশন বড় সহগ রাখে। তড়িৎ-চৌম্বক তরঙ্গ: E₀ = cB₀, c = fλ, I = ½ε₀cE₀²। বিদ্যুৎকেন্দ্র: তাপ → টারবাইন → জেনারেটর 50 Hz → তিন ফেজ (যোগফল শূন্য, V_L = √3 V) → 400 kV → 230 V।
+
+EXIT:
+E: What is the line voltage in V for a phase voltage of 230 V? Give a whole number.; 398; 2; √3 × 230.
+E: What is the wavelength in metres of a 100 MHz radio wave? Give 1 decimal.; 3.0; 0.1; c ÷ f.
+E: What is the frequency resolution in Hz of a 25 ms frame?; 40; 1; 1 ÷ T.
+
+**Tomorrow:** the weekly test. Fourier transforms, sampling, transformers, Maxwell.
+
+CHECK: notes
