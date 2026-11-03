@@ -1,0 +1,62 @@
+{
+  "1": {
+    "math": {
+      "file": "week-03-day-1-math.mp4",
+      "poster": "week-03-day-1-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-1-physics.mp4",
+      "poster": "week-03-day-1-physics.jpg"
+    }
+  },
+  "2": {
+    "math": {
+      "file": "week-03-day-2-math.mp4",
+      "poster": "week-03-day-2-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-2-physics.mp4",
+      "poster": "week-03-day-2-physics.jpg"
+    }
+  },
+  "3": {
+    "math": {
+      "file": "week-03-day-3-math.mp4",
+      "poster": "week-03-day-3-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-3-physics.mp4",
+      "poster": "week-03-day-3-physics.jpg"
+    }
+  },
+  "4": {
+    "math": {
+      "file": "week-03-day-4-math.mp4",
+      "poster": "week-03-day-4-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-4-physics.mp4",
+      "poster": "week-03-day-4-physics.jpg"
+    }
+  },
+  "5": {
+    "math": {
+      "file": "week-03-day-5-math.mp4",
+      "poster": "week-03-day-5-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-5-physics.mp4",
+      "poster": "week-03-day-5-physics.jpg"
+    }
+  },
+  "6": {
+    "math": {
+      "file": "week-03-day-6-math.mp4",
+      "poster": "week-03-day-6-math.jpg"
+    },
+    "physics": {
+      "file": "week-03-day-6-physics.mp4",
+      "poster": "week-03-day-6-physics.jpg"
+    }
+  }
+}
