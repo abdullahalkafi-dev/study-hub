@@ -54,6 +54,10 @@ docker compose up -d --build
 5. Secret scan, `git add -A && git commit && git push`, then on the server `cd /opt/study-hub && git pull && docker compose up -d --build` (the API container re-seeds on start).
 6. Move the zip into `local/content-zips/` so the repo root stays clean.
 
+## Lesson videos
+
+Videos are not in git. `packages/content/videos/week-NN.json` maps each day to a math and a physics file name (and a poster .jpg). The API route `GET /api/videos/:week/:day/:subject` (and `.../poster`) streams the file with HTTP Range support, so seeking works. It serves the file from `local/videos/week-NN/` on the PC when it exists, otherwise from MinIO under the key `videos/week-NN/<file>`. The day page shows the two video cards only when the manifest lists videos for that day. To use them on the server the files must first be uploaded to the server's MinIO (bucket from `MINIO_BUCKET`).
+
 ## Logs and status
 
 ```bash

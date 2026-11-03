@@ -21,3 +21,11 @@ export const availableWeeks = () => Object.keys(load()).map(Number).sort((a, b) 
 export const getWeek = (w) => load()[w] || null;
 export const getDay = (w, d) => (load()[w] || []).find((x) => x.n === d) || null;
 export const dayIndex = () => availableWeeks().flatMap((w) => load()[w].map((d) => ({ week: w, day: d.n, title: d.title, checks: d.checks })));
+
+// Video manifests: packages/content/videos/week-NN.json maps day -> { math, physics } -> { file, poster }.
+// The files themselves live outside git (local/videos/week-NN/ on the PC, MinIO key videos/week-NN/<file> on the server).
+export function getVideos(week) {
+  const f = path.join(here, "../videos", `week-${String(week).padStart(2, "0")}.json`);
+  if (!fs.existsSync(f)) return null;
+  return JSON.parse(fs.readFileSync(f, "utf8"));
+}

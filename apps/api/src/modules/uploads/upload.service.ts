@@ -12,7 +12,7 @@ let client: Client | null = null;
 let bucketReady = false;
 export const storageConfigured = () => !!(env.minio.accessKey && env.minio.secretKey);
 
-function mc() {
+export function mc() {
   if (!storageConfigured()) throw new HttpError(503, "File storage is not configured (set MINIO_ACCESS_KEY and MINIO_SECRET_KEY in .env)");
   return (client ||= new Client({ endPoint: env.minio.endpoint, port: env.minio.port, useSSL: env.minio.useSSL, accessKey: env.minio.accessKey, secretKey: env.minio.secretKey }));
 }

@@ -11,6 +11,7 @@ import progress from "./modules/progress/progress.routes.ts";
 import notes from "./modules/notes/notes.routes.ts";
 import uploads from "./modules/uploads/upload.routes.ts";
 import admin from "./modules/audit/audit.routes.ts";
+import videos from "./modules/videos/videos.routes.ts";
 
 export function createApp() {
   const app = express();
@@ -25,6 +26,7 @@ export function createApp() {
   app.use("/api/progress", progress);
   app.use("/api/notes", notes);
   app.use("/api/uploads", uploads);
+  app.use("/api/videos", videos);
   app.use("/api/admin", admin);
   app.use(notFound);
   app.use(errorHandler);

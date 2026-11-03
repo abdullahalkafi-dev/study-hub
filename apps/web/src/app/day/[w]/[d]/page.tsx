@@ -4,6 +4,7 @@ import { use, useEffect, useState } from "react";
 import { api, ApiError, DAYNAMES, dayDate, fmtDate, type Lesson } from "@/lib/api";
 import { useStore } from "@/lib/store";
 import { BlockView, Inline } from "@/components/blocks";
+import DayVideos from "@/components/DayVideos";
 
 export default function DayPage({ params }: { params: Promise<{ w: string; d: string }> }) {
   const p = use(params), w = +p.w, d = +p.d;
@@ -29,6 +30,7 @@ export default function DayPage({ params }: { params: Promise<{ w: string; d: st
       <p className="meta">{fmtDate(dayDate(overview.startDate, w, d))}</p>
       <p className="lead"><Inline text={lesson.lead} /></p>
       {lesson.bn && <div className="bn" lang="bn"><span className="lab">বাংলায়</span><Inline text={lesson.bn} /></div>}
+      <DayVideos week={w} day={d} />
       <div className="tabs" role="tablist">
         {secs.map((s, i) => (
           <button key={s.key} className="tab" role="tab" aria-selected={i === tab} onClick={() => { setTab(i); window.scrollTo({ top: 0 }); }}>
