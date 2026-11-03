@@ -56,7 +56,15 @@ docker compose up -d --build
 
 ## Lesson videos
 
-Videos are not in git. `packages/content/videos/week-NN.json` maps each day to a math and a physics file name (and a poster .jpg). The API route `GET /api/videos/:week/:day/:subject` (and `.../poster`) streams the file with HTTP Range support, so seeking works. It serves the file from `local/videos/week-NN/` on the PC when it exists, otherwise from MinIO under the key `videos/week-NN/<file>`. The day page shows the two video cards only when the manifest lists videos for that day. To use them on the server the files must first be uploaded to the server's MinIO (bucket from `MINIO_BUCKET`).
+Videos are not in git. `packages/content/videos/week-NN.json` maps each day to a math and a physics file name (and a poster .jpg). The API route `GET /api/videos/:week/:day/:subject` (and `.../poster`) streams the file with HTTP Range support, so seeking works. It serves the file from `local/videos/week-NN/` on the PC when it exists, otherwise from MinIO under the key `videos/week-NN/<file>`. The day page shows the two video cards only when the manifest lists videos for that day. To use them on the server the files must be in the server's MinIO (bucket from `MINIO_BUCKET`, key `videos/week-NN/<file>`).
+
+Upload steps (additive, nothing is overwritten except the same keys):
+
+1. Copy the folder to the server: `scp -r local/videos/week-01 root@72.60.26.180:/tmp/silo-videos/`
+2. Deploy the code first if it changed: `ssh root@72.60.26.180 "cd /opt/study-hub && git pull && docker compose up -d --build"`
+3. Put the files into MinIO from inside the api container (it already has the MinIO settings from `.env`, so no keys are typed anywhere): copy the folder in with `docker cp /tmp/silo-videos silo-study-api-1:/tmp/silo-videos`, then run a small script there that calls `mc().putObject(bucket, "videos/week-01/<file>", stream, size)` for every file (see `apps/api/src/modules/uploads/upload.service.ts` for `mc()`).
+4. Remove the temp copies (`/tmp/silo-videos` on the server and in the container).
+5. Check: `GET /api/videos/1/1` lists both videos, a request with `Range: bytes=0-99` returns 206, and a Week 2 page shows no video cards.
 
 ## Logs and status
 
