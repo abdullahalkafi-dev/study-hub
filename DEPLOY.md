@@ -62,8 +62,15 @@ Upload steps (additive, nothing is overwritten except the same keys):
 
 1. Copy the folder to the server: `scp -r local/videos/week-01 root@72.60.26.180:/tmp/silo-videos/`
 2. Deploy the code first if it changed: `ssh root@72.60.26.180 "cd /opt/study-hub && git pull && docker compose up -d --build"`
-3. Put the files into MinIO from inside the api container (it already has the MinIO settings from `.env`, so no keys are typed anywhere): copy the folder in with `docker cp /tmp/silo-videos silo-study-api-1:/tmp/silo-videos`, then run a small script there that calls `mc().putObject(bucket, "videos/week-01/<file>", stream, size)` for every file (see `apps/api/src/modules/uploads/upload.service.ts` for `mc()`).
-4. Remove the temp copies (`/tmp/silo-videos` on the server and in the container).
+3. Put the files into MinIO with `mc` inside the minio container, which already has the root keys in its environment, so no keys are typed or printed:
+
+   ```bash
+   cd /opt/study-hub
+   B=$(grep -E '^MINIO_BUCKET=' .env | cut -d= -f2-); B=${B:-silo-uploads}
+   docker cp /tmp/silo-videos silo-study-minio-1:/tmp/silo-videos
+   docker exec -e B="$B" silo-study-minio-1 sh -c 'mc alias set l http://127.0.0.1:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD" >/dev/null && mc cp /tmp/silo-videos/week-01/* l/$B/videos/week-01/ && mc ls l/$B/videos/week-01/; mc alias remove l'
+   ```
+4. Remove the temp copies. The copy in the container is owned by root, so use `-u 0`: `docker exec -u 0 silo-study-minio-1 rm -rf /tmp/silo-videos; rm -rf /tmp/silo-videos`
 5. Check: `GET /api/videos/1/1` lists both videos, a request with `Range: bytes=0-99` returns 206, and a Week 2 page shows no video cards.
 
 ## Logs and status
